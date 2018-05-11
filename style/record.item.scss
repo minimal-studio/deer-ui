@@ -1,0 +1,46 @@
+// @import "../var.scss";
+
+.record-items {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 10px;
+  justify-content: center;
+  @include managerCard();
+  min-height: 100px;
+  .item {
+    flex-basis: 24%;
+    margin: 0 5px 5px 0;
+    border: 2px dashed #DDD;
+    padding: 10px;
+    line-height: 22px;
+    background-color: #FFF;
+    border-radius: 3px;
+    min-width: 250px;
+    transition: all ease 0.4s;
+    .link-btn {
+      color: $colorOrange;
+      border: 1px solid $colorOrange;
+      padding: 0 10px;
+      border-radius: 3px;
+      // display: inline-block;
+      &:hover {
+        color: $colorRed;
+        border-color: $colorRed;
+      }
+    }
+    &:hover {
+      border-color: $colorOrange;
+      // box-shadow: 0 2px 2px rgba(0,0,0,0.3);
+    }
+    .title {
+      width: 100px;
+      color: #666;
+    }
+    .content {
+      color: #71a3b8;
+    }
+    .content, .title {
+      display: inline-block;
+    }
+  }
+}

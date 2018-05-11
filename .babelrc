@@ -1,0 +1,30 @@
+{
+  "env": {
+    "development": {
+      "presets": ["react-app"],
+      "plugins": [
+        [
+          "react-transform",
+          {
+            "transforms": [
+              {
+                "transform": "react-transform-hmr",
+                "imports": [
+                  "react"
+                ],
+                "locals": [
+                  "module"
+                ]
+              }
+            ]
+          }
+        ]
+      ]
+    },
+    "production": {
+      "presets": [
+        "env", "react-app"
+      ]
+    }
+  }
+}

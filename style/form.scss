@@ -1,0 +1,115 @@
+.form-layout{
+  position: relative;
+}
+.form-control {
+  &select {
+    padding: 0;
+  }
+  display: inline-block;
+  width: auto;
+  background-color: #FFF;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  border-color: #e7e7e7;
+  background-color: #fefefe;
+  transition: border-color 0.1s, background-color 0.1s;
+  &.none-input {
+    position: relative;
+    z-index: -1;
+    // margin-left: -50px;
+    left: 0;
+    // opacity: 0;
+    width: 20px;
+    min-width: 0 !important;
+    // visibility: hidden;
+    padding: 0;
+    // overflow: hidden;
+  }
+  &.lg {
+    min-width: 240px;
+  }
+  &:focus {
+    box-shadow: none;
+    background-color: #FFF;
+    border-color: #6ebdcc;
+  }
+  &[type="range"] {
+    width: auto;
+  }
+}
+.horizontal-form {
+  padding-top: 0.1px;
+  &.inline {
+    .form-group {
+      .control-label {
+        width: auto;
+        padding: 0 10px;
+        margin: 0;
+      }
+      .form-control {
+        min-width: 120px;
+      }
+    }
+  }
+  &.sm {
+    .form-group {
+      .control-label {
+        width: 80px;
+        padding-right: 10px;
+        margin: 0;
+      }
+      .form-control {
+        min-width: 120px;
+      }
+    }
+  }
+  .form-group {
+    display: flex;
+    align-items: center;
+    &.ranger {
+      // width: 70%;
+      .ranger-container {
+        width: 50%;
+        min-width: auto;
+      }
+    }
+    &.start {
+      align-items: flex-start;
+    }
+    .header,
+    header {
+      padding-top: 10px;
+    }
+    .control-label {
+      color: #666;
+      width: 120px;
+      text-align: right;
+      margin-right: 40px;
+    }
+    .form-control {
+      min-width: 240px;
+      &:focus {
+        background-color: #FFF;
+      }
+    }
+  }
+}
+.form-group {
+  .control-label {
+    font-weight: normal;
+  }
+}
+.caret {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  margin-left: 2px;
+  vertical-align: middle;
+  border-top: 4px dashed;
+  border-top: 4px solid\9;
+  border-right: 4px solid transparent;
+  border-left: 4px solid transparent;
+  transition: transform 0.2s ease;
+}

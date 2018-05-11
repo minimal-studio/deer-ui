@@ -1,0 +1,44 @@
+.panel-tip {
+  border: 1px dashed transparent;
+  padding: 5px 10px;
+  margin: 10px;
+  // border-radius: 4px;
+  .item {
+    padding: 5px 0;
+  }
+  .title {
+    color: $themeColor;
+    font-size: 16px;
+  }
+}
+
+.panel-warm {
+  border: 1px dashed transparent;
+  padding: 5px 10px;
+  margin: 10px;
+  background-color: #fffef3;
+  border-color: #eae7ab;
+  margin: 10px;
+  .item {
+    padding: 5px 0;
+    color: #887210 !important;
+  }
+  .title {
+    color: $themeColor;
+    font-size: 16px;
+  }
+}
+
+.panel-error {
+  background-color: #ffe6e6;
+  border-color: #f5c8c8;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  .item {
+    color: #c86e6e !important;
+  }
+}
+
+.panel-success {
+
+}

@@ -1,0 +1,44 @@
+.desc-container {
+  display: flex;
+  flex-wrap: wrap;
+  .item {
+    width: 50%;
+    &.block {
+      width: 100%;
+    }
+  }
+}
+.detail-desc {
+  // width: 80%;
+  padding-top: 0.01px;
+  .item {
+    // display: flex;
+    margin-bottom: 0;
+    padding: 5px 0;
+    clear: both;
+    .t {
+      // text-align: right;
+      float: left;
+      width: 120px;
+      color: #555;
+      padding-left: 20px;
+      font-weight: bold;
+    }
+    .c {
+      // clear: left;
+      margin-left: 140px;
+      color: #777;
+      &:after {
+        visibility: hidden;
+      	display: block;
+      	font-size: 0;
+      	content: " ";
+      	clear: both;
+      	height: 0;
+      }
+    }
+    &.odd {
+      background-color: #f7f7f7;
+    }
+  }
+}

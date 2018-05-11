@@ -1,0 +1,126 @@
+// @import '../var.scss';
+
+$formControlBgColor: #f9f9f9;
+
+.condition-group {
+  padding: 6px 10px;
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  @include managerCard();
+
+  .flatpickr {
+    display: inline-block;
+    .form-control {
+      width: 180px !important;
+    }
+  }
+  .datetime {
+
+  }
+
+  .title {
+    color: rgba(116, 117, 118, 1);
+    margin-right: 5px;
+  }
+
+  .item {
+    margin-right: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5px;
+    padding-top: 0.01px;
+    .radio-group {
+      .block-radio {
+        margin-bottom: 0;
+      }
+    }
+    &.datetimeRange {
+      display: block;
+    }
+    &.radio {
+      margin-top: 0;
+      .radio-container {
+        display: inline-block;
+      }
+      .selectAllBtn {
+
+      }
+    }
+    &.fund-change-selector {
+      margin-top: 0;
+      display: flex;
+      align-items: center;
+      .radio-container {
+        flex: 1;
+      }
+      .radio-group {
+        align-items: center;
+      }
+    }
+    &.select {
+      .v-dropdown-menu {
+        .active-item {
+          background-color: $formControlBgColor !important;
+        }
+      }
+    }
+    &.checkbox {
+      $height: 32px;
+      width: 280px;
+      height: $height;
+      position: relative;
+      z-index: 101;
+      width: 300px;
+      margin-top: 0;
+      .title {
+        margin-top: 4px;
+      }
+      &:hover {
+        .checkbox-group {
+          height: 300px;
+          box-shadow: 0 3px 3px rgba(0,0,0,0.2);
+          padding-bottom: 10px;
+          background-color: #FFF;
+        }
+      }
+      .checkbox-group {
+        position: absolute;
+        top: -5px;
+        right: 0;
+        transition: all ease 0.2s;
+        overflow-y: auto;
+        height: $height;
+        width: 230px;
+        background-color: #f3f3f3;
+        padding: 0 0 0 30px;
+        .checkbox-item {
+          padding: 7px 0;
+        }
+      }
+    }
+  }
+
+  .btn {
+    margin-bottom: 5px;
+  }
+
+  .control-label,
+  .form-control {
+    margin-left: 3px;
+    background-color: $formControlBgColor;
+    width: 140px;
+
+    &::placeholder {
+      color: #999;
+    }
+
+    &[type="text"] {
+      width: 150px;
+    }
+    &:focus {
+      background-color: #FFF !important;
+    }
+  }
+}

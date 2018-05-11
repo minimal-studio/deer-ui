@@ -1,0 +1,36 @@
+// @import "../var.scss";
+.pagin-con {
+  padding: 5px 10px;
+  // height: 46px;
+  &.has-pagin {
+    display: flex;
+    align-items: center;
+  }
+  @include managerCard();
+  .item-group {
+    display: inline-block;
+  }
+  .input {
+    width: 60px;
+  }
+  .item {
+    display: inline-block;
+    padding: 6px 12px 7px;
+    border: 1px solid #e3e3e3;
+    border-radius: 4px;
+    margin-right: 5px;
+    cursor: pointer;
+    &:hover {
+      background-color: #f8f8f8;
+    }
+    &.active {
+      background-color: $themeColor;
+      border-color: $themeColor;
+      color: #FFF;
+    }
+  }
+}
+.nopaging {
+  height: 54px;
+  display: block;
+}

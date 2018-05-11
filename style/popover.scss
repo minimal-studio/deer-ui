@@ -1,0 +1,44 @@
+// @import "../var.scss";
+
+.v-popover {
+  position: absolute;
+  z-index: 444;
+  background-color: #FFF;
+  min-width: 170px;
+  min-height: 40px;
+  box-shadow: 0 12px 48px rgba(0, 0, 0, 0.3);
+  border-radius: 2px;
+  transition: opacity 0.2s ease;
+  outline: none;
+  // border: 1px solid #DDD;
+  .caret {
+    position: absolute;
+    color: #FFF;
+    border-width: 8px;
+    &.top {
+      top: -8px;
+      left: 48%;
+      transform: rotate(-180deg);
+    }
+    &.right {
+      right: -12px;
+      top: 15px;
+      transform: rotate(-90deg);
+    }
+    &.bottom {
+      bottom: -8px;
+      left: 48%;
+    }
+    &.left {
+      left: -14px;
+      top: 15px;
+      transform: rotate(90deg);
+    }
+  }
+  .close-btn {
+    position: absolute;
+    z-index: 1;
+    top: -6px;
+    right: -6px;
+  }
+}

@@ -1,0 +1,85 @@
+// @import "../var.scss";
+
+.multiple-helper {
+  border: 1px solid #EEE;
+  // padding: 3px 8px 3px 5px;
+  padding: 4px 2px;
+  border-radius: $borderRadius;
+  background-color: #FFF;
+  position: relative;
+  margin: 0 10px;
+  $eachTipH: 20px;
+  .toggle-tip-btn {
+    transform: rotate(90deg);
+    transition: transform 0.2s ease;
+    font-size: 10px;
+  }
+  &.show {
+    border-radius: $borderRadius $borderRadius 0 0;
+    .toggle-tip-btn {
+      transform: rotate(0);
+    }
+    &,.idea-tip {
+      border-color: $themeColor;
+    }
+    .idea-tip {
+      height: $eachTipH * 4;
+      top: 98%;
+      opacity: 1;
+    }
+  }
+  .idea-tip {
+    height: 0;
+    position: absolute;
+    z-index: 10;
+    top: 100%;
+    left: -1px;
+    opacity: 0;
+    border: 1px solid transparent;
+    border-top: none;
+    width: 102%;
+    background-color: #FFF;
+    // box-shadow: 0 1px 1px rgba(0,0,0,0.1);
+    cursor: pointer;
+    text-align: center;
+    overflow-y: hidden;
+
+    transition: height ease 0.2s, opacity ease 0.2s;
+    .mul {
+      width: 40px;
+      display: inline-block;
+    }
+    .item {
+      width: 100%;
+      display: block;
+      &:hover {
+        background-color: #EEE;
+      }
+    }
+  }
+  .multiple-action-btn {
+    cursor: pointer;
+    color: #444;
+    font-size: 16px;
+    line-height: 16px;
+    display: inline-block;
+    padding: 2px 8px;
+    // &:first-child {
+    //   border-radius: 3px 0 0 3px;
+    // }
+    // &:last-child {
+    //   border-radius: 0 3px 3px 0;
+    // }
+  }
+  .multiple-tip {
+    line-height: 20px;
+  }
+  input[type=number]::-webkit-outer-spin-button,
+  input[type=number]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  input[type=number] {
+    -moz-appearance: textfield;
+  }
+}

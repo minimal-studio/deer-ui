@@ -1,0 +1,49 @@
+@import "./color.scss";
+$borderRadius: 4px;
+
+$tableHeaderBgColor: #FFF;
+$tableHeaderTextColor: #444;
+$tableBodyBgColor: #FFF;
+$tableBodyTextColor: #777;
+
+@mixin fill() {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+@mixin managerCard() {
+  margin: 5px 10px;
+  border-bottom: 2px solid #dde0e3;
+  border-radius: 4px;
+  background-color: #ffffff;
+}
+
+@mixin layoutCenter() {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+@mixin layout {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+@mixin btnFlat($btnBgColor, $btnTextColor: #FFF) {
+  background-color: $btnBgColor;
+  border-color: darken($btnBgColor, 10%);
+  color: $btnTextColor;
+  &:hover {
+    background-color: darken($btnBgColor, 5%);
+  }
+  &:active {
+    background-color: darken($btnBgColor, 20%);
+    border-color: darken($btnBgColor, 20%);
+  }
+}

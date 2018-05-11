@@ -1,0 +1,78 @@
+// @import "../var.scss";
+
+$iconViewBgColor: $themeColor;
+
+.icon-input {
+  // border-radius: 4px;
+  background-color: rgba(255,255,255,0.2);
+  transition: background-color 0.2s ease, border 0.2s ease;
+  overflow: hidden;
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px solid rgba(155,155,155,0.3);
+  &.has-icon {
+    .form-control {
+      margin-left: 30px !important;
+    }
+  }
+  &.show-title {
+    .title {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+  &.forcing {
+    border-color: $themeColor;
+  }
+  .input-con {
+    display: flex;
+  }
+  .form-control {
+    // padding-left: 40px !important;
+    background-color: transparent;
+    border: none;
+    &:focus {
+      background-color: transparent !important;
+    }
+    &::placeholder {
+      color: #CCC;
+    }
+  }
+  .input-group {
+    position: relative;
+    display: block;
+    width: 100%;
+  }
+  .input-icon {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    background-color: $iconViewBgColor;
+    padding: 0 10px;
+    color: #FFF;
+    @include layoutCenter();
+  }
+  .title {
+    transition: all ease 0.2s;
+    font-size: 12px;
+    transform: scale(0);
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    right: 10px;
+    bottom: 0;
+    color: #999;
+
+    max-width: 100px;
+
+    * {
+      -webkit-user-select: none !important;
+      -ms-user-select: none !important;
+      -moz-user-select: none !important;
+      user-select: none !important;
+    }
+    @include layoutCenter();
+  }
+}

@@ -1,0 +1,91 @@
+// @import "../var.scss";
+.top-modal-opend {
+  overflow: hidden;
+  // padding-right: 3px;
+}
+.top-modal {
+  @include fill;
+  // position: fixed;
+  // z-index: 999;
+  // overflow: auto;
+  // overflow-y: auto;
+  .v-modal-container {
+    z-index: 999 !important;
+    position: fixed !important;
+    padding-bottom: 50px;
+    overflow-y: auto;
+  }
+  .section-mark {
+    position: fixed;
+  }
+}
+.confirm-container,.global-modal-container {
+  .btn-group {
+    display: flex;
+    padding: 10px;
+    justify-content: center;
+    .btn {
+      // flex: 1;
+      margin-right: 10px;
+    }
+  }
+}
+.confirm-container {
+  .content {
+    min-height: 120px;
+    padding: 10px;
+  }
+}
+.v-modal-container {
+  @include fill();
+  z-index: 999;
+  .section-mark {
+    background-color: rgba(0,0,0,0.3);
+  }
+  .v-modal-layout {
+    // padding: 0.1px;
+    position: relative;
+    z-index: 100;
+    border-radius: 3px;
+    margin: 2% auto 0;
+    // background-color: #FFF;
+    // min-height: 300px;
+    // overflow-y: auto;
+    width: 80%;
+
+    .v-modal-header {
+      text-align: center;
+      border-radius: 4px 4px 0 0;
+      width: 100%;
+      padding: 0.1px;
+      background-color: #FFF;
+      // background-color: $themeColor;
+      // border-bottom: 1px solid darken($themeColor, 5%);
+      // color: #FFF;
+      .title {
+        font-weight: bold;
+      }
+    }
+
+    .v-modal-content {
+      // max-height: 550px;
+      border-radius: 0 0 4px 4px;
+      min-height: 140px;
+      overflow-y: auto;
+      background-color: #FFF;
+    }
+    // .horizontal-form {
+    //   padding-top: 10px;
+    // }
+  }
+  .close-btn {
+    position: absolute;
+    right: 10px;
+    top: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: #FFF;
+    color: $themeColor;
+    border: 1px solid darken($themeColor, 5%);
+  }
+}

@@ -1,0 +1,67 @@
+// @import "../var.scss";
+
+$tabTextActiveColor: $themeColor;
+$tabTextHoverColor: #777;
+$tabTextColor: #999;
+
+.tabs-container {
+  @include managerCard();
+  .tabs-container {
+    border-bottom: none;
+  }
+  &.in-row {
+    background-color: #EEE;
+    .tab-group {
+      display: block;
+      .tab {
+        .tab-label {
+          display: block;
+          box-shadow: 0 0 4px rgba(0,0,0,0.2);
+          background-color: #FFF;
+          border-top: 1px solid transparent;
+        }
+        &.active {
+          .tab-label {
+            border-color: $themeColor;
+          }
+        }
+      }
+    }
+    .tab-content {
+      min-height: 300px;
+    }
+  }
+  .tab-group {
+    position: relative;
+    display: flex;
+    margin-bottom: 5px;
+    .tab {
+      color: $tabTextColor;
+      cursor: pointer;
+      position: relative;
+      transition: color 0.15s ease, background-color 0.15s ease, border-color 0.15s ease;
+      // padding: 5px 10px;
+      &.right {
+        align-self: baseline;
+      }
+      &:hover {
+        color: $tabTextHoverColor;
+      }
+      &.active {
+        color: $tabTextActiveColor;
+        .tab-label {
+          border-top-color: $tabTextActiveColor;
+          background-color: rgba(#000, 0.02);
+        }
+      }
+      .tab-label {
+        display: inline-block;
+        padding: 10px 20px;
+        border-top: 1px solid transparent;
+      }
+    }
+  }
+  .tab-content {
+    overflow-y: auto;
+  }
+}

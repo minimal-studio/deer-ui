@@ -1,0 +1,59 @@
+// @import "../var.scss";
+
+.toast-container {
+  position: absolute;
+  top: 10px;
+  right: 0;
+  left: 0;
+  display: flex;
+  justify-content: flex-end;
+  flex-direction: column;
+  align-items: center;
+  // align-items: flex-end;
+  .desc-item {
+    // position: absolute;
+    padding: 8px 50px;
+    box-shadow: 0 1px 3px rgba(#000, 0.3);
+    display: block;
+    margin-bottom: 10px;
+    position: relative;
+    z-index: 1;
+    background-color: #FFF;
+    border-radius: 4px;
+    overflow: hidden;
+    &.success {
+      .icon {
+        background-color: $colorGreen;
+      }
+    }
+    &.error {
+      .icon {
+        background-color: $colorRed;
+      }
+    }
+    ._close-btn {
+      position: absolute;
+      padding: 0 10px;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      background-color: #fafafa;
+      // background-color: $themeColor;
+      // color: #FFF;
+      display: flex;
+      align-items: center;
+    }
+    .icon {
+      font-size: 18px;
+      padding: 0 10px;
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      display: flex;
+      align-items: center;
+      color: #FFF;
+      // font-weight: bold;
+    }
+  }
+}

@@ -1,0 +1,32 @@
+// @import '../var.scss';
+
+.switch-btn-group {
+  padding: 3px 4px;
+  background-color: #fff;
+  border-radius: 1px;
+  // background-color: #FFF;
+  border: 1px solid #EEE;
+  .switch-btn {
+    padding: 2px 12px;
+    text-align: center;
+    cursor: pointer;
+    color: #666;
+    &.active {
+      background-color: #FFF !important;
+      // background-color: $themeColor !important;
+      // color: #FFF !important;
+      color: $themeColor !important;
+      // color: darken($colorBlue, 15%) !important;
+      border-radius: 1px;
+      box-shadow: 0 0 1px 1px rgba($themeColor, 0.5) !important;
+    }
+    &:hover {
+      background-color: #f7f7f7;
+      box-shadow: 0 0 1px 1px rgba(#000, 0.1);
+    }
+    &[disabled] {
+      // background-color: #CCC;
+      // display: none;
+    }
+  }
+}

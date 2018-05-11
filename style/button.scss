@@ -1,0 +1,114 @@
+.btn {
+  appearance: none;
+  // border: none;
+  // border-bottom: 3px solid #CCC;
+  background-color: #FFF;
+  // padding: 6px 12px 4px;
+  padding: 6px 20px 4px;
+  border-radius: 3px;
+  transition: background-color 0.1s ease, box-shadow 0.1s ease, color 0.1s ease;
+  outline: none;
+  border: 0;
+  position: relative;
+  border-bottom: 2px solid transparent;
+
+  &.file-btn input {
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+  }
+
+  &:focus {
+    outline: none;
+  }
+  &:active,&.active {
+    outline: none;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3) !important;
+  }
+  &.flat {
+    // border: none;
+    &.sm {
+      padding: 5px 10px;
+    }
+  }
+  &.btn-lg {
+    font-size: 14px;
+    padding: 8px 20px;
+  }
+  &.hola {
+    padding: 5px 28px;
+    border: 1px solid #FFF;
+    background-color: transparent !important;
+    color: #FFF;
+    box-shadow: 0;
+    &.primary {
+      border-color: $themeColor;
+      color: darken($themeColor, 10%);
+      &:hover {
+        box-shadow: 0 0 6px rgba(246, 99, 114, 0.4);
+      }
+      &.active {
+        background-color: $themeColor !important;
+        color: #FFF;
+      }
+    }
+    &:hover {
+      box-shadow: 0 0 6px rgba(0, 0, 0, 0.4);
+    }
+    &.default {
+      border-color: #d1d1d1;
+      color: #777;
+    }
+  }
+  &.theme {
+    @include btnFlat($themeColor);
+  }
+  &.red {
+    @include btnFlat($colorRed);
+  }
+  &.gold {
+    @include btnFlat($colorGold, #69521b);
+  }
+  &.yellow {
+    @include btnFlat(#FFAA0D, #FFF);
+  }
+  &.primary {
+    @include btnFlat($colorRed);
+  }
+  &.blue {
+    @include btnFlat($colorBlue);
+  }
+  &.light-p {
+    @include btnFlat($colorPurpleLight);
+  }
+  &.default {
+    @include btnFlat($defaultColor);
+    border-color: #DDD;
+    color: #666;
+  }
+  &.important {
+    @include btnFlat($importantColor);
+  }
+  &.warn {
+    @include btnFlat($warmColor);
+  }
+  &.black {
+    @include btnFlat($colorBlack);
+  }
+  &.grey {
+    @include btnFlat(#6d6d9e);
+  }
+  &.wine {
+    @include btnFlat(#b969a0);
+  }
+  &.res {
+    width: 100%;
+  }
+  .btn-icon {
+    margin-right: 5px;
+  }
+}

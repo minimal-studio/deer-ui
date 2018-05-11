@@ -1,0 +1,13 @@
+.date-helper-group {
+  .date-helper-btn {
+    padding: 6px 10px;
+    transition: all 0.2s ease;
+    display: inline-block;
+    color: rgba(116, 117, 118, 1);
+
+    &.active,
+    &:hover {
+      color: $themeColor;
+    }
+  }
+}

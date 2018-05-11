@@ -1,0 +1,199 @@
+// .carousel {
+//   position: relative;
+//   width: 100%;
+//   height: 100%;
+//   overflow: hidden;
+//   .func-btn {
+//     position: absolute;
+//     width: 50%;
+//     height: 100%;
+//     top: 0;
+//     background-color: rgba(#000, 0.7);
+//     &.prev-btn {
+//       left: 0;
+//       margin-left: -400px;
+//     }
+//     &.next-btn {
+//       right: 0;
+//       margin-right: -400px;
+//     }
+//   }
+//   .carousel-item {
+//     // @include fill();
+//     // position: static;
+//     transition: all ease-out 0.6s;
+//     width: 100%;
+//     height: 100%;
+//     overflow: hidden;
+//     .section-mark {
+//       background-color: rgba(#000, 0.5);
+//     }
+//     .banner-img {
+//       width: 100%;
+//       height: 100%;
+//     }
+//   }
+//   .tip-group {
+//     position: absolute;
+//     bottom: 0;
+//     width: 100%;
+//     text-align: center;
+//     background-color: rgba(255,255,255,0.6);
+//     .carousel-tip {
+//       // width: 20px;
+//       // height: 20px;
+//       padding: 5px 20px;
+//       display: inline-block;
+//       cursor: default;
+//       &.active {
+//         background-color: $themeColor;
+//         color: #FFF;
+//       }
+//     }
+//   }
+// }
+
+
+.carousel {
+  // height: 90% !important;
+  width: 100%;
+  position: absolute;
+  transform-style: preserve-3d;
+  transition: transform 1s;
+  .item {
+    display: block;
+    position: absolute;
+    // opacity: 0.95;
+  }
+
+  // @for $i from 0 through 5 {
+  //   .idx-#{$i} {
+  //     transform: rotateY($i * 60deg) translateZ(900px);
+  //   }
+  // }
+}
+.fill-h-w {
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  padding-top: 50px;
+}
+.card-render-group {
+  $scrollWidth: 30px;
+  margin: 0 auto;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  perspective: 8000px;
+  overflow: hidden;
+  // padding: 40px 0;
+  // transform: translateZ(-1000px);
+  .carousel {
+    // padding: 0 $scrollWidth + 4;
+    // overflow: visible;
+    // width: 100%;
+    // height: 100%;
+    // margin: 0 auto;
+  }
+  // .section-mark {
+  //   background-color: rgba(#000, 0.5);
+  // }
+  .card-item {
+    $imgWidth: 800px;
+    $imgHeight: 400px;
+    width: $imgWidth;
+    height: $imgHeight;
+    margin-left: 50%;
+    left: -$imgWidth / 2;
+    &.active {
+      z-index: 101;
+      .card-img {
+        opacity: 1 !important;
+      }
+    }
+    .card-img {
+      // border: 1px solid transparent;
+      // width: $imgWidth;
+      // height: $imgHeight;
+      border-radius: 6px;
+      overflow: hidden;
+      min-height: 100px;
+      transition: all ease 0.2s;
+      opacity: 1;
+    }
+    .card-name {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 5px 0;
+      text-align: center;
+      background-color: rgba(#FFF, 0.85);
+    }
+  }
+  .func-btn {
+    position: absolute;
+    width: 50%;
+    height: 100%;
+    top: 0;
+    background-color: rgba(#000, 0.8);
+    font-size: 60px;
+    color: rgba(#FFF, 0.5);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    z-index: 101;
+    .fa {
+      transition: transform ease 0.3s;
+      &:hover {
+        transform: scale(1.2);
+      }
+    }
+    &.prev-btn {
+      left: 0;
+      margin-left: -500px;
+      align-items: flex-end;
+      .fa {
+        margin-right: 20px;
+        transform: rotate(-180deg);
+      }
+    }
+    &.next-btn {
+      right: 0;
+      margin-right: -500px;
+      align-items: flex-start;
+      .fa {
+        margin-left: 20px;
+      }
+    }
+  }
+}
+
+.mobile {
+  .card-render-group {
+    margin: 0 auto;
+    perspective: 1500px;
+    // padding-top: 50px;
+    background: linear-gradient(155deg, darken($colorRedDark, 10%), darken($colorRedDark, 25%));
+    .card-item {
+      $imgWidth: 290px;
+      $imgHeight: 135px;
+      width: $imgWidth;
+      height: $imgHeight;
+      margin-left: 50%;
+      left: -$imgWidth / 2;
+      &.active {
+        .card-img {
+          box-shadow: 0 24px 24px rgba(#000, 0.3);
+        }
+      }
+    }
+  }
+  .carousel {
+    @for $i from 0 through 5 {
+      .idx-#{$i} {
+        transform: rotateY($i * 60deg) translateZ(260px);
+      }
+    }
+  }
+}

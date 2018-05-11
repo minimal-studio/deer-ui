@@ -1,0 +1,136 @@
+$itemWidth: 42px;
+$itemSmWidth: 36px;
+$countColor: #747474;
+$bgScale: 60px;
+
+.countdown {
+  display: flex;
+  justify-content: space-between;
+  .item {
+    display: inline-block;
+    border-radius: 5px;
+    // overflow: hidden;
+    // width: 50px;
+    text-align: center;
+    font-size: 30px;
+    position: relative;
+    width: $bgScale;
+    height: $bgScale;
+    line-height: $bgScale;
+    .foot {
+      position: absolute;
+      top: 100%;
+      left: $bgScale / 2.5;
+      color: #999;
+      font-size: 12px;
+      line-height: 22px;
+    }
+    .text {
+      position: relative;
+      z-index: 2;
+    }
+    // &.hour {
+    //   .countdown-bg {
+    //     animation-duration: 100s;
+    //   }
+    // }
+    // &.min {
+    //   .countdown-bg {
+    //     animation-duration: 10s;
+    //   }
+    // }
+    // &.sec {
+    //   .countdown-bg {
+    //     animation-duration: 1s;
+    //   }
+    // }
+    .countdown-bg {
+      @include fill();
+      // background-repeat: no-repeat;
+      // animation-name: rolling;
+      // // animation-duration: 1s;
+      // animation-iteration-count: infinite;
+      // animation-timing-function: line;
+      width: 60px;
+      height: 60px;
+      &.disabled {
+        filter: grayscale(100%);
+        filter: gray;
+        animation-name: none;
+      }
+    }
+  }
+  .separator {
+    text-align: left;
+    width: 12px;
+    line-height: 32px;
+    font-size: $itemWidth / 1.3;
+  }
+  .separator, .item {
+    color: $countColor;
+  }
+  &.sm {
+
+  }
+}
+@keyframes rolling {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+
+#countSvgBg{
+  position:relative;
+  top: -80px;
+  left:-20px;
+  svg {
+    display: block;
+
+    .circle-front {
+      transition: all 0.5s ease;
+    }
+
+    text {
+      color: #fff;
+      font-size: 16px;
+    }
+  }
+
+  .btn-control {
+    font-size: 16px;
+    background-color: #fff;
+    display: inline-block;
+    padding: 6px;
+    border: 1px solid #4FC3F7;
+    color: #4FC3F7;
+  }
+
+  .control-continer{
+  margin-left: 30px;
+  margin-top: -30px;
+  cursor: pointer;
+    .add {
+      border-top-right-radius: 6px;
+      border-bottom-right-radius: 6px;
+      border-left: 0px;
+    }
+    .minus {
+      border-top-left-radius: 6px;
+      border-bottom-left-radius: 6px;
+    }
+
+    .add:hover{
+      background-color: #4FC3F7;
+      color: #fff;
+    }
+    .minus:hover{
+      background-color: #4FC3F7;
+      color: #fff;
+    }
+  }
+}

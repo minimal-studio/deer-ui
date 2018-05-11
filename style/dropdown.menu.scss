@@ -1,0 +1,99 @@
+// @import "../var.scss";
+$itemH: 30px;
+.v-dropdown-menu {
+  position: relative;
+  z-index: 1;
+  cursor: pointer;
+  .section-mark {
+    background: transparent !important;
+  }
+  &.show {
+    z-index: 2;
+    .menu-list {
+      // height: 300px;
+      box-shadow: 0 0 36px rgba(0, 0, 0, 0.3);
+    }
+  }
+  .menu-list {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    // width: 100%;
+    background-color: #FFF;
+    border-radius: 3px;
+    height: 0;
+    overflow-y: auto;
+    transition: all 0.2s ease;
+    max-height: 300px;
+    .form-control {
+      width: 94%;
+      margin-top: 5px;
+    }
+    // opacity: 0;
+  }
+  .action-btn-group {
+    .action-btn {
+      padding: 10px;
+      &:hover {
+        background-color: #f9f9f9;
+      }
+    }
+  }
+  .items-group {
+    min-width: 180px;
+    .group {
+      &.active {
+        .cateroy-title {
+          color: $themeColor;
+          .check-icon {
+            display: block;
+          }
+        }
+      }
+      .cateroy-title {
+        padding: 10px 10px;
+        border-top: 1px solid #EEE;
+        border-bottom: 1px solid #EEE;
+        background-color: #f3f3f3;
+        position: relative;
+        display: flex;
+        .check-icon {
+          display: none;
+        }
+        &:hover {
+          background-color: #EEE;
+        }
+      }
+    }
+  }
+  // &.overflow {
+  //   .active-item, .menu-item {
+  //     text-overflow: ellipsis;
+  //     white-space: nowrap;
+  //     overflow: hidden;
+  //   }
+  // }
+  .active-item, .menu-item {
+    &:hover {
+      color: $colorRed;
+    }
+  }
+  .menu-item {
+    color: #777;
+    transition: border ease 0.1s;
+    border-left: 0 solid $colorRed;
+    padding: 5px 10px;
+    &.active {
+      border-left-width: 2px;
+      color: $colorRed !important;
+    }
+  }
+  .active-item {
+    background-color: #FFF;
+    line-height: $itemH;
+    min-width: 140px;
+    padding: 0 10px;
+    // border-radius: 3px;
+  }
+}

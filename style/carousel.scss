@@ -1,0 +1,93 @@
+.carousel {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background-color: rgba(#1d2126, 0.9);
+  .carousel-item {
+    @include fill();
+  }
+  .img {
+    background-size: cover;
+    background-position: center;
+  }
+  .func-btn {
+    position: absolute;
+    color: #DDD;
+    height: 100%;
+    top: 0;
+    // padding-top: 20%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    .icon {
+      font-size: 30px;
+      background-color: rgba(#000, 0.3);
+      display: inline-block;
+      padding: 20px 15px;
+      &:hover {
+        background-color: $themeColor;
+      }
+    }
+    &.prev-btn {
+      left: 0;
+      .fa {
+        transform: rotate(180deg);
+        border-radius: 0 3px 3px 0;
+      }
+    }
+    &.next-btn {
+      right: 0;
+      .fa {
+        border-radius: 3px 0 0 3px;
+      }
+    }
+  }
+  &:hover {
+    .thumb-contaner {
+      transform: translateY(0);
+    }
+  }
+  .thumb-contaner {
+    transform: translateY(100px);
+    $thumbH: 27px;
+    transition: transform ease 0.3s;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    background-color: rgba(#000,0.5);
+    display: flex;
+    justify-content: center;
+    padding: 5px 0;
+    .thumb-item {
+      position: relative;
+      border: 3px solid transparent;
+      // .img {
+      //   background-size: cover;
+      // }
+      &.active {
+        border-color: $themeColor;
+      }
+      ._mark {
+        @include fill();
+        z-index: 101;
+      }
+      img {
+        height: $thumbH;
+        // filter: blur(0.5px);
+      }
+    }
+    .carousel-tip {
+      // width: 20px;
+      // height: 20px;
+      padding: 5px 20px;
+      display: inline-block;
+      cursor: default;
+      &.active {
+        background-color: $themeColor;
+        color: #FFF;
+      }
+    }
+  }
+}

@@ -1,0 +1,69 @@
+// @import "../var.scss";
+
+
+$rangerBgH: 6px;
+$rangerContentH: 26px;
+$rangerHandleScale: 20px;
+
+.ranger-container {
+  position: relative;
+  min-width: 70%;
+  cursor: move;
+  &.disabled {
+    .disabled-mask {
+      display: block;
+    }
+  }
+  .disabled-mask {
+    @include fill();
+    z-index: 11;
+    display: none;
+    background-color: rgba(255,255,255,0.2);
+    cursor: not-allowed;
+  }
+  .handle {
+    width: $rangerHandleScale * 2;
+    height: $rangerHandleScale;
+    border-radius: 3px;
+    background-color: rgba(255,255,255,0.9);
+    position: absolute;
+    top: - ($rangerHandleScale - $rangerBgH) / 2;
+    margin-left: - $rangerHandleScale;
+    z-index: 10;
+    box-shadow: 0 0 12px rgba(0,0,0,0.3);
+    text-align: center;
+  }
+  .ranger-content {
+    display: flex;
+    align-items: center;
+    align-content: center;
+    height: $rangerContentH;
+    * {
+      user-select: none;
+    }
+  }
+  .handle-btn {
+    $scale: 22px;
+    width: $scale;
+    height: $scale;
+    line-height: $scale;
+    font-size: 30px;
+    text-align: center;
+    display: inline-block;
+    &.plus {
+    }
+    &.less {
+      transform: rotate(180deg);
+    }
+  }
+  .ranger-body {
+    // position: absolute;
+    position: relative;
+    width: 80%;
+    height: $rangerBgH;
+    border-radius: $rangerBgH;
+    box-shadow: 0 0 1px rgba(0,0,0,0.3);
+    margin: 0 auto;
+    background-color: $themeColor;
+  }
+}
