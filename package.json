@@ -1,6 +1,6 @@
 {
   "name": "ukelli-ui",
-  "version": "1.5.7",
+  "version": "1.5.8",
   "main": "dist/index.js",
   "files": [
     "dist/",
@@ -24,7 +24,7 @@
   "author": "Alex",
   "license": "ISC",
   "dependencies": {
-    "basic-helper": "^1.2.3",
+    "basic-helper": "^1.2.4",
     "react": "^16.2.0",
     "react-transition-group": "^2.2.0"
   },

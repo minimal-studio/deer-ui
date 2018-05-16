@@ -27,15 +27,6 @@ export default class MapperFilter extends Component {
       case !!mapper.namesMapper:
         contentResult = mapper.namesMapper[currContent] || currContent || '';
         break;
-      case !!mapper.rate:
-        contentResult = $GH.GetDisplayRate(currContent);
-        break;
-      case !!mapper.rateNumb:
-        contentResult = $GH.GetDisplayRateNumber(currContent);
-        break;
-      // case$GH.IsFunc(mapper.filter):
-      //   contentResult = mapper.filter(currContent, record, mapper, rowIdx);
-      //   break;
     }
     if($GH.IsFunc(mapper.filter)) {
       contentResult = mapper.filter(contentResult, record, mapper, rowIdx);
