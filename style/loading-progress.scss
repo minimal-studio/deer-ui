@@ -1,8 +1,11 @@
 .progressbar {
-  height: 5px;
-  position: relative;
+  height: 3px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
   overflow: hidden;
-  background-color: rgb(193, 225, 251);
+  background-color: rgba($themeColor, 0.3);
 
   .progress {
     width: auto;
@@ -24,7 +27,7 @@
     }
 
     &.blue {
-      background-color: #2196f3;
+      background-color: $themeColor;
     }
   }
 }

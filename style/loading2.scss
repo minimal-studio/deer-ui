@@ -6,14 +6,6 @@ $loaderColor: #3ca9d1;
   height: 100%;
   min-height: 100px;
   position: relative;
-  // min-height: 100px;
-  // &.loading {
-  //   .loading-container {
-  //     background-color: rgba(0,0,0,0.05);
-  //     text-align: center;
-  //     width: 100%;
-  //   }
-  // }
   >div {
     height: 100%;
   }
@@ -27,12 +19,8 @@ $loaderColor: #3ca9d1;
   @include fill();
   text-align: center;
   width: 100%;
-  position: absolute;
-  // margin-top: -20px;
+  position: relative;
   z-index: 999;
-  // &.top-offset {
-  //   top: 50%;
-  // }
 }
 // .loader:before,
 // .loader:after,

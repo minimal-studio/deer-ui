@@ -27,7 +27,7 @@ function LoadingProgress() {
 
 function LoadingDOMPlaceholder() {
   return (
-    <div className='loading-content'>
+    <div className='loading-placeholder'>
       <div className='line'></div>
       <div className='line'></div>
       <div className='line'></div>
@@ -57,7 +57,7 @@ export default class Loading extends Component {
         classNames="loading"
         timeout={200}
         key={key}>
-        <div style={{height: '100%'}}>
+        <div>
           {children}
         </div>
       </CSSTransition>
@@ -85,13 +85,13 @@ export default class Loading extends Component {
       // solution 1, render chidlren with progress
       case loading && inrow:
         container = [
-          this.transitionWrap('loaded', children),
           this.transitionWrap(
             'loading',
             <div className="loading-container">
-              {loadingDOMFilterRes}
-            </div>
-          )
+            {loadingDOMFilterRes}
+          </div>
+          ),
+          this.transitionWrap('loaded', children)
         ]
         break;
       // solution 2, when inrow and no children or not inrow, just render placeholder
@@ -112,39 +112,8 @@ export default class Loading extends Component {
     }
     return (
       <div className={"loading-control " + (loading ? 'loading' : 'planning')}>
-        <TransitionGroup>
-          {container}
-        </TransitionGroup>
-      </div>
-    );
-
-    // if(!loading && inrow) {
-    //   let cli = inrow ? children : null;
-    //   if(inrow) {
-    //     container = [this.transitionWrap('loaded', children)];
-    //     container.push(
-    //       this.transitionWrap(
-    //         'loading',
-    //         <div className="loading-container">
-    //           {loadingDOMFilterRes}
-    //         </div>
-    //       )
-    //     );
-    //   } else {
-    //     container = this.transitionWrap(
-    //       'loading',
-    //       <div className="loading-container">
-    //         {cli}
-    //         {loadingDOMFilterRes}
-    //       </div>
-    //     );
-    //   }
-    // } else if() {
-    //   container = this.transitionWrap('loaded', children);
-    // }
-    return (
-      <div className={"loading-control " + (loading ? 'loading' : 'planning')}>
-        <TransitionGroup>
+        <TransitionGroup
+          component={null}>
           {container}
         </TransitionGroup>
       </div>

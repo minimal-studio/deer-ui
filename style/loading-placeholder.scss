@@ -6,8 +6,9 @@
   }
 }
 
-.loading-content {
-  height: 214px;
+.loading-placeholder {
+  // height: 214px;
+  padding: 10px;
   // border: 1px solid lightgrey;
   // border-radius: 4px;
   width: 100%;
@@ -21,29 +22,30 @@
 
   div {
     @include nth-children(1, 5, 9) {
-      width: 150px;
+      width: 70%;
     }
     @include nth-children(2, 6, 10) {
-      width: 250px;
+      width: 80%;
     }
     @include nth-children(3, 7) {
-      width: 50px;
+      width: 60%;
     }
     @include nth-children(4, 8) {
-      width: 100px;
+      width: 40%;
+      margin-bottom: 20px;
     }
   }
 }
 @keyframes pulse {
   0% {
-    background-color: rgba(165, 165, 165, 0.1);
+    background-color: rgba(#666, 0.1);
   }
 
   50% {
-    background-color: rgba(165, 165, 165, 0.3);
+    background-color: rgba(#666, 0.15);
   }
 
   100% {
-    background-color: rgba(165, 165, 165, 0.1);
+    background-color: rgba(#666, 0.1);
   }
 }

@@ -44,20 +44,19 @@ $rangerHandleScale: 20px;
   }
   .handle-btn {
     $scale: 22px;
-    width: $scale;
-    height: $scale;
-    line-height: $scale;
+    width: $rangerContentH;
+    height: $rangerContentH;
+    line-height: $rangerContentH;
     font-size: 30px;
     text-align: center;
-    display: inline-block;
-    &.plus {
-    }
-    &.less {
-      transform: rotate(180deg);
-    }
+    // display: inline-block;
+    // &.plus {
+    // }
+    // &.less {
+    //   transform: rotate(180deg);
+    // }
   }
   .ranger-body {
-    // position: absolute;
     position: relative;
     width: 80%;
     height: $rangerBgH;
