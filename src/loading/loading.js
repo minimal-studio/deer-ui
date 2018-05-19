@@ -2,14 +2,49 @@ import React, {Component, PureComponent} from 'react';
 import PropTypes from 'prop-types';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
-class LoadingDOM extends PureComponent {
-  render() {
-    return (
+function LoadingDOMSnip() {
+  return (
+    <div>
       <div className="loader1">
         <div className="block"></div>
         <div className="block"></div>
         <div className="block"></div>
         <div className="block"></div>
+      </div>
+      <div className="mask"></div>
+    </div>
+  )
+}
+
+function LoadingProgress() {
+  return (
+    <div className="progressbar">
+      <div className="progress item-1 blue"></div>
+      <div className="progress item-2 blue"></div>
+    </div>
+  )
+}
+
+function LoadingDOMPlaceholder() {
+  return (
+    <div className='loading-content'>
+      <div className='line'></div>
+      <div className='line'></div>
+      <div className='line'></div>
+      <div className='line'></div>
+      <div className='line'></div>
+      <div className='line'></div>
+      <div className='line'></div>
+      <div className='line'></div>
+      <div className='line'></div>
+      <div className='line'></div>
+    </div>
+  )
+}
+class LoadingDOMProgress extends PureComponent {
+  render() {
+    return (
+      <div className='text-input__loading'>
       </div>
     )
   }
@@ -29,33 +64,84 @@ export default class Loading extends Component {
     )
   }
   render() {
-    const {loading = false, children, inrow = false} = this.props;
+    const {loading = false, children, inrow = false, loadingDOM} = this.props;
 
-    const childrenWrap = this.transitionWrap('loaded', children);
-    let container = inrow ? [childrenWrap] : childrenWrap;
+    let loadingDOMFilterRes;
 
-    if(loading) {
-      let cli = inrow ? children : null;
-      if(inrow) {
-        container.push(
+    switch (true) {
+      case !!loadingDOM: // custom mode
+        loadingDOMFilterRes = loadingDOM;
+        break;
+      case inrow: // progress
+        loadingDOMFilterRes = <LoadingProgress/>
+        break;
+      default: // placeholder
+        loadingDOMFilterRes = <LoadingDOMPlaceholder/>
+    }
+
+    let container;
+
+    switch (true) {
+      // solution 1, render chidlren with progress
+      case loading && inrow:
+        container = [
+          this.transitionWrap('loaded', children),
           this.transitionWrap(
             'loading',
             <div className="loading-container">
-              <LoadingDOM/>
-              <div className="mask"></div>
+              {loadingDOMFilterRes}
             </div>
           )
-        );
-      } else {
+        ]
+        break;
+      // solution 2, when inrow and no children or not inrow, just render placeholder
+      case loading && !inrow:
         container = this.transitionWrap(
           'loading',
           <div className="loading-container">
-            {cli}
-            <LoadingDOM/>
+            {loadingDOMFilterRes}
           </div>
-        );
-      }
+        )
+        break;
+      // solution 3, just render children
+      case !loading:
+        container = this.transitionWrap('loaded', children);
+        break;
+      default:
+
     }
+    return (
+      <div className={"loading-control " + (loading ? 'loading' : 'planning')}>
+        <TransitionGroup>
+          {container}
+        </TransitionGroup>
+      </div>
+    );
+
+    // if(!loading && inrow) {
+    //   let cli = inrow ? children : null;
+    //   if(inrow) {
+    //     container = [this.transitionWrap('loaded', children)];
+    //     container.push(
+    //       this.transitionWrap(
+    //         'loading',
+    //         <div className="loading-container">
+    //           {loadingDOMFilterRes}
+    //         </div>
+    //       )
+    //     );
+    //   } else {
+    //     container = this.transitionWrap(
+    //       'loading',
+    //       <div className="loading-container">
+    //         {cli}
+    //         {loadingDOMFilterRes}
+    //       </div>
+    //     );
+    //   }
+    // } else if() {
+    //   container = this.transitionWrap('loaded', children);
+    // }
     return (
       <div className={"loading-control " + (loading ? 'loading' : 'planning')}>
         <TransitionGroup>
@@ -68,5 +154,6 @@ export default class Loading extends Component {
 
 Loading.propTypes = {
   loading: PropTypes.bool.isRequired,
+  loadingDOM: PropTypes.any,
   inrow: PropTypes.bool,
 }

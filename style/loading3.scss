@@ -1,0 +1,49 @@
+@mixin nth-children($points...) {
+  @each $point in $points {
+    &:nth-child(#{$point}) {
+      @content;
+    }
+  }
+}
+
+.loading-content {
+  height: 214px;
+  // border: 1px solid lightgrey;
+  // border-radius: 4px;
+  width: 100%;
+  background-color: #FFF;
+
+  >.line {
+    height: 10px;
+    margin: 10px;
+    animation: pulse 1s infinite ease-in-out;
+  }
+
+  div {
+    @include nth-children(1, 5, 9) {
+      width: 150px;
+    }
+    @include nth-children(2, 6, 10) {
+      width: 250px;
+    }
+    @include nth-children(3, 7) {
+      width: 50px;
+    }
+    @include nth-children(4, 8) {
+      width: 100px;
+    }
+  }
+}
+@keyframes pulse {
+  0% {
+    background-color: rgba(165, 165, 165, 0.1);
+  }
+
+  50% {
+    background-color: rgba(165, 165, 165, 0.3);
+  }
+
+  100% {
+    background-color: rgba(165, 165, 165, 0.1);
+  }
+}
