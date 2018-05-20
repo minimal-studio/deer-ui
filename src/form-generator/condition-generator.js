@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import FormFilterHelper from './form-filter';
 
-export default class ConditionHelper extends FormFilterHelper {
+export default class ConditionGenerator extends FormFilterHelper {
   render() {
     const {conditionConfig, className = "condition-group", children = ''} = this.props;
 
@@ -28,7 +28,7 @@ export default class ConditionHelper extends FormFilterHelper {
     );
   }
 }
-ConditionHelper.propTypes = {
+ConditionGenerator.propTypes = {
   conditionConfig: PropTypes.array.isRequired,
   onChange: PropTypes.func,
   className: PropTypes.string

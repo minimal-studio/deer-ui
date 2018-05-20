@@ -7,7 +7,7 @@ import CitySelector from './city-selector';
 import MultipleHelper from './multiple-selector';
 import Avatar from './avatar';
 import Captcha from './captcha';
-import ChartCom from './chart';
+import ChartCom from './chart-dom';
 import Carousel from './carousel/carousel.js';
 import Loading from './loading';
 import Ball from './ball';
@@ -19,7 +19,7 @@ import PagingBtn from './paging-button';
 import TipBtn from './tip-button';
 
 import {Popover, GlobalPopover, PopoverEntity} from './popover';
-import {FormHelper, FormFilter, FormLayout, ConditionHelper} from './form-generator';
+import {FormGenerator, FormFilter, FormLayout, ConditionGenerator} from './form-generator';
 import {Countdown, CountdownBg} from './countdown';
 import {DatepickerHelper, DatetimePicker} from './datetimepicker';
 import {Input, IconInput} from './form-control';
@@ -35,7 +35,7 @@ export {
   Button, Captcha, DatetimePicker, Loading, Modal, ModalHelper, PagingBtn, Popover, QRCode, DropdownMenu,
   Tab, Tabs, TipBtn, Toast, Avatar, SwitchBtn, Ranger, Input, Ball, Countdown, CountdownBg, MultipleHelper,
   TableBody, RecordItemsHelper, CitySelector, ChartCom, Radio, FormFilter, FormLayout, MapperFilter,
-  ConditionHelper, FormHelper, DatepickerHelper, DescHelper, TipPanel, Carousel,
+  ConditionGenerator, FormGenerator, DatepickerHelper, DescHelper, TipPanel, Carousel,
   IconInput, PopoverEntity,
   ShowGlobalModal, GlobalPopover, CloseGlobalModal,
 }

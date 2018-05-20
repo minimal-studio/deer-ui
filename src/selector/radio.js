@@ -1,7 +1,7 @@
 import React, {Component, PureComponent} from 'react';
 import PropTypes from 'prop-types';
 
-export default class RadioHelper extends Component {
+export default class Radio extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -114,7 +114,7 @@ export default class RadioHelper extends Component {
     );
   }
 }
-RadioHelper.propTypes = {
+Radio.propTypes = {
   values: PropTypes.any.isRequired,
   onChange: PropTypes.func.isRequired,
   isMultiple: PropTypes.bool,

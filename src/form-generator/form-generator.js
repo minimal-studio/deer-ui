@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import FormFilterHelper from './form-filter';
 
-export default class FormHelper extends FormFilterHelper {
+export default class FormGenerator extends FormFilterHelper {
   render() {
     const {formOptions, children = ''} = this.props;
 
@@ -35,7 +35,7 @@ export default class FormHelper extends FormFilterHelper {
     ) : <span></span>
   }
 }
-FormHelper.propTypes = {
+FormGenerator.propTypes = {
   formOptions: PropTypes.array.isRequired,
   onChange: PropTypes.func,
 };

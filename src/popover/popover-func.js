@@ -2,7 +2,7 @@ import React, {Component, PureComponent} from 'react';
 import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 
-import Popover './popover';
+import Popover from './popover';
 
 export class PopoverHelper extends Component {
   constructor(props) {

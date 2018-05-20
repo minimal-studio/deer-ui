@@ -1,12 +1,11 @@
 import React, {Component, PureComponent} from 'react';
 
-// import {Button, DatetimePicker, SwitchBtn} from '../../common.components/index.js';
-import {
-  Button, DatetimePicker, SwitchBtn, RadioHelper, Input, DropdownMenu,
-  CitySelector, DatepickerHelper, MultipleHelper, Ranger, IconInput,
-  // CheckboxHelper,
-  Captcha
-} from '../index.js';
+import {DatetimePicker, DatepickerHelper} from '../datetimepicker';
+import {Radio, DropdownMenu} from '../selector';
+import {Input, IconInput} from '../form-control';
+import CitySelector from '../city-selector';
+import Ranger from '../range-selector';
+import Captcha from '../captcha';
 
 export default class FormFilterHelper extends Component {
   constructor(props) {
@@ -135,15 +134,6 @@ export default class FormFilterHelper extends Component {
               }
             }}/>
         );
-      // case 'multipleInput':
-      //   return (
-      //     <MultipleHelper
-      //       {...config}
-      //       value={this.value[ref]}
-      //       onChange={val => {
-      //         this.changeValue(val, ref);
-      //       }}/>
-      //   )
       case 'select':
         return (
           <DropdownMenu
@@ -208,7 +198,7 @@ export default class FormFilterHelper extends Component {
         const ___V = (config.values[0] || {}).value;
         const __defVal = needDefaultValue ? (___V === 0 ? 0 : ___V) : '';
         return (
-          <RadioHelper
+          <Radio
             {...config}
             value={(this.value[ref] === 0 ? 0 : this.value[ref] || __defVal)}
             didMountChange={needDefaultValue}

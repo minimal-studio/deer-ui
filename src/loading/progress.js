@@ -1,3 +1,5 @@
+import React, {Component, PureComponent} from 'react';
+
 export default function LoadingProgress() {
   return (
     <div className="progressbar">
