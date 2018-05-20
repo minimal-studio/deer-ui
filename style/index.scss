@@ -8,6 +8,8 @@
 @import "./basic/buttons";
 @import "./basic/forms.scss";
 
+@import "./transition.scss";
+
 @import "./layout.scss";
 @import "./avatar.scss";
 @import "./button.scss";
@@ -16,11 +18,9 @@
 @import "./datehelper.scss";
 @import "./desc.helper.scss";
 @import "./form.scss";
-@import "./iframe.scss";
 @import "./loading2.scss";
 @import "./loading-placeholder.scss";
 @import "./loading-progress.scss";
-// @import "./loading.scss";
 @import "./list.scss";
 @import "./modal.scss";
 @import "./pagin.btn.scss";

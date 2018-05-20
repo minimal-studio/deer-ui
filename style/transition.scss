@@ -1,0 +1,167 @@
+// 每个项目可以自定义各自的动画效果，参考以下实现方式
+
+/**
+ * 动画名称解析
+ * windows   ： container 组件做的页面切换
+ * login     ： 登录
+ * fade      ： 渐变
+ * banner    ： 轮播图
+ * notify    ： 全局提示
+ * tip-award ： 中奖后的全局提示
+ * loading   ： 加载中
+ * modal     ： modal 框
+ * popover   ： popover
+ * toast     ： toast
+ * manager   ： 全局弹出层的 manager
+ */
+
+$fadeTransDuration     : 0.2s;
+$toastransDuration     : 0.2s;
+$popoverTransDuration  : 0.2s;
+$loadingTransDuration  : 0.2s;
+$modalTSDuration       : 0.3s;
+
+// modal
+.modal-enter {
+  .v-modal-layout {
+    transform: translateY(20px);
+    // transform: scale(0.95);
+    opacity: 0;
+  }
+  .section-mark {
+    opacity: 0.01;
+  }
+}
+
+.modal-enter.modal-enter-active {
+  .v-modal-layout {
+    // transform: scale(1);
+    transform: translateY(0);
+    opacity: 1;
+    transition: all $modalTSDuration ease;
+  }
+  .section-mark {
+    opacity: 1;
+    transition: opacity $modalTSDuration ease;
+  }
+}
+
+.modal-exit {
+  .v-modal-layout {
+    // transform: scale(1);
+    transform: translateY(0);
+    opacity: 1;
+  }
+  .section-mark {
+    opacity: 1;
+  }
+}
+
+.modal-exit.modal-exit-active {
+  .v-modal-layout {
+    transform: scale(0.95);
+    transform: translateY(20px);
+    opacity: 0.01;
+    transition: all $modalTSDuration ease;
+  }
+  .section-mark {
+    opacity: 0.01;
+    transition: opacity $modalTSDuration ease;
+  }
+}
+
+// fade
+.fade-enter {
+  opacity: 0.01;
+}
+
+.fade-enter.fade-enter-active {
+  opacity: 1;
+  transition: opacity $fadeTransDuration ease;
+}
+
+.fade-exit {
+  opacity: 1;
+}
+
+.fade-exit.fade-exit-active {
+  opacity: 0.01;
+  transition: opacity $fadeTransDuration ease;
+}
+
+// popover
+.popover-enter {
+  opacity: 0.01;
+  transform: translateX(20px);
+}
+
+.popover-enter.popover-enter-active {
+  opacity: 1;
+  transform: translateX(0);
+  transition: all $popoverTransDuration ease;
+}
+
+.popover-exit {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.popover-exit.popover-exit-active {
+  opacity: 0.01;
+  transform: translateX(20px);
+  transition: all $popoverTransDuration ease;
+}
+
+// loading
+.loading-enter {
+  opacity: 0.01;
+  .loading-container {
+    position: absolute !important;
+  }
+}
+
+.loading-enter.loading-enter-active {
+  opacity: 1;
+  transition: opacity $loadingTransDuration ease;
+  .loading-container {
+    position: absolute !important;
+  }
+}
+
+.loading-exit {
+  opacity: 1;
+  .loading-container {
+    position: absolute !important;
+  }
+}
+
+.loading-exit.loading-exit-active {
+  opacity: 0.01;
+  transition: opacity $loadingTransDuration ease;
+  .loading-container {
+    position: absolute !important;
+  }
+}
+
+// toast
+.toast-enter {
+  opacity: 0.01;
+  transform: translateY(-20px);
+}
+
+.toast-enter.toast-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: transform $toastransDuration ease, opacity $toastransDuration ease;
+}
+
+.toast-exit {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.toast-exit.toast-exit-active {
+  opacity: 0.01;
+  transform: translateY(-45px);
+  transition: transform $toastransDuration ease, opacity $toastransDuration ease;
+}
