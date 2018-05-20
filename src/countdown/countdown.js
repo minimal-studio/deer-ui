@@ -1,7 +1,7 @@
 import React, {Component, PureComponent} from 'react';
 import PropTypes from 'prop-types';
 
-import CountdownBg from './countdown.svg.js';
+import CountdownBg from './countdown-svg-bg';
 
 const timeTitleMapper = {
   hour: '时',

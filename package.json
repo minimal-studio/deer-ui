@@ -1,17 +1,13 @@
 {
   "name": "ukelli-ui",
-  "version": "1.6.1",
-  "main": "dist/index.js",
-  "files": [
-    "dist/",
-    "style/",
-    "index.js",
-    "index.scss",
-    "README.md"
-  ],
+  "version": "1.6.3",
+  "main": "./index.js",
   "scripts": {
-    "prepublish": "rm -rf ./dist/; npm run build:babel",
-    "build:babel": "NODE_ENV=production babel ./src --out-dir ./dist --ignore spec.js",
+    "publish": "npm publish ./build",
+    "release": "npm run build; npm run publish",
+    "build": "rm -rf ./build/; npm run build:babel; npm run build:copy-files",
+    "build:babel": "NODE_ENV=production babel ./src --out-dir ./build --ignore spec.js",
+    "build:copy-files": "NODE_ENV=production babel-node ./scripts/copy-files.js",
     "push": "npm publish; git add -A; git commit -m 'update'; git push origin master"
   },
   "repository": {
