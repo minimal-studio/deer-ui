@@ -1,0 +1,133 @@
+// // @import "../var.scss";
+$awardWidth: 355px;
+$awardCupScale: 300px;
+$awardBgImgWidth: 700px;
+$awardBgImgHeight: 632px;
+$transtionTimer: 300ms;
+
+$itemW: 360px;
+
+@mixin nitifyItem($bgColor, $textColor) {
+  background-color: rgba($bgColor, 0.98);
+  color: $textColor;
+
+  &:hover {
+    background-color: rgba($bgColor, 1);
+  }
+  .title {
+    background-color: rgba($bgColor, 1);
+  }
+  .close-btn {
+    background-color: rgba($textColor, 1);
+    color: $bgColor;
+  }
+  .action {
+    color: $textColor;
+  }
+}
+
+#systemMsgContainer {
+  $scale: 340px;
+  z-index: 999;
+  position: fixed;
+  top: 0;
+  width: $scale;
+  min-height: 100px;
+  background-color: #FFF;
+  box-shadow: 0 0 24px rgba(0,0,0,0.2);
+  left: 50%;
+  margin-left: - $scale / 2;
+  border-radius: 0 0 4px 4px;
+
+  .close-btn {
+    position: absolute;
+    right: 10px;
+    top: 6px;
+  }
+}
+
+#systemTipsContainer {
+  &.has-msg {}
+
+  .scroll-content {
+    max-height: 90vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 0 0 40px 40px;
+  }
+
+  .notify-group {
+    position: fixed;
+    z-index: 888;
+
+    &.top-right {
+      right: 0;
+      top: 70px;
+    }
+
+    &.top-left {
+      left: 0;
+      top: 70px;
+    }
+
+    &.bottom-left {
+      left: 0;
+      bottom: 70px;
+    }
+
+    &.bottom-right {
+      right: 0;
+      bottom: 70px;
+    }
+
+    .notify-item {
+      box-shadow: 0 0 36px rgba(0, 0, 0, 0.4);
+      position: relative;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      // border-bottom: 1px dashed #CCC;
+      margin-bottom: 10px;
+      width: $itemW;
+      border-radius: 4px 0 0 4px;
+
+      .title {
+        padding: 8px 10px;
+        font-size: 16px;
+      }
+
+      .close-btn {
+        position: absolute;
+        top: 6px;
+        right: 5px;
+      }
+
+      .text {
+        padding: 5px 10px;
+      }
+
+      .action {
+        text-align: right;
+        padding: 5px 10px;
+      }
+
+      &.normal {
+        @include nitifyItem($colorBlue, #FFF);
+      }
+      &.success {
+        @include nitifyItem($colorGreen, #FFF);
+      }
+      &.error {
+        @include nitifyItem($colorRed, #FFF);
+      }
+      &.warm {
+        @include nitifyItem($colorYellow, #FFF);
+      }
+      &.black {
+        @include nitifyItem($colorBlack, #FFF);
+      }
+      &.white {
+        @include nitifyItem(#FFF, #333);
+      }
+    }
+  }
+}

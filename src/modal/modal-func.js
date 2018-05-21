@@ -5,6 +5,8 @@ import PropTypes from 'prop-types';
 import ModalHelper from './modal-helper';
 import Modal from './modal';
 
+import setDOMById from '../set-dom';
+
 class ModalEntity extends ModalHelper {
   render() {
     const {topClassName, onCloseModal} = this.props;
@@ -46,13 +48,7 @@ function ShowGlobalModal(options) {
 
   let modalId = id || defaultModalId;
 
-  let topModalDOM = document.getElementById(modalId);
-  if(!topModalDOM) {
-    topModalDOM = document.createElement('div');
-    topModalDOM.id = modalId;
-    topModalDOM.className = 'top-modal idx-' + modalLen;
-    document.body.appendChild(topModalDOM);
-  }
+  let topModalDOM = setDOMById(modalId, 'top-modal idx-' + modalLen);
   let modalTMPL = null;
 
   let btnGroupDOM = showFuncBtn ? (

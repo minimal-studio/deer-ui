@@ -17,6 +17,7 @@ import Toast from './toast';
 import Ranger from './range-selector';
 import PagingBtn from './paging-button';
 import TipBtn from './tip-button';
+import {Notify, Notification} from './notification';
 
 import {Popover, GlobalPopover, PopoverEntity} from './popover';
 import {FormGenerator, FormFilter, FormLayout, ConditionGenerator} from './form-generator';
@@ -36,6 +37,6 @@ export {
   Tab, Tabs, TipBtn, Toast, Avatar, SwitchBtn, Ranger, Input, Ball, Countdown, CountdownBg, MultipleHelper,
   TableBody, RecordItemsHelper, CitySelector, ChartCom, Radio, FormFilter, FormLayout, MapperFilter,
   ConditionGenerator, FormGenerator, DatepickerHelper, DescHelper, TipPanel, Carousel,
-  IconInput, PopoverEntity,
+  IconInput, PopoverEntity, Notify, Notification,
   ShowGlobalModal, GlobalPopover, CloseGlobalModal,
 }
