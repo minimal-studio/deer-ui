@@ -113,7 +113,7 @@ export default class CAPTCHA extends Component {
       <div className={"captcha-group layout" + (scale ? ' ' + scale : '')}>
         <IconInput
           ref="captchaInput"
-          iconName="security"
+          iconName={iconName}
           inputProps={{
             type: "number",
             className: "form-control captcha-input input-" + scale,
