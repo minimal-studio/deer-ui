@@ -36,16 +36,17 @@ export default class Input extends Component {
   }
   render() {
     const {
-      iconClassName = '', iconName, inputProps, inputBtnConfig} = this.props;
+      iconName, inputProps, inputBtnConfig} = this.props;
     const {showTitle, viewClass = ''} = this.state;
 
-    const hasIcon = !!iconName;
+    const iconClassName = $UK.getIcon(iconName, ['icon']);
+    const hasIcon = !!iconClassName;
     const IconClass = iconName;
     const {placeholder} = inputProps;
 
     const iconDOM = hasIcon ? (
       <span className="input-icon">
-        <i className={$UK.getIcon(iconName, ['icon', iconClassName])}/>
+        <i className={$UK.getIcon(iconName, ['icon'])}/>
       </span>
     ) : null;
     const titleDOM = (
@@ -86,7 +87,6 @@ export default class Input extends Component {
   }
 }
 Input.propTypes = {
-  iconClassName: PropTypes.any,
   iconName: PropTypes.string,
   inputProps: PropTypes.object,
   inputBtnConfig: PropTypes.object,

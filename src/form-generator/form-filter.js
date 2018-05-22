@@ -150,7 +150,6 @@ export default class FormFilterHelper extends Component {
         return (
           <IconInput
             iconName={config.iconName}
-            iconClassName={config.iconClassName}
             inputBtnConfig={config.inputBtnConfig}
             ref={config.ref}
             inputProps={{

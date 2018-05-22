@@ -93,7 +93,7 @@ export default class CAPTCHA extends Component {
   }
   render() {
     const {captchaImg, captchaValue, loading} = this.state;
-    const {scale = 'sm', value = ''} = this.props;
+    const {scale = 'sm', value = '', iconName = 'security'} = this.props;
     const _captchaValue = this.isControl ? value : captchaValue;
 
     let hasCap = !!captchaImg;
@@ -149,6 +149,7 @@ CAPTCHA.propTypes = {
   onChange: PropTypes.func,
   onBlur: PropTypes.func,
   value: PropTypes.string,
+  iconName: PropTypes.string,
   // onFocus: PropTypes.func,
   scale: PropTypes.string,
 };
