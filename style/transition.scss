@@ -20,6 +20,7 @@ $toastransDuration     : 0.2s;
 $popoverTransDuration  : 0.2s;
 $loadingTransDuration  : 0.2s;
 $modalTSDuration       : 0.3s;
+$notifyTransDuration   : 0.2s;
 
 // modal
 .modal-enter {
@@ -68,6 +69,29 @@ $modalTSDuration       : 0.3s;
     opacity: 0.01;
     transition: opacity $modalTSDuration ease;
   }
+}
+
+// notify
+.notify-enter {
+  opacity: 0.01;
+  transform: translateX(200px);
+}
+
+.notify-enter.notify-enter-active {
+  transform: translateX(0);
+  opacity: 1;
+  transition: transform $notifyTransDuration ease, opacity $notifyTransDuration ease;
+}
+
+.notify-exit {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.notify-exit.notify-exit-active {
+  opacity: 0.01;
+  transform: translateX(200px);
+  transition: transform $notifyTransDuration ease, opacity $notifyTransDuration ease;
 }
 
 // fade
