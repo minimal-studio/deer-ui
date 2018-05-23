@@ -39,14 +39,14 @@ export default class Input extends Component {
       iconName, inputProps, inputBtnConfig} = this.props;
     const {showTitle, viewClass = ''} = this.state;
 
-    const iconClassName = $UK.getIcon(iconName, ['icon']);
+    const iconClassName = iconName ? $UK.getIcon(iconName, 'icon') : '';
     const hasIcon = !!iconClassName;
     const IconClass = iconName;
     const {placeholder} = inputProps;
 
     const iconDOM = hasIcon ? (
       <span className="input-icon">
-        <i className={$UK.getIcon(iconName, ['icon'])}/>
+        <i className={iconClassName}/>
       </span>
     ) : null;
     const titleDOM = (

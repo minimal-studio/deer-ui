@@ -49,9 +49,9 @@ $iconViewBgColor: $themeColor;
     top: 0;
     left: 0;
     bottom: 0;
-    background-color: $iconViewBgColor;
+    // background-color: $iconViewBgColor;
     padding: 0 10px;
-    color: #FFF;
+    color: #666;
     @include layoutCenter();
   }
   .title {
