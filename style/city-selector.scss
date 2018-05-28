@@ -1,0 +1,58 @@
+
+.city-selector {
+  .title {
+    &:hover {
+      color: $themeColor;
+    }
+  }
+  .selector-panel {
+    display: flex;
+    flex-wrap: wrap;
+    overflow-y: auto;
+    max-height: 340px;
+    margin-bottom: 10px;
+    justify-content: space-between;
+    align-items: flex-start;
+    align-content: start;
+    // padding: 10px;
+    .item {
+      border-bottom: 2px solid #EEE;
+      background-color: #FFF;
+      width: 24%;
+      margin-bottom: 5px;
+      line-height: 30px;
+      text-align: center;
+      cursor: pointer;
+      &:hover, &.active {
+        color: $themeColor;
+      }
+    }
+  }
+  &.show {
+    .pick-panel {
+      $panelW: 600px;
+      z-index: 999;
+      position: fixed;
+      top: 200px;
+      left: 50%;
+      margin-left: - $panelW / 2;
+      width: $panelW;
+    }
+    .tabs-container {
+      min-height: 250px;
+      border-bottom: 0;
+      background-color: transparent;
+    }
+    .panel-container {
+      padding: 10px;
+      border-radius: 5px;
+      background-color: #f7f7f7;
+      // height: 450px;
+      position: relative;
+      z-index: 999;
+      .tab-content {
+        padding: 0 10px;
+      }
+    }
+  }
+}

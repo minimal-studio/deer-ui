@@ -1,6 +1,6 @@
 {
   "name": "ukelli-ui",
-  "version": "1.8.5",
+  "version": "2.0.0",
   "main": "./index.js",
   "scripts": {
     "publish": "npm publish ./build",
@@ -21,9 +21,12 @@
   "author": "Alex",
   "license": "ISC",
   "peerDependencies": {
-    "react": "^16.2.0",
     "basic-helper": "^1.2.4",
+    "react": "^16.2.0",
     "react-transition-group": "^2.2.0"
   },
-  "devDependencies": {}
+  "devDependencies": {},
+  "dependencies": {
+    "classnames": "^2.2.5"
+  }
 }

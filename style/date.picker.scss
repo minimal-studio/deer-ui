@@ -29,3 +29,17 @@
     display: none !important;
   }
 }
+
+.datepicker-ranger-content {
+  @include layout();
+  align-items: center;
+  width: 100%;
+  .flatpickr {
+    position: relative;
+    .icon {
+      position: absolute;
+      right: 16px;
+      top: 7px;
+    }
+  }
+}

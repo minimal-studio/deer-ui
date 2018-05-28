@@ -34,13 +34,17 @@ $tabTextColor: #999;
   .tab-group {
     position: relative;
     display: flex;
-    margin-bottom: 5px;
+    // margin-bottom: 5px;
     .tab {
       color: $tabTextColor;
       cursor: pointer;
       position: relative;
       transition: color 0.15s ease, background-color 0.15s ease, border-color 0.15s ease;
       // padding: 5px 10px;
+      border-radius: 4px 4px 0 0;
+      background-color: #fafafa;
+      margin-right: 5px;
+      box-shadow: inset 0 -2px 2px rgba(#999, 0.1);
       &.right {
         align-self: baseline;
       }
@@ -49,9 +53,13 @@ $tabTextColor: #999;
       }
       &.active {
         color: $tabTextActiveColor;
+        background-color: #FFF;
+        z-index: 1;
+        border-color: #DDD;
+        box-shadow: 0 -2px 2px rgba(#777, 0.1);
         .tab-label {
-          border-top-color: $tabTextActiveColor;
-          background-color: rgba(#000, 0.02);
+          // border-top-color: $tabTextActiveColor;
+          // background-color: rgba(#000, 0.02);
         }
       }
       .tab-label {
