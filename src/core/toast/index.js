@@ -52,6 +52,10 @@ export default class Toast extends PureComponent {
       descQueue: nextQueue
     });
   }
+  clearTip() {
+    this.clearTimer();
+    this.setState({descQueue: {}});
+  }
   render() {
     const {descQueue} = this.state;
 
