@@ -26,9 +26,6 @@ export default class PagingBtn extends Component {
     const _isNeedHelper = isNeedHelper && paginBtnCount > 1;
 
     if(AllCount == -1 || AllCount == 0) return <span></span>
-    // if(AllCount == -1 || AllCount == 0) return (
-    //   <div className="pagin-con text-light text-center">{AllCount == -1 ? '请查询' : '暂无记录'}</div>
-    // );
     if(UsePaging == 0) return (
       <span className="nopaging"></span>
     );

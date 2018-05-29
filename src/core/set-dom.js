@@ -9,3 +9,25 @@ export default function setDOMById(targetID, className = '') {
   }
   return targetDOM;
 }
+
+export function getElementLeft(element) {
+  if(!element) return;
+  var actualLeft = element.offsetLeft;
+  var current = element.offsetParent;
+  while (current !== null) {
+    actualLeft += (current.offsetLeft + current.clientLeft);
+    current = current.offsetParent;
+  }
+  return actualLeft;
+}
+
+export function getElementTop(element) {
+  if(!element) return;
+  var actualTop = element.offsetTop;
+  var current = element.offsetParent;
+  while (current !== null) {
+    actualTop += (current.offsetTop + current.clientTop);
+    current = current.offsetParent;
+  }
+  return actualTop;
+}

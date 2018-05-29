@@ -1,36 +1,11 @@
 // @import "../var.scss";
 $itemH: 30px;
-.v-dropdown-menu {
-  position: relative;
-  z-index: 1;
-  cursor: pointer;
-  .section-mark {
-    background: transparent !important;
-  }
-  &.show {
-    z-index: 2;
-    .menu-list {
-      // height: 300px;
-      box-shadow: 0 0 36px rgba(0, 0, 0, 0.3);
-    }
-  }
-  .menu-list {
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 1;
-    // width: 100%;
-    background-color: #FFF;
-    border-radius: 3px;
-    height: 0;
-    overflow-y: auto;
-    transition: all 0.2s ease;
-    max-height: 300px;
+.uk-dropdown-menu {
+  .search-bar {
+    padding: 5px 10px;
     .form-control {
-      width: 94%;
-      margin-top: 5px;
+      width: 100%;
     }
-    // opacity: 0;
   }
   .action-btn-group {
     .action-btn {
@@ -38,6 +13,33 @@ $itemH: 30px;
       &:hover {
         background-color: #f9f9f9;
       }
+    }
+  }
+  .section-mark {
+    background: transparent !important;
+    // position: fixed;
+    // z-index: 111;
+  }
+  .menu-list {
+    position: fixed;
+    z-index: 112;
+    background-color: #FFF;
+    border-radius: 3px;
+    // height: 0;
+    overflow-y: auto;
+    transition: all 0.2s ease;
+    max-height: 300px;
+    box-shadow: 0 12px 24px rgba(#333, 0.2);
+    // opacity: 0;
+  }
+  .menu-item {
+    color: #777;
+    transition: border ease 0.1s;
+    border-left: 0 solid $colorRed;
+    padding: 5px 10px;
+    &.active {
+      border-left-width: 2px;
+      color: $colorRed !important;
     }
   }
   .items-group {
@@ -67,26 +69,13 @@ $itemH: 30px;
       }
     }
   }
-  // &.overflow {
-  //   .active-item, .menu-item {
-  //     text-overflow: ellipsis;
-  //     white-space: nowrap;
-  //     overflow: hidden;
-  //   }
-  // }
+}
+.v-dropdown-menu {
+  cursor: pointer;
+  border-radius: 3px;
   .active-item, .menu-item {
     &:hover {
       color: $colorRed;
-    }
-  }
-  .menu-item {
-    color: #777;
-    transition: border ease 0.1s;
-    border-left: 0 solid $colorRed;
-    padding: 5px 10px;
-    &.active {
-      border-left-width: 2px;
-      color: $colorRed !important;
     }
   }
   .active-item {

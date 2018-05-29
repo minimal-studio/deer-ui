@@ -21,34 +21,37 @@ class ModalEntity extends ModalHelper {
   }
 }
 
-let modalEntity = {};
-function getModalEntityIdLen() {
-  return Object.keys(modalEntity).length;
+let Entity = {};
+function getEntityIdLen() {
+  return Object.keys(Entity).length;
 }
 
-function CloseGlobalModal(modalId) {
-  modalEntity[modalId].closeModal();
-  delete modalEntity[modalId];
+function CloseGlobalModal(entityId) {
+  if(!entityId) return;
+  Entity[entityId] && Entity[entityId].closeModal();
+  delete Entity[entityId];
   function deleteModalNode() {
-    let modalNode = document.getElementById(modalId);
+    let modalNode = document.getElementById(entityId);
     if(modalNode) modalNode.parentElement.removeChild(modalNode);
   }
   setTimeout(() => deleteModalNode(), 300);
 }
 
 function ShowGlobalModal(options) {
-  let modalLen = getModalEntityIdLen();
+  let modalLen = getEntityIdLen();
   let defaultModalId = 'topModal' + modalLen;
 
   const {
-    type, confirmText = '确定？', title, showFuncBtn = true, className,
+    type, confirmText = '确定？', title, animateType,
+    modalLayoutDOM, topClassName = 'top-modal-opend',
+    showFuncBtn = true, className, clickBgToClose,
     width = $UK.isMobile ? '90%' : 600, id, children, onClose,
     onConfirm
   } = options;
 
-  let modalId = id || defaultModalId;
+  let entityId = id || defaultModalId;
 
-  let topModalDOM = setDOMById(modalId, 'top-modal idx-' + modalLen);
+  let entityDOM = setDOMById(entityId, 'top-modal idx-' + modalLen);
   let modalTMPL = null;
 
   let btnGroupDOM = showFuncBtn ? (
@@ -77,34 +80,37 @@ function ShowGlobalModal(options) {
   }
   function onClickBtn(confirm) {
     $GH.CallFunc(onConfirm)(confirm);
-    CloseGlobalModal(modalId);
+    CloseGlobalModal(entityId);
   }
-  const modalWrapper = (
+  const entityWrapper = (
     <ModalEntity
-      ref={_modalEntity => {
-        if(!_modalEntity) return;
-        modalEntity[modalId] = _modalEntity;
-        modalEntity[modalId].setModal({
+      ref={_Entity => {
+        if(!_Entity) return;
+        Entity[entityId] = _Entity;
+        Entity[entityId].setModal({
           isOpen: true,
           title,
           width
         })
       }}
-      topClassName='top-modal-opend'
+      topClassName={topClassName}
       className={className}
+      animateType={animateType}
+      modalLayoutDOM={modalLayoutDOM}
+      clickBgToClose={clickBgToClose}
       onCloseModal={e => {
         $GH.CallFunc(onClose)();
-        CloseGlobalModal(modalId);
+        CloseGlobalModal(entityId);
       }}>
       {modalTMPL}
     </ModalEntity>
   )
   ReactDOM.render(
-    modalWrapper,
-    topModalDOM,
+    entityWrapper,
+    entityDOM,
   );
 
-  return modalId;
+  return entityId;
 }
 
 /**

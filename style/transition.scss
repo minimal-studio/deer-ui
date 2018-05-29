@@ -20,56 +20,60 @@ $toastransDuration     : 0.2s;
 $popoverTransDuration  : 0.2s;
 $loadingTransDuration  : 0.2s;
 $modalTSDuration       : 0.3s;
+$dropMenuTSDuration    : 0.3s;
 $notifyTransDuration   : 0.2s;
 
+@mixin modal($animateName, $offset: 20px) {
+  .#{$animateName}-enter {
+    .animate-layout {
+      transform: translateY($offset);
+      opacity: 0;
+    }
+    .section-mark {
+      opacity: 0.01;
+    }
+  }
+
+  .#{$animateName}-enter.#{$animateName}-enter-active {
+    .animate-layout {
+      transform: translateY(0);
+      opacity: 1;
+      transition: all $modalTSDuration ease;
+    }
+    .section-mark {
+      opacity: 1;
+      transition: opacity $modalTSDuration ease;
+    }
+  }
+
+  .#{$animateName}-exit {
+    .animate-layout {
+      transform: translateY(0);
+      opacity: 1;
+    }
+    .section-mark {
+      opacity: 1;
+    }
+  }
+
+  .#{$animateName}-exit.#{$animateName}-exit-active {
+    .animate-layout {
+      transform: translateY($offset);
+      opacity: 0.01;
+      transition: all $modalTSDuration ease;
+    }
+    .section-mark {
+      opacity: 0.01;
+      transition: opacity $modalTSDuration ease;
+    }
+  }
+}
+
 // modal
-.modal-enter {
-  .v-modal-layout {
-    transform: translateY(20px);
-    // transform: scale(0.95);
-    opacity: 0;
-  }
-  .section-mark {
-    opacity: 0.01;
-  }
-}
+@include modal(modal, 20px);
 
-.modal-enter.modal-enter-active {
-  .v-modal-layout {
-    // transform: scale(1);
-    transform: translateY(0);
-    opacity: 1;
-    transition: all $modalTSDuration ease;
-  }
-  .section-mark {
-    opacity: 1;
-    transition: opacity $modalTSDuration ease;
-  }
-}
-
-.modal-exit {
-  .v-modal-layout {
-    // transform: scale(1);
-    transform: translateY(0);
-    opacity: 1;
-  }
-  .section-mark {
-    opacity: 1;
-  }
-}
-
-.modal-exit.modal-exit-active {
-  .v-modal-layout {
-    transform: scale(0.95);
-    transform: translateY(20px);
-    opacity: 0.01;
-    transition: all $modalTSDuration ease;
-  }
-  .section-mark {
-    opacity: 0.01;
-    transition: opacity $modalTSDuration ease;
-  }
-}
+// drop-menu
+@include modal(drop-menu, -20px);
 
 // notify
 .notify-enter {

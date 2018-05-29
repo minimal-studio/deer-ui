@@ -31,10 +31,11 @@ import {Modal, ModalHelper, ShowGlobalModal, CloseGlobalModal} from './modal';
 import {DropdownMenu, Radio} from './selector';
 
 export * from './config';
+export * from './set-dom';
 
 export {
   // QRCode,
-  ChartCom, 
+  ChartCom,
   Button, Captcha, DatetimePicker, Loading, Modal, ModalHelper, PagingBtn, Popover, DropdownMenu,
   Tab, Tabs, TipBtn, Toast, Avatar, SwitchBtn, Ranger, Input,
   MultipleHelper,

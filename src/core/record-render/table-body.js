@@ -2,6 +2,7 @@ import React, {Component, PureComponent} from 'react';
 import PropTypes from 'prop-types';
 
 import MapperFilter from './mapper-filter';
+import Icon from '../icon';
 
 export default class TableBody extends MapperFilter {
   constructor(props) {
@@ -169,7 +170,10 @@ export default class TableBody extends MapperFilter {
         </table>
       </div>
     ) : (
-      <span className="no-record-tip">暂无记录</span>
+      <span className="no-record-tip">
+        <Icon type="noData"/>
+        <span className="text">暂无记录</span>
+      </span>
     );
 
     return (

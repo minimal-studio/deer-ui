@@ -34,7 +34,7 @@ export default class Modal extends Component {
   }
 
   setContentFocus() {
-    if (this.props.isOpen) {
+    if (this.props.isOpen && this._content) {
       this._content.focus();
     }
   }
@@ -47,43 +47,61 @@ export default class Modal extends Component {
     }
   }
 
-  render () {
+  render() {
     const {
-      children = '', title = 'Modal', isOpen, onCloseModal, width, minHeight = '200px',
-      bgColor = '#FFF', marginTop = '3%', className = '', clickBgToClose = false, showCloseBtn = true
+      children = '', title = 'Modal', isOpen, animateType = 'modal',
+      width, style, className = '', modalLayoutDOM,
+      clickBgToClose = false, showCloseBtn = true, Header,
+      onCloseModal,
     } = this.props;
+
     const closeBtnDOM = showCloseBtn ? (
       <span className="close-btn"
-        onClick={e => onCloseModal()}>
-        x
-      </span>
-    ) : '';
+        onClick={e => onCloseModal()}>x</span>
+    ) : null;
+
+    const _style = Object.assign({}, style, {
+      width,
+      outline: 'none'
+    });
 
     const transitionKey = isOpen ? 'modal-open' : 'modal-close';
     const sections = isOpen ? (
       <div className={"v-modal-container " + className}>
-        <div className="v-modal-layout" ref={c => this._content = c} style={{width, minHeight, marginTop, outline: 'none'}} onKeyDown={this.handleKeyDown} tabIndex="-1">
-          <header className="v-modal-header">
-            <h5 className="title">{title}</h5>
-            {closeBtnDOM}
-          </header>
-          <div className="v-modal-content">
-            {children}
-          </div>
+        <div className="animate-layout">
+          {
+            modalLayoutDOM ? modalLayoutDOM : (
+              <div className="v-modal-layout"
+                ref={c => this._content = c}
+                style={_style}
+                onKeyDown={this.handleKeyDown}
+                tabIndex="-1">
+                {
+                  Header ? <Header/> : (
+                    <header className="v-modal-header">
+                      <h5 className="title">{title}</h5>
+                      {closeBtnDOM}
+                    </header>
+                  )
+                }
+                <div className="v-modal-content">
+                  {children}
+                </div>
+              </div>
+            )
+          }
         </div>
         <div className="section-mark" onClick={e => {
-            if(clickBgToClose) onCloseModal()
-          }}></div>
+          if(clickBgToClose) onCloseModal()
+        }}></div>
       </div>
-    ) : (
-      <span></span>
-    );
+    ) : <span></span>;
 
     return (
-      <TransitionGroup>
+      <TransitionGroup component={null}>
         <CSSTransition
           key={transitionKey}
-          classNames="modal"
+          classNames={animateType}
           timeout={TRANSTION_TIME}>
           {sections}
         </CSSTransition>
@@ -96,9 +114,6 @@ Modal.propTypes = {
   title: PropTypes.string,
   width: PropTypes.any,
   maxHeight: PropTypes.any,
-  bgColor: PropTypes.string,
-  marginTop: PropTypes.any,
-  minHeight: PropTypes.any,
   className: PropTypes.string,
   topClassName: PropTypes.string,
   clickBgToClose: PropTypes.bool,

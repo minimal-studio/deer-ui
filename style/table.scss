@@ -34,7 +34,14 @@
   display: block;
   padding: 20px 0;
   text-align: center;
-  color: #999;
+  color: #CCC;
+  .icon {
+    font-size: 26px;
+    margin-right: 10px;
+  }
+  .text {
+    font-size: 16px;
+  }
 }
 .table {
   border-spacing: 0;

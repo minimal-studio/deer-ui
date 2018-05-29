@@ -117,6 +117,9 @@ export default class FormFilterHelper extends Component {
   refreshCaptcha(ref) {
     this.refs[ref].refreshCaptcha();
   }
+  zeroFilter(target, compare) {
+    return target === 0 ? 0 : (target || compare);
+  }
   greneratFormDOM(config) {
     const {GenCustomForm} = this.props;
     const {
@@ -158,7 +161,7 @@ export default class FormFilterHelper extends Component {
             ref={config.ref}
             inputProps={{
               className: formClass,
-              value: this.value[ref] === 0 ? 0 : (this.value[ref] || ''),
+              value: this.zeroFilter(this.value[ref], ''),
               type: config.type == 'input' ? 'text' : 'password',
               placeholder: config.placeholder || config.title,
               readOnly: config.readOnly,
@@ -197,14 +200,12 @@ export default class FormFilterHelper extends Component {
           <label className={className}>{this.value[ref] || text}</label>
         )
       case 'radio':
-        const {needDefaultValue = true} = config;
-        const ___V = (config.values[0] || {}).value;
-        const __defVal = needDefaultValue ? (___V === 0 ? 0 : ___V) : '';
+        const {didMountChange = true} = config;
+        const __defVal = Radio.getDefaultValue(config.values);
         return (
           <Radio
             {...config}
-            value={(this.value[ref] === 0 ? 0 : this.value[ref] || __defVal)}
-            didMountChange={needDefaultValue}
+            value={this.zeroFilter(this.value[ref], __defVal)}
             onChange={val => {
               this.changeValue(val, ref);
             }}
