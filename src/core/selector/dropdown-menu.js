@@ -21,9 +21,9 @@ export default class DropdownMenu extends Component {
   }
   getActiveTitle() {
     const {values, value, isMultiple} = this.props;
-    if(!value) return;
+    if(!value) return '无';
 
-    return isMultiple ? value.length + '项已选择' : values[value] || '无';
+    return isMultiple ? value.length + '项已选择' : values[value];
   }
   getValuesLength() {
     const {values} = this.props;
