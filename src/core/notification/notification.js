@@ -24,7 +24,7 @@ export default class Notification extends PureComponent {
    *    text: '',
    *    id: '',
    *    title: '',
-   *    type: 'success || error || desc || warn' default 'desc'
+   *    type: [success error normal warn black white] default 'desc'
    *    lifecycle: 7 sec,
    *    onClickTip: func,
    *    navigateConfig: {

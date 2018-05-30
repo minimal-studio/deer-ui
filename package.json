@@ -22,7 +22,7 @@
   "license": "ISC",
   "peerDependencies": {
     "basic-helper": "^1.2.4",
-    "react": "^16.2.0",
+    "react": "16.2.0",
     "react-transition-group": "^2.2.0"
   },
   "devDependencies": {},
