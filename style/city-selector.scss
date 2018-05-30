@@ -1,8 +1,20 @@
 
 .city-selector {
+  background-color: #f7f7f7;
   .title {
     &:hover {
       color: $themeColor;
+    }
+  }
+  .panel-tip {
+    margin: 0;
+  }
+  .input-group {
+    display: flex;
+    flex: 1;
+    padding: 10px 0;
+    .form-control {
+      flex: 1;
     }
   }
   .selector-panel {
@@ -28,31 +40,9 @@
       }
     }
   }
-  &.show {
-    .pick-panel {
-      $panelW: 600px;
-      z-index: 999;
-      position: fixed;
-      top: 200px;
-      left: 50%;
-      margin-left: - $panelW / 2;
-      width: $panelW;
-    }
-    .tabs-container {
-      min-height: 250px;
-      border-bottom: 0;
-      background-color: transparent;
-    }
-    .panel-container {
-      padding: 10px;
-      border-radius: 5px;
-      background-color: #f7f7f7;
-      // height: 450px;
-      position: relative;
-      z-index: 999;
-      .tab-content {
-        padding: 0 10px;
-      }
-    }
+  .tabs-container {
+    min-height: 250px;
+    border-bottom: 0;
+    background-color: transparent;
   }
 }

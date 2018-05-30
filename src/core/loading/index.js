@@ -64,7 +64,6 @@ export default class Loading extends Component {
         container = this.transitionWrap('loaded', children);
         break;
       default:
-
     }
     return (
       <div className={"loading-control " + (loading ? 'loading' : 'planning')}>

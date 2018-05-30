@@ -2,7 +2,6 @@ import 'basic-helper';
 
 
 // finished
-// import QRCode from './qrcode';
 import CitySelector from './city-selector';
 import MultipleHelper from './multiple-selector';
 import Avatar from './avatar';
@@ -34,7 +33,6 @@ export * from './config';
 export * from './set-dom';
 
 export {
-  // QRCode,
   ChartCom,
   Button, Captcha, DatetimePicker, Loading, Modal, ModalHelper, PagingBtn, Popover, DropdownMenu,
   Tab, Tabs, TipBtn, Toast, Avatar, SwitchBtn, Ranger, Input,

@@ -3,13 +3,13 @@ import React, {Component, PureComponent} from 'react';
 import {DatetimePicker, DatepickerHelper} from '../datetimepicker';
 import {Radio, DropdownMenu} from '../selector';
 import {Input, IconInput} from '../form-control';
-import CitySelector from '../city-selector';
 import Ranger from '../range-selector';
 import Captcha from '../captcha';
 
-
-// TODO 新增可以嵌入 form 的功能
-
+/**
+ * 表单生成器
+ * 统一的聚合表单
+ */
 export default class FormFilterHelper extends Component {
   constructor(props) {
     super(props);
@@ -120,19 +120,29 @@ export default class FormFilterHelper extends Component {
   zeroFilter(target, compare) {
     return target === 0 ? 0 : (target || compare);
   }
+  getValue(ref, other) {
+    return this.value[ref] || other;
+  }
   greneratFormDOM(config) {
-    const {GenCustomForm} = this.props;
     const {
-      ref, type, className, text
+      ref, type, className, text, getCustomFormControl
     } = config;
     switch (type) {
+      case 'customForm':
+        let customeComponent = $GH.IsFunc(getCustomFormControl) ? getCustomFormControl() : null;
+        return customeComponent.component ? (
+          <customeComponent.component
+            {...config}
+            {...customeComponent.props}
+            onChange={val => this.changeValue(val, ref)}/>
+        ) : null;
       case 'captcha':
         let captchaKeyRef = 'CaptchaKey';
         let captchaForUsernameRef = 'CaptchaForUsername';
         return (
           <Captcha
             {...config}
-            value={this.value[ref]}
+            value={this.getValue(ref)}
             onChange={captchaConfig => {
               this.changeValue(captchaConfig.value, ref);
               if(captchaConfig.isPass) {
@@ -145,7 +155,7 @@ export default class FormFilterHelper extends Component {
         return (
           <DropdownMenu
             {...config}
-            value={this.value[ref]}
+            value={this.getValue(ref)}
             onChange={val => {
               this.changeValue(val, ref)
             }}
@@ -161,7 +171,7 @@ export default class FormFilterHelper extends Component {
             ref={config.ref}
             inputProps={{
               className: formClass,
-              value: this.zeroFilter(this.value[ref], ''),
+              value: this.zeroFilter(this.getValue(ref), ''),
               type: config.type == 'input' ? 'text' : 'password',
               placeholder: config.placeholder || config.title,
               readOnly: config.readOnly,
@@ -183,7 +193,7 @@ export default class FormFilterHelper extends Component {
       case 'textarea':
         return (
           <textarea
-            defaultValue={this.value[ref]}
+            defaultValue={this.getValue(ref)}
             className="form-control"
             id={ref}
             onBlur={e => this.changeValue(e.target.value, ref)}></textarea>
@@ -192,20 +202,20 @@ export default class FormFilterHelper extends Component {
         return (
           <Ranger
             {...config}
-            value={this.value[ref]}
+            value={this.getValue(ref)}
             onChange={val => this.changeValue(val, ref)}/>
         )
       case 'text':
         return (
-          <label className={className}>{this.value[ref] || text}</label>
+          <label className={className}>{this.getValue(ref, text)}</label>
         )
       case 'radio':
         const {didMountChange = true} = config;
-        const __defVal = Radio.getDefaultValue(config.values);
+        // const __defVal = Radio.getDefaultValue(config.values);
         return (
           <Radio
             {...config}
-            value={this.zeroFilter(this.value[ref], __defVal)}
+            value={this.zeroFilter(this.value[ref])}
             onChange={val => {
               this.changeValue(val, ref);
             }}
@@ -218,13 +228,6 @@ export default class FormFilterHelper extends Component {
             onClick={e => config.onClick(e, ref)}
           >{text}</span>
         );
-      case 'citySelector':
-        return (
-          <CitySelector
-            {...config}
-            onChange={val => this.changeValue(val, ref)}
-          />
-        );
       case 'datetime':
         var {needTime = true, title} = config;
         return (
@@ -233,7 +236,7 @@ export default class FormFilterHelper extends Component {
               {...config}
               needTime={needTime}
               id={ref}
-              value={this.value[ref]}
+              value={this.getValue(ref)}
               onChange={val => {
                 this.changeValue(val, ref);
               }}/>
@@ -248,7 +251,7 @@ export default class FormFilterHelper extends Component {
         let datePickerHelper = !config.noHelper ? (
           <DatepickerHelper
             {...config}
-            value={this.value[ref]}
+            value={this.getValue(ref)}
             onClick={dateConfig => {
               refs.forEach((_ref, idx) => {
                 this.changeValue(dateConfig[idx], _ref)
@@ -275,8 +278,6 @@ export default class FormFilterHelper extends Component {
             {datePickerHelper}
           </div>
         );
-      default:
-        return GenCustomForm ? GenCustomForm.call(this) : null;
     }
   }
 }
