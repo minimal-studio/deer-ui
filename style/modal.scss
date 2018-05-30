@@ -6,7 +6,6 @@
 .top-modal {
   @include fill;
   // position: fixed;
-  // z-index: 999;
   // overflow: auto;
   // overflow-y: auto;
   .v-modal-container {
@@ -41,6 +40,10 @@
   z-index: 999;
   .section-mark {
     background-color: rgba(0,0,0,0.3);
+  }
+  .animate-layout {
+    position: relative;
+    z-index: 999;
   }
   .v-modal-layout {
     // padding: 0.1px;
