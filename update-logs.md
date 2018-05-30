@@ -17,5 +17,12 @@
 
 ### 2.0.*
 
+1. 重做的 dropdown menu
+2. 分离 core 和 other 文件
+
+-----------
+
+### 2.1.*
+
 1. 废除 citySelector，改为联动组件
 2. formGenarator 新增一个可以自定义控件的接口
