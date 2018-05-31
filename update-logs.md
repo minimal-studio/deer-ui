@@ -10,7 +10,7 @@
 4. 重做 IconInput 组件，名字不再是 IconInput，而是统一为 Input
 5. form 的配置 text 多了一个 highlight: true 的选项
 6. 调整 formLayout showDesc 的时机，更友好的提示
-7. formGenarator 新增两个参数 showInputTitle: bool， isMoblie: bool，可控制显示的模版
+7. formGenarator 新增两个参数 showInputTitle: bool， isMobile: bool，可控制显示的模版
 
 -----------
 
