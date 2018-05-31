@@ -6,7 +6,7 @@
     display: flex;
     align-items: center;
   }
-  @include managerCard();
+  @include card();
   .item-group {
     display: inline-block;
   }

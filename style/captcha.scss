@@ -1,21 +1,13 @@
 .captcha-group {
   position: relative;
-  &.sm {
-    .captcha {
-      height: 30px;
-      line-height: 28px;
-    }
-  }
   .captcha {
     cursor: pointer;
-    height: 34px;
-    line-height: 32px;
     width: 76px;
     border-radius: 0 3px 3px 0;
     overflow: hidden;
     position: absolute;
     right: 1px;
-    top: 1px;
+    bottom: 1px;
     @include layoutCenter();
     .captcha-tip {
       @include fill();

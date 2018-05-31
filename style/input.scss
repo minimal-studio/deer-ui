@@ -2,35 +2,41 @@
 
 $iconViewBgColor: $themeColor;
 
-.icon-input {
-  // border-radius: 4px;
+.input-control {
   background-color: rgba(255,255,255,0.2);
   transition: background-color 0.2s ease, border 0.2s ease;
-  overflow: hidden;
   position: relative;
   display: inline-block;
   border-bottom: 1px solid rgba(155,155,155,0.3);
+  margin-bottom: 5px;
   &.has-icon {
-    .form-control {
-      margin-left: 30px !important;
-    }
-  }
-  &.show-title {
-    .title {
-      opacity: 1;
-      transform: scale(1);
-    }
   }
   &.forcing {
     border-color: $themeColor;
+    .title {
+      color: $themeColor;
+    }
+  }
+  &.has-val,&.forcing {
+    .title {
+      font-size: 12px;
+      transform: translateY(-100%);
+    }
   }
   .input-con {
     display: flex;
+    align-items: center;
+    height: 100%;
   }
   .form-control {
-    // padding-left: 40px !important;
     background-color: transparent;
     border: none;
+    position: relative;
+    z-index: 1;
+    padding: 0;
+    height: 100%;
+    min-height: 28px;
+    margin-top: 4px;
     &:focus {
       background-color: transparent !important;
     }
@@ -43,29 +49,21 @@ $iconViewBgColor: $themeColor;
     display: block;
     width: 100%;
   }
-  .input-icon {
-    display: block;
-    position: absolute;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    // background-color: $iconViewBgColor;
-    padding: 0 10px;
-    color: #666;
-    @include layoutCenter();
-  }
   .title {
-    transition: all ease 0.2s;
-    font-size: 12px;
-    transform: scale(0);
-    opacity: 0;
-    position: absolute;
-    top: 0;
-    right: 10px;
-    bottom: 0;
-    color: #999;
+    color: $themeColor;
 
-    max-width: 100px;
+    transition: all ease 0.2s;
+    font-size: 14px;
+    height: 22px;
+    position: absolute;
+    bottom: 4px;
+    color: #999;
+    .icon {
+      margin-right: 5px;
+    }
+    .text {
+      display: block;
+    }
 
     * {
       -webkit-user-select: none !important;

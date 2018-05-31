@@ -1,109 +1,117 @@
-import React, {Component, PureComponent} from 'react';
+import React, { Component, PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
-function isNot(arg) {
-  return typeof arg === 'undefined';
-}
+import {callFunc, hasValue} from 'basic-helper';
+import Icon from '../icon';
 
-export default class Input extends PureComponent {
+export default class Input extends Component {
   constructor(props) {
     super(props);
-    let defaultValue = props.defaultValue || '';
-    this.value = defaultValue;
-    this.isMatchLen = isNot(props.lenRange);
-    this.isMatchNumbRange = isNot(props.numRange);
-    this.isPass = isNot(props.lenRange);
+
+    const {defaultValue, value} = props;
+
+    this.isControl = props.hasOwnProperty('value');
+    this.value = this.isControl ? value : defaultValue;
+
     this.state = {
-      value: defaultValue
+      viewClass: this.value ? 'has-val' : 'normal',
+      stateVal: this.value
     }
   }
-  componentWillReceiveProps(nextProps) {
-    if(!this.props.defaultValue || this.props.defaultValue !== nextProps.defaultValue) {
-      this._onChange(nextProps.defaultValue, nextProps);
-    }
+  changeText(val) {
+
   }
-  _onChange(val, props) {
-    const {onChange, lenRange, numRange} = props || this.props;
-    let _val = val;
-
-    _val = this.checkLen(_val, lenRange);
-    _val = this.checkNum(_val, numRange);
-
+  addForceClass() {
     this.setState({
-      value: _val
+      viewClass: 'forcing'
     });
-    this.isPass = this.isMatchLen && this.isMatchNumbRange;
-    this.value = _val;
-   $GH.CallFunc(onChange)(_val);
   }
-  _onFocus() {
-    const {onFocus} = this.props;
-   $GH.CallFunc(onFocus)();
+  delForceClass() {
+    this.setState({
+      viewClass: hasValue(this.getValue()) ? 'has-val' : 'normal'
+    });
   }
-  _onBlur() {
-   $GH.CallFunc(this.props.onBlur)();
+  focus() {
+    this.refs.iconInput.focus();
   }
-  onClear() {
-    this._onChange('');
+  select() {
+    this.refs.iconInput.select();
   }
-  checkLen(val, lenRange) {
-    let _val = val;
-    let isPass = this.isMatchLen;
-    if(lenRange) {
-      isPass = false;
-      let [s, e, isSlice] = lenRange;
-      if(_val.length > e) {
-        if(isSlice) {
-          _val = _val.slice(0, e);
-        }
-      } else if(_val.length >= s && _val.length < e) {
-        isPass = true;
-      }
+  getValue() {
+    return this.isControl ? this.props.value : this.state.stateVal;
+  }
+  changeVal(val, elem) {
+    if(this.isControl) {
+      this.setState({
+        stateVal: val
+      });
     }
-    this.isMatchLen = isPass;
-    return _val;
-  }
-  checkNum(val, numRange) {
-    let _val = +(val);
-    let isPass = this.isMatchNum;
-    if(numRange) {
-      isPass = false;
-      let [s, e] = numRange;
-      if(_val >= s) {
-        isPass = true;
-      }
-      if(_val > e) _val = e;
-    }
-    this.isMatchNumbRange = isPass;
-    return _val;
+    callFunc(this.props.onChange)(val, elem);
   }
   render() {
-    const {scale = '', type = 'text', needCN = false} = this.props;
-    const {value} = this.state;
-    const CNNum = needCN ? $GH.NumTransformToCN(value) : '';
+    const {
+      icon, placeholder, inputBtnConfig, type,
+      className = 'form-control', children,
+      onFocus, onBlur, onChange,
+    } = this.props;
+    const {viewClass = ''} = this.state;
+    const value = this.getValue();
+
+    const hasIcon = !!icon;
+
+    const iconDOM = hasIcon ? (
+      <Icon type={icon}/>
+    ) : null;
+    const titleDOM = (
+      <span className="title">
+        {iconDOM}
+        <span className="text">{placeholder}</span>
+      </span>
+    );
+    const inputBtnDOM = inputBtnConfig ? (
+      <span
+        className={"input-btn btn flat " + inputBtnConfig.className}
+        onClick={() => {
+          inputBtnConfig.action(this.refs.iconInput)
+        }}>
+        {inputBtnConfig.text}
+      </span>
+    ) : null;
+
     return (
-      <div>
-        <input type={type}
-          value={value}
-          className={"form-control input-" + scale}
-          onBlur={e => this._onBlur(e)}
-          onChange={e => this._onChange(e.target.value)}
-          onFocus={e => this._onFocus(e.target.value)}/>
-        <span className="form-tip">{CNNum}</span>
+      <div className={`input-control ${viewClass}${hasIcon ? ' has-icon' : ''}${inputBtnConfig ? ' has-btn' : ''}`}>
+        <div className="input-con">
+          <span className="input-group">
+            {titleDOM}
+            <input
+              placeholder=""
+              type={type}
+              className={className}
+              value={value}
+              onFocus={e => {
+                this.addForceClass();
+                callFunc(onFocus)(e);
+              }}
+              onBlur={e => {
+                this.delForceClass();
+                callFunc(onBlur)(e);
+              }}
+              onChange={e => {
+                const val = e.target.value;
+                this.changeVal(val, e.target);
+              }}
+              ref="iconInput"
+            />
+          </span>
+          {inputBtnDOM}
+        </div>
+        {children}
       </div>
     )
   }
 }
 Input.propTypes = {
-  onChange: PropTypes.func,
-  onFocus: PropTypes.func,
-  onBlur: PropTypes.func,
-  onClear: PropTypes.func,
-  scale: PropTypes.string,
-  defaultValue: PropTypes.any,
-  value: PropTypes.string,
-  type: PropTypes.string,
-  needCN: PropTypes.bool,
-  numRange: PropTypes.array,
-  lenRange: PropTypes.array
-};
+  icon: PropTypes.string,
+  inputProps: PropTypes.object,
+  inputBtnConfig: PropTypes.object,
+}

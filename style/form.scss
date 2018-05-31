@@ -15,21 +15,6 @@
   border-color: #e7e7e7;
   background-color: #fefefe;
   transition: border-color 0.1s, background-color 0.1s;
-  &.none-input {
-    position: relative;
-    z-index: -1;
-    // margin-left: -50px;
-    left: 0;
-    // opacity: 0;
-    width: 20px;
-    min-width: 0 !important;
-    // visibility: hidden;
-    padding: 0;
-    // overflow: hidden;
-  }
-  &.lg {
-    min-width: 240px;
-  }
   &:focus {
     box-shadow: none;
     background-color: #FFF;
@@ -39,9 +24,54 @@
     width: auto;
   }
 }
+.control-label {
+  color: #777;
+}
+
+.form-desc {
+  display: inline-block;
+  color: #999;
+  font-size: 12px;
+  .highlight {
+    font-size: 14px;
+  }
+  &.success {
+    color: #03b7aa;
+  }
+  &.error {
+    color: #ec008c;
+  }
+}
+
+.form-container {
+  .form-control {
+    min-width: 240px;
+  }
+}
+
+.form-group {
+  margin: 20px 0;
+}
+.vertical-form {
+  width: 60%;
+  margin: 0 auto;
+  padding: 1px 0;
+  .control-label {
+    margin-bottom: 10px;
+  }
+  .form-group {
+    // margin: 20px 0;
+    display: flex;
+    flex-direction: column;
+  }
+  .form-desc {
+    margin-top: 5px;
+  }
+}
+
 .horizontal-form {
   padding: 5px 0;
-  margin-bottom: 5px;
+  // margin-bottom: 5px;
   &.inline {
     .form-group {
       .control-label {
@@ -54,17 +84,8 @@
       }
     }
   }
-  &.sm {
-    .form-group {
-      .control-label {
-        width: 80px;
-        padding-right: 10px;
-        margin: 0;
-      }
-      .form-control {
-        min-width: 120px;
-      }
-    }
+  .form-desc {
+    margin: 0 5px;
   }
   .form-group {
     display: flex;
@@ -76,30 +97,11 @@
         min-width: auto;
       }
     }
-    &.start {
-      align-items: flex-start;
-    }
-    .header,
-    header {
-      padding-top: 10px;
-    }
     .control-label {
-      color: #666;
       width: 120px;
       text-align: right;
       margin-right: 40px;
     }
-    .form-control {
-      min-width: 240px;
-      &:focus {
-        background-color: #FFF;
-      }
-    }
-  }
-}
-.form-group {
-  .control-label {
-    font-weight: normal;
   }
 }
 .caret {

@@ -22,7 +22,7 @@
   overflow-x: auto;
 }
 .table-container {
-  @include managerCard();
+  @include card();
   // padding-bottom: 10px;
 }
 .hide-table {

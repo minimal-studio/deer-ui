@@ -2,7 +2,7 @@ import React, {Component, PureComponent} from 'react';
 
 import {DatetimePicker, DatepickerHelper} from '../datetimepicker';
 import {Radio, DropdownMenu} from '../selector';
-import {Input, IconInput} from '../form-control';
+import {Input} from '../form-control';
 import Ranger from '../range-selector';
 import Captcha from '../captcha';
 
@@ -85,10 +85,9 @@ export default class FormFilterHelper extends Component {
       ref
     };
   }
-  wrapConditionTitle(condition) {
-    let title = condition.title || $UK.getKeyMap(condition.ref) || condition.ref || '';
-    condition.title = title;
-    return condition;
+  wrapConditionTitle(config) {
+    config.title = config.title || $UK.getKeyMap(config.ref) || config.ref || '';
+    return config;
   }
   focusRef(ref) {
     const targetDOM = this.refs[ref];
@@ -163,31 +162,29 @@ export default class FormFilterHelper extends Component {
         )
       case 'input':
       case 'password':
-        var formClass = 'form-control input-sm ' + (className || '');
+        var formClass = 'form-control ' + (className || '');
         return (
-          <IconInput
-            iconName={config.iconName}
+          <Input
+            icon={config.icon}
             inputBtnConfig={config.inputBtnConfig}
             ref={config.ref}
-            inputProps={{
-              className: formClass,
-              value: this.zeroFilter(this.getValue(ref), ''),
-              type: config.type == 'input' ? 'text' : 'password',
-              placeholder: config.placeholder || config.title,
-              readOnly: config.readOnly,
-              onBlur: e => {
-                let __val = e.target.value.trim()
-                this.changeValue(__val, ref);
-                $GH.CallFunc(config.onBlur)(__val);
-              },
-              onChange: e => {
-                if (config.disabled) return;
-                let __val = e.target.value;
-                let {inputType = 'string'} = config;
-                if(inputType == 'number') __val = +__val === 0 ? (__val == '0.' ? '0.' : undefined) : (+__val ? __val: undefined);
-                if(inputType == 'string') __val = __val + '';
-                this.changeValue(__val, ref);
-              },
+            className={formClass}
+            value={this.zeroFilter(this.getValue(ref), '')}
+            type={config.type == 'input' ? 'text' : 'password'}
+            placeholder={config.placeholder || config.title}
+            readOnly={config.readOnly}
+            onBlur={e => {
+              let __val = e.target.value.trim()
+              this.changeValue(__val, ref);
+              $GH.CallFunc(config.onBlur)(__val);
+            }}
+            onChange={(__val, elem) => {
+              if (config.disabled) return;
+              // let __val = elem.value;
+              let {inputType = 'string'} = config;
+              if(inputType == 'number') __val = +__val === 0 ? (__val == '0.' ? '0.' : undefined) : (+__val ? __val: undefined);
+              if(inputType == 'string') __val = __val + '';
+              this.changeValue(__val, ref);
             }}/>
         )
       case 'textarea':
@@ -207,7 +204,7 @@ export default class FormFilterHelper extends Component {
         )
       case 'text':
         return (
-          <label className={className}>{this.getValue(ref, text)}</label>
+          <label className={config.highlight ? 'highlight' : ''}>{this.getValue(ref, text)}</label>
         )
       case 'radio':
         const {didMountChange = true} = config;
@@ -231,16 +228,14 @@ export default class FormFilterHelper extends Component {
       case 'datetime':
         var {needTime = true, title} = config;
         return (
-          <span>
-            <DatetimePicker
-              {...config}
-              needTime={needTime}
-              id={ref}
-              value={this.getValue(ref)}
-              onChange={val => {
-                this.changeValue(val, ref);
-              }}/>
-          </span>
+          <DatetimePicker
+            {...config}
+            needTime={needTime}
+            id={ref}
+            value={this.getValue(ref)}
+            onChange={val => {
+              this.changeValue(val, ref);
+            }}/>
         );
       case 'datetimeRange':
         var {needTime = true, refs, range, clickToClose} = config;

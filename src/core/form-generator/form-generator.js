@@ -5,27 +5,35 @@ import FormFilterHelper from './form-filter';
 
 export default class FormGenerator extends FormFilterHelper {
   render() {
-    const {formOptions, children = ''} = this.props;
+    const {formOptions, children = '', isMoblie = false, showInputTitle} = this.props;
+    const _showInputTitle = typeof showInputTitle == 'undefined' ? !isMoblie : showInputTitle;
 
     return formOptions.length > 0 ? (
-      <div className="horizontal-form">
+      <div className={(isMoblie ? 'vertical-form' : 'horizontal-form') + ' form-container'}>
         {
           formOptions.map((condition, idx) => {
+            let needTitle = _showInputTitle ? true : !/input|password/.test(condition.type);
             let _con = this.wrapConditionTitle(condition);
             let {className = ''} = condition;
+
             let highlightDOM = _con.required ? (
-              <span className="form-tip">
+              <span className="form-desc">
                 <span className="highlight">*</span>
               </span>
             ) : null;
-            let formTipDOM = _con.desc ? (
-              <span className="form-tip">{_con.desc}</span>
+
+            let formDescDOM = _con.desc ? (
+              <span className="form-desc">{_con.desc}</span>
             ) : null;
+
             return (
               <div key={idx} className={"form-group " + _con.type + (className ? ' ' + className : '')}>
-                <label className="control-label">{highlightDOM} {_con.title}</label>
+                <span className="control-label">
+                  {highlightDOM}
+                  {needTitle ? _con.title : null}
+                </span>
                 {this.greneratFormDOM(_con)}
-                {formTipDOM}
+                {formDescDOM}
               </div>
             )
           })
@@ -37,5 +45,7 @@ export default class FormGenerator extends FormFilterHelper {
 }
 FormGenerator.propTypes = {
   formOptions: PropTypes.array.isRequired,
+  isMoblie: PropTypes.bool,
+  showInputTitle: PropTypes.bool,
   onChange: PropTypes.func,
 };

@@ -3,11 +3,11 @@
 $formControlBgColor: #f9f9f9;
 
 .condition-group {
-  padding: 6px 10px;
+  padding: 10px 10px;
   position: relative;
   display: flex;
   flex-wrap: wrap;
-  @include managerCard();
+  @include card();
 
   .datepicker-ranger-content {
     .flatpickr {
@@ -19,9 +19,6 @@ $formControlBgColor: #f9f9f9;
 
   .flatpickr {
     display: inline-block;
-    // .form-control {
-    //   width: 180px !important;
-    // }
   }
 
   .title {
@@ -71,51 +68,37 @@ $formControlBgColor: #f9f9f9;
         }
       }
     }
-    &.checkbox {
-      $height: 32px;
-      width: 280px;
-      height: $height;
-      position: relative;
-      z-index: 101;
-      width: 300px;
-      margin-top: 0;
-      .title {
-        margin-top: 4px;
-      }
-      &:hover {
-        .checkbox-group {
-          height: 300px;
-          box-shadow: 0 3px 3px rgba(0,0,0,0.2);
-          padding-bottom: 10px;
-          background-color: #FFF;
-        }
-      }
-      .checkbox-group {
-        position: absolute;
-        top: -5px;
-        right: 0;
-        transition: all ease 0.2s;
-        overflow-y: auto;
-        height: $height;
-        width: 230px;
-        background-color: #f3f3f3;
-        padding: 0 0 0 30px;
-        .checkbox-item {
-          padding: 7px 0;
-        }
-      }
-    }
   }
 
   .btn {
     margin-bottom: 5px;
   }
 
-  .control-label,
+  .input-control {
+    height: 28px;
+    line-height: 28px;
+    // width: 200px;
+    &.forcing,&.has-val {
+      .title {
+        transform: translateX(0) !important;
+        font-size: 14px;
+      }
+    }
+    .title {
+      height: 100% !important;
+      position: relative !important;
+      bottom: 0 !important;
+    }
+    .input-group {
+      display: flex;
+      align-items: center;
+    }
+  }
+
   .form-control {
-    margin-left: 3px;
+    margin-left: 5px;
     background-color: $formControlBgColor;
-    width: 140px;
+    // width: 140px;
 
     &::placeholder {
       color: #999;

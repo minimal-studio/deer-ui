@@ -5,7 +5,7 @@ $tabTextHoverColor: #777;
 $tabTextColor: #999;
 
 .tabs-container {
-  @include managerCard();
+  @include card();
   .tabs-container {
     border-bottom: none;
   }

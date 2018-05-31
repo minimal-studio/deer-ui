@@ -2,7 +2,7 @@ import React, {Component, PureComponent} from 'react';
 import PropTypes from 'prop-types';
 
 import Loading from '../loading';
-import IconInput from '../form-control/icon-input';
+import Input from '../form-control/input';
 
 export default class CAPTCHA extends Component {
   constructor(props) {
@@ -13,7 +13,7 @@ export default class CAPTCHA extends Component {
       loading: false,
     }
     this.isControl = props.hasOwnProperty('value');
-    this.captchaLength = 4;
+    this.captchaLength = props.limit || 4;
     this.isPass = false;
     this.value = props.value;
     this.captchaKey = '';
@@ -93,7 +93,7 @@ export default class CAPTCHA extends Component {
   }
   render() {
     const {captchaImg, captchaValue, loading} = this.state;
-    const {scale = 'sm', value = '', iconName = 'security'} = this.props;
+    const {scale = 'sm', value = '', icon = 'security'} = this.props;
     const _captchaValue = this.isControl ? value : captchaValue;
 
     let hasCap = !!captchaImg;
@@ -109,29 +109,29 @@ export default class CAPTCHA extends Component {
     if(loading) {
       loadingTip = '刷新中';
     }
+
     return (
-      <div className={"captcha-group layout" + (scale ? ' ' + scale : '')}>
-        <IconInput
+      <div className="captcha-group">
+        <Input
           ref="captchaInput"
-          iconName={iconName}
-          inputProps={{
-            type: "number",
-            className: "form-control captcha-input input-" + scale,
-            value: _captchaValue,
-            onFocus: e => this.shouldRefreshCaptcha(),
-            onChange: e => this.changeCaptcha(e.target.value),
-            placeholder: "验证码"
-          }}/>
-        <div className="captcha"
-          onClick={e => {
-            this.getCaptcha();
-          }}>
-          <div
-            className={"text-center captcha-tip" + (!loading && hasCap ? ' hide' : '')}>
-            {loadingTip}
+          icon={icon}
+          type="number"
+          className="form-control captcha-input"
+          value={_captchaValue}
+          onFocus={e => this.shouldRefreshCaptcha()}
+          onChange={val => this.changeCaptcha(val)}
+          placeholder="验证码">
+          <div className="captcha"
+            onClick={e => {
+              this.getCaptcha();
+            }}>
+            <div
+              className={"text-center captcha-tip" + (!loading && hasCap ? ' hide' : '')}>
+              {loadingTip}
+            </div>
+            {captchaImgElem}
           </div>
-          {captchaImgElem}
-        </div>
+        </Input>
       </div>
     );
   // <input
@@ -149,7 +149,8 @@ CAPTCHA.propTypes = {
   onChange: PropTypes.func,
   onBlur: PropTypes.func,
   value: PropTypes.string,
-  iconName: PropTypes.string,
+  icon: PropTypes.string,
+  limit: PropTypes.number,
   // onFocus: PropTypes.func,
   scale: PropTypes.string,
 };

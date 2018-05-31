@@ -5,7 +5,7 @@
   flex-wrap: wrap;
   padding: 10px;
   justify-content: center;
-  @include managerCard();
+  @include card();
   min-height: 100px;
   .item {
     flex-basis: 24%;

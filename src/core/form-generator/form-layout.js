@@ -25,17 +25,25 @@ import FormGenerator from './form-generator';
  */
 
 export default class FormLayout extends Component {
+  constructor(props) {
+    super(props);
+
+    this.isShowedDesc = false;
+  }
   componentWillReceiveProps(nextProps) {
-    if((this.props.loading !== nextProps.loading && !nextProps.loading) || this.props.hasErr !== nextProps.hasErr) {
+    const {hasErr} = nextProps;
+    if(!!hasErr && !this.isShowedDesc) {
       this.showResDesc(nextProps);
     }
   }
   showResDesc(resInfo) {
+    this.isShowedDesc = true;
     this.toast.show(resInfo.resDesc, resInfo.hasErr ? 'error' : 'success');
   }
   render() {
     const {
-      loading, tipInfo, btnConfig, className = '',
+      loading, tipInfo, btnConfig, className = '', isVertical,
+      showInputTitle,
       childrenBeforeForm, childrenAfterForm, childrenBeforeBtn,
       formOptions = [], btnText = '确定提交',
       onSubmit, onChange
@@ -55,7 +63,6 @@ export default class FormLayout extends Component {
 
     const btnGroup = _btnConfig.map((btn, idx) => {
       const {action, text, className} = btn;
-      // if(action) {
       return (
         <span className="mr5" key={idx}>
           <Button
@@ -63,10 +70,12 @@ export default class FormLayout extends Component {
             text={loading ? text + '中...' : text}
             loading={loading}
             className={className}
-            onClick={e => action(this.formHelper)}/>
+            onClick={e => {
+              this.isShowedDesc = false;
+              action(this.formHelper);
+            }}/>
         </span>
       )
-      // }
     });
 
     return (
@@ -76,6 +85,8 @@ export default class FormLayout extends Component {
         {childrenBeforeForm}
         <FormGenerator
           onChange={onChange}
+          isVertical={isVertical}
+          showInputTitle={showInputTitle}
           formOptions={formOptions}
           ref={formHelper => this.formHelper = formHelper}>
           {childrenBeforeBtn}
@@ -101,6 +112,8 @@ FormLayout.propTypes = {
   loading: PropTypes.bool,
   tipInfo: PropTypes.object,
   btnConfig: PropTypes.array,
+
+  isVertical: PropTypes.bool,
 
   hasErr: PropTypes.bool,
   resDesc: PropTypes.string,
