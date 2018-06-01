@@ -51,7 +51,7 @@ export default class Input extends Component {
   render() {
     const {
       icon, placeholder, inputBtnConfig, type,
-      className = 'form-control', children,
+      className = 'form-control', children, required = false,
       onFocus, onBlur, onChange,
     } = this.props;
     const {viewClass = ''} = this.state;
@@ -62,10 +62,18 @@ export default class Input extends Component {
     const iconDOM = hasIcon ? (
       <Icon type={icon}/>
     ) : null;
+
+    let highlightDOM = required ? (
+      <span className="form-desc">
+        <span className="highlight">*</span>
+      </span>
+    ) : null;
+
     const titleDOM = (
       <span className="title">
         {iconDOM}
-        <span className="text">{placeholder}</span>
+        <span className="text mr10">{placeholder}</span>
+        {highlightDOM}
       </span>
     );
     const inputBtnDOM = inputBtnConfig ? (

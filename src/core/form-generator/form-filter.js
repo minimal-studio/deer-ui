@@ -169,6 +169,7 @@ export default class FormFilterHelper extends Component {
             inputBtnConfig={config.inputBtnConfig}
             ref={config.ref}
             className={formClass}
+            required={config.required}
             value={this.zeroFilter(this.getValue(ref), '')}
             type={config.type == 'input' ? 'text' : 'password'}
             placeholder={config.placeholder || config.title}

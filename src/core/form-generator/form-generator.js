@@ -5,7 +5,7 @@ import FormFilterHelper from './form-filter';
 
 export default class FormGenerator extends FormFilterHelper {
   render() {
-    const {formOptions, children = '', isMobile = false, showInputTitle} = this.props;
+    const {formOptions, children = '', isMobile = true, showInputTitle} = this.props;
     const _showInputTitle = typeof showInputTitle == 'undefined' ? !isMobile : showInputTitle;
 
     return formOptions.length > 0 ? (
@@ -28,10 +28,12 @@ export default class FormGenerator extends FormFilterHelper {
 
             return (
               <div key={idx} className={"form-group " + _con.type + (className ? ' ' + className : '')}>
-                <span className="control-label">
-                  {highlightDOM}
-                  {needTitle ? _con.title : null}
-                </span>
+                {needTitle ? (
+                  <span className="control-label">
+                    {_con.title}
+                    {highlightDOM}
+                  </span>
+                ) : null}
                 {this.greneratFormDOM(_con)}
                 {formDescDOM}
               </div>
