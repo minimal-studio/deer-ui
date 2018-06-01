@@ -5,11 +5,11 @@ import FormFilterHelper from './form-filter';
 
 export default class FormGenerator extends FormFilterHelper {
   render() {
-    const {formOptions, children = '', isMobile = true, showInputTitle} = this.props;
+    const {formOptions, children = '', isMobile = false, showInputTitle, className = "animate-input-title"} = this.props;
     const _showInputTitle = typeof showInputTitle == 'undefined' ? !isMobile : showInputTitle;
 
     return formOptions.length > 0 ? (
-      <div className={(isMobile ? 'vertical-form' : 'horizontal-form') + ' form-container'}>
+      <div className={(isMobile ? 'vertical-form' : 'horizontal-form') + ' form-container ' + className}>
         {
           formOptions.map((condition, idx) => {
             let needTitle = _showInputTitle ? true : !/input|password/.test(condition.type);

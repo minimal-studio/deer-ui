@@ -88,7 +88,7 @@ export default class Input extends Component {
 
     return (
       <div className={`input-control ${viewClass}${hasIcon ? ' has-icon' : ''}${inputBtnConfig ? ' has-btn' : ''}`}>
-        <div className="input-con">
+        <div className="input-con" onClick={e => this.refs.iconInput.focus()}>
           <span className="input-group">
             {titleDOM}
             <input

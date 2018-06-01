@@ -74,27 +74,6 @@ $formControlBgColor: #f9f9f9;
     margin-bottom: 5px;
   }
 
-  .input-control {
-    height: 28px;
-    line-height: 28px;
-    // width: 200px;
-    &.forcing,&.has-val {
-      .title {
-        transform: translateX(0) !important;
-        font-size: 14px;
-      }
-    }
-    .title {
-      height: 100% !important;
-      position: relative !important;
-      bottom: 0 !important;
-    }
-    .input-group {
-      display: flex;
-      align-items: center;
-    }
-  }
-
   .form-control {
     margin-left: 5px;
     background-color: $formControlBgColor;
