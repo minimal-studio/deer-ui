@@ -1,7 +1,7 @@
 import React, { Component, PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
-import {callFunc, hasValue} from 'basic-helper';
+import {CallFunc, HasValue} from 'basic-helper';
 import Icon from '../icon';
 
 export default class Input extends Component {
@@ -28,7 +28,7 @@ export default class Input extends Component {
   }
   delForceClass() {
     this.setState({
-      viewClass: hasValue(this.getValue()) ? 'has-val' : 'normal'
+      viewClass: HasValue(this.getValue()) ? 'has-val' : 'normal'
     });
   }
   focus() {
@@ -46,7 +46,7 @@ export default class Input extends Component {
         stateVal: val
       });
     }
-    callFunc(this.props.onChange)(val, elem);
+    CallFunc(this.props.onChange)(val, elem);
   }
   render() {
     const {
@@ -98,11 +98,11 @@ export default class Input extends Component {
               value={value}
               onFocus={e => {
                 this.addForceClass();
-                callFunc(onFocus)(e);
+                CallFunc(onFocus)(e);
               }}
               onBlur={e => {
                 this.delForceClass();
-                callFunc(onBlur)(e);
+                CallFunc(onBlur)(e);
               }}
               onChange={e => {
                 const val = e.target.value;
