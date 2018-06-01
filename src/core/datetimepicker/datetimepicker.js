@@ -21,6 +21,11 @@ export default class DatetimePicker extends PureComponent {
     // setTimeout(this.initPicker.bind(this), 50);
     this.initPicker();
   }
+  componentWillReceiveProps(nextProps) {
+    if(JSON.stringify(this.props.value) !== JSON.stringify(nextProps.value)) {
+      this.datepicker.setDate(nextProps.value, false);
+    }
+  }
   initPicker() {
     let self = this;
     const {id, mode = 'single', needTime = false, clickToClose = true, lang = "zh"} = this.props;
@@ -40,7 +45,7 @@ export default class DatetimePicker extends PureComponent {
       mode,
       // allowInput: true,
       defaultDate: this.value
-    })
+    });
   }
   componentWillUnmount() {
     if(!!this.datepicker) this.datepicker.destroy();
@@ -51,7 +56,6 @@ export default class DatetimePicker extends PureComponent {
     this.refs[id].blur && this.refs[id].blur()
     $GH.CallFunc(onChange)(val);
   }
-
   render() {
     const {id} = this.props;
 

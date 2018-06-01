@@ -244,15 +244,19 @@ export default class FormFilterHelper extends Component {
         let [refS, refE] = refs;
         let [rangeS, rangeE] = range;
 
+        const changeDateValues = (vals) => {
+          this.changeValues({
+            [refS]: vals[0],
+            [refE]: vals[1],
+            [datetimeRangeRef]: vals
+          });
+        }
+
         let datePickerHelper = !config.noHelper ? (
           <DatepickerHelper
             {...config}
             value={this.getValue(ref)}
-            onClick={dateConfig => {
-              refs.forEach((_ref, idx) => {
-                this.changeValue(dateConfig[idx], _ref)
-              });
-            }
+            onClick={val => changeDateValues(val)
           }/>
         ) : null;
 
@@ -260,17 +264,11 @@ export default class FormFilterHelper extends Component {
           <div className="datepicker-ranger-content">
             <span className="title">起始范围</span>
             <DatetimePicker
-              {...config}
               mode="range"
               ref={datetimeRangeRef}
               id={datetimeRangeRef}
               value={this.value[datetimeRangeRef] || range}
-              onChange={(val) => {
-                this.changeValues({
-                  [refS]: val[0],
-                  [refE]: val[1],
-                });
-              }}/>
+              onChange={(val) => changeDateValues(val)}/>
             {datePickerHelper}
           </div>
         );
