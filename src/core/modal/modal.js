@@ -1,6 +1,7 @@
 import React, {Component, PureComponent} from 'react';
 import PropTypes from 'prop-types';
 
+import {CallFunc} from 'basic-helper';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
 const TRANSTION_TIME = 300;
@@ -29,7 +30,7 @@ export default class Modal extends Component {
       /**
        * 关闭窗口的callback
        */
-      if(!this.props.isOpen) $GH.CallFunc(this.props.onClose)();
+      if(!this.props.isOpen) CallFunc(this.props.onClose)();
     }
   }
 

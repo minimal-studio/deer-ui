@@ -1,6 +1,8 @@
 import React, {Component, PureComponent} from 'react';
 import PropTypes from 'prop-types';
 
+import {CallFunc, NumTransformToCN} from 'basic-helper';
+
 function isNot(arg) {
   return typeof arg === 'undefined';
 }
@@ -34,14 +36,14 @@ export class InputVerifyClass extends Component {
     });
     this.isPass = this.isMatchLen && this.isMatchNumbRange;
     this.value = _val;
-    $GH.CallFunc(onChange)(_val);
+    CallFunc(onChange)(_val);
   }
   _onFocus() {
     const {onFocus} = this.props;
-    $GH.CallFunc(onFocus)();
+    CallFunc(onFocus)();
   }
   _onBlur() {
-    $GH.CallFunc(this.props.onBlur)();
+    CallFunc(this.props.onBlur)();
   }
   onClear() {
     this._onChange('');
@@ -83,7 +85,7 @@ export default class InputVerify extends InputVerifyClass {
   render() {
     const {scale = '', type = 'text', needCN = false} = this.props;
     const {value} = this.state;
-    const CNNum = needCN ? $GH.NumTransformToCN(value) : '';
+    const CNNum = needCN ? NumTransformToCN(value) : '';
     return (
       <div>
         <input type={type}

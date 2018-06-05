@@ -5,6 +5,6 @@ export default function getIcon(iconName, moreClassName) {
   const iconPrefix = getUkelliConfig('iconPrefix');
   if(!iconName) return iconMapper;
   let moreClassNameArr = Array.isArray(moreClassName) ? moreClassName : [moreClassName];
-  let resultStr = iconPrefix + iconMapper[iconName] + ' ' + moreClassNameArr.join(' ');
+  let resultStr = iconPrefix + (iconMapper[iconName] || iconName) + ' ' + moreClassNameArr.join(' ');
   return resultStr;
 }

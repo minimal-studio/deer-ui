@@ -1,4 +1,4 @@
-import {defineGlobalObj} from 'basic-helper';
+import {defineGlobalScope} from 'basic-helper';
 
 let ukelliui = {
   getIcon() {},
@@ -21,4 +21,4 @@ export function getUkelliConfig(name) {
   return name ? (_ukelliui[name] || false) : _ukelliui;
 }
 
-defineGlobalObj('$UK', ukelliui);
+defineGlobalScope('$UK', ukelliui);

@@ -1,5 +1,6 @@
 import React, {Component, PureComponent} from 'react';
 import PropTypes from 'prop-types';
+import {CallFunc, RemoveArrayItem, IsFunc} from 'basic-helper';
 
 export default class SelectorBasic extends Component {
   constructor(props) {
@@ -37,7 +38,7 @@ export default class SelectorBasic extends Component {
     if(isMultiple) {
       nextValue = selectedValue || [];
       if(nextValue.indexOf(value) > -1) {
-        nextValue = $GH.RemoveArrayItem(nextValue, value);
+        nextValue = RemoveArrayItem(nextValue, value);
       } else {
         nextValue.push(value);
       }
@@ -64,9 +65,9 @@ export default class SelectorBasic extends Component {
       });
     }
     let emitVal = isMultiple ? nextValue : nextValue[0];
-    $GH.CallFunc(this.props.onChange)(emitVal);
+    CallFunc(this.props.onChange)(emitVal);
 
-    if($GH.IsFunc(this.onChangeValue)) {
+    if(IsFunc(this.onChangeValue)) {
       this.onChangeValue(emitVal, ...other);
     } else {
       this.setState({

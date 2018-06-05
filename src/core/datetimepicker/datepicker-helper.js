@@ -1,5 +1,6 @@
 import React, {Component, PureComponent} from 'react';
 import PropTypes from 'prop-types';
+import {CallFunc, DateFormat, GetDefaultDateInfo} from 'basic-helper';
 
 function getHalfMouthDate(type, format, timeDefaultStr) {
   var today = new Date();
@@ -9,10 +10,10 @@ function getHalfMouthDate(type, format, timeDefaultStr) {
   var lastDay = dayInMouth.getDate();
   var [s = '', e = ''] = timeDefaultStr;
 
-  var upStartDate = $GH.DateFormat(new Date(currYear, currMonth, 1), format) + s;
-  var upEndDate = $GH.DateFormat(new Date(currYear, currMonth, 15), format) + e;
-  var downStartDate = $GH.DateFormat(new Date(currYear, currMonth, 16), format) + s;
-  var downEndDate = $GH.DateFormat(new Date(currYear, currMonth, lastDay), format) + e;
+  var upStartDate = DateFormat(new Date(currYear, currMonth, 1), format) + s;
+  var upEndDate = DateFormat(new Date(currYear, currMonth, 15), format) + e;
+  var downStartDate = DateFormat(new Date(currYear, currMonth, 16), format) + s;
+  var downEndDate = DateFormat(new Date(currYear, currMonth, lastDay), format) + e;
 
   let result = [];
   switch (type) {
@@ -44,12 +45,12 @@ export default class DatepickerHelper extends PureComponent {
 
     this.defaultDateHelperInfo = [{
       filter() {
-        return $GH.GetDefaultDateInfo(0, 0, undefined, timeDefaultStr);
+        return GetDefaultDateInfo(0, 0, undefined, timeDefaultStr);
       },
       t: '今天'
     }, {
       filter() {
-        return $GH.GetDefaultDateInfo(1, -1, undefined, timeDefaultStr);
+        return GetDefaultDateInfo(1, -1, undefined, timeDefaultStr);
       },
       t: '昨天'
     }, {
@@ -74,7 +75,7 @@ export default class DatepickerHelper extends PureComponent {
 
     this.value = dateInfo;
 
-   $GH.CallFunc(onClick)(dateInfo);
+   CallFunc(onClick)(dateInfo);
     this.setState({
       activeIdx: idx
     });

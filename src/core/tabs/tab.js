@@ -1,5 +1,6 @@
 import React, {Component, PureComponent} from 'react';
 import PropTypes from 'prop-types';
+import {CallFunc} from 'basic-helper';
 import Icon from '../icon';
 
 export default class Tab extends PureComponent {
@@ -11,7 +12,7 @@ export default class Tab extends PureComponent {
     return (
       <div className="tab-label" onClick={e => {
           onTap(idx);
-          $GH.CallFunc(onClick)();
+          CallFunc(onClick)();
         }}>
         {iconDOM}
         <span className="text">{label}</span>

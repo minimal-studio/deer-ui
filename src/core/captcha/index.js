@@ -1,5 +1,6 @@
 import React, {Component, PureComponent} from 'react';
 import PropTypes from 'prop-types';
+import {CallFunc} from 'basic-helper';
 
 import Loading from '../loading';
 import Input from '../form-control/input';
@@ -66,7 +67,6 @@ export default class CAPTCHA extends Component {
       this.getCaptcha();
     }
     this.select();
-    //$GH.CallFunc(onFocus)();
   }
   refreshCaptcha() {
     this.shouldRefreshCaptcha(true);
@@ -81,7 +81,7 @@ export default class CAPTCHA extends Component {
       });
     }
     this.value = _val;
-    $GH.CallFunc(onChange)({
+    CallFunc(onChange)({
       isPass: this.isPass,
       value: _val,
       key: this.captchaKey,

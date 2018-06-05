@@ -1,5 +1,6 @@
 import React, {Component, PureComponent} from 'react';
 import PropTypes from 'prop-types';
+import {Random} from 'basic-helper';
 
 export default class RandomDisplayNember extends Component {
   constructor(props) {
@@ -28,7 +29,7 @@ export default class RandomDisplayNember extends Component {
       const self = this;
       this.timer = setInterval(() => {
         self.setState({
-          numb: $GH.Random([0, 9])
+          numb: Random([0, 9])
         });
       }, 50);
     }

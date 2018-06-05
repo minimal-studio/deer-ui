@@ -1,5 +1,8 @@
 import React, { Component, PureComponent } from "react";
 import PropTypes from "prop-types";
+
+import {CallFunc} from 'basic-helper';
+
 import "./croppie";
 const faceCount = 12;
 
@@ -29,7 +32,7 @@ export default class Avatar extends PureComponent {
   }
   changeAvatar(faceId) {
     const {onChangeAvatar} = this.props;
-    $GH.CallFunc(onChangeAvatar)(faceId);
+    CallFunc(onChangeAvatar)(faceId);
     this.togglePanel(false);
   }
   customUpload = e => {

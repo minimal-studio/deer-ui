@@ -1,6 +1,7 @@
 import React, {Component, PureComponent} from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
+import {CallFunc} from 'basic-helper';
 
 import ModalHelper from './modal-helper';
 import Modal from './modal';
@@ -79,7 +80,7 @@ function ShowGlobalModal(options) {
       )
   }
   function onClickBtn(confirm) {
-    $GH.CallFunc(onConfirm)(confirm);
+    CallFunc(onConfirm)(confirm);
     CloseGlobalModal(entityId);
   }
   const entityWrapper = (
@@ -99,7 +100,7 @@ function ShowGlobalModal(options) {
       modalLayoutDOM={modalLayoutDOM}
       clickBgToClose={clickBgToClose}
       onCloseModal={e => {
-        $GH.CallFunc(onClose)();
+        CallFunc(onClose)();
         CloseGlobalModal(entityId);
       }}>
       {modalTMPL}

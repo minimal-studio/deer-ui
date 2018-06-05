@@ -1,5 +1,6 @@
 import React, {Component, PureComponent} from 'react';
 import PropTypes from 'prop-types';
+import {CallFunc} from 'basic-helper';
 import Icon from '../icon';
 
 const ideaTipsGroup = [1, 5, 10, 100];
@@ -42,7 +43,7 @@ export default class MultipleHelper extends PureComponent {
     this.setState({
       value
     });
-    $GH.CallFunc(onChange)(value);
+    CallFunc(onChange)(value);
   }
   checkValue() {
     const {min = 1, max = this.defaultMax} = this.props;

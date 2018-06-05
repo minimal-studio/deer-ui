@@ -1,5 +1,6 @@
 import React, {Component, PureComponent} from 'react';
 import PropTypes from 'prop-types';
+import {GenerateNumberRange} from 'basic-helper';
 
 let hasSetKeyAnimateMapper = {};
 let _prevValue = 0;
@@ -52,8 +53,7 @@ export default class AnimateBall extends Component {
   }
   genRandomArr() {
     const {numberRange} = this.props;
-    // this.numberRangeArr = $GH.GenerateNumberRange(numberRange);
-    this.numberRangeArr = this.shuffle($GH.GenerateNumberRange(numberRange));
+    this.numberRangeArr = this.shuffle(GenerateNumberRange(numberRange));
     this.eachItemRotate = 360 / this.numberRangeArr.length;
     // this.eachItemHeight = 360 / this.numberRangeArr.length;
   }

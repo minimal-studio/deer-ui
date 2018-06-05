@@ -1,4 +1,5 @@
 import React, {Component, PureComponent} from 'react';
+import {HasValue, DateFormat, MoneyFormat, IsFunc} from 'basic-helper';
 
 export default class MapperFilter extends Component {
   // shouldComponentUpdate(nextProps) {
@@ -6,7 +7,7 @@ export default class MapperFilter extends Component {
   // }
   mapperFilter(mapper, record, rowIdx) {
     let currContent = record[mapper.key];
-    if(!$GH.HasValue(currContent)) {
+    if(!HasValue(currContent)) {
       currContent = currContent || '-';
     }
 
@@ -17,18 +18,18 @@ export default class MapperFilter extends Component {
         var format = '';
       case !!mapper.datetime:
         format = 'YYYY-MM-DD hh:mm:ss';
-        contentResult = /0001/.test(currContent) ? '-' : $GH.DateFormat(currContent, format);
+        contentResult = /0001/.test(currContent) ? '-' : DateFormat(currContent, format);
         break;
       case !!mapper.money:
       case !!mapper.abvMoney:
-        contentResult = $GH.MoneyFormat(contentResult);
+        contentResult = MoneyFormat(contentResult);
         if(!!mapper.abvMoney) contentResult = contentResult.replace('-', '');
         break;
       case !!mapper.namesMapper:
         contentResult = mapper.namesMapper[currContent] || currContent || '';
         break;
     }
-    if($GH.IsFunc(mapper.filter)) {
+    if(IsFunc(mapper.filter)) {
       contentResult = mapper.filter(contentResult, record, mapper, rowIdx);
     }
 

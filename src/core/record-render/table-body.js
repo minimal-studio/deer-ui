@@ -1,5 +1,6 @@
 import React, {Component, PureComponent} from 'react';
 import PropTypes from 'prop-types';
+import {CallFunc} from 'basic-helper';
 
 import MapperFilter from './mapper-filter';
 import Icon from '../icon';
@@ -131,7 +132,7 @@ export default class TableBody extends MapperFilter {
                   let title = item.title || $UK.getKeyMap(item.key);
                   if(item.key == 'checkbox') title = (
                     <input type="checkbox" checked={allCheck}
-                      onChange={e => $GH.CallFunc(this.props.onCheckAll)(e.target.checked)}/>
+                      onChange={e => CallFunc(this.props.onCheckAll)(e.target.checked)}/>
                   );
                   return (
                     <th key={idx} style={{

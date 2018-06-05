@@ -1,6 +1,7 @@
 import React, {Component, PureComponent} from 'react';
 import PropTypes from 'prop-types';
 
+import {CallFunc, DateFormat} from 'basic-helper';
 import Flatpickr from './flatpickr';
 import './zh';
 
@@ -52,9 +53,9 @@ export default class DatetimePicker extends PureComponent {
   }
   changeDate(val) {
     const {id, onChange} = this.props;
-    this.value = $GH.DateFormat(Date.parse(this.refs[id].value), this.DATETIME_FORMAT);
+    this.value = DateFormat(Date.parse(this.refs[id].value), this.DATETIME_FORMAT);
     this.refs[id].blur && this.refs[id].blur()
-    $GH.CallFunc(onChange)(val);
+    CallFunc(onChange)(val);
   }
   render() {
     const {id} = this.props;

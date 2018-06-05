@@ -1,6 +1,7 @@
 import React, {Component, PureComponent} from 'react';
 import PropTypes from 'prop-types';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
+import {CallFunc} from 'basic-helper';
 import Icon from '../icon';
 
 const TRANSTION_TIME = 600;
@@ -70,7 +71,7 @@ export default class BannerCarousel extends Component {
     return (
       <div className="action-area" key={idx}
         onClick={idx => {
-          $GH.CallFunc(action)(currItem, idx);
+          CallFunc(action)(currItem, idx);
         }}>
         <div
           className="img"

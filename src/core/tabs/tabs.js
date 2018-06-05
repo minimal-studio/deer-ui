@@ -1,5 +1,6 @@
 import React, {Component, PureComponent} from 'react';
 import PropTypes from 'prop-types';
+import {IsFunc} from 'basic-helper';
 
 export default class Tabs extends PureComponent {
   constructor(props) {
@@ -29,14 +30,11 @@ export default class Tabs extends PureComponent {
     this.setState({
       activeTabIdx: tabIdx
     });
-    // const {onChangeTab} = this.props;
-    // if($GH.IsFunc(onChangeTab)) onChangeTab(tabIdx);
-    //$GH.CallFunc(onChangeTab)(tabIdx);
   }
   onTapTab(tapIdx) {
     if(!this.isControlled) this._onChangeTab(tapIdx);
     const {onChangeTab} = this.props;
-    if($GH.IsFunc(onChangeTab)) onChangeTab(tapIdx);
+    if(IsFunc(onChangeTab)) onChangeTab(tapIdx);
   }
   render() {
     const {children, height, className = 'tabs-container', inRow = false, withContent = false} = this.props;

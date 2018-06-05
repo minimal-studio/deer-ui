@@ -1,4 +1,5 @@
 import React, {Component, PureComponent} from 'react';
+import {CallFunc, IsFunc, HasValue} from 'basic-helper';
 
 import {DatetimePicker, DatepickerHelper} from '../datetimepicker';
 import {Radio, DropdownMenu} from '../selector';
@@ -70,7 +71,7 @@ export default class FormFilterHelper extends Component {
     for(let i = 0; i < requiredRefs.length; i++) {
       let itemRef = requiredRefs[i];
       let currVal = this.value[itemRef];
-      if(!$GH.HasValue(currVal)) {
+      if(!HasValue(currVal)) {
         isPass = false;
         desc = requiredRefMapper[itemRef];
         ref = itemRef;
@@ -97,7 +98,7 @@ export default class FormFilterHelper extends Component {
     if(this.value[ref] === value) return;
     this.value[ref] = value;
     if(update) this.forceUpdate();
-    $GH.CallFunc(this.props.onChange)(this.value, ref);
+    CallFunc(this.props.onChange)(this.value, ref);
   }
   changeValues(valRefMapper, update = true) {
     const refs = Object.keys(valRefMapper);
@@ -128,7 +129,7 @@ export default class FormFilterHelper extends Component {
     } = config;
     switch (type) {
       case 'customForm':
-        let customeComponent = $GH.IsFunc(getCustomFormControl) ? getCustomFormControl() : null;
+        let customeComponent = IsFunc(getCustomFormControl) ? getCustomFormControl() : null;
         return customeComponent.component ? (
           <customeComponent.component
             {...config}
@@ -177,13 +178,17 @@ export default class FormFilterHelper extends Component {
             onBlur={e => {
               let __val = e.target.value.trim()
               this.changeValue(__val, ref);
-              $GH.CallFunc(config.onBlur)(__val);
+              CallFunc(config.onBlur)(__val);
             }}
             onChange={(__val, elem) => {
               if (config.disabled) return;
               // let __val = elem.value;
               let {inputType = 'string'} = config;
-              if(inputType == 'number') __val = +__val === 0 ? (__val == '0.' ? '0.' : undefined) : (+__val ? __val: undefined);
+              if(inputType == 'dotnumber') {
+                let _tmpVal = +__val
+                __val = _tmpVal === 0 ? (__val == '0.' ? '0.' : undefined) : (_tmpVal ? (/\.\d{3,}/.test(__val) ? _tmpVal.toFixed(2) : __val): undefined)
+              };
+              if(inputType == 'number') __val = +__val === 0 ? (__val === '' ? '' : 0) : (+__val || undefined);
               if(inputType == 'string') __val = __val + '';
               this.changeValue(__val, ref);
             }}/>

@@ -1,5 +1,6 @@
 import React, {Component, PureComponent} from 'react';
 import PropTypes from 'prop-types';
+import {ToFixed} from 'basic-helper';
 
 export default class Ranger extends Component {
   constructor(props) {
@@ -98,7 +99,7 @@ export default class Ranger extends Component {
   valToPercent(val) {
     if(val - 1 < -1) return;
     const {min, max} = this;
-    let _precent = +$GH.ToFixed((val - min) * 100 / (max - min), 0) || 0;
+    let _precent = +(ToFixed((val - min) * 100 / (max - min), 0)) || 0;
     return _precent;
   }
   setEndPosition(offsetPercent) {

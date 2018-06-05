@@ -1,5 +1,6 @@
 import React, {Component, PureComponent} from 'react';
 import PropTypes from 'prop-types';
+import {CallFunc, ToFixed, TimeFormat} from 'basic-helper';
 
 import CountdownBg from './countdown-svg-bg';
 
@@ -86,7 +87,7 @@ export default class Countdown extends Component {
       self.setState({
         countdown: (countdown < 0) ? 0 : countdown
       });
-      if(countdown == +countdownNotifyTimer) $GH.CallFunc(onCountdownNotify)(countdown);
+      if(countdown == +countdownNotifyTimer) CallFunc(onCountdownNotify)(countdown);
       if(countdown === -1) {
         countdown = freq - 1;
         onTimeout();
@@ -123,7 +124,7 @@ export default class Countdown extends Component {
         break;
     }
     let currPercent = +(currTime / currCycle * 100);
-    let percent = currPercent == 0 ? 0 : $GH.ToFixed(100 - currPercent, 0);
+    let percent = currPercent == 0 ? 0 : ToFixed(100 - currPercent, 0);
     // if(time == 'sec') console.log(percent);
     return (
       <CountdownBg
@@ -137,7 +138,7 @@ export default class Countdown extends Component {
   render () {
     const {needBg = true, freq, needProgress = false} = this.props;
     const {countdown} = this.state;
-    const timeObj = $GH.TimeFormat(countdown);
+    const timeObj = TimeFormat(countdown);
     const {hour, min, sec} = timeObj;
     const percent = +(countdown / freq * 100);
     const progressDOM = needProgress ? (

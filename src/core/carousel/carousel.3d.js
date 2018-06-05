@@ -1,11 +1,12 @@
 import React, {Component, PureComponent} from 'react';
 import PropTypes from 'prop-types';
 
+import {DebounceClass, CallFunc} from 'basic-helper';
 import Icon from '../icon';
 
 const TRANSTION_TIME = 2000;
 const defaultRotateX = $UK.isMobile ? '200px' : '1600px';
-const delayExec = new $GH.Debounce();
+const delayExec = new DebounceClass();
 
 export default class BannerCarousel extends Component {
   constructor(props) {
@@ -94,7 +95,7 @@ export default class BannerCarousel extends Component {
       activeIdx: nextIdx,
       rotateIdx: nextRotateIdx,
     }, () => {
-      $GH.CallFunc(callback)(nextIdx);
+      CallFunc(callback)(nextIdx);
       setTimeout(() => {
         self.isAnimating = false;
       }, this.animateDuration);
@@ -104,7 +105,7 @@ export default class BannerCarousel extends Component {
     const {onClickItem, onChange} = this.props;
     if(this.isAnimating || (!type && type != 0)) return;
     this.roll(type, (nextIdx) => {
-      $GH.CallFunc(onChange)(nextIdx);
+      CallFunc(onChange)(nextIdx);
     });
   }
   handleTouchStart(e) {

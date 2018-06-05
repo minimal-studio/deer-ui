@@ -1,13 +1,10 @@
 import React, {Component, PureComponent} from 'react';
 import ReactDOM from 'react-dom';
-
 import PropTypes from 'prop-types';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
+import {EventEmitter, IsFunc} from 'basic-helper';
 
-const HIDE_TIP_TIME_MS = 3000;
-let delayExec = new $GH.Debounce();
-
-const timer = 300;
+const TRANSFORM_TIMER = 300;
 
 export default class Notification extends PureComponent {
   constructor(props) {
@@ -16,7 +13,7 @@ export default class Notification extends PureComponent {
     this.state = {
       systemTips: {}
     }
-    $GH.EventEmitter.subscribe('NOTIFY', this.receiveNotify);
+    EventEmitter.subscribe('NOTIFY', this.receiveNotify);
   }
   /**
    * receiveNotify 参数说明
@@ -45,7 +42,7 @@ export default class Notification extends PureComponent {
     this.startTargetTimer(notifyConfig);
   }
   componentWillUnmount() {
-    $GH.EventEmitter.unsubscribe('NOTIFY', this.receiveNotify);
+    EventEmitter.unsubscribe('NOTIFY', this.receiveNotify);
   }
   clickTip(clickTarget, msgID) {
     const {handleClick} = this.props;
@@ -53,9 +50,9 @@ export default class Notification extends PureComponent {
 
     this.closeTip(msgID);
 
-    if($GH.IsFunc(onClickTip)) {
+    if(IsFunc(onClickTip)) {
       onClickTip(clickTarget);
-    } else if($GH.IsFunc(handleClick)) {
+    } else if(IsFunc(handleClick)) {
       handleClick(navigateConfig);
     }
   }
@@ -97,7 +94,7 @@ export default class Notification extends PureComponent {
                 return (
                   <CSSTransition
                     key={msgID}
-                    timeout={timer}
+                    timeout={TRANSFORM_TIMER}
                     classNames="notify">
                     <div
                       className={`notify-item ${type}`}
