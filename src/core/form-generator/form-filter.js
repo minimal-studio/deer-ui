@@ -188,7 +188,7 @@ export default class FormFilterHelper extends Component {
                 let _tmpVal = +__val
                 __val = _tmpVal === 0 ? (__val == '0.' ? '0.' : undefined) : (_tmpVal ? (/\.\d{3,}/.test(__val) ? _tmpVal.toFixed(2) : __val): undefined)
               };
-              if(inputType == 'number') __val = +__val === 0 ? (__val === '' ? '' : 0) : (+__val || undefined);
+              if(inputType == 'number') __val = ((+__val === 0 ? (__val === '' ? '' : 0) : (+__val || ''))+'').replace(/\..+/, '');
               if(inputType == 'string') __val = __val + '';
               this.changeValue(__val, ref);
             }}/>
