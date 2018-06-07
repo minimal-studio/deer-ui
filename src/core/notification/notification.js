@@ -2,7 +2,7 @@ import React, {Component, PureComponent} from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
-import {EventEmitter, IsFunc} from 'basic-helper';
+import {EventEmitter, IsFunc, CallFunc} from 'basic-helper';
 
 const TRANSFORM_TIMER = 300;
 
@@ -50,11 +50,8 @@ export default class Notification extends PureComponent {
 
     this.closeTip(msgID);
 
-    if(IsFunc(onClickTip)) {
-      onClickTip(clickTarget);
-    } else if(IsFunc(handleClick)) {
-      handleClick(navigateConfig);
-    }
+    CallFunc(handleClick)(navigateConfig);
+    CallFunc(onClickTip)(clickTarget);
   }
   closeTip(msgID) {
     let nextState = Object.assign({}, this.state.systemTips);
@@ -126,5 +123,5 @@ export default class Notification extends PureComponent {
 }
 
 Notification.propTypes = {
-  handleClick: PropTypes.func.isRequired,
+  handleClick: PropTypes.func
 };
