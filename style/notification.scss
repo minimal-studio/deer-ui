@@ -15,40 +15,18 @@ $itemW: 360px;
     background-color: rgba($bgColor, 1);
   }
   .title {
-    background-color: rgba($bgColor, 1);
+    // border-color: rgba($bgColor, 1);
   }
   .close-btn {
-    background-color: rgba($textColor, 1);
-    color: $bgColor;
+    // background-color: rgba($textColor, 1);
+    color: $textColor;
   }
   .action {
     color: $textColor;
   }
 }
 
-#systemMsgContainer {
-  $scale: 340px;
-  z-index: 999;
-  position: fixed;
-  top: 0;
-  width: $scale;
-  min-height: 100px;
-  background-color: #FFF;
-  box-shadow: 0 0 24px rgba(0,0,0,0.2);
-  left: 50%;
-  margin-left: - $scale / 2;
-  border-radius: 0 0 4px 4px;
-
-  .close-btn {
-    position: absolute;
-    right: 10px;
-    top: 6px;
-  }
-}
-
-#systemTipsContainer {
-  &.has-msg {}
-
+#NOTIFICATION_CONTAINER {
   .scroll-content {
     max-height: 90vh;
     overflow-y: auto;
@@ -60,24 +38,29 @@ $itemW: 360px;
     position: fixed;
     z-index: 888;
 
+    .close-btn {
+      background-color: transparent !important;
+      font-size: 22px;
+    }
+
     &.top-right {
       right: 0;
-      top: 70px;
+      top: 10px;
     }
 
     &.top-left {
       left: 0;
-      top: 70px;
+      top: 10px;
     }
 
     &.bottom-left {
       left: 0;
-      bottom: 70px;
+      bottom: 10px;
     }
 
     &.bottom-right {
       right: 0;
-      bottom: 70px;
+      bottom: 10px;
     }
 
     .notify-item {
@@ -87,6 +70,7 @@ $itemW: 360px;
       transition: all 0.3s ease;
       // border-bottom: 1px dashed #CCC;
       margin-bottom: 10px;
+      padding: 10px;
       width: $itemW;
       border-radius: 4px 0 0 4px;
 
@@ -106,12 +90,22 @@ $itemW: 360px;
       }
 
       .action {
+        margin-top: 10px;
         text-align: right;
         padding: 5px 10px;
+        .action-btn {
+          display: inline-block;
+          padding: 5px 10px;
+          border-radius: 4px;
+          border: 1px solid #DDD;
+          &:hover {
+            background-color: rgba(#000, 0.06);
+          }
+        }
       }
 
       &.normal {
-        @include nitifyItem($colorBlue, #FFF);
+        @include nitifyItem(#FFF, #444);
       }
       &.success {
         @include nitifyItem($colorGreen, #FFF);

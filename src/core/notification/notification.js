@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import {EventEmitter, IsFunc, CallFunc} from 'basic-helper';
+import Icon from '../icon';
 
 const TRANSFORM_TIMER = 300;
 
@@ -24,6 +25,7 @@ export default class Notification extends PureComponent {
    *    type: [success error normal warn black white] default 'desc'
    *    lifecycle: 7 sec,
    *    onClickTip: func,
+   *    actionText: string,
    *    navigateConfig: {
    *      type: 'POP_MANAGER',
    *      activeMenu: {
@@ -76,18 +78,18 @@ export default class Notification extends PureComponent {
     }, lifecycle * 1000);
   }
   render() {
-    const {position = 'top-right'} = this.props;
+    const {position = 'top-right', handleClick} = this.props;
     const {systemTips} = this.state;
     let hasMsg = Object.keys(systemTips).length > 0;
 
     let container = (
       <div className={`notify-group ${position}`}>
         <div className="msg-panel scroll-content">
-          <TransitionGroup>
+          <TransitionGroup component={null}>
             {
               Object.keys(systemTips).map((msgID, idx) => {
                 const item = systemTips[msgID];
-                const {type = 'normal', title, text} = item;
+                const {type = 'normal', title, text, onClickTip, actionText = '点击查看详情'} = item;
                 return (
                   <CSSTransition
                     key={msgID}
@@ -99,9 +101,18 @@ export default class Notification extends PureComponent {
                       onMouseLeave={e => this.startTargetTimer(item)}>
                       <div className="title">{title ? title : '新消息'}</div>
                       <div className="text">{text || ''}</div>
-                      <div className="action"
-                        onClick={e => this.clickTip(item, msgID)}>点击查看详情</div>
-                      <div className="close-btn" onClick={e => this.closeTip(msgID)}>x</div>
+                      {
+                        (onClickTip || handleClick) ? (
+                          <div className="action"
+                            onClick={e => this.clickTip(item, msgID)}>
+                            <span className="flex"></span>
+                            <span className="action-btn">{actionText}</span>
+                          </div>
+                        ) : null
+                      }
+                      <div className="close-btn" onClick={e => this.closeTip(msgID)}>
+                        <Icon type="close"/>
+                      </div>
                     </div>
                   </CSSTransition>
                 )
@@ -112,13 +123,7 @@ export default class Notification extends PureComponent {
       </div>
     );
 
-    return (
-      <div
-        id="systemTipsContainer"
-        className={hasMsg ? 'has-msg' : 'no-msg'}>
-        {container}
-      </div>
-    )
+    return container;
   }
 }
 
