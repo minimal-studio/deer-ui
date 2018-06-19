@@ -23,7 +23,7 @@ $modalTSDuration       : 0.3s;
 $dropMenuTSDuration    : 0.3s;
 $notifyTransDuration   : 0.2s;
 
-@mixin modal($animateName, $offset: 20px) {
+@mixin modal($animateName, $offset: 20px, $duration: $modalTSDuration) {
   .#{$animateName}-enter {
     .animate-layout {
       transform: translateY($offset);
@@ -38,11 +38,11 @@ $notifyTransDuration   : 0.2s;
     .animate-layout {
       transform: translateY(0);
       opacity: 1;
-      transition: all $modalTSDuration ease;
+      transition: all $duration ease;
     }
     .section-mark {
       opacity: 1;
-      transition: opacity $modalTSDuration ease;
+      transition: opacity $duration ease;
     }
   }
 
@@ -60,11 +60,11 @@ $notifyTransDuration   : 0.2s;
     .animate-layout {
       transform: translateY($offset);
       opacity: 0.01;
-      transition: all $modalTSDuration ease;
+      transition: all $duration ease;
     }
     .section-mark {
       opacity: 0.01;
-      transition: opacity $modalTSDuration ease;
+      transition: opacity $duration ease;
     }
   }
 }
@@ -73,18 +73,38 @@ $notifyTransDuration   : 0.2s;
 @include modal(modal, 20px);
 
 // drop-menu
-@include modal(drop-menu, -20px);
+.drop-menu-enter {
+  opacity: 0.01;
+  transform: translateY(-5px);
+}
+
+.drop-menu-enter.drop-menu-enter-active {
+  transform: translateY(0);
+  opacity: 1;
+  transition: transform $notifyTransDuration ease, opacity $notifyTransDuration ease;
+}
+
+.drop-menu-exit {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.drop-menu-exit.drop-menu-exit-active {
+  opacity: 0.01;
+  transform: translateY(-5px);
+  transition: transform $notifyTransDuration ease, opacity $notifyTransDuration ease;
+}
 
 // notify
 .notify-enter {
   opacity: 0.01;
-  transform: translateX(200px);
+  transform: translateX(20%);
 }
 
 .notify-enter.notify-enter-active {
   transform: translateX(0);
   opacity: 1;
-  transition: transform $notifyTransDuration ease, opacity $notifyTransDuration ease;
+  transition: transform $notifyTransDuration easeInOut, opacity $notifyTransDuration easeInOut;
 }
 
 .notify-exit {
@@ -94,8 +114,8 @@ $notifyTransDuration   : 0.2s;
 
 .notify-exit.notify-exit-active {
   opacity: 0.01;
-  transform: translateX(200px);
-  transition: transform $notifyTransDuration ease, opacity $notifyTransDuration ease;
+  transform: translateX(20%);
+  transition: transform $notifyTransDuration easeInOut, opacity $notifyTransDuration easeInOut;
 }
 
 // fade

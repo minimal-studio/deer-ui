@@ -2,6 +2,19 @@
 
 -----------
 
+### 2.3.0
+
+- 优化 FormFilter 和 FormGenerator 的实现
+- 新增 select-n 的表单类型，用于渲染原生的 select 组件，提供移动端使用
+- 重做了 select 的实现方式与样式
+- 重做 Radio 组件的样式与结构
+- 优化 Modal 的参数传递
+- 优化 button 的样式，以及提供的 mixin 方法
+- 重做 ranger 的样式与交互，新增 input verify 辅助
+- 增强 input verify 的功能，
+
+-----------
+
 ### 2.2.4
 
 - 优化 Notification 的样式, 新增可以控制的 action btn 的 text

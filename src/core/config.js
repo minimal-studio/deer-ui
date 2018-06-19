@@ -1,7 +1,6 @@
 import {defineGlobalScope} from 'basic-helper';
 
 let ukelliui = {
-  getIcon() {},
   getImage() {},
   getKeyMap() {},
   queryCAPTCHAData() {},

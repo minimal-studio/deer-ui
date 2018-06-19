@@ -1,31 +1,50 @@
 import React, {Component, PureComponent} from 'react';
 import PropTypes from 'prop-types';
 
-import {CallFunc, NumTransformToCN} from 'basic-helper';
-
-function isNot(arg) {
-  return typeof arg === 'undefined';
-}
+import {CallFunc, NumTransformToCN, ToFixed} from 'basic-helper';
 
 export class InputVerifyClass extends Component {
+  static propTypes = {
+    onChange: PropTypes.func,
+    onFocus: PropTypes.func,
+    onBlur: PropTypes.func,
+    onClear: PropTypes.func,
+    className: PropTypes.string,
+    defaultValue: PropTypes.any,
+    value: PropTypes.any,
+    type: PropTypes.string,
+    needCN: PropTypes.bool,
+    precent: PropTypes.bool,
+    inputable: PropTypes.bool,
+    numRange: PropTypes.array,
+    unit: PropTypes.number,
+    lenRange: PropTypes.array
+  };
   constructor(props) {
     super(props);
-    let defaultValue = props.defaultValue || '';
-    this.value = defaultValue;
-    this.isMatchLen = isNot(props.lenRange);
-    this.isMatchNumbRange = isNot(props.numRange);
-    this.isPass = isNot(props.lenRange);
+
+    let {defaultValue, value} = props;
+
+    this.isControl = this.checkProps('value');
+    this.isMatchLen = this.checkProps('lenRange');
+    this.isMatchNumbRangeMode = this.checkProps('numRange');
+    this.isPass = this.checkProps('lenRange');
+
+    this.value = !this.isControl ? defaultValue : value;
     this.state = {
-      value: defaultValue
+      value: defaultValue,
+      matchLen: true,
+      matchRange: true,
     }
   }
-  componentWillReceiveProps(nextProps) {
-    if(!this.props.defaultValue || this.props.defaultValue !== nextProps.defaultValue) {
-      this._onChange(nextProps.defaultValue, nextProps);
-    }
+  checkProps(field) {
+    return !!this.props.hasOwnProperty(field);
+  }
+  getValue() {
+    return this.isControl ? this.props.value : this.state.value;
   }
   _onChange(val, props) {
-    const {onChange, lenRange, numRange} = props || this.props;
+    const {onChange, lenRange, numRange, precent} = props || this.props;
     let _val = val;
 
     _val = this.checkLen(_val, lenRange);
@@ -34,8 +53,9 @@ export class InputVerifyClass extends Component {
     this.setState({
       value: _val
     });
-    this.isPass = this.isMatchLen && this.isMatchNumbRange;
+    this.isPass = this.isMatchLen && this.isMatchNumbRangeMode;
     this.value = _val;
+
     CallFunc(onChange)(_val);
   }
   _onFocus() {
@@ -50,66 +70,74 @@ export class InputVerifyClass extends Component {
   }
   checkLen(val, lenRange) {
     let _val = val;
-    let isPass = this.isMatchLen;
     if(lenRange) {
-      isPass = false;
       let [s, e, isSlice] = lenRange;
       if(_val.length > e) {
         if(isSlice) {
           _val = _val.slice(0, e);
         }
-      } else if(_val.length >= s && _val.length < e) {
-        isPass = true;
       }
     }
-    this.isMatchLen = isPass;
     return _val;
   }
   checkNum(val, numRange) {
     let _val = +(val);
-    let isPass = this.isMatchNum;
-    if(numRange) {
-      isPass = false;
+    let {matchRange} = this.state;
+    if(this.isMatchNumbRangeMode) {
+      let isMatch = false;
       let [s, e] = numRange;
-      if(_val >= s) {
-        isPass = true;
-      }
       if(_val > e) _val = e;
+      if(_val < s) {
+        isMatch = false;
+      } else {
+        isMatch = true;
+      }
+      matchRange !== isMatch && this.setState({
+        matchRange: isMatch
+      })
     }
-    this.isMatchNumbRange = isPass;
     return _val;
   }
 }
 
+function precentFilter(val, isPrecent) {
+  return isPrecent ? ToFixed(val / 10, 1) : val;
+}
+
 export default class InputVerify extends InputVerifyClass {
   render() {
-    const {scale = '', type = 'text', needCN = false} = this.props;
-    const {value} = this.state;
-    const CNNum = needCN ? NumTransformToCN(value) : '';
+    const {matchLen, matchRange} = this.state;
+    const {
+      className = '', type = 'text', needCN = false, 
+      unit = 1, inputable = true, precent = false
+    } = this.props;
+
+    const value = this.getValue();
+    const displayValue = precentFilter(value, precent);
+
+    const CNNumDOM = needCN ? (
+      <span className="form-tip">{NumTransformToCN(value)}</span>
+    ) : null;
+    
     return (
-      <div>
+      <div className={"input-verify" + ((!matchLen || !matchRange) ? ' error' : '')}>
         <input type={type}
-          value={value}
-          className={"form-control input-" + scale}
+          value={displayValue}
+          readOnly={!inputable}
+          className={"form-control " + className}
           onBlur={e => this._onBlur(e)}
           onChange={e => this._onChange(e.target.value)}
           onFocus={e => this._onFocus(e.target.value)}/>
-        <span className="form-tip">{CNNum}</span>
+        <div className="option-btns">
+          <div className="minu _btn" onClick={e => this._onChange((+value - unit))}>
+            <span>-</span>
+          </div>
+          <div className="plus _btn" onClick={e => this._onChange((+value + unit))}>
+            <span>+</span>
+          </div>
+        </div>
+        {CNNumDOM}
       </div>
     )
   }
 }
-
-InputVerify.propTypes = {
-  onChange: PropTypes.func,
-  onFocus: PropTypes.func,
-  onBlur: PropTypes.func,
-  onClear: PropTypes.func,
-  scale: PropTypes.string,
-  defaultValue: PropTypes.any,
-  value: PropTypes.string,
-  type: PropTypes.string,
-  needCN: PropTypes.bool,
-  numRange: PropTypes.array,
-  lenRange: PropTypes.array
-};

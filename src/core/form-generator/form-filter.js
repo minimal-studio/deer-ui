@@ -80,11 +80,13 @@ export default class FormFilterHelper extends Component {
       }
       isPass = true;
     }
-    return {
+    let checkRes = {
       isPass,
       desc,
       ref
     };
+    CallFunc(this.showDesc(checkRes));
+    return checkRes;
   }
   wrapConditionTitle(config) {
     config.title = config.title || $UK.getKeyMap(config.ref) || config.ref || '';
@@ -125,7 +127,7 @@ export default class FormFilterHelper extends Component {
   }
   greneratFormDOM(config) {
     const {
-      ref, type, className, text, getCustomFormControl
+      ref, type, className, getCustomFormControl
     } = config;
     switch (type) {
       case 'customForm':
@@ -151,6 +153,25 @@ export default class FormFilterHelper extends Component {
               }
             }}/>
         );
+      case 'select-n':
+        var {values} = config;
+        return (
+          <select 
+            className="form-control"
+            value={this.getValue(ref)} onChange={e => {
+            this.changeValue(e.target.value, ref);
+          }}>
+            {
+              Object.keys(values).map((val, idx) => {
+                return (
+                  <option 
+                    key={val}
+                    value={val}>{values[val]}</option>
+                )
+              })
+            }
+          </select>
+        )
       case 'select':
         return (
           <DropdownMenu
@@ -210,11 +231,9 @@ export default class FormFilterHelper extends Component {
         )
       case 'text':
         return (
-          <label className={config.highlight ? 'highlight' : ''}>{this.getValue(ref, text)}</label>
+          <span className={config.highlight ? 'highlight' : ''}>{this.getValue(ref, config.value || config.text)}</span>
         )
       case 'radio':
-        const {didMountChange = true} = config;
-        // const __defVal = Radio.getDefaultValue(config.values);
         return (
           <Radio
             {...config}

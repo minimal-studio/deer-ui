@@ -30,7 +30,7 @@ export default class SelectorBasic extends Component {
   //   const isChange = this.isControl ? JSON.stringify(this.props) !== JSON.stringify(nextProps) : JSON.stringify(this.state) !== JSON.stringify(nextState);
   //   return isChange || this.state.isShow !== nextState.isShow;
   // }
-  changeValue(value) {
+  changeValue(value, idx) {
     const {isMultiple} = this.props;
     const selectedValue = this.getValue();
 
@@ -46,7 +46,7 @@ export default class SelectorBasic extends Component {
       nextValue = [value];
     }
 
-    this.changeEvent(nextValue, value);
+    this.changeEvent(nextValue, {prevVal: value, idx});
   }
   getValueArray(values = this.props.values) {
     return Array.isArray(values) ? values : this.wrapObjValToArr(values);
@@ -65,7 +65,7 @@ export default class SelectorBasic extends Component {
       });
     }
     let emitVal = isMultiple ? nextValue : nextValue[0];
-    CallFunc(this.props.onChange)(emitVal);
+    this.emitChange(emitVal, ...other);
 
     if(IsFunc(this.onChangeValue)) {
       this.onChangeValue(emitVal, ...other);
@@ -75,6 +75,9 @@ export default class SelectorBasic extends Component {
       });
     }
   }
+  emitChange(...args) {
+    CallFunc(this.props.onChange)(...args);
+  }
   selectAll() {
     this.changeEvent(Object.keys(this.props.values));
   }
@@ -83,8 +86,8 @@ export default class SelectorBasic extends Component {
     return !!this.values && !!selectedValue && (this.values.length == selectedValue.length);
   }
   getValue() {
-    return this.state.selectedValue;
-    // return this.isControl ? this.props.value : this.state.selectedValue;
+    // return this.state.selectedValue;
+    return this.isControl ? this.props.value : this.state.selectedValue;
   }
 }
 SelectorBasic.propTypes = {

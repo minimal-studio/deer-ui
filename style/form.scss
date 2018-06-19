@@ -8,17 +8,18 @@
   display: inline-block;
   width: auto;
   background-color: #FFF;
-  -webkit-border-radius: 3px;
+  // -webkit-border-radius: 3px;
   border-radius: 3px;
-  -webkit-box-shadow: none;
+  // -webkit-box-shadow: none;
   box-shadow: none;
   border-color: #e7e7e7;
   background-color: #fefefe;
   transition: border-color 0.1s, background-color 0.1s;
   &:focus {
-    box-shadow: none;
+    // box-shadow: none;
+    box-shadow: 0 0 5px rgba($themeColor, 0.6);
     background-color: #FFF;
-    border-color: #6ebdcc;
+    border-color: $themeColor;
   }
   &[type="range"] {
     width: auto;
@@ -51,6 +52,14 @@
 
 .form-group {
   margin: 20px 0;
+  &.error {
+    .control-label {
+      color: $colorRed;
+    }
+  }
+  .uke-radio-container {
+    max-width: 70%;
+  }
 }
 .vertical-form {
   width: 60%;

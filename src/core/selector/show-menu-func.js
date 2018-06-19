@@ -11,11 +11,13 @@ export function ShowGlobalMenu(options) {
   )
   menuId = ShowGlobalModal({
     modalLayoutDOM: entityWrapper,
-    className: 'uk-dropdown-menu',
+    className: 'uke-dropdown-menu',
     topClassName: 'none',
     animateType: 'drop-menu',
     clickBgToClose: true,
-    header: false,
+    needMask: false,
+    duration: 200,
+    Header: false,
   });
 }
 export function CloseMenu() {

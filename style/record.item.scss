@@ -4,19 +4,20 @@
   display: flex;
   flex-wrap: wrap;
   padding: 10px;
-  justify-content: center;
+  // justify-content: space-between;
   @include card();
   min-height: 100px;
   .item {
-    flex-basis: 24%;
-    margin: 0 5px 5px 0;
-    border: 2px dashed #DDD;
+    flex-basis: 32%;
+    margin: 0 1% 1% 0;
+    border: 1px solid #f3f3f3;
+    background-color: #fafafa;
     padding: 10px;
     line-height: 22px;
-    background-color: #FFF;
     border-radius: 3px;
     min-width: 250px;
-    transition: all ease 0.4s;
+    transition: all ease 0.3s;
+    position: relative;
     .link-btn {
       color: $colorOrange;
       border: 1px solid $colorOrange;
@@ -29,8 +30,9 @@
       }
     }
     &:hover {
-      border-color: $colorOrange;
-      // box-shadow: 0 2px 2px rgba(0,0,0,0.3);
+      // border-color: $colorOrange;
+      box-shadow: 0 12px 24px rgba(0,0,0,0.1);
+      z-index: 1;
     }
     .title {
       width: 100px;

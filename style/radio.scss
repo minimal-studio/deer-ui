@@ -1,60 +1,48 @@
-
-
-.radio-group {
-  .btn {
-    margin: 0 5px 5px 0;
-  }
-}
-.block-radio {
-  border: 1px solid #DDD;
-  background-color: #FFF;
-  margin: 0 5px 5px 0;
-  border-radius: 3px;
-  position: relative;
-  overflow: hidden;
-  cursor: pointer;
-  color: #777;
-
-  &.sm {
-    width: 160px;
-  }
-
-  .caret {
-    display: none;
-    $caretScale: 16px;
-    position: absolute;
-    top: - $caretScale / 2;
-    right: -$caretScale;
-    border-color: $themeColor;
-    border-width: $caretScale;
-    transform: rotateZ(30deg);
-  }
-
-  &.active {
-    border-color: $themeColor;
-    .caret {
-      display: block;
+$cycleScale: 16px;
+$normalColor: #CCC;
+.uke-radio-container {
+  .group {
+    @include layout();
+    // padding-left: $cycleScale;
+    .item {
+      $itemPaddingHeight: 10px;
+      padding: 5px $itemPaddingHeight;
+      position: relative;
+      margin-left: $cycleScale;
+      margin-right: 10px;
+      cursor: pointer;
+      min-width: 60px;
+      &.active {
+        .cycle {
+          border-color: $themeColor;
+          .unit {
+            background-color: $themeColor;
+            transform: scale(0.6);
+          }
+        }
+      }
+      &:hover {
+        color: $themeColor;
+      }
+      .cycle {
+        position: absolute;
+        left: -$cycleScale;
+        width: $cycleScale;
+        height: $cycleScale;
+        border-radius: 50%;
+        top: 50%;
+        transform: translateY(- $cycleScale / 2);
+        
+        border: 1px solid $normalColor;
+        overflow: hidden;
+        .unit {
+          @include fill;
+          transform: scale(0.4);
+          background-color: $normalColor;
+          border-radius: 50%;
+          transition: all ease 0.2s;
+        }
+      }
     }
-  }
-  &:hover {
-    background-color: #fafafa;
-    color: #444;
-  }
-
-  .bank-img {
-    max-width: 100%;
-    margin-left: 5px;
-    overflow: hidden;
-  }
-
-  .label,
-  label {
-    margin-bottom: 0;
-  }
-
-  .tip {
-    font-weight: normal;
-    display: inline-block;
-    margin-left: 10px;
   }
 }

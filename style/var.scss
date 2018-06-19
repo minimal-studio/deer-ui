@@ -2,7 +2,7 @@
 
 $colorRed: #f86270;
 $colorRedDark: #b1147a;
-$colorGreen: #5ab964;
+$colorGreen: rgba(90, 185, 155, 1);
 $colorGrey: rgba(40, 44, 52, 0.95);
 $colorCyan: #03b7aa;
 $colorYellow: #ffa200;
@@ -21,6 +21,11 @@ $tableHeaderBgColor: #FFF;
 $tableHeaderTextColor: #444;
 $tableBodyBgColor: #FFF;
 $tableBodyTextColor: #777;
+
+@mixin mainContainer($m: 0) {
+  width: $mainContainerWidth;
+  margin: $m auto;
+}
 
 @mixin scrollBar($width, $height) {
   ::-webkit-scrollbar {
@@ -62,30 +67,17 @@ $tableBodyTextColor: #777;
 @mixin card {
   // box-shadow: 0 3px 0 rgba(12,12,12,0.03);
   margin: 5px 10px; // border: 1px solid #EEE;
-  border-bottom: 2px solid #dde0e3;
+  // border-bottom: 1px solid #dde0e3;
   border-radius: 2px;
   background-color: #ffffff;
 }
 
-@mixin btnFlat($btnColor) {
-  background-color: $btnColor;
-  border-color: darken($btnColor, 15%);
-  color: #FFF;
-  &:hover {
-    background-color: darken($btnColor, 5%); // box-shadow: 0 2px 2px rgba(#000, 0.3);
-  }
-  &:active {
-    background-color: darken($btnColor, 20%);
-    border-color: darken($btnColor, 20%);
-  }
-}
-
-@mixin fill() {
+@mixin fill($offset: 0) {
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  top: $offset;
+  left: $offset;
+  right: $offset;
+  bottom: $offset;
 }
 
 @mixin fixbg() {
@@ -142,15 +134,19 @@ $tableBodyTextColor: #777;
   justify-content: center;
 }
 
-@mixin btnFlat($btnBgColor, $btnTextColor: #FFF) {
+@mixin btnFlat($btnBgColor, $btnTextColor: #FFF, $setBorder: false) {
   background-color: $btnBgColor;
-  border-color: darken($btnBgColor, 10%);
   color: $btnTextColor;
+  @if $setBorder == true {
+    border-color: darken($btnBgColor, 15%);
+  }
   &:hover {
     background-color: darken($btnBgColor, 5%);
   }
   &:active {
+    @if $setBorder == true {
+      border-color: darken($btnBgColor, 20%);
+    }
     background-color: darken($btnBgColor, 20%);
-    border-color: darken($btnBgColor, 20%);
   }
 }

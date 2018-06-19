@@ -1,14 +1,34 @@
 // @import "../var.scss";
-
-
-$rangerBgH: 6px;
+$rangerBgH: 4px;
 $rangerContentH: 26px;
 $rangerHandleScale: 20px;
 
-.ranger-container {
+.uke-ranger {
   position: relative;
-  min-width: 70%;
-  cursor: move;
+  min-width: 100px;
+  width: 70%;
+  max-width: 600px;
+  display: flex;
+  align-items: center;
+  &.with-input {
+    .ranger {
+      margin-right: 20px;
+    }
+  }
+  &:hover,&.draping {
+    .handle {
+      border-color: $themeColor;
+      .hide-value {
+        opacity: 1;
+        transform: scale(1) translateY(-140%);
+      }      
+    }
+  }
+  &.draping {
+    .handle {
+      box-shadow: 0 0 12px rgba(#000, 0.2);
+    }
+  }
   &.disabled {
     .disabled-mask {
       display: block;
@@ -22,22 +42,50 @@ $rangerHandleScale: 20px;
     cursor: not-allowed;
   }
   .handle {
-    width: $rangerHandleScale * 2;
+    width: $rangerHandleScale;
     height: $rangerHandleScale;
-    border-radius: 3px;
-    background-color: rgba(255,255,255,0.9);
+    border-radius: 50%;
     position: absolute;
     top: - ($rangerHandleScale - $rangerBgH) / 2;
-    margin-left: - $rangerHandleScale;
+    // margin-left: - $rangerHandleScale / 2;
     z-index: 10;
-    box-shadow: 0 0 12px rgba(0,0,0,0.3);
+    // box-shadow: 0 0 12px rgba(0,0,0,0.3);
     text-align: center;
+    position: relative;
+    background-color: #FFF;
+    border: 3px #CCC solid;
+    .hide-value {
+      display: block;
+      position: absolute;
+      opacity: 0;
+      background-color: #FFF;
+      border-radius: 5px;
+      // color: #FFF;
+      box-shadow: 0 2px 12px rgba(#000, 0.3);
+      padding: 6px 10px;
+      right: -20px;
+      top: 0;
+      transition: all 0.2s ease;
+      transform: scale(0) translateY(-120%);
+      .caret {
+        $s: 6px;
+        position: absolute;
+        bottom: -$s;
+        color: #FFF;
+        border-width: $s;
+      }
+      .text {
+        display: block;
+      }
+    }
   }
-  .ranger-content {
+  .ranger {
     display: flex;
     align-items: center;
     align-content: center;
     height: $rangerContentH;
+    width: 100%;
+    cursor: pointer;
     * {
       user-select: none;
     }
@@ -49,20 +97,22 @@ $rangerHandleScale: 20px;
     line-height: $rangerContentH;
     font-size: 30px;
     text-align: center;
-    // display: inline-block;
-    // &.plus {
-    // }
-    // &.less {
-    //   transform: rotate(180deg);
-    // }
   }
-  .ranger-body {
+  .all-process {
     position: relative;
-    width: 80%;
+    width: 100%;
     height: $rangerBgH;
     border-radius: $rangerBgH;
     box-shadow: 0 0 1px rgba(0,0,0,0.3);
     margin: 0 auto;
-    background-color: $themeColor;
+    background-color: #EEE;
+    .active-process {
+      background-color: $themeColor;
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      // @include fill();
+    }
   }
 }

@@ -8,6 +8,7 @@ $formControlBgColor: #f9f9f9;
   display: flex;
   flex-wrap: wrap;
   @include card();
+  margin: 0 10px;
 
   .datepicker-ranger-content {
     .flatpickr {
@@ -62,7 +63,7 @@ $formControlBgColor: #f9f9f9;
       }
     }
     &.select {
-      .v-dropdown-menu {
+      .uke-dropdown-menu {
         .active-item {
           background-color: $formControlBgColor !important;
         }

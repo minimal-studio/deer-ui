@@ -25,6 +25,26 @@ import FormGenerator from './form-generator';
  */
 
 export default class FormLayout extends Component {
+  static propTypes = {
+    formOptions: PropTypes.array.isRequired,
+  
+    onSubmit: PropTypes.func,
+    onChange: PropTypes.func,
+    btnText: PropTypes.string,
+    className: PropTypes.string,
+  
+    loading: PropTypes.bool,
+    tipInfo: PropTypes.object,
+    btnConfig: PropTypes.array,
+  
+    isVertical: PropTypes.bool,
+  
+    hasErr: PropTypes.bool,
+    resDesc: PropTypes.string,
+  
+    childrenBeforeForm: PropTypes.any,
+    childrenAfterForm: PropTypes.any,
+  };
   constructor(props) {
     super(props);
 
@@ -32,7 +52,7 @@ export default class FormLayout extends Component {
   }
   componentWillReceiveProps(nextProps) {
     const {hasErr, loading} = nextProps;
-    if(!!hasErr && !loading && !this.isShowedDesc) {
+    if(typeof loading !== 'undefined' && !loading && !this.isShowedDesc) {
       this.showResDesc(nextProps);
     }
   }
@@ -100,24 +120,3 @@ export default class FormLayout extends Component {
     )
   }
 }
-
-FormLayout.propTypes = {
-  formOptions: PropTypes.array.isRequired,
-
-  onSubmit: PropTypes.func,
-  onChange: PropTypes.func,
-  btnText: PropTypes.string,
-  className: PropTypes.string,
-
-  loading: PropTypes.bool,
-  tipInfo: PropTypes.object,
-  btnConfig: PropTypes.array,
-
-  isVertical: PropTypes.bool,
-
-  hasErr: PropTypes.bool,
-  resDesc: PropTypes.string,
-
-  childrenBeforeForm: PropTypes.any,
-  childrenAfterForm: PropTypes.any,
-};

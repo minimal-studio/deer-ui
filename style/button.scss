@@ -1,16 +1,13 @@
 .btn {
   appearance: none;
-  // border: none;
-  // border-bottom: 3px solid #CCC;
   background-color: #FFF;
-  // padding: 6px 12px 4px;
-  padding: 6px 20px 4px;
+  padding: 5px 24px;
   border-radius: 3px;
   transition: background-color 0.1s ease, box-shadow 0.1s ease, color 0.1s ease;
   outline: none;
   border: 0;
   position: relative;
-  border-bottom: 2px solid transparent;
+  border: 1px solid transparent;
 
   &.file-btn input {
     position: absolute;

@@ -1,13 +1,82 @@
 // @import "../var.scss";
 $itemH: 30px;
-.uk-dropdown-menu {
-  .search-bar {
-    padding: 5px 10px;
-    .form-control {
-      width: 100%;
+.uke-dropdown-menu {
+  position: relative;
+  cursor: pointer;
+  display: inline-block;
+  &.multiple {
+    .section-mark {
+      position: fixed;
     }
   }
-  .action-btn-group {
+  .menu-wrapper, .menu-item {
+    &:hover {
+      color: $colorRed;
+    }
+  }
+  .menu-wrapper {
+    background-color: #FFF;
+    line-height: $itemH;
+    min-width: 140px;
+    // line-height: 32px;
+    // height: 32px;
+  }
+  &.show.input-mode.single {
+    .search-input {
+      opacity: 1;
+      z-index: 1;
+    }
+    .display-title {
+      opacity: 0;
+    }
+  }
+  .display-title {
+    opacity: 1;
+    z-index: 1;
+    position: relative;
+    cursor: pointer;
+  }
+  .display-title,.search-input {
+    border: 1px solid #e7e7e7;
+    padding: 0 10px;
+    border-radius: 3px;
+  }
+  .dropdown-items {
+    position: absolute;
+    top: 130%;
+    transition: all ease 0.2s;
+
+    z-index: 112;
+    background-color: #FFF;
+    border-radius: 3px;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 36px rgba(#333, 0.3);
+    .caret {
+      $height: 6px;
+      position: absolute;
+      top: -$height;
+      border-width: $height;
+      left: 20px;
+      color: #FFF;
+      transform: rotate(180deg);
+    }
+  }
+  .search-input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    opacity: 0;
+    z-index: 0;
+    outline: none;
+    &:focus {
+      box-shadow: 0 0 5px rgba($themeColor, 0.6);
+      border-color: $themeColor;
+    }
+  }
+  .action-group {
+    position: relative;
+    z-index: 11;
     .action-btn {
       padding: 10px;
       &:hover {
@@ -20,18 +89,6 @@ $itemH: 30px;
     // position: fixed;
     // z-index: 111;
   }
-  .menu-list {
-    position: fixed;
-    z-index: 112;
-    background-color: #FFF;
-    border-radius: 3px;
-    // height: 0;
-    overflow-y: auto;
-    transition: all 0.2s ease;
-    max-height: 300px;
-    box-shadow: 0 12px 24px rgba(#333, 0.2);
-    // opacity: 0;
-  }
   .menu-item {
     color: #777;
     transition: border ease 0.1s;
@@ -43,7 +100,10 @@ $itemH: 30px;
     }
   }
   .items-group {
+    max-height: 240px;
+    overflow-y: auto;
     min-width: 180px;
+    transition: height 0.2s ease;
     .group {
       &.active {
         .cateroy-title {
@@ -68,21 +128,5 @@ $itemH: 30px;
         }
       }
     }
-  }
-}
-.v-dropdown-menu {
-  cursor: pointer;
-  border-radius: 3px;
-  .active-item, .menu-item {
-    &:hover {
-      color: $colorRed;
-    }
-  }
-  .active-item {
-    background-color: #FFF;
-    line-height: $itemH;
-    min-width: 140px;
-    padding: 0 10px;
-    // border-radius: 3px;
   }
 }

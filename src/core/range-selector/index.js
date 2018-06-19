@@ -2,7 +2,18 @@ import React, {Component, PureComponent} from 'react';
 import PropTypes from 'prop-types';
 import {ToFixed} from 'basic-helper';
 
+import InputVerify from '../form-control/input-verify';
+
 export default class Ranger extends Component {
+  static propTypes = {
+    onChange: PropTypes.func.isRequired,
+    defaultValue: PropTypes.number,
+    basicUnit: PropTypes.number,
+    disabled: PropTypes.bool,
+    precent: PropTypes.bool,
+    withInput: PropTypes.bool,
+    range: PropTypes.array
+  };
   constructor(props) {
     super(props);
 
@@ -24,15 +35,14 @@ export default class Ranger extends Component {
 
     this.state = {
       stateValue: defaultValue,
-      // originalOffsetPercent: defaultPosition,
-      // offsetPercent: defaultPosition,
+      draping: false
     }
     this.value = defaultValue;
+    this.drapElemInfo = {
+      dragOriginX: 0,
+      elemOrigonX: 0
+    }
   }
-  // shouldComponentUpdate(nextProps, nextState) {
-  //   return JSON.stringify(this.state) !== JSON.stringify(nextState) ||
-  //          JSON.stringify(this.props) !== JSON.stringify(nextProps);
-  // }
   shouldUpdateComponent(nextState, nextProps) {
     const isChange = this.isControl ? JSON.stringify(this.props) !== JSON.stringify(nextProps) : JSON.stringify(this.state) !== JSON.stringify(nextState);
     return isChange;
@@ -45,23 +55,20 @@ export default class Ranger extends Component {
   }
   initData() {
     const {min, max} = this;
-    const {rangerContainer = {}} = this.refs;
-    this.drapElemInfo = {
-      isDrapStart: false,
-      dragElem: this.handle,
-      dragOriginX: 0,
-      elemOrigonX: 0
-    };
-    this.rangerBodyWidth = rangerContainer.offsetWidth;
+    this.drapElemInfo.dragElem = this.handle;
+    this.rangerBodyWidth = this.rangerContainer.offsetWidth;
     this.preUnitPixel = this.rangerBodyWidth / (max - min);
   }
   handleMouseDown(event) {
-    this.drapElemInfo = Object.assign({}, this.drapElemInfo, {
-      isDrapStart: true,
+    event.stopPropagation();
+    this.drapElemInfo = {
+      ...this.drapElemInfo,
       dragOriginX: event.clientX
+    };
+    this.setState({
+      draping: true
     });
     this.mouseMoving();
-    event.stopPropagation();
   }
   mouseMoving() {
     let self = this;
@@ -76,17 +83,19 @@ export default class Ranger extends Component {
     document.removeEventListener('mouseup', this.dragEvent, false);
   }
   dragEnd(event) {
-    if (!this.drapElemInfo.isDrapStart) return;
+    if (!this.state.draping) return;
 
-    // const {offsetPercent} = this.state;
     const endX = this.drapElemInfo.dragOriginX + this.offsetPercent;
 
-    this.drapElemInfo = Object.assign({}, this.drapElemInfo, {
-      isDrapStart: false,
+    this.drapElemInfo = {
+      ...this.drapElemInfo,
       dragOriginX: endX
-    });
+    };
     this.mouseMoved();
     this.setEndPosition(this.offsetPercent);
+    this.setState({
+      draping: false
+    });
   }
   percentToVal(percent) {
     if(percent - 1 < -1) return;
@@ -130,7 +139,7 @@ export default class Ranger extends Component {
     if(emitChangeEvent) onChange(val);
   }
   movingHandle(event) {
-    if (!this.drapElemInfo.isDrapStart) return;
+    if (!this.state.draping) return;
 
     const {dragOriginX, dragElem} = this.drapElemInfo;
 
@@ -159,11 +168,11 @@ export default class Ranger extends Component {
     return this.isControl ? this.props.value || 0 : this.state.stateValue || 0;
   }
   render() {
-    // const {stateValue} = this.state;
     const stateValue = this.valueFilter();
-    const {disabled, precent = false} = this.props;
+    const {disabled, precent = false, range, withInput = true, basicUnit} = this.props;
+    const {draping} = this.state;
 
-    var handleW = 40;
+    var handleW = 20;
     var handleStyle = {
       marginLeft: - handleW / 2,
       left: `${this.offsetPercent}%`
@@ -175,34 +184,47 @@ export default class Ranger extends Component {
       }
     }
 
-    let _value = precent ? (stateValue / 10).toFixed(1) + '%' : stateValue.toFixed(0);
+    let _value = precent ? (stateValue / 10).toFixed(1) : stateValue.toFixed(0);
 
     return (
-      <div className={"ranger-container" + (disabled ? ' disabled' : '')}>
+      <div className={`uke-ranger ${disabled ? 'disabled' : ''} ${draping ? 'draping' : ''} ${withInput ? 'with-input' : ''}`}>
         <div className="disabled-mask"></div>
-        <div className="ranger-content">
-          <span className="less handle-btn"
-            onClick={e => this.plusAndLess('-')}>-</span>
-          <div className="ranger-body"
-            ref="rangerContainer"
-            onMouseDown={e => this.handleMouseDown(e)}>
-            <div className="handle" ref="handle"
+        <div className="ranger"
+          onMouseDown={e => this.handleMouseDown(e)}>
+          {/* <span className="less handle-btn"
+            onClick={e => this.plusAndLess('-')}>-</span> */}
+          <div className="all-process"
+            ref={c => {
+              if(c) this.rangerContainer = c;
+            }}>
+            <div className="active-process" style={{
+              width: this.offsetPercent + '%'
+            }}></div>
+            <div className="handle"
+              ref={h => {
+                if(h) this.handle = h;
+              }}
               style={handleStyle}>
-              <div className="hide-value" ref="valueCon">{_value}</div>
+              <div className="hide-value" ref="valueCon">
+                <span className="text">{_value}{precent ? '%' : ''}</span>
+                <span className="caret"></span>
+              </div>
             </div>
           </div>
-          <span className="plus handle-btn" onClick={e => this.plusAndLess('+')}> + </span>
+          {/* <span className="plus handle-btn" onClick={e => this.plusAndLess('+')}> + </span> */}
         </div>
+        {
+          withInput ? (
+            <InputVerify 
+              value={+stateValue}
+              inputable={false}
+              precent={precent}
+              numRange={[0, range[1]]}
+              unit={basicUnit}
+              onChange={val => this.changeValue(val)}/>
+          ) : null
+        }
       </div>
     )
   }
 }
-
-Ranger.propTypes = {
-  onChange: PropTypes.func.isRequired,
-  defaultValue: PropTypes.number,
-  basicUnit: PropTypes.number,
-  disabled: PropTypes.bool,
-  precent: PropTypes.bool,
-  range: PropTypes.array
-};
