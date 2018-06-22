@@ -35,8 +35,8 @@ export default class CAPTCHA extends Component {
       loading: true
     });
 
-    if($UK.queryCAPTCHAData) {
-      $UK.queryCAPTCHAData(options => {
+    if($UKE.queryCAPTCHAData) {
+      $UKE.queryCAPTCHAData(options => {
         if (this.__unmount) return;
         const {hasErr, captchaImage, captchaKey} = options;
         if(hasErr) {

@@ -19,7 +19,7 @@ export default class RecordItemsHelper extends MapperFilter {
                     if(!item) return;
                     let currText = record[item.key];
                     let result = this.mapperFilter(item, record, idx);
-                    let title = item.title || $UK.getKeyMap(item.key);
+                    let title = item.title || $UKE.getKeyMap(item.key);
                     return (
                       <div key={idx + '_' + _idx}>
                         <span className="title">{title}</span>

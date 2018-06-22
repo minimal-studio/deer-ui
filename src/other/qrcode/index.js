@@ -14,8 +14,8 @@ export class QRCode extends PureComponent {
    */
   queryData() {
     const {origin} = this.props;
-    if($UK.queryQRCodeData) {
-      $UK.queryQRCodeData(base64Res => {
+    if($UKE.queryQRCodeData) {
+      $UKE.queryQRCodeData(base64Res => {
         this.setState({
           qrbase64: base64Res
         });

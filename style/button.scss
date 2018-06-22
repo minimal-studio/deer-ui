@@ -68,7 +68,7 @@
     @include btnFlat($colorRed);
   }
   &.gold {
-    @include btnFlat($colorGold, #69521b);
+    @include btnFlat($colorGold, #2f2b29);
   }
   &.yellow {
     @include btnFlat(#FFAA0D, #FFF);

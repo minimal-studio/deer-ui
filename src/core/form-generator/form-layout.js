@@ -33,7 +33,7 @@ export default class FormLayout extends Component {
     btnText: PropTypes.string,
     className: PropTypes.string,
   
-    loading: PropTypes.bool,
+    ready: PropTypes.bool,
     tipInfo: PropTypes.object,
     btnConfig: PropTypes.array,
   
@@ -45,24 +45,20 @@ export default class FormLayout extends Component {
     childrenBeforeForm: PropTypes.any,
     childrenAfterForm: PropTypes.any,
   };
-  constructor(props) {
-    super(props);
-
-    this.isShowedDesc = false;
-  }
+  isShowedDesc = false;
   componentWillReceiveProps(nextProps) {
-    const {hasErr, loading} = nextProps;
-    if(typeof loading !== 'undefined' && !loading && !this.isShowedDesc) {
+    const {hasErr, resDesc} = nextProps;
+      if(!!resDesc && this.props.hasErr !== hasErr && !this.isShowedDesc) {
       this.showResDesc(nextProps);
     }
   }
   showResDesc(resInfo) {
     this.isShowedDesc = true;
-    this.toast.show(resInfo.resDesc, resInfo.hasErr ? 'error' : 'success');
+    !!resInfo.resDesc && this.toast && this.toast.show(resInfo.resDesc, resInfo.hasErr ? 'error' : 'success');
   }
   render() {
     const {
-      loading, tipInfo, btnConfig, className = '', isVertical,
+      tipInfo, btnConfig, className = '', isVertical,
       showInputTitle,
       childrenBeforeForm, childrenAfterForm, childrenBeforeBtn,
       formOptions = [], btnText = '确定提交',
@@ -82,13 +78,15 @@ export default class FormLayout extends Component {
     ) : null;
 
     const btnGroup = _btnConfig.map((btn, idx) => {
-      const {action, text, className} = btn;
+      const {action, text, className, actingRef = 'loading'} = btn;
+      const isBtnLoading = this.props[actingRef];
+      const isActive = !!action && !isBtnLoading;
       return (
         <span className="mr5" key={idx}>
           <Button
-            disabled={!action}
-            text={loading ? text + '中...' : text}
-            loading={loading}
+            disabled={!isActive}
+            text={isBtnLoading ? text + '中...' : text}
+            loading={isBtnLoading}
             className={className}
             onClick={e => {
               this.isShowedDesc = false;

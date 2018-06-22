@@ -14,7 +14,7 @@ export default class DescHelper extends MapperFilter {
           keyMapper.map((mapper, idx) => {
             if(!mapper) return;
             let text = record[mapper.key] || '';
-            let title = mapper.title || $UK.getKeyMap(mapper.key);
+            let title = mapper.title || $UKE.getKeyMap(mapper.key);
             text = this.mapperFilter(mapper, record);
             let isLongText = text ? text.length > 100 : '';
             let {block = false} = mapper;

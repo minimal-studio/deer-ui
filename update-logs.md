@@ -2,6 +2,40 @@
 
 -----------
 
+### 2.4.0
+
+- 提供一个基础的 class state manager，用于管理通用异步的组件中的 state ，抽离于 ActionBasic ， ActionBasic 可以为更专注于业务处理
+
+使用方式
+
+```
+import {StateManager} from 'ukelli-ui/other/state-manager';
+
+1. 继承 StateManager
+2. 重写其中的流程 hook 
+
+class ActionBasic extends StateManager {
+  showResDesc() {
+    // do anything
+  } // 用于
+  checkResIsSuccess(resData) {
+    return boolean
+  } // 检查业务回调是否成功
+  defaultStateAfterPost(resData, sendOptions) {
+    return {}
+  } // 触发在请求后，setState 前
+  wrapDataFilter(sendData) {
+    return {}
+  } // 发送请求前的 data 对象的 hook
+  request(orionReqObj) {
+    return async function
+  } // 业务数据发送接口, 需要返回异步函数
+}
+```
+
+
+-----------
+
 ### 2.3.0
 
 - 优化 FormFilter 和 FormGenerator 的实现

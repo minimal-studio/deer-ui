@@ -89,7 +89,7 @@ export default class FormFilterHelper extends Component {
     return checkRes;
   }
   wrapConditionTitle(config) {
-    config.title = config.title || $UK.getKeyMap(config.ref) || config.ref || '';
+    config.title = config.title || $UKE.getKeyMap(config.ref) || config.ref || '';
     return config;
   }
   focusRef(ref) {

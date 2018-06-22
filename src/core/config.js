@@ -20,4 +20,4 @@ export function getUkelliConfig(name) {
   return name ? (_ukelliui[name] || false) : _ukelliui;
 }
 
-defineGlobalScope('$UK', ukelliui);
+defineGlobalScope('$UKE', ukelliui);

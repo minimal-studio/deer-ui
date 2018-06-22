@@ -129,7 +129,7 @@ export default class TableBody extends MapperFilter {
                 keyMapper.map((item, idx) => {
                   let currHeaderWidth = headerWidthMapper[idx];
                   if(!item) return;
-                  let title = item.title || $UK.getKeyMap(item.key);
+                  let title = item.title || $UKE.getKeyMap(item.key);
                   if(item.key == 'checkbox') title = (
                     <input type="checkbox" checked={allCheck}
                       onChange={e => CallFunc(this.props.onCheckAll)(e.target.checked)}/>

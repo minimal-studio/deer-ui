@@ -46,7 +46,7 @@ function ShowGlobalModal(options) {
     type, confirmText = '确定？', title, animateType,
     modalLayoutDOM, topClassName = 'top-modal-opend', Header,
     showFuncBtn = true, className, clickBgToClose, duration,
-    width = $UK.isMobile ? '90%' : 600, id, children, onClose,
+    width = $UKE.isMobile ? '90%' : 600, id, children, onClose,
     onConfirm
   } = options;
 

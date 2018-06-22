@@ -5,7 +5,7 @@ import {DebounceClass, CallFunc} from 'basic-helper';
 import Icon from '../icon';
 
 const TRANSTION_TIME = 2000;
-const defaultRotateX = $UK.isMobile ? '200px' : '1600px';
+const defaultRotateX = $UKE.isMobile ? '200px' : '1600px';
 const delayExec = new DebounceClass();
 
 export default class BannerCarousel extends Component {
