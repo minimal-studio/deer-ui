@@ -248,7 +248,7 @@ export default class FormFilterHelper extends Component {
           <span
             className={'btn flat ' + config.className}
             onClick={e => config.onClick(e, ref)}
-          >{text}</span>
+          >{config.text}</span>
         );
       case 'datetime':
         var {needTime = true, title} = config;
