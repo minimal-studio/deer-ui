@@ -125,7 +125,7 @@ export default class Avatar extends PureComponent {
     } = this.props;
     const { isShow } = this.state;
 
-    const {avatarImgMap, getImage} = $UK;
+    const {avatarImgMap, getImage} = $UKE;
 
     const changeAvatarDOM = changeAvatarable ? (
       <div>
