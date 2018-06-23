@@ -1,17 +1,19 @@
-### ukelli-ui
+# ukelli-ui
 
-### 简易，轻便的 ui 库，提供基础的控件，聚合表单和表格的配置声明渲染方式
+## 请查看[关于 UI 的逻辑思考](./ui-logic.md)
 
-### [在线文档](https://ukelli.github.io/uklli-ui-document/#/globals/Overview/)
+## 简易，轻便的 ui 库，提供基础的控件，聚合表单和表格的配置声明渲染方式
 
-### 使用概览
+## [在线文档](https://ukelli.github.io/uklli-ui-document/#/globals/Overview/)
+
+## 使用概览
 
 /src 目录下
 
 - /core  核心组件集，各个组件为独立组件，除了 form-generator 中是聚合组件
 - /other 其他组件集合库，暂时命名为 other
 
-##### /core 中各个组件的引入方式
+### /core 中各个组件的引入方式
 
 ```js
 import CitySelector from 'ukelli-ui/core/city-selector';
@@ -42,7 +44,7 @@ import {Modal, ModalHelper, ShowGlobalModal, CloseGlobalModal} from 'ukelli-ui/c
 import {DropdownMenu, Radio} from 'ukelli-ui/core/selector';
 ```
 
-##### /other 引入方式
+### /other 引入方式
 
 ```js
 import {Ball} from 'ukelli-ui/other/ball';
@@ -57,7 +59,7 @@ import StateManager from 'ukelli-ui/other/state-manager';
 
 依赖 basic-helper ，UI 库的全局作用域为 window.$UKE, 可以通过配置去改变
 
-### 配置准备
+## 配置准备
 
 提供一个接口，设置 UI 库的部分内部结构，某些控件在使用前需要传入必要的配置，设置都挂载在 $UKE 作用域下
 
@@ -90,7 +92,7 @@ setUkelliConfig({
 })
 ```
 
-### 组件说明
+## 组件说明
 
 Loading 组件提供两种模式，根据 inrow 参数做判定
 
@@ -116,17 +118,19 @@ Loading 组件提供两种模式，根据 inrow 参数做判定
 </Loading>
 ```
 
-----------------
+-----------------
 
 关于 Form 聚合表单控件的说明，以下简称 FormController
 
 FormLayout、 FormGenerator、 ConditionGenerator 组件的 formOptions 或者 conditionOptions 参数是要第一次传入时就确定的
 
-*注意：更改 FormLayout 中，具体字段的值*
+注意：*更改 FormLayout 中，具体字段的值*
 
 *FormController* 是一种聚合表单的概念的实现，其内部管理所有的控件的值，内部所有控件都是受 *FormController* 控制，所以一旦已经渲染，再传入新的 formOptions 可能不起作用
 
 如果想要改变 *FormController* 中的值，需要通过 *FormController* 的 ref.changeValues 改变
+
+注意: *文档需要列举所有 FormGenerator 支持的 type*
 
 ```js
 // 如果是异步获取的表单条件，需要做 loading 判定，以下为一个完整的表单渲染例子
@@ -167,7 +171,7 @@ class Com extends Component {
     ];
   }
   onSubmit(formHelperRef) {
-    /** 
+    /**
      * 点击按钮会触发 onSubmit ，
      * 会传入自身的 ref 作为参数，如果需要改变其中的 formOptions 的值，
      * 需要按照以下方式更改
@@ -204,13 +208,13 @@ class Com extends Component {
         action: this.transferIn,
         text: '转入游戏',
         actingRef: 'INing', // 用于标记是否提交中的 state 标记
-        className: 'theme'   
+        className: 'theme'
       },
       {
         action: this.transferOut,
         text: '转回平台',
         actingRef: 'OUTing',
-        className: 'red'   
+        className: 'red'
       },
     ]
 
@@ -218,12 +222,12 @@ class Com extends Component {
       <Loading loading={loading} inrow={false}>
         {
           loading ? null : (
-            <FormLayout 
+            <FormLayout
               ref="formHelperRef"
               /**
                * 可以通过 btnConfig 设置配置多个按钮
                */
-              btnConfig={btnConfig} 
+              btnConfig={btnConfig}
               /**
                * onSubmit 和 btnText 作为一个按钮出现
                * 如果传入 btnConfig ， 则此传入的上面两个 props 会失效
@@ -258,7 +262,7 @@ import {Notify, CancelNotify} from 'ukelli-ui';
 
 // Notify 将返回 ID，可以提供取消
 let notifyID = Notify({
-  position: string, 
+  position: string,
   config: {
     type: 'success error normal black white wram',
     text: 'content',
@@ -288,7 +292,7 @@ ukelli-ui/other/state-manager 提供通用的 react 组件 state 的管理，包
 
 以下为 ActionBasic 的实现方式，主要是用于处理业务请求
 
-```js 
+```js
 import StateManager from 'ukelli-ui/other/state-manager';
 
 export default class ActionBasic extends StateManager {
@@ -352,4 +356,3 @@ Radio 控件
 Radio 控件须传入 defaultValue 才会有选择，否则为空
 
 -----------------
-

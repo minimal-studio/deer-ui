@@ -105,9 +105,9 @@ export default class StateManager extends Component {
   }
   _checkResIsSuccess(res, onSuccessCallback) {
     // return res.Header.ErrCode.Code == '0';
-    let isSuccess = this.checkResIsSuccess(res);
-    if(isSuccess) CallFunc(onSuccessCallback)(res);
-    return isSuccess;
+    let {success, data} = this.checkResIsSuccess(res);
+    if(success) CallFunc(onSuccessCallback)(data);
+    return success;
   }
   wrapDataFilter(sendData) {
     this.log(rewiteMsg.wrapDataFilter);
