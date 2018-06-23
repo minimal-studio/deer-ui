@@ -96,7 +96,6 @@ function ShowGlobalModal(options) {
       }}
       {...options}
       onCloseModal={e => {
-        CallFunc(onClose)();
         CloseGlobalModal(entityId);
       }}>
       {modalTMPL}
