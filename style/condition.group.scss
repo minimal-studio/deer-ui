@@ -10,13 +10,19 @@ $formControlBgColor: #f9f9f9;
   @include card();
   margin: 0 10px;
 
-  .datepicker-ranger-content {
+  // .datepicker-ranger-content {
     .flatpickr {
+      position: relative;
       .form-control {
         width: 220px !important;
       }
+      .icon {
+        position: absolute;
+        right: 16px;
+        top: 7px;
+      }
     }
-  }
+  // }
 
   .flatpickr {
     display: inline-block;

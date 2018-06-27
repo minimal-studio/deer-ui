@@ -1,8 +1,10 @@
 import React, {Component, PureComponent} from 'react';
 import PropTypes from 'prop-types';
 
-import SelectorBasic from './selector';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
+import {HasValue} from 'basic-helper';
+
+import SelectorBasic from './selector';
 
 const MenuItem = ({isActive, text, icon, ...other}) => {
   return (
@@ -13,6 +15,24 @@ const MenuItem = ({isActive, text, icon, ...other}) => {
       {text}
     </div>
   )
+}
+
+const itemActiveFilter = (val, targetVal) => {
+  let has = HasValue(val);
+
+  if(!has) return false;
+
+  let isInclueVal = false;
+  switch (true) {
+    case Array.isArray(val):
+    case typeof val === 'string':
+      isInclueVal = val.indexOf(targetVal) != -1;
+      break;
+    case typeof val === 'number':
+      isInclueVal = val == targetVal;
+      break;
+  }
+  return isInclueVal;
 }
 
 export default class DropdownMenu extends SelectorBasic {
@@ -62,7 +82,7 @@ export default class DropdownMenu extends SelectorBasic {
   }
   getActiveTitle() {
     const {values, value, isMultiple} = this.props;
-    if(!value) return '无';
+    if(!HasValue(value)) return '无';
 
     return isMultiple ? value.length + '项已选择' : values[value];
   }
@@ -157,7 +177,8 @@ export default class DropdownMenu extends SelectorBasic {
                         this.values.map((dataItem, idx) => {
                           const {text, value, icon, img} = dataItem;
   
-                          const isActive = _selectedValue && _selectedValue.indexOf(value) > -1;
+                          const isActive = itemActiveFilter(_selectedValue, value);
+                          // HasValue(_selectedValue) && (_selectedValue + '').indexOf(value) > -1;
                           let renderable = !searchValue ? true : (text.indexOf(searchValue) != -1 || value.toLowerCase().indexOf(searchValue) != -1);
   
                           return renderable ? (

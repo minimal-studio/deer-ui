@@ -1,8 +1,12 @@
-## update logs
+# update logs
+
+## 2.4.8
+
+- DropdownMenu 支持 number 的 value
 
 -----------
 
-### 2.4.0
+## 2.4.0
 
 - 提供一个基础的 class state manager，用于管理通用异步的组件中的 state ，抽离于 ActionBasic ， ActionBasic 可以为更专注于业务处理
 
@@ -33,10 +37,9 @@ class ActionBasic extends StateManager {
 }
 ```
 
-
 -----------
 
-### 2.3.0
+## 2.3.0
 
 - 优化 FormFilter 和 FormGenerator 的实现
 - 新增 select-n 的表单类型，用于渲染原生的 select 组件，提供移动端使用
@@ -49,20 +52,20 @@ class ActionBasic extends StateManager {
 
 -----------
 
-### 2.2.4
+## 2.2.4
 
 - 优化 Notification 的样式, 新增可以控制的 action btn 的 text
 
 -----------
 
-### 2.2.*
+## 2.2.*
 
 - 不再使用 $GH ，而是更严谨的 import 对应的方法
 - 优化 Notify 全局方法
 
 -----------
 
-### 2.1.*
+## 2.1.*
 
 1. 废除 citySelector，改为联动组件
 2. formGenarator 新增一个可以自定义控件的接口
@@ -74,20 +77,20 @@ class ActionBasic extends StateManager {
 
 -----------
 
-### 2.0.*
+## 2.0.*
 
 1. 重做的 dropdown menu
 2. 分离 core 和 other 文件
 
 -----------
 
-### 1.8.*
+## 1.8.*
 
 1. 新增 notification 通知组件
 
 -----------
 
-### 1.7.*
+## 1.7.*
 
 1. FormHelper 改名为 FormGenerator
 2. ConditionHelper 改名为 ConditionGenerator

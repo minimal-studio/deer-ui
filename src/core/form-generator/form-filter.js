@@ -123,7 +123,8 @@ export default class FormFilterHelper extends Component {
     return target === 0 ? 0 : (target || compare);
   }
   getValue(ref, other) {
-    return this.value[ref] || other;
+    let targetVal = this.value[ref];
+    return HasValue(targetVal) ? targetVal : other;
   }
   greneratFormDOM(config) {
     const {
