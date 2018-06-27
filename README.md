@@ -356,3 +356,32 @@ Radio 控件
 Radio 控件须传入 defaultValue 才会有选择，否则为空
 
 -----------------
+
+Carousel 轮播图
+
+```js
+import {Carousel} from 'ukelli-ui';
+// css style config of carousel, 只有 3 个参数有效
+let styleConfig = {
+  width,
+  height,
+  margin
+}
+// 轮播图的内容
+let carouselItems = [
+  {
+    action: () => {
+
+    },
+    imgUrl: '' // 图片地址
+  }
+];
+let isMobile = true; // 移动端模式，后续继续完善
+<Carousel
+  styleConfig={styleConfig}
+  actionClass="action-area"
+  carouselItems={carouselItems}
+  isMobile={isMobile}/>
+```
+
+-----------------

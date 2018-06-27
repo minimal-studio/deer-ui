@@ -11,26 +11,26 @@ export default class BannerCarousel extends Component {
   constructor(props) {
     super(props);
 
-    const {config, carouselConfig} = props;
+    const {carouselItems, styleConfig} = props;
     const defaultIdx = 0;
     this.state = {
       activeIdx: defaultIdx,
-      activeBannerItem: config[defaultIdx],
+      activeBannerItem: carouselItems[defaultIdx],
     }
     this.timer = null;
     this.freq = 5000;
 
     this.isStarted = false;
 
-    this.bannerItemWidth = carouselConfig.width;
+    this.bannerItemWidth = styleConfig.width;
   }
   componentWillReceiveProps(nextProps) {
-    if(this.props.config.length == 0 && nextProps.config.length > 0) {
+    if(this.props.carouselItems.length == 0 && nextProps.carouselItems.length > 0) {
       this.startLoop();
     }
   }
   componentDidMount() {
-    // this.setActiveIdx(this.props.config.length - 1);
+    // this.setActiveIdx(this.props.carouselItems.length - 1);
     this.startLoop();
   }
   componentWillUnmount() {
@@ -40,10 +40,10 @@ export default class BannerCarousel extends Component {
     var self = this;
     if(!!this.timer) this.stopLoop();
     this.timer = setInterval(() => {
-      const {config} = self.props;
+      const {carouselItems} = self.props;
       let {activeIdx} = self.state;
       activeIdx += 1;
-      if(activeIdx >= config.length - 1) activeIdx = 0;
+      if(activeIdx >= carouselItems.length - 1) activeIdx = 0;
       if(!document.hidden) self.setActiveIdx(activeIdx);
     }, this.freq);
   }
@@ -52,24 +52,24 @@ export default class BannerCarousel extends Component {
     this.timer = null;
   }
   setActiveIdx(idx) {
-    const {config} = this.props;
-    const maxIdx = config.length - 1;
+    const {carouselItems} = this.props;
+    const maxIdx = carouselItems.length - 1;
     if(idx > maxIdx) idx = 0;
     if(idx < 0) idx = maxIdx;
     this.setState({
       activeIdx: idx,
-      activeBannerItem: config[idx] || <span></span>
+      activeBannerItem: carouselItems[idx] || <span></span>
     // });
     }, () => this.startLoop());
   }
   genCarouselDOM(currItem, idx, imgStyle) {
-    const {carouselConfig} = this.props;
-    const {width, height} = imgStyle || carouselConfig;
+    const {styleConfig, actionClass = 'action-area'} = this.props;
+    const {width, height} = imgStyle || styleConfig;
 
     const {action, imgUrl, component} = currItem;
 
     return (
-      <div className="action-area" key={idx}
+      <div className={actionClass} key={idx}
         onClick={idx => {
           CallFunc(action)(currItem, idx);
         }}>
@@ -85,8 +85,8 @@ export default class BannerCarousel extends Component {
   }
   render() {
     const {activeIdx, activeBannerItem} = this.state;
-    const {config, carouselConfig, onClickItem} = this.props;
-    const {width, height, margin} = carouselConfig;
+    const {carouselItems, styleConfig, onClickItem} = this.props;
+    const {width, height, margin} = styleConfig;
     const imgWHRate = width / height;
     const thumbImgStyle = {
       width: width / thumbRate,
@@ -109,7 +109,7 @@ export default class BannerCarousel extends Component {
         </TransitionGroup>
         <div className="thumb-contaner">
           {
-            config.map((item, idx) => {
+            carouselItems.map((item, idx) => {
               let isActive = idx == activeIdx;
               return (
                 <div
@@ -142,17 +142,16 @@ export default class BannerCarousel extends Component {
 }
 BannerCarousel.propTypes = {
   /**
-   * config: [
+   * carouselItems: [
    *   {
    *     action, url, component
    *   }
    * ]
-   * @type {[type]}
    */
-  config: PropTypes.array.isRequired,
+  carouselItems: PropTypes.array.isRequired,
 
   /* 设置轮播图控件的样式，和其他配置 */
-  carouselConfig: PropTypes.object.isRequired,
+  styleConfig: PropTypes.object.isRequired,
   actionClass: PropTypes.string,
   isMobile: PropTypes.bool,
   onClickItem: PropTypes.func

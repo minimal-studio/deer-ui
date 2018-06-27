@@ -47,8 +47,8 @@ export default class FormLayout extends Component {
   };
   isShowedDesc = false;
   componentWillReceiveProps(nextProps) {
-    const {hasErr, resDesc} = nextProps;
-      if(!!resDesc && this.props.hasErr !== hasErr && !this.isShowedDesc) {
+    const {resDesc} = nextProps;
+    if(!!resDesc && (this.props.resDesc !== resDesc) && !this.isShowedDesc) {
       this.showResDesc(nextProps);
     }
   }
