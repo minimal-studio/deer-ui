@@ -170,7 +170,7 @@ export default class DropdownMenu extends SelectorBasic {
                   }
                   <div className="action-group">
                     <div className="action-btn" onClick={e => {
-                      canSelectAll ? this.selectAll() : this.changeEvent(isMultiple ? [] : '');
+                      canSelectAll ? this.selectAll() : this.changeEvent([]);
                     }}>{canSelectAll ? '全选' : '取消'}</div>
                     <div className="items-group">
                       {

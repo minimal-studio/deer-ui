@@ -15,6 +15,7 @@ import Ranger from './range-selector';
 import PagingBtn from './paging-button';
 import TipBtn from './tip-button';
 import Icon from './icon';
+import Tip from './tip';
 
 export * from './notification';
 
@@ -45,4 +46,5 @@ export {
   PagingBtn,
   TipBtn,
   Icon,
+  Tip,
 }

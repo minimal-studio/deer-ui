@@ -1,0 +1,31 @@
+.uke-tip-item {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: inline;
+  .tip {
+    @include fill;
+    background-color: $themeColor;
+    border-radius: 50%;
+    &.animate {
+      animation-name: cycle-tip-animate;
+      animation-duration: 1s;
+      animation-timing-function: linear;
+      animation-iteration-count: infinite;
+    }
+  }
+  @keyframes cycle-tip-animate {
+    0% {
+      transform: scale(1);
+      opacity: 1;
+    }
+    50% {
+      transform: scale(2);
+      opacity: 0.5;
+    }
+    100% {
+      transform: scale(3);
+      opacity: 0;
+    }
+  }
+}

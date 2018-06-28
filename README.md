@@ -385,3 +385,13 @@ let isMobile = true; // 移动端模式，后续继续完善
 ```
 
 -----------------
+
+新增 Tip 组件
+
+```js
+import {Tip} from 'ukelli-ui';
+
+<Tip/>
+```
+
+-----------------
