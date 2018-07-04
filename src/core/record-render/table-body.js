@@ -12,7 +12,9 @@ export default class TableBody extends MapperFilter {
 
     this.state = {
       headerWidthMapper: [],
-      containerWidth: 'auto'
+      containerWidth: 'auto',
+      sortField: '',
+      isDesc: false,
     }
 
     this.firstTDDOMs = {};
@@ -109,9 +111,50 @@ export default class TableBody extends MapperFilter {
     return result;
   }
 
+  recordDescFilter() {
+    const {sortField, isDesc} = this.state;
+    const {records} = this.props;
+    if(!sortField) return records;
+    let result = [...records];
+    result.sort((itemPrev, itemNext) => {
+      let sortTargetPrev = itemPrev[sortField];
+      let sortTargetNext = itemNext[sortField];
+
+      let res;
+
+      switch (true) {
+        case typeof sortTargetPrev == 'string':
+          res = sortTargetPrev.toString().charCodeAt(0) < sortTargetNext.toString().charCodeAt(0);
+          break;
+        case typeof sortTargetPrev == 'number':
+          res = sortTargetPrev < sortTargetNext;
+          break;
+      }
+
+      return isDesc ? res : !res;
+    });
+    return result;
+  }
+
+  orderRecord(orderKey) {
+    this.setState(({isDesc, sortField}) => {
+      let _isDesc = isDesc;
+      if(sortField == orderKey) {
+        _isDesc = !_isDesc;
+      } else {
+        _isDesc = false;
+      }
+      return {
+        sortField: orderKey,
+        isDesc: _isDesc
+      }
+    });
+  }
+
   render() {
-    const {keyMapper, records, needCount = false, allCheck, height} = this.props;
-    const {headerWidthMapper, containerWidth} = this.state;
+    const {keyMapper, needCount = false, allCheck, height} = this.props;
+    const {headerWidthMapper, containerWidth, sortField, isDesc} = this.state;
+    const records = this.recordDescFilter();
     const hasRecord = records.length > 0;
 
     if(!Array.isArray(records)) {
@@ -134,10 +177,23 @@ export default class TableBody extends MapperFilter {
                     <input type="checkbox" checked={allCheck}
                       onChange={e => CallFunc(this.props.onCheckAll)(e.target.checked)}/>
                   );
+                  let isOrdering = sortField == item.key;
+                  let sortTip = isOrdering ? (
+                    <span className="caret" style={{
+                      transform: `rotate(${!isDesc ? '180deg' : '0deg'})`
+                    }}></span>
+                  ) : null;
                   return (
-                    <th key={idx} style={{
+                    <th 
+                      className={`_btn${isOrdering ? (' _order' + (isDesc ? ' _desc' : ' _asc')) : ''}`}
+                      key={idx} 
+                      onClick={e => this.orderRecord(item.key)}
+                      style={{
                       width: currHeaderWidth
-                    }}>{title}</th>
+                    }}>
+                      {title}
+                      {sortTip}
+                    </th>
                   )
                 })
               }

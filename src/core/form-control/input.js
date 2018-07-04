@@ -14,7 +14,7 @@ export default class Input extends Component {
     this.value = this.isControl ? value : defaultValue;
 
     this.state = {
-      viewClass: this.value ? 'has-val' : 'normal',
+      viewClass: HasValue(this.value) ? 'has-val' : 'normal',
       stateVal: this.value
     }
   }

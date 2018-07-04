@@ -151,7 +151,7 @@ export default class Avatar extends PureComponent {
       <div className="avatar-helper">
         <span
           className={"avatar fixbg" + (size ? " " + size : "")}
-          style={{ backgroundImage: `url(${(faceId+'').indexOf('data') > -1 ? faceId : `${getImage(avatarImgMap, faceId)}.jpg`})` }}
+          style={{ backgroundImage: `url(${(faceId + '').indexOf('data') > -1 ? faceId : `${getImage(avatarImgMap, faceId)}.jpg`})` }}
           onClick={e => this.togglePanel(!isShow)}>
           {text}
         </span>

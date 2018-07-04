@@ -12,10 +12,22 @@
   overflow-y: auto;
   overflow-x: hidden;
 }
-.table-body {
-}
 .table-header {
   table-layout: fixed;
+  thead {
+    th {
+      &._order {
+        background: linear-gradient(180deg, darken(#FFF, 3%), darken(#FFF, 6%));
+        position: relative;
+        // color: $themeColor;
+        .caret {
+          position: absolute;
+          bottom: 0;
+          left: 45%;
+        }
+      }
+    }
+  }
 }
 .table-render {
   // overflow: auto;

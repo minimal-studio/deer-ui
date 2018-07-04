@@ -38,7 +38,9 @@ export default class DatetimePicker extends PureComponent {
       disableMobile: true,
       // enableSeconds: true,
       onClose: (val) => {
-        this.changeDate(val);
+        let emitVal = val;
+        if(mode == 'single' && Array.isArray(emitVal)) emitVal = val[0];
+        this.changeDate(emitVal);
         // if(clickToClose) this.datepicker.close();
       },
       locale: lang,
