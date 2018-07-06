@@ -377,11 +377,76 @@ let carouselItems = [
   }
 ];
 let isMobile = true; // 移动端模式，后续继续完善
+
+// 以下是可选的，有默认值
+let transitionName = 'banner'; // 对应的 css 动画的名字
+let transitionTimer = 600; // 对应的 css 动画的持续时间，默认 600ms
+let thumbRate = 15; // 缩略图的缩放比例，默认 15
+
 <Carousel
+  transitionName={transitionName}
+  transitionTimer={transitionTimer}
+  thumbRate={thumbRate}
   styleConfig={styleConfig}
   actionClass="action-area"
   carouselItems={carouselItems}
   isMobile={isMobile}/>
+```
+
+自定义 transition css, 分为两个部分，分别是上下张的动画
+
+```css
+// to next
+.banner-to-next-enter {
+  opacity: 0.01;
+  transform: translateX(10%);
+}
+
+.banner-to-next-enter.banner-to-next-enter-active {
+  opacity: 1;
+  transition: opacity $bannerTransDuration ease, transform $bannerTransDuration ease;
+  transform: translateX(0);
+  // transform: scale(1);
+}
+
+.banner-to-next-exit {
+  opacity: 1;
+  // transform: scale(1);
+  transform: translateX(0);
+}
+
+.banner-to-next-exit.banner-to-next-exit-active {
+  opacity: 0.01;
+  transition: opacity $bannerTransDuration ease, transform $bannerTransDuration ease;
+  // transform: scale(1.1);
+  transform: translateX(-10%);
+}
+
+// to prev
+.banner-to-prev-enter {
+  opacity: 0.01;
+  transform: translateX(-10%);
+}
+
+.banner-to-prev-enter.banner-to-prev-enter-active {
+  opacity: 1;
+  transition: opacity $bannerTransDuration ease, transform $bannerTransDuration ease;
+  transform: translateX(0);
+  // transform: scale(1);
+}
+
+.banner-to-prev-exit {
+  opacity: 1;
+  // transform: scale(1);
+  transform: translateX(0);
+}
+
+.banner-to-prev-exit.banner-to-prev-exit-active {
+  opacity: 0.01;
+  transition: opacity $bannerTransDuration ease, transform $bannerTransDuration ease;
+  // transform: scale(1.1);
+  transform: translateX(10%);
+}
 ```
 
 -----------------

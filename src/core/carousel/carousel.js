@@ -4,24 +4,29 @@ import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import {CallFunc} from 'basic-helper';
 import Icon from '../icon';
 
-const TRANSTION_TIME = 600;
-const thumbRate = 15;
-
 export default class BannerCarousel extends Component {
+  static propTypes = {
+    carouselItems: PropTypes.array.isRequired,
+    styleConfig: PropTypes.object.isRequired,
+    actionClass: PropTypes.string,
+    transitionName: PropTypes.string,
+    isMobile: PropTypes.bool,
+    transitionTimer: PropTypes.number,
+    thumbRate: PropTypes.number,
+  };
   constructor(props) {
     super(props);
 
-    const {carouselItems, styleConfig} = props;
+    const {carouselItems = [], styleConfig} = props;
     const defaultIdx = 0;
     this.state = {
       activeIdx: defaultIdx,
+      toNext: true,
       activeBannerItem: carouselItems[defaultIdx],
     }
     this.timer = null;
     this.freq = 5000;
-
     this.isStarted = false;
-
     this.bannerItemWidth = styleConfig.width;
   }
   componentWillReceiveProps(nextProps) {
@@ -30,7 +35,6 @@ export default class BannerCarousel extends Component {
     }
   }
   componentDidMount() {
-    // this.setActiveIdx(this.props.carouselItems.length - 1);
     this.startLoop();
   }
   componentWillUnmount() {
@@ -56,11 +60,16 @@ export default class BannerCarousel extends Component {
     const maxIdx = carouselItems.length - 1;
     if(idx > maxIdx) idx = 0;
     if(idx < 0) idx = maxIdx;
-    this.setState({
-      activeIdx: idx,
-      activeBannerItem: carouselItems[idx] || <span></span>
-    // });
-    }, () => this.startLoop());
+    this.setState((preState) => {
+      let prevActiveIdx = preState.activeIdx;
+      let toNext = prevActiveIdx < idx;
+      return {
+        activeIdx: idx,
+        toNext,
+        activeBannerItem: carouselItems[idx] || <span></span>
+      }
+    });
+    this.startLoop();
   }
   genCarouselDOM(currItem, idx, imgStyle) {
     const {styleConfig, actionClass = 'action-area'} = this.props;
@@ -95,16 +104,27 @@ export default class BannerCarousel extends Component {
     if(Math.abs(touchOffset) < 50) {
       return this.showDetail(activeIdx);
     }
-    const toLeft = touchOffset < 0;
-    this.setActiveIdx(activeIdx + (toLeft ? - 1 : 1));
+    const toNext = touchOffset > 0;
+    this.setActiveIdx(activeIdx + (toNext ? - 1 : 1));
   }
   showDetail(activeIdx) {
     const {activeBannerItem} = this.state;
     CallFunc(activeBannerItem.action)(activeBannerItem, activeIdx);
   }
   render() {
-    const {activeIdx, activeBannerItem} = this.state;
-    const {carouselItems, styleConfig, isMobile = false, onClickItem} = this.props;
+    const {
+      carouselItems, styleConfig, 
+      isMobile = false, transitionTimer = 600, 
+      transitionName = 'banner',
+      thumbRate = 15,
+    } = this.props;
+    if(!carouselItems && carouselItems.length < 0) {
+      return (
+        <span className="no-banner"></span>
+      )
+    }
+    const {activeIdx, toNext, activeBannerItem} = this.state;
+
     const {width, height, margin} = styleConfig;
     const imgWHRate = width / height;
     const thumbImgStyle = {
@@ -119,8 +139,8 @@ export default class BannerCarousel extends Component {
         <TransitionGroup>
           <CSSTransition
             key={activeIdx}
-            classNames="banner"
-            timeout={TRANSTION_TIME}>
+            classNames={transitionName + '-to-' + (toNext ? 'next' : 'prev')}
+            timeout={transitionTimer}>
             <div className="carousel-item">
               {this.genCarouselDOM(activeBannerItem, activeIdx)}
             </div>
@@ -170,20 +190,4 @@ export default class BannerCarousel extends Component {
       </div>
     )
   }
-}
-BannerCarousel.propTypes = {
-  /**
-   * carouselItems: [
-   *   {
-   *     action, url, component
-   *   }
-   * ]
-   */
-  carouselItems: PropTypes.array.isRequired,
-
-  /* 设置轮播图控件的样式，和其他配置 */
-  styleConfig: PropTypes.object.isRequired,
-  actionClass: PropTypes.string,
-  isMobile: PropTypes.bool,
-  onClickItem: PropTypes.func
 }
