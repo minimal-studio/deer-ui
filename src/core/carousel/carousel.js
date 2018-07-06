@@ -83,9 +83,28 @@ export default class BannerCarousel extends Component {
       </div>
     )
   }
+  handleTouchStart = (e) => {
+    const touches = e.changedTouches || e;
+    this.startPageX = touches[0] ? touches[0].pageX : touches.pageX;
+  }
+  handleTouchEnd = (e) => {
+    const {activeIdx} = this.state;
+    const touches = e.changedTouches || e;
+    this.endPageX = touches[0] ? touches[0].pageX : touches.pageX;
+    const touchOffset = this.endPageX - this.startPageX;
+    if(Math.abs(touchOffset) < 50) {
+      return this.showDetail(activeIdx);
+    }
+    const toLeft = touchOffset < 0;
+    this.setActiveIdx(activeIdx + (toLeft ? - 1 : 1));
+  }
+  showDetail(activeIdx) {
+    const {activeBannerItem} = this.state;
+    CallFunc(activeBannerItem.action)(activeBannerItem, activeIdx);
+  }
   render() {
     const {activeIdx, activeBannerItem} = this.state;
-    const {carouselItems, styleConfig, onClickItem} = this.props;
+    const {carouselItems, styleConfig, isMobile = false, onClickItem} = this.props;
     const {width, height, margin} = styleConfig;
     const imgWHRate = width / height;
     const thumbImgStyle = {
@@ -126,16 +145,28 @@ export default class BannerCarousel extends Component {
             })
           }
         </div>
-        <div
-          className="prev-btn func-btn"
-          onClick={e => this.setActiveIdx(activeIdx - 1)}>
-            <Icon type="arrow"/>
-          </div>
-        <div
-          className="next-btn func-btn"
-          onClick={e => this.setActiveIdx(activeIdx + 1)}>
-            <Icon type="arrow"/>
-          </div>
+        {
+          isMobile ? (
+            <div className="section-mark"
+              onMouseDown={this.handleTouchStart}
+              onMouseUp={this.handleTouchEnd}
+              onTouchStart={this.handleTouchStart}
+              onTouchEnd={this.handleTouchEnd}></div>
+          ) : (
+            <React.Fragment>
+              <div
+                className="prev-btn func-btn"
+                onClick={e => this.setActiveIdx(activeIdx - 1)}>
+                <Icon type="arrow"/>
+              </div>
+              <div
+                className="next-btn func-btn"
+                onClick={e => this.setActiveIdx(activeIdx + 1)}>
+                <Icon type="arrow"/>
+              </div>
+            </React.Fragment>
+          )
+        }
       </div>
     )
   }
