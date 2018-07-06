@@ -118,7 +118,7 @@ export default class BannerCarousel extends Component {
       transitionName = 'banner',
       thumbRate = 15,
     } = this.props;
-    if(!carouselItems && carouselItems.length < 0) {
+    if(!carouselItems && carouselItems.length == 0) {
       return (
         <span className="no-banner"></span>
       )
