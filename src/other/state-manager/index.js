@@ -29,7 +29,7 @@ const rewiteMsg = {
  */
 export default class StateManager extends Component {
   static propTypes = {
-    onAppResponse: PropTypes.func
+    onNavigate: PropTypes.func
   };
   defaultPaging = {};
   state = {
@@ -46,9 +46,9 @@ export default class StateManager extends Component {
     process.env.NODE_ENV == 'development' ? console.log(...args) : '';
   }
   setModal(modalSetting) {
-    const {onAppResponse} = this.props;
-    onAppResponse && onAppResponse({
-      type: 'OPEN_TOP_MODAL',
+    const {onNavigate} = this.props;
+    onNavigate && onNavigate({
+      type: 'MODAL',
       modalSetting
     })
   }
@@ -56,9 +56,9 @@ export default class StateManager extends Component {
     return $GH.ToBasicUnitMoney(money);
   }
   closeModal() {
-    const {onAppResponse} = this.props;
-    onAppResponse && onAppResponse({
-      type: 'CLOSE_TOP_LV_MODAL'
+    const {onNavigate} = this.props;
+    onNavigate && onNavigate({
+      type: 'CLOSE_MODAL'
     })
   }
   getStateBeforePost(params, actingRef) {

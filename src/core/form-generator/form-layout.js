@@ -90,7 +90,7 @@ export default class FormLayout extends Component {
             className={className}
             onClick={e => {
               this.isShowedDesc = false;
-              action(this.formHelper);
+              action(this.formHelper, actingRef);
             }}/>
         </span>
       )

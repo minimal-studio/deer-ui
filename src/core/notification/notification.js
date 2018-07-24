@@ -27,7 +27,7 @@ export default class Notification extends PureComponent {
    *    onClickTip: func,
    *    actionText: string,
    *    navigateConfig: {
-   *      type: 'POP_MANAGER',
+   *      type: 'MANAGER',
    *      activeMenu: {
    *        code: 'ZHMX'
    *      }

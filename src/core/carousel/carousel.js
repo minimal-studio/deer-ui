@@ -14,10 +14,13 @@ export default class BannerCarousel extends Component {
     transitionTimer: PropTypes.number,
     thumbRate: PropTypes.number,
   };
+  static defaultProps = {
+    isMobile: false
+  };
   constructor(props) {
     super(props);
 
-    const {carouselItems = [], styleConfig} = props;
+    const {carouselItems = [], styleConfig, isMobile} = props;
     const defaultIdx = 0;
     this.state = {
       activeIdx: defaultIdx,
@@ -28,6 +31,13 @@ export default class BannerCarousel extends Component {
     this.freq = 5000;
     this.isStarted = false;
     this.bannerItemWidth = styleConfig.width;
+
+    this.mobileEvents = {
+      onMouseDown: this.handleTouchStart,
+      onMouseUp: this.handleTouchEnd,
+      onTouchStart: this.handleTouchStart,
+      onTouchEnd: this.handleTouchEnd,
+    };
   }
   componentWillReceiveProps(nextProps) {
     if(this.props.carouselItems.length == 0 && nextProps.carouselItems.length > 0) {
@@ -78,10 +88,7 @@ export default class BannerCarousel extends Component {
     const {action, imgUrl, component} = currItem;
 
     return (
-      <div className={actionClass} key={idx}
-        onClick={idx => {
-          CallFunc(action)(currItem, idx);
-        }}>
+      <div className={actionClass} key={idx}>
         <div
           className="img"
           style={{
@@ -97,6 +104,8 @@ export default class BannerCarousel extends Component {
     this.startPageX = touches[0] ? touches[0].pageX : touches.pageX;
   }
   handleTouchEnd = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
     const {activeIdx} = this.state;
     const touches = e.changedTouches || e;
     this.endPageX = touches[0] ? touches[0].pageX : touches.pageX;
@@ -114,11 +123,11 @@ export default class BannerCarousel extends Component {
   render() {
     const {
       carouselItems, styleConfig, 
-      isMobile = false, transitionTimer = 600, 
+      isMobile, transitionTimer = 600, 
       transitionName = 'banner',
       thumbRate = 15,
     } = this.props;
-    if(!carouselItems && carouselItems.length == 0) {
+    if(!carouselItems || carouselItems.length == 0) {
       return (
         <span className="no-banner"></span>
       )
@@ -141,38 +150,38 @@ export default class BannerCarousel extends Component {
             key={activeIdx}
             classNames={transitionName + '-to-' + (toNext ? 'next' : 'prev')}
             timeout={transitionTimer}>
-            <div className="carousel-item">
+            <div className="carousel-item" {...this.mobileEvents}>
               {this.genCarouselDOM(activeBannerItem, activeIdx)}
             </div>
           </CSSTransition>
         </TransitionGroup>
-        <div className="thumb-contaner">
-          {
-            carouselItems.map((item, idx) => {
-              let isActive = idx == activeIdx;
-              return (
-                <div
-                  className={"thumb-item" + (isActive ? ' active' : '')} key={idx}>
-                  <div
-                    className="_mark"
-                    onClick={e => {
-                      this.setActiveIdx(idx);
-                    }}></div>
-                  {this.genCarouselDOM(item, idx, thumbImgStyle)}
-                  {/* {item} */}
-                </div>
-              )
-            })
-          }
-        </div>
         {
           isMobile ? (
-            <div className="section-mark"
-              onMouseDown={this.handleTouchStart}
-              onMouseUp={this.handleTouchEnd}
-              onTouchStart={this.handleTouchStart}
-              onTouchEnd={this.handleTouchEnd}></div>
+            <span></span>
           ) : (
+            <div className="thumb-contaner">
+              {
+                carouselItems.map((item, idx) => {
+                  let isActive = idx == activeIdx;
+                  return (
+                    <div
+                      className={"thumb-item" + (isActive ? ' active' : '')} key={idx}>
+                      <div
+                        className="_mark"
+                        onClick={e => {
+                          this.setActiveIdx(idx);
+                        }}></div>
+                      {this.genCarouselDOM(item, idx, thumbImgStyle)}
+                      {/* {item} */}
+                    </div>
+                  )
+                })
+              }
+            </div>
+          )
+        }
+        {
+          isMobile ? null : (
             <React.Fragment>
               <div
                 className="prev-btn func-btn"
