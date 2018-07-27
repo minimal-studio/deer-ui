@@ -97,6 +97,14 @@ $tableBodyTextColor: #777;
   justify-content: flex-start;
 }
 
+@mixin layout-center {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+}
+
 @mixin jump {
   animation-duration: 0.7s;
   animation-iteration-count: infinite;

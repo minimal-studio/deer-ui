@@ -7,6 +7,13 @@ import "./croppie";
 const faceCount = 12;
 
 export default class Avatar extends PureComponent {
+  static propTypes = {
+    size: PropTypes.string,
+    text: PropTypes.string,
+    changeAvatarable: PropTypes.bool,
+    faceId: PropTypes.any,
+    onChangeAvatar: PropTypes.func
+  };
   constructor(props) {
     super(props);
     this.state = {
@@ -160,10 +167,3 @@ export default class Avatar extends PureComponent {
     );
   }
 }
-Avatar.propTypes = {
-  size: PropTypes.string,
-  text: PropTypes.string,
-  changeAvatarable: PropTypes.bool,
-  faceId: PropTypes.any,
-  onChangeAvatar: PropTypes.func
-};

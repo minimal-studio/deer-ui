@@ -43,10 +43,8 @@ function ShowGlobalModal(options) {
   let defaultModalId = 'topModal' + modalLen;
 
   const {
-    type, confirmText = '确定？', title, animateType,
-    modalLayoutDOM, topClassName = 'top-modal-opend', Header,
-    showFuncBtn = true, className, clickBgToClose, duration,
-    width = $UKE.isMobile ? '90%' : 600, id, children, onClose,
+    type, confirmText = '确定？', title, showFuncBtn = true,
+    width = $UKE.isMobile ? '90%' : 600, id, children,
     onConfirm
   } = options;
 

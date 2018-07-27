@@ -59,30 +59,40 @@ export default class Ranger extends Component {
     this.rangerBodyWidth = this.rangerContainer.offsetWidth;
     this.preUnitPixel = this.rangerBodyWidth / (max - min);
   }
-  handleMouseDown(event) {
-    event.stopPropagation();
+  handleMouseDown(e) {
+    // e.preventDefault();
+    // e.stopPropagation();
+
+    const touches = e.changedTouches || e;
+    this.dragOriginX = touches[0] ? touches[0].pageX : touches.pageX;
+
     this.drapElemInfo = {
       ...this.drapElemInfo,
-      dragOriginX: event.clientX
+      dragOriginX: this.dragOriginX
     };
     this.setState({
       draping: true
     });
     this.mouseMoving();
   }
-  mouseMoving() {
-    let self = this;
-    this.setEvent = this.movingHandle.bind(self);
-    this.dragEvent = this.dragEnd.bind(self);
-    document.addEventListener('mousemove', this.setEvent, false);
-    document.addEventListener('mouseup', this.dragEvent, false);
+  movingHandle = (e) => {
+    if (!this.state.draping) return;
+
+    const {dragOriginX} = this.drapElemInfo;
+    
+    const touches = e.changedTouches || e;
+    const offsetX = touches[0] ? touches[0].pageX : touches.pageX;
+
+    const moveOffset = this.isRevert ? dragOriginX - offsetX : offsetX - dragOriginX;
+
+    let currOffsetPer = Math.round(moveOffset / this.rangerBodyWidth * 100 + this.originalOffsetPercent);
+
+    if(currOffsetPer < 0) currOffsetPer = 0;
+    if(currOffsetPer > 100) currOffsetPer = 100;
+
+    this.changeValue(this.percentToVal(currOffsetPer));
   }
-  mouseMoved() {
-    let self = this;
-    document.removeEventListener('mousemove', this.setEvent, false);
-    document.removeEventListener('mouseup', this.dragEvent, false);
-  }
-  dragEnd(event) {
+  dragEnd = () => {
     if (!this.state.draping) return;
 
     const endX = this.drapElemInfo.dragOriginX + this.offsetPercent;
@@ -96,6 +106,18 @@ export default class Ranger extends Component {
     this.setState({
       draping: false
     });
+  }
+  mouseMoving() {
+    document.addEventListener('mousemove', this.movingHandle, false);
+    document.addEventListener('mouseup', this.dragEnd, false);
+    document.addEventListener('touchmove', this.movingHandle, false);
+    document.addEventListener('touchend', this.dragEnd, false);
+  }
+  mouseMoved() {
+    document.removeEventListener('mousemove', this.movingHandle, false);
+    document.removeEventListener('mouseup', this.dragEnd, false);
+    document.removeEventListener('touchmove', this.movingHandle, false);
+    document.removeEventListener('touchend', this.dragEnd, false);
   }
   percentToVal(percent) {
     if(percent - 1 < -1) return;
@@ -138,20 +160,6 @@ export default class Ranger extends Component {
     this.value = val;
     if(emitChangeEvent) onChange(val);
   }
-  movingHandle(event) {
-    if (!this.state.draping) return;
-
-    const {dragOriginX, dragElem} = this.drapElemInfo;
-
-    const moveOffset = this.isRevert ? dragOriginX - event.clientX : event.clientX - dragOriginX;
-
-    let currOffsetPer = Math.round(moveOffset / this.rangerBodyWidth * 100 + this.originalOffsetPercent);
-
-    if(currOffsetPer < 0) currOffsetPer = 0;
-    if(currOffsetPer > 100) currOffsetPer = 100;
-
-    this.changeValue(this.percentToVal(currOffsetPer));
-  }
   plusAndLess(mark) {
     const {basicUnit = 1} = this.props;
     const stateValue = this.valueFilter();
@@ -190,6 +198,7 @@ export default class Ranger extends Component {
       <div className={`uke-ranger ${disabled ? 'disabled' : ''} ${draping ? 'draping' : ''} ${withInput ? 'with-input' : ''}`}>
         <div className="disabled-mask"></div>
         <div className="ranger"
+          onTouchStart={e => this.handleMouseDown(e)}
           onMouseDown={e => this.handleMouseDown(e)}>
           {/* <span className="less handle-btn"
             onClick={e => this.plusAndLess('-')}>-</span> */}

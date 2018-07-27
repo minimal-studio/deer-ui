@@ -1,5 +1,11 @@
 # update logs
 
+## 2.4.20
+
+- Ranger 支持手势滑动
+
+-----------
+
 ## 2.4.8
 
 - DropdownMenu 支持 number 的 value
