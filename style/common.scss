@@ -1,3 +1,14 @@
+* {
+  font-family: Arial, "Microsoft YaHei", "微软雅黑";
+}
+body {
+  margin: 0;
+}
+
+.flex {
+  flex: 1;
+}
+
 .close-btn {
   @include closeBtn(22px);
 }
