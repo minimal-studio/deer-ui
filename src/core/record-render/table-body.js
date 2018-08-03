@@ -19,6 +19,7 @@ export default class TableBody extends MapperFilter {
 
     this.firstTDDOMs = {};
     this.tdNumb = 0;
+    this.sameSortTime = 0;
   }
 
   componentDidUpdate() {
@@ -124,14 +125,14 @@ export default class TableBody extends MapperFilter {
 
       switch (true) {
         case typeof sortTargetPrev == 'string':
-          res = sortTargetPrev.toString().charCodeAt(0) < sortTargetNext.toString().charCodeAt(0);
+          res = sortTargetPrev.localeCompare(sortTargetNext);
           break;
         case typeof sortTargetPrev == 'number':
-          res = sortTargetPrev < sortTargetNext;
+          res = sortTargetPrev - sortTargetNext;
           break;
       }
 
-      return isDesc ? res : !res;
+      return isDesc ? res : res * -1;
     });
     return result;
   }
@@ -140,8 +141,16 @@ export default class TableBody extends MapperFilter {
     this.setState(({isDesc, sortField}) => {
       let _isDesc = isDesc;
       if(sortField == orderKey) {
-        _isDesc = !_isDesc;
+        this.sameSortTime += 1;
+        if(this.sameSortTime === 2) {
+          _isDesc = false;
+          orderKey = '';
+          this.sameSortTime = 0;
+        } else {
+          _isDesc = !_isDesc;
+        }
       } else {
+        this.sameSortTime = 0;
         _isDesc = false;
       }
       return {
@@ -185,7 +194,7 @@ export default class TableBody extends MapperFilter {
                   ) : null;
                   return (
                     <th 
-                      className={`_btn${isOrdering ? (' _order' + (isDesc ? ' _desc' : ' _asc')) : ''}`}
+                      className={`${isOrdering ? ('_order ' + (isDesc ? '_desc ' : '_asc ')) : ''}_btn`}
                       key={idx} 
                       onClick={e => this.orderRecord(item.key)}
                       style={{
