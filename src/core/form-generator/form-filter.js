@@ -267,7 +267,6 @@ export default class FormFilterHelper extends Component {
         var {needTime = true, refs, range, clickToClose} = config;
         var datetimeRangeRef = 'datetimeRangeRef';
         let [refS, refE] = refs;
-        let [rangeS, rangeE] = range;
 
         const changeDateValues = (vals) => {
           this.changeValues({
@@ -290,6 +289,7 @@ export default class FormFilterHelper extends Component {
             <span className="title">起始范围</span>
             <DatetimePicker
               mode="range"
+              {...config}
               ref={datetimeRangeRef}
               id={datetimeRangeRef}
               value={this.value[datetimeRangeRef] || range}
