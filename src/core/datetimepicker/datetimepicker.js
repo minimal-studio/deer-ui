@@ -19,6 +19,8 @@ export default class DatetimePicker extends PureComponent {
   };
   static defaultProps = {
     needTime: true,
+    clickToClose: true,
+    enableTime: false,
     mode: 'single',
     lang: 'zh',
   };
@@ -42,12 +44,12 @@ export default class DatetimePicker extends PureComponent {
     }
   }
   initPicker() {
-    const {id, mode, needTime, clickToClose = true, lang} = this.props;
+    const {id, mode, needTime, enableTime, lang} = this.props;
 
     this.datepicker = new Flatpickr(this.refs[id], {
-      enableTime: needTime,
+      enableTime: enableTime,
       time_24hr: true,
-      dateFormat: 'Y-m-d' + (needTime ? ' H:i:S' : ''),
+      dateFormat: 'Y-m-d' + (enableTime ? ' H:i:S' : ''),
       disableMobile: true,
       // enableSeconds: true,
       onClose: (rangeValues) => {
