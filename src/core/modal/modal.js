@@ -3,20 +3,32 @@ import PropTypes from 'prop-types';
 
 import { CallFunc, IsFunc } from 'basic-helper';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
+import {DragPanelClass} from './drag-pabel-helper';
 
 const ESC_KEY = 27;
 
-export default class Modal extends Component {
+export default class Modal extends DragPanelClass {
   static defaultProps = {
     shouldCloseOnEsc: true,
+    showCloseBtn: true,
+    needMask: true,
+    clickBgToClose: false,
+    draggable: false,
+    duration: 300,
+    animateType: 'modal',
+    title: '无',
+    className: '',
+    children: null,
   };
   static propTypes = {
     title: PropTypes.string,
     width: PropTypes.any,
     duration: PropTypes.number,
+    idx: PropTypes.any,
     className: PropTypes.string,
     topClassName: PropTypes.string,
     clickBgToClose: PropTypes.bool,
+    draggable: PropTypes.bool,
     needMask: PropTypes.bool,
     showCloseBtn: PropTypes.bool,
     isOpen: PropTypes.bool.isRequired,
@@ -25,6 +37,7 @@ export default class Modal extends Component {
     onClose: PropTypes.func,
     shouldCloseOnEsc: PropTypes.bool,
   };
+  state = {...this.state};
 
   componentDidMount() {
     this.setContentFocus();
@@ -49,6 +62,15 @@ export default class Modal extends Component {
     }
   }
 
+  setLayoutInitPosition(elem) {
+    // console.log(this.screenWidth)
+    if(this.props.draggable && elem && !this.isSetPosition) {
+      this.isSetPosition = true;
+      elem.style.left = (this.screenWidth - elem.offsetWidth) / 2 + 'px';
+      elem.style.top = '100px';
+    }
+  }
+
   handleKeyDown = (event) => {
     if (this.props.shouldCloseOnEsc && event.keyCode === ESC_KEY && this.props.showCloseBtn != false) {
       event.preventDefault();
@@ -59,11 +81,16 @@ export default class Modal extends Component {
 
   render() {
     const {
-      children = '', title = 'Modal', isOpen, animateType = 'modal',
-      width, style, className = '', modalLayoutDOM, duration = 300,
-      clickBgToClose = false, showCloseBtn = true, Header, needMask = true,
+      children, title, isOpen, animateType, selectWindow, sectionId,
+      width, style, className, modalLayoutDOM, duration, id,
+      clickBgToClose, showCloseBtn, Header, needMask, draggable,
       onCloseModal
     } = this.props;
+
+    let modalIdx = this.props.idx;
+
+    const _needMark = draggable ? false : needMask;
+    const classNames = className + (draggable ? ' drag-mode' : ' normal-mode');
 
     const closeBtnDOM = showCloseBtn ? (
       <span className="close-btn"
@@ -78,18 +105,30 @@ export default class Modal extends Component {
     const transitionKey = isOpen ? 'modal-open' : 'modal-close';
     
     const sections = isOpen ? (
-      <div className={'uke-modal-container ' + className}>
+      <div className={'uke-modal-container ' + classNames + ' idx-' + modalIdx}
+        onMouseDown={e => {
+          selectWindow && selectWindow(id);
+        }}>
         <div className="animate-layout">
           {
             modalLayoutDOM ? modalLayoutDOM : (
               <div className="uke-modal-layout"
-                ref={c => this._content = c}
+                ref={c => {
+                  this._content = c;
+                  this.setLayoutInitPosition(c);
+                }}
                 style={_style}
                 onKeyDown={this.handleKeyDown}
                 tabIndex="-1">
                 {
-                  IsFunc(Header) ? <Header onCloseModal={onCloseModal}/> : (
-                    <header className="uke-modal-header">
+                  IsFunc(Header) ? (
+                    <Header onCloseModal={onCloseModal}/>
+                  ) : (
+                    <header className="uke-modal-header"
+                      onMouseDown={e => {
+                        draggable && this.dragStart(e, this._content);
+                        selectWindow && selectWindow(id);
+                      }}>
                       <h5 className="title">{title}</h5>
                       {closeBtnDOM}
                     </header>
@@ -103,7 +142,7 @@ export default class Modal extends Component {
           }
         </div>
         {
-          needMask ? (
+          _needMark ? (
             <div className="section-mark" onClick={e => {
               if(clickBgToClose) onCloseModal()
             }}></div>
