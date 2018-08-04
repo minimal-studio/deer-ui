@@ -4,7 +4,29 @@ import PropTypes from 'prop-types';
 import {CallFunc, HasValue} from 'basic-helper';
 import Icon from '../icon';
 
+let defaultShowInputTitle = true;
+
 export default class Input extends Component {
+  static propTypes = {
+    required: PropTypes.bool,
+    showTitle: PropTypes.bool,
+    icon: PropTypes.string,
+    type: PropTypes.string,
+    placeholder: PropTypes.string,
+    className: PropTypes.string,
+    inputProps: PropTypes.object,
+    inputBtnConfig: PropTypes.object,
+    onChange: PropTypes.func,
+    onFocus: PropTypes.func,
+    onBlur: PropTypes.func,
+  };
+  static defaultProps = {
+    required: false,
+    className: 'form-control',
+  }
+  static setConfig = ({showTitle}) => {
+    defaultShowInputTitle = showTitle;
+  };
   constructor(props) {
     super(props);
 
@@ -50,9 +72,9 @@ export default class Input extends Component {
   }
   render() {
     const {
-      icon, placeholder, inputBtnConfig, type,
-      className = 'form-control', children, required = false,
-      onFocus, onBlur, onChange,
+      icon, placeholder, inputBtnConfig, type, showTitle = defaultShowInputTitle,
+      className, children, required,
+      onFocus, onBlur,
     } = this.props;
     const {viewClass = ''} = this.state;
     const value = this.getValue();
@@ -69,13 +91,14 @@ export default class Input extends Component {
       </span>
     ) : null;
 
-    const titleDOM = (
+    const titleDOM = showTitle ? (
       <span className="title">
         {iconDOM}
         <span className="text mr10">{placeholder}</span>
         {highlightDOM}
       </span>
-    );
+    ) : null;
+
     const inputBtnDOM = inputBtnConfig ? (
       <span
         className={"input-btn btn flat " + inputBtnConfig.className}
@@ -117,9 +140,4 @@ export default class Input extends Component {
       </div>
     )
   }
-}
-Input.propTypes = {
-  icon: PropTypes.string,
-  inputProps: PropTypes.object,
-  inputBtnConfig: PropTypes.object,
 }
