@@ -61,8 +61,6 @@ export default class Toast extends PureComponent {
 
     const descQueueDOM = Object.keys(descQueue).map((tipID, idx) => {
       const {type = 'success', desc} = descQueue[tipID];
-      const tipHeight = 35;
-      const tipMB = 10;
       const tipIconMapper = {
         success: 'check',
         error: 'error'
@@ -79,7 +77,7 @@ export default class Toast extends PureComponent {
     })
     return (
       <div className="toast-container">
-        <TransitionGroup>
+        <TransitionGroup component={null}>
           {descQueueDOM}
         </TransitionGroup>
       </div>
