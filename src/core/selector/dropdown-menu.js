@@ -81,13 +81,13 @@ export default class DropdownMenu extends SelectorBasic {
     });
   }
   getActiveTitle() {
-    const {values, value, isMultiple} = this.props;
+    const {value, isMultiple} = this.props;
     if(!HasValue(value)) return '无';
 
-    return isMultiple ? value.length + '项已选择' : values[value];
+    return isMultiple ? value.length + '项已选择' : this.valuesObj[value];
   }
   getValuesLength() {
-    const {values} = this.props;
+    const {values} = this;
     return Array.isArray(values) ? values.length : Object.keys(values).length;
   }
   handleChange = (val) => {
@@ -105,12 +105,9 @@ export default class DropdownMenu extends SelectorBasic {
     const {
       style = {}, className = '', isMultiple, withInput = true,
     } = this.props;
-    const {isShow, selectedValue, searchValue} = this.state;
+    const {isShow, searchValue} = this.state;
     const _selectedValue = this.getValue();
     
-    let listStyle = {
-      height: isShow ? (32 * (this.getValuesLength())) + 76 : 0
-    };
     const isSelectedAll = this.checkIsSelectedAll();
     const canSelectAll = isMultiple && !isSelectedAll;
     const activeTitle = this.getActiveTitle();

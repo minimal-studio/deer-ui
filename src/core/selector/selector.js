@@ -20,7 +20,7 @@ export default class SelectorBasic extends Component {
       selectedValue: this.toArr(this.value),
     }
 
-    this.values = this.getValueArray();
+    this.wrapValues();
   }
   toArr(target) {
     return Array.isArray(target) ? target : [target];
@@ -48,14 +48,27 @@ export default class SelectorBasic extends Component {
 
     this.changeEvent(nextValue, {prevVal: value, idx});
   }
-  getValueArray(values = this.props.values) {
-    return Array.isArray(values) ? values : this.wrapObjValToArr(values);
+  wrapValues(values = this.props.values) {
+    let isArrayValues = Array.isArray(values);
+    this.values = isArrayValues ? values : this.wrapObjValToArr(values);
+    this.valuesObj = isArrayValues ? this.wrapArrayValToObj(values) : values;
+    return {
+      valArr: this.values,
+      valObj: this.valuesObj
+    }
   }
   wrapObjValToArr(values) {
     return Object.keys(values).map(valKey => ({
       text: values[valKey],
       value: valKey
     }));
+  }
+  wrapArrayValToObj(values) {
+    let result = {};
+    values.forEach(val => {
+      result[val.value] = val.text;
+    });
+    return result;
   }
   changeEvent(nextValue, ...other) {
     const {isNum, isMultiple} = this.props;
