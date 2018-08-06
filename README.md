@@ -94,6 +94,26 @@ setUkelliConfig({
 
 ## 组件说明
 
+Modal 提供可拖动模式
+
+```js
+import {ShowGlobalModal, CloseGlobalModal} from 'ukelli-ui';
+
+let ModalId = ShowGlobalModal({
+  id: '', // 唯一 ID，如果是拖动模式，用于定位具体 Modal
+  children: (
+    <span></span>
+  ),
+  title: '',
+  draggable: true, // 使用可拖动模式
+  showFuncBtn: true, // 是否显示关闭和确定按钮
+  onCloseModal: func, // 关闭窗口的回调
+});
+
+// 可以使用 CloseGlobalModal 关闭已打开的 Modal
+CloseGlobalModal(ModalId);
+```
+
 Loading 组件提供两种模式，根据 inrow 参数做判定
 
 1. loading 前的 children 不会消失
