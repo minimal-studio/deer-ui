@@ -38,6 +38,7 @@ export default class FormLayout extends Component {
     btnConfig: PropTypes.array,
   
     isVertical: PropTypes.bool,
+    isMobile: PropTypes.bool,
   
     hasErr: PropTypes.bool,
     resDesc: PropTypes.string,
@@ -58,7 +59,7 @@ export default class FormLayout extends Component {
   }
   render() {
     const {
-      tipInfo, btnConfig, className = '', isVertical,
+      tipInfo, btnConfig, className = '', isVertical, isMobile,
       showInputTitle,
       childrenBeforeForm, childrenAfterForm, childrenBeforeBtn,
       formOptions = [], btnText = '确定提交',
@@ -104,6 +105,7 @@ export default class FormLayout extends Component {
         <FormGenerator
           onChange={onChange}
           isVertical={isVertical}
+          isMobile={isMobile}
           showInputTitle={showInputTitle}
           formOptions={formOptions}
           ref={formHelper => this.formHelper = formHelper}>

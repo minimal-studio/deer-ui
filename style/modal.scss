@@ -31,9 +31,16 @@ $windowActiveShadow: 0 12px 36px rgba(#000, 0.3);
   &.normal-mode {
     @include fill();
     z-index: 999;
-    // position: fixed;
     .uke-modal-layout {
       margin: 2% auto 0;
+    }
+  }
+  &.fixed {
+    position: fixed;
+    overflow: auto;
+    padding-bottom: 50px;
+    .section-mark {
+      position: fixed;
     }
   }
   &.drag-mode {
