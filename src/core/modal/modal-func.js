@@ -82,6 +82,7 @@ function CloseGlobalModal(entityId) {
     if(modalNode) modalNode.parentElement.removeChild(modalNode);
   }
   setTimeout(() => deleteModalNode(), 300);
+  connectedStore.closeWindow(entityId);
 }
 
 function ShowGlobalModal(options) {
