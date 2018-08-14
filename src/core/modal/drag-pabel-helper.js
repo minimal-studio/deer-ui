@@ -1,6 +1,9 @@
 import React from 'react';
 
-let SCREEN_WIDTH = document.documentElement.clientWidth;
+// let SCREEN_WIDTH = document.documentElement.clientWidth;
+function getScreenWidth() {
+  return document.documentElement.clientWidth;
+}
 
 export class DragPanelClass extends React.Component {
   drapElemInfo = {
@@ -11,7 +14,7 @@ export class DragPanelClass extends React.Component {
     elemOrigonX: 0,
     elemOriginY: 0
   };
-  screenWidth = SCREEN_WIDTH;
+  getScreenWidth = getScreenWidth;
   dragStart(event, elem) {
     this.drapElemInfo = {
       isDrapStart: true,

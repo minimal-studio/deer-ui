@@ -63,10 +63,9 @@ export default class Modal extends DragPanelClass {
   }
 
   setLayoutInitPosition(elem) {
-    // console.log(this.screenWidth)
     if(this.props.draggable && elem && !this.isSetPosition) {
       this.isSetPosition = true;
-      elem.style.left = (this.screenWidth - elem.offsetWidth) / 2 + 'px';
+      elem.style.left = (this.getScreenWidth() - elem.offsetWidth) / 2 + 'px';
       elem.style.top = '100px';
     }
   }

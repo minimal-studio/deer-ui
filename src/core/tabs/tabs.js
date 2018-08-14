@@ -3,6 +3,14 @@ import PropTypes from 'prop-types';
 import {IsFunc} from 'basic-helper';
 
 export default class Tabs extends PureComponent {
+  static propTypes = {
+    inRow: PropTypes.bool,
+    withContent: PropTypes.bool,
+    height: PropTypes.string,
+    activeTabIdx: PropTypes.number,
+    className: PropTypes.string,
+    onChangeTab: PropTypes.func
+  };
   constructor(props) {
     super(props);
     this.state = {
@@ -81,11 +89,3 @@ export default class Tabs extends PureComponent {
     )
   }
 }
-Tabs.propTypes = {
-  inRow: PropTypes.bool,
-  withContent: PropTypes.bool,
-  height: PropTypes.string,
-  activeTabIdx: PropTypes.number,
-  className: PropTypes.string,
-  onChangeTab: PropTypes.func
-};
