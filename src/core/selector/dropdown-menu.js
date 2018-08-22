@@ -66,10 +66,10 @@ export default class DropdownMenu extends SelectorBasic {
   focusInput() {
     this._input.focus();
   }
-  handleClick(dataItem) {
+  handleClick(dataItem, idx) {
     const {onClickItem, isMultiple} = this.props;
     onClickItem && onClickItem(dataItem);
-    this.changeValue(dataItem.value);
+    this.changeValue(dataItem.value, idx);
     if(!isMultiple) {
       this.blur();
     }
@@ -183,7 +183,7 @@ export default class DropdownMenu extends SelectorBasic {
                               key={value}
                               isActive={isActive}
                               onClick={e => {
-                                this.handleClick(dataItem);
+                                this.handleClick(dataItem, idx);
                               }}
                               {...dataItem}/>
                           ) : null

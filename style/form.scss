@@ -1,3 +1,14 @@
+.input-selector {
+  display: flex;
+  align-items: center;
+  .menu-wrapper {
+    min-width: 80px !important;
+  }
+  .input-control {
+    border-radius: 0 3px 3px 0;
+  }
+}
+
 .form-layout{
   position: relative;
   padding: 0.1px;

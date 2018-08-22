@@ -6,6 +6,7 @@ import {Radio, DropdownMenu} from '../selector';
 import {Input} from '../form-control';
 import Ranger from '../range-selector';
 import Captcha from '../captcha';
+import InputSelector from '../form-control/input-selector';
 
 /**
  * 表单生成器
@@ -54,12 +55,15 @@ export default class FormFilterHelper extends Component {
   }
   setDefaultValue(config) {
     const {
-      defaultValue, ref, refs, range
+      defaultValue, ref, refs, range, refu, refuDefaultIdx = 0
     } = config;
     if(!!ref) this.value[ref] = defaultValue;
+    if(Array.isArray(refu)) this.value[refu[refuDefaultIdx]] = defaultValue;
 
     if(Array.isArray(refs)) {
-      refs.forEach((_ref, idx) => this.value[_ref] = range[idx]);
+      refs.forEach((_ref, idx) => {
+        this.value[_ref] = range ? range[idx] : '';
+      });
     }
   }
   checkForm() {
@@ -113,7 +117,7 @@ export default class FormFilterHelper extends Component {
      */
     refs.forEach(ref => {
       const val = valRefMapper[ref];
-      self.changeValue(val, ref);
+      self.changeValue(val, ref, update);
     });
   }
   refreshCaptcha(ref) {
@@ -125,6 +129,20 @@ export default class FormFilterHelper extends Component {
   getValue(ref, other) {
     let targetVal = this.value[ref];
     return HasValue(targetVal) ? targetVal : other;
+  }
+  onInputChange = ({inputObj, config, ref}) => {
+    let __val = inputObj.val;
+    if (config.disabled) return;
+    // let __val = elem.value;
+    let {inputType = 'string'} = config;
+    let _ref = ref || config.ref;
+    if(inputType == 'dotnumber') {
+      let _tmpVal = +__val
+      __val = _tmpVal === 0 ? (__val == '0.' ? '0.' : undefined) : (_tmpVal ? (/\.\d{3,}/.test(__val) ? _tmpVal.toFixed(2) : __val): undefined)
+    };
+    if(inputType == 'number') __val = ((+__val === 0 ? (__val === '' ? '' : 0) : (+__val || ''))+'').replace(/\..+/, '');
+    if(inputType == 'string') __val = __val + '';
+    this.changeValue(__val, _ref);
   }
   greneratFormDOM(config) {
     const {
@@ -183,6 +201,21 @@ export default class FormFilterHelper extends Component {
             }}
           />
         )
+      case 'input-selector':
+        var {inputProps = {}, refu} = config;
+        return (
+          <InputSelector 
+            {...config}
+            values={refu}
+            inputProps={inputProps}
+            value={this.zeroFilter(this.getValue(ref), '')}
+            onChange={(val, activeRef) => {
+              Object.keys(refu).map((itemRef) => {
+                if(activeRef != itemRef) delete this.value[itemRef];
+              });
+              this.onInputChange({inputObj: {val}, config, ref: activeRef});
+            }}/>
+        )
       case 'input':
       case 'password':
         var formClass = 'form-control ' + (className || '');
@@ -202,18 +235,7 @@ export default class FormFilterHelper extends Component {
               this.changeValue(__val, ref);
               CallFunc(config.onBlur)(__val);
             }}
-            onChange={(__val, elem) => {
-              if (config.disabled) return;
-              // let __val = elem.value;
-              let {inputType = 'string'} = config;
-              if(inputType == 'dotnumber') {
-                let _tmpVal = +__val
-                __val = _tmpVal === 0 ? (__val == '0.' ? '0.' : undefined) : (_tmpVal ? (/\.\d{3,}/.test(__val) ? _tmpVal.toFixed(2) : __val): undefined)
-              };
-              if(inputType == 'number') __val = ((+__val === 0 ? (__val === '' ? '' : 0) : (+__val || ''))+'').replace(/\..+/, '');
-              if(inputType == 'string') __val = __val + '';
-              this.changeValue(__val, ref);
-            }}/>
+            onChange={(val, elem) => this.onInputChange({inputObj: {val, elem}, config})}/>
         )
       case 'textarea':
         return (
@@ -264,7 +286,7 @@ export default class FormFilterHelper extends Component {
             }}/>
         );
       case 'datetimeRange':
-        var {needTime = true, refs, range, clickToClose} = config;
+        var {needTime = true, refs, range} = config;
         var datetimeRangeRef = 'datetimeRangeRef';
         let [refS, refE] = refs;
 
@@ -286,7 +308,7 @@ export default class FormFilterHelper extends Component {
 
         return (
           <div className="datepicker-ranger-content">
-            <span className="title">起始范围</span>
+            <span className="title">范围</span>
             <DatetimePicker
               mode="range"
               {...config}

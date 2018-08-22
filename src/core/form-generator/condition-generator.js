@@ -17,7 +17,8 @@ export default class ConditionGenerator extends FormFilterHelper {
         {
           conditionConfig.map((condition, idx) => {
             let _con = this.wrapConditionTitle(condition);
-            let itemKey = _con.ref || _con.refs[0];
+            const {ref, refs = [], refu = []} = _con;
+            let itemKey = ref || refs[0] || JSON.stringify(refu);
             
             let titleDOM = !/input|password/.test(_con.type) && _con.title ? (
               <span className="title">{_con.title}</span>

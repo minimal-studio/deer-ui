@@ -10,6 +10,16 @@ $formControlBgColor: #f9f9f9;
   @include card();
   margin: 0 10px;
 
+  .input-control {
+    border: 1px solid #DDD;
+    background-color: #f9f9f9;
+    padding: 0 10px;
+    border-radius: 3px;
+    &.forcing {
+      background-color: #FFF;
+    }
+  }
+
   // .datepicker-ranger-content {
     .flatpickr {
       position: relative;

@@ -91,7 +91,7 @@ export default class Input extends Component {
       </span>
     ) : null;
 
-    const titleDOM = showTitle ? (
+    const titleDOM = !!placeholder && showTitle ? (
       <span className="title">
         {iconDOM}
         <span className="text mr10">{placeholder}</span>

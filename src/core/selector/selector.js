@@ -46,7 +46,7 @@ export default class SelectorBasic extends Component {
       nextValue = [value];
     }
 
-    this.changeEvent(nextValue, {prevVal: value, idx});
+    this.changeEvent(nextValue, {prevVal: selectedValue, idx});
   }
   wrapValues(values = this.props.values) {
     let isArrayValues = Array.isArray(values);

@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import {GenerateNumberRange} from 'basic-helper';
 
 let hasSetKeyAnimateMapper = {};
-let _prevValue = 0;
 let headDOM = document.getElementsByTagName('head')[0];
 const prefixMap = {
   '-webkit-': 'Webkit',
