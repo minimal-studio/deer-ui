@@ -2,13 +2,17 @@
 
 $formControlBgColor: #f9f9f9;
 
-.condition-group {
+.report-fix-con {
+  @include card();
+  margin: 0;
   padding: 10px 10px;
+}
+
+.condition-group {
   position: relative;
   display: flex;
   flex-wrap: wrap;
-  @include card();
-  margin: 0 10px;
+  // @include card();
 
   .input-control {
     border: 1px solid #DDD;

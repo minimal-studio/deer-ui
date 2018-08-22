@@ -26,7 +26,7 @@ const itemActiveFilter = (val, targetVal) => {
   switch (true) {
     case Array.isArray(val):
     case typeof val === 'string':
-      isInclueVal = val.indexOf(targetVal) != -1;
+      isInclueVal = val == targetVal;
       break;
     case typeof val === 'number':
       isInclueVal = val == targetVal;

@@ -17,7 +17,8 @@ export default class InputSelector extends Component {
       inputVal: ''
     }
   }
-  changeRef = (val, {prevVal}) => {
+  changeRef = (val) => {
+    if(!val) return;
     // console.log(...args)
     const {inputVal} = this.state;
     this.setState({
