@@ -9,6 +9,10 @@ export default class ConditionGenerator extends FormFilterHelper {
     onChange: PropTypes.func,
     className: PropTypes.string
   };
+  titleDisplayFilter(config) {
+    const {type, title} = config;
+    return ('input,password'.split(',').indexOf(type) == -1) && title;
+  }
   render() {
     const {conditionConfig, className = "condition-group", children = ''} = this.props;
 
@@ -19,8 +23,9 @@ export default class ConditionGenerator extends FormFilterHelper {
             let _con = this.wrapConditionTitle(condition);
             const {ref, refs = [], refu = []} = _con;
             let itemKey = ref || refs[0] || JSON.stringify(refu);
+            let showTitle = this.titleDisplayFilter(_con);
             
-            let titleDOM = !/input|password/.test(_con.type) && _con.title ? (
+            let titleDOM = showTitle ? (
               <span className="title">{_con.title}</span>
             ) : null;
 

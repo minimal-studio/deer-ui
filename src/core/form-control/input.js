@@ -23,6 +23,7 @@ export default class Input extends Component {
   static defaultProps = {
     required: false,
     className: 'form-control',
+    type: 'input',
   }
   static setConfig = ({showTitle}) => {
     defaultShowInputTitle = showTitle;

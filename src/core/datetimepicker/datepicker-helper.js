@@ -50,27 +50,35 @@ export default class DatepickerHelper extends PureComponent {
     var timeDefaultStr = needTime ? [' 00:00:00', ' 23:59:59'] : [];
     // var format = basicFormat + (needTime ? (' ' + timeFormat) : '');
 
-    this.defaultDateHelperInfo = [{
-      filter() {
-        return GetDefaultDateInfo(0, 0, undefined, timeDefaultStr);
+    this.defaultDateHelperInfo = [
+      {
+        filter() {
+          return [];
+        },
+        t: '清空'
       },
-      t: '今天'
-    }, {
-      filter() {
-        return GetDefaultDateInfo(1, -1, undefined, timeDefaultStr);
-      },
-      t: '昨天'
-    }, {
-      filter() {
-        return getHalfMouthDate('up', basicFormat, timeDefaultStr);
-      },
-      t: '前半月'
-    }, {
-      filter() {
-        return getHalfMouthDate('down', basicFormat, timeDefaultStr);
-      },
-      t: '后半月'
-    }];
+      {
+        filter() {
+          return GetDefaultDateInfo(0, 0, undefined, timeDefaultStr);
+        },
+        t: '今天'
+      }, {
+        filter() {
+          return GetDefaultDateInfo(1, -1, undefined, timeDefaultStr);
+        },
+        t: '昨天'
+      }, {
+        filter() {
+          return getHalfMouthDate('up', basicFormat, timeDefaultStr);
+        },
+        t: '前半月'
+      }, {
+        filter() {
+          return getHalfMouthDate('down', basicFormat, timeDefaultStr);
+        },
+        t: '后半月'
+      }
+    ];
   }
   generateDate(itemConfig, idx) {
     const {start, end} = itemConfig;

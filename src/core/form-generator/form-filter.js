@@ -130,23 +130,21 @@ export default class FormFilterHelper extends Component {
     let targetVal = this.value[ref];
     return HasValue(targetVal) ? targetVal : other;
   }
-  onInputChange = ({inputObj, config, ref}) => {
-    let __val = inputObj.val;
-    if (config.disabled) return;
+  onInputChange = ({val, disabled, inputType = 'string', ref}) => {
+    if (disabled) return;
+    let __val = val;
     // let __val = elem.value;
-    let {inputType = 'string'} = config;
-    let _ref = ref || config.ref;
     if(inputType == 'dotnumber') {
       let _tmpVal = +__val
       __val = _tmpVal === 0 ? (__val == '0.' ? '0.' : undefined) : (_tmpVal ? (/\.\d{3,}/.test(__val) ? _tmpVal.toFixed(2) : __val): undefined)
     };
     if(inputType == 'number') __val = ((+__val === 0 ? (__val === '' ? '' : 0) : (+__val || ''))+'').replace(/\..+/, '');
     if(inputType == 'string') __val = __val + '';
-    this.changeValue(__val, _ref);
+    this.changeValue(__val, ref);
   }
   greneratFormDOM(config) {
     const {
-      ref, type, className, getCustomFormControl
+      ref, refs, type, className, getCustomFormControl
     } = config;
     switch (type) {
       case 'customForm':
@@ -213,8 +211,27 @@ export default class FormFilterHelper extends Component {
               Object.keys(refu).map((itemRef) => {
                 if(activeRef != itemRef) delete this.value[itemRef];
               });
-              this.onInputChange({inputObj: {val}, config, ref: activeRef});
+              this.onInputChange({val, ref: activeRef});
             }}/>
+        )
+      case 'input-range':
+        var {refS, refE} = refs;
+        return (
+          <div className="input-range">
+            <Input
+              ref={refS}
+              className={formClass}
+              value={this.zeroFilter(this.getValue(refS), '')}
+              placeholder="起"
+              onChange={(val) => this.onInputChange({val, ref: refS})}/>
+            <span> - </span>
+            <Input
+              ref={refE}
+              className={formClass}
+              value={this.zeroFilter(this.getValue(refE), '')}
+              placeholder="止"
+              onChange={(val) => this.onInputChange({val, ref: refE})}/>
+          </div>
         )
       case 'input':
       case 'password':
@@ -235,7 +252,10 @@ export default class FormFilterHelper extends Component {
               this.changeValue(__val, ref);
               CallFunc(config.onBlur)(__val);
             }}
-            onChange={(val, elem) => this.onInputChange({inputObj: {val, elem}, config})}/>
+            onChange={(val, elem) => this.onInputChange({
+              val, ref, inputType: config.inputType
+            })}
+          />
         )
       case 'textarea':
         return (
@@ -286,7 +306,7 @@ export default class FormFilterHelper extends Component {
             }}/>
         );
       case 'datetimeRange':
-        var {needTime = true, refs, range} = config;
+        var {needTime = true, range} = config;
         let [refS, refE] = refs;
         var datetimeRangeRef = refS[0] + 'datetimeRangeRef';
 
