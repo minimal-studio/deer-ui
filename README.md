@@ -265,6 +265,25 @@ class Com extends Component {
 }
 ```
 
+新增一个 input-selector 查询条件类型，具体配置如下
+
+```js
+this.conditionOptions = [{
+  // refu 表示一个输入框中，多个前置条件的集合，与 selector 配置 values 一样的方式
+  refu: {
+    'User': '用户', 'Agent': '代理', 'SuperAgent': '总代'
+  },
+  // 默认的 refu 配置，不填默认为第一个
+  refuDefaultIdx: 'User',
+  // 是否可以多选，未实现
+  multiple: false,
+  // 具体的类型
+  type: 'input-selector',
+  // 传入到 input 组件的设置，详情参考 Input 组件
+  inputProps: {},
+}]
+```
+
 -----------------
 
 ChartDOM 组件需要设置对应的 chart js 下载路径
