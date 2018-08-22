@@ -1,4 +1,8 @@
 .date-helper-group {
+  .date-helper {
+    display: flex;
+    flex-direction: column;
+  }
   .date-helper-btn {
     padding: 6px 10px;
     transition: all 0.2s ease;

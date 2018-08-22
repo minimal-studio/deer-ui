@@ -90,6 +90,38 @@ body {
   width: 100%
 }
 
+.hide-container {
+  position: relative;
+  display: block;
+  padding: 0;
+  .caret {
+    position: absolute;
+    top: -4px;
+  }
+  .display-elem {
+    display: inline-block;
+    padding: 5px 10px;
+    cursor: default;
+  }
+  .hide-content {
+    width: 100%;
+    background-color: #fff;
+    padding: 10px;
+    box-shadow: 0 12px 36px rgba(#000, 0.3);
+    position: absolute;
+    overflow: auto;
+    display: none;
+    z-index: 20;
+    min-width: 200px;
+  }
+  &:hover,
+  &.active {
+    .hide-content {
+      display: block;
+    }
+  }
+}
+
 
 html{font-size:10px}
 @media screen and (min-width:321px) and (max-width:375px){html{font-size:11px}}

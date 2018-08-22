@@ -18,6 +18,7 @@ import Icon from './icon';
 import Tip from './tip';
 
 export * from './notification';
+export * from './sub-content';
 
 export * from './popover';
 export * from './form-generator';

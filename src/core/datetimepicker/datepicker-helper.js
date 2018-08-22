@@ -2,6 +2,8 @@ import React, {Component, PureComponent} from 'react';
 import PropTypes from 'prop-types';
 import {CallFunc, DateFormat, GetDefaultDateInfo} from 'basic-helper';
 
+import {SubContent} from '../sub-content';
+
 function getHalfMouthDate(type, format, timeDefaultStr) {
   var today = new Date();
   var currYear = today.getFullYear().toString();
@@ -29,6 +31,11 @@ function getHalfMouthDate(type, format, timeDefaultStr) {
 }
 
 export default class DatepickerHelper extends PureComponent {
+  static propTypes = {
+    onClick: PropTypes.func.isRequired,
+    dateHelperInfo: PropTypes.array,
+    needTime: PropTypes.bool
+  };
   constructor(props) {
     super(props);
     this.state = {
@@ -87,21 +94,28 @@ export default class DatepickerHelper extends PureComponent {
 
     return (
       <div className="date-helper-group">
-        {_dateHelperInfo.map((item, idx) => {
-          let text = item.t;
-          return (
-            <span className={(idx == activeIdx ? 'active ' : '') + "date-helper-btn"}
-              onClick={e => this.generateDate(item, idx)} key={idx}>
-              {text}
-            </span>
-          )
-        })}
+        <SubContent displayElem={'快捷'}>
+          <div className="date-helper">
+            {
+              _dateHelperInfo.map((item, idx) => {
+                let text = item.t;
+                return (
+                  <span className={(idx == activeIdx ? 'active ' : '') + "date-helper-btn"}
+                    onClick={e => this.generateDate(item, idx)} key={idx}>
+                    {text}
+                  </span>
+                )
+              })
+            }
+          </div>
+        </SubContent>
+        {/* <div className="hide-container">
+          <span>快捷</span>
+          <div className="hide-content">
+            
+          </div>
+        </div> */}
       </div>
     )
   }
 }
-DatepickerHelper.propTypes = {
-  onClick: PropTypes.func.isRequired,
-  dateHelperInfo: PropTypes.array,
-  needTime: PropTypes.bool
-};
