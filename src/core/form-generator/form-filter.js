@@ -287,8 +287,8 @@ export default class FormFilterHelper extends Component {
         );
       case 'datetimeRange':
         var {needTime = true, refs, range} = config;
-        var datetimeRangeRef = 'datetimeRangeRef';
         let [refS, refE] = refs;
+        var datetimeRangeRef = refS[0] + 'datetimeRangeRef';
 
         const changeDateValues = (vals) => {
           this.changeValues({
