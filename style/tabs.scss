@@ -6,6 +6,9 @@ $tabTextColor: #999;
 
 .tabs-container {
   @include card();
+  &.common-mode {
+    background-color: transparent;
+  }
   .tabs-container {
     border-bottom: none;
   }
