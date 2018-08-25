@@ -6,10 +6,12 @@ export default class Tabs extends PureComponent {
   static propTypes = {
     inRow: PropTypes.bool,
     withContent: PropTypes.bool,
+    closeabled: PropTypes.bool,
     height: PropTypes.string,
     activeTabIdx: PropTypes.number,
     className: PropTypes.string,
-    onChangeTab: PropTypes.func
+    onChangeTab: PropTypes.func,
+    onClose: PropTypes.func
   };
   constructor(props) {
     super(props);
@@ -45,7 +47,11 @@ export default class Tabs extends PureComponent {
     if(IsFunc(onChangeTab)) onChangeTab(tapIdx);
   }
   render() {
-    const {children, height, className = 'tabs-container', inRow = false, withContent = false} = this.props;
+    const {
+      children, height, className = 'tabs-container', 
+      inRow = false, withContent = false, closeabled = false,
+      onClose
+    } = this.props;
     const {activeTabIdx} = this.state;
 
     const self = this;
@@ -58,7 +64,7 @@ export default class Tabs extends PureComponent {
       contentClass += child.props.atRight ? ' right' : '';
 
       const _tabContent = withContent || (!withContent && isActive) ? (
-        <div className={"tab-content" + (isActive ? '' : ' hide')} key={"tab-con-" + idx}
+        <div className={"tab-content" + (isActive ? '' : ' hide')} key={child.key || "tab-con-" + idx}
           style={height ? {height: height} : {}}>
           {React.cloneElement(child.props.children, {})}
         </div>
@@ -69,10 +75,17 @@ export default class Tabs extends PureComponent {
 
       const _tabs = (
         <div key={"tab-" + idx} className={contentClass}>
-          {React.cloneElement(child, {
-            idx,
-            onTap: tapIdx => self.onTapTab(tapIdx)
-          })}
+          {
+            React.cloneElement(child, {
+              idx,
+              onTap: tapIdx => self.onTapTab(tapIdx)
+            })
+          }
+          {
+            closeabled ? (
+              <span className="close-btn" onClick={e => onClose(idx)}>x</span>
+            ) : null
+          }
           {_con}
         </div>
       );
@@ -80,7 +93,7 @@ export default class Tabs extends PureComponent {
     });
 
     return (
-      <div className={className + (inRow ? ' in-row' : '')}>
+      <div className={className + (inRow ? ' in-row' : '' + (withContent ? ' common-mode' : ''))}>
         <div className="tab-group">
           {tabs}
         </div>

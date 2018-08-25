@@ -16,6 +16,7 @@ import PagingBtn from './paging-button';
 import TipBtn from './tip-button';
 import Icon from './icon';
 import Tip from './tip';
+import Label from './label';
 
 export * from './notification';
 export * from './sub-content';
@@ -34,6 +35,7 @@ export * from './config';
 export * from './set-dom';
 
 export {
+  Label,
   MultipleHelper,
   Avatar,
   Captcha,

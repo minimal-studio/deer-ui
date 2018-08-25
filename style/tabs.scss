@@ -45,11 +45,30 @@ $tabTextColor: #999;
       background-color: #fafafa;
       margin-right: 5px;
       box-shadow: inset 0 -2px 2px rgba(#999, 0.1);
+      .close-btn {
+        display: inline-block;
+        // padding: 5px;
+        line-height: 22px;
+        position: absolute;
+        right: -8px;
+        top: -8px;
+        color: #000;
+        background-color: #FFF;
+        box-shadow: 0 3px 3px rgba(#000, 0.2);
+        display: none;
+        &:hover {
+          color: #FFF;
+          background-color: $colorRed;
+        }
+      }
       &.right {
         align-self: baseline;
       }
       &:hover {
         color: $tabTextHoverColor;
+        .close-btn {
+          display: block;
+        }
       }
       &.active {
         color: $tabTextActiveColor;
