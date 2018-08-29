@@ -21,7 +21,7 @@ import MultipleHelper from 'ukelli-ui/core/multiple-selector';
 import Avatar from 'ukelli-ui/core/avatar';
 import Captcha from 'ukelli-ui/core/captcha';
 import ChartCom from 'ukelli-ui/core/chart-dom';
-import Carousel from 'ukelli-ui/core/carousel/carousel.js';
+import Carousel from 'ukelli-ui/core/carousel/carousel';
 import Loading from 'ukelli-ui/core/loading';
 import SwitchBtn from 'ukelli-ui/core/switch-button';
 import TipPanel from 'ukelli-ui/core/tip-panel';
@@ -30,6 +30,7 @@ import Ranger from 'ukelli-ui/core/range-selector';
 import PagingBtn from 'ukelli-ui/core/paging-button';
 import TipBtn from 'ukelli-ui/core/tip-button';
 import Icon from 'ukelli-ui/core/icon';
+import Label from 'ukelli-ui/core/label';
 
 import {Notify, CancelNotify, Notification} from 'ukelli-ui/core/notification';
 
@@ -93,3 +94,18 @@ setUkelliConfig({
 ```
 
 ## [组件说明](./docs/components.md)
+
+## 引用其他的外部库依赖
+
+为了减少打包体积，外部库都需要通过 load script 的方式引入
+
+外部库引用列表
+
+- CroppieJs // 设置头像
+- ChartJs   // 图表显示
+
+```js
+import {Avatar, ChartDOM} from 'ukelli-ui';
+Avatar.setCroppieUrl(loadUrl);
+ChartDOM.setChartJSPath(loadUrl);
+```

@@ -1,5 +1,20 @@
 # update logs
 
+## 2.4.33
+
+- 把 Avatar 中的依赖抽离出来
+
+依赖 Croppie js [地址](http://foliotek.github.io/Croppie/)
+
+可以设置加载的路径
+
+```js
+import {Avatar} from 'ukelli-ui';
+Avatar.setCroppieUrl(loadUrl);
+```
+
+-----------
+
 ## 2.4.31
 
 - 支持国际化
@@ -18,6 +33,8 @@ setUkeLang('zh-HK');
 ```
 
 切换语言时，也需要设置外部
+
+-----------
 
 ## 2.4.22
 
