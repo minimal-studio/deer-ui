@@ -133,6 +133,7 @@ export default class Avatar extends PureComponent {
       changeAvatarable = false
     } = this.props;
     const { isShow } = this.state;
+    let gm = $UKE.getUkeKeyMap;
 
     const {avatarImgMap, getImage} = $UKE;
 
