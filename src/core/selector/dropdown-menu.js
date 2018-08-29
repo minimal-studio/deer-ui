@@ -82,9 +82,10 @@ export default class DropdownMenu extends SelectorBasic {
   }
   getActiveTitle() {
     const {value, isMultiple} = this.props;
-    if(!HasValue(value)) return '无';
+    let gm = $UKE.getUkeKeyMap;
+    if(!HasValue(value)) return gm('无');
 
-    return isMultiple ? value.length + '项已选择' : this.valuesObj[value];
+    return isMultiple ? value.length + gm('项已选择') : this.valuesObj[value];
   }
   getValuesLength() {
     const {values} = this;
@@ -102,6 +103,7 @@ export default class DropdownMenu extends SelectorBasic {
     })
   }
   render() {
+    let gm = $UKE.getUkeKeyMap;
     const {
       style = {}, className = '', isMultiple, withInput = true,
     } = this.props;
@@ -168,7 +170,7 @@ export default class DropdownMenu extends SelectorBasic {
                   <div className="action-group">
                     <div className="action-btn" onClick={e => {
                       canSelectAll ? this.selectAll() : this.changeEvent([]);
-                    }}>{canSelectAll ? '全选' : '取消'}</div>
+                    }}>{gm(canSelectAll ? '全选' : '取消')}</div>
                     <div className="items-group">
                       {
                         this.values.map((dataItem, idx) => {

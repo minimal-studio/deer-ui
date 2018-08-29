@@ -1,5 +1,24 @@
 # update logs
 
+## 2.4.31
+
+- 支持国际化
+
+分为外部 KeyMapper 和内部 UkeKeyMapper 两种情况，可以通过 setUkeLang 设置语言，默认提供 「中文」 和 「英语」 两种语言，也可以通过 setUkeLangConfig 设置更多的语言
+
+```js
+import { setUkeLang, setUkeLangConfig } from 'ukelli-ui';
+
+setUkeLangConfig({
+  'zh-HK': {
+    '无': '無'
+  }
+});
+setUkeLang('zh-HK');
+```
+
+切换语言时，也需要设置外部
+
 ## 2.4.22
 
 - Modal 新增可拖动模式

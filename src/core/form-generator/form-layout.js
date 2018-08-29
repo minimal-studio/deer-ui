@@ -58,11 +58,12 @@ export default class FormLayout extends Component {
     !!resInfo.resDesc && this.toast && this.toast.show(resInfo.resDesc, resInfo.hasErr ? 'error' : 'success');
   }
   render() {
+    let gm = $UKE.getUkeKeyMap;
     const {
       tipInfo, btnConfig, className = '', isVertical, isMobile,
       showInputTitle,
       childrenBeforeForm, childrenAfterForm, childrenBeforeBtn,
-      formOptions = [], btnText = '确定提交',
+      formOptions = [], btnText = gm('确定提交'),
       onSubmit, onChange
     } = this.props;
 
@@ -86,7 +87,7 @@ export default class FormLayout extends Component {
         <span className="mr5" key={idx}>
           <Button
             disabled={!isActive}
-            text={isBtnLoading ? text + '中...' : text}
+            text={isBtnLoading ? text + gm('中') + '...' : text}
             loading={isBtnLoading}
             className={className}
             onClick={e => {

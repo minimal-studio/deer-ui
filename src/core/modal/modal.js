@@ -16,7 +16,7 @@ export default class Modal extends DragPanelClass {
     draggable: false,
     duration: 300,
     animateType: 'modal',
-    title: '无',
+    title: $UKE.getKeyMap('无'),
     className: '',
     children: null,
   };

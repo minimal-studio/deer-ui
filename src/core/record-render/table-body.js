@@ -6,6 +6,13 @@ import MapperFilter from './mapper-filter';
 import Icon from '../icon';
 
 export default class TableBody extends MapperFilter {
+  static propTypes = {
+    keyMapper: PropTypes.array.isRequired,
+    needCount: PropTypes.bool,
+    allCheck: PropTypes.bool,
+    onCheckAll: PropTypes.func,
+    records: PropTypes.array.isRequired
+  };
   constructor(props) {
     super(props);
     this._resizeCalcSize = this.resizeCalcSize.bind(this);
@@ -253,10 +260,3 @@ export default class TableBody extends MapperFilter {
     );
   }
 }
-TableBody.propTypes = {
-  keyMapper: PropTypes.array.isRequired,
-  needCount: PropTypes.bool,
-  allCheck: PropTypes.bool,
-  onCheckAll: PropTypes.func,
-  records: PropTypes.array.isRequired
-};

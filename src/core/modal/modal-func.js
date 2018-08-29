@@ -87,8 +87,10 @@ function CloseGlobalModal(entityId) {
 
 function ShowGlobalModal(options) {
 
+  let gm = $UKE.getUkeKeyMap;
+
   const {
-    type, confirmText = '确定？', title, showFuncBtn = true,
+    type, confirmText = gm('确定') + '?', title, showFuncBtn = true,
     width = $UKE.isMobile ? '90%' : 600, id, children, draggable,
     onConfirm
   } = options;
@@ -100,8 +102,8 @@ function ShowGlobalModal(options) {
 
   let btnGroupDOM = showFuncBtn ? (
     <div className="btn-group">
-      <span className="btn flat default" onClick={e => onClickBtn(false)}>取消</span>
-      <span className="btn flat theme" onClick={e => onClickBtn(true)}>确定</span>
+      <span className="btn flat default" onClick={e => onClickBtn(false)}>{gm('取消')}</span>
+      <span className="btn flat theme" onClick={e => onClickBtn(true)}>{gm('确定')}</span>
     </div>
   ) : null;
 

@@ -7,6 +7,14 @@ import Loading from '../loading';
 let chartjsURL = '';
 
 export default class ChartCom extends PureComponent {
+  static propTypes = {
+    data: PropTypes.object,
+    options: PropTypes.object,
+    type: PropTypes.string
+  };
+  static setChartJSPath = (path) => {
+    chartjsURL = path.replace(/\/$/, "/");
+  };
   constructor(props) {
     super(props);
 
@@ -70,11 +78,3 @@ export default class ChartCom extends PureComponent {
     )
   }
 }
-ChartCom.propTypes = {
-  data: PropTypes.object,
-  options: PropTypes.object,
-  type: PropTypes.string
-};
-ChartCom.setChartJSPath = function(path) {
-  chartjsURL = path.replace(/\/$/, "/");
-};

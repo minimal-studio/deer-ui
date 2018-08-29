@@ -27,16 +27,21 @@ $itemW: 360px;
 }
 
 #NOTIFICATION_CONTAINER {
-  .scroll-content {
-    max-height: 90vh;
-    overflow-y: auto;
-    overflow-x: hidden;
-    padding: 0 0 40px 40px;
-  }
+  // .scroll-content {
+  // }
 
   .notify-group {
     position: fixed;
     z-index: 1000;
+
+    &.has-msg {
+      .scroll-content {
+        padding: 0 0 40px 40px;
+        max-height: 90vh;
+        overflow-y: auto;
+        overflow-x: hidden;
+      }
+    }
 
     .close-btn {
       background-color: transparent !important;

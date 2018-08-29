@@ -17,6 +17,14 @@ export const MenuItem = ({isActive, text, icon, ...other}) => {
 }
 
 export default class MenuGroup extends SelectorBasic {
+  static propTypes = {
+    isMultiple: PropTypes.bool,
+    value: PropTypes.any,
+    values: PropTypes.any,
+    style: PropTypes.object,
+    defaultValue: PropTypes.array,
+    onClickItem: PropTypes.func,
+  }
   constructor(props) {
     super(props);
 
@@ -68,6 +76,7 @@ export default class MenuGroup extends SelectorBasic {
     const canSelectAll = isMultiple && !isSelectedAll;
 
     const _style = Object.assign({}, this.offset, style);
+    let gm = $UKE.getUkeKeyMap;
 
     return (
       <div className="menu-list"
@@ -75,7 +84,7 @@ export default class MenuGroup extends SelectorBasic {
         style={_style}>
         <div className="search-bar">
           <input
-            placeholder="搜索试试"
+            placeholder={gm("搜索试试")}
             className="form-control input-sm"
             type="text"
             ref={c => {this._input = c}}
@@ -85,7 +94,7 @@ export default class MenuGroup extends SelectorBasic {
           <div className="action-btn-group">
             <div className="action-btn" onClick={e => {
               canSelectAll ? this.selectAll() : this.changeEvent(isMultiple ? [] : '');
-            }}>{canSelectAll ? '全选' : '取消已选项'}</div>
+            }}>{gm(canSelectAll ? '全选' : '取消已选项')}</div>
           </div>
           {
             this.values.map((dataItem, idx) => {
@@ -107,12 +116,4 @@ export default class MenuGroup extends SelectorBasic {
       </div>
     )
   }
-}
-MenuGroup.propTypes = {
-  isMultiple: PropTypes.bool,
-  value: PropTypes.any,
-  values: PropTypes.any,
-  style: PropTypes.object,
-  defaultValue: PropTypes.array,
-  onClickItem: PropTypes.func,
 }

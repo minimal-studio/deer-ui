@@ -6,6 +6,16 @@ import Icon from '../icon';
 const ideaTipsGroup = [1, 5, 10, 100];
 
 export default class MultipleHelper extends PureComponent {
+  static propTypes = {
+    onChange: PropTypes.func,
+    inputable: PropTypes.bool,
+    basicUnit: PropTypes.number,
+    min: PropTypes.number,
+    max: PropTypes.number,
+    defaultValue: PropTypes.any,
+    suffix: PropTypes.string,
+    range: PropTypes.array
+  };
   constructor(props) {
     super(props);
     const {range = ideaTipsGroup, defaultValue} = props;
@@ -115,13 +125,3 @@ export default class MultipleHelper extends PureComponent {
     )
   }
 }
-MultipleHelper.propTypes = {
-  onChange: PropTypes.func,
-  inputable: PropTypes.bool,
-  basicUnit: PropTypes.number,
-  min: PropTypes.number,
-  max: PropTypes.number,
-  defaultValue: PropTypes.any,
-  suffix: PropTypes.string,
-  range: PropTypes.array
-};

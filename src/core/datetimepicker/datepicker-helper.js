@@ -45,38 +45,39 @@ export default class DatepickerHelper extends PureComponent {
 
     const {needTime = true} = props;
 
-    var basicFormat = 'YYYY-MM-DD';
-    // var timeFormat = 'hh:ss:mm';
-    var timeDefaultStr = needTime ? [' 00:00:00', ' 23:59:59'] : [];
-    // var format = basicFormat + (needTime ? (' ' + timeFormat) : '');
+    let basicFormat = 'YYYY-MM-DD';
+    // let timeFormat = 'hh:ss:mm';
+    let timeDefaultStr = needTime ? [' 00:00:00', ' 23:59:59'] : [];
+    // let format = basicFormat + (needTime ? (' ' + timeFormat) : '');
+    let gm = $UKE.getUkeKeyMap;
 
     this.defaultDateHelperInfo = [
       {
         filter() {
           return [];
         },
-        t: '清空'
+        t: gm('清空')
       },
       {
         filter() {
           return GetDefaultDateInfo(0, 0, undefined, timeDefaultStr);
         },
-        t: '今天'
+        t: gm('今天')
       }, {
         filter() {
           return GetDefaultDateInfo(1, -1, undefined, timeDefaultStr);
         },
-        t: '昨天'
+        t: gm('昨天')
       }, {
         filter() {
           return getHalfMouthDate('up', basicFormat, timeDefaultStr);
         },
-        t: '前半月'
+        t: gm('前半月')
       }, {
         filter() {
           return getHalfMouthDate('down', basicFormat, timeDefaultStr);
         },
-        t: '后半月'
+        t: gm('后半月')
       }
     ];
   }
@@ -102,7 +103,7 @@ export default class DatepickerHelper extends PureComponent {
 
     return (
       <div className="date-helper-group">
-        <SubContent displayElem={'快捷'}>
+        <SubContent displayElem={$UKE.getKeyMap('快捷')}>
           <div className="date-helper">
             {
               _dateHelperInfo.map((item, idx) => {

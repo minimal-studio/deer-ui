@@ -2,6 +2,13 @@ import React, {Component, PureComponent} from 'react';
 import PropTypes from 'prop-types';
 
 export default class SwitchButton extends PureComponent {
+  static propTypes = {
+    btns: PropTypes.object.isRequired,
+    unique: PropTypes.bool,
+    disabled: PropTypes.bool,
+    activeIdx: PropTypes.any.isRequired,
+    onSwitch: PropTypes.func.isRequired
+  };
   constructor(props) {
     super(props);
     this.value = props.activeIdx;
@@ -32,10 +39,3 @@ export default class SwitchButton extends PureComponent {
     return switchBtnGroup;
   }
 }
-SwitchButton.propTypes = {
-  btns: PropTypes.object.isRequired,
-  unique: PropTypes.bool,
-  disabled: PropTypes.bool,
-  activeIdx: PropTypes.any.isRequired,
-  onSwitch: PropTypes.func.isRequired
-};

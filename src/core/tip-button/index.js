@@ -5,6 +5,17 @@ import {CallFunc, GenerteID} from 'basic-helper';
 import {PopoverEntity} from '../popover';
 
 export default class TipButton extends Component {
+  static propTypes = {
+    onClick: PropTypes.func.isRequired,
+    onClose: PropTypes.func,
+    text: PropTypes.string.isRequired,
+    timer: PropTypes.any,
+    showTip: PropTypes.bool,
+    autoClose: PropTypes.bool,
+    position: PropTypes.string,
+    className: PropTypes.string,
+    disabled: PropTypes.bool
+  };
   constructor(props) {
     super(props);
     this.popoverLifeTimer = null;
@@ -82,14 +93,3 @@ export default class TipButton extends Component {
     );
   }
 }
-TipButton.propTypes = {
-  onClick: PropTypes.func.isRequired,
-  onClose: PropTypes.func,
-  text: PropTypes.string.isRequired,
-  timer: PropTypes.any,
-  showTip: PropTypes.bool,
-  autoClose: PropTypes.bool,
-  position: PropTypes.string,
-  className: PropTypes.string,
-  disabled: PropTypes.bool
-};

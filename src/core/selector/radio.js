@@ -30,11 +30,12 @@ export default class Radio extends SelectorBasic {
   render() {
     const {itemWidth, isMultiple, checkAllBtn = true, itemStyle = {}} = this.props;
     const selectedValue = this.getValue();
+    let gm = $UKE.getUkeKeyMap;
 
     const selectAllBtn = isMultiple && checkAllBtn ? (
       <span
         className="btn warn flat selectAllBtn"
-        onClick={e => this.selectAll()}>全选</span>
+        onClick={e => this.selectAll()}>{gm('全选')}</span>
     ) : null;
 
     const radioGroup = this.values.map((item, idx) => {

@@ -8,6 +8,9 @@ import Icon from '../icon';
 const TRANSFORM_TIMER = 300;
 
 export default class Notification extends PureComponent {
+  static propTypes = {
+    handleClick: PropTypes.func
+  };
   constructor(props) {
     super(props);
     this.timers = {};
@@ -81,15 +84,16 @@ export default class Notification extends PureComponent {
     const {position = 'top-right', handleClick} = this.props;
     const {systemTips} = this.state;
     let hasMsg = Object.keys(systemTips).length > 0;
+    let gm = $UKE.getUkeKeyMap;
 
     let container = (
-      <div className={`notify-group ${position}`}>
+      <div className={`notify-group ${position} ${hasMsg ? 'has-msg' : 'no-msg'}`}>
         <div className="msg-panel scroll-content">
           <TransitionGroup component={null}>
             {
               Object.keys(systemTips).map((msgID, idx) => {
                 const item = systemTips[msgID];
-                const {type = 'normal', title, text, onClickTip, actionText = '点击查看详情'} = item;
+                const {type = 'normal', title, text, onClickTip, actionText = gm('点击查看详情')} = item;
                 return (
                   <CSSTransition
                     key={msgID}
@@ -99,7 +103,7 @@ export default class Notification extends PureComponent {
                       className={`notify-item ${type}`}
                       onMouseEnter={e => this.clearTargetTimer(msgID)}
                       onMouseLeave={e => this.startTargetTimer(item)}>
-                      <div className="title">{title ? title : '新消息'}</div>
+                      <div className="title">{title ? title : gm('新消息')}</div>
                       <div className="text">{text || ''}</div>
                       {
                         (onClickTip || handleClick) ? (
@@ -126,7 +130,3 @@ export default class Notification extends PureComponent {
     return container;
   }
 }
-
-Notification.propTypes = {
-  handleClick: PropTypes.func
-};

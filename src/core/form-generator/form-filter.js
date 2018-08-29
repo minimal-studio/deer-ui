@@ -146,6 +146,8 @@ export default class FormFilterHelper extends Component {
     const {
       ref, refs, type, className, getCustomFormControl
     } = config;
+    let gm = $UKE.getUkeKeyMap;
+
     switch (type) {
       case 'customForm':
         let customeComponent = IsFunc(getCustomFormControl) ? getCustomFormControl() : null;
@@ -222,14 +224,14 @@ export default class FormFilterHelper extends Component {
               ref={refS}
               className={formClass}
               value={this.zeroFilter(this.getValue(refS), '')}
-              placeholder="起"
+              placeholder={gm("起")}
               onChange={(val) => this.onInputChange({val, ref: refS})}/>
             <span> - </span>
             <Input
               ref={refE}
               className={formClass}
               value={this.zeroFilter(this.getValue(refE), '')}
-              placeholder="止"
+              placeholder={gm("止")}
               onChange={(val) => this.onInputChange({val, ref: refE})}/>
           </div>
         )
@@ -328,7 +330,7 @@ export default class FormFilterHelper extends Component {
 
         return (
           <div className="datepicker-ranger-content">
-            <span className="title">范围</span>
+            <span className="title">{gm('范围')}</span>
             <DatetimePicker
               mode="range"
               {...config}

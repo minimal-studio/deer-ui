@@ -2,10 +2,18 @@ import React, {Component, PureComponent} from 'react';
 import PropTypes from 'prop-types';
 import {CallFunc} from 'basic-helper';
 
-import Loading from '../loading';
 import Input from '../form-control/input';
 
 export default class CAPTCHA extends Component {
+  static propTypes = {
+    onError: PropTypes.func,
+    onChange: PropTypes.func,
+    onBlur: PropTypes.func,
+    value: PropTypes.string,
+    icon: PropTypes.string,
+    limit: PropTypes.number,
+    scale: PropTypes.string,
+  };
   constructor(props) {
     super(props);
     this.state = {
@@ -92,6 +100,7 @@ export default class CAPTCHA extends Component {
     this.refs.captchaInput.focus();
   }
   render() {
+    let gm = $UKE.getUkeKeyMap;
     const {captchaImg, captchaValue, loading} = this.state;
     const {scale = 'sm', value = '', icon = 'security'} = this.props;
     const _captchaValue = this.isControl ? value : captchaValue;
@@ -104,10 +113,10 @@ export default class CAPTCHA extends Component {
         className="cover-image"/>
     ) : null;
     if(!hasCap) {
-      loadingTip = '验证码';
+      loadingTip = gm('验证码');
     }
     if(loading) {
-      loadingTip = '刷新中';
+      loadingTip = gm('刷新中');
     }
 
     return (
@@ -120,7 +129,7 @@ export default class CAPTCHA extends Component {
           value={_captchaValue}
           onFocus={e => this.shouldRefreshCaptcha()}
           onChange={val => this.changeCaptcha(val)}
-          placeholder="验证码">
+          placeholder={gm("验证码")}>
           <div className="captcha"
             onClick={e => {
               this.getCaptcha();
@@ -144,13 +153,3 @@ export default class CAPTCHA extends Component {
   //   placeholder="验证码"/>
   }
 }
-CAPTCHA.propTypes = {
-  onError: PropTypes.func,
-  onChange: PropTypes.func,
-  onBlur: PropTypes.func,
-  value: PropTypes.string,
-  icon: PropTypes.string,
-  limit: PropTypes.number,
-  // onFocus: PropTypes.func,
-  scale: PropTypes.string,
-};

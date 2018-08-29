@@ -5,6 +5,11 @@ const prevBtnCount = 3;
 const lastBtnCount = 3;
 
 export default class PagingBtn extends Component {
+  static propTypes = {
+    pagingInfo: PropTypes.object.isRequired,
+    isNeedHelper: PropTypes.bool,
+    onPagin: PropTypes.func.isRequired
+  };
   changePagin(pIdx, pSize) {
     const {pagingInfo, onPagin} = this.props;
     const {PageIndex, PageSize, AllCount} = pagingInfo;
@@ -19,6 +24,7 @@ export default class PagingBtn extends Component {
   render () {
     const {isNeedHelper = true, pagingInfo, onPagin} = this.props;
     const {AllCount, UsePaging, PageIndex, PageSize} = pagingInfo;
+    let gm = $UKE.getUkeKeyMap;
 
     const paginBtnCount = Math.ceil(AllCount / PageSize);
     const paginCount = 5;
@@ -44,18 +50,18 @@ export default class PagingBtn extends Component {
     )
     const jumpInputDOM = (
       <div className="jump-input">
-        <span>共 {paginBtnCount || 1} 页, 跳转到第</span>
+        <span>{gm('共')} {paginBtnCount || 1} {gm('页')}, {gm('跳转到第')}</span>
         <input type="text" className="form-control input-sm ms10 input" onBlur={e => this.changePagin(e.target.value - 1)}/>
-        <span>页</span>
+        <span>{gm('页')}</span>
       </div>
     )
     const pageCountInputDOM = (
       <div className="mr10 page-size-input">
-        <span>每页</span>
+        <span>{gm('每页')}</span>
         <input type="text" className="form-control input-sm ms10 input"
           defaultValue={PageSize}
           onBlur={e => this.changePagin(PageIndex, e.target.value)}/>
-        <span>条记录</span>
+        <span>{gm('条记录')}</span>
       </div>
     )
     const btnGroup = (
@@ -99,9 +105,3 @@ export default class PagingBtn extends Component {
     )
   }
 }
-
-PagingBtn.propTypes = {
-  pagingInfo: PropTypes.object.isRequired,
-  isNeedHelper: PropTypes.bool,
-  onPagin: PropTypes.func.isRequired
-};

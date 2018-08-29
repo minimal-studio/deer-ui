@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 
 import {CallFunc} from 'basic-helper';
 
+// TODO: 更改这个控件的用法
 import "./croppie";
 const faceCount = 12;
 
@@ -43,6 +44,7 @@ export default class Avatar extends PureComponent {
     this.togglePanel(false);
   }
   customUpload = e => {
+    let gm = $UKE.getUkeKeyMap;
     e.preventDefault();
     e.stopPropagation();
     this.props.ShowGlobalModal({
@@ -59,14 +61,14 @@ export default class Avatar extends PureComponent {
           <div
             ref={c => (this._cropPlaceholder = c)}
             className="crop-placeholder">
-            请选择图片
+            {gm('请选择图片')}
           </div>
           <div
             className="text-left"
             style={{ width: 350, margin: "10px auto 0" }}
             ref={c => this._upload = c}>
             <a className="btn default file-btn">
-              <span>选择图片</span>
+              <span>{gm('选择图片')}</span>
               <input
                 type="file"
                 onChange={this.handleChange}
@@ -75,7 +77,7 @@ export default class Avatar extends PureComponent {
           </div>
         </div>
       ),
-      title: "自定义头像",
+      title: gm("自定义头像"),
       onConfirm: isSure => {
         if (isSure) {
           this.Croppie && this.Croppie.result({
@@ -136,7 +138,7 @@ export default class Avatar extends PureComponent {
 
     const changeAvatarDOM = changeAvatarable ? (
       <div>
-        <div className="text-center" style={{width: 100}}><span className="link-btn" onClick={e => this.togglePanel(!isShow)}>更换头像</span></div>
+        <div className="text-center" style={{width: 100}}><span className="link-btn" onClick={e => this.togglePanel(!isShow)}>{gm('更换头像')}</span></div>
         <div className={"hide-panel" + (isShow ? " show" : "")}>
           {[...Array(faceCount)].map((_, idx) => {
             return (
@@ -148,7 +150,7 @@ export default class Avatar extends PureComponent {
             );
           })}
           <div style={{paddingTop: 10}}>
-            <span className="link-btn theme" onClick={this.customUpload}>自定义头像</span>
+            <span className="link-btn theme" onClick={this.customUpload}>{gm('自定义头像')}</span>
           </div>
         </div>
       </div>
