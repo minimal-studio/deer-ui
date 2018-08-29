@@ -217,7 +217,7 @@ export default class FormFilterHelper extends Component {
             }}/>
         )
       case 'input-range':
-        var {refS, refE} = refs;
+        var [refS, refE] = refs;
         return (
           <div className="input-range">
             <Input
