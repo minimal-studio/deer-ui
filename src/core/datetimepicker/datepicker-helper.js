@@ -100,10 +100,11 @@ export default class DatepickerHelper extends PureComponent {
     const {activeIdx} = this.state;
     const {dateHelperInfo} = this.props;
     const _dateHelperInfo = !!dateHelperInfo && dateHelperInfo.length > 0 ? dateHelperInfo : this.defaultDateHelperInfo;
+    let gm = $UKE.getUkeKeyMap;
 
     return (
       <div className="date-helper-group">
-        <SubContent displayElem={$UKE.getKeyMap('快捷')}>
+        <SubContent displayElem={gm('快捷')}>
           <div className="date-helper">
             {
               _dateHelperInfo.map((item, idx) => {

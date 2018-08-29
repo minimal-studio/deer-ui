@@ -1,4 +1,4 @@
-import {defineGlobalScope} from 'basic-helper';
+import {defineGlobalScope, IsFunc} from 'basic-helper';
 import chKeyMapper from '../i18n/zh-CN';
 import enKeyMapper from '../i18n/en-US';
 
@@ -23,6 +23,43 @@ let ukelliui = {
   avatarImgMap: '',
   iconMapper: {},
   iconPrefix: 'fa fa-'
+}
+
+export function LoadStuff({src, onload, type}) {
+  var times = 0;
+
+  var loadUrl = src;
+
+  function load(element) {
+    if (times > 2) return 0;
+    times++;
+    element.onload = onload;
+    element.onerror = load;
+    document.body.appendChild(element);
+  };
+
+  switch (type) {
+    case 'css':
+      var link = document.createElement('link');
+      link.rel = 'stylesheet';
+      link.href = loadUrl;
+      load(link);
+      break;
+    case 'script':
+      var script = document.createElement('script');
+      script.type = 'text/javascript';
+      script.src = loadUrl;
+      load(script);
+      break;
+  }
+}
+export function LoadLink(options) {
+  options.type = 'css';
+  return LoadStuff(options);
+}
+export function LoadScript(options) {
+  options.type = 'script';
+  return LoadStuff(options);
 }
 
 export function setUkeLang(lang) {
