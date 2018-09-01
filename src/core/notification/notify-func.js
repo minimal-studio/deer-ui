@@ -11,6 +11,7 @@ let notificationEntity = null;
 
 /**
  * 将返回 config 的 id，用于消除该通知
+ * @param {object} options
  */
 export default function Notify(options) {
   const {position, config, handleClick} = options;
