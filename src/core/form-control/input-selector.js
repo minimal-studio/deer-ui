@@ -41,9 +41,7 @@ export default class InputSelector extends Component {
           value={inputVal}
           onBlur={e => {
             let val = e.target.value;
-            if(val) {
-              onChange(val, selectRef);
-            }
+            onChange(val, selectRef);
           }}
         />
       </div>

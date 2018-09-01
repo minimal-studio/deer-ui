@@ -7,12 +7,18 @@ export default class Tabs extends PureComponent {
     inRow: PropTypes.bool,
     withContent: PropTypes.bool,
     closeabled: PropTypes.bool,
+    stepMode: PropTypes.bool,
     height: PropTypes.string,
     activeTabIdx: PropTypes.number,
     className: PropTypes.string,
     onChangeTab: PropTypes.func,
     onClose: PropTypes.func
   };
+  static defaultProps = {
+    inRow: false,
+    withContent: false,
+    closeabled: false,
+  }
   constructor(props) {
     super(props);
     this.state = {
@@ -46,17 +52,17 @@ export default class Tabs extends PureComponent {
     const {onChangeTab} = this.props;
     if(IsFunc(onChangeTab)) onChangeTab(tapIdx);
   }
-  render() {
+  getTabContents() {
     const {
-      children, height, className = 'tabs-container', 
-      inRow = false, withContent = false, closeabled = false,
+      children, height, 
+      inRow, withContent, closeabled,
       onClose
     } = this.props;
     const {activeTabIdx} = this.state;
 
-    const self = this;
     let tabs = [];
     let tabContents = [];
+
     React.Children.map(children, (child, idx) => {
       if(!child || typeof child.type !== 'function') return;
       const isActive = (idx === activeTabIdx);
@@ -78,7 +84,7 @@ export default class Tabs extends PureComponent {
           {
             React.cloneElement(child, {
               idx,
-              onTap: tapIdx => self.onTapTab(tapIdx)
+              onTap: tapIdx => this.onTapTab(tapIdx)
             })
           }
           {
@@ -91,6 +97,17 @@ export default class Tabs extends PureComponent {
       );
       tabs.push(_tabs);
     });
+
+    return {
+      tabs, tabContents
+    }
+  }
+  render() {
+    const {
+      className = 'tabs-container', 
+      inRow, withContent,
+    } = this.props;
+    const {tabs, tabContents} = this.getTabContents();
 
     return (
       <div className={className + (inRow ? ' in-row' : '' + (withContent ? ' common-mode' : ''))}>
