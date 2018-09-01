@@ -210,7 +210,6 @@ export default class FormFilterHelper extends Component {
             inputProps={inputProps}
             value={this.zeroFilter(this.getValue(ref), '')}
             onChange={(val, activeRef) => {
-              console.log(val, activeRef)
               Object.keys(refu).map((itemRef) => {
                 if(activeRef != itemRef) delete this.value[itemRef];
               });
