@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import {HasValue} from 'basic-helper';
 
+import positionFilter from '../position-filter';
 import SelectorBasic from './selector';
 
 const MenuItem = ({isActive, text, icon, ...other}) => {
@@ -43,9 +44,15 @@ export default class DropdownMenu extends SelectorBasic {
     value: PropTypes.any,
     isNum: PropTypes.bool,
     inRow: PropTypes.bool,
+    withInput: PropTypes.bool,
     isMultiple: PropTypes.bool,
     style: PropTypes.object,
+    position: PropTypes.string,
     onChange: PropTypes.func
+  };
+  static defaultProps = {
+    withInput: true,
+    position: 'bottom,left',
   };
   state = {
     isShow: false,
@@ -105,7 +112,7 @@ export default class DropdownMenu extends SelectorBasic {
   render() {
     let gm = $UKE.getUkeKeyMap;
     const {
-      style = {}, className = '', isMultiple, withInput = true,
+      style = {}, className = '', isMultiple, withInput, position
     } = this.props;
     const {isShow, searchValue} = this.state;
     const _selectedValue = this.getValue();
@@ -117,7 +124,7 @@ export default class DropdownMenu extends SelectorBasic {
     return (
       <div
         className={
-          "uke-dropdown-menu" +
+          "uke-dropdown-menu " +
           (className ? ' ' + className : '') +
           (isMultiple ? ' multiple' : ' single') +
           (withInput ? ' input-mode' : '') +
@@ -159,7 +166,10 @@ export default class DropdownMenu extends SelectorBasic {
             timeout={200}>
             {
               isShow ? (
-                <div className="dropdown-items">
+                <div className={
+                  "dropdown-items " + 
+                  positionFilter(position)
+                  }>
                   <span className="caret"></span>
                   {
                     isMultiple ? (

@@ -121,6 +121,17 @@ body {
     }
   }
 }
+.nomargin {
+  margin: 0;
+}
+.link-btn {
+  color: $themeColor;
+  cursor: pointer;
+  border-bottom: 1px solid transparent;
+  &:hover {
+    border-color: $themeColor;
+  }
+}
 
 
 html{font-size:10px}

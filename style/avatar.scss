@@ -5,7 +5,7 @@ $avatarMiniScale: 24px;
 .avatar-helper {
   $imgScale: 40px;
   position: relative;
-  z-index: 2;
+  // z-index: 1;
   .hide-panel {
     display: none;
     position: absolute;

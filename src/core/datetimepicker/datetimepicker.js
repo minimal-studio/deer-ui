@@ -1,7 +1,7 @@
 import React, {Component, PureComponent} from 'react';
 import PropTypes from 'prop-types';
 
-import {CallFunc, DateFormat} from 'basic-helper';
+import {CallFunc, DateFormat, GenerteID} from 'basic-helper';
 import Flatpickr from './flatpickr';
 import './zh';
 
@@ -9,7 +9,6 @@ import Icon from '../icon';
 
 export default class DatetimePicker extends PureComponent {
   static propTypes = {
-    id: PropTypes.string.isRequired,
     onChange: PropTypes.func,
     defaultValue: PropTypes.any,
     needTime: PropTypes.bool,
@@ -33,6 +32,7 @@ export default class DatetimePicker extends PureComponent {
     let defaultVal = value || defaultValue;
     this.value = defaultVal;
     this.datepicker = null;
+    this._id = GenerteID();
   }
   componentDidMount() {
     // setTimeout(this.initPicker.bind(this), 50);
@@ -44,9 +44,9 @@ export default class DatetimePicker extends PureComponent {
     }
   }
   initPicker() {
-    const {id, mode, needTime, enableTime, lang} = this.props;
+    const { mode, needTime, enableTime, lang } = this.props;
 
-    this.datepicker = new Flatpickr(this.refs[id], {
+    this.datepicker = new Flatpickr(this.refs[this._id], {
       enableTime: enableTime,
       time_24hr: true,
       dateFormat: 'Y-m-d' + (enableTime ? ' H:i:S' : ''),
@@ -70,21 +70,20 @@ export default class DatetimePicker extends PureComponent {
     if(!!this.datepicker) this.datepicker.destroy();
   }
   changeDate(val) {
-    const {id, onChange} = this.props;
+    const { onChange } = this.props;
+    const id = this._id;
     this.value = DateFormat(Date.parse(this.refs[id].value), this.dateFormater);
     this.refs[id].blur && this.refs[id].blur()
     CallFunc(onChange)(val);
   }
   render() {
-    const {id} = this.props;
-
     return (
       <div className="flatpickr">
         <input
           type="text"
           className="form-control input-sm"
-          id={id}
-          ref={id}
+          id={this._id}
+          ref={this._id}
           onChange={e => this.changeDate()}/>
         <Icon type="date" data-toggle onClick={this.datepicker ? this.datepicker.toggle : function(){}}/>
       </div>

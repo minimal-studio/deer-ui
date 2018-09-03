@@ -202,7 +202,7 @@ export default class Avatar extends PureComponent {
     ) : null;
 
     return (
-      <div className="avatar-helper">
+      <span className="avatar-helper">
         <span
           className={"avatar fixbg" + (size ? " " + size : "")}
           style={{ backgroundImage: `url(${(faceId + '').indexOf('data') > -1 ? faceId : `${getImage(avatarImgMap, faceId)}.jpg`})` }}
@@ -210,7 +210,7 @@ export default class Avatar extends PureComponent {
           {text}
         </span>
         {changeAvatarDOM}
-      </div>
+      </span>
     );
   }
 }
