@@ -32,6 +32,7 @@ export default class FormGenerator extends FormFilterHelper {
       <div className={(isMobile ? 'vertical-form' : 'horizontal-form') + ' form-container ' + className}>
         {
           formOptions.map((condition, idx) => {
+            if(!condition) return;
             let needTitle = _showInputTitle ? true : !/input|password/.test(condition.type);
             let _con = this.wrapConditionTitle(condition);
             let {className = ''} = condition;

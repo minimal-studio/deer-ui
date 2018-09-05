@@ -41,6 +41,7 @@ export default class FormFilterHelper extends Component {
     this.requiredRefMapper = {};
   }
   setRequiredRefMapper(config) {
+    if(!config) return;
     const {required, title = '', ref} = this.wrapConditionTitle(config);
     if(!required) return;
     this.requiredRefMapper = Object.assign({}, this.requiredRefMapper, {
@@ -49,6 +50,8 @@ export default class FormFilterHelper extends Component {
   }
   setDefaultValues(options = []) {
     options.forEach(config => {
+      console.log(config)
+      if(!config) return;
       this.setDefaultValue(config);
       this.setRequiredRefMapper(config);
     });

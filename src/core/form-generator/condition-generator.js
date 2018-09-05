@@ -20,6 +20,7 @@ export default class ConditionGenerator extends FormFilterHelper {
       <div className={className}>
         {
           conditionConfig.map((condition, idx) => {
+            if(!condition) return;
             let _con = this.wrapConditionTitle(condition);
             const {ref, refs = [], refu = []} = _con;
             let itemKey = ref || refs[0] || JSON.stringify(refu);
