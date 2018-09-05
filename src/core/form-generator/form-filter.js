@@ -50,7 +50,6 @@ export default class FormFilterHelper extends Component {
   }
   setDefaultValues(options = []) {
     options.forEach(config => {
-      console.log(config)
       if(!config) return;
       this.setDefaultValue(config);
       this.setRequiredRefMapper(config);
