@@ -1,29 +1,21 @@
 {
   "env": {
     "development": {
-      "presets": ["react-app"],
+      "presets": ["@babel/env", "@babel/preset-react"],
       "plugins": [
         [
-          "react-transform",
-          {
-            "transforms": [
-              {
-                "transform": "react-transform-hmr",
-                "imports": [
-                  "react"
-                ],
-                "locals": [
-                  "module"
-                ]
-              }
-            ]
-          }
-        ]
+          "react-hot-loader/babel"
+        ],
+        "@babel/plugin-proposal-class-properties"
       ]
     },
     "production": {
       "presets": [
-        "env", "react-app"
+        "@babel/preset-env",
+        "@babel/preset-react"
+      ],
+      "plugins": [
+        "@babel/plugin-proposal-class-properties"
       ]
     }
   }

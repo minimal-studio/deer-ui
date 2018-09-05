@@ -1,6 +1,6 @@
 {
   "name": "ukelli-ui",
-  "version": "2.4.37",
+  "version": "2.4.38",
   "main": "./index.js",
   "scripts": {
     "publish": "npm publish ./build",
@@ -8,8 +8,7 @@
     "build": "rm -rf ./build/; npm run build:babel; npm run build:copy-files; npm run copy-style",
     "copy-style": "cp -R ./style ./build/",
     "build:babel": "NODE_ENV=production babel ./src --out-dir ./build --ignore spec.js",
-    "build:copy-files": "NODE_ENV=production babel-node ./scripts/copy-files.js",
-    "push": "npm publish; git add -A; git commit -m 'update'; git push origin master"
+    "build:copy-files": "NODE_ENV=production babel-node ./scripts/copy-files.js"
   },
   "repository": {
     "type": "git",
@@ -26,7 +25,13 @@
     "unistore": "^3.0.6",
     "react-transition-group": "^2.2.0"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "@babel/core": "^7.0.0",
+    "@babel/plugin-proposal-class-properties": "^7.0.0",
+    "@babel/preset-env": "^7.0.0",
+    "@babel/preset-react": "^7.0.0",
+    "fs-extra": "^7.0.0"
+  },
   "dependencies": {
     "classnames": "^2.2.5"
   }

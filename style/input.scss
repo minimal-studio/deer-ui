@@ -3,6 +3,9 @@
 $iconViewBgColor: $themeColor;
 
 .animate-input-title {
+  .input-group {
+    width: 100%;
+  }
   .input-control {
     &.has-val,&.forcing {
       .title {
@@ -86,20 +89,20 @@ $iconViewBgColor: $themeColor;
     position: relative;
     display: flex;
     align-items: center;
-    width: 100%;
   }
   .title {
     transition: all ease 0.2s;
     font-size: 14px;
     height: 22px;
-    // position: absolute;
-    // bottom: 4px;
+    min-width: 60px;
+    display: flex;
+    align-items: center;
     color: #999;
     .icon {
       margin-right: 5px;
     }
     .text {
-      display: block;
+      display: inline-block;
     }
 
     * {

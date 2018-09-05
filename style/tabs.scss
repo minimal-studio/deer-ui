@@ -70,6 +70,7 @@ $tabTextColor: #999;
       }
       &:hover {
         color: $tabTextHoverColor;
+        z-index: 2;
         .close-btn {
           display: block;
         }
