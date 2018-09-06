@@ -201,11 +201,17 @@ export default class Avatar extends PureComponent {
       </div>
     ) : null;
 
+    let isBase64Img = (faceId + '').indexOf('data') > -1;
+    let hasImg = isBase64Img || !!avatarImgMap;
+    let bgStyle = hasImg ? {
+      backgroundImage: `url(${isBase64Img ? faceId : `${getImage(avatarImgMap, faceId)}.jpg`})`
+    } : {};
+
     return (
       <span className="avatar-helper">
         <span
           className={"avatar fixbg" + (size ? " " + size : "")}
-          style={{ backgroundImage: `url(${(faceId + '').indexOf('data') > -1 ? faceId : `${getImage(avatarImgMap, faceId)}.jpg`})` }}
+          style={bgStyle}
           onClick={e => this.togglePanel(!isShow)}>
           {text}
         </span>
