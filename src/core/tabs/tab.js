@@ -3,14 +3,13 @@ import PropTypes from 'prop-types';
 import {CallFunc} from 'basic-helper';
 import Icon from '../icon';
 
-const Tab = ({label, onTap, icon, onClick, onChange, idx, labelClass = ''}) => {
+const Tab = ({label, icon, onClick, onChange, idx, labelClass = ''}) => {
   const iconDOM = icon ? (
     <Icon type={icon} classNames={['tab-icon']}/>
   ) : null;
   
   return (
     <div className={"tab-label " + labelClass} onClick={e => {
-        onTap(idx);
         CallFunc(onClick)();
         CallFunc(onChange)();
       }}>
@@ -25,7 +24,6 @@ Tab.propTypes = {
   idx: PropTypes.number,
   isDefault: PropTypes.bool,
   atRight: PropTypes.bool,
-  onTap: PropTypes.func,
   onChange: PropTypes.func,
   onClick: PropTypes.func
 };

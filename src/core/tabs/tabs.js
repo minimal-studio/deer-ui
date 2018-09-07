@@ -1,6 +1,6 @@
-import React, {Component, PureComponent} from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import {IsFunc} from 'basic-helper';
+import { IsFunc } from 'basic-helper';
 
 export default class Tabs extends PureComponent {
   static propTypes = {
@@ -49,7 +49,7 @@ export default class Tabs extends PureComponent {
   }
   onTapTab(tapIdx) {
     if(!this.isControlled) this._onChangeTab(tapIdx);
-    const {onChangeTab} = this.props;
+    const { onChangeTab } = this.props;
     if(IsFunc(onChangeTab)) onChangeTab(tapIdx);
   }
   getTabContents() {
@@ -58,35 +58,37 @@ export default class Tabs extends PureComponent {
       inRow, withContent, closeabled,
       onClose
     } = this.props;
-    const {activeTabIdx} = this.state;
+    const { activeTabIdx } = this.state;
 
     let tabs = [];
     let tabContents = [];
 
-    React.Children.map(children, (child, idx) => {
-      if(!child || typeof child.type !== 'function') return;
+    React.Children.map(children, (tabChild, idx) => {
+      if(!tabChild || typeof tabChild.type !== 'function') return;
       const isActive = (idx === activeTabIdx);
-      let contentClass = isActive ? 'tab active' : 'tab';
-      contentClass += child.props.atRight ? ' right' : '';
+      let { contentClass, labelClass = '' } = tabChild.props;
+      let _labelClass = 'tab ' + labelClass + (isActive ? ' active' : '');
+      _labelClass += tabChild.props.atRight ? ' right' : '';
+
 
       const _tabContent = withContent || (!withContent && isActive) ? (
-        <div className={"tab-content " + (child.props.contentClass) + (isActive ? '' : ' hide')} key={child.key || "tab-con-" + idx}
-          style={height ? {height: height} : {}}>
-          {React.cloneElement(child.props.children, {})}
+        <div
+          className={"tab-content " + (contentClass) + (isActive ? '' : ' hide')}
+          key={tabChild.key || "tab-con-" + idx}
+          style={height ? {height} : {}}>
+          {tabChild.props.children || null}
         </div>
       ) : undefined;
+
       if(!inRow || withContent) tabContents.push(_tabContent);
 
-      const _con = inRow ? _tabContent : '';
+      const _con = inRow ? _tabContent : null;
 
-      const _tabs = (
-        <div key={"tab-" + idx} className={contentClass}>
-          {
-            React.cloneElement(child, {
-              idx,
-              onTap: tapIdx => this.onTapTab(tapIdx)
-            })
-          }
+      const _tab = (
+        <div key={"tab-" + idx} className={_labelClass}>
+          <span onClick={e => this.onTapTab(idx)}>
+            {tabChild}
+          </span>
           {
             closeabled ? (
               <span className="close-btn" onClick={e => onClose(idx)}>x</span>
@@ -95,7 +97,7 @@ export default class Tabs extends PureComponent {
           {_con}
         </div>
       );
-      tabs.push(_tabs);
+      tabs.push(_tab);
     });
 
     return {
@@ -114,7 +116,7 @@ export default class Tabs extends PureComponent {
         <div className="tab-group">
           {tabs}
         </div>
-        {tabContents}
+        {inRow ? null : tabContents}
       </div>
     )
   }

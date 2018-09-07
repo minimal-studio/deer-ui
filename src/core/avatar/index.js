@@ -10,7 +10,7 @@ const faceCount = 12;
 import Loading from '../loading';
 import {ShowGlobalModal, CloseGlobalModal} from '../modal';
 
-let croppieUrl = '/js/libs/croppie.js';
+let croppieUrl = './js/libs/croppie.js';
 
 class CroppieHelper extends PureComponent {
   state = {
