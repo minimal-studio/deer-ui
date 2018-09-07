@@ -70,7 +70,7 @@ export default class Tabs extends PureComponent {
       contentClass += child.props.atRight ? ' right' : '';
 
       const _tabContent = withContent || (!withContent && isActive) ? (
-        <div className={"tab-content" + (isActive ? '' : ' hide')} key={child.key || "tab-con-" + idx}
+        <div className={"tab-content " + (child.props.contentClass) + (isActive ? '' : ' hide')} key={child.key || "tab-con-" + idx}
           style={height ? {height: height} : {}}>
           {React.cloneElement(child.props.children, {})}
         </div>
