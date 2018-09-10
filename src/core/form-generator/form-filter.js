@@ -146,7 +146,7 @@ export default class FormFilterHelper extends Component {
   }
   greneratFormDOM(config) {
     const {
-      ref, refs, type, className, getCustomFormControl, onLoadSuccess
+      ref, refs, type, className, getCustomFormControl
     } = config;
     let gm = $UKE.getUkeKeyMap;
 
@@ -166,7 +166,6 @@ export default class FormFilterHelper extends Component {
           <Captcha
             {...config}
             value={this.getValue(ref)}
-            onLoadSuccess={onLoadSuccess}
             onChange={captchaConfig => {
               this.changeValue(captchaConfig.value, ref);
               if(captchaConfig.isPass) {
