@@ -88,7 +88,7 @@ export default class BannerCarousel extends Component {
     const {activeIdx, isHover} = this.state;
     let {action, imgUrl, component} = currItem;
     const objStyle = {width, height};
-    if (idx === activeIdx && !imgStyle || (isHover && imgStyle)) {
+    if (idx === activeIdx || (isHover && imgStyle)) {
       objStyle['backgroundImage'] = `url(${imgUrl})`;
     } 
     return (
