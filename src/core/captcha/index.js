@@ -58,6 +58,8 @@ export default class CAPTCHA extends Component {
             captchaImg: captchaImage
           });
           this.captchaKey = captchaKey;
+          
+          this.props.onLoadSuccess && this.props.onLoadSuccess();
         }
       });
     }
