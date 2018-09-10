@@ -13,6 +13,9 @@
     position: absolute;
     right: 1px;
     bottom: 1px;
+    background-color: #eee;
+    height: 30px;
+    line-height: 30px;
     @include layoutCenter();
     z-index: 1;
     .captcha-tip {
