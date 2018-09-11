@@ -26,7 +26,6 @@ export default class BannerCarousel extends Component {
       activeIdx: defaultIdx,
       toNext: true,
       activeBannerItem: carouselItems[defaultIdx],
-      isHover: false,
     }
     this.timer = null;
     this.freq = 5000;
@@ -85,7 +84,7 @@ export default class BannerCarousel extends Component {
   genCarouselDOM(currItem, idx, imgStyle) {
     const {styleConfig, actionClass = 'action-area'} = this.props;
     const {width, height} = imgStyle || styleConfig;
-    const {activeIdx, isHover} = this.state;
+    const {activeIdx} = this.state;
     let {action, imgUrl, component} = currItem;
     const objStyle = {width, height};
     objStyle['backgroundImage'] = `url(${imgUrl})`;
@@ -119,11 +118,7 @@ export default class BannerCarousel extends Component {
     const {activeBannerItem} = this.state;
     CallFunc(activeBannerItem.action)(activeBannerItem, activeIdx);
   }
-  handleToggleHover = () => {
-    this.setState({
-      isHover: !this.state.isHover
-    })
-  }
+
   render() {
     const {
       carouselItems, styleConfig, 
@@ -136,7 +131,7 @@ export default class BannerCarousel extends Component {
         <span className="no-banner"></span>
       )
     }
-    const {activeIdx, toNext, activeBannerItem, isHover} = this.state;
+    const {activeIdx, toNext, activeBannerItem} = this.state;
 
     const {width, height, margin} = styleConfig;
     const imgWHRate = width / height;
@@ -148,8 +143,6 @@ export default class BannerCarousel extends Component {
     return (
       <div
         className="carousel"
-        onMouseEnter={this.handleToggleHover}
-        onMouseLeave={this.handleToggleHover}
         style={{width, height, margin}}>
         <TransitionGroup>
           <CSSTransition
