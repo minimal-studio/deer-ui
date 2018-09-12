@@ -1,5 +1,29 @@
 # update logs
 
+## 2.5.10
+
+- 优化结构
+- 新增 Tooltip 组件
+- 优化 popover 组件
+- 优化大部分组件的样式
+- 整理 icon 的引用，设置了默认的 iconMapper
+
+```js
+// icon 使用了 awsome icon 库
+let defaultIconMapper = {
+  arrow: 'angle-left',
+  date: 'calendar-alt',
+  more: 'equals',
+  close: 'times',
+  close: 'times',
+  noData: 'thermometer-empty',
+  success: 'check',
+  error: 'exclamation-circle',
+  'circle-up': 'arrow-circle-up',
+  'circle-down': 'arrow-circle-down',
+}
+```
+
 ## 2.4.33
 
 - 把 Avatar 中的依赖抽离出来
