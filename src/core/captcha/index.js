@@ -8,6 +8,7 @@ export default class CAPTCHA extends Component {
   static propTypes = {
     onError: PropTypes.func,
     onChange: PropTypes.func,
+    onCaptchaLoad: PropTypes.func,
     onBlur: PropTypes.func,
     value: PropTypes.string,
     icon: PropTypes.string,
@@ -58,6 +59,7 @@ export default class CAPTCHA extends Component {
             captchaImg: captchaImage
           });
           this.captchaKey = captchaKey;
+          this.props.onCaptchaLoad && this.props.onCaptchaLoad();
         }
       });
     }

@@ -84,17 +84,15 @@ export default class BannerCarousel extends Component {
   genCarouselDOM(currItem, idx, imgStyle) {
     const {styleConfig, actionClass = 'action-area'} = this.props;
     const {width, height} = imgStyle || styleConfig;
-
-    const {action, imgUrl, component} = currItem;
-
+    const {activeIdx} = this.state;
+    let {action, imgUrl, component} = currItem;
+    const objStyle = {width, height};
+    objStyle['backgroundImage'] = `url(${imgUrl})`;
     return (
       <div className={actionClass} key={idx}>
         <div
           className="img"
-          style={{
-            backgroundImage: `url(${imgUrl})`,
-            width, height
-          }}></div>
+          style={objStyle}></div>
         {/* <img src={imgUrl}/> */}
       </div>
     )
@@ -120,6 +118,7 @@ export default class BannerCarousel extends Component {
     const {activeBannerItem} = this.state;
     CallFunc(activeBannerItem.action)(activeBannerItem, activeIdx);
   }
+
   render() {
     const {
       carouselItems, styleConfig, 
