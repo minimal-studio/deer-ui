@@ -31,3 +31,12 @@ export function getElementTop(element) {
   }
   return actualTop;
 }
+
+export function getElementOffset(elem) {
+  if(!elem) return console.log('please pass elem');
+  let left = getElementLeft(elem);
+  let top = getElementTop(elem);
+  return {
+    offsetLeft: left, offsetTop: top
+  }
+}

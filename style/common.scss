@@ -36,6 +36,9 @@ body {
 .text-right {
   text-align: right;
 }
+.relative {
+  position: relative;
+}
 
 .hide-container {
   position: relative;
@@ -143,12 +146,29 @@ body {
 .nomargin {
   margin: 0;
 }
-.link-btn {
+.link-btn,.link {
   color: $themeColor;
   cursor: pointer;
   border-bottom: 1px solid transparent;
   &:hover {
     border-color: $themeColor;
+  }
+}
+@mixin positionHelper($top: 0, $right: 0, $bottom: 0, $left: 0) {
+  &.top {
+    top: $top;
+  }
+
+  &.right {
+    right: $right;
+  }
+
+  &.bottom {
+    bottom: $bottom;
+  }
+
+  &.left {
+    left: $left;
   }
 }
 

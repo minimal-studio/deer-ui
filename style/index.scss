@@ -8,6 +8,8 @@
 @import "./basic/buttons";
 @import "./basic/forms.scss";
 
+@import "./common.scss";
+
 @import "./transition.scss";
 
 @import "./layout.scss";
@@ -44,5 +46,3 @@
 @import "./notification.scss";
 @import "./tip.scss";
 @import "./label.scss";
-
-@import "./common.scss";

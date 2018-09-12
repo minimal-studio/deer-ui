@@ -1,6 +1,7 @@
 import {defineGlobalScope, IsFunc} from 'basic-helper';
 import chKeyMapper from '../i18n/zh-CN';
 import enKeyMapper from '../i18n/en-US';
+import defaultIconMapper from './icon-mapper';
 
 let langConfig = {
   'zh-CN': chKeyMapper,
@@ -23,6 +24,19 @@ let ukelliui = {
   avatarImgMap: '',
   iconMapper: {},
   iconPrefix: 'fa fa-'
+}
+
+export function getIconMapper() {
+  return Object.assign({}, defaultIconMapper, ukelliui.iconMapper);
+}
+
+export function getIcon(iconName, moreClassName) {
+  const iconMapper = getIconMapper();
+  const iconPrefix = getUkelliConfig('iconPrefix');
+  if(!iconName) return iconMapper;
+  let moreClassNameArr = Array.isArray(moreClassName) ? moreClassName : [moreClassName];
+  let resultStr = iconPrefix + (iconMapper[iconName] || iconName) + ' ' + moreClassNameArr.join(' ');
+  return resultStr;
 }
 
 export function LoadStuff({src, onload, type}) {

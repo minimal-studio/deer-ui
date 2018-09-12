@@ -1,39 +1,53 @@
-// @import "../var.scss";
-
-.v-popover {
+.uke-popover {
   position: absolute;
   z-index: 444;
   background-color: #FFF;
-  min-width: 170px;
-  min-height: 40px;
+  min-width: 60px;
+  min-height: 30px;
   box-shadow: 0 12px 48px rgba(0, 0, 0, 0.3);
   border-radius: 2px;
   transition: opacity 0.2s ease;
   outline: none;
-  // border: 1px solid #DDD;
-  .caret {
-    position: absolute;
+  border-radius: 3px;
+  &.black {
+    background-color: #000000;
     color: #FFF;
-    border-width: 8px;
-    &.top {
+  }
+  &.fixed {
+    position: fixed;
+  }
+  // border: 1px solid #DDD;
+  &.top {
+    .caret {
       top: -8px;
       left: 48%;
       transform: rotate(-180deg);
     }
-    &.right {
+  }
+  &.right {
+    .caret {
       right: -12px;
       top: 15px;
       transform: rotate(-90deg);
     }
-    &.bottom {
+  }
+  &.bottom {
+    .caret {
       bottom: -8px;
       left: 48%;
     }
-    &.left {
+  }
+  &.left {
+    .caret {
       left: -14px;
       top: 15px;
       transform: rotate(90deg);
     }
+  }
+  .caret {
+    position: absolute;
+    color: #FFF;
+    border-width: 8px;
   }
   .close-btn {
     position: absolute;

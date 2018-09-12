@@ -6,7 +6,8 @@ const Button = (props) => {
   let gm = $UKE.getUkeKeyMap;
   const {
     loading = false, disabled = false, text = gm('提交'), icon,
-    className = 'theme', onClick
+    color = 'theme',
+    className = '', onClick
   } = props;
 
   const clickable = !disabled && !loading;
@@ -15,15 +16,15 @@ const Button = (props) => {
   ) : null;
 
   return (
-    <span
+    <button
       disabled={!clickable}
-      className={`btn flat ${className}`}
+      className={`btn flat ${color} ${className}`}
       onClick={e => {
         if(!disabled) onClick(e);
       }}>
       {iconDOM}
       {text}
-    </span>
+    </button>
   )
 }
 Button.propTypes = {

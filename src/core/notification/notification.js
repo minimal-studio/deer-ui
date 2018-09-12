@@ -1,15 +1,19 @@
-import React, {Component, PureComponent} from 'react';
-import ReactDOM from 'react-dom';
+import React, { Component, PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
-import {EventEmitter, IsFunc, CallFunc} from 'basic-helper';
+import { EventEmitter, CallFunc } from 'basic-helper';
 import Icon from '../icon';
+import positionFilter from '../position-filter';
 
 const TRANSFORM_TIMER = 300;
 
 export default class Notification extends PureComponent {
   static propTypes = {
-    handleClick: PropTypes.func
+    handleClick: PropTypes.func,
+    position: PropTypes.string,
+  };
+  static defaultProps = {
+    position: 'top,right',
   };
   constructor(props) {
     super(props);
@@ -81,13 +85,13 @@ export default class Notification extends PureComponent {
     }, lifecycle * 1000);
   }
   render() {
-    const {position = 'top-right', handleClick} = this.props;
-    const {systemTips} = this.state;
+    const { position, handleClick } = this.props;
+    const { systemTips } = this.state;
     let hasMsg = Object.keys(systemTips).length > 0;
     let gm = $UKE.getUkeKeyMap;
 
     let container = (
-      <div className={`notify-group ${position} ${hasMsg ? 'has-msg' : 'no-msg'}`}>
+      <div className={`notify-group ${positionFilter(position)} ${hasMsg ? 'has-msg' : 'no-msg'}`}>
         <div className="msg-panel scroll-content">
           <TransitionGroup component={null}>
             {

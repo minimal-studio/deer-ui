@@ -1,11 +1,14 @@
 import React, {Component, PureComponent} from 'react';
 import PropTypes from 'prop-types';
 
-import getIcon from './get-icon';
+import { getIcon } from '../config';
 
-const Icon = ({type, classNames = [], ...other}) => {
+const Icon = (props) => {
+  const {type, classNames = [], ...other} = props;
   return (
-    <i {...other} className={getIcon(type, ['icon', ...classNames])}></i>
+    <i
+      {...other}
+      className={getIcon(type, ['icon', ...classNames])}></i>
   )
 }
 Icon.propTypes = {
