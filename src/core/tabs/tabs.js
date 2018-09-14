@@ -10,6 +10,7 @@ export default class Tabs extends PureComponent {
     stepMode: PropTypes.bool,
     height: PropTypes.string,
     activeTabIdx: PropTypes.number,
+    defaultTab: PropTypes.number,
     className: PropTypes.string,
     onChangeTab: PropTypes.func,
     onClose: PropTypes.func
@@ -22,7 +23,7 @@ export default class Tabs extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      activeTabIdx: props.activeTabIdx || 0
+      activeTabIdx: props.activeTabIdx || props.defaultTab || 0
     };
 
     this.isControlled = props.hasOwnProperty('activeTabIdx');
