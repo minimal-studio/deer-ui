@@ -1,5 +1,4 @@
 import React, {Component, PureComponent} from 'react';
-import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 
 import Popover from './popover';
@@ -8,7 +7,7 @@ export class PopoverHelper extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      relativeElem: {},
+      relativeElem: null,
       open: false,
       children: null
     };
@@ -43,9 +42,10 @@ class PopoverWrapper extends PopoverHelper {
 }
 
 class PopoverEntity {
-  constructor(id = 'topPopover') {
+  constructor(options = {}) {
+    const { id = 'topPopover', fixed = false } = options;
     this.id = id;
-    this.prevProps = {};
+    this.prevProps = {fixed};
     this.popoverEntity = {};
     this.prevOptions = {};
 
@@ -97,7 +97,7 @@ const GlobalPopover = new PopoverEntity();
 
 /**
  * 例子
- * GlobalPopover({
+ * GlobalPopover.setPopover({
  *   position, width = 400, onClose, elem, children, open, props = prevProps, id = 'topPopover'
  * })
  * id: 用于区分不同的 popover ，避免关闭错误

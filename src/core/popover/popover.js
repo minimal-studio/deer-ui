@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
+import { getElementOffset } from '../set-dom';
+
 const ESC_KEY = 27;
 
 function getPosition(elem) {
@@ -21,6 +23,16 @@ function getPosition(elem) {
 }
 
 export default class Popover extends Component {
+  static propTypes = {
+    open: PropTypes.bool.isRequired,
+    relativeElem: PropTypes.object,
+    RequestClose: PropTypes.func.isRequired,
+    position: PropTypes.any,
+    className: PropTypes.string,
+    showCloseBtn: PropTypes.bool,
+    fixed: PropTypes.bool,
+    update: PropTypes.bool,
+  };
   constructor(props) {
     super(props);
     this.state = {
@@ -29,8 +41,6 @@ export default class Popover extends Component {
         height: 0
       }
     };
-    this.setContentFocus = this.setContentFocus.bind(this);
-    this.handleKeyDown = this.handleKeyDown.bind(this);
   }
   shouldComponentUpdate(nextProps) {
     let shouldUpdate = typeof nextProps.update === 'undefined' ? true : nextProps.update;
@@ -39,14 +49,14 @@ export default class Popover extends Component {
   getPopoverDOM(e) {
     this.popoverDOM = e;
   }
-  handleKeyDown(event) {
+  handleKeyDown = (event) => {
     if (event.keyCode === ESC_KEY) {
       event.preventDefault();
       event.stopPropagation();
       this.props.RequestClose(event);
     }
   }
-  setContentFocus() {
+  setContentFocus = () => {
     this.popoverDOM && this.popoverDOM.focus && this.popoverDOM.focus();
   }
   componentDidMount() {
@@ -64,55 +74,54 @@ export default class Popover extends Component {
       });
     }
   }
+  calaStyle(position) {
+    const { relativeElem } = this.props;
+    const { offsetWidth = 0, offsetHeight = 0 } = relativeElem;
+    const { offsetTop = 0, offsetLeft = 0 } = getElementOffset(relativeElem) || {};
+    const { popoverOffset } = this.state;
+    const popOffsetHeight = popoverOffset.height;
+    const popOffsetWidth = popoverOffset.width;
+    let sideOffsetTop = -10;
+    let positionStyle = {};
+
+    switch (position) {
+      case 'left':
+        positionStyle = {top: offsetTop + sideOffsetTop, left: offsetLeft - popOffsetWidth - 12};
+        break;
+      case 'bottom':
+        positionStyle = {top: offsetTop + offsetHeight + offsetHeight / 2, left: offsetLeft - popOffsetWidth / 2};
+        break;
+      case 'top':
+        positionStyle = {top: offsetTop - popOffsetHeight - offsetHeight / 2, left: offsetLeft - popOffsetWidth / 2};
+        break;
+      default:
+        positionStyle = {top: offsetTop + sideOffsetTop, left: offsetLeft + offsetWidth + 15};
+        break;
+    }
+    return positionStyle;
+  }
   render() {
     const {
       open, children, relativeElem, position = 'right',
-      className = '', RequestClose,
+      className = '', RequestClose, fixed, type,
       showCloseBtn = true
     } = this.props;
     if(!relativeElem) return <span></span>;
-    const {offsetWidth = 0, offsetHeight = 0} = relativeElem;
-    const {offsetTop = 0, offsetLeft = 0} = getPosition(relativeElem);
-    const {popoverOffset} = this.state;
-    const popOffsetHeight = popoverOffset.height;
-    const popOffsetWidth = popoverOffset.width;
 
-    const popoverClass = open ? 'popover show' : 'popover';
     let container = (<span></span>);
     const transitionKey = open ? 'popover' : 'popover-close';
     if(open) {
-      let positionInfo = {};
-      let caretPositionClass;
-      let sideOffsetTop = -10;
-
-      switch (position) {
-        case 'left':
-          caretPositionClass = 'right';
-          positionInfo = {top: offsetTop + sideOffsetTop, left: offsetLeft - popOffsetWidth - 12};
-          break;
-        case 'bottom':
-          caretPositionClass = 'top';
-          positionInfo = {top: offsetTop + offsetHeight + offsetHeight / 2, left: offsetLeft - popOffsetWidth / 2};
-          break;
-        case 'top':
-          caretPositionClass = 'bottom';
-          positionInfo = {top: offsetTop - popOffsetHeight - offsetHeight / 2, left: offsetLeft - popOffsetWidth / 2};
-          break;
-        default:
-          caretPositionClass = 'left';
-          positionInfo = {top: offsetTop + sideOffsetTop, left: offsetLeft + offsetWidth + 15};
-          break;
-      }
-
       const closeBtn = showCloseBtn ? (
         <div className="close-btn" onClick={e => RequestClose()}>x</div>
       ) : null;
 
       container = (
-        <div tabIndex="-1" onKeyDown={this.handleKeyDown} className={"v-popover " + className}
-          style={positionInfo} ref={e => this.getPopoverDOM(e)}>
+        <div tabIndex="-1"
+          onKeyDown={this.handleKeyDown}
+          className={`uke-popover ${fixed ? 'fixed' : ''} ${position} ${className} ${type}`}
+          style={this.calaStyle(position)} ref={e => this.getPopoverDOM(e)}>
           {closeBtn}
-          <span className={"caret " + caretPositionClass}></span>
+          {/* <span className="caret"></span> */}
           {children}
         </div>
       );
@@ -129,12 +138,3 @@ export default class Popover extends Component {
     );
   }
 }
-Popover.propTypes = {
-  open: PropTypes.bool.isRequired,
-  relativeElem: PropTypes.object.isRequired,
-  RequestClose: PropTypes.func.isRequired,
-  position: PropTypes.any,
-  className: PropTypes.string,
-  showCloseBtn: PropTypes.bool,
-  update: PropTypes.bool,
-};

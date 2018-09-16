@@ -17,6 +17,7 @@ import TipBtn from './tip-button';
 import Icon from './icon';
 import Tip from './tip';
 import Label from './label';
+import Tooltip from './tooltip';
 
 export * from './notification';
 export * from './sub-content';
@@ -36,6 +37,7 @@ export * from './set-dom';
 
 export {
   Label,
+  Tooltip,
   MultipleHelper,
   Avatar,
   Captcha,

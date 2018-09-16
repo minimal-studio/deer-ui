@@ -36,7 +36,7 @@ $itemW: 360px;
 
     &.has-msg {
       .scroll-content {
-        padding: 0 0 40px 40px;
+        padding: 40px 0 40px 40px;
         max-height: 90vh;
         overflow-y: auto;
         overflow-x: hidden;
@@ -48,28 +48,10 @@ $itemW: 360px;
       font-size: 22px;
     }
 
-    &.top-right {
-      right: 0;
-      top: 30px;
-    }
-
-    &.top-left {
-      left: 0;
-      top: 30px;
-    }
-
-    &.bottom-left {
-      left: 0;
-      bottom: 10px;
-    }
-
-    &.bottom-right {
-      right: 0;
-      bottom: 10px;
-    }
+    @include positionHelper();
 
     .notify-item {
-      box-shadow: 0 0 36px rgba(0, 0, 0, 0.4);
+      box-shadow: 0 0 24px rgba(0, 0, 0, 0.2);
       position: relative;
       cursor: pointer;
       transition: all 0.3s ease;
@@ -78,6 +60,11 @@ $itemW: 360px;
       padding: 10px;
       width: $itemW;
       border-radius: 4px 0 0 4px;
+      transition: all ease 0.2s;
+
+      &:hover {
+        transform: scale(1.02);
+      }
 
       .title {
         padding: 8px 10px;

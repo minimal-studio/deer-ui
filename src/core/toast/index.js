@@ -61,14 +61,10 @@ export default class Toast extends PureComponent {
 
     const descQueueDOM = Object.keys(descQueue).map((tipID, idx) => {
       const {type = 'success', desc} = descQueue[tipID];
-      const tipIconMapper = {
-        success: 'check',
-        error: 'error'
-      }
       return (
         <CSSTransition classNames="toast" timeout={TRANSTION_TIME} key={idx}>
           <span className={`desc-item ${type}`}>
-            <Icon type={tipIconMapper[type]}/>
+            <Icon type={type}/>
             <span className="text">{desc}</span>
             <span className="_close-btn" onClick={e => this.hideTip(tipID)}>x</span>
           </span>

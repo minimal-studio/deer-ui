@@ -73,7 +73,7 @@ export default class DatetimePicker extends PureComponent {
     const { onChange } = this.props;
     const id = this._id;
     this.value = DateFormat(Date.parse(this.refs[id].value), this.dateFormater);
-    this.refs[id].blur && this.refs[id].blur()
+    this.refs[id].blur && this.refs[id].blur();
     CallFunc(onChange)(val);
   }
   render() {

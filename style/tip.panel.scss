@@ -3,6 +3,15 @@
   border-radius: 3px;
   padding: 5px 10px;
   margin: 10px;
+  position: relative;
+
+  .icon {
+    position: absolute;
+    top: -5px;
+    left: -5px;
+    font-size: 16px;
+    color: inherit;
+  }
 
   .item {
     padding: 5px 0;
@@ -15,6 +24,7 @@
   &.warm {
     background-color: #fffef3;
     border-color: #eae7ab;
+    color: #887210;
 
     .item {
       color: #887210;
