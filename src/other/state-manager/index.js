@@ -16,7 +16,7 @@ const rewiteMsg = {
 
   class A extends ActionBasic {
     async request(sendData) {
-      return $request.send(orionReqObj);
+      return $request.send(reqObj);
     }
   }
   `
@@ -92,7 +92,7 @@ export default class StateManager extends Component {
   stateSetter(state) {
     if(!this.__unmount) this.setState(state);
   }
-  async request(orionReqObj) {
+  async request() {
     // const sendDataRes = await $MN.$request.send({sendData});
     this.log(rewiteMsg.request);
     return (async () => {
@@ -145,7 +145,7 @@ export default class StateManager extends Component {
 
     /**
      * 第二步
-     * 包装成 orion request 的 sendData
+     * 包装成 uke request 的 sendData
      */
     const sendData = {
       ...(method ? {method} : {}),

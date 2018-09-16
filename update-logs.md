@@ -79,7 +79,7 @@ class ActionBasic extends StateManager {
   wrapDataFilter(sendData) {
     return {}
   } // 发送请求前的 data 对象的 hook
-  request(orionReqObj) {
+  request(reqObj) {
     return async function
   } // 业务数据发送接口, 需要返回异步函数
 }

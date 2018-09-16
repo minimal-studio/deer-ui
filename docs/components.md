@@ -305,8 +305,8 @@ export default class ActionBasic extends StateManager {
     });
     return data;
   }
-  async request(orionReqObj) {
-    return $MN.$request.send(orionReqObj);
+  async request(reqObj) {
+    return $MN.$request.send(reqObj);
   }
 }
 ```
