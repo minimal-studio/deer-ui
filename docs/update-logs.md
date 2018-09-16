@@ -1,5 +1,23 @@
 # update logs
 
+## 2.5.12
+
+- 优化 TableBody 实现，新增 checkbox 组件
+
+```js
+import { TableBody } from 'ukelli-ui';
+
+<TableBody
+  onCheck={(nextItems, idx) => {
+    this.checkedItems = nextItems;
+  }}
+  whenCheckAction={whenCheckAction}
+  keyMapper={_thumbKeyMapper}
+  records={records}
+  needCheck={needCheck}
+  needCount={needCount}/>
+```
+
 ## 2.5.10
 
 - 优化结构

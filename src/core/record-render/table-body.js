@@ -1,6 +1,6 @@
 import React, {Component, PureComponent} from 'react';
 import PropTypes from 'prop-types';
-import {CallFunc} from 'basic-helper';
+import { CallFunc } from 'basic-helper';
 
 import MapperFilter from './mapper-filter';
 import Icon from '../icon';
@@ -9,9 +9,15 @@ export default class TableBody extends MapperFilter {
   static propTypes = {
     keyMapper: PropTypes.array.isRequired,
     needCount: PropTypes.bool,
+    needCheck: PropTypes.bool,
     allCheck: PropTypes.bool,
+    sortIgnores: PropTypes.array,
     onCheckAll: PropTypes.func,
+    whenCheckAction: PropTypes.any,
     records: PropTypes.array.isRequired
+  };
+  static defaultProps = {
+    sortIgnores: ['checkbox']
   };
   constructor(props) {
     super(props);
@@ -22,6 +28,7 @@ export default class TableBody extends MapperFilter {
       containerWidth: 'auto',
       sortField: '',
       isDesc: false,
+      checkedItems: {},
     }
 
     this.firstTDDOMs = {};
@@ -29,8 +36,64 @@ export default class TableBody extends MapperFilter {
     this.sameSortTime = 0;
   }
 
+  componentDidMount() {
+    window.addEventListener('resize', this._resizeCalcSize);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this._resizeCalcSize);
+  }
+
   componentDidUpdate() {
     this.calcSize();
+  }
+
+  toggleSelectItem(item, idx) {
+    let nextCheckedItems = this.state.checkedItems;
+    if(nextCheckedItems[idx]) {
+      delete nextCheckedItems[idx];
+    } else {
+      nextCheckedItems[idx] = item;
+    }
+    this.selectItems(nextCheckedItems, idx);
+  }
+
+  toggleAllItems(allCheck) {
+    let nextCheckedItems = this.state.checkedItems;
+    if(!allCheck) {
+      nextCheckedItems = {};
+    } else {
+      this.props.records.forEach((item, idx) => nextCheckedItems[idx] = item);
+    }
+    this.selectItems(nextCheckedItems);
+  }
+
+  selectItems(nextState, idx) {
+    const { onCheck } = this.props;
+    this.checkedItems = nextState;
+    this.setState({
+      checkedItems: nextState
+    });
+    CallFunc(onCheck)(nextState, idx);
+  }
+
+  getKeyMapper() {
+    const { keyMapper = [], needCheck } = this.props;
+
+    let checkExtend = {
+      key: 'checkbox',
+      filter: (str, item, mapper, idx) => {
+        // console.log()
+        let checked = !!this.state.checkedItems[idx];
+        return (
+          <input type="checkbox" checked={checked} onClick={e => this.toggleSelectItem(item, idx)}/>
+        )
+      }
+    }
+
+    let result = needCheck ? [checkExtend, ...keyMapper] : keyMapper;
+
+    return result;
   }
 
   calcSize() {
@@ -62,24 +125,20 @@ export default class TableBody extends MapperFilter {
     this.calcSize();
   }
 
-  componentDidMount() {
-    window.addEventListener('resize', this._resizeCalcSize);
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener('resize', this._resizeCalcSize);
+  ignoreFilter(str) {
+    return this.props.sortIgnores.indexOf(str) !== -1;
   }
 
   getMapperItemsDOM(record, parentIdx, needCount, needAction = true) {
     if(!record) return;
-    const {keyMapper} = this.props;
+    const keyMapper = this.getKeyMapper();
     let tdLen = 0;
     let result = keyMapper.map((item, _idx) => {
       if(!item) return;
       tdLen += 1;
       let {key, num = true} = item;
       let currText = record[key];
-      let result =  (item.key == 'action' && !needAction) ? '' : this.mapperFilter(item, record, parentIdx);
+      let result =  (item.key == 'action' && !needAction) ? '-' : this.mapperFilter(item, record, parentIdx);
       if(needCount) {
         let isNumbTxt = (!!currText && currText.replace) ? +(currText.replace(',', '')) : currText;
         if(isNumbTxt && num) {
@@ -111,9 +170,10 @@ export default class TableBody extends MapperFilter {
   }
 
   getHeaderWidth() {
-    const {headerWidthMapper} = this.state;
+    const { headerWidthMapper } = this.state;
     let result = 0;
-    this.props.keyMapper.forEach((item, idx) => {
+    const keyMapper = this.getKeyMapper();
+    keyMapper.forEach((item, idx) => {
       if(item) result += headerWidthMapper[idx];
     });
     return result;
@@ -145,6 +205,7 @@ export default class TableBody extends MapperFilter {
   }
 
   orderRecord(orderKey) {
+    if(this.ignoreFilter(orderKey)) return;
     this.setState(({isDesc, sortField}) => {
       let _isDesc = isDesc;
       if(sortField == orderKey) {
@@ -168,16 +229,26 @@ export default class TableBody extends MapperFilter {
   }
 
   render() {
-    const {keyMapper, needCount = false, allCheck, height} = this.props;
-    const {headerWidthMapper, containerWidth, sortField, isDesc} = this.state;
+    const {
+      needCount = false, height, whenCheckAction
+    } = this.props;
+    const {
+      headerWidthMapper, containerWidth, sortField, isDesc,
+      checkedItems
+    } = this.state;
     const records = this.recordDescFilter();
     const hasRecord = records.length > 0;
+    const keyMapper = this.getKeyMapper();
+
+    const isAllCheck = Object.keys(checkedItems).length == records.length;
 
     if(!Array.isArray(records)) {
       console.error('records 必须为 []');
       return <span></span>
     }
     this.statistics = {};
+
+    const hasChecked = Object.keys(checkedItems).length != 0;
 
     const tableHeader = (
       <div className="table-body-scroll" style={{width: containerWidth}}>
@@ -190,8 +261,8 @@ export default class TableBody extends MapperFilter {
                   if(!item) return;
                   let title = item.title || $UKE.getKeyMap(item.key);
                   if(item.key == 'checkbox') title = (
-                    <input type="checkbox" checked={allCheck}
-                      onChange={e => CallFunc(this.props.onCheckAll)(e.target.checked)}/>
+                    <input type="checkbox" checked={isAllCheck}
+                      onChange={e => this.toggleAllItems(e.target.checked)}/>
                   );
                   let isOrdering = sortField == item.key;
                   let sortTip = isOrdering ? (
@@ -205,8 +276,8 @@ export default class TableBody extends MapperFilter {
                       key={idx} 
                       onClick={e => this.orderRecord(item.key)}
                       style={{
-                      width: currHeaderWidth
-                    }}>
+                        width: currHeaderWidth
+                      }}>
                       {title}
                       {sortTip}
                     </th>
@@ -236,9 +307,13 @@ export default class TableBody extends MapperFilter {
                 )
               })
             }
-            {this.props.needCount ? <tr className="theme">
-              {this.getStatisticDOM(this.statistics)}
-            </tr> : null}
+            {
+              this.props.needCount ? (
+                <tr className="theme">
+                  {this.getStatisticDOM(this.statistics)}
+                </tr>
+              ) : null
+            }
           </tbody>
         </table>
       </div>
@@ -250,9 +325,14 @@ export default class TableBody extends MapperFilter {
     );
 
     return (
-      <div className="table-render" ref={tableRenderDOM => {
+      <div className={"table-render" + (hasChecked ? ' has-checked' : '')} ref={tableRenderDOM => {
         if(tableRenderDOM) this.tableRenderDOM = tableRenderDOM;
       }}>
+        {
+          hasChecked && !!whenCheckAction? (
+            <div className="checked-actions">{whenCheckAction}</div>
+          ) : null
+        }
         {tableHeader}
         {/* {hideTable} */}
         {tableBody}

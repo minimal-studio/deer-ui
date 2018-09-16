@@ -32,6 +32,22 @@
 .table-render {
   // overflow: auto;
   overflow-x: auto;
+
+  // &.has-checked {
+  //   padding-bottom: 40px;
+  //   margin-bottom: -40px;
+  // }
+  // .checked-actions {
+  //   position: absolute;
+  //   bottom: 0;
+  //   left: 0;
+  //   right: 0;
+  //   z-index: 10;
+  //   background-color: #FFF;
+  //   padding: 5px 10px;
+  //   box-shadow: 0 -1px 2px rgba(39,44,49,.1);
+  //   margin-top: 40px;
+  // }
 }
 .table-container {
   @include card();
