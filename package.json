@@ -1,6 +1,6 @@
 {
   "name": "ukelli-ui",
-  "version": "2.5.12",
+  "version": "2.5.13",
   "main": "./index.js",
   "scripts": {
     "publish": "npm publish ./build",
@@ -12,15 +12,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "http://github.9th.go/TeamMatrix/ukelli-ui.git"
+    "url": "https://github.com/ukelli/ukelli-ui.git"
   },
   "keywords": [
     "UI"
   ],
   "author": "Alex",
-  "license": "ISC",
+  "license": "MIT",
   "peerDependencies": {
-    "basic-helper": "^1.3.x",
+    "basic-helper": "^1.4.x",
     "react": "16.2.0",
     "unistore": "^3.0.6",
     "react-transition-group": "^2.2.0"
