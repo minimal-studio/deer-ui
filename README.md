@@ -1,5 +1,6 @@
 # ukelli-ui
 
+[![Build Status](https://travis-ci.org/ukelli/ukelli-ui.svg?branch=master)](https://travis-ci.org/ukelli/ukelli-ui)
 [![install size](https://packagephobia.now.sh/badge?p=ukelli-ui)](https://packagephobia.now.sh/result?p=ukelli-ui)
 
 ## 简易的 UI 库，像 Uke 小吉他一样提供开发愉悦感
