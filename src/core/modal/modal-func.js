@@ -1,7 +1,8 @@
 import React, {Component, PureComponent} from 'react';
 import ReactDOM from 'react-dom';
+
 import {CallFunc, GenerteID} from 'basic-helper';
-import { Provider, connect } from 'unistore/react'
+import { Provider, connect } from 'unistore/react';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
 import ModalHelper from './modal-helper';
@@ -32,7 +33,7 @@ class ModalEntity extends ModalHelper {
         onCloseModal={onCloseModal || this.closeModal.bind(this)}>
         {this.props.children}
       </Modal>
-    )
+    );
   }
 }
 
@@ -56,7 +57,7 @@ const ModalsManager = connect(selector, windowManagerActions)((props) => {
           {currItem.children}
         </ModalEntity>
       </CSSTransition>
-    )
+    );
   });
   return (
     <div className="modals-render">
@@ -65,8 +66,8 @@ const ModalsManager = connect(selector, windowManagerActions)((props) => {
         {sections}
       </TransitionGroup>
     </div>
-  )
-})
+  );
+});
 
 let Entity = {};
 function getEntityIdLen() {
@@ -87,11 +88,11 @@ function CloseGlobalModal(entityId) {
 
 function ShowGlobalModal(options) {
 
-  let gm = $UKE.getUkeKeyMap;
+  let gm = window.$UKE.getUkeKeyMap;
 
   const {
     type, confirmText = gm('确定') + '?', title, showFuncBtn = true,
-    width = $UKE.isMobile ? '90%' : 600, id, children, draggable,
+    width = window.$UKE.isMobile ? '90%' : 600, id, children, draggable,
     onConfirm
   } = options;
 
@@ -108,21 +109,21 @@ function ShowGlobalModal(options) {
   ) : null;
 
   switch (type) {
-    case 'confirm':
-      modalTMPL = (
-        <div className="confirm-container">
-          <div className="content">{confirmText}</div>
-          {btnGroupDOM}
-        </div>
-      )
-      break;
-    default:
-      modalTMPL = (
-        <div className="global-modal-container">
-          <div className="content">{children}</div>
-          {btnGroupDOM}
-        </div>
-      )
+  case 'confirm':
+    modalTMPL = (
+      <div className="confirm-container">
+        <div className="content">{confirmText}</div>
+        {btnGroupDOM}
+      </div>
+    );
+    break;
+  default:
+    modalTMPL = (
+      <div className="global-modal-container">
+        <div className="content">{children}</div>
+        {btnGroupDOM}
+      </div>
+    );
   }
   function onClickBtn(confirm) {
     CallFunc(onConfirm)(confirm);
@@ -141,7 +142,7 @@ function ShowGlobalModal(options) {
             isOpen: true,
             title,
             width
-          })
+          });
         }}
         {...options}
         onCloseModal={e => {
@@ -149,7 +150,7 @@ function ShowGlobalModal(options) {
         }}>
         {modalTMPL}
       </ModalEntity>
-    )
+    );
     ReactDOM.render(
       entityWrapper,
       entityDOM,

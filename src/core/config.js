@@ -6,7 +6,7 @@ import defaultIconMapper from './icon-mapper';
 let langConfig = {
   'zh-CN': chKeyMapper,
   'en-US': enKeyMapper,
-}
+};
 let defaultLanguage = 'zh-CN';
 let language = defaultLanguage;
 
@@ -24,7 +24,7 @@ let ukelliui = {
   avatarImgMap: '',
   iconMapper: {},
   iconPrefix: 'fa fa-'
-}
+};
 
 export function getIconMapper() {
   return Object.assign({}, defaultIconMapper, ukelliui.iconMapper);
@@ -50,21 +50,21 @@ export function LoadStuff({src, onload, type}) {
     element.onload = onload;
     element.onerror = load;
     document.body.appendChild(element);
-  };
+  }
 
   switch (type) {
-    case 'css':
-      var link = document.createElement('link');
-      link.rel = 'stylesheet';
-      link.href = loadUrl;
-      load(link);
-      break;
-    case 'script':
-      var script = document.createElement('script');
-      script.type = 'text/javascript';
-      script.src = loadUrl;
-      load(script);
-      break;
+  case 'css':
+    var link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = loadUrl;
+    load(link);
+    break;
+  case 'script':
+    var script = document.createElement('script');
+    script.type = 'text/javascript';
+    script.src = loadUrl;
+    load(script);
+    break;
   }
 }
 export function LoadLink(options) {
