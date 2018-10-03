@@ -86,6 +86,7 @@ export function setUkeLangConfig(config) {
 
 export function setUkelliConfig(config) {
   Object.assign(ukelliui, config);
+  window.$UKE && $UKE.registe(config);
   return ukelliui;
 }
 
