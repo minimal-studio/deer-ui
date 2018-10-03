@@ -11,18 +11,24 @@ async function copyFile(file) {
 
 async function createPackageFile() {
   const packageData = await fse.readFile(path.resolve(__dirname, '../package.json'), 'utf8');
-  const { nyc, scripts, devDependencies, workspaces, ...packageDataOther } = JSON.parse(
+  const { version, nyc, scripts, devDependencies, workspaces, ...packageDataOther } = JSON.parse(
     packageData,
   );
   const newPackageData = {
     ...packageDataOther,
+    version,
     main: './core/index.js',
     private: false,
   };
-  const buildPath = path.resolve(__dirname, '../build/package.json');
+  const buildPkgFilePath = path.resolve(__dirname, '../build/package.json');
+  const buildVersionPath = path.resolve(__dirname, '../build/version.json');
 
-  await fse.writeFile(buildPath, JSON.stringify(newPackageData, null, 2), 'utf8');
-  console.log(`Created package.json in ${buildPath}`);
+  await fse.writeFile(buildVersionPath, JSON.stringify({
+    version
+  }), 'utf8');
+
+  await fse.writeFile(buildPkgFilePath, JSON.stringify(newPackageData, null, 2), 'utf8');
+  console.log(`Created package.json in ${buildPkgFilePath}`);
 
   return newPackageData;
 }

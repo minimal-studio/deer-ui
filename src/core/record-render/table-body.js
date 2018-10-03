@@ -21,7 +21,6 @@ export default class TableBody extends MapperFilter {
   };
   constructor(props) {
     super(props);
-    this._resizeCalcSize = this.resizeCalcSize.bind(this);
 
     this.state = {
       headerWidthMapper: [],
@@ -37,11 +36,11 @@ export default class TableBody extends MapperFilter {
   }
 
   componentDidMount() {
-    window.addEventListener('resize', this._resizeCalcSize);
+    window.addEventListener('resize', this.resizeCalcSize);
   }
 
   componentWillUnmount() {
-    window.removeEventListener('resize', this._resizeCalcSize);
+    window.removeEventListener('resize', this.resizeCalcSize);
   }
 
   componentDidUpdate() {
@@ -115,7 +114,7 @@ export default class TableBody extends MapperFilter {
     }
   }
 
-  resizeCalcSize() {
+  resizeCalcSize = () => {
     const {containerWidth} = this.state;
     if(containerWidth != 'auto' && containerWidth < this.tableRenderDOM.offsetWidth) {
       this.setState({
