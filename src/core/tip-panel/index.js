@@ -37,7 +37,7 @@ export default class TipPanel extends PureComponent {
     }));
   }
   render() {
-    const {title, text, texts = [], type, needToolTip, ...other} = this.props;
+    const {title, text, texts = [], type, needToolTip, defaultShow, ...other} = this.props;
     const {showContent} = this.state;
 
     const titleDOM = title ? (
