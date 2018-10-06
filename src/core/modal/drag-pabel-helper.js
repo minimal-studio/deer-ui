@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 // let SCREEN_WIDTH = document.documentElement.clientWidth;
 function getScreenWidth() {
@@ -6,6 +7,12 @@ function getScreenWidth() {
 }
 
 export class DragPanelClass extends React.Component {
+  static propTypes = {
+    topLimit: PropTypes.number,
+  };
+  static defaultProps = {
+    topLimit: 0
+  };
   drapElemInfo = {
     isDrapStart: false,
     dragElem: null,
@@ -37,11 +44,11 @@ export class DragPanelClass extends React.Component {
   }
   setContainerPosition = (event) => {
     if (!this.drapElemInfo.isDrapStart) return;
-    const {topLimit = 0} = this.props;
-    const {dragElem, dragOriginX, dragOriginY, elemOrigonX, elemOriginY} = this.drapElemInfo;
+    const { topLimit = 0 } = this.props;
+    const { dragElem, dragOriginX, dragOriginY, elemOrigonX, elemOriginY } = this.drapElemInfo;
     const leftOffset = event.clientX - dragOriginX + elemOrigonX;
     const topOffset = event.clientY - dragOriginY + elemOriginY;
-    const _screenWidth = SCREEN_WIDTH - dragElem.offsetWidth;
+    const _screenWidth = getScreenWidth() - dragElem.offsetWidth;
     let setLeftOffset = leftOffset;
     let setTopOffset = topOffset;
     if(leftOffset < 0) {

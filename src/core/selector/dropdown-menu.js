@@ -6,6 +6,7 @@ import {HasValue} from 'basic-helper';
 
 import positionFilter from '../position-filter';
 import SelectorBasic from './selector';
+import Icon from '../icon';
 
 const MenuItem = ({isActive, text, icon, ...other}) => {
   return (
@@ -15,8 +16,8 @@ const MenuItem = ({isActive, text, icon, ...other}) => {
       {icon ? <Icon type={icon}/> : null}
       {text}
     </div>
-  )
-}
+  );
+};
 
 const itemActiveFilter = (val, targetVal) => {
   let has = HasValue(val);
@@ -25,16 +26,16 @@ const itemActiveFilter = (val, targetVal) => {
 
   let isInclueVal = false;
   switch (true) {
-    case Array.isArray(val):
-    case typeof val === 'string':
-      isInclueVal = val == targetVal;
-      break;
-    case typeof val === 'number':
-      isInclueVal = val == targetVal;
-      break;
+  case Array.isArray(val):
+  case typeof val === 'string':
+    isInclueVal = val == targetVal;
+    break;
+  case typeof val === 'number':
+    isInclueVal = val == targetVal;
+    break;
   }
   return isInclueVal;
-}
+};
 
 export default class DropdownMenu extends SelectorBasic {
   static propTypes = {
@@ -58,6 +59,7 @@ export default class DropdownMenu extends SelectorBasic {
     isShow: false,
     searchValue: '',
   }
+  gm = window.$UKE.getUkeKeyMap;
   showSubMenu(isShow = true) {
     this.setState({
       isShow,
@@ -89,10 +91,9 @@ export default class DropdownMenu extends SelectorBasic {
   }
   getActiveTitle() {
     const {value, isMultiple} = this.props;
-    let gm = $UKE.getUkeKeyMap;
-    if(!HasValue(value)) return gm('无');
+    if(!HasValue(value)) return this.gm('无');
 
-    return isMultiple ? value.length + gm('项已选择') : this.valuesObj[value];
+    return isMultiple ? value.length + this.gm('项已选择') : this.valuesObj[value];
   }
   getValuesLength() {
     const {values} = this;
@@ -107,10 +108,9 @@ export default class DropdownMenu extends SelectorBasic {
     this.setState({
       isShow,
       searchValue: ''
-    })
+    });
   }
   render() {
-    let gm = $UKE.getUkeKeyMap;
     const {
       style = {}, className = '', isMultiple, withInput, position
     } = this.props;
@@ -169,18 +169,20 @@ export default class DropdownMenu extends SelectorBasic {
                 <div className={
                   "dropdown-items " + 
                   positionFilter(position)
-                  }>
-                  <span className="caret"></span>
+                }>
+                  <span className="caret" />
                   {
                     isMultiple ? (
                       <div onClick={e => this.hideSubMenu()} 
-                        className="section-mark"></div>
+                        className="section-mark" />
                     ) : null
                   }
                   <div className="action-group">
                     <div className="action-btn" onClick={e => {
                       canSelectAll ? this.selectAll() : this.changeEvent([]);
-                    }}>{gm(canSelectAll ? '全选' : '取消')}</div>
+                    }}>
+                      {this.gm(canSelectAll ? '全选' : '取消')}
+                    </div>
                     <div className="items-group">
                       {
                         this.values.map((dataItem, idx) => {
@@ -198,17 +200,17 @@ export default class DropdownMenu extends SelectorBasic {
                                 this.handleClick(dataItem, idx);
                               }}
                               {...dataItem}/>
-                          ) : null
+                          ) : null;
                         })
                       }
                     </div>
                   </div>
                 </div>
-              ) : <span></span>
+              ) : <span />
             }
           </CSSTransition>
         </TransitionGroup>
       </div>
-    )
+    );
   }
 }

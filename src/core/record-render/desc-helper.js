@@ -14,7 +14,7 @@ export default class DescHelper extends MapperFilter {
           keyMapper.map((mapper, idx) => {
             if(!mapper) return;
             let text = record[mapper.key] || '';
-            let title = mapper.title || $UKE.getKeyMap(mapper.key);
+            let title = mapper.title || window.$UKE.getKeyMap(mapper.key);
             text = this.mapperFilter(mapper, record);
             let isLongText = text ? text.length > 100 : '';
             let {block = false} = mapper;
@@ -26,11 +26,11 @@ export default class DescHelper extends MapperFilter {
                 <div className="t">{title}</div>
                 <div className={"c" + (isLongText ? ' lg' : '')}>{text}</div>
               </div>
-            )
+            );
           })
         }
       </div>
-    )
+    );
   }
 }
 DescHelper.propTypes = {

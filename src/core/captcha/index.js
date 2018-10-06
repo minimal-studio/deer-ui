@@ -21,7 +21,7 @@ export default class CAPTCHA extends Component {
       captchaImg: '',
       captchaValue: '',
       loading: false,
-    }
+    };
     this.isControl = props.hasOwnProperty('value');
     this.captchaLength = props.limit || 4;
     this.isPass = false;
@@ -33,7 +33,7 @@ export default class CAPTCHA extends Component {
     this.getCaptcha();
   }
   select() {
-    this.refs.captchaInput.select();
+    this.captchaInput.select();
   }
   getCaptcha(props) {
     props = props || this.props;
@@ -44,12 +44,12 @@ export default class CAPTCHA extends Component {
       loading: true
     });
 
-    if($UKE.queryCAPTCHAData) {
-      $UKE.queryCAPTCHAData(options => {
+    if(window.$UKE.queryCAPTCHAData) {
+      window.$UKE.queryCAPTCHAData(options => {
         if (this.__unmount) return;
         const {hasErr, captchaImage, captchaKey} = options;
         if(hasErr) {
-          this.clearTimeout()
+          this.clearTimeout();
           this.getCaptchaTimer = setTimeout(() => {
             this.refreshCaptcha();
           }, 1000);
@@ -99,12 +99,12 @@ export default class CAPTCHA extends Component {
     });
   }
   focus() {
-    this.refs.captchaInput.focus();
+    this.captchaInput.focus();
   }
   render() {
-    let gm = $UKE.getUkeKeyMap;
+    let gm = window.$UKE.getUkeKeyMap;
     const {captchaImg, captchaValue, loading} = this.state;
-    const {scale = 'sm', value = '', icon = 'security'} = this.props;
+    const {value = '', icon = 'security'} = this.props;
     const _captchaValue = this.isControl ? value : captchaValue;
 
     let hasCap = !!captchaImg;
@@ -112,6 +112,7 @@ export default class CAPTCHA extends Component {
     let captchaImgElem = hasCap && !loading ? (
       <img
         src={captchaImg}
+        alt=""
         className="cover-image"/>
     ) : null;
     if(!hasCap) {
@@ -124,7 +125,7 @@ export default class CAPTCHA extends Component {
     return (
       <div className="captcha-group">
         <Input
-          ref="captchaInput"
+          ref={e => this.captchaInput = e}
           icon={icon}
           type="number"
           className="form-control captcha-input"

@@ -14,6 +14,7 @@ export default class TipButton extends Component {
     autoClose: PropTypes.bool,
     position: PropTypes.string,
     className: PropTypes.string,
+    children: PropTypes.any,
     disabled: PropTypes.bool
   };
   constructor(props) {
@@ -28,7 +29,7 @@ export default class TipButton extends Component {
     this.clearTimer();
     this.popover.setPopover({
       open: false,
-    })
+    });
     CallFunc(onClose)();
   }
   componentWillUnmount() {
@@ -50,7 +51,7 @@ export default class TipButton extends Component {
       },
       open: true,
       children
-    })
+    });
     if(!autoClose) return;
     this.clearTimer();
     this.popoverLifeTimer = setTimeout(() => {
@@ -87,8 +88,9 @@ export default class TipButton extends Component {
           ref={clickBtn => this.relativeBtn = clickBtn}
           onClick={e => {
             if(disabled) return;
-            this._onClick(e)}
-          }>{text}</span>
+            this._onClick(e);}
+          }>{text}
+        </span>
       </span>
     );
   }

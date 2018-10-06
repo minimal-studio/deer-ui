@@ -8,13 +8,13 @@ const prefixMap = {
   '-webkit-': 'Webkit',
   '-ms-': 'Ms',
   '-moz-': 'Moz',
-}
+};
 const prefix = Object.keys(prefixMap).filter(prefix => prefix + 'transform' in headDOM.style)[0] || '';
 // const prefix = '-ms-'
-let transform = 'transform', animation = 'animation-name'
+let transform = 'transform', animation = 'animation-name';
 if (prefixMap[prefix]) {
-  transform = prefixMap[prefix]+'Transform'
-  animation = prefixMap[prefix]+'AnimationName'
+  transform = prefixMap[prefix]+'Transform';
+  animation = prefixMap[prefix]+'AnimationName';
 }
 
 
@@ -68,7 +68,7 @@ export default class AnimateBall extends Component {
     return arr;
   }
   setKeyCss(ballItem) {
-    if(!!this.eachItemHeight) return;
+    if(this.eachItemHeight) return;
     const {numberRange} = this.props;
     const count = numberRange[1] - numberRange[0];
     this.eachItemHeight = ballItem.offsetHeight;
@@ -86,33 +86,33 @@ export default class AnimateBall extends Component {
     const hasActiveNumb = activeNumb != '?';
     const activeIdxRotate = (!animating && (+activeNumb || activeNumb == 0)) ? - (this.eachItemHeight * this.numberRangeArr.indexOf(activeNumb) || 0) : 0;
     // const activeIdxRotate = !animating && +activeNumb ? - this.eachItemRotate * this.numberRangeArr.indexOf(activeNumb) : 0;
-    const carouselStyle = {}
-    const animationStyle = {}
+    const carouselStyle = {};
+    const animationStyle = {};
     if (!animating) {
-      carouselStyle[transform] = `translateY(${activeIdxRotate}px)`
+      carouselStyle[transform] = `translateY(${activeIdxRotate}px)`;
     } else {
-      animationStyle[animation] = this.animateName
+      animationStyle[animation] = this.animateName;
     }
     return (
       <div className="ball-wrap">
-      <span
-        style={animationStyle}
-        className={`animate-balls${(animating ? ' loop1' : '')}`}>
-        <div
-          style={carouselStyle}
-          className="carousel2">
-          {
-            this.numberRangeArr.map((ballNumb, idx) => {
-              return (
-                <span
-                  key={ballNumb}
-                  ref={ballItem => {
-                    if(!this.eachItemHeight && !!ballItem) this.setKeyCss(ballItem);
-                  }}
-                  className="item">
-                  {hasActiveNumb ? ballNumb : '?'}
-                </span>
-              )
+        <span
+          style={animationStyle}
+          className={`animate-balls${(animating ? ' loop1' : '')}`}>
+          <div
+            style={carouselStyle}
+            className="carousel2">
+            {
+              this.numberRangeArr.map((ballNumb, idx) => {
+                return (
+                  <span
+                    key={ballNumb}
+                    ref={ballItem => {
+                      if(!this.eachItemHeight && !!ballItem) this.setKeyCss(ballItem);
+                    }}
+                    className="item">
+                    {hasActiveNumb ? ballNumb : '?'}
+                  </span>
+                );
               // return (
               //   <span
               //     key={ballNumb}
@@ -126,12 +126,12 @@ export default class AnimateBall extends Component {
               //     {ballNumb}
               //   </span>
               // )
-            })
-          }
-        </div>
-      </span>
+              })
+            }
+          </div>
+        </span>
       </div>
-    )
+    );
   }
 }
 AnimateBall.propTypes = {

@@ -35,7 +35,7 @@ export class InputVerifyClass extends Component {
       value: defaultValue,
       matchLen: true,
       matchRange: true,
-    }
+    };
   }
   checkProps(field) {
     return !!this.props.hasOwnProperty(field);
@@ -94,7 +94,7 @@ export class InputVerifyClass extends Component {
       }
       matchRange !== isMatch && this.setState({
         matchRange: isMatch
-      })
+      });
     }
     return _val;
   }
@@ -138,6 +138,6 @@ export default class InputVerify extends InputVerifyClass {
         </div>
         {CNNumDOM}
       </div>
-    )
+    );
   }
 }

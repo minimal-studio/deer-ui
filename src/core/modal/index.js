@@ -7,4 +7,4 @@ export * from './window-manager';
 
 export {
   Modal, ModalHelper, ShowGlobalModal, CloseGlobalModal, DragPanelClass
-}
+};

@@ -5,7 +5,7 @@ import FormFilterHelper from './form-filter';
 
 export default class ConditionGenerator extends FormFilterHelper {
   static propTypes = {
-    conditionConfig: PropTypes.array.isRequired,
+    conditionConfig: PropTypes.arrayOf(PropTypes.object).isRequired,
     onChange: PropTypes.func,
     className: PropTypes.string
   };
@@ -35,7 +35,7 @@ export default class ConditionGenerator extends FormFilterHelper {
                 {titleDOM}
                 {this.greneratFormDOM(_con)}
               </span>
-            )
+            );
           })
         }
         {children}

@@ -24,7 +24,7 @@ export class PopoverHelper extends Component {
         relativeElem: elem || prevState.relativeElem,
         open: _isShow,
         children: children || prevState.children
-      }
+      };
     });
   }
 }
@@ -35,9 +35,8 @@ class PopoverWrapper extends PopoverHelper {
       <Popover
         {...this.props}
         {...this.state}
-        RequestClose={e => this.closePopover()}>
-      </Popover>
-    )
+        RequestClose={e => this.closePopover()} />
+    );
   }
 }
 
@@ -70,11 +69,11 @@ class PopoverEntity {
       <PopoverWrapper
         {...props}
         ref={_popoverEntity => {
-        if(!_popoverEntity) return;
-        this.popoverEntity = _popoverEntity;
-        this.popoverEntity.showPopover(elem, open, children)
-      }}/>
-    )
+          if(!_popoverEntity) return;
+          this.popoverEntity = _popoverEntity;
+          this.popoverEntity.showPopover(elem, open, children);
+        }}/>
+    );
     ReactDOM.render(
       popoverWrapper,
       topPopoverDOM,
@@ -83,7 +82,7 @@ class PopoverEntity {
   close() {
     this.setPopover({
       open: false
-    })
+    });
   }
   delayClose(timer = 5000) {
     if(this.lifeTimer) clearTimeout(this.lifeTimer);

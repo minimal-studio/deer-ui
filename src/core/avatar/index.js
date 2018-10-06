@@ -1,18 +1,22 @@
+/* eslint-disable react/no-multi-comp */
+
 import React, { Component, PureComponent } from "react";
 import PropTypes from "prop-types";
-
 import {CallFunc} from 'basic-helper';
 
 import {LoadScript} from '../config';
-
-const faceCount = 12;
-
 import Loading from '../loading';
 import {ShowGlobalModal, CloseGlobalModal} from '../modal';
+
+const faceCount = 12;
 
 let croppieUrl = './js/libs/croppie.js';
 
 class CroppieHelper extends PureComponent {
+  static propTypes = {
+    changeAvatar: PropTypes.func,
+    onClose: PropTypes.func,
+  };
   state = {
     loadingScript: !window.Croppie
   };
@@ -76,10 +80,10 @@ class CroppieHelper extends PureComponent {
     const {onClose} = this.props;
     const {loadingScript} = this.state;
 
-    let gm = $UKE.getUkeKeyMap;
+    let gm = window.$UKE.getUkeKeyMap;
 
     return (
-      <Loading loading={loadingScript} inrow={true}>
+      <Loading loading={loadingScript} inrow>
         <div>
           <div
             ref={c => (this._cropWrapper = c)}
@@ -96,13 +100,13 @@ class CroppieHelper extends PureComponent {
             className="text-left"
             style={{ width: 350, margin: "10px auto 0" }}
             ref={c => this._upload = c}>
-            <a className="btn default file-btn">
+            <span className="btn default file-btn">
               <span>{gm('选择图片')}</span>
               <input
                 type="file"
                 onChange={this.handleChange}
                 accept="images/*"/>
-            </a>
+            </span>
           </div>
           <div className="btn-group p10 text-center">
             <span className="btn flat theme mr10" onClick={e => this.sureChange()}>{gm('确定')}</span>
@@ -110,7 +114,7 @@ class CroppieHelper extends PureComponent {
           </div>
         </div>
       </Loading>
-    )
+    );
   }
 }
 
@@ -177,9 +181,9 @@ export default class Avatar extends PureComponent {
       changeAvatarable = false
     } = this.props;
     const { isShow } = this.state;
-    let gm = $UKE.getUkeKeyMap;
+    let gm = window.$UKE.getUkeKeyMap;
 
-    const {avatarImgMap, getImage} = $UKE;
+    const {avatarImgMap, getImage} = window.$UKE;
 
     const changeAvatarDOM = changeAvatarable ? (
       <div>
@@ -187,11 +191,13 @@ export default class Avatar extends PureComponent {
         <div className={"hide-panel" + (isShow ? " show" : "")}>
           {[...Array(faceCount)].map((_, idx) => {
             return (
-              <img
-                src={`${getImage(avatarImgMap, idx)}.jpg`}
+              <span
                 key={idx}
-                onClick={e => this.changeAvatar(idx)}
-              />
+                onClick={e => this.changeAvatar(idx)}>
+                <img
+                  alt=""
+                  src={`${getImage(avatarImgMap, idx)}.jpg`}/>
+              </span>
             );
           })}
           <div style={{paddingTop: 10}}>

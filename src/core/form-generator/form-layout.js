@@ -58,7 +58,7 @@ export default class FormLayout extends Component {
     !!resInfo.resDesc && this.toast && this.toast.show(resInfo.resDesc, resInfo.hasErr ? 'error' : 'success');
   }
   render() {
-    let gm = $UKE.getUkeKeyMap;
+    let gm = window.$UKE.getUkeKeyMap;
     const {
       tipInfo, btnConfig, className = '', isVertical, isMobile,
       showInputTitle,
@@ -67,15 +67,15 @@ export default class FormLayout extends Component {
       onSubmit, onChange
     } = this.props;
 
-    const _btnConfig = !!btnConfig ? btnConfig : [
+    const _btnConfig = btnConfig ? btnConfig : [
       {
         action: onSubmit,
         text: btnText,
         className: 'theme'
       }
-    ]
+    ];
 
-    const tipDOM = !!tipInfo ? (
+    const tipDOM = tipInfo ? (
       <TipPanel {...tipInfo}/>
     ) : null;
 
@@ -95,7 +95,7 @@ export default class FormLayout extends Component {
               action(this.formHelper, actingRef);
             }}/>
         </span>
-      )
+      );
     });
 
     return (
@@ -112,12 +112,12 @@ export default class FormLayout extends Component {
           ref={formHelper => this.formHelper = formHelper}>
           {childrenBeforeBtn}
           <div className="form-group">
-            <label className="control-label"></label>
+            <label className="control-label" />
             {btnGroup}
           </div>
           {childrenAfterForm}
         </FormGenerator>
       </div>
-    )
+    );
   }
 }

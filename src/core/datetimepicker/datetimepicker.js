@@ -2,18 +2,20 @@ import React, {Component, PureComponent} from 'react';
 import PropTypes from 'prop-types';
 
 import {CallFunc, DateFormat, GenerteID} from 'basic-helper';
-import Flatpickr from './flatpickr';
-import './zh';
+import Flatpickr from '../../libs/flatpickr';
+import '../../libs/flatpickr-zh';
 
 import Icon from '../icon';
 
 export default class DatetimePicker extends PureComponent {
   static propTypes = {
     onChange: PropTypes.func,
-    defaultValue: PropTypes.any,
     needTime: PropTypes.bool,
     clickToClose: PropTypes.bool,
+    enableTime: PropTypes.bool,
     mode: PropTypes.string,
+    lang: PropTypes.string,
+    defaultValue: PropTypes.any,
     value: PropTypes.any
   };
   static defaultProps = {
@@ -23,6 +25,7 @@ export default class DatetimePicker extends PureComponent {
     mode: 'single',
     lang: 'zh',
   };
+  _refs = {};
   constructor(props) {
     super(props);
     const {value, defaultValue, needTime} = this.props;
@@ -46,7 +49,7 @@ export default class DatetimePicker extends PureComponent {
   initPicker() {
     const { mode, needTime, enableTime, lang } = this.props;
 
-    this.datepicker = new Flatpickr(this.refs[this._id], {
+    this.datepicker = new Flatpickr(this._refs[this._id], {
       enableTime: enableTime,
       time_24hr: true,
       dateFormat: 'Y-m-d' + (enableTime ? ' H:i:S' : ''),
@@ -67,13 +70,13 @@ export default class DatetimePicker extends PureComponent {
     });
   }
   componentWillUnmount() {
-    if(!!this.datepicker) this.datepicker.destroy();
+    if(this.datepicker) this.datepicker.destroy();
   }
   changeDate(val) {
     const { onChange } = this.props;
     const id = this._id;
-    this.value = DateFormat(Date.parse(this.refs[id].value), this.dateFormater);
-    this.refs[id].blur && this.refs[id].blur();
+    this.value = DateFormat(Date.parse(this._refs[id].value), this.dateFormater);
+    this._refs[id].blur && this._refs[id].blur();
     CallFunc(onChange)(val);
   }
   render() {
@@ -83,10 +86,13 @@ export default class DatetimePicker extends PureComponent {
           type="text"
           className="form-control input-sm"
           id={this._id}
-          ref={this._id}
+          ref={e => this._refs[this._id] = e}
           onChange={e => this.changeDate()}/>
-        <Icon type="date" data-toggle onClick={this.datepicker ? this.datepicker.toggle : function(){}}/>
+        <Icon type="date" data-toggle
+          onClick={e => {
+            (this.datepicker ? this.datepicker.toggle : function(){})();
+          }}/>
       </div>
-    )
+    );
   }
 }

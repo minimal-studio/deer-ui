@@ -15,10 +15,10 @@ const Popover = new PopoverEntity({
 const TitleDOM = ({title}) => {
   return (
     <div className="text-center p5">{title}</div>
-  )
-}
+  );
+};
 
-export default class Tooltip extends Component {
+export default class Tooltip extends PureComponent {
   render() {
     const {title, onClick, ...other} = this.props;
     return (
@@ -51,6 +51,6 @@ export default class Tooltip extends Component {
           }, 1);
         }}
         classNames={['relative']}/>
-    )
+    );
   }
 }

@@ -19,12 +19,12 @@ function getHalfMouthDate(type, format, timeDefaultStr) {
 
   let result = [];
   switch (type) {
-    case 'up':
-      result = [upStartDate, upEndDate];
-      break;
-    case 'down':
-      result = [downStartDate, downEndDate];
-      break;
+  case 'up':
+    result = [upStartDate, upEndDate];
+    break;
+  case 'down':
+    result = [downStartDate, downEndDate];
+    break;
   }
 
   return result;
@@ -33,8 +33,11 @@ function getHalfMouthDate(type, format, timeDefaultStr) {
 export default class DatepickerHelper extends PureComponent {
   static propTypes = {
     onClick: PropTypes.func.isRequired,
-    dateHelperInfo: PropTypes.array,
+    dateHelperInfo: PropTypes.arrayOf(PropTypes.object),
     needTime: PropTypes.bool
+  };
+  static defaultProps = {
+    needTime: true,
   };
   constructor(props) {
     super(props);
@@ -43,13 +46,13 @@ export default class DatepickerHelper extends PureComponent {
     };
     this.value = {};
 
-    const {needTime = true} = props;
+    const { needTime } = props;
 
     let basicFormat = 'YYYY-MM-DD';
     // let timeFormat = 'hh:ss:mm';
     let timeDefaultStr = needTime ? [' 00:00:00', ' 23:59:59'] : [];
     // let format = basicFormat + (needTime ? (' ' + timeFormat) : '');
-    let gm = $UKE.getUkeKeyMap;
+    let gm = window.$UKE.getUkeKeyMap;
 
     this.defaultDateHelperInfo = [
       {
@@ -82,16 +85,12 @@ export default class DatepickerHelper extends PureComponent {
     ];
   }
   generateDate(itemConfig, idx) {
-    const {start, end} = itemConfig;
-    const {activeIdx} = this.state;
     const {onClick} = this.props;
 
     let dateInfo = itemConfig.filter();
-    // Object.keys(dateInfo).forEach(item => dateInfo[item] = dateInfo[item]);
-
     this.value = dateInfo;
 
-   CallFunc(onClick)(dateInfo);
+    CallFunc(onClick)(dateInfo);
     this.setState({
       activeIdx: idx
     });
@@ -100,7 +99,7 @@ export default class DatepickerHelper extends PureComponent {
     const {activeIdx} = this.state;
     const {dateHelperInfo} = this.props;
     const _dateHelperInfo = !!dateHelperInfo && dateHelperInfo.length > 0 ? dateHelperInfo : this.defaultDateHelperInfo;
-    let gm = $UKE.getUkeKeyMap;
+    let gm = window.$UKE.getUkeKeyMap;
 
     return (
       <div className="date-helper-group">
@@ -114,7 +113,7 @@ export default class DatepickerHelper extends PureComponent {
                     onClick={e => this.generateDate(item, idx)} key={idx}>
                     {text}
                   </span>
-                )
+                );
               })
             }
           </div>
@@ -126,6 +125,6 @@ export default class DatepickerHelper extends PureComponent {
           </div>
         </div> */}
       </div>
-    )
+    );
   }
 }

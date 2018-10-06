@@ -30,12 +30,13 @@ export default class Radio extends SelectorBasic {
   render() {
     const {itemWidth, isMultiple, checkAllBtn = true, itemStyle = {}} = this.props;
     const selectedValue = this.getValue();
-    let gm = $UKE.getUkeKeyMap;
+    let gm = window.$UKE.getUkeKeyMap;
 
     const selectAllBtn = isMultiple && checkAllBtn ? (
       <span
         className="btn warn flat selectAllBtn"
-        onClick={e => this.selectAll()}>{gm('全选')}</span>
+        onClick={e => this.selectAll()}>{gm('全选')}
+      </span>
     ) : null;
 
     const radioGroup = this.values.map((item, idx) => {
@@ -50,16 +51,16 @@ export default class Radio extends SelectorBasic {
           onClick={e => this.selectItem(value, idx)}>
           {
             img ? (
-              <img src={img}/>
+              <img src={img} alt=""/>
             ) : null
           }
           <div className="text">{text}</div>
           {/* <div className="caret"></div> */}
           <div className="cycle">
-            <div className="unit"></div>
+            <div className="unit"/>
           </div>
         </div>
-      )
+      );
     });
     return (
       <div className="uke-radio-container">

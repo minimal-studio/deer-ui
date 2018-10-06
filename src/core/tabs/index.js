@@ -3,4 +3,4 @@ import Tabs from './tabs';
 
 export {
   Tab, Tabs
-}
+};

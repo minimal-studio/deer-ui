@@ -39,7 +39,7 @@ export default class Input extends Component {
     this.state = {
       viewClass: HasValue(this.value) ? 'has-val' : 'normal',
       stateVal: this.value
-    }
+    };
   }
   changeText(val) {
 
@@ -55,10 +55,10 @@ export default class Input extends Component {
     });
   }
   focus() {
-    this.refs.iconInput.focus();
+    this.iconInput.focus();
   }
   select() {
-    this.refs.iconInput.select();
+    this.iconInput.select();
   }
   getValue() {
     return this.isControl ? this.props.value : this.state.stateVal;
@@ -104,7 +104,7 @@ export default class Input extends Component {
       <span
         className={"input-btn btn flat " + inputBtnConfig.className}
         onClick={() => {
-          inputBtnConfig.action(this.refs.iconInput)
+          inputBtnConfig.action(this.iconInput);
         }}>
         {inputBtnConfig.text}
       </span>
@@ -112,7 +112,7 @@ export default class Input extends Component {
 
     return (
       <div className={`input-control ${viewClass}${hasIcon ? ' has-icon' : ''}${inputBtnConfig ? ' has-btn' : ''}`}>
-        <div className="input-con" onClick={e => this.refs.iconInput.focus()}>
+        <div className="input-con" onClick={e => this.iconInput.focus()}>
           <span className="input-group">
             {titleDOM}
             <input
@@ -132,13 +132,12 @@ export default class Input extends Component {
                 const val = e.target.value;
                 this.changeVal(val, e.target);
               }}
-              ref="iconInput"
-            />
+              ref={e => this.iconInput = e}/>
           </span>
           {inputBtnDOM}
         </div>
         {children}
       </div>
-    )
+    );
   }
 }

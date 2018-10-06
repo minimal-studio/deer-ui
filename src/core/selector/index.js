@@ -4,4 +4,4 @@ import SelectorBasic from './selector';
 
 export {
   DropdownMenu, Radio, SelectorBasic
-}
+};

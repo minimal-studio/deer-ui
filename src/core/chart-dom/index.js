@@ -7,20 +7,23 @@ import Loading from '../loading';
 let chartjsURL = '';
 
 export default class ChartCom extends PureComponent {
-  static propTypes = {
-    data: PropTypes.object,
-    options: PropTypes.object,
-    type: PropTypes.string
-  };
   static setChartJSPath = (path) => {
     chartjsURL = path.replace(/\/$/, "/");
+  };
+  static propTypes = {
+    data: PropTypes.objectOf(PropTypes.any).isRequired,
+    options: PropTypes.objectOf(PropTypes.any).isRequired,
+    type: PropTypes.string
+  };
+  static defaultProps = {
+    type: 'line'
   };
   constructor(props) {
     super(props);
 
     this.state = {
       loading: !window.Chart
-    }
+    };
   }
   loadChart(callback) {
     let self = this;
@@ -58,8 +61,8 @@ export default class ChartCom extends PureComponent {
     }
   }
   _renderChart = () => {
-    const {data, type = 'line', options = {}} = this.props;
-    const ctx = this.refs.lineChart;
+    const {data, type, options = {}} = this.props;
+    const ctx = this.lineChart;
     new window.Chart(ctx, {
       type,
       data,
@@ -72,9 +75,11 @@ export default class ChartCom extends PureComponent {
       <Loading loading={loading}>
         <canvas
           className="lineChart"
-          ref="lineChart"
-          style={{width: '100%', height: '100%'}}></canvas>
+          ref={e => {
+            if(!this.lineChart) this.lineChart = e;
+          }}
+          style={{width: '100%', height: '100%'}}/>
       </Loading>
-    )
+    );
   }
 }

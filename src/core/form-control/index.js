@@ -3,4 +3,4 @@ import Input from './input';
 
 export {
   InputVerify, Input
-}
+};

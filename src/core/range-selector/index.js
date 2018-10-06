@@ -36,12 +36,12 @@ export default class Ranger extends Component {
     this.state = {
       stateValue: defaultValue,
       draping: false
-    }
+    };
     this.value = defaultValue;
     this.drapElemInfo = {
       dragOriginX: 0,
       elemOrigonX: 0
-    }
+    };
   }
   shouldUpdateComponent(nextState, nextProps) {
     const isChange = this.isControl ? JSON.stringify(this.props) !== JSON.stringify(nextProps) : JSON.stringify(this.state) !== JSON.stringify(nextState);
@@ -189,14 +189,14 @@ export default class Ranger extends Component {
       handleStyle = {
         marginRight: - handleW / 2,
         right: `${this.offsetPercent}%`
-      }
+      };
     }
 
     let _value = precent ? (stateValue / 10).toFixed(1) : stateValue.toFixed(0);
 
     return (
       <div className={`uke-ranger ${disabled ? 'disabled' : ''} ${draping ? 'draping' : ''} ${withInput ? 'with-input' : ''}`}>
-        <div className="disabled-mask"></div>
+        <div className="disabled-mask" />
         <div className="ranger"
           onTouchStart={e => this.handleMouseDown(e)}
           onMouseDown={e => this.handleMouseDown(e)}>
@@ -208,15 +208,15 @@ export default class Ranger extends Component {
             }}>
             <div className="active-process" style={{
               width: this.offsetPercent + '%'
-            }}></div>
+            }} />
             <div className="handle"
               ref={h => {
                 if(h) this.handle = h;
               }}
               style={handleStyle}>
-              <div className="hide-value" ref="valueCon">
+              <div className="hide-value">
                 <span className="text">{_value}{precent ? '%' : ''}</span>
-                <span className="caret"></span>
+                <span className="caret" />
               </div>
             </div>
           </div>
@@ -234,6 +234,6 @@ export default class Ranger extends Component {
           ) : null
         }
       </div>
-    )
+    );
   }
 }

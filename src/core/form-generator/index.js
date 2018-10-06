@@ -5,4 +5,4 @@ import ConditionGenerator from './condition-generator';
 
 export {
   FormGenerator, FormFilter, FormLayout, ConditionGenerator
-}
+};

@@ -28,7 +28,9 @@ export default class Popover extends Component {
     relativeElem: PropTypes.object,
     RequestClose: PropTypes.func.isRequired,
     position: PropTypes.any,
+    children: PropTypes.any,
     className: PropTypes.string,
+    type: PropTypes.string,
     showCloseBtn: PropTypes.bool,
     fixed: PropTypes.bool,
     update: PropTypes.bool,
@@ -85,18 +87,18 @@ export default class Popover extends Component {
     let positionStyle = {};
 
     switch (position) {
-      case 'left':
-        positionStyle = {top: offsetTop + sideOffsetTop, left: offsetLeft - popOffsetWidth - 12};
-        break;
-      case 'bottom':
-        positionStyle = {top: offsetTop + offsetHeight + offsetHeight / 2, left: offsetLeft - popOffsetWidth / 2};
-        break;
-      case 'top':
-        positionStyle = {top: offsetTop - popOffsetHeight - offsetHeight / 2, left: offsetLeft - popOffsetWidth / 2};
-        break;
-      default:
-        positionStyle = {top: offsetTop + sideOffsetTop, left: offsetLeft + offsetWidth + 15};
-        break;
+    case 'left':
+      positionStyle = {top: offsetTop + sideOffsetTop, left: offsetLeft - popOffsetWidth - 12};
+      break;
+    case 'bottom':
+      positionStyle = {top: offsetTop + offsetHeight + offsetHeight / 2, left: offsetLeft - popOffsetWidth / 2};
+      break;
+    case 'top':
+      positionStyle = {top: offsetTop - popOffsetHeight - offsetHeight / 2, left: offsetLeft - popOffsetWidth / 2};
+      break;
+    default:
+      positionStyle = {top: offsetTop + sideOffsetTop, left: offsetLeft + offsetWidth + 15};
+      break;
     }
     return positionStyle;
   }
@@ -106,9 +108,9 @@ export default class Popover extends Component {
       className = '', RequestClose, fixed, type,
       showCloseBtn = true
     } = this.props;
-    if(!relativeElem) return <span></span>;
+    if(!relativeElem) return <span />;
 
-    let container = (<span></span>);
+    let container = (<span />);
     const transitionKey = open ? 'popover' : 'popover-close';
     if(open) {
       const closeBtn = showCloseBtn ? (

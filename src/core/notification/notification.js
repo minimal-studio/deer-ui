@@ -20,7 +20,7 @@ export default class Notification extends PureComponent {
     this.timers = {};
     this.state = {
       systemTips: {}
-    }
+    };
     EventEmitter.subscribe('NOTIFY', this.receiveNotify);
   }
   /**
@@ -67,13 +67,13 @@ export default class Notification extends PureComponent {
     delete nextState[msgID];
     this.setState({
       systemTips: nextState
-    })
+    });
   }
   clearTargetTimer(msgID) {
-    if(!!this.timers[msgID]) clearTimeout(this.timers[msgID]);
+    if(this.timers[msgID]) clearTimeout(this.timers[msgID]);
   }
   startTargetTimer(msgObj) {
-    if(!!this.timers[msgObj.id]) this.clearTargetTimer(msgObj.id);
+    if(this.timers[msgObj.id]) this.clearTargetTimer(msgObj.id);
     this.setTipHideTimer(msgObj);
   }
   setTipHideTimer(msgObj) {
@@ -88,7 +88,7 @@ export default class Notification extends PureComponent {
     const { position, handleClick } = this.props;
     const { systemTips } = this.state;
     let hasMsg = Object.keys(systemTips).length > 0;
-    let gm = $UKE.getUkeKeyMap;
+    let gm = window.$UKE.getUkeKeyMap;
 
     let container = (
       <div className={`notify-group ${positionFilter(position)} ${hasMsg ? 'has-msg' : 'no-msg'}`}>
@@ -113,7 +113,7 @@ export default class Notification extends PureComponent {
                         (onClickTip || handleClick) ? (
                           <div className="action"
                             onClick={e => this.clickTip(item, msgID)}>
-                            <span className="flex"></span>
+                            <span className="flex" />
                             <span className="action-btn">{actionText}</span>
                           </div>
                         ) : null
@@ -123,7 +123,7 @@ export default class Notification extends PureComponent {
                       </div>
                     </div>
                   </CSSTransition>
-                )
+                );
               })
             }
           </TransitionGroup>

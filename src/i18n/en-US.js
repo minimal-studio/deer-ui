@@ -25,4 +25,4 @@ module.exports = {
   "中": "ing",
   "点击查看详情": "Show detail",
   "新消息": "Incoming msg"
-}
+};

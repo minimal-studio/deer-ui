@@ -6,14 +6,15 @@ const SubContent = ({displayElem, children}) => {
     <div className="uke-hide-container">
       <span className="display-elem">{displayElem}</span>
       <div className="hide-content">
-        <span className="caret"></span>
+        <span className="caret" />
         {children}
       </div>
     </div>
-  )
-}
+  );
+};
 SubContent.propTypes = {
-  displayElem: PropTypes.any
-}
+  displayElem: PropTypes.any,
+  children: PropTypes.any,
+};
 
 export default SubContent;

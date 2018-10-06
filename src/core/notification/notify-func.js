@@ -36,4 +36,4 @@ ReactDOM.render(
       if(no) notificationEntity = no;
     }}/>,
   notifyDOM
-)
+);

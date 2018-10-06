@@ -1,6 +1,6 @@
 {
   "name": "ukelli-ui",
-  "version": "2.5.18",
+  "version": "2.5.19",
   "main": "./index.js",
   "scripts": {
     "publish": "npm publish ./build",
@@ -25,6 +25,7 @@
     "react": "16.2.0",
     "react-dom": "16.2.0",
     "unistore": "^3.0.6",
+    "prop-types": "^15.5.10",
     "react-transition-group": "^2.2.0"
   },
   "devDependencies": {

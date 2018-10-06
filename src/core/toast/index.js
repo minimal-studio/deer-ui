@@ -10,7 +10,7 @@ export default class Toast extends PureComponent {
     super(props);
     this.state = {
       descQueue: {}
-    }
+    };
     this.timerQueue = {};
   }
   componentWillUnmount() {
@@ -41,7 +41,7 @@ export default class Toast extends PureComponent {
   }
   clearTimer() {
     Object.keys(this.timerQueue).forEach(timerID => {
-      timerID && clearTimeout(timerID)
+      timerID && clearTimeout(timerID);
     });
   }
   hideTip(tipID) {
@@ -69,8 +69,8 @@ export default class Toast extends PureComponent {
             <span className="_close-btn" onClick={e => this.hideTip(tipID)}>x</span>
           </span>
         </CSSTransition>
-      )
-    })
+      );
+    });
     return (
       <div className="toast-container">
         <TransitionGroup component={null}>

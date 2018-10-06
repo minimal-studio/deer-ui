@@ -8,7 +8,7 @@ let menuId;
 export function ShowGlobalMenu(options) {
   let entityWrapper = (
     <MenuGroup {...options} onClose={e => CloseMenu()}/>
-  )
+  );
   menuId = ShowGlobalModal({
     modalLayoutDOM: entityWrapper,
     className: 'uke-dropdown-menu',

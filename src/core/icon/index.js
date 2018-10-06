@@ -8,12 +8,12 @@ const Icon = (props) => {
   return (
     <i
       {...other}
-      className={getIcon(type, ['icon', ...classNames])}></i>
-  )
-}
+      className={getIcon(type, ['icon', ...classNames])} />
+  );
+};
 Icon.propTypes = {
   type: PropTypes.string.isRequired,
   classNames: PropTypes.array,
-}
+};
 
 export default Icon;

@@ -8,6 +8,7 @@ export default class Tabs extends PureComponent {
     withContent: PropTypes.bool,
     closeabled: PropTypes.bool,
     stepMode: PropTypes.bool,
+    children: PropTypes.any,
     height: PropTypes.string,
     activeTabIdx: PropTypes.number,
     defaultTab: PropTypes.number,
@@ -103,7 +104,7 @@ export default class Tabs extends PureComponent {
 
     return {
       tabs, tabContents
-    }
+    };
   }
   render() {
     const {
@@ -119,6 +120,6 @@ export default class Tabs extends PureComponent {
         </div>
         {inRow ? null : tabContents}
       </div>
-    )
+    );
   }
 }

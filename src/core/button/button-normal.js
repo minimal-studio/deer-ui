@@ -1,13 +1,24 @@
+/* eslint-disable react/button-has-type */
+
 import React, {Component, PureComponent} from 'react';
 import PropTypes from 'prop-types';
+
 import Icon from '../icon';
 
+const defaultProps = {
+  loading: false,
+  disabled: false,
+  type: 'button',
+  color: 'theme',
+  className: '',
+  icon: '',
+};
+
 const Button = (props) => {
-  let gm = $UKE.getUkeKeyMap;
+  let gm = window.$UKE.getUkeKeyMap;
   const {
-    loading = false, disabled = false, text = gm('提交'), icon,
-    color = 'theme',
-    className = '', onClick
+    loading, disabled, text = gm('提交'), icon, type,
+    color, className, onClick
   } = props;
 
   const clickable = !disabled && !loading;
@@ -18,6 +29,7 @@ const Button = (props) => {
   return (
     <button
       disabled={!clickable}
+      type={type}
       className={`btn flat ${color} ${className}`}
       onClick={e => {
         if(!disabled) onClick(e);
@@ -25,13 +37,19 @@ const Button = (props) => {
       {iconDOM}
       {text}
     </button>
-  )
-}
+  );
+};
+
+Button.defaultProps = defaultProps;
 Button.propTypes = {
   loading: PropTypes.bool,
   className: PropTypes.string,
   icon: PropTypes.string,
+  text: PropTypes.string,
+  type: PropTypes.string,
+  color: PropTypes.string,
   disabled: PropTypes.bool,
   onClick: PropTypes.func.isRequired
 };
+
 export default Button;

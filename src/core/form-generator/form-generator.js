@@ -19,7 +19,7 @@ export default class FormGenerator extends FormFilterHelper {
       if(itemRef == ref && !isPass) {
         this.formItemRefs[ref].classList.add('error');
       }
-    })
+    });
   }
   render() {
     const {
@@ -65,11 +65,11 @@ export default class FormGenerator extends FormFilterHelper {
                 {this.greneratFormDOM(_con)}
                 {formDescDOM}
               </div>
-            )
+            );
           })
         }
         {children}
       </div>
-    ) : <span></span>
+    ) : <span />;
   }
 }

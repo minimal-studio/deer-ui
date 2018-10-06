@@ -1,18 +1,28 @@
 import React, {Component, PureComponent} from 'react';
 import PropTypes from 'prop-types';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
-import {CallFunc} from 'basic-helper';
+import { CallFunc } from 'basic-helper';
 import Icon from '../icon';
 
 export default class BannerCarousel extends Component {
   static propTypes = {
-    carouselItems: PropTypes.array.isRequired,
-    styleConfig: PropTypes.object.isRequired,
+    carouselItems: PropTypes.arrayOf(PropTypes.object).isRequired,
+    styleConfig: PropTypes.shape({
+      width: PropTypes.any,
+      height: PropTypes.any,
+      margin: PropTypes.any
+    }).isRequired,
     actionClass: PropTypes.string,
     transitionName: PropTypes.string,
     isMobile: PropTypes.bool,
     transitionTimer: PropTypes.number,
     thumbRate: PropTypes.number,
+  };
+  static defaultProps = {
+    actionClass: 'action-area',
+    transitionName: 'banner',
+    transitionTimer: 600,
+    thumbRate: 15,
   };
   static defaultProps = {
     isMobile: false
@@ -26,7 +36,7 @@ export default class BannerCarousel extends Component {
       activeIdx: defaultIdx,
       toNext: true,
       activeBannerItem: carouselItems[defaultIdx],
-    }
+    };
     this.timer = null;
     this.freq = 5000;
     this.isStarted = false;
@@ -52,7 +62,7 @@ export default class BannerCarousel extends Component {
   }
   startLoop() {
     var self = this;
-    if(!!this.timer) this.stopLoop();
+    if(this.timer) this.stopLoop();
     this.timer = setInterval(() => {
       const {carouselItems} = self.props;
       let {activeIdx} = self.state;
@@ -76,26 +86,24 @@ export default class BannerCarousel extends Component {
       return {
         activeIdx: idx,
         toNext,
-        activeBannerItem: carouselItems[idx] || <span></span>
-      }
+        activeBannerItem: carouselItems[idx] || <span/>
+      };
     });
     this.startLoop();
   }
   genCarouselDOM(currItem, idx, imgStyle) {
-    const {styleConfig, actionClass = 'action-area'} = this.props;
+    const {styleConfig, actionClass} = this.props;
     const {width, height} = imgStyle || styleConfig;
-    const {activeIdx} = this.state;
-    let {action, imgUrl, component} = currItem;
+    let { imgUrl } = currItem;
     const objStyle = {width, height};
     objStyle['backgroundImage'] = `url(${imgUrl})`;
     return (
       <div className={actionClass} key={idx}>
         <div
           className="img"
-          style={objStyle}></div>
-        {/* <img src={imgUrl}/> */}
+          style={objStyle} />
       </div>
-    )
+    );
   }
   handleTouchStart = (e) => {
     const touches = e.changedTouches || e;
@@ -122,14 +130,14 @@ export default class BannerCarousel extends Component {
   render() {
     const {
       carouselItems, styleConfig, 
-      isMobile, transitionTimer = 600, 
-      transitionName = 'banner',
-      thumbRate = 15,
+      isMobile, transitionTimer, 
+      transitionName,
+      thumbRate,
     } = this.props;
     if(!carouselItems || carouselItems.length == 0) {
       return (
-        <span className="no-banner"></span>
-      )
+        <span className="no-banner" />
+      );
     }
     const {activeIdx, toNext, activeBannerItem} = this.state;
 
@@ -138,7 +146,7 @@ export default class BannerCarousel extends Component {
     const thumbImgStyle = {
       width: width / thumbRate,
       height: width / imgWHRate / thumbRate
-    }
+    };
 
     return (
       <div
@@ -156,7 +164,7 @@ export default class BannerCarousel extends Component {
         </TransitionGroup>
         {
           isMobile ? (
-            <span></span>
+            <span />
           ) : (
             <div className="thumb-contaner">
               {
@@ -169,11 +177,11 @@ export default class BannerCarousel extends Component {
                         className="_mark"
                         onClick={e => {
                           this.setActiveIdx(idx);
-                        }}></div>
+                        }} />
                       {this.genCarouselDOM(item, idx, thumbImgStyle)}
                       {/* {item} */}
                     </div>
-                  )
+                  );
                 })
               }
             </div>
@@ -196,6 +204,6 @@ export default class BannerCarousel extends Component {
           )
         }
       </div>
-    )
+    );
   }
 }

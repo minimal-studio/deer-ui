@@ -3,4 +3,4 @@ import Notification from './notification';
 
 export {
   Notify, CancelNotify, Notification
-}
+};

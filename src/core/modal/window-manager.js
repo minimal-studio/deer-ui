@@ -5,11 +5,11 @@ const DefaultWindowManagerState = {
   minSecQueue: [],
   sectionsQueue: [],
   sectionsList: {},
-}
+};
 
-let windowManagerStore = createStore(DefaultWindowManagerState);
+const windowManagerStore = createStore(DefaultWindowManagerState);
 
-let windowManagerActions = store => ({
+const windowManagerActions = store => ({
   closeWindow({sectionsList, sectionsQueue}, sectionId) {
     let nextSectionList = sectionsList;
     let nextSectionQueue = RemoveArrayItem(sectionsQueue, sectionId);
@@ -84,4 +84,4 @@ export {
   windowManagerActions,
   windowManagerStore,
   DefaultWindowManagerState
-}
+};

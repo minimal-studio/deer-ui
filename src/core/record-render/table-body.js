@@ -7,14 +7,14 @@ import Icon from '../icon';
 
 export default class TableBody extends MapperFilter {
   static propTypes = {
-    keyMapper: PropTypes.array.isRequired,
+    keyMapper: PropTypes.arrayOf(PropTypes.object).isRequired,
     needCount: PropTypes.bool,
     needCheck: PropTypes.bool,
     allCheck: PropTypes.bool,
-    sortIgnores: PropTypes.array,
+    sortIgnores: PropTypes.arrayOf(PropTypes.string),
     onCheckAll: PropTypes.func,
     whenCheckAction: PropTypes.any,
-    records: PropTypes.array.isRequired
+    records: PropTypes.arrayOf(PropTypes.object).isRequired
   };
   static defaultProps = {
     sortIgnores: ['checkbox']
@@ -28,7 +28,7 @@ export default class TableBody extends MapperFilter {
       sortField: '',
       isDesc: false,
       checkedItems: {},
-    }
+    };
 
     this.firstTDDOMs = {};
     this.tdNumb = 0;
@@ -47,7 +47,7 @@ export default class TableBody extends MapperFilter {
     this.calcSize();
   }
 
-  toggleSelectItem(item, idx) {
+  toggleSelectItem = (item, idx) => {
     let nextCheckedItems = this.state.checkedItems;
     if(nextCheckedItems[idx]) {
       delete nextCheckedItems[idx];
@@ -76,7 +76,7 @@ export default class TableBody extends MapperFilter {
     CallFunc(onCheck)(nextState, idx);
   }
 
-  getKeyMapper() {
+  getKeyMapper = () => {
     const { keyMapper = [], needCheck } = this.props;
 
     let checkExtend = {
@@ -86,9 +86,9 @@ export default class TableBody extends MapperFilter {
         let checked = !!this.state.checkedItems[idx];
         return (
           <input type="checkbox" checked={checked} onClick={e => this.toggleSelectItem(item, idx)}/>
-        )
+        );
       }
-    }
+    };
 
     let result = needCheck ? [checkExtend, ...keyMapper] : keyMapper;
 
@@ -156,7 +156,7 @@ export default class TableBody extends MapperFilter {
           key={parentIdx + '_' + _idx}>
           {result}
         </td>
-      )
+      );
     });
 
     this.tdNumb = tdLen;
@@ -190,12 +190,12 @@ export default class TableBody extends MapperFilter {
       let res;
 
       switch (true) {
-        case typeof sortTargetPrev == 'string':
-          res = sortTargetPrev.localeCompare(sortTargetNext);
-          break;
-        case typeof sortTargetPrev == 'number':
-          res = sortTargetPrev - sortTargetNext;
-          break;
+      case typeof sortTargetPrev == 'string':
+        res = sortTargetPrev.localeCompare(sortTargetNext);
+        break;
+      case typeof sortTargetPrev == 'number':
+        res = sortTargetPrev - sortTargetNext;
+        break;
       }
 
       return isDesc ? res : res * -1;
@@ -223,7 +223,7 @@ export default class TableBody extends MapperFilter {
       return {
         sortField: orderKey,
         isDesc: _isDesc
-      }
+      };
     });
   }
 
@@ -243,7 +243,7 @@ export default class TableBody extends MapperFilter {
 
     if(!Array.isArray(records)) {
       console.error('records 必须为 []');
-      return <span></span>
+      return <span/>;
     }
     this.statistics = {};
 
@@ -267,7 +267,7 @@ export default class TableBody extends MapperFilter {
                   let sortTip = isOrdering ? (
                     <span className="caret" style={{
                       transform: `rotate(${!isDesc ? '180deg' : '0deg'})`
-                    }}></span>
+                    }}/>
                   ) : null;
                   return (
                     <th 
@@ -280,7 +280,7 @@ export default class TableBody extends MapperFilter {
                       {title}
                       {sortTip}
                     </th>
-                  )
+                  );
                 })
               }
             </tr>
@@ -303,7 +303,7 @@ export default class TableBody extends MapperFilter {
                     className={_highlight}>
                     {this.getMapperItemsDOM(record, idx, needCount)}
                   </tr>
-                )
+                );
               })
             }
             {

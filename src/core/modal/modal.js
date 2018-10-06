@@ -16,7 +16,7 @@ export default class Modal extends DragPanelClass {
     draggable: false,
     duration: 300,
     animateType: 'modal',
-    title: $UKE.getKeyMap('无'),
+    title: window.$UKE.getKeyMap('无'),
     className: '',
     children: null,
   };
@@ -93,7 +93,8 @@ export default class Modal extends DragPanelClass {
 
     const closeBtnDOM = showCloseBtn ? (
       <span className="close-btn"
-        onClick={e => onCloseModal()}>x</span>
+        onClick={e => onCloseModal()}>x
+      </span>
     ) : null;
 
     const _style = Object.assign({}, style, {
@@ -143,12 +144,12 @@ export default class Modal extends DragPanelClass {
         {
           _needMark ? (
             <div className="section-mark" onClick={e => {
-              if(clickBgToClose) onCloseModal()
-            }}></div>
+              if(clickBgToClose) onCloseModal();
+            }} />
           ) : null
         }
       </div>
-    ) : <span></span>;
+    ) : <span />;
 
     return (
       <TransitionGroup component={null}>
@@ -159,6 +160,6 @@ export default class Modal extends DragPanelClass {
           {sections}
         </CSSTransition>
       </TransitionGroup>
-    )
+    );
   }
 }

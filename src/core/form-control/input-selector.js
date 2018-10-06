@@ -15,7 +15,7 @@ export default class InputSelector extends Component {
     this.state = {
       selectRef: refuDefaultIdx || Object.keys(values)[0],
       inputVal: ''
-    }
+    };
   }
   changeRef = (val) => {
     if(!val) return;
@@ -42,9 +42,8 @@ export default class InputSelector extends Component {
           onBlur={e => {
             let val = e.target.value;
             onChange(val, selectRef);
-          }}
-        />
+          }}/>
       </div>
-    )
+    );
   }
 }

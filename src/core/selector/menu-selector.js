@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import Icon from '../icon';
 import SelectorBasic from './selector';
-import {getElementLeft, getElementTop} from '../set-dom';
+import { getElementLeft, getElementTop } from '../set-dom';
 
 export const MenuItem = ({isActive, text, icon, ...other}) => {
   return (
@@ -13,8 +13,8 @@ export const MenuItem = ({isActive, text, icon, ...other}) => {
       {icon ? <Icon type={icon}/> : null}
       {text}
     </div>
-  )
-}
+  );
+};
 
 export default class MenuGroup extends SelectorBasic {
   static propTypes = {
@@ -37,12 +37,13 @@ export default class MenuGroup extends SelectorBasic {
     this.offset = {
       left: getElementLeft(elem),
       top: elem.offsetHeight + getElementTop(elem) - window.scrollY
-    }
+    };
   }
   componentWillUnmount() {
     window.removeEventListener('scroll', this.handleScroll, false);
   }
   componentDidMount() {
+    // this._input.focus();
     window.addEventListener('scroll', this.handleScroll, false);
   }
   handleScroll = () => {
@@ -57,9 +58,6 @@ export default class MenuGroup extends SelectorBasic {
   }
   close() {
     this.props.onClose();
-  }
-  componentDidMount() {
-    this._input.focus();
   }
   handleClick(dataItem) {
     const {onClickItem, isMultiple} = this.props;
@@ -87,14 +85,15 @@ export default class MenuGroup extends SelectorBasic {
             placeholder={gm("搜索试试")}
             className="form-control input-sm"
             type="text"
-            ref={c => {this._input = c}}
+            ref={c => {this._input = c;}}
             onChange={e => this.onSearch(e.target.value)} value={searchValue}/>
         </div>
         <div className="items-group">
           <div className="action-btn-group">
             <div className="action-btn" onClick={e => {
               canSelectAll ? this.selectAll() : this.changeEvent(isMultiple ? [] : '');
-            }}>{gm(canSelectAll ? '全选' : '取消已选项')}</div>
+            }}>{gm(canSelectAll ? '全选' : '取消已选项')}
+            </div>
           </div>
           {
             this.values.map((dataItem, idx) => {
@@ -109,11 +108,11 @@ export default class MenuGroup extends SelectorBasic {
                   isActive={isActive}
                   onClick={e => this.handleClick(dataItem)}
                   {...dataItem}/>
-              ) : null
+              ) : null;
             })
           }
         </div>
       </div>
-    )
+    );
   }
 }

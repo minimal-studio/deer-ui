@@ -9,7 +9,6 @@ export default class SelectorBasic extends Component {
     values: PropTypes.any,
     value: PropTypes.any,
     isNum: PropTypes.bool,
-    inRow: PropTypes.bool,
     isMultiple: PropTypes.bool,
     style: PropTypes.object,
     onChange: PropTypes.func
@@ -29,7 +28,7 @@ export default class SelectorBasic extends Component {
     this.value = value || defaultValue;
     this.state = {
       selectedValue: this.toArr(this.value),
-    }
+    };
 
     this.wrapValues();
   }
@@ -66,7 +65,7 @@ export default class SelectorBasic extends Component {
     return {
       valArr: this.values,
       valObj: this.valuesObj
-    }
+    };
   }
   wrapObjValToArr(values) {
     return Object.keys(values).map(valKey => ({

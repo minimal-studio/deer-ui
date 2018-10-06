@@ -7,6 +7,15 @@ import LoadingProgress from './progress';
 import LoadingDOMPlaceholder from './placeholder';
 
 export default class Loading extends Component {
+  static propTypes = {
+    loading: PropTypes.bool.isRequired,
+    children: PropTypes.any,
+    loadingDOM: PropTypes.any,
+    inrow: PropTypes.bool,
+  };
+  static defaultProps = {
+    inrow: false
+  };
   transitionWrap(key, children) {
     return (
       <CSSTransition
@@ -17,53 +26,53 @@ export default class Loading extends Component {
           {children}
         </div>
       </CSSTransition>
-    )
+    );
   }
   render() {
-    const {loading = false, children, inrow = false, loadingDOM} = this.props;
+    const {loading = false, children, inrow, loadingDOM} = this.props;
 
     let loadingDOMFilterRes;
 
     switch (true) {
-      case !!loadingDOM: // custom mode
-        loadingDOMFilterRes = loadingDOM;
-        break;
-      case inrow: // progress
-        loadingDOMFilterRes = <LoadingProgress/>
-        break;
-      default: // placeholder
-        loadingDOMFilterRes = <LoadingDOMPlaceholder/>
+    case !!loadingDOM: // custom mode
+      loadingDOMFilterRes = loadingDOM;
+      break;
+    case inrow: // progress
+      loadingDOMFilterRes = <LoadingProgress/>;
+      break;
+    default: // placeholder
+      loadingDOMFilterRes = <LoadingDOMPlaceholder/>;
     }
 
     let container;
 
     switch (true) {
-      // solution 1, render chidlren with progress
-      case loading && inrow:
-        container = [
-          this.transitionWrap(
-            'loading',
-            <div className="loading-container">
-            {loadingDOMFilterRes}
-          </div>
-          ),
-          this.transitionWrap('loaded', children)
-        ]
-        break;
-      // solution 2, when inrow and no children or not inrow, just render placeholder
-      case loading && !inrow:
-        container = this.transitionWrap(
+    // solution 1, render chidlren with progress
+    case loading && inrow:
+      container = [
+        this.transitionWrap(
           'loading',
           <div className="loading-container">
             {loadingDOMFilterRes}
           </div>
-        )
-        break;
+        ),
+        this.transitionWrap('loaded', children)
+      ];
+      break;
+      // solution 2, when inrow and no children or not inrow, just render placeholder
+    case loading && !inrow:
+      container = this.transitionWrap(
+        'loading',
+        <div className="loading-container">
+          {loadingDOMFilterRes}
+        </div>
+      );
+      break;
       // solution 3, just render children
-      case !loading:
-        container = this.transitionWrap('loaded', children);
-        break;
-      default:
+    case !loading:
+      container = this.transitionWrap('loaded', children);
+      break;
+    default:
     }
     return (
       <div className={"loading-control " + (loading ? 'loading' : 'planning')}>
@@ -74,10 +83,4 @@ export default class Loading extends Component {
       </div>
     );
   }
-}
-
-Loading.propTypes = {
-  loading: PropTypes.bool.isRequired,
-  loadingDOM: PropTypes.any,
-  inrow: PropTypes.bool,
 }

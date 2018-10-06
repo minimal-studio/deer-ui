@@ -6,7 +6,7 @@ import MultipleHelper from './multiple-selector';
 import Avatar from './avatar';
 import Captcha from './captcha';
 import ChartCom from './chart-dom';
-import Carousel from './carousel/carousel.js';
+import Carousel from './carousel/carousel';
 import Loading from './loading';
 import SwitchBtn from './switch-button';
 import TipPanel from './tip-panel';
@@ -52,4 +52,4 @@ export {
   TipBtn,
   Icon,
   Tip,
-}
+};

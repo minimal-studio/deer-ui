@@ -5,4 +5,4 @@ import DescHelper from './desc-helper';
 
 export {
   MapperFilter, TableBody, RecordItemsHelper, DescHelper
-}
+};

@@ -25,11 +25,11 @@ export default class RecordItemsHelper extends MapperFilter {
                         <span className="title">{title}</span>
                         <span className="content">{result}</span>
                       </div>
-                    )
+                    );
                   })
                 }
               </div>
-            )
+            );
           })
         }
       </div>

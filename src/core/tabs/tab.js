@@ -10,17 +10,18 @@ const Tab = ({label, icon, onClick, onChange, idx, labelClass = ''}) => {
   
   return (
     <div className={"tab-label " + labelClass} onClick={e => {
-        CallFunc(onClick)();
-        CallFunc(onChange)();
-      }}>
+      CallFunc(onClick)();
+      CallFunc(onChange)();
+    }}>
       {iconDOM}
       <span className="text">{label}</span>
     </div>
   );
-}
+};
 Tab.propTypes = {
   label: PropTypes.string.isRequired,
   icon: PropTypes.string,
+  labelClass: PropTypes.string,
   idx: PropTypes.number,
   isDefault: PropTypes.bool,
   atRight: PropTypes.bool,

@@ -38,5 +38,5 @@ export function getElementOffset(elem) {
   let top = getElementTop(elem);
   return {
     offsetLeft: left, offsetTop: top
-  }
+  };
 }

@@ -22,23 +22,23 @@ export default class MultipleHelper extends PureComponent {
     this.state = {
       isShowIdea: false,
       value: defaultValue || range[0]
-    }
+    };
     this.defaultMax = 99999;
   }
   componentDidMount() {
-    this.refs.multipleHelper.defaultValue = '1';
+    this.multipleHelper.defaultValue = '1';
   }
   multipleOperation(symbol) {
     const {basicUnit = 1} = this.props;
     const {value} = this.state;
     let _result = +value;
     switch (symbol) {
-      case 'plus':
-        _result += basicUnit;
-        break;
-      case 'less':
-        _result -= basicUnit;
-        break;
+    case 'plus':
+      _result += basicUnit;
+      break;
+    case 'less':
+      _result -= basicUnit;
+      break;
     }
     this.changeValue(_result);
   }
@@ -63,7 +63,7 @@ export default class MultipleHelper extends PureComponent {
     } else if(value > max) {
       value = max;
     }
-    this.changeValue(value)
+    this.changeValue(value);
   }
   setIdea(isShow) {
     this.setState({
@@ -93,7 +93,7 @@ export default class MultipleHelper extends PureComponent {
                 // self.checkValue();
               }, 1 * 100);
             }}
-            value={value} ref="multipleHelper"
+            value={value} ref={e => this.multipleHelper = e}
             onChange={(e) => {
               if(!inputable) return;
               this.changeValue(e.target.value);
@@ -101,9 +101,9 @@ export default class MultipleHelper extends PureComponent {
           <span className="multiple-tip">{suffix}</span>
           <span className="multiple-action-btn" onClick={e => this.multipleOperation('plus')}>+</span>
           <span className="ps5 toggle-tip-btn" onClick={e => {
-              this.refs.multipleHelper.focus();
-              this.setIdea(true);
-            }}>
+            this.multipleHelper.focus();
+            this.setIdea(true);
+          }}>
             <Icon type="more"/>
           </span>
         </div>
@@ -112,16 +112,16 @@ export default class MultipleHelper extends PureComponent {
             range.map((item, idx) => {
               return (
                 <div key={idx} className="item" onClick={e => {
-                    this.setIdea(false);
-                    this.changeValue(item);
-                  }}>
+                  this.setIdea(false);
+                  this.changeValue(item);
+                }}>
                   <span className="mul">{item}</span>{suffix}
                 </div>
-              )
+              );
             })
           }
         </div>
       </div>
-    )
+    );
   }
 }

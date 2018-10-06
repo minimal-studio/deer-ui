@@ -31,7 +31,8 @@ export default class SwitchButton extends PureComponent {
                   this.value = btnKey;
                   onSwitch(btnKey, isActive);
                 }
-              }}>{btnText}</span>
+              }}>{btnText}
+            </span>
           );
         })}
       </div>
