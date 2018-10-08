@@ -1,9 +1,9 @@
 import React, {Component, PureComponent} from 'react';
 import PropTypes from 'prop-types';
 
-import { CallFunc, IsFunc } from 'basic-helper';
+import { Call, IsFunc } from 'basic-helper';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
-import {DragPanelClass} from './drag-pabel-helper';
+import { DragPanelClass } from './drag-pabel-helper';
 
 const ESC_KEY = 27;
 
@@ -52,7 +52,7 @@ export default class Modal extends DragPanelClass {
       /**
        * 关闭窗口的callback
        */
-      if(!this.props.isOpen) CallFunc(this.props.onClose)();
+      if(!this.props.isOpen) Call(this.props.onClose);
     }
   }
 

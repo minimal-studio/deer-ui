@@ -1,7 +1,7 @@
 import React, {Component, PureComponent} from 'react';
 import PropTypes from 'prop-types';
 
-import {CallFunc, NumTransformToCN, ToFixed} from 'basic-helper';
+import { Call, NumTransformToCN, ToFixed } from 'basic-helper';
 
 export class InputVerifyClass extends Component {
   static propTypes = {
@@ -56,14 +56,14 @@ export class InputVerifyClass extends Component {
     this.isPass = this.isMatchLen && this.isMatchNumbRangeMode;
     this.value = _val;
 
-    CallFunc(onChange)(_val);
+    Call(onChange, _val);
   }
   _onFocus() {
     const {onFocus} = this.props;
-    CallFunc(onFocus)();
+    Call(onFocus);
   }
   _onBlur() {
-    CallFunc(this.props.onBlur)();
+    Call(this.props.onBlur);
   }
   onClear() {
     this._onChange('');

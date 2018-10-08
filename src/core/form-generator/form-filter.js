@@ -1,5 +1,5 @@
 import React, {Component, PureComponent} from 'react';
-import {CallFunc, IsFunc, HasValue} from 'basic-helper';
+import { Call, IsFunc, HasValue } from 'basic-helper';
 
 import {DatetimePicker, DatepickerHelper} from '../datetimepicker';
 import {Radio, DropdownMenu} from '../selector';
@@ -93,7 +93,7 @@ export default class FormFilterHelper extends Component {
       desc,
       ref
     };
-    CallFunc(this.showDesc(checkRes));
+    Call(this.showDesc, checkRes);
     return checkRes;
   }
   wrapConditionTitle(config) {
@@ -108,7 +108,7 @@ export default class FormFilterHelper extends Component {
     if(this.value[ref] === value) return;
     this.value[ref] = value;
     if(update) this.forceUpdate();
-    CallFunc(this.props.onChange)(this.value, ref);
+    Call(this.props.onChange, this.value, ref);
   }
   changeValues(valRefMapper, update = true) {
     const refs = Object.keys(valRefMapper);
@@ -258,7 +258,7 @@ export default class FormFilterHelper extends Component {
         onBlur={e => {
           let __val = e.target.value.trim();
           this.changeValue(__val, ref);
-          CallFunc(config.onBlur)(__val);
+          Call(config.onBlur, __val);
         }}
         onChange={(val, elem) => this.onInputChange({
           val, ref, inputType: config.inputType
@@ -308,7 +308,7 @@ export default class FormFilterHelper extends Component {
     return (
       <span
         className={'btn flat ' + className}
-        onClick={e => CallFunc(onClick)(e, ref)}>
+        onClick={e => Call(onClick, e, ref)}>
         {text}
       </span>
     );

@@ -1,7 +1,7 @@
 import React, { Component, PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
-import {CallFunc, HasValue} from 'basic-helper';
+import { Call, HasValue } from 'basic-helper';
 import Icon from '../icon';
 
 let defaultShowInputTitle = true;
@@ -69,7 +69,7 @@ export default class Input extends Component {
         stateVal: val
       });
     }
-    CallFunc(this.props.onChange)(val, elem);
+    Call(this.props.onChange, val, elem);
   }
   render() {
     const {
@@ -122,11 +122,11 @@ export default class Input extends Component {
               value={value}
               onFocus={e => {
                 this.addForceClass();
-                CallFunc(onFocus)(e);
+                Call(onFocus, e);
               }}
               onBlur={e => {
                 this.delForceClass();
-                CallFunc(onBlur)(e);
+                Call(onBlur, e);
               }}
               onChange={e => {
                 const val = e.target.value;

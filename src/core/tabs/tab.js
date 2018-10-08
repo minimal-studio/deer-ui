@@ -1,6 +1,6 @@
 import React, {Component, PureComponent} from 'react';
 import PropTypes from 'prop-types';
-import {CallFunc} from 'basic-helper';
+import { Call } from 'basic-helper';
 import Icon from '../icon';
 
 const Tab = ({label, icon, onClick, onChange, idx, labelClass = ''}) => {
@@ -10,8 +10,8 @@ const Tab = ({label, icon, onClick, onChange, idx, labelClass = ''}) => {
   
   return (
     <div className={"tab-label " + labelClass} onClick={e => {
-      CallFunc(onClick)();
-      CallFunc(onChange)();
+      Call(onClick);
+      Call(onChange);
     }}>
       {iconDOM}
       <span className="text">{label}</span>

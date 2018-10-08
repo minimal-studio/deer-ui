@@ -1,7 +1,7 @@
 import React, {Component, PureComponent} from 'react';
 import PropTypes from 'prop-types';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
-import { CallFunc } from 'basic-helper';
+import { Call } from 'basic-helper';
 import Icon from '../icon';
 
 export default class BannerCarousel extends Component {
@@ -124,7 +124,7 @@ export default class BannerCarousel extends Component {
   }
   showDetail(activeIdx) {
     const {activeBannerItem} = this.state;
-    CallFunc(activeBannerItem.action)(activeBannerItem, activeIdx);
+    Call(activeBannerItem.action, activeBannerItem, activeIdx);
   }
 
   render() {

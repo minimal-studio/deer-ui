@@ -1,7 +1,7 @@
 import React, {Component, PureComponent} from 'react';
 import PropTypes from 'prop-types';
 
-import {CallFunc, DateFormat, GenerteID} from 'basic-helper';
+import { Call, DateFormat, GenerteID } from 'basic-helper';
 import Flatpickr from '../../libs/flatpickr';
 import '../../libs/flatpickr-zh';
 
@@ -77,7 +77,7 @@ export default class DatetimePicker extends PureComponent {
     const id = this._id;
     this.value = DateFormat(Date.parse(this._refs[id].value), this.dateFormater);
     this._refs[id].blur && this._refs[id].blur();
-    CallFunc(onChange)(val);
+    Call(onChange, val);
   }
   render() {
     return (

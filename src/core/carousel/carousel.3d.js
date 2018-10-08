@@ -1,7 +1,7 @@
 import React, {Component, PureComponent} from 'react';
 import PropTypes from 'prop-types';
 
-import {DebounceClass, CallFunc} from 'basic-helper';
+import { DebounceClass, Call } from 'basic-helper';
 import Icon from '../icon';
 
 const TRANSTION_TIME = 2000;
@@ -95,7 +95,7 @@ export default class BannerCarousel extends Component {
       activeIdx: nextIdx,
       rotateIdx: nextRotateIdx,
     }, () => {
-      CallFunc(callback)(nextIdx);
+      Call(callback, nextIdx);
       setTimeout(() => {
         self.isAnimating = false;
       }, this.animateDuration);
@@ -105,7 +105,7 @@ export default class BannerCarousel extends Component {
     const {onClickItem, onChange} = this.props;
     if(this.isAnimating || (!type && type != 0)) return;
     this.roll(type, (nextIdx) => {
-      CallFunc(onChange)(nextIdx);
+      Call(onChange, nextIdx);
     });
   }
   handleTouchStart(e) {

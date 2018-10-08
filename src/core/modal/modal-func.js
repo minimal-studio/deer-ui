@@ -1,7 +1,7 @@
 import React, {Component, PureComponent} from 'react';
 import ReactDOM from 'react-dom';
 
-import {CallFunc, GenerteID} from 'basic-helper';
+import { Call, GenerteID } from 'basic-helper';
 import { Provider, connect } from 'unistore/react';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
@@ -126,7 +126,7 @@ function ShowGlobalModal(options) {
     );
   }
   function onClickBtn(confirm) {
-    CallFunc(onConfirm)(confirm);
+    Call(onConfirm, confirm);
     CloseGlobalModal(entityId);
   }
   if(draggable) {

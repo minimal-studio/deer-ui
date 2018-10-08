@@ -1,6 +1,6 @@
 import React, {Component, PureComponent} from 'react';
 import PropTypes from 'prop-types';
-import {CallFunc, ToFixed, TimeFormat} from 'basic-helper';
+import { Call, ToFixed, TimeFormat } from 'basic-helper';
 
 import CountdownBg from './countdown-svg-bg';
 
@@ -87,7 +87,7 @@ export default class Countdown extends Component {
       self.setState({
         countdown: (countdown < 0) ? 0 : countdown
       });
-      if(countdown == +countdownNotifyTimer) CallFunc(onCountdownNotify)(countdown);
+      if(countdown == +countdownNotifyTimer) Call(onCountdownNotify, countdown);
       if(countdown === -1) {
         countdown = freq - 1;
         onTimeout();

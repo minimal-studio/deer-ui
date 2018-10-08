@@ -1,6 +1,6 @@
 import React, {Component, PureComponent} from 'react';
 import PropTypes from 'prop-types';
-import {CallFunc, DateFormat, GetDefaultDateInfo} from 'basic-helper';
+import { Call, DateFormat, GetDefaultDateInfo } from 'basic-helper';
 
 import {SubContent} from '../sub-content';
 
@@ -90,7 +90,7 @@ export default class DatepickerHelper extends PureComponent {
     let dateInfo = itemConfig.filter();
     this.value = dateInfo;
 
-    CallFunc(onClick)(dateInfo);
+    Call(onClick, dateInfo);
     this.setState({
       activeIdx: idx
     });

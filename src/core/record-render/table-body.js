@@ -1,6 +1,6 @@
 import React, {Component, PureComponent} from 'react';
 import PropTypes from 'prop-types';
-import { CallFunc } from 'basic-helper';
+import { Call } from 'basic-helper';
 
 import MapperFilter from './mapper-filter';
 import Icon from '../icon';
@@ -73,7 +73,7 @@ export default class TableBody extends MapperFilter {
     this.setState({
       checkedItems: nextState
     });
-    CallFunc(onCheck)(nextState, idx);
+    Call(onCheck, nextState, idx);
   }
 
   getKeyMapper = () => {

@@ -1,6 +1,6 @@
 import React, {Component, PureComponent} from 'react';
 import PropTypes from 'prop-types';
-import {CallFunc, RemoveArrayItem, IsFunc} from 'basic-helper';
+import { Call, RemoveArrayItem, IsFunc } from 'basic-helper';
 
 export default class SelectorBasic extends Component {
   static propTypes = {
@@ -99,7 +99,7 @@ export default class SelectorBasic extends Component {
     }
   }
   emitChange(...args) {
-    CallFunc(this.props.onChange)(...args);
+    Call(this.props.onChange, ...args);
   }
   selectAll() {
     this.changeEvent(Object.keys(this.props.values));

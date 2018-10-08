@@ -2,7 +2,7 @@
 
 import React, { Component, PureComponent } from "react";
 import PropTypes from "prop-types";
-import {CallFunc} from 'basic-helper';
+import { Call } from 'basic-helper';
 
 import {LoadScript} from '../config';
 import Loading from '../loading';
@@ -154,7 +154,7 @@ export default class Avatar extends PureComponent {
   }
   changeAvatar = (faceId) => {
     const {onChangeAvatar} = this.props;
-    CallFunc(onChangeAvatar)(faceId);
+    Call(onChangeAvatar, faceId);
     this.togglePanel(false);
   }
   customUpload = e => {

@@ -5,7 +5,7 @@
 
 import {Component} from 'react';
 import PropTypes from 'prop-types';
-import {DebounceClass, CallFunc} from 'basic-helper';
+import { DebounceClass, Call } from 'basic-helper';
 
 const rewiteMsg = {
   checkResIsSuccess: 'rewrite this.checkResIsSuccess',
@@ -106,7 +106,7 @@ export default class StateManager extends Component {
   _checkResIsSuccess(res, onSuccessCallback) {
     // return res.Header.ErrCode.Code == '0';
     let {success, data} = this.checkResIsSuccess(res);
-    if(success) CallFunc(onSuccessCallback)(data);
+    if(success) Call(onSuccessCallback, data);
     return success;
   }
   wrapDataFilter(sendData) {
@@ -164,12 +164,12 @@ export default class StateManager extends Component {
      * 在 setState 之前执行 stateAfterPostHook 
      * 
      */
-    CallFunc(onRes)(sendDataRes);
+    Call(onRes, sendDataRes);
     this._checkResIsSuccess(sendDataRes, onSuccess);
     this.stateSetter(
       {
         ...(this.defaultStateAfterPost(sendDataRes, options)),
-        ...(CallFunc(stateAfterPostHook)(sendDataRes))
+        ...(Call(stateAfterPostHook, sendDataRes))
       }
     );
   }

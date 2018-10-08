@@ -1,6 +1,6 @@
 import React, {Component, PureComponent} from 'react';
 import PropTypes from 'prop-types';
-import {CallFunc, GenerteID} from 'basic-helper';
+import { Call, GenerteID } from 'basic-helper';
 
 import {PopoverEntity} from '../popover';
 
@@ -30,7 +30,7 @@ export default class TipButton extends Component {
     this.popover.setPopover({
       open: false,
     });
-    CallFunc(onClose)();
+    Call(onClose);
   }
   componentWillUnmount() {
     this.clearTimer();
@@ -61,7 +61,7 @@ export default class TipButton extends Component {
   _onClick(e) {
     const {disabled, onClick, showTip = true} = this.props;
     if(!disabled) {
-      CallFunc(onClick)();
+      Call(onClick);
     }
     this.prevNode = e.target;
     if(showTip) this.showPopover(e);

@@ -1,6 +1,6 @@
 import React, {Component, PureComponent} from 'react';
 import PropTypes from 'prop-types';
-import {CallFunc} from 'basic-helper';
+import { Call } from 'basic-helper';
 
 import Input from '../form-control/input';
 
@@ -91,7 +91,7 @@ export default class CAPTCHA extends Component {
       });
     }
     this.value = _val;
-    CallFunc(onChange)({
+    Call(onChange, {
       isPass: this.isPass,
       value: _val,
       key: this.captchaKey,

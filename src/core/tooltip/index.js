@@ -1,6 +1,6 @@
 import React, {Component, PureComponent} from 'react';
 import PropTypes from 'prop-types';
-import { CallFunc, DebounceClass } from 'basic-helper';
+import { Call, DebounceClass } from 'basic-helper';
 
 import { PopoverEntity } from '../popover';
 import Icon from '../icon';
@@ -43,7 +43,7 @@ export default class Tooltip extends PureComponent {
           });
         }}
         onClick={e => {
-          CallFunc(onClick)(e);
+          Call(onClick, e);
           debounce.exec(() => {
             Popover.setPopover({
               children: <TitleDOM title={this.props.title}/>,

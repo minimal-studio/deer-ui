@@ -1,6 +1,6 @@
 {
   "name": "ukelli-ui",
-  "version": "2.5.19",
+  "version": "2.5.20",
   "main": "./index.js",
   "scripts": {
     "publish": "npm publish ./build",
@@ -21,7 +21,6 @@
   "author": "Alex",
   "license": "MIT",
   "peerDependencies": {
-    "basic-helper": "^1.4.x",
     "react": "16.2.0",
     "react-dom": "16.2.0",
     "unistore": "^3.0.6",
@@ -42,6 +41,7 @@
     "fs-extra": "^7.0.0"
   },
   "dependencies": {
+    "basic-helper": "^1.4.2",
     "classnames": "^2.2.5"
   }
 }

@@ -1,6 +1,6 @@
 import React, {Component, PureComponent} from 'react';
 import PropTypes from 'prop-types';
-import {CallFunc} from 'basic-helper';
+import { Call } from 'basic-helper';
 
 import Loading from '../loading';
 
@@ -50,7 +50,7 @@ export default class ChartCom extends PureComponent {
         }
       })
       .then(() => {
-        CallFunc(callback)();
+        Call(callback);
       });
   }
   renderChart() {
