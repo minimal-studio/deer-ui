@@ -258,7 +258,7 @@ export default class TableBody extends MapperFilter {
                 keyMapper.map((item, idx) => {
                   let currHeaderWidth = headerWidthMapper[idx];
                   if(!item) return;
-                  let title = item.title || $UKE.getKeyMap(item.key);
+                  let title = item.title || window.$UKE.getKeyMap(item.key);
                   if(item.key == 'checkbox') title = (
                     <input type="checkbox" checked={isAllCheck}
                       onChange={e => this.toggleAllItems(e.target.checked)}/>
@@ -272,7 +272,7 @@ export default class TableBody extends MapperFilter {
                   return (
                     <th 
                       className={`${isOrdering ? ('_order ' + (isDesc ? '_desc ' : '_asc ')) : ''}_btn`}
-                      key={idx} 
+                      key={title} 
                       onClick={e => this.orderRecord(item.key)}
                       style={{
                         width: currHeaderWidth
