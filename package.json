@@ -1,6 +1,6 @@
 {
   "name": "ukelli-ui",
-  "version": "2.5.21",
+  "version": "2.5.22",
   "main": "./index.js",
   "scripts": {
     "publish": "npm publish ./build",
@@ -41,7 +41,7 @@
     "fs-extra": "^7.0.0"
   },
   "dependencies": {
-    "basic-helper": "^1.4.2",
+    "basic-helper": "^1.4.3",
     "classnames": "^2.2.5"
   }
 }
