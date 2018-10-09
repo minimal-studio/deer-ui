@@ -11,15 +11,15 @@ export default class FormGenerator extends FormFilterHelper {
     onChange: PropTypes.func,
   };
   formItemRefs = {};
-  showDesc(checkRes) {
+  showDesc = (checkRes) => {
     const {ref, isPass} = checkRes;
-    Object.keys(this.formItemRefs).forEach(itemRef => {
-      let currFormItem = this.formItemRefs[itemRef];
+    for (const itemRef in this.formItemRefs) {
+      const currFormItem = this.formItemRefs[itemRef];
       currFormItem.classList.remove('error');
       if(itemRef == ref && !isPass) {
         this.formItemRefs[ref].classList.add('error');
       }
-    });
+    }
   }
   render() {
     const {
@@ -50,8 +50,8 @@ export default class FormGenerator extends FormFilterHelper {
 
             return (
               <div key={itemRef + '_' + id} 
-                ref={formItem => {
-                  if(formItem) this.formItemRefs[itemRef] = formItem;
+                ref={e => {
+                  if(e) this.formItemRefs[itemRef] = e;
                 }}
                 className={"form-group " + _con.type + (className ? ' ' + className : '')}>
                 {

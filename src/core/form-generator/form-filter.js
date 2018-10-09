@@ -1,9 +1,9 @@
 import React, {Component, PureComponent} from 'react';
-import { Call, IsFunc, HasValue } from 'basic-helper';
+import { Call, CallFunc, IsFunc, HasValue } from 'basic-helper';
 
-import {DatetimePicker, DatepickerHelper} from '../datetimepicker';
-import {Radio, DropdownMenu} from '../selector';
-import {Input} from '../form-control';
+import { DatetimePicker, DatepickerHelper } from '../datetimepicker';
+import { Radio, DropdownMenu } from '../selector';
+import { Input } from '../form-control';
 import Ranger from '../range-selector';
 import Captcha from '../captcha';
 import InputSelector from '../form-control/input-selector';
@@ -93,11 +93,11 @@ export default class FormFilterHelper extends Component {
       desc,
       ref
     };
-    Call(this.showDesc, checkRes);
+    CallFunc(this.showDesc)(checkRes);
     return checkRes;
   }
   wrapConditionTitle(config) {
-    config.title = config.title || $UKE.getKeyMap(config.ref) || config.ref || '';
+    config.title = config.title || this.gm(config.ref) || config.ref || '';
     return config;
   }
   focusRef(ref) {
