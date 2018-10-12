@@ -76,21 +76,27 @@ export default class TableBody extends MapperFilter {
     Call(onCheck, nextState, idx);
   }
 
+  getCheckbox = (str, item, mapper, idx) => {
+    const { checkedItems } = this.state;
+    let checked = !!checkedItems[idx];
+    return (
+      <input type="checkbox"
+        checked={checked} onChange={e => this.toggleSelectItem(item, idx)}/>
+    );
+  }
+
   getKeyMapper = () => {
     const { keyMapper = [], needCheck } = this.props;
 
-    let checkExtend = {
-      key: 'checkbox',
-      filter: (str, item, mapper, idx) => {
-        // console.log()
-        let checked = !!this.state.checkedItems[idx];
-        return (
-          <input type="checkbox" checked={checked} onClick={e => this.toggleSelectItem(item, idx)}/>
-        );
-      }
-    };
+    let result = keyMapper;
 
-    let result = needCheck ? [checkExtend, ...keyMapper] : keyMapper;
+    if(needCheck) {
+      const checkExtend = {
+        key: 'checkbox',
+        filter: this.getCheckbox
+      };
+      result = [checkExtend, ...keyMapper];
+    }
 
     return result;
   }
