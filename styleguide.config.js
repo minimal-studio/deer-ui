@@ -23,27 +23,35 @@ module.exports = {
     path.join(__dirname, 'style/default.scss')
   ],
   // theme: {
-  //   sidebarBackground: '#34465d',
+  //   color: {
+  //     sidebarBackground: '#34465d',
+  //     link: '#cfdfec'
+  //   }
   // },
   styles: {
     StyleGuide: {
       sidebar: {
-        // backgroundColor: '#34465d',
+        backgroundColor: '#34465d',
+      },
+    },
+    Logo: {
+      logo: {
+        color: '#FFF'
       }
     },
-    ComponentsListRenderer: {
-      item: {
-        // color: '#cfdfec'
+    Link: {
+      link: {
+        color: [['#cfdfec'], '!important']
       }
-    }
+    },
   },
   sections: [
     {
       name: 'UI Components',
       // content: 'docs/components.md',
       components: 'src/core/**/*.js',
-      exampleMode: 'expand', // 'hide' | 'collapse' | 'expand'
-      usageMode: 'expand' // 'hide' | 'collapse' | 'expand'
+      exampleMode: 'collapse', // 'hide' | 'collapse' | 'expand'
+      usageMode: 'collapse' // 'hide' | 'collapse' | 'expand'
     },
     {
       name: '配置',
@@ -69,15 +77,10 @@ module.exports = {
   // skipComponentsWithoutExample: true,
   template: {
     head: {
-      // scripts: [
-      //   {
-      //     src: 'assets/js/babelHelpers.min.js'
-      //   }
-      // ],
       links: [
         {
           rel: 'stylesheet',
-          // href: 'https://use.fontawesome.com/releases/v5.3.1/css/all.css'
+          href: 'https://use.fontawesome.com/releases/v5.3.1/css/all.css'
         }
       ]
     }
