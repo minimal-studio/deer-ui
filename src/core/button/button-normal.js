@@ -42,13 +42,21 @@ const Button = (props) => {
 
 Button.defaultProps = defaultProps;
 Button.propTypes = {
+  /** 是否加载中 */
   loading: PropTypes.bool,
+  /** 设置 btn 的 class */
   className: PropTypes.string,
+  /** 设置 btn 的 icon, 可以使用 iconMapper 来引用 */
   icon: PropTypes.string,
+  /** btn 的字 */
   text: PropTypes.string,
+  /** btn 的类型 */
   type: PropTypes.string,
+  /** btn 的颜色 [theme, red, gold...] */
   color: PropTypes.string,
+  /** 是否禁用 */
   disabled: PropTypes.bool,
+  /** 点击处理 */
   onClick: PropTypes.func.isRequired
 };
 

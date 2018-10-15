@@ -1,5 +1,8 @@
 import 'basic-helper';
 
+// if(process.env.STYLE_MODE === 'styleguidist') {
+//   require('../../style/default.scss');
+// }
 
 // finished
 import MultipleHelper from './multiple-selector';

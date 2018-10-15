@@ -9,7 +9,9 @@
     "copy-style": "cp -R ./style ./build/",
     "build:babel": "NODE_ENV=production babel ./src --out-dir ./build --ignore spec.js",
     "build:copy-files": "NODE_ENV=production babel-node ./scripts/copy-files.js",
-    "test": "jest"
+    "test": "jest",
+    "styleguide": "STYLE_MODE=styleguidist styleguidist server",
+    "styleguide:build": "STYLE_MODE=styleguidist styleguidist build"
   },
   "repository": {
     "type": "git",
@@ -21,11 +23,11 @@
   "author": "Alex",
   "license": "MIT",
   "peerDependencies": {
+    "prop-types": "^15.5.10",
     "react": "16.2.0",
     "react-dom": "16.2.0",
-    "unistore": "^3.0.6",
-    "prop-types": "^15.5.10",
-    "react-transition-group": "^2.2.0"
+    "react-transition-group": "^2.2.0",
+    "unistore": "^3.0.6"
   },
   "devDependencies": {
     "@babel/cli": "^7.0.0",
@@ -35,10 +37,29 @@
     "@babel/preset-env": "^7.0.0",
     "@babel/preset-react": "^7.0.0",
     "babel-core": "^7.0.0-bridge.0",
+    "babel-eslint": "^10.0.1",
     "babel-jest": "^23.6.0",
+    "eslint": "^5.6.1",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-loader": "^2.1.1",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-jsx-a11y": "^6.1.1",
+    "eslint-plugin-node": "^7.0.1",
+    "eslint-plugin-promise": "^4.0.1",
+    "eslint-plugin-react": "^7.11.1",
+    "fs-extra": "^7.0.0",
     "jest": "^23.6.0",
+    "mini-html-webpack-plugin": "^0.2.3",
+    "react": "16.2.0",
+    "react-dom": "16.2.0",
+    "react-hot-loader": "^4.3.11",
+    "react-styleguidist": "^7.3.10",
+    "react-transition-group": "^2.5.0",
     "regenerator-runtime": "^0.12.1",
-    "fs-extra": "^7.0.0"
+    "unistore": "^3.1.0",
+    "webpack": "^4.20.2",
+    "webpack-blocks": "^1.0.0",
+    "webpack-merge": "^4.1.4"
   },
   "dependencies": {
     "basic-helper": "^1.4.3",
