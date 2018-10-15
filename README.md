@@ -7,7 +7,7 @@
 
 ### 简易说明
 
-- [在线文档](https://ukelli.github.io/uklli-ui-document/#/globals/Overview/)
+- [在线文档](https://ukelli.github.io/ukelli-ui/index.html)
 - [更新日志](./docs/update-logs.md)
 - [关于 FormGenerator 的 UI 的逻辑](./docs/ui-logic.md)
 - [引入方式](./docs/import-desc.md)
