@@ -6,7 +6,7 @@ import {HasValue} from 'basic-helper';
 
 import positionFilter from '../position-filter';
 import SelectorBasic from './selector';
-import Icon from '../icon';
+import { Icon } from '../icon';
 
 const MenuItem = ({isActive, text, icon, ...other}) => {
   return (

@@ -2,7 +2,7 @@ import React, {Component, PureComponent} from 'react';
 import PropTypes from 'prop-types';
 
 import { DebounceClass, Call } from 'basic-helper';
-import Icon from '../icon';
+import { Icon } from '../icon';
 
 const TRANSTION_TIME = 2000;
 const defaultRotateX = $UKE.isMobile ? '200px' : '1600px';

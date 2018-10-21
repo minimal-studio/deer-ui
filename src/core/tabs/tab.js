@@ -1,7 +1,7 @@
 import React, {Component, PureComponent} from 'react';
 import PropTypes from 'prop-types';
 import { Call } from 'basic-helper';
-import Icon from '../icon';
+import { Icon } from '../icon';
 
 const Tab = ({label, icon, onClick, onChange, idx, labelClass = ''}) => {
   const iconDOM = icon ? (

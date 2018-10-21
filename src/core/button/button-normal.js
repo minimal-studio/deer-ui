@@ -3,7 +3,7 @@
 import React, {Component, PureComponent} from 'react';
 import PropTypes from 'prop-types';
 
-import Icon from '../icon';
+import { Icon } from '../icon';
 
 const defaultProps = {
   loading: false,

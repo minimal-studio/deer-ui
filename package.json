@@ -10,8 +10,8 @@
     "build:babel": "NODE_ENV=production babel ./src --out-dir ./build --ignore spec.js",
     "build:copy-files": "NODE_ENV=production babel-node ./scripts/copy-files.js",
     "test": "jest",
-    "styleguide": "styleguidist server",
-    "styleguide:build": "styleguidist build"
+    "styleguide": "NODE_ENV=development styleguidist server",
+    "styleguide:build": "NODE_ENV=production styleguidist build"
   },
   "repository": {
     "type": "git",

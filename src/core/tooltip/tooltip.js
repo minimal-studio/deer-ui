@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Call, DebounceClass } from 'basic-helper';
 
 import { PopoverEntity } from '../popover';
-import Icon from '../icon';
+import { Icon } from '../icon';
 
 const debounce = new DebounceClass();
 

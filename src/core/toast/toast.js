@@ -1,7 +1,7 @@
 import React, {Component, PureComponent} from 'react';
 import PropTypes from 'prop-types';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
-import Icon from '../icon';
+import { Icon } from '../icon';
 
 const TRANSTION_TIME = 200;
 

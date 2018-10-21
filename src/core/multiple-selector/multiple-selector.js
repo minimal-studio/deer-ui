@@ -1,7 +1,7 @@
 import React, {Component, PureComponent} from 'react';
 import PropTypes from 'prop-types';
 import { Call } from 'basic-helper';
-import Icon from '../icon';
+import { Icon } from '../icon';
 
 const ideaTipsGroup = [1, 5, 10, 100];
 

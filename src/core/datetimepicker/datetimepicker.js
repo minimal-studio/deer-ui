@@ -5,7 +5,7 @@ import { Call, DateFormat, GenerteID } from 'basic-helper';
 import Flatpickr from '../../libs/flatpickr';
 import '../../libs/flatpickr-zh';
 
-import Icon from '../icon';
+import { Icon } from '../icon';
 
 export default class DatetimePicker extends PureComponent {
   static propTypes = {

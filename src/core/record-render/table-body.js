@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Call } from 'basic-helper';
 
 import MapperFilter from './mapper-filter';
-import Icon from '../icon';
+import { Icon } from '../icon';
 
 export default class TableBody extends MapperFilter {
   static propTypes = {

@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 import { Call } from 'basic-helper';
 
 import { LoadScript } from '../config';
-import Loading from '../loading';
+import { Loading } from '../loading';
 import { ShowGlobalModal, CloseGlobalModal } from '../modal';
 
 const faceCount = 12;

@@ -1,7 +1,7 @@
 import React, {Component, PureComponent} from 'react';
 import PropTypes from 'prop-types';
 
-import Icon from '../icon';
+import { Icon } from '../icon';
 import SelectorBasic from './selector';
 import { getElementLeft, getElementTop } from '../set-dom';
 
