@@ -1,9 +1,5 @@
-import React from 'react';
+import Label from './label';
 
-const Label = ({text, color = 'blue', ...other}) => {
-  return (
-    <span className={"uke-label " + color} {...other}>{text}</span>
-  );
+export {
+  Label
 };
-
-export default Label;

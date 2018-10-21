@@ -14,9 +14,10 @@ module.exports = {
     babel(), postcss(), sass(),
     setEnv({
       NODE_ENV: process.env.NODE_ENV,
-      STYLE_MODE: process.env.STYLE_MODE,
+      // STYLE_MODE: process.env.STYLE_MODE,
     }),
   ]),
+  ignore: ['src/core/**/index.js'],
   styleguideDir: 'docs/',
   // components: 'src/core/**/**.js',
   require: [

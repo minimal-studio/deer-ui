@@ -1,19 +1,5 @@
-import React, {Component, PureComponent} from 'react';
-import PropTypes from 'prop-types';
+import Icon from './icon';
 
-import { getIcon } from '../config';
-
-const Icon = (props) => {
-  const {type, classNames = [], ...other} = props;
-  return (
-    <i
-      {...other}
-      className={getIcon(type, ['icon', ...classNames])} />
-  );
+export {
+  Icon
 };
-Icon.propTypes = {
-  type: PropTypes.string.isRequired,
-  classNames: PropTypes.array,
-};
-
-export default Icon;

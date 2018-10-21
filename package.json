@@ -10,8 +10,8 @@
     "build:babel": "NODE_ENV=production babel ./src --out-dir ./build --ignore spec.js",
     "build:copy-files": "NODE_ENV=production babel-node ./scripts/copy-files.js",
     "test": "jest",
-    "styleguide": "STYLE_MODE=styleguidist styleguidist server",
-    "styleguide:build": "STYLE_MODE=styleguidist styleguidist build"
+    "styleguide": "styleguidist server",
+    "styleguide:build": "styleguidist build"
   },
   "repository": {
     "type": "git",
@@ -39,7 +39,7 @@
     "babel-core": "^7.0.0-bridge.0",
     "babel-eslint": "^10.0.1",
     "babel-jest": "^23.6.0",
-    "eslint": "^5.6.1",
+    "eslint": "^5.7.0",
     "eslint-config-airbnb": "^17.1.0",
     "eslint-loader": "^2.1.1",
     "eslint-plugin-import": "^2.14.0",

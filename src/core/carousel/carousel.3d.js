@@ -8,7 +8,18 @@ const TRANSTION_TIME = 2000;
 const defaultRotateX = $UKE.isMobile ? '200px' : '1600px';
 const delayExec = new DebounceClass();
 
-export default class BannerCarousel extends Component {
+export default class BannerCarousel3D extends Component {
+  static propTypes = {
+    /**
+     * config: [
+     *   ...components
+     * ]
+     * @type {[type]}
+     */
+    config: PropTypes.array.isRequired,
+    isMobile: PropTypes.bool,
+    onClickItem: PropTypes.func
+  }
   constructor(props) {
     super(props);
 
@@ -202,15 +213,4 @@ export default class BannerCarousel extends Component {
       </div>
     )
   }
-}
-BannerCarousel.propTypes = {
-  /**
-   * config: [
-   *   ...components
-   * ]
-   * @type {[type]}
-   */
-  config: PropTypes.array.isRequired,
-  isMobile: PropTypes.bool,
-  onClickItem: PropTypes.func
 }
