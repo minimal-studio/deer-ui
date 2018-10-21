@@ -15,7 +15,7 @@ const values = {
 <DropdownMenu values={values}/>
 ```
 
-## 使用 FormController ，并且定义 FormOptions 传入的时候，需要清楚这个值的期望输出是什么，否则会对使用者造成困惑
+> 使用 FormController ，并且定义 FormOptions 传入的时候，需要清楚这个值的期望输出是什么，否则会对使用者造成困惑
 
 ```jsx static
 const formOptions = [

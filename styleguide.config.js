@@ -77,10 +77,10 @@ module.exports = {
       name: 'UI-logic',
       content: 'docs/ui-logic.md'
     },
-    {
-      name: 'Ukelli UI 引用说明',
-      content: 'docs/import-desc.md'
-    },
+    // {
+    //   name: 'Ukelli UI 引用说明',
+    //   content: 'docs/import-desc.md'
+    // },
     {
       name: '三方库引用说明',
       content: 'docs/third-party-lib-desc.md'
