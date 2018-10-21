@@ -3,20 +3,21 @@ import chKeyMapper from '../i18n/zh-CN';
 import enKeyMapper from '../i18n/en-US';
 import defaultIconMapper from './icon-mapper';
 
-let langConfig = {
+const langConfig = {
   'zh-CN': chKeyMapper,
   'en-US': enKeyMapper,
 };
-let defaultLanguage = 'zh-CN';
+const defaultLanguage = 'zh-CN';
+
 let language = defaultLanguage;
 
-let ukelliui = {
+const ukelliui = {
   getImage() {},
   getKeyMap(key) {
     return key;
   },
   getUkeKeyMap(key) {
-    let keyMapper = langConfig[language] || langConfig[defaultLanguage];
+    const keyMapper = langConfig[language] || langConfig[defaultLanguage];
     return keyMapper[key] || key;
   },
   queryCAPTCHAData() {},
@@ -86,7 +87,7 @@ export function setUkeLangConfig(config) {
 
 export function setUkelliConfig(config) {
   Object.assign(ukelliui, config);
-  window.$UKE && $UKE.registe(config);
+  window.$UKE && window.$UKE.registe(config);
   return ukelliui;
 }
 

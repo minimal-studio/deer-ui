@@ -1,10 +1,8 @@
-# Components Desc
-
 - 支持国际化
 
 分为外部 KeyMapper 和内部 UkeKeyMapper 两种情况，可以通过 setUkeLang 设置语言，默认提供 「中文」 和 「英语」 两种语言，也可以通过 setUkeLangConfig 设置更多的语言
 
-```js
+```jsx static
 import { setUkeLang, setUkeLangConfig } from 'ukelli-ui';
 
 setUkeLangConfig({
@@ -19,10 +17,10 @@ setUkeLang('zh-HK');
 
 Modal 提供可拖动模式
 
-```js
-import {ShowGlobalModal, CloseGlobalModal} from 'ukelli-ui';
+```jsx static
+import { ShowGlobalModal, CloseGlobalModal } from 'ukelli-ui';
 
-let ModalId = ShowGlobalModal({
+const ModalId = ShowGlobalModal({
   id: '', // 唯一 ID，如果是拖动模式，用于定位具体 Modal
   children: (
     <span></span>
@@ -42,7 +40,7 @@ Loading 组件提供两种模式，根据 inrow 参数做判定
 1. loading 前的 children 不会消失
 2. loading 时 children 消失
 
-```js
+```jsx static
 // inrow = false， 需要 loading 判定
 <Loading loading={bool} inrow={false}>
   {
@@ -55,7 +53,7 @@ Loading 组件提供两种模式，根据 inrow 参数做判定
 
 如果 inrow = true，不需要做 children 的 loading 判定
 
-```js
+```jsx static
 <Loading loading={bool} inrow={true}>
   <span></span>
 </Loading>
@@ -75,7 +73,7 @@ FormLayout、 FormGenerator、 ConditionGenerator 组件的 formOptions 或者 c
 
 注意: *文档需要列举所有 FormGenerator 支持的 type*
 
-```js
+```jsx static
 // 如果是异步获取的表单条件，需要做 loading 判定，以下为一个完整的表单渲染例子
 class Com extends Component {
   formOptions = []; // 不建议放入 state 中
@@ -190,7 +188,7 @@ class Com extends Component {
 
 新增一个 input-selector 查询条件类型，具体配置如下
 
-```js
+```jsx static
 this.conditionOptions = [{
   // refu 表示一个输入框中，多个前置条件的集合，与 selector 配置 values 一样的方式
   refu: {
@@ -211,7 +209,7 @@ this.conditionOptions = [{
 
 ChartDOM 组件需要设置对应的 chart js 下载路径
 
-```js
+```jsx static
 ChartCom.setChartJSPath(chartJsDownloadPath);
 ```
 
@@ -219,7 +217,7 @@ ChartCom.setChartJSPath(chartJsDownloadPath);
 
 Notify, CancelNotify 只要引入 'import * as UI from ukelli-ui' 就可以使用
 
-```js
+```jsx static
 import {Notify, CancelNotify} from 'ukelli-ui';
 
 // Notify 将返回 ID，可以提供取消
@@ -231,7 +229,7 @@ let notifyID = Notify({
     id: '',
     title: 'title',
     onClickTip: (config) => {}, // 如果有传入，则显示点击查看详情，并且触发此函数，
-  }, 
+  },
   handleClick: func
 });
 
@@ -240,7 +238,7 @@ CancelNotify(notifyID);
 
 或者使用 $GH.EventEmitter.emit 方法传入
 
-```js
+```jsx static
 $GH.EventEmitter.emit('NOTIGY', config) // config 配置与上述的一致
 ```
 
@@ -254,7 +252,7 @@ ukelli-ui/other/state-manager 提供通用的 react 组件 state 的管理，包
 
 以下为 ActionBasic 的实现方式，主要是用于处理业务请求
 
-```js
+```jsx static
 import StateManager from 'ukelli-ui/other/state-manager';
 
 export default class ActionBasic extends StateManager {
@@ -321,7 +319,7 @@ Radio 控件须传入 defaultValue 才会有选择，否则为空
 
 Carousel 轮播图
 
-```js
+```jsx static
 import {Carousel} from 'ukelli-ui';
 // css style config of carousel, 只有 3 个参数有效
 let styleConfig = {
@@ -415,8 +413,8 @@ let thumbRate = 15; // 缩略图的缩放比例，默认 15
 
 新增 Tip 组件
 
-```js
-import {Tip} from 'ukelli-ui';
+```jsx static
+import { Tip } from 'ukelli-ui';
 
 <Tip/>
 ```

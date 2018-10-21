@@ -3,10 +3,49 @@ import PropTypes from 'prop-types';
 
 import FormFilterHelper from './form-filter';
 
+/**
+ * 查询条件生成器
+ *
+ * @export
+ * @class ConditionGenerator
+ * @extends {FormFilterHelper}
+ */
 export default class ConditionGenerator extends FormFilterHelper {
   static propTypes = {
-    conditionConfig: PropTypes.arrayOf(PropTypes.object).isRequired,
+    /** 查询条件的配置 */
+    conditionConfig: PropTypes.arrayOf(
+      PropTypes.shape({
+        /** 该项的引用 ID */
+        ref: PropTypes.string,
+        /** 范围类的 ref 组合 */
+        refs: PropTypes.array,
+        /** 输入选择器的 ref 值，一个控件需要有变换 ref 的时候使用 */
+        refu: PropTypes.array,
+        /** 是否必填 */
+        required: PropTypes.bool,
+        /** 控件的类型 */
+        type: PropTypes.oneOf([
+          'customForm',
+          'captcha',
+          'select-n',
+          'select',
+          'input-selector',
+          'input-range',
+          'input',
+          'password',
+          'textarea',
+          'ranger',
+          'text',
+          'radio',
+          'button',
+          'datetime',
+          'datetimeRange',
+        ]),
+      })
+    ).isRequired,
+    /** 查询条件变化时的回调 */
     onChange: PropTypes.func,
+    /** className */
     className: PropTypes.string
   };
   titleDisplayFilter(config) {

@@ -5,9 +5,15 @@ import FormFilterHelper from './form-filter';
 
 export default class FormGenerator extends FormFilterHelper {
   static propTypes = {
-    formOptions: PropTypes.array.isRequired,
+    /** 表单配置 */
+    formOptions: PropTypes.arrayOf(
+      PropTypes.object
+    ).isRequired,
+    /** 是否移动端，开启移动端渲染 */
     isMobile: PropTypes.bool,
+    /** 是否显示 input 组建的 title */
     showInputTitle: PropTypes.bool,
+    /** 内容改变 */
     onChange: PropTypes.func,
   };
   formItemRefs = {};

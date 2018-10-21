@@ -29,6 +29,7 @@
     "react/jsx-tag-spacing": 0,
     "react/destructuring-assignment": 0,
     "react/no-unused-state": 0,
+    "react/require-default-props": 0,
     "react/display-name": 0,
     "react/jsx-max-props-per-line": 0,
     "react/jsx-first-prop-new-line": 0,

@@ -2,11 +2,23 @@ import React, {Component, PureComponent} from 'react';
 import PropTypes from 'prop-types';
 import { Call, RemoveArrayItem, IsFunc } from 'basic-helper';
 
+export const selectorValuesType = PropTypes.oneOfType([
+  PropTypes.shape({
+    value: 'text'
+  }),
+  PropTypes.arrayOf(
+    PropTypes.shape({
+      text: 'text',
+      value: 'value'
+    })
+  )
+]);
+
 export default class SelectorBasic extends Component {
   static propTypes = {
+    values: selectorValuesType.isRequired,
     defaultValue: PropTypes.any,
     className: PropTypes.string,
-    values: PropTypes.any,
     value: PropTypes.any,
     isNum: PropTypes.bool,
     isMultiple: PropTypes.bool,

@@ -5,10 +5,17 @@ import { DebounceClass, Call } from 'basic-helper';
 import { Icon } from '../icon';
 
 const TRANSTION_TIME = 2000;
-const defaultRotateX = $UKE.isMobile ? '200px' : '1600px';
+const defaultRotateX = window.$UKE.isMobile ? '200px' : '1600px';
 const delayExec = new DebounceClass();
 
-export default class BannerCarousel3D extends Component {
+/**
+ * 3D 效果的轮播控件，暂时没有用
+ *
+ * @export
+ * @class Carousel3D
+ * @extends {Component}
+ */
+export default class Carousel3D extends Component {
   static propTypes = {
     /**
      * config: [
@@ -29,7 +36,7 @@ export default class BannerCarousel3D extends Component {
       bannerTotalWidth: 0,
       rotateIdx: 0,
       carouselRotateY: 0
-    }
+    };
     this.timer = null;
     this.freq = 5000;
 
@@ -65,7 +72,7 @@ export default class BannerCarousel3D extends Component {
   }
   startLoop() {
     var self = this;
-    if(!!this.timer) this.stopLoop();
+    if(this.timer) this.stopLoop();
     this.timer = setInterval(() => {
       const {activeIdx} = this.state;
       /**
@@ -119,11 +126,11 @@ export default class BannerCarousel3D extends Component {
       Call(onChange, nextIdx);
     });
   }
-  handleTouchStart(e) {
+  handleTouchStart = (e) => {
     const touches = e.changedTouches || e;
     this.startPageX = touches[0] ? touches[0].pageX : touches.pageX;
   }
-  handleTouchEnd(e) {
+  handleTouchEnd = (e) => {
     const {activeIdx} = this.state;
     const touches = e.changedTouches || e;
     this.endPageX = touches[0] ? touches[0].pageX : touches.pageX;
@@ -168,8 +175,8 @@ export default class BannerCarousel3D extends Component {
             // 'transform': `translateZ(-${defaultRotateX})`,
           }}>
           <div className="carousel" style={{
-              'transform': `rotateY(${carouselRotateY}deg)`,
-            }}>
+            'transform': `rotateY(${carouselRotateY}deg)`,
+          }}>
             <div>
               {
                 this._loopConfig.map((item, idx) => {
@@ -186,7 +193,7 @@ export default class BannerCarousel3D extends Component {
                         {item}
                       </div>
                     </div>
-                  )
+                  );
                 })
               }
             </div>
@@ -195,10 +202,10 @@ export default class BannerCarousel3D extends Component {
         {
           isMobile ? (
             <div className="section-mark"
-              onMouseDown={this.handleTouchStart.bind(this)}
-              onMouseUp={this.handleTouchEnd.bind(this)}
-              onTouchStart={this.handleTouchStart.bind(this)}
-              onTouchEnd={this.handleTouchEnd.bind(this)}></div>
+              onMouseDown={this.handleTouchStart}
+              onMouseUp={this.handleTouchEnd}
+              onTouchStart={this.handleTouchStart}
+              onTouchEnd={this.handleTouchEnd} />
           ) : [
             <div className="func-btn prev-btn" key="prev"
               onClick={e => this.rollAndEmitChangeEvent(activeIdx + 1)}>
@@ -211,6 +218,6 @@ export default class BannerCarousel3D extends Component {
           ]
         }
       </div>
-    )
+    );
   }
 }

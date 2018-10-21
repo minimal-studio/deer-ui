@@ -10,8 +10,8 @@ import React, {Component, PureComponent} from 'react';
 import PropTypes from 'prop-types';
 
 import Button from '../button/button-normal';
-import TipPanel from '../tip-panel';
-import Toast from '../toast';
+import TipPanel from '../tip-panel/tip-panel';
+import Toast from '../toast/toast';
 import FormGenerator from './form-generator';
 
 /**
@@ -26,24 +26,51 @@ import FormGenerator from './form-generator';
 
 export default class FormLayout extends Component {
   static propTypes = {
-    formOptions: PropTypes.array.isRequired,
+    /** FormGenerator 的配置 */
+    formOptions: PropTypes.arrayOf(
+      PropTypes.object
+    ).isRequired,
   
+    /** 只有一个操作按钮的 sumbit 回调 */
     onSubmit: PropTypes.func,
+    /** FormGenerator 的变化回调 */
     onChange: PropTypes.func,
+    /** 只有一个按钮时传入的按钮 text */
     btnText: PropTypes.string,
+    /** FormLayout 的 className */
     className: PropTypes.string,
   
+    /** 是否已准备好渲染 */
     ready: PropTypes.bool,
-    tipInfo: PropTypes.object,
-    btnConfig: PropTypes.array,
+    /** 传入 TipPanel 控件的参数 */
+    tipInfo: PropTypes.shape({
+      text: PropTypes.any,
+      texts: PropTypes.array,
+      title: PropTypes.any,
+    }),
+    /** 可以配置一个或多个操作按钮 */
+    btnConfig: PropTypes.arrayOf(
+      PropTypes.shape({
+        action: PropTypes.func,
+        text: PropTypes.string,
+        /** 记录该按钮的状态 */
+        actingRef: PropTypes.string,
+      })
+    ),
   
+    /** 是否竖立显示 */
     isVertical: PropTypes.bool,
+    /** 是否移动端 */
     isMobile: PropTypes.bool,
   
+    /** 操作的返回是否有错误 */
     hasErr: PropTypes.bool,
+    /** 操作返回的消息 */
     resDesc: PropTypes.string,
   
+    /** 在 form 之前插入的 children */
     childrenBeforeForm: PropTypes.any,
+    /** 在 form 之后插入的 children */
     childrenAfterForm: PropTypes.any,
   };
   isShowedDesc = false;

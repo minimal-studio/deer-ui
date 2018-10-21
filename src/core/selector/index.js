@@ -1,7 +1,7 @@
 import DropdownMenu from './dropdown-menu';
 import Radio from './radio';
-import SelectorBasic from './selector';
+import SelectorBasic, { selectorValuesType } from './selector';
 
 export {
-  DropdownMenu, Radio, SelectorBasic
+  DropdownMenu, Radio, SelectorBasic, selectorValuesType
 };

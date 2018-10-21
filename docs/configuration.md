@@ -1,8 +1,8 @@
-# 配置说明
+## 配置说明
 
 Ukelli UI 提供一个 setUkelliConfig 接口，设置 UI 库内部结构
 
-```js
+```jsx static
 import { setUkelliConfig } from 'ukelli-ui';
 
 setUkelliConfig({

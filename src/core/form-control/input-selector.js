@@ -3,11 +3,26 @@ import PropTypes from 'prop-types';
 
 import Input from './input';
 import Selector from '../selector/dropdown-menu';
+import { selectorValuesType } from '../selector/selector';
 
+/**
+ * 选择器 + 输入控件
+ *
+ * @export
+ * @class InputSelector
+ * @extends {Component}
+ */
 export default class InputSelector extends Component {
   static propTypes = {
-    values: PropTypes.any,
+    /** 通用 selector 的 values 配置参数 */
+    values: selectorValuesType,
+    onChange: PropTypes.func,
+    /** 传入 input 控件的 props */
+    inputProps: PropTypes.object,
   };
+  static defaultProps = {
+    inputProps: {},
+  }
   constructor(props) {
     super(props);
 

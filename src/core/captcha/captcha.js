@@ -4,17 +4,28 @@ import { Call } from 'basic-helper';
 
 import Input from '../form-control/input';
 
-export default class CAPTCHA extends Component {
+/**
+ * 验证码，需要先通过 setUkelliConfig 设置获取验证码的方式
+ *
+ * @export
+ * @class Captcha
+ * @extends {Component}
+ */
+export default class Captcha extends Component {
   static propTypes = {
     onError: PropTypes.func,
     onChange: PropTypes.func,
     onCaptchaLoad: PropTypes.func,
     onBlur: PropTypes.func,
+    /** 与 react 受控控件行为一致 */
     value: PropTypes.string,
     icon: PropTypes.string,
     limit: PropTypes.number,
-    scale: PropTypes.string,
   };
+  static defaultProps = {
+    limit: 4,
+    icon: 'security',
+  }
   constructor(props) {
     super(props);
     this.state = {
@@ -66,7 +77,7 @@ export default class CAPTCHA extends Component {
   }
   componentWillUnmount() {
     this.__unmount = true;
-    this.clearTimeout()
+    this.clearTimeout();
   }
   clearTimeout() {
     this.getCaptchaTimer && clearTimeout(this.getCaptchaTimer);
@@ -104,7 +115,7 @@ export default class CAPTCHA extends Component {
   render() {
     let gm = window.$UKE.getUkeKeyMap;
     const {captchaImg, captchaValue, loading} = this.state;
-    const {value = '', icon = 'security'} = this.props;
+    const {value, icon} = this.props;
     const _captchaValue = this.isControl ? value : captchaValue;
 
     let hasCap = !!captchaImg;

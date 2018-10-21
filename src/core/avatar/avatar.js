@@ -118,17 +118,37 @@ class CroppieHelper extends PureComponent {
   }
 }
 
+/**
+ * Avatar Component，依赖 Croppie 三方库作为自定义图片，需要设置 Croppie 的地址 
+ *
+ * @export
+ * @class Avatar
+ * @extends {PureComponent}
+ */
 export default class Avatar extends PureComponent {
+  /**
+   * 设置 Croppie 库的获取地址
+   *
+   * @static
+   * @memberof Avatar
+   * @public
+   */
   static setCroppieUrl = (url) => {
     croppieUrl = url;
   };
   static propTypes = {
-    size: PropTypes.string,
+    size: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
+    ]),
     text: PropTypes.string,
     changeAvatarable: PropTypes.bool,
     faceId: PropTypes.any,
     onChangeAvatar: PropTypes.func
   };
+  static defaultProps = {
+    size: 50
+  }
   constructor(props) {
     super(props);
     this.state = {
@@ -158,10 +178,10 @@ export default class Avatar extends PureComponent {
     this.togglePanel(false);
   }
   customUpload = e => {
-    let gm = $UKE.getUkeKeyMap;
+    const gm = window.$UKE.getUkeKeyMap;
     e.preventDefault();
     e.stopPropagation();
-    let modalId = ShowGlobalModal({
+    const modalId = ShowGlobalModal({
       // type: "confirm",
       width: 400,
       children: (
@@ -181,7 +201,7 @@ export default class Avatar extends PureComponent {
       changeAvatarable = false
     } = this.props;
     const { isShow } = this.state;
-    let gm = window.$UKE.getUkeKeyMap;
+    const gm = window.$UKE.getUkeKeyMap;
 
     const {avatarImgMap, getImage} = window.$UKE;
 
@@ -207,17 +227,20 @@ export default class Avatar extends PureComponent {
       </div>
     ) : null;
 
-    let isBase64Img = (faceId + '').indexOf('data') > -1;
-    let hasImg = isBase64Img || !!avatarImgMap;
-    let bgStyle = hasImg ? {
+    const isBase64Img = (faceId + '').indexOf('data') > -1;
+    const hasImg = isBase64Img || !!avatarImgMap;
+    const sizeStyle = {
+      width: size, height: size
+    };
+    const bgStyle = hasImg ? {
       backgroundImage: `url(${isBase64Img ? faceId : `${getImage(avatarImgMap, faceId)}.jpg`})`
     } : {};
 
     return (
       <span className="avatar-helper">
         <span
-          className={"avatar fixbg" + (size ? " " + size : "")}
-          style={bgStyle}
+          className="avatar fixbg"
+          style={Object.assign({}, sizeStyle, bgStyle)}
           onClick={e => this.togglePanel(!isShow)}>
           {text}
         </span>

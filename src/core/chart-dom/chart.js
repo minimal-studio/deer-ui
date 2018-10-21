@@ -7,6 +7,13 @@ import Loading from '../loading';
 let chartjsURL = '';
 
 export default class ChartCom extends PureComponent {
+  /**
+   * 设置 Chart js 库的获取地址
+   *
+   * @static
+   * @memberof ChartCom
+   * @public
+   */
   static setChartJSPath = (path) => {
     chartjsURL = path.replace(/\/$/, "/");
   };

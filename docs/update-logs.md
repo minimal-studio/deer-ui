@@ -1,10 +1,8 @@
-# update logs
-
 ## 2.5.12
 
 - 优化 TableBody 实现，新增 checkbox 组件
 
-```js
+```jsx static
 import { TableBody } from 'ukelli-ui';
 
 <TableBody
@@ -26,7 +24,7 @@ import { TableBody } from 'ukelli-ui';
 - 优化大部分组件的样式
 - 整理 icon 的引用，设置了默认的 iconMapper
 
-```js
+```jsx static
 // icon 使用了 awsome icon 库
 let defaultIconMapper = {
   arrow: 'angle-left',
@@ -50,8 +48,9 @@ let defaultIconMapper = {
 
 可以设置加载的路径
 
-```js
-import {Avatar} from 'ukelli-ui';
+```jsx static
+import { Avatar } from 'ukelli-ui';
+
 Avatar.setCroppieUrl(loadUrl);
 ```
 
@@ -63,7 +62,7 @@ Avatar.setCroppieUrl(loadUrl);
 
 分为外部 KeyMapper 和内部 UkeKeyMapper 两种情况，可以通过 setUkeLang 设置语言，默认提供 「中文」 和 「英语」 两种语言，也可以通过 setUkeLangConfig 设置更多的语言
 
-```js
+```jsx static
 import { setUkeLang, setUkeLangConfig } from 'ukelli-ui';
 
 setUkeLangConfig({
@@ -102,7 +101,7 @@ setUkeLang('zh-HK');
 
 使用方式
 
-```
+```jsx static
 import {StateManager} from 'ukelli-ui/other/state-manager';
 
 1. 继承 StateManager

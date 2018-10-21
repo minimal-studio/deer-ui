@@ -4,18 +4,38 @@ import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import { Call } from 'basic-helper';
 import { Icon } from '../icon';
 
-export default class BannerCarousel extends Component {
+/**
+ * 轮播控件
+ *
+ * @export
+ * @class Carousel
+ * @extends {Component}
+ */
+export default class Carousel extends Component {
   static propTypes = {
-    carouselItems: PropTypes.arrayOf(PropTypes.object).isRequired,
+    /** 轮播的具体内容，格式如下 */
+    carouselItems: PropTypes.arrayOf(PropTypes.shape({
+      /** 如果同时设置了 imgUrl 和 element */
+      imgUrl: PropTypes.string,
+      /** 优先渲染 element */
+      element: PropTypes.element,
+      action: PropTypes.func
+    })).isRequired,
+    /** 可设置的 style */
     styleConfig: PropTypes.shape({
       width: PropTypes.any,
       height: PropTypes.any,
       margin: PropTypes.any
     }).isRequired,
+    /** 预留的操作 class */
     actionClass: PropTypes.string,
+    /** 动画的 css name，可以自由设置 */
     transitionName: PropTypes.string,
+    /** 是否移动版，如果是，则渲染左右切换按钮 */
     isMobile: PropTypes.bool,
+    /** 过场动画的持续时间 */
     transitionTimer: PropTypes.number,
+    /** 缩略图和大图的缩小比例 */
     thumbRate: PropTypes.number,
   };
   static defaultProps = {
@@ -23,8 +43,6 @@ export default class BannerCarousel extends Component {
     transitionName: 'banner',
     transitionTimer: 600,
     thumbRate: 15,
-  };
-  static defaultProps = {
     isMobile: false
   };
   constructor(props) {
@@ -35,12 +53,12 @@ export default class BannerCarousel extends Component {
     this.state = {
       activeIdx: defaultIdx,
       toNext: true,
-      activeBannerItem: carouselItems[defaultIdx],
+      activeItem: carouselItems[defaultIdx],
     };
     this.timer = null;
     this.freq = 5000;
     this.isStarted = false;
-    this.bannerItemWidth = styleConfig.width;
+    this.itemWidth = styleConfig.width;
 
     this.mobileEvents = {
       onMouseDown: this.handleTouchStart,
@@ -86,22 +104,26 @@ export default class BannerCarousel extends Component {
       return {
         activeIdx: idx,
         toNext,
-        activeBannerItem: carouselItems[idx] || <span/>
+        activeItem: carouselItems[idx] || <span/>
       };
     });
     this.startLoop();
   }
   genCarouselDOM(currItem, idx, imgStyle) {
-    const {styleConfig, actionClass} = this.props;
-    const {width, height} = imgStyle || styleConfig;
-    let { imgUrl } = currItem;
-    const objStyle = {width, height};
+    const { styleConfig, actionClass } = this.props;
+    const { width, height } = imgStyle || styleConfig;
+    const { imgUrl, element } = currItem;
+    const objStyle = { width, height };
     objStyle['backgroundImage'] = `url(${imgUrl})`;
     return (
       <div className={actionClass} key={idx}>
-        <div
-          className="img"
-          style={objStyle} />
+        {
+          element ? element : (
+            <div
+              className="img"
+              style={objStyle} />
+          )
+        }
       </div>
     );
   }
@@ -123,8 +145,8 @@ export default class BannerCarousel extends Component {
     this.setActiveIdx(activeIdx + (toNext ? - 1 : 1));
   }
   showDetail(activeIdx) {
-    const {activeBannerItem} = this.state;
-    Call(activeBannerItem.action, activeBannerItem, activeIdx);
+    const {activeItem} = this.state;
+    Call(activeItem.action, activeItem, activeIdx);
   }
 
   render() {
@@ -139,7 +161,7 @@ export default class BannerCarousel extends Component {
         <span className="no-banner" />
       );
     }
-    const {activeIdx, toNext, activeBannerItem} = this.state;
+    const {activeIdx, toNext, activeItem} = this.state;
 
     const {width, height, margin} = styleConfig;
     const imgWHRate = width / height;
@@ -158,7 +180,7 @@ export default class BannerCarousel extends Component {
             classNames={transitionName + '-to-' + (toNext ? 'next' : 'prev')}
             timeout={transitionTimer}>
             <div className="carousel-item" {...this.mobileEvents}>
-              {this.genCarouselDOM(activeBannerItem, activeIdx)}
+              {this.genCarouselDOM(activeItem, activeIdx)}
             </div>
           </CSSTransition>
         </TransitionGroup>

@@ -1,4 +1,4 @@
-# import 方式
+## import 方式
 
 ## 结构
 
@@ -7,7 +7,7 @@
 
 ## /core 中各个组件的引入方式
 
-```js
+```jsx static
 import CitySelector from 'ukelli-ui/core/city-selector';
 import MultipleHelper from 'ukelli-ui/core/multiple-selector';
 import Avatar from 'ukelli-ui/core/avatar';
@@ -24,24 +24,24 @@ import TipBtn from 'ukelli-ui/core/tip-button';
 import Icon from 'ukelli-ui/core/icon';
 import Label from 'ukelli-ui/core/label';
 
-import {Notify, CancelNotify, Notification} from 'ukelli-ui/core/notification';
+import { Notify, CancelNotify, Notification } from 'ukelli-ui/core/notification';
 
-import {Popover, GlobalPopover, PopoverEntity} from 'ukelli-ui/core/popover';
-import {FormGenerator, FormFilter, FormLayout, ConditionGenerator} from 'ukelli-ui/core/form-generator';
-import {DatepickerHelper, DatetimePicker} from 'ukelli-ui/core/datetimepicker';
-import {Input, IconInput} from 'ukelli-ui/core/form-control';
-import {Button} from 'ukelli-ui/core/button';
-import {MapperFilter, TableBody, RecordItemsHelper, DescHelper} from 'ukelli-ui/core/record-render';
-import {Tab, Tabs} from 'ukelli-ui/core/tabs';
-import {Modal, ModalHelper, ShowGlobalModal, CloseGlobalModal} from 'ukelli-ui/core/modal';
-import {DropdownMenu, Radio} from 'ukelli-ui/core/selector';
+import { Popover, GlobalPopover, PopoverEntity } from 'ukelli-ui/core/popover';
+import { FormGenerator, FormFilter, FormLayout, ConditionGenerator } from 'ukelli-ui/core/form-generator';
+import { DatepickerHelper, DatetimePicker } from 'ukelli-ui/core/datetimepicker';
+import { Input, IconInput } from 'ukelli-ui/core/form-control';
+import { Button } from 'ukelli-ui/core/button';
+import { MapperFilter, TableBody, RecordItemsHelper, DescHelper } from 'ukelli-ui/core/record-render';
+import { Tab, Tabs } from 'ukelli-ui/core/tabs';
+import { Modal, ModalHelper, ShowGlobalModal, CloseGlobalModal } from 'ukelli-ui/core/modal';
+import { DropdownMenu, Radio } from 'ukelli-ui/core/selector';
 ```
 
 ## /other 引入方式
 
-```js
-import {Ball} from 'ukelli-ui/other/ball';
-import {Countdown, CountdownBg} from 'ukelli-ui/other/countdown';
-import {QRCode} from 'ukelli-ui/other/qrcode';
+```jsx static
+import { Ball } from 'ukelli-ui/other/ball';
+import { Countdown, CountdownBg } from 'ukelli-ui/other/countdown';
+import { QRCode } from 'ukelli-ui/other/qrcode';
 import StateManager from 'ukelli-ui/other/state-manager';
 ```

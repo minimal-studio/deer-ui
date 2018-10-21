@@ -1,7 +1,7 @@
 import React, {Component, PureComponent} from 'react';
 import PropTypes from 'prop-types';
 
-import SelectorBasic from './selector';
+import SelectorBasic, { selectorValuesType } from './selector';
 
 export default class Radio extends SelectorBasic {
   static getDefaultValue(values) {
@@ -14,7 +14,7 @@ export default class Radio extends SelectorBasic {
     return result;
   }
   static propTypes = {
-    values: PropTypes.any.isRequired,
+    values: selectorValuesType,
     onChange: PropTypes.func.isRequired,
     isMultiple: PropTypes.bool,
     checkAllBtn: PropTypes.bool,

@@ -6,16 +6,42 @@ import { Icon } from '../icon';
 
 let defaultShowInputTitle = true;
 
+/**
+ * 通用输入的封装控件
+ *
+ * @export
+ * @class Input
+ * @extends {Component}
+ */
 export default class Input extends Component {
   static propTypes = {
+    /** 是否必填项 */
     required: PropTypes.bool,
+    /** 是否显示 title */
     showTitle: PropTypes.bool,
+    /** 输入框的 icon */
     icon: PropTypes.string,
+    /** 输入框类型 */
     type: PropTypes.string,
     placeholder: PropTypes.string,
     className: PropTypes.string,
+    defaultValue: PropTypes.oneOfType([
+      PropTypes.number,
+      PropTypes.string,
+    ]),
+    value: PropTypes.oneOfType([
+      PropTypes.number,
+      PropTypes.string,
+    ]),
+    /** 输入框的 props */
     inputProps: PropTypes.object,
-    inputBtnConfig: PropTypes.object,
+    /** 输入框右侧的按钮配置 */
+    inputBtnConfig: PropTypes.shape({
+      /** 传入 input 的 target */
+      action: PropTypes.func,
+      text: PropTypes.string,
+      className: PropTypes.string,
+    }),
     onChange: PropTypes.func,
     onFocus: PropTypes.func,
     onBlur: PropTypes.func,
@@ -25,6 +51,10 @@ export default class Input extends Component {
     className: 'form-control',
     type: 'input',
   }
+  /**
+   * 设置 input 控件的默认行为
+   * @public
+   */
   static setConfig = ({showTitle}) => {
     defaultShowInputTitle = showTitle;
   };

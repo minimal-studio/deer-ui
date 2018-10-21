@@ -5,7 +5,7 @@ import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import {HasValue} from 'basic-helper';
 
 import positionFilter from '../position-filter';
-import SelectorBasic from './selector';
+import SelectorBasic, { selectorValuesType } from './selector';
 import { Icon } from '../icon';
 
 const MenuItem = ({isActive, text, icon, ...other}) => {
@@ -39,9 +39,9 @@ const itemActiveFilter = (val, targetVal) => {
 
 export default class DropdownMenu extends SelectorBasic {
   static propTypes = {
+    values: selectorValuesType,
     defaultValue: PropTypes.any,
     className: PropTypes.string,
-    values: PropTypes.any,
     value: PropTypes.any,
     isNum: PropTypes.bool,
     inRow: PropTypes.bool,
