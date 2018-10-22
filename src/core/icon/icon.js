@@ -12,8 +12,10 @@ const Icon = (props) => {
   );
 };
 Icon.propTypes = {
+  /** icon name */
   type: PropTypes.string.isRequired,
-  classNames: PropTypes.array,
+  /** multiple class names */
+  classNames: PropTypes.arrayOf(PropTypes.string),
 };
 
 export default Icon;

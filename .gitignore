@@ -46,14 +46,6 @@ tmp
 log.txt
 # build/
 
-# dist
-# server/lib
-build/js/section.bundle.js
-build/js/jump.rechange.bundle.js
-build/js/navigation.bundle.js
-
-testStyle.css
-
 todo
 complexGameplayTitle.txt
 complexLotsTitle.txt

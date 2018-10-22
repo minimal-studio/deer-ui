@@ -5,3 +5,7 @@
 参考
 
 - [fontawesome](https://fontawesome.com/icons?d=gallery&m=free)
+
+```js
+<Icon type="balance-scale" />
+```
