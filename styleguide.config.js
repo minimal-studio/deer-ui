@@ -39,25 +39,28 @@ module.exports = {
     path.join(__dirname, 'style/default.scss'),
     path.join(__dirname, 'styleguide/style.scss'),
   ],
-  styles: {
-    // StyleGuide: {
-    //   sidebar: {
-    //     backgroundColor: '#313b48',
-    //   },
-    // },
-    // Logo: {
-    //   logo: {
-    //     color: '#FFF',
-    //     borderBottom: 0,
-    //   }
-    // },
-    // Link: {
-    //   link: {
-    //     color: [['#cfdfec'], '!important']
-    //   }
-    // },
-  },
+  // styles: {
+  //   StyleGuide: {
+  //     sidebar: {
+  //       backgroundColor: '#313b48',
+  //     },
+  //   },
+  //   Logo: {
+  //     logo: {
+  //       color: '#FFF',
+  //       borderBottom: 0,
+  //     }
+  //   },
+  //   Link: {
+  //     link: {
+  //       color: [['#cfdfec'], '!important']
+  //     }
+  //   },
+  // },
   sections: [
+    {
+      content: 'docs/ref.md'
+    },
     {
       name: 'UI Components',
       // content: 'docs/components.md',
