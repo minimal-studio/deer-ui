@@ -37,29 +37,25 @@ module.exports = {
   // components: 'src/core/**/**.js',
   require: [
     path.join(__dirname, 'style/default.scss'),
+    path.join(__dirname, 'styleguide/style.scss'),
   ],
-  // theme: {
-  //   color: {
-  //     sidebarBackground: '#34465d',
-  //     link: '#cfdfec'
-  //   }
-  // },
   styles: {
-    StyleGuide: {
-      sidebar: {
-        backgroundColor: '#34465d',
-      },
-    },
-    Logo: {
-      logo: {
-        color: '#FFF'
-      }
-    },
-    Link: {
-      link: {
-        color: [['#cfdfec'], '!important']
-      }
-    },
+    // StyleGuide: {
+    //   sidebar: {
+    //     backgroundColor: '#313b48',
+    //   },
+    // },
+    // Logo: {
+    //   logo: {
+    //     color: '#FFF',
+    //     borderBottom: 0,
+    //   }
+    // },
+    // Link: {
+    //   link: {
+    //     color: [['#cfdfec'], '!important']
+    //   }
+    // },
   },
   sections: [
     {
