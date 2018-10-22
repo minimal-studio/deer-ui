@@ -91,6 +91,8 @@ function ShowGlobalModal(options) {
   let gm = window.$UKE.getUkeKeyMap;
 
   const {
+    className = 'fixed',
+    topClassName = 'top-modal-opend',
     type, confirmText = gm('确定') + '?', title, showFuncBtn = true,
     width = window.$UKE.isMobile ? '90%' : 600, id, children, draggable,
     onConfirm
@@ -144,6 +146,8 @@ function ShowGlobalModal(options) {
             width
           });
         }}
+        topClassName={topClassName}
+        className={className}
         {...options}
         onCloseModal={e => {
           CloseGlobalModal(entityId);

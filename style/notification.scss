@@ -27,8 +27,9 @@ $itemW: 360px;
 }
 
 #NOTIFICATION_CONTAINER {
-  // .scroll-content {
-  // }
+  .scroll-content {
+    transition: padding 0.2s ease;
+  }
 
   .notify-group {
     position: fixed;

@@ -21,20 +21,39 @@ export default class Modal extends DragPanelClass {
     children: null,
   };
   static propTypes = {
+    /** title */
     title: PropTypes.string,
-    width: PropTypes.any,
+    /** 宽度 */
+    width: PropTypes.oneOfType([
+      PropTypes.string, PropTypes.number
+    ]),
+    /** 动画的持续时间 */
     duration: PropTypes.number,
-    idx: PropTypes.any,
+    /** 当前 modal 的 index */
+    idx: PropTypes.oneOfType([
+      PropTypes.string, PropTypes.number
+    ]),
+    /** class name */
     className: PropTypes.string,
+    /** 当 modal 打开是，在 body 挂载的 class name */
     topClassName: PropTypes.string,
+    /** 是否点击背景关闭 modal */
     clickBgToClose: PropTypes.bool,
+    /** 是否可拖拽模式的 modal */
     draggable: PropTypes.bool,
+    /** 是否需要 mask 背景 */
     needMask: PropTypes.bool,
+    /** 是否渲染关闭 modal 的按钮 */
     showCloseBtn: PropTypes.bool,
+    /** 当前 modal 是否打开 */
     isOpen: PropTypes.bool.isRequired,
-    Header: PropTypes.any,
+    /** 头部插件，传入未事例化的组件 */
+    Header: PropTypes.func,
+    /** 关闭 modal 时的回调 */
     onCloseModal: PropTypes.func.isRequired,
+    /** 关闭 modal */
     onClose: PropTypes.func,
+    /** 是否使用 esc 按键关闭 modal */
     shouldCloseOnEsc: PropTypes.bool,
   };
   state = {...this.state};

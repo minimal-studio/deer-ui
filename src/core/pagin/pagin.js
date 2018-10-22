@@ -1,38 +1,88 @@
 import React, {Component, PureComponent} from 'react';
 import PropTypes from 'prop-types';
 
-const prevBtnCount = 3;
-const lastBtnCount = 3;
-
-export default class PagingBtn extends Component {
+export default class Pagination extends Component {
   static propTypes = {
+    /** 分页的存储数据，可以为不确定的结构，通过 infoMapper 做映射 */
     pagingInfo: PropTypes.object.isRequired,
+    /** 由于不确定远端分页数据具体字段，所以有分页数据的字段映射 */
+    infoMapper: PropTypes.shape({
+      /** 当前第几页 */
+      pIdx: PropTypes.string,
+      /** 每页多少项 */
+      pSize: PropTypes.string,
+      /** 一共多少项 */
+      total: PropTypes.string,
+      /** 是否激活分页 */
+      active: PropTypes.string,
+    }),
+    /** 是否需要辅助分页的按钮 */
     isNeedHelper: PropTypes.bool,
+    /** 前面的按钮数量 */
+    prevBtnCount: PropTypes.number,
+    /** 后面的按钮数量 */
+    lastBtnCount: PropTypes.number,
+    /** 分页切换时的回调 */
     onPagin: PropTypes.func.isRequired
   };
-  changePagin(pIdx, pSize) {
-    const {pagingInfo, onPagin} = this.props;
-    const {PageIndex, PageSize, AllCount} = pagingInfo;
-    if (pIdx == PageIndex && PageSize == pSize) return;
-    if((pIdx < 0 || pIdx * PageSize > AllCount - 1 || PageIndex == pIdx) && !pSize) return;
-    let nextPagin = Object.assign({}, pagingInfo, {
-      PageIndex: pSize ? 0 : +(pIdx),
-      PageSize: +(pSize) || PageSize
+  static defaultProps = {
+    infoMapper: {
+      pIdx: 'PageIndex',
+      pSize: 'PageSize',
+      total: 'AllCount',
+      active: 'UsePagin',
+    },
+    isNeedHelper: true,
+    prevBtnCount: 3,
+    lastBtnCount: 3,
+  }
+  infoTranslate(nextPaginInfo) {
+    const { pagingInfo, infoMapper } = this.props;
+    const { pIdx, pSize, total, active } = infoMapper;
+
+    return nextPaginInfo ? {
+      [infoMapper.pIdx]: nextPaginInfo.pIdx,
+      [infoMapper.pSize]: nextPaginInfo.pSize,
+      [infoMapper.total]: nextPaginInfo.total,
+      [infoMapper.active]: nextPaginInfo.active,
+    } : {
+      pIdx: pagingInfo[pIdx],
+      pSize: pagingInfo[pSize],
+      total: pagingInfo[total],
+      active: pagingInfo[active],
+    };
+  }
+  changePagin(nextIdx, nextSize) {
+    const pagingInfo = this.infoTranslate();
+    const { onPagin } = this.props;
+    const { pIdx, pSize, total } = pagingInfo;
+    
+    if (nextIdx == pIdx && pSize == nextSize) return;
+    if((nextIdx < 0 || nextIdx * pSize > total - 1 || pIdx == nextIdx) && !nextSize) return;
+
+    const nextPagin = Object.assign({}, pagingInfo, {
+      pIdx: nextSize ? 0 : +(nextIdx),
+      pSize: +(nextSize) || pSize
     });
-    onPagin(nextPagin);
+    
+    onPagin(this.infoTranslate(nextPagin));
   }
   render () {
-    const {isNeedHelper = true, pagingInfo, onPagin} = this.props;
-    const {AllCount, UsePaging, PageIndex, PageSize} = pagingInfo;
-    let gm = window.$UKE.getUkeKeyMap;
+    const {
+      isNeedHelper,
+      lastBtnCount, prevBtnCount
+    } = this.props;
+    const pagingInfo = this.infoTranslate();
+    const { pIdx, pSize, total, active } = pagingInfo;
 
-    const paginBtnCount = Math.ceil(AllCount / PageSize);
-    const paginCount = 5;
+    const gm = window.$UKE.getUkeKeyMap;
+
+    const paginBtnCount = Math.ceil(total / pSize);
 
     const _isNeedHelper = isNeedHelper && paginBtnCount > 1;
 
-    if(AllCount == -1 || AllCount == 0) return <span />;
-    if(UsePaging == 0) return (
+    if(total == -1 || total == 0) return <span />;
+    if(!active) return (
       <span className="nopaging" />
     );
 
@@ -40,13 +90,13 @@ export default class PagingBtn extends Component {
       <span onClick={e => this.changePagin(0)} className="item"> &lt;&lt; </span>
     );
     const next = (
-      <span onClick={e => this.changePagin(PageIndex + 1)} className="item"> &gt; </span>
+      <span onClick={e => this.changePagin(pIdx + 1)} className="item"> &gt; </span>
     );
     const last = (
       <span onClick={e => this.changePagin(paginBtnCount - 1)} className="item"> &gt;&gt; </span>
     );
     const prev = (
-      <span onClick={e => this.changePagin(PageIndex - 1)} className="item"> &lt; </span>
+      <span onClick={e => this.changePagin(pIdx - 1)} className="item"> &lt; </span>
     );
     const jumpInputDOM = (
       <div className="jump-input">
@@ -59,8 +109,8 @@ export default class PagingBtn extends Component {
       <div className="mr10 page-size-input">
         <span>{gm('每页')}</span>
         <input type="text" className="form-control input-sm ms10 input"
-          defaultValue={PageSize}
-          onBlur={e => this.changePagin(PageIndex, e.target.value)}/>
+          defaultValue={pSize}
+          onBlur={e => this.changePagin(pIdx, e.target.value)}/>
         <span>{gm('条记录')}</span>
       </div>
     );
@@ -68,8 +118,8 @@ export default class PagingBtn extends Component {
       <div className="btn-group">
         {
           [...Array(prevBtnCount + lastBtnCount + 1)].map((_, idx) => {
-            let currIdx = PageIndex - prevBtnCount + idx + 1;
-            let isActive = currIdx == (PageIndex + 1);
+            let currIdx = pIdx - prevBtnCount + idx + 1;
+            let isActive = currIdx == (pIdx + 1);
             if(currIdx > 0 && currIdx < paginBtnCount + 1) {
               return (
                 <span key={idx} className={"item" + (isActive ? ' active' : '')} onClick={e => this.changePagin(currIdx - 1)}>

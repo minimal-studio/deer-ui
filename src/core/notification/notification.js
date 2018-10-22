@@ -54,8 +54,8 @@ export default class Notification extends PureComponent {
     EventEmitter.unsubscribe('NOTIFY', this.receiveNotify);
   }
   clickTip(clickTarget, msgID) {
-    const {handleClick} = this.props;
-    const {navigateConfig, onClickTip} = clickTarget;
+    const { handleClick } = this.props;
+    const { navigateConfig, onClickTip } = clickTarget;
 
     this.closeTip(msgID);
 
@@ -95,7 +95,7 @@ export default class Notification extends PureComponent {
         <div className="msg-panel scroll-content">
           <TransitionGroup component={null}>
             {
-              Object.keys(systemTips).map((msgID, idx) => {
+              Object.keys(systemTips).map(msgID => {
                 const item = systemTips[msgID];
                 const {type = 'normal', title, text, onClickTip, actionText = gm('点击查看详情')} = item;
                 return (

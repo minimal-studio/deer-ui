@@ -1,6 +1,28 @@
 图标，默认使用 fontawesome 图标，所以默认添加了 fa fa- 前缀，只需要填写对应的图标命即可
 
-如果需要切换图表库，可以通过 setUkelliConfig 设置 icon 的前缀
+- 如果需要切换图表库，可以通过 setUkelliConfig 设置 icon 的前缀
+- 同时支持 icon 的名字映射，通过 setUkelliConfig 设置 iconMapper
+
+```js static
+import { setUkelliConfig } from 'ukelli-ui';
+
+// 以下为默认设置，可以覆盖
+setUkelliConfig({
+  iconMapper: {
+    arrow: 'angle-left',
+    date: 'calendar-alt',
+    more: 'equals',
+    close: 'times',
+    noData: 'thermometer-empty',
+    success: 'check',
+    error: 'exclamation-circle',
+    'circle-up': 'arrow-circle-up',
+    'circle-down': 'arrow-circle-down',
+  },
+  // icon 的前缀
+  iconPrefix: 'fa fa-'
+});
+```
 
 参考
 

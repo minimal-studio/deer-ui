@@ -7,20 +7,33 @@ import '../../libs/flatpickr-zh';
 
 import { Icon } from '../icon';
 
+/**
+ * 基于 Flatpick 的时间控件，样式可以根据喜好选择
+ *
+ * @export
+ * @class DatetimePicker
+ * @extends {PureComponent}
+ */
 export default class DatetimePicker extends PureComponent {
   static propTypes = {
     onChange: PropTypes.func,
+    /** 是否需要时分秒 */
     needTime: PropTypes.bool,
-    clickToClose: PropTypes.bool,
+    // clickToClose: PropTypes.bool,
+    /** 是否可以选择时分秒 */
     enableTime: PropTypes.bool,
+    /** 类型 */
     mode: PropTypes.string,
+    /** 语言 */
     lang: PropTypes.string,
+    /** 默认值 */
     defaultValue: PropTypes.any,
+    /** 受控控件的值 */
     value: PropTypes.any
   };
   static defaultProps = {
     needTime: true,
-    clickToClose: true,
+    // clickToClose: true,
     enableTime: false,
     mode: 'single',
     lang: 'zh',

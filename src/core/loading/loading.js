@@ -8,9 +8,13 @@ import LoadingDOMPlaceholder from './placeholder';
 
 export default class Loading extends Component {
   static propTypes = {
+    /** loading 状态 */
     loading: PropTypes.bool.isRequired,
+    /** 子内容 */
     children: PropTypes.any,
+    /** 可以替换默认的 loading 模版 */
     loadingDOM: PropTypes.any,
+    /** 内容是否与 loading 模版共存 */
     inrow: PropTypes.bool,
   };
   static defaultProps = {

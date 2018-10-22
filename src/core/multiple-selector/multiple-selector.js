@@ -7,13 +7,21 @@ const ideaTipsGroup = [1, 5, 10, 100];
 
 export default class MultipleHelper extends PureComponent {
   static propTypes = {
+    /** onChange */
     onChange: PropTypes.func,
+    /** 是否可输入 */
     inputable: PropTypes.bool,
+    /** 每一次输入的单位 */
     basicUnit: PropTypes.number,
+    /** 最小输入 */
     min: PropTypes.number,
+    /** 最大输入 */
     max: PropTypes.number,
+    /** 默认值 */
     defaultValue: PropTypes.any,
+    /** 后缀 */
     suffix: PropTypes.string,
+    /** 下拉提示的组合 */
     range: PropTypes.array
   };
   constructor(props) {
@@ -109,9 +117,9 @@ export default class MultipleHelper extends PureComponent {
         </div>
         <div className="idea-tip">
           {
-            range.map((item, idx) => {
+            range.map(item => {
               return (
-                <div key={idx} className="item" onClick={e => {
+                <div key={item} className="item" onClick={e => {
                   this.setIdea(false);
                   this.changeValue(item);
                 }}>

@@ -1,12 +1,13 @@
 import React, {Component, PureComponent} from 'react';
 import ReactDOM from 'react-dom';
 
-import {HasValue} from 'basic-helper';
+import { HasValue, GenerteID } from 'basic-helper';
 
 import Notification from './notification';
 import setDOMById from '../set-dom';
 
-let notifyDOMId = 'NOTIFICATION_CONTAINER';
+const notifyDOMId = 'NOTIFICATION_CONTAINER';
+
 let notificationEntity = null;
 
 /**
@@ -14,8 +15,8 @@ let notificationEntity = null;
  * @param {object} options
  */
 export default function Notify(options) {
-  const {position, config, handleClick} = options;
-  if(!HasValue(config.id)) return console.warn('must to pass {id} within config!');
+  const { position, config, handleClick } = options;
+  config.id = HasValue(config.id) ? config.id : GenerteID();
 
   notificationEntity.receiveNotify(config);
 
