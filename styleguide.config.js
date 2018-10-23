@@ -78,7 +78,7 @@ module.exports = {
       content: 'docs/configuration.md'
     },
     {
-      name: 'UI-logic',
+      name: 'UI Logic',
       content: 'docs/ui-logic.md'
     },
     // {
@@ -90,7 +90,7 @@ module.exports = {
       content: 'docs/third-party-lib-desc.md'
     },
     {
-      name: 'Update log',
+      name: 'Update Logs',
       content: 'docs/update-logs.md'
     },
   ],
@@ -128,8 +128,8 @@ module.exports = {
           }
           </script>
           ${generateJSReferences(js, publicPath, {
-            'build/main.bundle.js': 'onload="window.__removeLoading()"'
-          })}
+    'build/main.bundle.js': 'onload="window.__removeLoading()"'
+  })}
         </body>
       </html>
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.5.1/themes/material_red.css" />

@@ -1,4 +1,4 @@
-## 配置说明
+### Ukelli-UI 的内部配置说明
 
 Ukelli UI 提供一个 setUkelliConfig 接口，设置 UI 库内部结构
 

@@ -1,3 +1,12 @@
+## 2.6.0
+
+- 补全所有的文档说明
+- 调整了 scss 的结构，补全一些缺失样式
+- 修改了一些接口的名字
+- 调整了分页组件（Pagination）的实现
+- 调整了 Popover 的接口，把 setPopover 调整为 set，showPopover 调整为 show，把 closePopover 调整为 close
+- Tab 现在挂载在 Tbas 中，可以通过 Tbas.Tab 引用
+
 ## 2.5.12
 
 - 优化 TableBody 实现，新增 checkbox 组件
