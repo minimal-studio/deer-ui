@@ -1,5 +1,3 @@
-// @import '../var.scss';
-
 .flatpickr-calendar {
   transition: opacity .2s ease;
 
@@ -34,12 +32,16 @@
   @include layout();
   align-items: center;
   width: 100%;
-  .flatpickr {
-    position: relative;
-    .icon {
-      position: absolute;
-      right: 16px;
-      top: 7px;
-    }
+}
+.flatpickr {
+  position: relative;
+  width: 220px;
+  .form-control {
+    width: 100% !important;
+  }
+  .icon {
+    position: absolute;
+    right: 16px;
+    top: 7px;
   }
 }

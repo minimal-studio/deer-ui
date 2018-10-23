@@ -20,6 +20,11 @@
 <ConditionGenerator
   conditionConfig={[
     {
+      refs: ['startDate', 'endDate'],
+      type: 'datetimeRange',
+      title: '时间',
+    },
+    {
       ref: 'ref1',
       type: 'radio',
       title: '单选控件',

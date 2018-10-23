@@ -3,9 +3,20 @@ import PropTypes from 'prop-types';
 
 import MapperFilter from './mapper-filter';
 
+/**
+ * 卡片式表格渲染模版
+ *
+ * @export
+ * @class RecordItemsHelper
+ * @extends {MapperFilter}
+ */
 export default class RecordItemsHelper extends MapperFilter {
+  static propTypes = {
+    keyMapper: PropTypes.arrayOf(PropTypes.object).isRequired,
+    records: PropTypes.arrayOf(PropTypes.object).isRequired
+  };
   render() {
-    const {keyMapper, records} = this.props;
+    const { keyMapper, records } = this.props;
     if(!Array.isArray(records)) return console.error('records 必须为 []');
 
     return (
@@ -36,7 +47,3 @@ export default class RecordItemsHelper extends MapperFilter {
     );
   }
 }
-RecordItemsHelper.propTypes = {
-  keyMapper: PropTypes.array.isRequired,
-  records: PropTypes.array.isRequired
-};

@@ -9,6 +9,10 @@ body {
   flex: 1;
 }
 
+[class*=_btn],[class*=-btn] {
+  cursor: pointer;
+}
+
 .close-btn {
   @include closeBtn(22px);
 }

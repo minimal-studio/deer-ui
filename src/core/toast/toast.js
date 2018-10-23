@@ -5,18 +5,30 @@ import { Icon } from '../icon';
 
 const TRANSTION_TIME = 200;
 
+/**
+ * 简易的提示组件
+ *
+ * @export
+ * @class Toast
+ * @extends {PureComponent}
+ */
 export default class Toast extends PureComponent {
-  constructor(props) {
-    super(props);
-    this.state = {
-      descQueue: {}
-    };
-    this.timerQueue = {};
-  }
+  state = {
+    descQueue: {}
+  };
+  timerQueue = {};
   componentWillUnmount() {
     this.__unmount = true;
     this.clearTimer();
   }
+  /**
+   * 用于打开一个 toast
+   *
+   * @param {*} desc
+   * @param {string} [type='desc']
+   * @memberof Toast
+   * @public
+   */
   show(desc, type = 'desc') {
     const self = this;
     const {descQueue} = this.state;

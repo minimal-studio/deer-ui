@@ -1,3 +1,5 @@
+@import './color-mixin.scss';
+
 .uke-popover {
   position: absolute;
   z-index: 444;
@@ -9,10 +11,28 @@
   transition: opacity 0.2s ease;
   outline: none;
   border-radius: 3px;
-  &.black {
-    background-color: #000000;
-    color: #FFF;
+  &.white {
+    @include popbg();
   }
+  @include bgColor;
+  // &.black {
+  //   @include popbg(#000, #FFF);
+  // }
+  // &.theme {
+  //   @include popbg($themeColor, #FFF);
+  // }
+  // &.blue {
+  //   @include popbg($colorBlue, #FFF);
+  // }
+  // &.red {
+  //   @include popbg($colorRed, #FFF);
+  // }
+  // &.green {
+  //   @include popbg($colorGreen, #FFF);
+  // }
+  // &.gold {
+  //   @include popbg($colorGold, #FFF);
+  // }
   &.fixed {
     position: fixed;
   }

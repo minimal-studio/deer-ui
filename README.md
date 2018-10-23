@@ -14,3 +14,15 @@
 - [配置设置](./docs/configuration.md)
 - [组件说明](./docs/components.md)
 - [引用外部库依赖说明](./docs/components.md)
+
+### 使用
+
+```shell
+yarn add ukelli-ui
+```
+
+在 React 项目中使用
+
+```js
+
+```

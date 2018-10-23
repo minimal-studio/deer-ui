@@ -27,6 +27,8 @@ const itemActiveFilter = (val, targetVal) => {
   let isInclueVal = false;
   switch (true) {
   case Array.isArray(val):
+    isInclueVal = val.indexOf(targetVal) !== -1;
+    break;
   case typeof val === 'string':
     isInclueVal = val == targetVal;
     break;
@@ -37,18 +39,34 @@ const itemActiveFilter = (val, targetVal) => {
   return isInclueVal;
 };
 
+/**
+ * 下拉菜单组件，带有输入搜索功能
+ *
+ * @export
+ * @class DropdownMenu
+ * @extends {SelectorBasic}
+ */
 export default class DropdownMenu extends SelectorBasic {
   static propTypes = {
+    /** 所有的下拉参数的配置 */
     values: selectorValuesType,
+    /** 默认值，与 value 冲突 */
     defaultValue: PropTypes.any,
+    /** 给 dropdownMenu 的 class */
     className: PropTypes.string,
+    /** 一旦设置，便成为受控控件，详情请参考 react 受控控件 https://reactjs.org/docs/forms.html */
     value: PropTypes.any,
+    /** 是否返回 number 类型的值 */
     isNum: PropTypes.bool,
-    inRow: PropTypes.bool,
+    /** 是否带搜索输入 */
     withInput: PropTypes.bool,
+    /** 是否多选 */
     isMultiple: PropTypes.bool,
+    /** 传入 dropdownMenu 的 style */
     style: PropTypes.object,
+    /** 弹出的位置，用 , 分隔，最多支持两个不冲突位置，如果冲突，则选择第一个值 */
     position: PropTypes.string,
+    /** 值改变的回调 */
     onChange: PropTypes.func
   };
   static defaultProps = {
@@ -76,7 +94,7 @@ export default class DropdownMenu extends SelectorBasic {
     this._input.focus();
   }
   handleClick(dataItem, idx) {
-    const {onClickItem, isMultiple} = this.props;
+    const { onClickItem, isMultiple } = this.props;
     onClickItem && onClickItem(dataItem);
     this.changeValue(dataItem.value, idx);
     if(!isMultiple) {
@@ -100,7 +118,7 @@ export default class DropdownMenu extends SelectorBasic {
     return Array.isArray(values) ? values.length : Object.keys(values).length;
   }
   handleChange = (val) => {
-    const {isMultiple, onChange} = this.props;
+    const { isMultiple, onChange } = this.props;
     if(isMultiple) this.focusInput();
     onChange(val);
   }

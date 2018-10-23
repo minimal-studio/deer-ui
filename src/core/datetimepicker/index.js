@@ -3,4 +3,4 @@ import DatepickerHelper from './datepicker-helper';
 
 export {
   DatepickerHelper, DatetimePicker
-}
+};

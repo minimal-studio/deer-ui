@@ -19,14 +19,15 @@ setUkelliConfig({
     'circle-up': 'arrow-circle-up',
     'circle-down': 'arrow-circle-down',
   },
-  // icon 的前缀
-  iconPrefix: 'fa fa-'
+  // icon 的前缀, 关于 iconStyle 详情查看 https://fontawesome.com 描述
+  iconPrefix: (iconStyle) => `fa${iconStyle} fa-`
 });
 ```
 
 参考
 
-- [fontawesome](https://fontawesome.com/icons?d=gallery&m=free)
+- [fontawesome icon](https://fontawesome.com/icons?d=gallery&m=free)
+- [fontawesome icon style](https://fontawesome.com)
 
 ```js
 <Icon type="balance-scale" />

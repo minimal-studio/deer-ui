@@ -1,6 +1,6 @@
 {
   "name": "ukelli-ui",
-  "version": "2.5.23",
+  "version": "2.6.0",
   "main": "./index.js",
   "scripts": {
     "publish": "npm publish ./build",
@@ -27,6 +27,7 @@
     "react": "16.2.0",
     "react-dom": "16.2.0",
     "react-transition-group": "^2.2.0",
+    "basic-helper": "^1.4.4",
     "unistore": "^3.0.6"
   },
   "devDependencies": {
@@ -62,7 +63,7 @@
     "webpack-merge": "^4.1.4"
   },
   "dependencies": {
-    "basic-helper": "^1.4.3",
+    "basic-helper": "^1.4.4",
     "classnames": "^2.2.5"
   }
 }

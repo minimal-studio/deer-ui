@@ -2,18 +2,46 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { IsFunc } from 'basic-helper';
 
+import Tab from './tab';
+
+/**
+ * 提供多种不同 Tab 切换方式与模版
+ *
+ * @export
+ * @class Tabs
+ * @extends {PureComponent}
+ */
 export default class Tabs extends PureComponent {
+  /**
+   * Tab 的引用
+   *
+   * @static
+   * @memberof Tabs
+   * @public
+   */
+  static Tab = Tab;
   static propTypes = {
+    /** tab 内容与 tab 标签是否在同一行 */
     inRow: PropTypes.bool,
+    /** tab 内容与 tab 标签是否共存 */
     withContent: PropTypes.bool,
+    /** tab 可否关闭 */
     closeabled: PropTypes.bool,
+    /** 是否启用 step 分步模式 */
     stepMode: PropTypes.bool,
+    /** children */
     children: PropTypes.any,
+    /** tab 内容的高度 */
     height: PropTypes.string,
+    /** 当前激活的 idx，如果设置了，则为受控组件 */
     activeTabIdx: PropTypes.number,
+    /** 初始化是的默认 tab 位置 */
     defaultTab: PropTypes.number,
+    /** className */
     className: PropTypes.string,
+    /** tab 改变时的回调 */
     onChangeTab: PropTypes.func,
+    /** tab 关闭时的回调 */
     onClose: PropTypes.func
   };
   static defaultProps = {
@@ -68,7 +96,7 @@ export default class Tabs extends PureComponent {
     React.Children.map(children, (tabChild, idx) => {
       if(!tabChild || typeof tabChild.type !== 'function') return;
       const isActive = (idx === activeTabIdx);
-      let { contentClass, labelClass = '' } = tabChild.props;
+      let { contentClass = '', labelClass = '' } = tabChild.props;
       let _labelClass = 'tab ' + labelClass + (isActive ? ' active' : '');
       _labelClass += tabChild.props.atRight ? ' right' : '';
 

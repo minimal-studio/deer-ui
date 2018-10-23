@@ -4,7 +4,7 @@
   border-bottom: 0 !important;
   background-color: $themeColor !important;
   box-shadow: 0 0 12px rgba(#000, 0.3) !important;
-  .rsg--logo-49 {
+  h1[class^=rsg--logo] {
     color: #FFF !important;
   }
 }
@@ -21,6 +21,15 @@
 }
 [class^=rsg--content] {
   // background-color: #fefefe !important;
+}
+button[class*=rsg--button] {
+  color: $colorGreen !important;
+  &:hover, &:focus {
+    color: $colorRed !important;
+  }
+}
+span.flatpickr-weekday {
+  color: #FFF !important;
 }
 // [class^=rsg--input] {
 //   background-color: #c6c6c7 !important;

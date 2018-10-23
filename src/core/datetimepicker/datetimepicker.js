@@ -8,7 +8,7 @@ import '../../libs/flatpickr-zh';
 import { Icon } from '../icon';
 
 /**
- * 基于 Flatpick 的时间控件，样式可以根据喜好选择
+ * 基于 Flatpickr 的时间控件，样式可以根据喜好选择
  *
  * @export
  * @class DatetimePicker

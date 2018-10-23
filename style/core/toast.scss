@@ -1,3 +1,5 @@
+@import './color-mixin.scss';
+
 .toast-container {
   position: absolute;
   top: 10px;
@@ -21,17 +23,12 @@
     &.success {
       background-color: $colorGreen;
       color: #FFF;
-      // .icon {
-      //   color: $colorGreen;
-      // }
     }
     &.error {
       background-color: $colorRed;
       color: #FFF;
-      // .icon {
-      //   color: $colorRed;
-      // }
     }
+    @include bgColor;
     ._close-btn {
       position: absolute;
       padding: 0 12px;

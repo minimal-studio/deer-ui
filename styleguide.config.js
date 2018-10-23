@@ -8,8 +8,13 @@ const MiniHtmlWebpackPlugin = require('mini-html-webpack-plugin');
 
 const {
   generateCSSReferences,
-  generateJSReferences
 } = MiniHtmlWebpackPlugin;
+
+function generateJSReferences(files = [], publicPath = '', attrMapper) {
+  return files
+    .map(file => `<script src="${publicPath}${file}" ${attrMapper[file]}></script>`)
+    .join('');
+}
 
 module.exports = {
   webpackConfig: createConfig([
@@ -100,8 +105,8 @@ module.exports = {
   //     ]
   //   }
   // }
-  template: ({ css, js, title, publicPath }) =>
-    `<!DOCTYPE html>
+  template: ({ css, js, title, publicPath }) => {
+    return `<!DOCTYPE html>
       <html>
         <head>
           <meta charset="UTF-8">
@@ -111,15 +116,24 @@ module.exports = {
         </head>
         <body>
           <div id="rsg-root"></div>
-            <div class="sk-folding-cube" id="loadingBg">
+          <div class="sk-folding-cube" id="loadingBg">
             <div class="sk-cube1 sk-cube"></div>
             <div class="sk-cube2 sk-cube"></div>
             <div class="sk-cube4 sk-cube"></div>
             <div class="sk-cube3 sk-cube"></div>
           </div>
-          ${generateJSReferences(js, publicPath)}
+          <script>
+          window.__removeLoading = function() {
+            document.body.removeChild(document.querySelector('#loadingBg'))
+          }
+          </script>
+          ${generateJSReferences(js, publicPath, {
+            'build/main.bundle.js': 'onload="window.__removeLoading()"'
+          })}
         </body>
       </html>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.5.1/themes/material_red.css" />
       <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
-    `
+    `;
+  }
 };

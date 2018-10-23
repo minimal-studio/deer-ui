@@ -1,26 +1,48 @@
 import React, {Component, PureComponent} from 'react';
 import PropTypes from 'prop-types';
-import {ToFixed} from 'basic-helper';
+import { ToFixed } from 'basic-helper';
 
 import InputVerify from '../form-control/input-verify';
 
+/**
+ * 拖动的选择控件
+ *
+ * @export
+ * @class Ranger
+ * @extends {Component}
+ */
 export default class Ranger extends Component {
   static propTypes = {
+    /** 值改变的回调 */
     onChange: PropTypes.func.isRequired,
+    /** 默认值 */
     defaultValue: PropTypes.number,
+    /** 基础的单位 */
     basicUnit: PropTypes.number,
+    /** 是否禁用 */
     disabled: PropTypes.bool,
+    /** 是否百分比显示 */
     precent: PropTypes.bool,
+    /** 是否带有输入框 */
     withInput: PropTypes.bool,
-    range: PropTypes.array
+    /** 范围 */
+    range: PropTypes.arrayOf(PropTypes.number)
   };
+  static defaultProps = {
+    basicUnit: 1,
+    disabled: false,
+    precent: false,
+    withInput: true,
+    range: [0, 10]
+  }
+  handleWidth = 20;
   constructor(props) {
     super(props);
 
     this.isControl = props.hasOwnProperty('value');
 
     let defaultValue = props.defaultValue || 0;
-    let {range = [0, 1]} = props;
+    let { range } = props;
     let [min, max] = range;
     let isRevert = min > max;
     if(isRevert) [max, min] = [min, max];
@@ -48,9 +70,8 @@ export default class Ranger extends Component {
     return isChange;
   }
   componentDidMount() {
-    const self = this;
     setTimeout(() => {
-      self.initData();
+      this.initData();
     }, 50);
   }
   initData() {
@@ -78,7 +99,7 @@ export default class Ranger extends Component {
   movingHandle = (e) => {
     if (!this.state.draping) return;
 
-    const {dragOriginX} = this.drapElemInfo;
+    const { dragOriginX } = this.drapElemInfo;
     
     const touches = e.changedTouches || e;
     const offsetX = touches[0] ? touches[0].pageX : touches.pageX;
@@ -121,15 +142,15 @@ export default class Ranger extends Component {
   }
   percentToVal(percent) {
     if(percent - 1 < -1) return;
-    const {basicUnit = 1} = this.props;
-    const {min, max} = this;
+    const { basicUnit } = this.props;
+    const { min, max } = this;
     let _val = Math.floor(percent * (max - min) / 100 + min, 0) || 0;
     if(_val % basicUnit !== 0) _val += 1;
     return _val;
   }
   valToPercent(val) {
     if(val - 1 < -1) return;
-    const {min, max} = this;
+    const { min, max } = this;
     let _precent = +(ToFixed((val - min) * 100 / (max - min), 0)) || 0;
     return _precent;
   }
@@ -142,7 +163,7 @@ export default class Ranger extends Component {
   changeValue(val, emitChangeEvent = true) {
     if(val - 1 < -1) return;
 
-    const {disabled, basicUnit = 1, onChange} = this.props;
+    const { disabled, onChange } = this.props;
     if(disabled) return;
     const {min, max} = this;
 
@@ -150,18 +171,22 @@ export default class Ranger extends Component {
     if(val > max) val = max;
 
     if(!this.isControl) {
-      this.setState({
-        stateValue: val,
-        // offsetPercent: this.valToPercent(val) || 0
+      this.setState(({stateValue}) => {
+        if(stateValue !== val) {
+          this.offsetPercent = this.valToPercent(val) || 0;
+      
+          this.value = val;
+          if(emitChangeEvent) onChange(val);
+          return {
+            // offsetPercent: this.valToPercent(val) || 0
+            stateValue: val,
+          };
+        }
       });
     }
-    this.offsetPercent = this.valToPercent(val) || 0;
-
-    this.value = val;
-    if(emitChangeEvent) onChange(val);
   }
   plusAndLess(mark) {
-    const {basicUnit = 1} = this.props;
+    const { basicUnit } = this.props;
     const stateValue = this.valueFilter();
 
     let each = basicUnit;
@@ -177,22 +202,18 @@ export default class Ranger extends Component {
   }
   render() {
     const stateValue = this.valueFilter();
-    const {disabled, precent = false, range, withInput = true, basicUnit} = this.props;
+    const {disabled, precent, range, withInput, basicUnit} = this.props;
     const {draping} = this.state;
 
-    var handleW = 20;
-    var handleStyle = {
-      marginLeft: - handleW / 2,
+    const handleStyle = this.isRevert ? {
+      marginRight: - this.handleWidth / 2,
+      right: `${this.offsetPercent}%`
+    } : {
+      marginLeft: - this.handleWidth / 2,
       left: `${this.offsetPercent}%`
     };
-    if(this.isRevert) {
-      handleStyle = {
-        marginRight: - handleW / 2,
-        right: `${this.offsetPercent}%`
-      };
-    }
 
-    let _value = precent ? (stateValue / 10).toFixed(1) : stateValue.toFixed(0);
+    const _value = precent ? (stateValue / 10).toFixed(1) : stateValue.toFixed(0);
 
     return (
       <div className={`uke-ranger ${disabled ? 'disabled' : ''} ${draping ? 'draping' : ''} ${withInput ? 'with-input' : ''}`}>
@@ -211,7 +232,10 @@ export default class Ranger extends Component {
             }} />
             <div className="handle"
               ref={h => {
-                if(h) this.handle = h;
+                if(h) {
+                  this.handle = h;
+                  this.handleWidth = h.offsetWidth;
+                }
               }}
               style={handleStyle}>
               <div className="hide-value">
@@ -230,7 +254,9 @@ export default class Ranger extends Component {
               precent={precent}
               numRange={[0, range[1]]}
               unit={basicUnit}
-              onChange={val => this.changeValue(val)}/>
+              onChange={val => {
+                this.plusAndLess(val - stateValue > 0 ? '+' : '-');
+              }}/>
           ) : null
         }
       </div>

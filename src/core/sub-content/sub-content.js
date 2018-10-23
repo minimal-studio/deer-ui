@@ -13,7 +13,9 @@ const SubContent = ({displayElem, children}) => {
   );
 };
 SubContent.propTypes = {
+  /** 显示的元素 */
   displayElem: PropTypes.any,
+  /** 隐藏的元素，当鼠标移动到显示的元素时出现 */
   children: PropTypes.any,
 };
 

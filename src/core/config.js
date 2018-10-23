@@ -24,19 +24,19 @@ const ukelliui = {
   queryQRCodeData() {},
   avatarImgMap: '',
   iconMapper: {},
-  iconPrefix: 'fa fa-'
+  iconPrefix: (s) => `fa${s} fa-`,
 };
 
 export function getIconMapper() {
   return Object.assign({}, defaultIconMapper, ukelliui.iconMapper);
 }
 
-export function getIcon(iconName, moreClassName) {
+export function getIcon(iconName, iconStyle, moreClassName) {
   const iconMapper = getIconMapper();
   const iconPrefix = getUkelliConfig('iconPrefix');
   if(!iconName) return iconMapper;
   let moreClassNameArr = Array.isArray(moreClassName) ? moreClassName : [moreClassName];
-  let resultStr = iconPrefix + (iconMapper[iconName] || iconName) + ' ' + moreClassNameArr.join(' ');
+  let resultStr = iconPrefix(iconStyle) + (iconMapper[iconName] || iconName) + ' ' + moreClassNameArr.join(' ');
   return resultStr;
 }
 

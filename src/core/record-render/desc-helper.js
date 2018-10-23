@@ -3,7 +3,18 @@ import PropTypes from 'prop-types';
 
 import MapperFilter from './mapper-filter';
 
+/**
+ * 具体单独数据的渲染模版
+ *
+ * @export
+ * @class DescHelper
+ * @extends {MapperFilter}
+ */
 export default class DescHelper extends MapperFilter {
+  static propTypes = {
+    keyMapper: PropTypes.arrayOf(PropTypes.object).isRequired,
+    records: PropTypes.arrayOf(PropTypes.object).isRequired
+  };
   render() {
     const {keyMapper = [], record = {}} = this.props;
     let row = 0;
@@ -33,7 +44,3 @@ export default class DescHelper extends MapperFilter {
     );
   }
 }
-DescHelper.propTypes = {
-  keyMapper: PropTypes.array.isRequired,
-  record: PropTypes.object.isRequired,
-};

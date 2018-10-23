@@ -2,21 +2,43 @@ import React, {Component, PureComponent} from 'react';
 import PropTypes from 'prop-types';
 import { Call, GenerteID } from 'basic-helper';
 
-import {PopoverEntity} from '../popover';
+import { PopoverEntity } from '../popover';
 
+/**
+ * 基于 Button 和 Popover 的组合组件
+ *
+ * @export
+ * @class TipButton
+ * @extends {Component}
+ */
 export default class TipButton extends Component {
   static propTypes = {
+    /** 点击按钮的回调 */
     onClick: PropTypes.func.isRequired,
-    onClose: PropTypes.func,
+    /** 按钮的显示文字 */
     text: PropTypes.string.isRequired,
-    timer: PropTypes.any,
+    /** 弹出层关闭的回调 */
+    onClose: PropTypes.func,
+    /** 弹出层多久自动关闭 */
+    timer: PropTypes.number,
+    /** 是否显示弹出层 */
     showTip: PropTypes.bool,
+    /** 是否自动关闭弹出层 */
     autoClose: PropTypes.bool,
+    /** 弹出层的位置 */
     position: PropTypes.string,
+    /** 按钮的 className */
     className: PropTypes.string,
-    children: PropTypes.any,
+    /** 传入 popover 显示的 children */
+    popover: PropTypes.any,
+    /** 是否禁用 */
     disabled: PropTypes.bool
   };
+  static defaultProps = {
+    showTip: true,
+    autoClose: true,
+    timer: 3000,
+  }
   constructor(props) {
     super(props);
     this.popoverLifeTimer = null;
@@ -27,9 +49,7 @@ export default class TipButton extends Component {
   closePopover() {
     const {onClose} = this.props;
     this.clearTimer();
-    this.popover.setPopover({
-      open: false,
-    });
+    this.popover.close();
     Call(onClose);
   }
   componentWillUnmount() {
@@ -41,16 +61,15 @@ export default class TipButton extends Component {
   }
   showPopover(e) {
     const {
-      timer = 5000, autoClose = true, children, position = 'left'
+      timer, autoClose, popover, position
     } = this.props;
     const self = this;
-    this.popover.setPopover({
+    this.popover.show({
       elem: e.target,
       props: {
         position,
       },
-      open: true,
-      children
+      children: popover
     });
     if(!autoClose) return;
     this.clearTimer();
@@ -59,7 +78,7 @@ export default class TipButton extends Component {
     }, timer);
   }
   _onClick(e) {
-    const {disabled, onClick, showTip = true} = this.props;
+    const { disabled, onClick, showTip } = this.props;
     if(!disabled) {
       Call(onClick);
     }
@@ -70,17 +89,16 @@ export default class TipButton extends Component {
     // }, 0);
   }
   refreshChild() {
-    this.setPopoverChildren(this.props.children);
+    this.setPopoverChildren(this.props.popover);
   }
-  setPopoverChildren(children) {
+  setPopoverChildren(popover) {
     if(!this.prevNode) return;
-    this.popover.setPopover({
-      open: true,
-      children
+    this.popover.show({
+      children: popover
     });
   }
   render() {
-    const {children, position = 'left', className = 'theme', text, disabled} = this.props;
+    const { className = 'theme', text, disabled } = this.props;
 
     return (
       <span className="tip-btn">

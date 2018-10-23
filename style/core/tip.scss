@@ -1,3 +1,5 @@
+@import './color-mixin.scss';
+
 .uke-tip-item {
   position: absolute;
   top: 0;
@@ -5,8 +7,9 @@
   display: inline;
   .tip {
     @include fill;
-    background-color: $themeColor;
+    // background-color: $themeColor;
     border-radius: 50%;
+    @include bgColor;
     &.animate {
       animation-name: cycle-tip-animate;
       animation-duration: 1s;

@@ -18,16 +18,28 @@ const TitleDOM = ({title}) => {
   );
 };
 
-export default class Tooltip extends PureComponent {
+/**
+ * 提供简单的提示按钮, 其余 props 都会传入到 icon 组件
+ *
+ * @export
+ * @class ToolTip
+ * @extends {PureComponent}
+ */
+export default class ToolTip extends PureComponent {
+  static propTypes = {
+    /** 提示的标题 */
+    title: PropTypes.string,
+    /** 点击的回调 */
+    onClick: PropTypes.func,
+  }
   render() {
-    const {title, onClick, ...other} = this.props;
+    const { title, onClick, ...other } = this.props;
     return (
       <Icon
         {...other}
         onMouseEnter={e => {
-          Popover.setPopover({
+          Popover.show({
             position: 'bottom',
-            open: true,
             elem: e.target,
             props: {
               showCloseBtn: false,
@@ -38,9 +50,7 @@ export default class Tooltip extends PureComponent {
           });
         }}
         onMouseLeave={e => {
-          Popover.setPopover({
-            open: false,
-          });
+          Popover.close();
         }}
         onClick={e => {
           Call(onClick, e);

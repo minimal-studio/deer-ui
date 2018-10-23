@@ -13,12 +13,19 @@ export class PopoverHelper extends Component {
     };
   }
   closePopover() {
+    console.warn('closePopover 要被废弃了，请使用 close');
+    this.close();
+  }
+  close() {
     this.setState({
       open: false
     });
   }
-  showPopover(elem, isShow, children) {
-    let _isShow = typeof isShow !== 'undefined' ? isShow : !this.state.open;
+  showPopover() {
+    this.show(...arguments);
+  }
+  show(elem, isShow, children) {
+    const _isShow = typeof isShow !== 'undefined' ? isShow : !this.state.open;
     this.setState(prevState => {
       return {
         relativeElem: elem || prevState.relativeElem,
@@ -35,7 +42,7 @@ class PopoverWrapper extends PopoverHelper {
       <Popover
         {...this.props}
         {...this.state}
-        RequestClose={e => this.closePopover()} />
+        onClose={e => this.close()} />
     );
   }
 }
@@ -50,7 +57,19 @@ class PopoverEntity {
 
     this.lifeTimer = null;
   }
-  setPopover(options) {
+  showPopover() {
+    console.warn('showPopover 要被废弃了，请使用 show 或者 set');
+    this.show(...arguments);
+  }
+  setPopover() {
+    console.warn('setPopover 要被废弃了，请使用 show 或者 set');
+    this.show(...arguments);
+  }
+  show(options) {
+    options.open = true;
+    this.set(options);
+  }
+  set(options) {
     const _options = Object.assign({}, this.prevOptions, options);
     const {
       width = 400, onClose, elem, children, open, props = this.prevProps
@@ -71,7 +90,7 @@ class PopoverEntity {
         ref={_popoverEntity => {
           if(!_popoverEntity) return;
           this.popoverEntity = _popoverEntity;
-          this.popoverEntity.showPopover(elem, open, children);
+          this.popoverEntity.show(elem, open, children);
         }}/>
     );
     ReactDOM.render(
@@ -80,9 +99,10 @@ class PopoverEntity {
     );
   }
   close() {
-    this.setPopover({
+    const nextState = {
       open: false
-    });
+    };
+    this.set(nextState);
   }
   delayClose(timer = 5000) {
     if(this.lifeTimer) clearTimeout(this.lifeTimer);

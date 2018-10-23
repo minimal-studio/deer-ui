@@ -24,17 +24,45 @@ function getPosition(elem) {
 
 export default class Popover extends Component {
   static propTypes = {
+    /** 是否激活 */
     open: PropTypes.bool.isRequired,
+    /** 关闭的回调，之前是 RequestClose */
+    onClose: PropTypes.func.isRequired,
+    /** 相对的元素，传入 document node */
     relativeElem: PropTypes.object,
-    RequestClose: PropTypes.func.isRequired,
-    position: PropTypes.any,
+    /** 弹出的位置 */
+    position: PropTypes.oneOf([
+      'top',
+      'right',
+      'left',
+      'bottom',
+    ]),
+    /** 内容 */
     children: PropTypes.any,
+    /** class name */
     className: PropTypes.string,
-    type: PropTypes.string,
+    /** 弹出框的颜色类型 */
+    type: PropTypes.oneOf([
+      'black',
+      'white',
+      'theme',
+      'blue',
+      'red',
+      'green',
+      'gold',
+    ]),
+    /** 是否显示关闭按钮 */
     showCloseBtn: PropTypes.bool,
+    /** 是否 fixed 定位 */
     fixed: PropTypes.bool,
+    /** 是否 update 组件 */
     update: PropTypes.bool,
   };
+  static defaultProps = {
+    position: 'right',
+    type: 'white',
+    showCloseBtn: true
+  }
   constructor(props) {
     super(props);
     this.state = {
@@ -55,7 +83,7 @@ export default class Popover extends Component {
     if (event.keyCode === ESC_KEY) {
       event.preventDefault();
       event.stopPropagation();
-      this.props.RequestClose(event);
+      this.props.onClose(event);
     }
   }
   setContentFocus = () => {
@@ -96,7 +124,7 @@ export default class Popover extends Component {
     case 'top':
       positionStyle = {top: offsetTop - popOffsetHeight - offsetHeight / 2, left: offsetLeft - popOffsetWidth / 2};
       break;
-    default:
+    case 'right':
       positionStyle = {top: offsetTop + sideOffsetTop, left: offsetLeft + offsetWidth + 15};
       break;
     }
@@ -104,9 +132,9 @@ export default class Popover extends Component {
   }
   render() {
     const {
-      open, children, relativeElem, position = 'right',
-      className = '', RequestClose, fixed, type,
-      showCloseBtn = true
+      open, children, relativeElem, position,
+      className = '', onClose, fixed, type,
+      showCloseBtn
     } = this.props;
     if(!relativeElem) return <span />;
 
@@ -114,7 +142,7 @@ export default class Popover extends Component {
     const transitionKey = open ? 'popover' : 'popover-close';
     if(open) {
       const closeBtn = showCloseBtn ? (
-        <div className="close-btn" onClick={e => RequestClose()}>x</div>
+        <div className="close-btn" onClick={e => onClose()}>x</div>
       ) : null;
 
       container = (

@@ -5,19 +5,49 @@ import { Call } from 'basic-helper';
 import MapperFilter from './mapper-filter';
 import { Icon } from '../icon';
 
+/**
+ * 提供一个快速的表格数据渲染容器，不需要关注具体如何渲染，只需要传入对应的数据和过滤器
+ *
+ * @export
+ * @class TableBody
+ * @extends {MapperFilter}
+ */
 export default class TableBody extends MapperFilter {
   static propTypes = {
-    keyMapper: PropTypes.arrayOf(PropTypes.object).isRequired,
+    /** 定义数据渲染的字段的映射配置 */
+    keyMapper: PropTypes.arrayOf(PropTypes.shape({
+      /** 字段的 key */
+      key: PropTypes.string.isRequired,
+      /** 该字段的过滤器函数，可以返回任意类型 */
+      filter: PropTypes.func,
+      /** 是否日期+时分秒 */
+      datetime: PropTypes.any,
+      /** 是否日期 */
+      date: PropTypes.any,
+      /** 是否格式化成金钱 */
+      money: PropTypes.any,
+      /** 是否以绝对值格式化成金钱 */
+      abvMoney: PropTypes.any,
+      /** 该字段的值的映射 mapper */
+      namesMapper: PropTypes.shape({
+        key: 'value'
+      }),
+    })).isRequired,
+    /** 需要渲染的目标记录 */
+    records: PropTypes.arrayOf(PropTypes.object).isRequired,
+    /** 是否需要统计 */
     needCount: PropTypes.bool,
+    /** 是否多选 */
     needCheck: PropTypes.bool,
-    allCheck: PropTypes.bool,
+    /** 无视的排序字段 */
     sortIgnores: PropTypes.arrayOf(PropTypes.string),
-    onCheckAll: PropTypes.func,
-    whenCheckAction: PropTypes.any,
-    records: PropTypes.arrayOf(PropTypes.object).isRequired
+    /** 当选中时往表格顶部嵌入的内容 */
+    whenCheckAction: PropTypes.any
   };
   static defaultProps = {
-    sortIgnores: ['checkbox']
+    sortIgnores: ['checkbox'],
+    needCheck: false,
+    needCount: false,
   };
   constructor(props) {
     super(props);
@@ -37,6 +67,7 @@ export default class TableBody extends MapperFilter {
 
   componentDidMount() {
     window.addEventListener('resize', this.resizeCalcSize);
+    this.calcSize();
   }
 
   componentWillUnmount() {
@@ -84,7 +115,7 @@ export default class TableBody extends MapperFilter {
         checked={checked} onChange={e => this.toggleSelectItem(item, idx)}/>
     );
   }
-
+  
   getKeyMapper = () => {
     const { keyMapper = [], needCheck } = this.props;
 
@@ -93,6 +124,7 @@ export default class TableBody extends MapperFilter {
     if(needCheck) {
       const checkExtend = {
         key: 'checkbox',
+        w: 30,
         filter: this.getCheckbox
       };
       result = [checkExtend, ...keyMapper];
@@ -235,7 +267,7 @@ export default class TableBody extends MapperFilter {
 
   render() {
     const {
-      needCount = false, height, whenCheckAction
+      needCount, height, whenCheckAction
     } = this.props;
     const {
       headerWidthMapper, containerWidth, sortField, isDesc,
@@ -262,15 +294,15 @@ export default class TableBody extends MapperFilter {
             <tr>
               {
                 keyMapper.map((item, idx) => {
-                  let currHeaderWidth = headerWidthMapper[idx];
+                  const currHeaderWidth = item.w || headerWidthMapper[idx];
                   if(!item) return;
                   let title = item.title || window.$UKE.getKeyMap(item.key);
                   if(item.key == 'checkbox') title = (
                     <input type="checkbox" checked={isAllCheck}
                       onChange={e => this.toggleAllItems(e.target.checked)}/>
                   );
-                  let isOrdering = sortField == item.key;
-                  let sortTip = isOrdering ? (
+                  const isOrdering = sortField == item.key;
+                  const sortTip = isOrdering ? (
                     <span className="caret" style={{
                       transform: `rotate(${!isDesc ? '180deg' : '0deg'})`
                     }}/>

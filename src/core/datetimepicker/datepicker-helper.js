@@ -2,7 +2,7 @@ import React, {Component, PureComponent} from 'react';
 import PropTypes from 'prop-types';
 import { Call, DateFormat, GetDefaultDateInfo } from 'basic-helper';
 
-import {SubContent} from '../sub-content';
+import { SubContent } from '../sub-content';
 
 function getHalfMouthDate(type, format, timeDefaultStr) {
   var today = new Date();
@@ -30,10 +30,31 @@ function getHalfMouthDate(type, format, timeDefaultStr) {
   return result;
 }
 
+/**
+ * 独立的快捷时间选择器
+ *
+ * @export
+ * @class DatepickerHelper
+ * @extends {PureComponent}
+ */
 export default class DatepickerHelper extends PureComponent {
   static propTypes = {
+    /** 点击快捷方式的回调 */
     onClick: PropTypes.func.isRequired,
-    dateHelperInfo: PropTypes.arrayOf(PropTypes.object),
+    /** 自定义的时间快捷选项 */
+    dateHelperInfo: PropTypes.arrayOf(
+      PropTypes.shape({
+        /** 快捷的名字 */
+        t: PropTypes.string,
+        /** 
+         * 获取返回值的函数，期望返回已格式化的日期数组
+         * 
+         * @returns {array[]} 例如 ['2018-10-10 10:00:00', '2018-10-11 10:00:00']
+         */
+        filter: PropTypes.func
+      })
+    ),
+    /** 是否返回时间 */
     needTime: PropTypes.bool
   };
   static defaultProps = {

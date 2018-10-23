@@ -8,41 +8,8 @@
 @import "./basic/buttons";
 @import "./basic/forms.scss";
 
-@import "./common.scss";
-
 @import "./transition.scss";
 
-@import "./layout.scss";
-@import "./avatar.scss";
-@import "./button.scss";
-@import "./carousel.scss";
-@import "./condition.group.scss";
-@import "./datehelper.scss";
-@import "./desc.helper.scss";
-@import "./form.scss";
-@import "./loading2.scss";
-@import "./loading-placeholder.scss";
-@import "./loading-progress.scss";
-@import "./list.scss";
-@import "./modal.scss";
-@import "./pagin.btn.scss";
-@import "./popover.scss";
-@import "./tabs.scss";
-@import "./captcha.scss";
-@import "./dropdown.menu.scss";
-@import "./date.picker.scss";
-@import "./ranger.scss";
-@import "./ball.scss";
-@import "./multiple.scss";
-@import "./switch.button.scss";
-@import "./tip.panel.scss";
-@import "./countdown.scss";
-@import "./record.item.scss";
-@import "./table.scss";
-@import "./input.scss";
-@import "./toast.scss";
-@import "./radio.scss";
-@import "./cropper.scss";
-@import "./notification.scss";
-@import "./tip.scss";
-@import "./label.scss";
+@import './common/index.scss';
+@import './core/index.scss';
+@import './other/index.scss';

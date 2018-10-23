@@ -19,13 +19,17 @@ const Tab = ({label, icon, onClick, onChange, idx, labelClass = ''}) => {
   );
 };
 Tab.propTypes = {
+  /** tab 的显示名 */
   label: PropTypes.string.isRequired,
+  /** tab 的 icon */
   icon: PropTypes.string,
+  /** tab 的className */
   labelClass: PropTypes.string,
+  /** 第几个 idx，Tabs 会传入 */
   idx: PropTypes.number,
-  isDefault: PropTypes.bool,
-  atRight: PropTypes.bool,
+  /** 改变激活的 tab 位置时的回调 */
   onChange: PropTypes.func,
+  /** 改变激活的 tab 位置时的回调 */
   onClick: PropTypes.func
 };
 

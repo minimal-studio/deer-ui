@@ -1,5 +1,5 @@
-import Tooltip from './tooltip';
+import ToolTip from './tooltip';
 
 export {
-  Tooltip
+  ToolTip
 };
