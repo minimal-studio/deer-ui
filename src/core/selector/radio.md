@@ -29,7 +29,7 @@ class ForTesting extends React.Component {
           }}
         />
         <div>
-          <div className="mu10">可以通过 ref 来改变 DropdownMenu 的值</div>
+          <div className="mu10">可以通过 ref 来改变 Radio 的值</div>
           <div className="btn theme" onClick={e => this.dropdown.changeValue('value3')}>点击改变为 value3</div>
         </div>
       </div>
