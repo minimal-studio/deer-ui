@@ -10,9 +10,9 @@ const {
   generateCSSReferences,
 } = MiniHtmlWebpackPlugin;
 
-function generateJSReferences(files = [], publicPath = '', attrMapper) {
+function generateJSReferences(files = [], publicPath = '', attr) {
   return files
-    .map(file => `<script src="${publicPath}${file}" ${attrMapper[file]}></script>`)
+    .map(file => `<script src="${publicPath}${file}" ${attr}></script>`)
     .join('');
 }
 
@@ -124,12 +124,12 @@ module.exports = {
           </div>
           <script>
           window.__removeLoading = function() {
-            document.body.removeChild(document.querySelector('#loadingBg'))
+            var loadingBg = document.querySelector('#loadingBg');
+            if(!loadingBg) return;
+            document.body.removeChild(loadingBg)
           }
           </script>
-          ${generateJSReferences(js, publicPath, {
-    'build/main.bundle.js': 'onload="window.__removeLoading()"'
-  })}
+          ${generateJSReferences(js, publicPath, 'onload="window.__removeLoading()"')}
         </body>
       </html>
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.5.1/themes/material_red.css" />
