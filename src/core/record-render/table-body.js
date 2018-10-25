@@ -78,6 +78,16 @@ export default class TableBody extends MapperFilter {
     this.calcSize();
   }
 
+  /**
+   * 清除所有已选择的内容
+   *
+   * @memberof TableBody
+   * @public
+   */
+  clearCheckeds = () => {
+    this.toggleAllItems(false);
+  }
+
   toggleSelectItem = (item, idx) => {
     let nextCheckedItems = this.state.checkedItems;
     if(nextCheckedItems[idx]) {

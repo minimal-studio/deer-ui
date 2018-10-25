@@ -64,7 +64,10 @@ class ForTable extends React.Component {
       <div>
         <TableBody
           keyMapper={this.keyMapper}
-          whenCheckAction={'选中后出现的内容，可以为任意值'}
+          ref={e => this.table = e}
+          whenCheckAction={(
+            <span className="btn theme mu10" onClick={e => this.table.clearCheckeds()}>清除所有的以选中项</span>
+          )}
           needCheck={true}
           needCount={true}
           records={this.records} />
