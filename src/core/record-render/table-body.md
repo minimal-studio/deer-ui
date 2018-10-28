@@ -17,6 +17,11 @@ class ForTable extends React.Component {
     this.keyMapper = [
       {
         key: 'username',
+        title: (keyMapper) => {
+          return (
+            <span>使用 func title 返回表头</span>
+          )
+        },
         namesMapper: {
           alex: '埃里克斯',
           chili: '吃梨',

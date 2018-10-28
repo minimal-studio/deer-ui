@@ -1,6 +1,6 @@
 import React, {Component, PureComponent} from 'react';
 import PropTypes from 'prop-types';
-import { Call } from 'basic-helper';
+import { Call, IsFunc } from 'basic-helper';
 
 import MapperFilter from './mapper-filter';
 import { Icon } from '../icon';
@@ -307,10 +307,19 @@ export default class TableBody extends MapperFilter {
                   const currHeaderWidth = item.w || headerWidthMapper[idx];
                   if(!item) return;
                   let title = item.title || window.$UKE.getKeyMap(item.key);
-                  if(item.key == 'checkbox') title = (
-                    <input type="checkbox" checked={isAllCheck}
-                      onChange={e => this.toggleAllItems(e.target.checked)}/>
-                  );
+
+                  switch (true) {
+                  case item.key === 'checkbox':
+                    title = (
+                      <input type="checkbox" checked={isAllCheck}
+                        onChange={e => this.toggleAllItems(e.target.checked)}/>
+                    );
+                    break;
+                  case IsFunc(title):
+                    title = title(item, idx);
+                    break;
+                  }
+
                   const isOrdering = sortField == item.key;
                   const sortTip = isOrdering ? (
                     <span className="caret" style={{
