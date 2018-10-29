@@ -30,5 +30,5 @@ setUkelliConfig({
 - [fontawesome icon style](https://fontawesome.com)
 
 ```js
-<Icon type="balance-scale" />
+<Icon n="balance-scale" />
 ```

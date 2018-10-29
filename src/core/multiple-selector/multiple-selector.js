@@ -112,7 +112,7 @@ export default class MultipleHelper extends PureComponent {
             this.multipleHelper.focus();
             this.setIdea(true);
           }}>
-            <Icon type="more"/>
+            <Icon n="more"/>
           </span>
         </div>
         <div className="idea-tip">

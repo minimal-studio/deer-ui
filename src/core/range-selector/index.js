@@ -1,4 +1,4 @@
-import Ranger from './ranget-selector';
+import Ranger from './ranger-selector';
 
 export {
   Ranger

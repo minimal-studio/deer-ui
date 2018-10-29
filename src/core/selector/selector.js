@@ -4,12 +4,13 @@ import { Call, RemoveArrayItem, IsFunc } from 'basic-helper';
 
 export const selectorValuesType = PropTypes.oneOfType([
   PropTypes.shape({
-    value: 'text'
+    value: PropTypes.any,
+    text: PropTypes.any
   }),
   PropTypes.arrayOf(
     PropTypes.shape({
-      text: 'text',
-      value: 'value'
+      text: PropTypes.any,
+      value: PropTypes.any
     })
   )
 ]);

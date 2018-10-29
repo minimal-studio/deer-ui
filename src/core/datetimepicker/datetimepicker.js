@@ -101,7 +101,7 @@ export default class DatetimePicker extends PureComponent {
           id={this._id}
           ref={e => this._refs[this._id] = e}
           onChange={e => this.changeDate()}/>
-        <Icon type="date" data-toggle
+        <Icon n="date" data-toggle
           onClick={e => {
             (this.datepicker ? this.datepicker.toggle : function(){})();
           }}/>

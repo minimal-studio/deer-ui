@@ -1,3 +1,12 @@
+## 2.6.4
+
+- 修复中英文的问题
+- 修复 ranger 的问题
+- 修复 formFilter 引用的问题
+- 调整 Icon 的 prop 传入
+- 修复 selector 的 props checker
+- 优化 FormLayout 的提示机制，先内置过滤一遍 form 的检查
+  
 ## 2.6.3
 
 - iconPrefix 可以为字符串

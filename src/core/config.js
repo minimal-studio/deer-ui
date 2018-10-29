@@ -68,10 +68,26 @@ export function LoadStuff({src, onload, type}) {
     break;
   }
 }
+
+/**
+ * 加载 link
+ *
+ * @export
+ * @param {object} options { src: string, onload: func }
+ * @returns
+ */
 export function LoadLink(options) {
   options.type = 'css';
   return LoadStuff(options);
 }
+
+/**
+ * 加载 script
+ *
+ * @export
+ * @param {object} options { src: string, onload: func }
+ * @returns
+ */
 export function LoadScript(options) {
   options.type = 'script';
   return LoadStuff(options);

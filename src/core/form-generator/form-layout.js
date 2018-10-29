@@ -73,24 +73,32 @@ export default class FormLayout extends Component {
     /** 在 form 之后插入的 children */
     childrenAfterForm: PropTypes.any,
   };
-  isShowedDesc = false;
+  gm = window.$UKE.getUkeKeyMap;
   componentWillReceiveProps(nextProps) {
-    const {resDesc} = nextProps;
-    if(!!resDesc && (this.props.resDesc !== resDesc) && !this.isShowedDesc) {
+    const { resDesc } = nextProps;
+    if(resDesc && this.props.resDesc !== resDesc) {
       this.showResDesc(nextProps);
     }
   }
   showResDesc(resInfo) {
-    this.isShowedDesc = true;
     !!resInfo.resDesc && this.toast && this.toast.show(resInfo.resDesc, resInfo.hasErr ? 'error' : 'success');
   }
+  checkForm() {
+    const { isPass, desc, ref } = this.formHelper.checkForm();
+    if(!isPass) {
+      this.showResDesc({
+        resDesc: desc + this.gm('必须'),
+        hasErr: true
+      });
+    }
+    return isPass;
+  }
   render() {
-    let gm = window.$UKE.getUkeKeyMap;
     const {
       tipInfo, btnConfig, className = '', isVertical, isMobile,
       showInputTitle,
       childrenBeforeForm, childrenAfterForm, childrenBeforeBtn,
-      formOptions = [], btnText = gm('确定提交'),
+      formOptions = [], btnText = this.gm('确定提交'),
       onSubmit, onChange
     } = this.props;
 
@@ -107,19 +115,20 @@ export default class FormLayout extends Component {
     ) : null;
 
     const btnGroup = _btnConfig.map((btn, idx) => {
-      const {action, text, className, actingRef = 'loading'} = btn;
+      const { action, text, className, actingRef = 'loading' } = btn;
       const isBtnLoading = this.props[actingRef];
       const isActive = !!action && !isBtnLoading;
       return (
         <span className="mr5" key={idx}>
           <Button
             disabled={!isActive}
-            text={isBtnLoading ? text + gm('中') + '...' : text}
+            text={isBtnLoading ? text + this.gm('中') + '...' : text}
             loading={isBtnLoading}
             className={className}
             onClick={e => {
-              this.isShowedDesc = false;
-              action(this.formHelper, actingRef);
+              if(this.checkForm()) {
+                action(this.formHelper, actingRef);
+              }
             }}/>
         </span>
       );
@@ -136,10 +145,10 @@ export default class FormLayout extends Component {
           isMobile={isMobile}
           showInputTitle={showInputTitle}
           formOptions={formOptions}
-          ref={formHelper => this.formHelper = formHelper}>
+          ref={e => this.formHelper = e}>
           {childrenBeforeBtn}
           <div className="form-group">
-            <label className="control-label" />
+            <span className="control-label" />
             {btnGroup}
           </div>
           {childrenAfterForm}

@@ -76,7 +76,7 @@ export default class Toast extends PureComponent {
       return (
         <CSSTransition classNames="toast" timeout={TRANSTION_TIME} key={idx}>
           <span className={`desc-item ${type}`}>
-            <Icon type={type}/>
+            <Icon n={type}/>
             <span className="text">{desc}</span>
             <span className="_close-btn" onClick={e => this.hideTip(tipID)}>x</span>
           </span>

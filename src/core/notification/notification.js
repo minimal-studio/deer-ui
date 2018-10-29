@@ -119,7 +119,7 @@ export default class Notification extends PureComponent {
                         ) : null
                       }
                       <div className="close-btn" onClick={e => this.closeTip(msgID)}>
-                        <Icon type="close"/>
+                        <Icon n="close"/>
                       </div>
                     </div>
                   </CSSTransition>

@@ -18,11 +18,21 @@ export default class Radio extends SelectorBasic {
     onChange: PropTypes.func.isRequired,
     isMultiple: PropTypes.bool,
     checkAllBtn: PropTypes.bool,
-    defaultValue: PropTypes.any,
-    value: PropTypes.any,
+    defaultValue: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
+    ]),
+    value: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
+      PropTypes.array,
+    ]),
     itemStyle: PropTypes.object,
     // didMountChange: PropTypes.bool,
-    itemWidth: PropTypes.any,
+    itemWidth: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
+    ]),
   };
   selectItem(value, idx) {
     this.changeValue(value, idx);

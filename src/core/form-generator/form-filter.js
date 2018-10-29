@@ -4,8 +4,8 @@ import { Call, CallFunc, IsFunc, HasValue } from 'basic-helper';
 import { DatetimePicker, DatepickerHelper } from '../datetimepicker';
 import { Radio, DropdownMenu } from '../selector';
 import { Input } from '../form-control';
-import Ranger from '../range-selector';
-import Captcha from '../captcha';
+import { Ranger } from '../range-selector';
+import { Captcha } from '../captcha';
 import InputSelector from '../form-control/input-selector';
 
 /**
@@ -21,7 +21,7 @@ export default class FormFilterHelper extends Component {
 
     this.initValues();
   }
-  gm = window.$UKE.getUkeKeyMap;
+  gm = window.$UKE.getKeyMap;
   initValues() {
     const {conditionConfig, formOptions} = this.props;
     this.setDefaultValues(formOptions || conditionConfig);
@@ -71,7 +71,7 @@ export default class FormFilterHelper extends Component {
     }
   }
   checkForm() {
-    let {requiredRefMapper} = this;
+    let { requiredRefMapper } = this;
     let isPass = Object.keys(requiredRefMapper).length == 0;
     let desc = '';
     let ref = '';

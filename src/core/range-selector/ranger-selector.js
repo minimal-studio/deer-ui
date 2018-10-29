@@ -1,6 +1,6 @@
 import React, {Component, PureComponent} from 'react';
 import PropTypes from 'prop-types';
-import { ToFixed } from 'basic-helper';
+import { ToFixed, HasValue } from 'basic-helper';
 
 import InputVerify from '../form-control/input-verify';
 
@@ -41,8 +41,8 @@ export default class Ranger extends Component {
 
     this.isControl = props.hasOwnProperty('value');
 
-    let defaultValue = props.defaultValue || 0;
-    let { range } = props;
+    const defaultValue = props.defaultValue || 0;
+    const { range } = props;
     let [min, max] = range;
     let isRevert = min > max;
     if(isRevert) [max, min] = [min, max];
@@ -161,27 +161,27 @@ export default class Ranger extends Component {
     // });
   }
   changeValue(val, emitChangeEvent = true) {
-    if(val - 1 < -1) return;
+    if(!HasValue(val) || val - 1 < -1) return;
 
     const { disabled, onChange } = this.props;
+    const stateValue = this.valueFilter();
+
     if(disabled) return;
+
     const {min, max} = this;
 
     if(val < min) val = min;
     if(val > max) val = max;
 
-    if(!this.isControl) {
-      this.setState(({stateValue}) => {
-        if(stateValue !== val) {
-          this.offsetPercent = this.valToPercent(val) || 0;
-      
-          this.value = val;
-          if(emitChangeEvent) onChange(val);
-          return {
-            // offsetPercent: this.valToPercent(val) || 0
-            stateValue: val,
-          };
-        }
+    if(stateValue !== val) {
+      this.offsetPercent = this.valToPercent(val) || 0;
+    
+      this.value = val;
+
+      if(emitChangeEvent) onChange(val);
+
+      !this.isControl && this.setState({
+        stateValue: val
       });
     }
   }

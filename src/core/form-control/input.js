@@ -91,7 +91,7 @@ export default class Input extends Component {
     this.iconInput.select();
   }
   getValue() {
-    return this.isControl ? this.props.value : this.state.stateVal;
+    return this.isControl ? this.props.value || '' : this.state.stateVal;
   }
   changeVal(val, elem) {
     if(this.isControl) {
@@ -113,7 +113,7 @@ export default class Input extends Component {
     const hasIcon = !!icon;
 
     const iconDOM = hasIcon ? (
-      <Icon type={icon}/>
+      <Icon n={icon}/>
     ) : null;
 
     let highlightDOM = required ? (

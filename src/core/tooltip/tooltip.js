@@ -55,7 +55,7 @@ export default class ToolTip extends PureComponent {
         onClick={e => {
           Call(onClick, e);
           debounce.exec(() => {
-            Popover.setPopover({
+            Popover.show({
               children: <TitleDOM title={this.props.title}/>,
             });
           }, 1);

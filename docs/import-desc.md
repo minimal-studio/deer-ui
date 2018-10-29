@@ -19,7 +19,7 @@ import SwitchBtn from 'ukelli-ui/core/switch-button';
 import TipPanel from 'ukelli-ui/core/tip-panel';
 import Toast from 'ukelli-ui/core/toast';
 import Ranger from 'ukelli-ui/core/range-selector';
-import PagingBtn from 'ukelli-ui/core/paging-button';
+import Pagination from 'ukelli-ui/core/paging-button';
 import TipBtn from 'ukelli-ui/core/tip-button';
 import Icon from 'ukelli-ui/core/icon';
 import Label from 'ukelli-ui/core/label';

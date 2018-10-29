@@ -215,12 +215,12 @@ export default class Carousel extends Component {
               <div
                 className="prev-btn func-btn"
                 onClick={e => this.setActiveIdx(activeIdx - 1)}>
-                <Icon type="arrow"/>
+                <Icon n="arrow"/>
               </div>
               <div
                 className="next-btn func-btn"
                 onClick={e => this.setActiveIdx(activeIdx + 1)}>
-                <Icon type="arrow"/>
+                <Icon n="arrow"/>
               </div>
             </React.Fragment>
           )

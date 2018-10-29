@@ -5,7 +5,7 @@ import { Icon } from '../icon';
 
 const Tab = ({label, icon, onClick, onChange, idx, labelClass = ''}) => {
   const iconDOM = icon ? (
-    <Icon type={icon} classNames={['tab-icon']}/>
+    <Icon n={icon} classNames={['tab-icon']}/>
   ) : null;
   
   return (

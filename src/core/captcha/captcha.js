@@ -49,7 +49,7 @@ export default class Captcha extends Component {
   getCaptcha(props) {
     props = props || this.props;
     this.refreshTime = Date.now();
-    const {onError} = props;
+    const { onError } = props;
 
     this.setState({
       loading: true

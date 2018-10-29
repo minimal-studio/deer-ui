@@ -13,7 +13,7 @@ const MenuItem = ({isActive, text, icon, ...other}) => {
     <div
       className={"menu-item" + (isActive ? ' active' : '')}
       {...other}>
-      {icon ? <Icon type={icon}/> : null}
+      {icon ? <Icon n={icon}/> : null}
       {text}
     </div>
   );

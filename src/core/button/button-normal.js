@@ -23,7 +23,7 @@ const Button = (props) => {
 
   const clickable = !disabled && !loading;
   const iconDOM = icon ? (
-    <Icon type={icon} classNames={['btn-icon']}/>
+    <Icon n={icon} classNames={['btn-icon']}/>
   ) : null;
 
   return (

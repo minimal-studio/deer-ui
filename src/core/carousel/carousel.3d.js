@@ -209,11 +209,11 @@ export default class Carousel3D extends Component {
           ) : [
             <div className="func-btn prev-btn" key="prev"
               onClick={e => this.rollAndEmitChangeEvent(activeIdx + 1)}>
-              <Icon type="arrow"/>
+              <Icon n="arrow"/>
             </div>,
             <div className="func-btn next-btn" key="next"
               onClick={e => this.rollAndEmitChangeEvent(activeIdx - 1)}>
-              <Icon type="arrow"/>
+              <Icon n="arrow"/>
             </div>
           ]
         }

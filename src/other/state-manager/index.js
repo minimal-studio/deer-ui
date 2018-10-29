@@ -20,7 +20,7 @@ const rewiteMsg = {
     }
   }
   `
-}
+};
 
 /**
  * 提供基础的 react state 管理方式
@@ -50,7 +50,7 @@ export default class StateManager extends Component {
     onNavigate && onNavigate({
       type: 'MODAL',
       modalSetting
-    })
+    });
   }
   toBasicUnitMoney(money) {
     return $GH.ToBasicUnitMoney(money);
@@ -59,7 +59,7 @@ export default class StateManager extends Component {
     const {onNavigate} = this.props;
     onNavigate && onNavigate({
       type: 'CLOSE_MODAL'
-    })
+    });
   }
   getStateBeforePost(params, actingRef) {
     return {

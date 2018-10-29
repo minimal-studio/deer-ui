@@ -30,7 +30,7 @@ export default class TableBody extends MapperFilter {
       abvMoney: PropTypes.any,
       /** 该字段的值的映射 mapper */
       namesMapper: PropTypes.shape({
-        key: 'value'
+        key: PropTypes.string
       }),
     })).isRequired,
     /** 需要渲染的目标记录 */
@@ -375,7 +375,7 @@ export default class TableBody extends MapperFilter {
       </div>
     ) : (
       <span className="no-record-tip">
-        <Icon type="noData"/>
+        <Icon n="noData"/>
         <span className="text">暂无记录</span>
       </span>
     );

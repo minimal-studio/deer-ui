@@ -37,6 +37,7 @@ export default class ConditionGenerator extends FormFilterHelper {
           'ranger',
           'text',
           'radio',
+          'hidden',
           'button',
           'datetime',
           'datetimeRange',

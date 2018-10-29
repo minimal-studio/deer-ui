@@ -64,7 +64,8 @@ $itemW: 360px;
       transition: all ease 0.2s;
 
       &:hover {
-        transform: scale(1.02);
+        // transform: scale(1.02);
+        box-shadow: 0 12px 48px rgba(#000, 0.4);
       }
 
       .title {
