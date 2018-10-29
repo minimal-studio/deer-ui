@@ -1,4 +1,4 @@
-import {defineGlobalScope, IsFunc} from 'basic-helper';
+import { defineGlobalScope, IsFunc } from 'basic-helper';
 import chKeyMapper from '../i18n/zh-CN';
 import enKeyMapper from '../i18n/en-US';
 import defaultIconMapper from './icon-mapper';
@@ -36,7 +36,7 @@ export function getIcon(iconName, iconStyle, moreClassName) {
   const iconPrefix = getUkelliConfig('iconPrefix');
   if(!iconName) return iconMapper;
   let moreClassNameArr = Array.isArray(moreClassName) ? moreClassName : [moreClassName];
-  let resultStr = iconPrefix(iconStyle) + (iconMapper[iconName] || iconName) + ' ' + moreClassNameArr.join(' ');
+  let resultStr = (IsFunc(iconPrefix) ? iconPrefix(iconStyle) : iconPrefix) + (iconMapper[iconName] || iconName) + ' ' + moreClassNameArr.join(' ');
   return resultStr;
 }
 

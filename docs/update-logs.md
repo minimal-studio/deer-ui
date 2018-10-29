@@ -1,3 +1,7 @@
+## 2.6.3
+
+- iconPrefix 可以为字符串
+
 ## 2.6.1
 
 - 新增 tableBody 的 func title
