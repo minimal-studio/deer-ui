@@ -20,7 +20,7 @@ export default class ConditionGenerator extends FormFilterHelper {
         /** 范围类的 ref 组合 */
         refs: PropTypes.array,
         /** 输入选择器的 ref 值，一个控件需要有变换 ref 的时候使用 */
-        refu: PropTypes.array,
+        refu: PropTypes.object,
         /** 是否必填 */
         required: PropTypes.bool,
         /** 控件的类型 */
