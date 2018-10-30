@@ -13,7 +13,7 @@ const Icon = (props) => {
 };
 Icon.propTypes = {
   /** icon name */
-  n: PropTypes.string.isRequired,
+  n: PropTypes.string,
   /** icon style, 具体查看 https://fontawesome.com/ 的描述 */
   s: PropTypes.oneOf([
     's',

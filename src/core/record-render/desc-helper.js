@@ -13,7 +13,7 @@ import MapperFilter from './mapper-filter';
 export default class DescHelper extends MapperFilter {
   static propTypes = {
     keyMapper: PropTypes.arrayOf(PropTypes.object).isRequired,
-    records: PropTypes.arrayOf(PropTypes.object).isRequired
+    record: PropTypes.shape({}).isRequired
   };
   render() {
     const {keyMapper = [], record = {}} = this.props;

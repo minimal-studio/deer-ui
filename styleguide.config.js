@@ -64,7 +64,8 @@ module.exports = {
   // },
   sections: [
     {
-      content: 'docs/ref.md'
+      content: 'docs/ref.md',
+      name: 'Reference'
     },
     {
       name: 'UI Components',

@@ -8,8 +8,10 @@ Avatar.setCroppieUrl('Croppie url');
 
 ```js
 <Avatar
-  size={50}
+  size={100}
   onClick={e => {
     alert('你好')
-  }} changeAvatarable={true} text="A" />
+  }}
+  changeAvatarable={true}
+  text="A" />
 ```

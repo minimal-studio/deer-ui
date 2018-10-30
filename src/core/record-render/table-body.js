@@ -329,7 +329,7 @@ export default class TableBody extends MapperFilter {
                   return (
                     <th 
                       className={`${isOrdering ? ('_order ' + (isDesc ? '_desc ' : '_asc ')) : ''}_btn`}
-                      key={title} 
+                      key={title + '_' + idx} 
                       onClick={e => this.orderRecord(item.key)}
                       style={{
                         width: currHeaderWidth

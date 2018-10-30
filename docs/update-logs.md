@@ -1,3 +1,10 @@
+## 2.6.5
+
+- 修复一些由于错误 propTypes 的 checker 函数导致的警告
+- 调整 Icon 的 props
+- 调整 Avatar 的样式
+- 添加 formGenerator 的日期范围的例子
+
 ## 2.6.4
 
 - 修复中英文的问题
@@ -131,7 +138,7 @@ setUkeLang('zh-HK');
 import {StateManager} from 'ukelli-ui/other/state-manager';
 
 1. 继承 StateManager
-2. 重写其中的流程 hook 
+2. 重写其中的流程 hook
 
 class ActionBasic extends StateManager {
   showResDesc() {

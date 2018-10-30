@@ -230,7 +230,7 @@ export default class Avatar extends PureComponent {
     const isBase64Img = (faceId + '').indexOf('data') > -1;
     const hasImg = isBase64Img || !!avatarImgMap;
     const sizeStyle = {
-      width: size, height: size
+      width: size, height: size, fontSize: size / 1.5, lineHeight: size + 'px'
     };
     const bgStyle = hasImg ? {
       backgroundImage: `url(${isBase64Img ? faceId : `${getImage(avatarImgMap, faceId)}.jpg`})`

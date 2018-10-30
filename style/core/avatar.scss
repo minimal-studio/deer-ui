@@ -31,22 +31,11 @@ $avatarMiniScale: 24px;
   width: $avatarScale;
   height: $avatarScale;
   // background-color: #f86270;
+  background-color: $themeColor;
   border-radius: 50%;
   color: #FFF;
   font-size: $avatarScale - 30;
   line-height: $avatarScale;
   text-align: center;
   text-transform: uppercase;
-  &.sm {
-    width: $avatarSmScale;
-    height: $avatarSmScale;
-    font-size: $avatarSmScale - 20;
-    line-height: $avatarSmScale;
-  }
-  &.mini {
-    width: $avatarMiniScale;
-    height: $avatarMiniScale;
-    font-size: $avatarMiniScale - 10;
-    line-height: $avatarMiniScale;
-  }
 }
