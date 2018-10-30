@@ -42,5 +42,11 @@
         value3: 'value3',
       }
     },
+    {
+      ref: 'ref3',
+      type: 'input',
+      title: '输入',
+      inputType: 'number'
+    },
   ]}/>
 ```

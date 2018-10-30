@@ -33,8 +33,6 @@ export default class Input extends Component {
       PropTypes.number,
       PropTypes.string,
     ]),
-    /** 输入框的 props */
-    inputProps: PropTypes.object,
     /** 输入框右侧的按钮配置 */
     inputBtnConfig: PropTypes.shape({
       /** 传入 input 的 target */

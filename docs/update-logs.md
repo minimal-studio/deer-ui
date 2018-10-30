@@ -1,3 +1,8 @@
+## 2.6.8
+
+- 修复 formFilter 的 input 为 number 返回字符串的问题
+- 新增预设 class 的说明
+
 ## 2.6.5
 
 - 修复一些由于错误 propTypes 的 checker 函数导致的警告

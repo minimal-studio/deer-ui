@@ -75,6 +75,10 @@ module.exports = {
       usageMode: 'collapse' // 'hide' | 'collapse' | 'expand'
     },
     {
+      name: '预设 class',
+      content: 'docs/preset-class.md'
+    },
+    {
       name: '配置',
       content: 'docs/configuration.md'
     },
