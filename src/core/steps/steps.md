@@ -14,7 +14,7 @@ class ForTest extends React.Component {
     const { activeIdx, max } = this.state;
     return (
       <div>
-        <Steps activeIdx={activeIdx} justify="between">
+        <Steps activeIdx={activeIdx} justify="between" className="p20">
           <Steps.Step title="分步1">这里是描述1</Steps.Step>
           <Steps.Step title="分步2">这里是描述2</Steps.Step>
           <Steps.Step title="分步3">这里是描述3</Steps.Step>

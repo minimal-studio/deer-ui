@@ -37,7 +37,7 @@ export default class Steps extends React.Component {
   static Step = Step;
   static propTypes = {
     activeIdx: PropTypes.number,
-    className: PropTypes.arrayOf(PropTypes.string),
+    className: PropTypes.string,
     children: PropTypes.arrayOf(PropTypes.any),
     justify: PropTypes.oneOf([
       'center',

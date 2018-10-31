@@ -1,10 +1,10 @@
 {
   "name": "ukelli-ui",
-  "version": "2.7.1",
+  "version": "2.7.2",
   "main": "./index.js",
   "scripts": {
     "publish": "npm publish ./build",
-    "release": "npm run build; npm run publish",
+    "release": "npm run styleguide:build; npm run build; npm run publish",
     "build": "rm -rf ./build/; npm run build:babel; npm run build:copy-files; npm run copy-style",
     "copy-style": "cp -R ./style ./build/",
     "build:babel": "NODE_ENV=production babel ./src --out-dir ./build --ignore spec.js",
