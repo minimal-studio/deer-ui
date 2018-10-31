@@ -63,7 +63,7 @@ body {
   }
 }
 
-@for $i from 1 through 2 {
+@for $i from 1 through 4 {
   .p#{$i * 5} {
     padding: $i * 5px;
   }

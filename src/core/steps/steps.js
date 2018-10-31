@@ -37,6 +37,7 @@ export default class Steps extends React.Component {
   static Step = Step;
   static propTypes = {
     activeIdx: PropTypes.number,
+    className: PropTypes.arrayOf(PropTypes.string),
     children: PropTypes.arrayOf(PropTypes.any),
     justify: PropTypes.oneOf([
       'center',
@@ -49,6 +50,7 @@ export default class Steps extends React.Component {
   static defaultProps = {
     activeIdx: 0,
     justify: 'start',
+    className: '',
   }
   state = {};
   classMapper = {
@@ -59,12 +61,12 @@ export default class Steps extends React.Component {
     'around': 'around',
   }
   render() {
-    const { children, activeIdx, justify } = this.props;
+    const { children, activeIdx, justify, className } = this.props;
     const layoutClass = `j-c-${this.classMapper[justify] || justify}`;
     const childLen = children.length;
 
     return (
-      <div className={"steps-container layout " + layoutClass}>
+      <div className={`steps-container layout ${layoutClass} ${className}`}>
         {
           React.Children.map(children, (child, idx) => {
             const isActive = activeIdx === idx;
