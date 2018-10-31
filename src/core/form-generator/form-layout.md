@@ -51,3 +51,117 @@
     },
   ]}/>
 ```
+
+表单联动
+
+```js
+class ForTest extends React.Component {
+  constructor(props) {
+    super(props)
+
+    this.formOptions = [
+      {
+        refs: ['startDate', 'endDate'],
+        type: 'datetimeRange',
+        title: '日期',
+        required: true,
+        range: ['2018-10-10', '2018-10-11']
+      },
+      {
+        ref: 'ref1',
+        type: 'radio',
+        title: '单选控件',
+        values: {
+          value1: 'value1',
+          value2: 'value2',
+          value3: 'value3',
+        }
+      },
+      {
+        ref: 'ref2',
+        type: 'select',
+        title: '选择控件',
+        values: {
+          value1: 'value1',
+          value2: 'value2',
+          value3: 'value3',
+        }
+      },
+      {
+        ref: 'ref3',
+        type: 'input',
+        title: '输入',
+        inputType: 'number'
+      },
+    ]
+
+    this.formOptionsMapper = {
+      value1: [
+        {
+          ref: 'test',
+          type: 'input',
+          title: '测试1'
+        }
+      ],
+      value2: [
+        {
+          ref: 'test',
+          type: 'input',
+          title: '测试2'
+        }
+      ],
+      value3: [
+        {
+          ref: 'test',
+          type: 'input',
+          title: '测试3'
+        }
+      ],
+    }
+
+    this.state = {
+      activeVal: ''
+    }
+  }
+  render() {
+    const { activeVal } = this.state;
+    return (
+      <div>
+        <FormLayout
+          btnConfig={[
+            {
+              action: (formRef, actingRef) => {
+                console.log(formRef, actingRef);
+              },
+              text: '测试按钮',
+              actingRef: 'forTest'
+            }
+          ]}
+          onChange={(value, ref) => {
+            if(ref == 'ref1' || ref == 'ref2') this.setState({
+              activeVal: value[ref]
+            })
+          }}
+          formOptions={this.formOptions}/>
+        {
+          activeVal ? (
+            <FormLayout
+              key={activeVal}
+              btnConfig={[
+                {
+                  action: (formRef, actingRef) => {
+                    console.log(formRef, actingRef);
+                  },
+                  text: '测试按钮',
+                  actingRef: 'forTest'
+                }
+              ]}
+              formOptions={this.formOptionsMapper[activeVal]}/>
+          ) : null
+        }
+      </div>
+    )
+  }
+}
+<ForTest/>
+```
