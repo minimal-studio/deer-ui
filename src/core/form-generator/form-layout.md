@@ -20,6 +20,7 @@
       refs: ['startDate', 'endDate'],
       type: 'datetimeRange',
       title: '日期',
+      required: true,
       range: ['2018-10-10', '2018-10-11']
     },
     {

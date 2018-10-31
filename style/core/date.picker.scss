@@ -35,9 +35,10 @@
 }
 .flatpickr {
   position: relative;
-  width: 220px;
+  width: 240px;
   .form-control {
     width: 100% !important;
+    min-width: 100% !important;
   }
   .icon {
     position: absolute;

@@ -1,3 +1,7 @@
+## 2.6.9
+
+- 修复 formFilter 检查 required 的问题
+
 ## 2.6.8
 
 - 修复 formFilter 的 input 为 number 返回字符串的问题
