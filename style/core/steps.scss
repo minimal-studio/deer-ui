@@ -1,5 +1,19 @@
 $tipIdxScale: 30px;
 
+@mixin tipIdxBg($bgColor) {
+  .tip-idx {
+    background-color: $bgColor;
+    border-color: darken($bgColor, 5%);
+  }
+}
+
+@mixin tipIdxColor($color) {
+  .tip-idx {
+    border-color: $color;
+    color: $color;
+  }
+}
+
 .steps-container {
   display: flex;
   .line {
@@ -18,30 +32,55 @@ $tipIdxScale: 30px;
     .tip-idx {
       width: $tipIdxScale;
       height: $tipIdxScale;
-      line-height: $tipIdxScale;
+      line-height: $tipIdxScale - 2;
+      font-size: 16px;
       display: inline-block;
       text-align: center;
       border-radius: 50%;
-      background-color: #f3f3f3;
-      border: 1px solid #EEE;
+      background-color: #FFF;
+      border: 2px solid #DDD;
       margin-right: 10px;
     }
     &.active {
+      // @include tipIdxBg($themeColor);
       .tip-idx {
-        background-color: $colorRed;
-        border-color: $colorRed;
-        color: #FFF;
+        box-shadow: inset 0 2px 2px rgba(#000, 0.1), 0 2px 2px rgba(#000, 0.1);
+        // color: #FFF;
+      }
+      &.normal {
+        @include tipIdxColor($themeColor);
+      }
+      &.success {
+        @include tipIdxColor($colorGreen);
+      }
+      &.error {
+        @include tipIdxColor($colorRed);
+      }
+      &.wran {
+        @include tipIdxColor($colorGold);
+        .tip-idx {
+          color: rgb(99, 89, 31);
+        }
       }
     }
     &.checked {
       .tip-idx {
-        background-color: $themeColor;
-        border-color: $themeColor;
+        background-color: $colorGreen;
+        border-color: $colorGreen;
         color: #FFF;
       }
-    }
-    &.normal {
-
+      &.success {
+        @include tipIdxBg($colorGreen);
+      }
+      &.error {
+        @include tipIdxBg($colorRed);
+      }
+      &.wran {
+        @include tipIdxBg($colorGold);
+        .tip-idx {
+          color: rgb(99, 89, 31);
+        }
+      }
     }
   }
 }

@@ -1,44 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Icon from '../icon/icon';
-
-const Step = ({ title, children, isActive, isChecked, type = 'normal', idx, style }) => {
-  return (
-    <span className={`step-item ${type} ${(isActive ? 'active' : '')} ${(isChecked ? 'checked' : '')}`}
-      style={style}>
-      <span className="tip-item">
-        <span className="tip-idx">
-          {!isChecked ? idx + 1 : (
-            <Icon n="check"/>
-          )}
-        </span>
-        <span className="title">{title}</span>
-      </span>
-      <div className="desc">{children}</div>
-    </span>
-  );
-};
-Step.propTypes = {
-  title: PropTypes.string,
-  idx: PropTypes.number,
-  isActive: PropTypes.bool,
-  isChecked: PropTypes.bool,
-  style: PropTypes.object,
-  type: PropTypes.oneOf([
-    'success',
-    'normal',
-    'wran',
-    'error',
-  ]),
-};
+import Step from './step';
 
 export default class Steps extends React.Component {
   static Step = Step;
   static propTypes = {
+    /** 当前激活的位置 */
     activeIdx: PropTypes.number,
+    /** 传入 steps-container 的 class */
     className: PropTypes.string,
+    /** children，可以为任意元素，但是最好为 Step */
     children: PropTypes.arrayOf(PropTypes.any),
+    /** 所有 Step 的对齐方式，参考 layout 说明 */
     justify: PropTypes.oneOf([
       'center',
       'start',

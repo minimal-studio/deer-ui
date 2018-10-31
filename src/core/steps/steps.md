@@ -1,6 +1,7 @@
 分步组件
 
 ```js
+const Step = Steps.Step;
 class ForTest extends React.Component {
   constructor(props) {
     super(props);
@@ -15,13 +16,15 @@ class ForTest extends React.Component {
     return (
       <div>
         <Steps activeIdx={activeIdx} justify="between" className="p20">
-          <Steps.Step title="分步1">这里是描述1</Steps.Step>
-          <Steps.Step title="分步2">这里是描述2</Steps.Step>
-          <Steps.Step title="分步3">这里是描述3</Steps.Step>
-          <Steps.Step title="分步4">这里是描述4</Steps.Step>
-          <Steps.Step title="分步5">这里是描述4这里是描述4这里是描述4这里是描述4, <span style={{
-            color: 'red'
-          }}>可以为任意元素</span></Steps.Step>
+          <Step title="分步1" type="success">这里是描述1</Step>
+          <Step title="分步2" type="wran">这里是描述2</Step>
+          <Step title="分步3">这里是描述3</Step>
+          <Step title="分步4">这里是描述4</Step>
+          <Step title="分步5" type="error">
+            这里是描述4这里是描述4这里是描述4这里是描述4, <span style={{
+              color: 'red'
+            }}>可以为任意元素</span>
+          </Step>
         </Steps>
 
         <span className="btn theme" onClick={e => {
