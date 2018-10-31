@@ -29,6 +29,7 @@ export * from './record-render';
 export * from './tabs';
 export * from './modal';
 export * from './selector';
+export * from './steps';
 
 export * from './config';
 export * from './set-dom';

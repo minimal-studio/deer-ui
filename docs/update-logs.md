@@ -1,3 +1,7 @@
+## 2.7.0
+
+- 新增一个 Steps 分步组件
+
 ## 2.6.9
 
 - 修复 formFilter 检查 required 的问题

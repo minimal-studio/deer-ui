@@ -8,6 +8,17 @@
 - layout 为一行，分为 20 份，一个 row-1 占用一份
 - 控制布局的行为使用缩写，例如 __justify-content: center === j-c-c__
 
+.layout 的默认属性
+
+```css
+display: flex;
+flex-direction: row;
+flex-wrap: wrap;
+align-content: flex-start;
+align-items: flex-start;
+justify-content: flex-start;
+```
+
 justify-content
 
 ```js

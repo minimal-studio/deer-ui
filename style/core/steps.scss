@@ -1,0 +1,47 @@
+$tipIdxScale: 30px;
+
+.steps-container {
+  display: flex;
+  .line {
+    height: 1px;
+    flex: 1;
+    background-color: #DDD;
+    transform: translateY($tipIdxScale / 2);
+    margin: 0 10px;
+  }
+  .step-item {
+    word-break: break-all;
+    .desc {
+      color: #777;
+      margin-top: 10px;
+    }
+    .tip-idx {
+      width: $tipIdxScale;
+      height: $tipIdxScale;
+      line-height: $tipIdxScale;
+      display: inline-block;
+      text-align: center;
+      border-radius: 50%;
+      background-color: #f3f3f3;
+      border: 1px solid #EEE;
+      margin-right: 10px;
+    }
+    &.active {
+      .tip-idx {
+        background-color: $colorRed;
+        border-color: $colorRed;
+        color: #FFF;
+      }
+    }
+    &.checked {
+      .tip-idx {
+        background-color: $themeColor;
+        border-color: $themeColor;
+        color: #FFF;
+      }
+    }
+    &.normal {
+
+    }
+  }
+}
