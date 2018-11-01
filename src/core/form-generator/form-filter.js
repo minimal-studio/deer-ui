@@ -1,4 +1,4 @@
-import React, {Component, PureComponent} from 'react';
+import React, { Component } from 'react';
 import { Call, CallFunc, IsFunc, HasValue } from 'basic-helper';
 
 import { DatetimePicker, DatepickerHelper } from '../datetimepicker';
@@ -142,6 +142,7 @@ export default class FormFilterHelper extends Component {
     });
   }
   refreshCaptcha(ref) {
+    console.log(ref)
     this._refs[ref].refreshCaptcha();
   }
   zeroFilter(target, compare) {
@@ -194,6 +195,7 @@ export default class FormFilterHelper extends Component {
       <Captcha
         {...config}
         value={this.getValue(ref)}
+        ref={e => this._refs['CaptchaCode'] = e}
         onChange={captchaConfig => {
           this.changeValue(captchaConfig.value, ref);
           if(captchaConfig.isPass) {
@@ -279,7 +281,7 @@ export default class FormFilterHelper extends Component {
     return (
       <Input
         {...config}
-        ref={e => this._refs[config.ref] = e}
+        ref={e => this._refs[ref] = e}
         className={formClass}
         value={this.zeroFilter(this.getValue(ref), '')}
         type={/input|text/.test(type) ? 'text' : (/password|pw/.test(type) ? 'password' : 'text')}
