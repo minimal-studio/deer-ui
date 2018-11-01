@@ -26,6 +26,8 @@ export default class TableBody extends MapperFilter {
       date: PropTypes.any,
       /** 是否格式化成金钱 */
       money: PropTypes.any,
+      /** 单个格子的宽度 */
+      w: PropTypes.any,
       /** 是否以绝对值格式化成金钱 */
       abvMoney: PropTypes.any,
       /** 该字段的值的映射 mapper */
@@ -304,8 +306,8 @@ export default class TableBody extends MapperFilter {
             <tr>
               {
                 keyMapper.map((item, idx) => {
-                  const currHeaderWidth = item.w || headerWidthMapper[idx];
                   if(!item) return;
+                  const currHeaderWidth = item.w || headerWidthMapper[idx];
                   let title = item.title || window.$UKE.getKeyMap(item.key);
 
                   switch (true) {
@@ -352,7 +354,8 @@ export default class TableBody extends MapperFilter {
           <tbody>
             {
               records.map((record, _idx) => {
-                let {_highlight = ''} = record;
+                if(!record) return;
+                const { _highlight = '' } = record;
                 let idx = _idx;
                 return (
                   <tr

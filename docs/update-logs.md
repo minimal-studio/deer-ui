@@ -1,3 +1,8 @@
+## 2.7.5
+
+- 优化 ToolTip 的逻辑，新增 position 的控制
+- 优化 tableBody 的判定
+
 ## 2.7.3
 
 - 优化 Steps 的逻辑，新增一些 Steps 的类型的图标

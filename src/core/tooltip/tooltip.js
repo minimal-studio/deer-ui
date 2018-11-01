@@ -12,7 +12,7 @@ const Popover = new PopoverEntity({
   fixed: true
 });
 
-const TitleDOM = ({title}) => {
+const TitleDOM = ({ title }) => {
   return (
     <div className="text-center p5">{title}</div>
   );
@@ -28,20 +28,30 @@ const TitleDOM = ({title}) => {
 export default class ToolTip extends PureComponent {
   static propTypes = {
     /** 提示的标题 */
-    title: PropTypes.string,
+    title: PropTypes.any,
+    /** 弹出的位置 */
+    position: PropTypes.oneOf([
+      'bottom',
+      'top',
+      'right',
+      'left',
+    ]),
     /** 点击的回调 */
     onClick: PropTypes.func,
   }
+  static defaultProps = {
+    position: 'right'
+  }
   render() {
-    const { title, onClick, ...other } = this.props;
+    const { title, onClick, position, ...other } = this.props;
     return (
       <Icon
         {...other}
         onMouseEnter={e => {
           Popover.show({
-            position: 'bottom',
             elem: e.target,
             props: {
+              position,
               showCloseBtn: false,
               className: 'icon-tip',
               type: 'black'
