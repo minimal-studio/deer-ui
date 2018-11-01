@@ -30,7 +30,7 @@ export default class Pagination extends Component {
       pIdx: 'PageIndex',
       pSize: 'PageSize',
       total: 'AllCount',
-      active: 'UsePagin',
+      active: 'UsePaging',
     },
     isNeedHelper: true,
     prevBtnCount: 3,

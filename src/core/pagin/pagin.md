@@ -10,13 +10,12 @@ class ForPagin extends React.Component {
         PageIndex: 0,
         PageSize: 10,
         AllCount: 101,
-        UsePagin: true
+        UsePaging: true
       }
     }
   }
   render() {
     const { pagin } = this.state;
-    
     return (
       <Pagination
         onPagin={nextPagin => {

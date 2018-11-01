@@ -1,3 +1,7 @@
+## 2.7.6
+
+- 修改 Pagination 的默认值
+  
 ## 2.7.5
 
 - 优化 ToolTip 的逻辑，新增 position 的控制
