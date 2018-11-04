@@ -391,56 +391,27 @@ export default class FormFilterHelper extends Component {
       </div>
     );
   }
+  typeMapper = {
+    'customForm': this.getCustomForm,
+    'captcha': this.getCaptcha,
+    'select-n': this.getSelectNative,
+    'select': this.getSelect,
+    'input-selector': this.getInputSelector,
+    'input-range': this.getInputRange,
+    'input': this.getInput,
+    'password': this.getInput,
+    'textarea': this.getTextArea,
+    'ranger': this.getRange,
+    'text': this.getText,
+    'radio': this.getRadio,
+    'button': this.getButton,
+    'datetime': this.getDatetime,
+    'datetimeRange': this.getDatetimeRange,
+  }
   greneratFormDOM(config) {
     const { type } = config;
+    const generator = this.typeMapper[type];
 
-    let generator;
-
-    switch (type) {
-    case 'customForm':
-      generator = this.getCustomForm;
-      break;
-    case 'captcha':
-      generator = this.getCaptcha;
-      break;
-    case 'select-n':
-      generator = this.getSelectNative;
-      break;
-    case 'select':
-      generator = this.getSelect;
-      break;
-    case 'input-selector':
-      generator = this.getInputSelector;
-      break;
-    case 'input-range':
-      generator = this.getInputRange;
-      break;
-    case 'input':
-    case 'password':
-      generator = this.getInput;
-      break;
-    case 'textarea':
-      generator = this.getTextArea;
-      break;
-    case 'ranger':
-      generator = this.getRange;
-      break;
-    case 'text':
-      generator = this.getText;
-      break;
-    case 'radio':
-      generator = this.getRadio;
-      break;
-    case 'button':
-      generator = this.getButton;
-      break;
-    case 'datetime':
-      generator = this.getDatetime;
-      break;
-    case 'datetimeRange':
-      generator = this.getDatetimeRange;
-      break;
-    }
     return generator && generator(config);
   }
 }
