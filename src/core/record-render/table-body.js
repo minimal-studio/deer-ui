@@ -1,9 +1,11 @@
 import React, {Component, PureComponent} from 'react';
 import PropTypes from 'prop-types';
-import { Call, IsFunc } from 'basic-helper';
+import { Call, IsFunc, HasValue } from 'basic-helper';
 
 import MapperFilter from './mapper-filter';
 import { Icon } from '../icon';
+
+const isStringNumRegex = /\d+,?/;
 
 /**
  * 提供一个快速的表格数据渲染容器，不需要关注具体如何渲染，只需要传入对应的数据和过滤器
@@ -63,7 +65,6 @@ export default class TableBody extends MapperFilter {
     };
 
     this.firstTDDOMs = {};
-    this.tdNumb = 0;
     this.sameSortTime = 0;
   }
 
@@ -181,20 +182,29 @@ export default class TableBody extends MapperFilter {
   getMapperItemsDOM(record, parentIdx, needCount, needAction = true) {
     if(!record) return;
     const keyMapper = this.getKeyMapper();
-    let tdLen = 0;
-    let result = keyMapper.map((item, _idx) => {
-      if(!item) return;
-      tdLen += 1;
-      let {key, num = true} = item;
-      let currText = record[key];
-      let result =  (item.key == 'action' && !needAction) ? '-' : this.mapperFilter(item, record, parentIdx);
+    const keyMapperLen = keyMapper.length;
+
+    let result = [];
+
+    for (let _idx = 0; _idx < keyMapperLen; _idx++) {
+      const item = keyMapper[_idx];
+      if(!item) continue;
+
+      const { key } = item;
+      const currText = record[key];
+      const actionRes =  (item.key == 'action' && !needAction) ? '-' : this.mapperFilter(item, record, parentIdx);
+
       if(needCount) {
-        let isNumbTxt = (!!currText && currText.replace) ? +(currText.replace(',', '')) : currText;
-        if(isNumbTxt && num) {
-          this.statistics[key] = (this.statistics[key] || 0) + isNumbTxt;
+        const isNum = !isNaN(+currText) || isStringNumRegex.test(currText);
+        if(isNum) {
+          // 这里是处理累加的逻辑，如果为字符串的字段，则先把逗号去除
+          const isNumbTxt = +((currText + '').replace(',', ''));
+          if(!isNaN(isNumbTxt) && typeof isNumbTxt === 'number') {
+            this.statistics[key] = (this.statistics[key] || 0) + isNumbTxt;
+          }
         }
       }
-      return (
+      result.push(
         <td
           ref={tdDOM => {
             if(tdDOM && parentIdx == 0) {
@@ -204,12 +214,10 @@ export default class TableBody extends MapperFilter {
           style={item.w ? {width: item.w, whiteSpace: 'pre-wrap'} : null}
           className={item.className || ''}
           key={parentIdx + '_' + _idx}>
-          {result}
+          {actionRes}
         </td>
       );
-    });
-
-    this.tdNumb = tdLen;
+    }
 
     return result;
   }
@@ -331,7 +339,7 @@ export default class TableBody extends MapperFilter {
                   return (
                     <th 
                       className={`${isOrdering ? ('_order ' + (isDesc ? '_desc ' : '_asc ')) : ''}_btn`}
-                      key={title + '_' + idx} 
+                      key={item.key} 
                       onClick={e => this.orderRecord(item.key)}
                       style={{
                         width: currHeaderWidth
