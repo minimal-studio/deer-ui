@@ -3,6 +3,11 @@ class ForTable extends React.Component {
   constructor(props) {
     super(props);
 
+    let longText = '';
+    for(let i = 100; i >= 0; i--) {
+      longText = longText + 'Long ';
+    }
+
     this.keyMapper = [
       {
         key: 'username',
@@ -14,6 +19,11 @@ class ForTable extends React.Component {
       },
       {key: 'age'},
       {key: 'add'},
+      // block 为占用一行
+      {key: 'longText'},
+      {key: 'desc2'},
+      {key: 'desc3'},
+      {key: 'desc4'},
     ]
 
     this.records = [
@@ -21,6 +31,7 @@ class ForTable extends React.Component {
         username: 'alex',
         age: '100',
         add: 'cn',
+        longText: longText,
       },
       {
         username: 'chili',

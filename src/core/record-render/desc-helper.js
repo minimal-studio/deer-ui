@@ -1,5 +1,6 @@
 import React, {Component, PureComponent} from 'react';
 import PropTypes from 'prop-types';
+import { IsFunc } from 'basic-helper';
 
 import MapperFilter from './mapper-filter';
 
@@ -12,11 +13,16 @@ import MapperFilter from './mapper-filter';
  */
 export default class DescHelper extends MapperFilter {
   static propTypes = {
-    keyMapper: PropTypes.arrayOf(PropTypes.object).isRequired,
+    keyMapper: PropTypes.arrayOf(PropTypes.shape({
+      /** 用于标记 key */
+      key: PropTypes.string.isRequired,
+      /** 用于占用一行, 如果超过 100 个字符，则自动转化成占一行的模式 */
+      block: PropTypes.string,
+    })).isRequired,
     record: PropTypes.shape({}).isRequired
   };
   render() {
-    const {keyMapper = [], record = {}} = this.props;
+    const { keyMapper = [], record = {} } = this.props;
     let row = 0;
 
     return (
@@ -24,17 +30,20 @@ export default class DescHelper extends MapperFilter {
         {
           keyMapper.map((mapper, idx) => {
             if(!mapper) return;
-            let text = record[mapper.key] || '';
-            let title = mapper.title || window.$UKE.getKeyMap(mapper.key);
-            text = this.mapperFilter(mapper, record);
-            let isLongText = text ? text.length > 100 : '';
-            let {block = false} = mapper;
-            if(idx % 2 == 0 || block) row += 1;
-            let bgColor = row % 2 != 0 ? ' odd' : '';
+            const { key, title } = mapper;
+            const titleStr = IsFunc(title) ? title(mapper, idx) : title || window.$UKE.getKeyMap(key);
+
+            const text = this.mapperFilter(mapper, record);
+            
+            const isLongText = text ? text.length > 100 : '';
+            const { block = isLongText } = mapper;
+            if(idx % 2 == 0) row += 1;
+            if(block) row += 1;
+            const bgColor = row % 2 != 0 ? ' odd' : '';
 
             return (
-              <div className={"item" + (block ? ' block' : '') + bgColor} key={idx}>
-                <div className="t">{title}</div>
+              <div className={"item" + (block ? ' block' : '') + bgColor} key={key}>
+                <div className="t">{titleStr}</div>
                 <div className={"c" + (isLongText ? ' lg' : '')}>{text}</div>
               </div>
             );

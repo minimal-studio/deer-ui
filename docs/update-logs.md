@@ -1,3 +1,8 @@
+## 2.7.8
+
+- 优化 TableBody 的性能
+- 优化 DescHelper 的实现，以及对于长字符的优化
+
 ## 2.7.7
 
 - 修复 formFilter 的刷新验证码的功能

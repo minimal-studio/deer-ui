@@ -1,6 +1,6 @@
 import React, {Component, PureComponent} from 'react';
 import PropTypes from 'prop-types';
-import { Call, IsFunc, HasValue } from 'basic-helper';
+import { Call, IsFunc } from 'basic-helper';
 
 import MapperFilter from './mapper-filter';
 import { Icon } from '../icon';
@@ -48,6 +48,7 @@ export default class TableBody extends MapperFilter {
     /** 当选中时往表格顶部嵌入的内容 */
     whenCheckAction: PropTypes.any
   };
+  excludeField = /action|checkbox/;
   static defaultProps = {
     sortIgnores: ['checkbox'],
     needCheck: false,
@@ -192,7 +193,7 @@ export default class TableBody extends MapperFilter {
 
       const { key } = item;
       const currText = record[key];
-      const actionRes =  (item.key == 'action' && !needAction) ? '-' : this.mapperFilter(item, record, parentIdx);
+      const actionRes = (!needAction && this.excludeField.test(key)) ? '-' : this.mapperFilter(item, record, parentIdx);
 
       if(needCount) {
         const isNum = !isNaN(+currText) || isStringNumRegex.test(currText);
@@ -303,6 +304,8 @@ export default class TableBody extends MapperFilter {
       console.error('records 必须为 []');
       return <span/>;
     }
+    
+    /** 统计字段，每一次统计都是一个新对象 */
     this.statistics = {};
 
     const hasChecked = Object.keys(checkedItems).length != 0;

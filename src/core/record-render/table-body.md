@@ -30,7 +30,7 @@ class ForTable extends React.Component {
       },
       {key: 'age'},
       {key: 'add'},
-      {key: 'action', filter: (item) => {
+      {key: 'action', filter: (str, item) => {
         return (
           <span
             onClick={e => ShowGlobalModal({
@@ -44,7 +44,7 @@ class ForTable extends React.Component {
     this.records = [
       {
         username: 'alex',
-        age: '100',
+        age: '100,100',
         add: 'cn',
       },
       {
