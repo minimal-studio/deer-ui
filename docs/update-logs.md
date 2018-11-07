@@ -1,3 +1,15 @@
+## 2.7.10
+
+- 重命名一些组件的名字，更符合实际用途
+  - TableBody -> Table
+  - MultipleHelper -> Multiple
+  - DatepickerHelper -> DateShortcut
+  - RecordItemsHelper -> CardTable
+- 优化大部分组件的 key 的实现，不再依赖数组的 index，提高性能
+- 优化 RecordFilter 的所有组件的表头的实现
+- 优化 Selector 的说明
+- 新增 basicHelper 的说明
+
 ## 2.7.9
 
 - 完善 Notify 的 position 和 ID 的机制，不再强制传入 ID

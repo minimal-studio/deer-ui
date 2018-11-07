@@ -16,6 +16,7 @@ export default class InputSelector extends Component {
   static propTypes = {
     /** 通用 selector 的 values 配置参数 */
     values: selectorValuesType,
+    /** 值改变时触发的回调 */
     onChange: PropTypes.func,
     /** 传入 input 控件的 props */
     inputProps: PropTypes.object,
@@ -47,11 +48,15 @@ export default class InputSelector extends Component {
     });
   }
   render() {
-    const {inputProps, values, onChange} = this.props;
-    const {selectRef, inputVal} = this.state;
+    const { inputProps, values, onChange, ...other } = this.props;
+    const { selectRef, inputVal } = this.state;
     return (
       <div className="input-selector">
-        <Selector values={values} onChange={this.changeRef} value={selectRef}/>
+        <Selector
+          {...other}
+          values={values}
+          onChange={this.changeRef}
+          value={selectRef}/>
         <Input {...inputProps} onChange={this.changeInput} 
           value={inputVal}
           onBlur={e => {

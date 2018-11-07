@@ -1,12 +1,7 @@
-import React from 'react';
 import Pagination from './pagin';
+import Rename from '../rename-filter';
 
-const PagingBtn = (props) => {
-  console.log(window.$UKE.getUkeKeyMap('PagingBtn 要废弃了，请使用 Pagination 代替'));
-  return (
-    <Pagination {...props}/>
-  );
-};
+const PagingBtn = Rename(Pagination, 'PagingBtn', 'Pagination');
 
 export {
   Pagination, PagingBtn

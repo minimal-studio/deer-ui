@@ -1,10 +1,17 @@
 import React, { Component } from 'react';
 import { HasValue, DateFormat, MoneyFormat, IsFunc } from 'basic-helper';
 
+const dateRegex = /date/;
+
 export default class MapperFilter extends Component {
   // shouldComponentUpdate(nextProps) {
   //   return JSON.stringify(this.props) !== JSON.stringify(nextProps);
   // }
+  gm = window.$UKE.getKeyMap;
+  titleFilter(item, idx) {
+    const { title, key } = item;
+    return IsFunc(title) ? title(item, idx) : title || this.gm(key);
+  }
   mapperFilter(mapper, record, rowIdx) {
     let currContent = record[mapper.key];
     if(!HasValue(currContent)) {
@@ -15,9 +22,8 @@ export default class MapperFilter extends Component {
 
     switch (true) {
     case !!mapper.date:
-      var format = '';
     case !!mapper.datetime:
-      format = 'YYYY-MM-DD hh:mm:ss';
+      var format = 'YYYY-MM-DD' + (mapper.date ? '' : ' hh:mm:ss');
       contentResult = /0001/.test(currContent) ? '-' : DateFormat(currContent, format);
       break;
     case !!mapper.money:

@@ -122,7 +122,7 @@ export default class Pagination extends Component {
             let isActive = currIdx == (pIdx + 1);
             if(currIdx > 0 && currIdx < paginBtnCount + 1) {
               return (
-                <span key={idx} className={"item" + (isActive ? ' active' : '')} onClick={e => this.changePagin(currIdx - 1)}>
+                <span key={currIdx} className={"item" + (isActive ? ' active' : '')} onClick={e => this.changePagin(currIdx - 1)}>
                   {currIdx}
                 </span>
               );

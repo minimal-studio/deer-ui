@@ -71,10 +71,10 @@ export default class Toast extends PureComponent {
   render() {
     const {descQueue} = this.state;
 
-    const descQueueDOM = Object.keys(descQueue).map((tipID, idx) => {
-      const {type = 'success', desc} = descQueue[tipID];
+    const descQueueDOM = Object.keys(descQueue).map(tipID => {
+      const { type = 'success', desc } = descQueue[tipID];
       return (
-        <CSSTransition classNames="toast" timeout={TRANSTION_TIME} key={idx}>
+        <CSSTransition classNames="toast" timeout={TRANSTION_TIME} key={tipID}>
           <span className={`desc-item ${type}`}>
             <Icon n={type}/>
             <span className="text">{desc}</span>

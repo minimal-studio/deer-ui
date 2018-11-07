@@ -7,10 +7,10 @@ import MapperFilter from './mapper-filter';
  * 卡片式表格渲染模版
  *
  * @export
- * @class RecordItemsHelper
+ * @class CardTable
  * @extends {MapperFilter}
  */
-export default class RecordItemsHelper extends MapperFilter {
+export default class CardTable extends MapperFilter {
   static propTypes = {
     keyMapper: PropTypes.arrayOf(PropTypes.object).isRequired,
     records: PropTypes.arrayOf(PropTypes.object).isRequired
@@ -26,15 +26,17 @@ export default class RecordItemsHelper extends MapperFilter {
             return (
               <div className="item" key={idx}>
                 {
-                  keyMapper.map((item, _idx) => {
-                    if(!item) return;
-                    let currText = record[item.key];
-                    let result = this.mapperFilter(item, record, idx);
-                    let title = item.title || $UKE.getKeyMap(item.key);
+                  keyMapper.map((mapper, _idx) => {
+                    if(!mapper) return;
+                    const { key } = mapper;
+                    const currText = record[key];
+                    const resultText = this.mapperFilter(mapper, record, idx);
+                    const title = this.titleFilter(mapper, _idx);
+                    const tdKey = key + '_' + currText;
                     return (
-                      <div key={idx + '_' + _idx}>
+                      <div key={tdKey}>
                         <span className="title">{title}</span>
-                        <span className="content">{result}</span>
+                        <span className="content">{resultText}</span>
                       </div>
                     );
                   })

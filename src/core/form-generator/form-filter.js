@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Call, CallFunc, IsFunc, HasValue } from 'basic-helper';
 
-import { DatetimePicker, DatepickerHelper } from '../datetimepicker';
+import { DatetimePicker, DateShortcut } from '../datetimepicker';
 import { Radio, DropdownMenu } from '../selector';
 import { Input } from '../form-control';
 import { Ranger } from '../range-selector';
@@ -370,13 +370,6 @@ export default class FormFilterHelper extends Component {
       });
     };
 
-    let datePickerHelper = !config.noHelper ? (
-      <DatepickerHelper
-        {...config}
-        value={this.getValue(ref)}
-        onClick={val => changeDateValues(val)}/>
-    ) : null;
-
     return (
       <div className="datepicker-ranger-content">
         <span className="title">{this.gm('范围')}</span>
@@ -387,7 +380,14 @@ export default class FormFilterHelper extends Component {
           id={datetimeRangeRef}
           value={this.value[datetimeRangeRef] || range}
           onChange={(val) => changeDateValues(val)}/>
-        {datePickerHelper}
+        {
+          !config.noHelper ? (
+            <DateShortcut
+              {...config}
+              value={this.getValue(ref)}
+              onClick={val => changeDateValues(val)}/>
+          ) : null
+        }
       </div>
     );
   }

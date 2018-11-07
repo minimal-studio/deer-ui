@@ -14,21 +14,29 @@ export default class Radio extends SelectorBasic {
     return result;
   }
   static propTypes = {
+    /** Selector 通用的 values 格式 */
     values: selectorValuesType,
+    /** 值改变的回调 */
     onChange: PropTypes.func.isRequired,
+    /** 是否多选 */
     isMultiple: PropTypes.bool,
+    /** 是否需要多选按钮 */
     checkAllBtn: PropTypes.bool,
+    /** 默认值 */
     defaultValue: PropTypes.oneOfType([
       PropTypes.string,
       PropTypes.number,
     ]),
+    /** 受控组件的 value */
     value: PropTypes.oneOfType([
       PropTypes.string,
       PropTypes.number,
       PropTypes.array,
     ]),
+    /** 传入每个 item 的 style */
     itemStyle: PropTypes.object,
     // didMountChange: PropTypes.bool,
+    /** 统一控制每个 item 的宽度 */
     itemWidth: PropTypes.oneOfType([
       PropTypes.string,
       PropTypes.number,
@@ -57,7 +65,7 @@ export default class Radio extends SelectorBasic {
         <div
           className={"item" + (isActive ? ' active' : '')}
           style={{width: itemWidth, ...itemStyle}}
-          key={idx}
+          key={value}
           onClick={e => this.selectItem(value, idx)}>
           {
             img ? (

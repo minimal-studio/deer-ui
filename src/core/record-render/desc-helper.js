@@ -1,6 +1,5 @@
 import React, {Component, PureComponent} from 'react';
 import PropTypes from 'prop-types';
-import { IsFunc } from 'basic-helper';
 
 import MapperFilter from './mapper-filter';
 
@@ -30,20 +29,22 @@ export default class DescHelper extends MapperFilter {
         {
           keyMapper.map((mapper, idx) => {
             if(!mapper) return;
-            const { key, title } = mapper;
-            const titleStr = IsFunc(title) ? title(mapper, idx) : title || window.$UKE.getKeyMap(key);
+            const { key } = mapper;
 
+            const title = this.titleFilter(mapper, idx);
             const text = this.mapperFilter(mapper, record);
             
             const isLongText = text ? text.length > 100 : '';
             const { block = isLongText } = mapper;
+
             if(idx % 2 == 0) row += 1;
             if(block) row += 1;
+            
             const bgColor = row % 2 != 0 ? ' odd' : '';
 
             return (
               <div className={"item" + (block ? ' block' : '') + bgColor} key={key}>
-                <div className="t">{titleStr}</div>
+                <div className="t">{title}</div>
                 <div className={"c" + (isLongText ? ' lg' : '')}>{text}</div>
               </div>
             );

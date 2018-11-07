@@ -83,3 +83,21 @@
     -moz-appearance: textfield;
   }
 }
+
+.multiple-input {
+  border: none;
+  border-bottom: 1px solid #DDD;
+  text-align: center;
+  width: 80px;
+  outline: none;
+}
+.multiple-input-control {
+  width: 40px;
+  height: 20px;
+  border: none;
+  text-align: center;
+  &:focus {
+    // border-color: $themeColor;
+    outline: none;
+  }
+}

@@ -75,6 +75,10 @@ module.exports = {
       usageMode: 'collapse' // 'hide' | 'collapse' | 'expand'
     },
     {
+      name: 'BasicHelper 函数库说明',
+      content: 'docs/basic-helper.md'
+    },
+    {
       name: '预设 class',
       content: 'docs/preset-class.md'
     },

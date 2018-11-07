@@ -11,10 +11,10 @@ const isStringNumRegex = /\d+,?/;
  * 提供一个快速的表格数据渲染容器，不需要关注具体如何渲染，只需要传入对应的数据和过滤器
  *
  * @export
- * @class TableBody
+ * @class Table
  * @extends {MapperFilter}
  */
-export default class TableBody extends MapperFilter {
+export default class Table extends MapperFilter {
   static propTypes = {
     /** 定义数据渲染的字段的映射配置 */
     keyMapper: PropTypes.arrayOf(PropTypes.shape({
@@ -205,6 +205,9 @@ export default class TableBody extends MapperFilter {
           }
         }
       }
+
+      const tdKey = key + '_' + currText;
+      
       result.push(
         <td
           ref={tdDOM => {
@@ -214,7 +217,7 @@ export default class TableBody extends MapperFilter {
           }}
           style={item.w ? {width: item.w, whiteSpace: 'pre-wrap'} : null}
           className={item.className || ''}
-          key={parentIdx + '_' + _idx}>
+          key={tdKey}>
           {actionRes}
         </td>
       );
@@ -304,7 +307,7 @@ export default class TableBody extends MapperFilter {
       console.error('records 必须为 []');
       return <span/>;
     }
-    
+
     /** 统计字段，每一次统计都是一个新对象 */
     this.statistics = {};
 
@@ -318,22 +321,20 @@ export default class TableBody extends MapperFilter {
               {
                 keyMapper.map((item, idx) => {
                   if(!item) return;
+                  const { key } = item;
                   const currHeaderWidth = item.w || headerWidthMapper[idx];
-                  let title = item.title || window.$UKE.getKeyMap(item.key);
-
-                  switch (true) {
-                  case item.key === 'checkbox':
+                  
+                  let title = '';
+                  if(key !== 'checkbox') {
+                    title = this.titleFilter(item, idx);
+                  } else {
                     title = (
                       <input type="checkbox" checked={isAllCheck}
                         onChange={e => this.toggleAllItems(e.target.checked)}/>
                     );
-                    break;
-                  case IsFunc(title):
-                    title = title(item, idx);
-                    break;
                   }
 
-                  const isOrdering = sortField == item.key;
+                  const isOrdering = sortField == key;
                   const sortTip = isOrdering ? (
                     <span className="caret" style={{
                       transform: `rotate(${!isDesc ? '180deg' : '0deg'})`
@@ -342,8 +343,8 @@ export default class TableBody extends MapperFilter {
                   return (
                     <th 
                       className={`${isOrdering ? ('_order ' + (isDesc ? '_desc ' : '_asc ')) : ''}_btn`}
-                      key={item.key} 
-                      onClick={e => this.orderRecord(item.key)}
+                      key={key} 
+                      onClick={e => this.orderRecord(key)}
                       style={{
                         width: currHeaderWidth
                       }}>

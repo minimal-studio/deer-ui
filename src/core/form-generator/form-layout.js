@@ -118,8 +118,9 @@ export default class FormLayout extends Component {
       const { action, text, className, actingRef = 'loading' } = btn;
       const isBtnLoading = this.props[actingRef];
       const isActive = !!action && !isBtnLoading;
+      const key = text + actingRef;
       return (
-        <span className="mr5" key={idx}>
+        <span className="mr5" key={key}>
           <Button
             disabled={!isActive}
             text={isBtnLoading ? text + this.gm('中') + '...' : text}

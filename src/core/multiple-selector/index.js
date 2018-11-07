@@ -1,5 +1,8 @@
-import MultipleHelper from './multiple-selector';
+import Multiple from './multiple-selector';
+import Rename from '../rename-filter';
+
+const MultipleHelper = Rename(Multiple, 'MultipleHelper', 'Multiple');
 
 export {
-  MultipleHelper
+  MultipleHelper, Multiple
 };

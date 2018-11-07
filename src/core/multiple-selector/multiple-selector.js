@@ -3,9 +3,7 @@ import PropTypes from 'prop-types';
 import { Call } from 'basic-helper';
 import { Icon } from '../icon';
 
-const ideaTipsGroup = [1, 5, 10, 100];
-
-export default class MultipleHelper extends PureComponent {
+export default class Multiple extends PureComponent {
   static propTypes = {
     /** onChange */
     onChange: PropTypes.func,
@@ -22,16 +20,21 @@ export default class MultipleHelper extends PureComponent {
     /** 后缀 */
     suffix: PropTypes.string,
     /** 下拉提示的组合 */
-    range: PropTypes.array
+    range: PropTypes.arrayOf(PropTypes.number)
   };
+  static defaultProps = {
+    max: 999999,
+    inputable: true,
+    min: 1,
+    range: [1, 5, 10, 100],
+  }
   constructor(props) {
     super(props);
-    const {range = ideaTipsGroup, defaultValue} = props;
+    const { range, defaultValue } = props;
     this.state = {
       isShowIdea: false,
       value: defaultValue || range[0]
     };
-    this.defaultMax = 99999;
   }
   componentDidMount() {
     this.multipleHelper.defaultValue = '1';
@@ -51,20 +54,15 @@ export default class MultipleHelper extends PureComponent {
     this.changeValue(_result);
   }
   changeValue(val) {
-    const {onChange, min = 1, max = this.defaultMax} = this.props;
-    let value = +(val) || 1;
-    // if(value < min || value === 0) {
-    //   value = min;
-    // } else if(value > max) {
-    //   value = max;
-    // }
+    const { onChange } = this.props;
+    const value = +(val) || 1;
     this.setState({
       value
     });
     Call(onChange, value);
   }
   checkValue() {
-    const {min = 1, max = this.defaultMax} = this.props;
+    const { min, max } = this.props;
     let {value} = this.state;
     if(value < min || value === 0) {
       value = min;
@@ -82,8 +80,8 @@ export default class MultipleHelper extends PureComponent {
   //   return this.props.defaultValue !== nextProps.defaultValue || this.state.isShowIdea !== nextState.isShowIdea;
   // }
   render() {
-    const {onChange, defaultValue, suffix, range = ideaTipsGroup, inputable = true} = this.props;
-    const {isShowIdea, value} = this.state;
+    const { suffix, range, inputable } = this.props;
+    const { isShowIdea, value } = this.state;
 
     return (
       <div className={"multiple-helper" + (isShowIdea ? ' show' : '')}>
@@ -101,7 +99,8 @@ export default class MultipleHelper extends PureComponent {
                 // self.checkValue();
               }, 1 * 100);
             }}
-            value={value} ref={e => this.multipleHelper = e}
+            value={value}
+            ref={e => this.multipleHelper = e}
             onChange={(e) => {
               if(!inputable) return;
               this.changeValue(e.target.value);

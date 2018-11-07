@@ -2,7 +2,7 @@
 
 ```js
 <div style={{width: 260, position: 'relative'}}>
-  <MultipleHelper
+  <Multiple
     onChange={val => {
       console.log(val)
     }}

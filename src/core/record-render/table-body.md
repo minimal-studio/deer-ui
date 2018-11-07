@@ -30,6 +30,7 @@ class ForTable extends React.Component {
       },
       {key: 'age'},
       {key: 'add'},
+      {key: 'birth', date: 1},
       {key: 'action', filter: (str, item) => {
         return (
           <span
@@ -46,32 +47,38 @@ class ForTable extends React.Component {
         username: 'alex',
         age: '100,100',
         add: 'cn',
+        birth: new Date('1999-01-01'),
       },
       {
         username: 'chili',
         age: '102',
         add: 'cn',
+        birth: new Date('1999-01-01'),
       },
       {
         username: 'dove',
         age: '50',
         add: 'cn',
+        birth: new Date('1999-01-01'),
       },
       {
         username: 'susam',
         age: '20',
         add: 'uk',
+        birth: new Date('1999-01-01'),
       },
     ]
   }
   render() {
     return (
       <div>
-        <TableBody
+        <Table
           keyMapper={this.keyMapper}
           ref={e => this.table = e}
           whenCheckAction={(
-            <span className="btn theme mu10" onClick={e => this.table.clearCheckeds()}>清除所有的以选中项</span>
+            <span className="btn theme mu10" onClick={e => this.table.clearCheckeds()}>
+              清除所有的以选中项
+            </span>
           )}
           needCheck={true}
           needCount={true}

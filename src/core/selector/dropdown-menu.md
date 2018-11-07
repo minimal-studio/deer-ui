@@ -51,6 +51,31 @@ class ForTesting extends React.Component {
           <div className="mu10">可以通过 ref 来改变 DropdownMenu 的值</div>
           <div className="btn theme" onClick={e => this.dropdown.changeValue('value3')}>点击改变为 value3</div>
         </div>
+        <hr/>
+        <div>
+          <span className="ms10">向上左弹出</span>
+          <DropdownMenu
+            position="top,left"
+            onChange={val => {
+              this.setState({
+                value: val
+              })
+            }}
+            value={value}
+            values={values}
+          />
+          <span className="ms10">向上右弹出</span>
+          <DropdownMenu
+            position="top,right"
+            onChange={val => {
+              this.setState({
+                value: val
+              })
+            }}
+            value={value}
+            values={values}
+          />
+        </div>
       </div>
     )
   }

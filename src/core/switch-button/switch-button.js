@@ -33,23 +33,25 @@ export default class SwitchButton extends PureComponent {
 
     const switchBtnGroup = (
       <div className="switch-btn-group layout j-c-b">
-        {Object.keys(btns).map((btnKey, idx) => {
-          let btnText = btns[btnKey].text || btns[btnKey];
-          let isActive = btnKey === activeIdx && !disabled;
-          return (
-            <span
-              disabled={disabled}
-              key={idx}
-              className={isActive ? 'switch-btn active' : 'switch-btn'}
-              onClick={e => {
-                if((!unique || activeIdx !== btnKey) && !disabled) {
-                  this.value = btnKey;
-                  onSwitch(btnKey, isActive);
-                }
-              }}>{btnText}
-            </span>
-          );
-        })}
+        {
+          Object.keys(btns).map(btnKey => {
+            const btnText = btns[btnKey].text || btns[btnKey];
+            const isActive = btnKey === activeIdx && !disabled;
+            return (
+              <span
+                disabled={disabled}
+                key={btnText}
+                className={isActive ? 'switch-btn active' : 'switch-btn'}
+                onClick={e => {
+                  if((!unique || activeIdx !== btnKey) && !disabled) {
+                    this.value = btnKey;
+                    onSwitch(btnKey, isActive);
+                  }
+                }}>{btnText}
+              </span>
+            );
+          })
+        }
       </div>
     );
     return switchBtnGroup;

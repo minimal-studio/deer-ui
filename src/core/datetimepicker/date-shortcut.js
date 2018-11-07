@@ -34,10 +34,10 @@ function getHalfMouthDate(type, format, timeDefaultStr) {
  * 独立的快捷时间选择器
  *
  * @export
- * @class DatepickerHelper
+ * @class DateShortcut
  * @extends {PureComponent}
  */
-export default class DatepickerHelper extends PureComponent {
+export default class DateShortcut extends PureComponent {
   static propTypes = {
     /** 点击快捷方式的回调 */
     onClick: PropTypes.func.isRequired,
@@ -54,6 +54,7 @@ export default class DatepickerHelper extends PureComponent {
         filter: PropTypes.func
       })
     ),
+    style: PropTypes.object,
     /** 是否返回时间 */
     needTime: PropTypes.bool
   };
@@ -118,20 +119,20 @@ export default class DatepickerHelper extends PureComponent {
   }
   render() {
     const {activeIdx} = this.state;
-    const {dateHelperInfo} = this.props;
+    const { dateHelperInfo, style } = this.props;
     const _dateHelperInfo = !!dateHelperInfo && dateHelperInfo.length > 0 ? dateHelperInfo : this.defaultDateHelperInfo;
     let gm = window.$UKE.getUkeKeyMap;
 
     return (
-      <div className="date-helper-group">
+      <div className="date-helper-group" style={style}>
         <SubContent displayElem={gm('快捷')}>
           <div className="date-helper">
             {
               _dateHelperInfo.map((item, idx) => {
-                let text = item.t;
+                const text = item.t;
                 return (
                   <span className={(idx == activeIdx ? 'active ' : '') + "date-helper-btn"}
-                    onClick={e => this.generateDate(item, idx)} key={idx}>
+                    onClick={e => this.generateDate(item, idx)} key={text}>
                     {text}
                   </span>
                 );

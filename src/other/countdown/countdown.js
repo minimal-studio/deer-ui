@@ -8,9 +8,25 @@ const timeTitleMapper = {
   hour: '时',
   min: '分',
   sec: '秒'
-}
+};
 
 export default class Countdown extends Component {
+  static propTypes = {
+    start: PropTypes.number.isRequired,
+    freq: PropTypes.number.isRequired,
+    needBg: PropTypes.bool,
+    needProgress: PropTypes.bool,
+    jumpClass: PropTypes.string,
+    firstStopColor: PropTypes.string,
+    secondStopColor: PropTypes.string,
+    countdownNotifyTimer: PropTypes.any,
+    onCountdownNotify: PropTypes.func,
+    onTimeout: PropTypes.func.isRequired
+  };
+  static defaultProps = {
+    firstStopColor: '#fe0362',
+    secondStopColor: '#7473e3'
+  };
   constructor(props) {
     super(props);
     this.state = {
@@ -21,7 +37,7 @@ export default class Countdown extends Component {
   startCountdown() {
     const {start} = this.props;
     if (this.state.isTimerStart || start === 0) return;
-    this._clearTimer()
+    this._clearTimer();
     this.interval = this.startTimer();
   }
   // getSameJumpElem() {
@@ -60,7 +76,7 @@ export default class Countdown extends Component {
   }
 
   clearTimer() {
-    this._clearTimer()
+    this._clearTimer();
     this.setState({
       isTimerStart: false
     });
@@ -108,7 +124,7 @@ export default class Countdown extends Component {
   //   return result;
   // }
   getBgDOM(timeObj, time, idx) {
-    const {needBg = true, freq} = this.props;
+    const {needBg = true, freq, firstStopColor, secondStopColor} = this.props;
 
     if(!needBg) return '';
     let currTime = timeObj[time];
@@ -116,12 +132,12 @@ export default class Countdown extends Component {
     let currCycle = freq > 60 ? 60 : freq;
     let hourCycle = freq / 3600;
     switch (time) {
-      case 'hour':
-        currCycle = hourCycle;
-        break;
-      case 'min':
-        currCycle = hourCycle > 1 ? 60 : freq / 60;
-        break;
+    case 'hour':
+      currCycle = hourCycle;
+      break;
+    case 'min':
+      currCycle = hourCycle > 1 ? 60 : freq / 60;
+      break;
     }
     let currPercent = +(currTime / currCycle * 100);
     let percent = currPercent == 0 ? 0 : ToFixed(100 - currPercent, 0);
@@ -130,19 +146,18 @@ export default class Countdown extends Component {
       <CountdownBg
         percent={percent}
         text={currTime}
-        firstStopColor={this.props.fisrtStopColor}
-        secondStopColor={this.props.secondStopColor}
-      />
-    )
+        firstStopColor={firstStopColor}
+        secondStopColor={secondStopColor}/>
+    );
   }
   render () {
-    const {needBg = true, freq, needProgress = false} = this.props;
-    const {countdown} = this.state;
+    const { needBg = true, freq, needProgress = false } = this.props;
+    const { countdown } = this.state;
     const timeObj = TimeFormat(countdown);
-    const {hour, min, sec} = timeObj;
     const percent = +(countdown / freq * 100);
+
     const progressDOM = needProgress ? (
-      <span className="progress" style={{right: percent + '%'}}></span>
+      <span className="progress" style={{right: percent + '%'}} />
     ) : '';
 
     this.setJumpElemCount(timeObj);
@@ -155,32 +170,16 @@ export default class Countdown extends Component {
 
             let countBg = this.getBgDOM(timeObj, time, idx);
             return (
-              <span className={"item " + time} key={idx}>
+              <span className={"item " + time} key={time}>
                 <span className="text">{currTime}</span>
                 {countBg}
                 <span className="foot">{timeTitleMapper[time]}</span>
               </span>
-            )
+            );
           })
         }
         {progressDOM}
       </section>
-    )
+    );
   }
-}
-
-Countdown.propTypes = {
-  start: PropTypes.number.isRequired,
-  freq: PropTypes.number.isRequired,
-  needBg: PropTypes.bool,
-  needProgress: PropTypes.bool,
-  jumpClass: PropTypes.string,
-  countdownNotifyTimer: PropTypes.any,
-  onCountdownNotify: PropTypes.func,
-  onTimeout: PropTypes.func.isRequired
-};
-
-Countdown.defaultProps = {
-  firstStopColor: '#fe0362',
-  secondStopColor: '#7473e3'
 }

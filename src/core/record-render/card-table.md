@@ -9,6 +9,11 @@ class ForTable extends React.Component {
     this.keyMapper = [
       {
         key: 'username',
+        title: (keyMapper) => {
+          return (
+            <span>使用 func title 返回表头</span>
+          )
+        },
         namesMapper: {
           alex: '埃里克斯',
           chili: '吃梨',
@@ -17,7 +22,8 @@ class ForTable extends React.Component {
       },
       {key: 'age'},
       {key: 'add'},
-      {key: 'action', filter: (item) => {
+      {key: 'birth', date: 1},
+      {key: 'action', filter: (str, item) => {
         return (
           <span
             onClick={e => ShowGlobalModal({
@@ -31,30 +37,34 @@ class ForTable extends React.Component {
     this.records = [
       {
         username: 'alex',
-        age: '100',
+        age: '100,100',
         add: 'cn',
+        birth: new Date('1999-01-01'),
       },
       {
         username: 'chili',
         age: '102',
         add: 'cn',
+        birth: new Date('1999-01-01'),
       },
       {
         username: 'dove',
         age: '50',
         add: 'cn',
+        birth: new Date('1999-01-01'),
       },
       {
         username: 'susam',
         age: '20',
         add: 'uk',
+        birth: new Date('1999-01-01'),
       },
     ]
   }
   render() {
     return (
       <div>
-        <RecordItemsHelper
+        <CardTable
           keyMapper={this.keyMapper}
           records={this.records} />
       </div>

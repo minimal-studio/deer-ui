@@ -12,9 +12,10 @@ class ForHelper extends React.Component {
     return (
       <div>
         返回值: {res.join(' - ')}
-        <DatepickerHelper onClick={e => this.setState({
-          res: e
-        })}/>
+        <DateShortcut style={{width: 300}}
+          onClick={e => this.setState({
+            res: e
+          })}/>
       </div>
     )
   }
