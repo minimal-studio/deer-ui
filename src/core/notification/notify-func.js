@@ -1,4 +1,4 @@
-import React, {Component, PureComponent} from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
 
 import { HasValue, GenerteID } from 'basic-helper';
@@ -16,11 +16,10 @@ let notificationEntity = null;
  */
 export default function Notify(options) {
   const { position, config, handleClick } = options;
-  config.id = HasValue(config.id) ? config.id : GenerteID();
 
-  notificationEntity.receiveNotify(config);
+  const configID = notificationEntity.receiveNotify(config, position);
 
-  return config.id;
+  return configID;
 }
 /**
  * 用于消除 Notify ，传入 notifyID

@@ -10,18 +10,19 @@ const TRANSFORM_TIMER = 300;
 export default class Notification extends PureComponent {
   static propTypes = {
     handleClick: PropTypes.func,
-    position: PropTypes.string,
   };
-  static defaultProps = {
-    position: 'top,right',
-  };
+  // static defaultProps = {
+  //   position: 'top,right',
+  // };
   constructor(props) {
     super(props);
     this.timers = {};
+    this.IDIncrement = 0;
     this.state = {
-      systemTips: {}
+      systemTips: {},
+      position: 'top,right'
     };
-    EventEmitter.subscribe('NOTIFY', this.receiveNotify);
+    EventEmitter.on('NOTIFY', this.receiveNotify);
   }
   /**
    * receiveNotify 参数说明
@@ -41,17 +42,29 @@ export default class Notification extends PureComponent {
    *    },
    *  }
    */
-  receiveNotify = (notifyConfig) => {
-    const {id} = notifyConfig;
-    this.setState({
-      systemTips: Object.assign({}, this.state.systemTips, {
-        [id]: notifyConfig
-      })
+  componentWillUnmount() {
+    EventEmitter.rm('NOTIFY', this.receiveNotify);
+  }
+  notifyConfigFilter(notifyConfig) {
+    ++this.IDIncrement;
+    const { id } = notifyConfig;
+    const _id = id ? id : this.IDIncrement + '';
+    notifyConfig.id = _id;
+    return notifyConfig;
+  }
+  receiveNotify = (notifyConfig, _position) => {
+    notifyConfig = this.notifyConfigFilter(notifyConfig);
+    const { id } = notifyConfig;
+    this.setState(({systemTips, position}) => {
+      return {
+        systemTips: {
+          ...systemTips,
+          [id]: notifyConfig
+        },
+        position: _position || position
+      };
     });
     this.startTargetTimer(notifyConfig);
-  }
-  componentWillUnmount() {
-    EventEmitter.unsubscribe('NOTIFY', this.receiveNotify);
   }
   clickTip(clickTarget, msgID) {
     const { handleClick } = this.props;
@@ -63,10 +76,12 @@ export default class Notification extends PureComponent {
     Call(onClickTip, clickTarget);
   }
   closeTip(msgID) {
-    let nextState = Object.assign({}, this.state.systemTips);
-    delete nextState[msgID];
-    this.setState({
-      systemTips: nextState
+    this.setState(({systemTips}) => {
+      let nextState = Object.assign({}, systemTips);
+      delete nextState[msgID];
+      return {
+        systemTips: nextState
+      };
     });
   }
   clearTargetTimer(msgID) {
@@ -77,16 +92,15 @@ export default class Notification extends PureComponent {
     this.setTipHideTimer(msgObj);
   }
   setTipHideTimer(msgObj) {
-    const self = this;
-    const {id, lifecycle = 7} = msgObj;
+    const { id, lifecycle = 7 } = msgObj;
     if(!id || lifecycle < 0) return;
     this.timers[id] = setTimeout(() => {
-      self.closeTip(id);
+      this.closeTip(id);
     }, lifecycle * 1000);
   }
   render() {
-    const { position, handleClick } = this.props;
-    const { systemTips } = this.state;
+    const { handleClick } = this.props;
+    const { position, systemTips } = this.state;
     let hasMsg = Object.keys(systemTips).length > 0;
     let gm = window.$UKE.getUkeKeyMap;
 
@@ -97,7 +111,7 @@ export default class Notification extends PureComponent {
             {
               Object.keys(systemTips).map(msgID => {
                 const item = systemTips[msgID];
-                const {type = 'normal', title, text, onClickTip, actionText = gm('点击查看详情')} = item;
+                const { type = 'normal', title, text, onClickTip, actionText = gm('点击查看详情') } = item;
                 return (
                   <CSSTransition
                     key={msgID}

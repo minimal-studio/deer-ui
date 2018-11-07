@@ -1,7 +1,24 @@
+$btnColors: (
+  (name: 'theme', color: $themeColor, text: #FFF),
+  (name: 'red', color: $colorRed, text: #FFF),
+  (name: 'yellow', color: $colorYellow, text: #FFF),
+  (name: 'gold', color: $colorGold, text: #2f2b29),
+  (name: 'blue', color: $colorBlue, text: #FFF),
+  (name: 'green', color: $colorGreen, text: #FFF),
+  (name: 'light-p', color: $colorPurpleLight, text: #FFF),
+  (name: 'primary', color: $colorBlue, text: #FFF),
+  (name: 'default', color: $defaultColor, text: #666),
+  (name: 'important', color: $importantColor, text: #FFF),
+  (name: 'warn', color: $warmColor, text: #FFF),
+  (name: 'black', color: $colorBlack, text: #FFF),
+  (name: 'grey', color: #6f6f7e, text: #FFF),
+  (name: 'wine', color: #c42c94, text: #FFF),
+);
+
 .btn {
   appearance: none;
   background-color: #FFF;
-  padding: 5px 20px;
+  padding: 6px 24px;
   border-radius: 3px;
   transition: background-color 0.1s ease, box-shadow 0.1s ease, color 0.1s ease;
   outline: none;
@@ -36,71 +53,16 @@
     font-size: 14px;
     padding: 8px 20px;
   }
-  &.hola {
-    padding: 5px 28px;
-    border: 1px solid #FFF;
-    background-color: transparent !important;
-    color: #FFF;
-    box-shadow: 0;
-    &.primary {
-      border-color: $themeColor;
-      color: darken($themeColor, 10%);
-      &:hover {
-        box-shadow: 0 0 6px rgba(246, 99, 114, 0.4);
-      }
-      &.active {
-        background-color: $themeColor !important;
-        color: #FFF;
-      }
+  @for $i from 1 through length($btnColors) {
+    $item: nth($btnColors, $i);
+    
+    &.#{map-get($item, name)} {
+      $textColor: map-get($item, text);
+      @include btnFlat(map-get($item, color), $textColor);
     }
-    &:hover {
-      box-shadow: 0 0 6px rgba(0, 0, 0, 0.4);
-    }
-    &.default {
-      border-color: #d1d1d1;
-      color: #777;
-    }
-  }
-  &.theme {
-    @include btnFlat($themeColor);
-  }
-  &.red {
-    @include btnFlat($colorRed);
-  }
-  &.gold {
-    @include btnFlat($colorGold, #2f2b29);
-  }
-  &.yellow {
-    @include btnFlat(#FFAA0D, #FFF);
-  }
-  &.primary {
-    @include btnFlat($colorRed);
-  }
-  &.blue {
-    @include btnFlat($colorBlue);
-  }
-  &.light-p {
-    @include btnFlat($colorPurpleLight);
   }
   &.default {
-    @include btnFlat($defaultColor);
     border-color: #DDD;
-    color: #666;
-  }
-  &.important {
-    @include btnFlat($importantColor);
-  }
-  &.warn {
-    @include btnFlat($warmColor);
-  }
-  &.black {
-    @include btnFlat($colorBlack);
-  }
-  &.grey {
-    @include btnFlat(#6d6d9e);
-  }
-  &.wine {
-    @include btnFlat(#b969a0);
   }
   &.res {
     width: 100%;
@@ -108,4 +70,40 @@
   .btn-icon {
     margin-right: 10px;
   }
+  &.hola {
+    padding: 5px 28px;
+    border: 1px solid #FFF;
+    background-color: transparent !important;
+    color: #FFF;
+    box-shadow: 0;
+    @for $i from 1 through length($btnColors) {
+      $item: nth($btnColors, $i);
+      
+      &.#{map-get($item, name)} {
+        $textColor: map-get($item, text);
+        @include btnHola(map-get($item, color));
+      }
+    }
+    &.default {
+      border-color: #d1d1d1;
+      color: #777;
+    }
+  }
+}
+
+.link-btn,.link {
+  color: $themeColor;
+  cursor: pointer;
+  border-bottom: 1px solid transparent;
+  &:hover {
+    border-color: $themeColor;
+  }
+}
+
+[class*=_btn],[class*=-btn] {
+  cursor: pointer;
+}
+
+.close-btn {
+  @include closeBtn(22px);
 }
