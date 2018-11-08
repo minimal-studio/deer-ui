@@ -111,6 +111,6 @@ $iconViewBgColor: $themeColor;
       -moz-user-select: none !important;
       user-select: none !important;
     }
-    @include layoutCenter();
+    // @include layoutCenter();
   }
 }
