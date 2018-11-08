@@ -126,3 +126,42 @@ padding: 0 10px;
 ```
 
 ---------------
+
+### 表格
+
+```html
+<table class="table"></table>
+```
+
+```js
+<table className="table">
+  <thead>
+    <tr>
+      <th>序号</th>
+      <th>表头1</th>
+      <th>表头2</th>
+      <th>表头3</th>
+      <th>表头4</th>
+      <th>表头5</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>单元1</td>
+      <td>单元2</td>
+      <td>单元3</td>
+      <td>单元4</td>
+      <td>单元5</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>单元1</td>
+      <td>单元2</td>
+      <td>单元3</td>
+      <td>单元4</td>
+      <td>单元5</td>
+    </tr>
+  </tbody>
+</table>
+```
