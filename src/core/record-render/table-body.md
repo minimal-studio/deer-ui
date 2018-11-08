@@ -31,6 +31,9 @@ class ForTable extends React.Component {
       {key: 'age'},
       {key: 'add'},
       {key: 'birth', date: 1},
+      {key: 'obj', filter: (_, item) => {
+        return _.account
+      }},
       {key: 'action', filter: (str, item) => {
         return (
           <span
@@ -47,24 +50,36 @@ class ForTable extends React.Component {
         username: 'alex',
         age: '100,100',
         add: 'cn',
+        obj: {
+          account: 123,
+        },
         birth: new Date('1999-01-01'),
       },
       {
         username: 'chili',
         age: '102',
         add: 'cn',
+        obj: {
+          account: 123,
+        },
         birth: new Date('1999-01-01'),
       },
       {
         username: 'dove',
         age: '50',
         add: 'cn',
+        obj: {
+          account: 123,
+        },
         birth: new Date('1999-01-01'),
       },
       {
         username: 'susam',
         age: '20',
         add: 'uk',
+        obj: {
+          account: 123,
+        },
         birth: new Date('1999-01-01'),
       },
     ]
