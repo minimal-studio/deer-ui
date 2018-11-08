@@ -81,9 +81,9 @@ export default class FormFilterHelper extends Component {
     if(ref) this.value[ref] = defaultValue;
     if(Array.isArray(refu)) this.value[refu[refuDefaultIdx]] = defaultValue;
 
-    if(Array.isArray(refs)) {
+    if(Array.isArray(range) && Array.isArray(refs)) {
       refs.forEach((_ref, idx) => {
-        this.value[_ref] = range ? range[idx] : '';
+        this.value[_ref] = range[idx];
       });
     }
   }
@@ -142,7 +142,6 @@ export default class FormFilterHelper extends Component {
     });
   }
   refreshCaptcha(ref) {
-    console.log(ref)
     this._refs[ref].refreshCaptcha();
   }
   zeroFilter(target, compare) {

@@ -45,5 +45,11 @@
         value3: 'value3',
       }
     },
+    {
+      refs: ['s', 'e'],
+      type: 'input-range',
+      title: '范围',
+      range: [0, 10]
+    },
   ]}/>
 ```

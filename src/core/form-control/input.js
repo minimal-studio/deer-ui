@@ -89,7 +89,7 @@ export default class Input extends Component {
     this.iconInput.select();
   }
   getValue() {
-    return this.isControl ? this.props.value || '' : this.state.stateVal;
+    return this.isControl ? this.props.value : this.state.stateVal;
   }
   changeVal(val, elem) {
     if(this.isControl) {
