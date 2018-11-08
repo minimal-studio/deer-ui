@@ -7,6 +7,10 @@ import { Icon } from '../icon';
 
 const isStringNumRegex = /\d+,?/;
 
+const tdSpecClassMapper = {
+  checkbox: 'check-td'
+};
+
 /**
  * 提供一个快速的表格数据渲染容器，不需要关注具体如何渲染，只需要传入对应的数据和过滤器
  *
@@ -43,6 +47,8 @@ export default class Table extends MapperFilter {
     needCount: PropTypes.bool,
     /** 是否多选 */
     needCheck: PropTypes.bool,
+    /** checkbox 的宽度 */
+    checkWidth: PropTypes.number,
     /** 无视的排序字段 */
     sortIgnores: PropTypes.arrayOf(PropTypes.string),
     /** 当选中时往表格顶部嵌入的内容 */
@@ -52,6 +58,7 @@ export default class Table extends MapperFilter {
   static defaultProps = {
     sortIgnores: ['checkbox'],
     needCheck: false,
+    checkWidth: 30,
     needCount: false,
   };
   constructor(props) {
@@ -131,14 +138,14 @@ export default class Table extends MapperFilter {
   }
   
   getKeyMapper = () => {
-    const { keyMapper = [], needCheck } = this.props;
+    const { keyMapper = [], needCheck, checkWidth } = this.props;
 
     let result = keyMapper;
 
     if(needCheck) {
       const checkExtend = {
         key: 'checkbox',
-        w: 30,
+        w: checkWidth,
         filter: this.getCheckbox
       };
       result = [checkExtend, ...keyMapper];
@@ -216,7 +223,7 @@ export default class Table extends MapperFilter {
             }
           }}
           style={item.w ? {width: item.w, whiteSpace: 'pre-wrap'} : null}
-          className={item.className || ''}
+          className={(tdSpecClassMapper[key] || '') + ' ' + (item.className || '')}
           key={tdKey}>
           {actionRes}
         </td>
@@ -327,6 +334,7 @@ export default class Table extends MapperFilter {
                   let title = '';
                   if(key !== 'checkbox') {
                     title = this.titleFilter(item, idx);
+                    // currHeaderWidth = 
                   } else {
                     title = (
                       <input type="checkbox" checked={isAllCheck}

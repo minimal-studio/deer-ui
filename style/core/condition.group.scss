@@ -22,6 +22,12 @@ $formControlBgColor: #f9f9f9;
     &.forcing {
       background-color: #FFF;
     }
+    .input-group {
+      .title {
+        width: auto !important;
+        min-width: 0 !important;
+      }
+    }
   }
 
   // .datepicker-ranger-content {
