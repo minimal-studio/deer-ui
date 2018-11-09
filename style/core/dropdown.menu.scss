@@ -1,5 +1,6 @@
 // @import "../var.scss";
 $itemH: 30px;
+$iconW: 20px;
 .uke-dropdown-menu {
   position: relative;
   cursor: pointer;
@@ -11,34 +12,68 @@ $itemH: 30px;
   }
   .menu-wrapper, .menu-item {
     &:hover {
-      color: $colorRed;
+      color: $themeColor;
+      .display-title {
+        border-color: rgba($themeColor, 0.6);
+      }
     }
   }
   .menu-wrapper {
     // background-color: #FFF;
     line-height: $itemH;
-    min-width: 140px;
+    // min-width: 140px;
+    .icon {
+      z-index: 1;
+    }
     // line-height: 32px;
     // height: 32px;
   }
-  &.show.input-mode.single {
-    .search-input {
-      opacity: 1;
-      z-index: 1;
+  .icon-wrap {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: $iconW / 2;
+    display: flex;
+    align-items: center;
+    // color: inherit;
+    opacity: 0.6;
+    z-index: 1;
+    transition: transform ease 0.3s;
+  }
+  &.top {
+    .icon-wrap {
+      transform: rotate(180deg);
     }
-    .display-title {
-      opacity: 0;
+  }
+  &.show {
+    .icon-wrap {
+      transform: rotate(180deg);
+    }
+    &.top {
+      .icon-wrap {
+        transform: rotate(0);
+      }
+    }
+    &.input-mode.single {
+      .search-input {
+        opacity: 1;
+        z-index: 1;
+      }
+      .display-title {
+        opacity: 0;
+      }
     }
   }
   .display-title {
     opacity: 1;
     z-index: 1;
-    position: relative;
+    // position: relative;
+    width: 100%;
     cursor: pointer;
   }
   .display-title,.search-input {
     border: 1px solid #e7e7e7;
-    padding: 0 10px;
+    padding: 0 30px 0 10px;
     border-radius: 3px;
   }
   .dropdown-items {

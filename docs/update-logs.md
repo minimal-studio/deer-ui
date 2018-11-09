@@ -1,3 +1,7 @@
+## 2.7.15
+
+- 优化 Dropdown 的样式
+
 ## 2.7.14
 
 - 调整 Table 的 checkbox 的宽度

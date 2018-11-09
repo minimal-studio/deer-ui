@@ -115,7 +115,9 @@ export default class Tabs extends PureComponent {
       const _con = inRow ? _tabContent : null;
 
       const _tab = (
-        <div key={"tab-" + idx} className={_labelClass}>
+        <div key={"tab-" + idx}
+          className={_labelClass}
+          draggable>
           <span onClick={e => this.onTapTab(idx)}>
             {tabChild}
           </span>
@@ -143,7 +145,11 @@ export default class Tabs extends PureComponent {
 
     return (
       <div className={className + (inRow ? ' in-row' : '' + (withContent ? ' common-mode' : ''))}>
-        <div className="tab-group">
+        <div className="tab-group"
+          droppable
+          onDragEnd={e => {
+            console.log(e)
+          }}>
           {tabs}
         </div>
         {inRow ? null : tabContents}

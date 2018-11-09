@@ -138,18 +138,20 @@ export default class DropdownMenu extends SelectorBasic {
     const isSelectedAll = this.checkIsSelectedAll();
     const canSelectAll = isMultiple && !isSelectedAll;
     const activeTitle = this.getActiveTitle();
+    const _position = positionFilter(position);
 
     return (
       <div
         className={
           "uke-dropdown-menu " +
+          _position + ' ' +
           (className ? ' ' + className : '') +
           (isMultiple ? ' multiple' : ' single') +
           (withInput ? ' input-mode' : '') +
           (isShow ? ' show' : '')
         }
         style={style}>
-        <div className="menu-wrapper" 
+        <span className="menu-wrapper" 
           onClick={e => {
             if(isMultiple) {
               this.showSubMenu();
@@ -176,7 +178,12 @@ export default class DropdownMenu extends SelectorBasic {
                 }}/>
             )
           }
-        </div>
+          <div className="icon-wrap">
+            <Icon n="angle-down" />
+          </div>
+        </span>
+        {/* <div className="drop-tip">
+        </div> */}
         <TransitionGroup component={null}>
           <CSSTransition
             key={isShow ? 'opened' : 'none'}
@@ -186,7 +193,7 @@ export default class DropdownMenu extends SelectorBasic {
               isShow ? (
                 <div className={
                   "dropdown-items " + 
-                  positionFilter(position)
+                  _position
                 }>
                   <span className="caret" />
                   {
