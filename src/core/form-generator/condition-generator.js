@@ -67,7 +67,10 @@ export default class ConditionGenerator extends FormFilterHelper {
             let showTitle = this.titleDisplayFilter(_con);
             
             let titleDOM = showTitle ? (
-              <span className="title">{_con.title}</span>
+              <span className="title">
+                {_con.tipsDOM}
+                {_con.title}
+              </span>
             ) : null;
 
             return (

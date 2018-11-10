@@ -1,14 +1,24 @@
 import React, { Component } from 'react';
 import { HasValue, DateFormat, MoneyFormat, IsFunc } from 'basic-helper';
 import { UkeComponent, UkePureComponent } from '../uke-basic';
+import { ToolTip } from '../tooltip';
 
 export default class MapperFilter extends UkeComponent {
   // shouldComponentUpdate(nextProps) {
   //   return JSON.stringify(this.props) !== JSON.stringify(nextProps);
   // }
   titleFilter(item, idx) {
-    const { title, key } = item;
-    return IsFunc(title) ? title(item, idx) : title || this.gm(key);
+    const { title, key, tips } = item;
+    const titleDOM = IsFunc(title) ? title(item, idx) : title || this.gm(key);
+    const tipsDOM = tips ? (
+      <ToolTip n="question" s="r" title={tips}/>
+    ) : null;
+    return (
+      <div>
+        {tipsDOM}
+        {titleDOM}
+      </div>
+    );
   }
   mapperFilter(mapper, record, rowIdx) {
     let currContent = record[mapper.key];

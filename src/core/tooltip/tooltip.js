@@ -13,8 +13,14 @@ const Popover = new PopoverEntity({
 });
 
 const TitleDOM = ({ title }) => {
+  const isArr = Array.isArray(title);
+  const titleDOM = isArr ? title.map((text, idx) => {
+    return (
+      <p key={text}>{idx + 1}. {text}</p>
+    );
+  }) : title;
   return (
-    <div className="text-center p5">{title}</div>
+    <div className="text-center" style={{padding: '5px 10px'}}>{titleDOM}</div>
   );
 };
 
@@ -40,7 +46,7 @@ export default class ToolTip extends PureComponent {
     onClick: PropTypes.func,
   }
   static defaultProps = {
-    position: 'right'
+    position: 'bottom'
   }
   render() {
     const { title, onClick, position, ...other } = this.props;

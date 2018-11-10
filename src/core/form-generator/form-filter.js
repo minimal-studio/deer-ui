@@ -8,6 +8,7 @@ import { Radio, DropdownMenu } from '../selector';
 import { Input } from '../form-control';
 import { Ranger } from '../range-selector';
 import { Captcha } from '../captcha';
+import { ToolTip } from '../tooltip';
 import InputSelector from '../form-control/input-selector';
 
 /**
@@ -22,6 +23,10 @@ export default class FormFilterHelper extends UkeComponent {
     this.requiredRefMapper = {}; // 用于检测是否通过表单强制要求验证的mapper
 
     this.initValues();
+  }
+  componentWillUnmount() {
+    this.value = {};
+    this.requiredRefMapper = {};
   }
   initValues() {
     const {conditionConfig, formOptions} = this.props;
@@ -38,10 +43,6 @@ export default class FormFilterHelper extends UkeComponent {
     const { conditionConfig, formOptions } = nextProps;
     const configArr = formOptions || conditionConfig || [];
     configArr.forEach(config => this.setRequiredRefMapper(config));
-  }
-  componentWillUnmount() {
-    this.value = {};
-    this.requiredRefMapper = {};
   }
   setRequiredRefMapper(config) {
     if(!config || !config.required) return;
@@ -128,7 +129,11 @@ export default class FormFilterHelper extends UkeComponent {
     return checkRes;
   }
   wrapConditionTitle(config) {
-    config.title = config.title || this.gm(config.ref) || config.ref || '';
+    const { title, tips, ref } = config;
+    config.title = title || this.gm(ref) || ref || '';
+    if(tips) config.tipsDOM = (
+      <ToolTip title={tips} n="question" s="r"/>
+    );
     return config;
   }
   focusRef(ref) {
@@ -273,13 +278,14 @@ export default class FormFilterHelper extends UkeComponent {
     );
   }
   getInputRange = (config) => {
-    const { refs, formClass, type, ...other } = config;
+    /** 中间无用的是用于过滤 other */
+    const { refs, formClass, type, title, ...other } = config;
     const [refS, refE] = refs;
     return (
       <div className="input-range">
-        {this.getInput({ ref: refS, ...other})}
+        {this.getInput({ ref: refS, title: this.gm('起'), ...other})}
         <span> - </span>
-        {this.getInput({ ref: refE, ...other})}
+        {this.getInput({ ref: refE, title: this.gm('止'), ...other})}
       </div>
     );
   }
@@ -292,8 +298,6 @@ export default class FormFilterHelper extends UkeComponent {
         ref={e => this._refs[ref] = e}
         className={formClass}
         value={this.zeroFilter(this.getValue(ref), '')}
-        // type={/input|text/.test(type) ? 'text' : (/password|pw/.test(type) ? 'password' : 'text')}
-        // placeholder={config.placeholder || config.title}
         onBlur={(val, e) => {
           /** 在 onBlur 中修正 value 的类型 */
           this.changeValue(val, ref);
@@ -382,7 +386,7 @@ export default class FormFilterHelper extends UkeComponent {
 
     return (
       <div className="datepicker-ranger-content">
-        <span className="title">{this.gm('范围')}</span>
+        {/* <span className="title">{this.gm('范围')}</span> */}
         <DatetimePicker
           mode="range"
           {...other}

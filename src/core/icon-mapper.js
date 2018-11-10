@@ -5,6 +5,7 @@ const defaultIconMapper = {
   close: 'times',
   noData: 'thermometer-empty',
   success: 'check',
+  question: 'question-circle',
   error: 'exclamation-circle',
   'circle-up': 'arrow-circle-up',
   'circle-down': 'arrow-circle-down',

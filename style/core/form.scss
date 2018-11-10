@@ -43,6 +43,9 @@
 }
 .control-label {
   color: #777;
+  .icon {
+    margin: 0 5px;
+  }
 }
 
 .form-desc {
@@ -51,12 +54,13 @@
   font-size: 12px;
   .highlight {
     font-size: 14px;
+    color: $themeColor;
   }
   &.success {
-    color: #03b7aa;
+    color: $colorGreen;
   }
   &.error {
-    color: #ec008c;
+    color: $colorRed;
   }
 }
 
@@ -73,6 +77,11 @@
 
 .form-group {
   margin: 20px 0;
+  &.required {
+    .control-label {
+      color: darken($themeColor, 40%);
+    }
+  }
   &.error {
     .control-label {
       color: $colorRed;

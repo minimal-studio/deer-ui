@@ -1,3 +1,8 @@
+## 2.7.18
+
+- 新增 FormGenertor 和 ConditionGenerator 的提示按钮
+- 新增所有 Table 的提示接口
+
 ## 2.7.17
 
 - 调整 input 的 title 的类型检查

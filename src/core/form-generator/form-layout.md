@@ -20,6 +20,11 @@
       refs: ['startDate', 'endDate'],
       type: 'datetimeRange',
       title: '日期',
+      tips: [
+        '可以为数组的 tip 1',
+        '可以为数组的 tip 2',
+        '可以为数组的 tip 3',
+      ],
       required: true,
       range: ['2018-10-10', '2018-10-11']
     },
@@ -27,6 +32,7 @@
       ref: 'ref1',
       type: 'radio',
       title: '单选控件',
+      tips: '也可以是单纯的字符串',
       values: {
         value1: 'value1',
         value2: 'value2',

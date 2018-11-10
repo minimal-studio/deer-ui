@@ -99,7 +99,7 @@ export default class FormLayout extends UkeComponent {
       showInputTitle,
       childrenBeforeForm, childrenAfterForm, childrenBeforeBtn,
       formOptions = [], btnText = this.gm('确定提交'),
-      onSubmit, onChange
+      onSubmit, onChange, ...other
     } = this.props;
 
     const _btnConfig = btnConfig ? btnConfig : [
@@ -141,6 +141,7 @@ export default class FormLayout extends UkeComponent {
         {tipDOM}
         {childrenBeforeForm}
         <FormGenerator
+          {...other}
           onChange={onChange}
           isVertical={isVertical}
           isMobile={isMobile}

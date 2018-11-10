@@ -7,7 +7,13 @@ export default class FormGenerator extends FormFilterHelper {
   static propTypes = {
     /** 表单配置 */
     formOptions: PropTypes.arrayOf(
-      PropTypes.object
+      PropTypes.shape({
+        type: PropTypes.string,
+        tips: PropTypes.oneOfType([
+          PropTypes.string,
+          PropTypes.array,
+        ]),
+      })
     ).isRequired,
     /** 是否移动端，开启移动端渲染 */
     isMobile: PropTypes.bool,
@@ -43,8 +49,9 @@ export default class FormGenerator extends FormFilterHelper {
             let _con = this.wrapConditionTitle(condition);
             let {className = ''} = condition;
             let itemRef = _con.ref || (_con.refs ? _con.refs[0] : 'q');
+            const isRequired = _con.required;
 
-            let highlightDOM = _con.required ? (
+            let highlightDOM = isRequired ? (
               <span className="form-desc">
                 <span className="highlight">*</span>
               </span>
@@ -59,11 +66,12 @@ export default class FormGenerator extends FormFilterHelper {
                 ref={e => {
                   if(e) this.formItemRefs[itemRef] = e;
                 }}
-                className={"form-group " + _con.type + (className ? ' ' + className : '')}>
+                className={`form-group ${_con.type} ${className} ${isRequired ? ' required' : ''}`}>
                 {
                   needTitle ? (
                     <span className="control-label">
                       {highlightDOM}
+                      {_con.tipsDOM}
                       {_con.title}
                     </span>
                   ) : null
