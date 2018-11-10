@@ -42,13 +42,16 @@ export default class InputSelector extends Component {
     });
     if(inputVal) this.props.onChange(inputVal, val);
   }
+  focus() {
+    this._input.focus();
+  }
   changeInput = (val) => {
     this.setState({
       inputVal: val
     });
   }
   render() {
-    const { inputProps, values, onChange, ...other } = this.props;
+    const { inputProps, values, onChange, inputType, ...other } = this.props;
     const { selectRef, inputVal } = this.state;
     return (
       <div className="input-selector">
@@ -57,10 +60,13 @@ export default class InputSelector extends Component {
           values={values}
           onChange={this.changeRef}
           value={selectRef}/>
-        <Input {...inputProps} onChange={this.changeInput} 
+        <Input
+          {...inputProps}
+          ref={e => this._input = e}
+          inputType={inputType}
+          onChange={this.changeInput} 
           value={inputVal}
-          onBlur={e => {
-            let val = e.target.value;
+          onBlur={(val, e) => {
             onChange(val, selectRef);
           }}/>
       </div>

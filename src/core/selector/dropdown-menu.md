@@ -75,6 +75,17 @@ class ForTesting extends React.Component {
             value={value}
             values={values}
           />
+          <span className="ms10">无效的值示例，这个时候需要检查参数</span>
+          <DropdownMenu
+            position="top,right"
+            onChange={val => {
+              this.setState({
+                value: val
+              })
+            }}
+            value={'123'}
+            values={values}
+          />
         </div>
       </div>
     )

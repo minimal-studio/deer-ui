@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Call, DateFormat, GetDefaultDateInfo } from 'basic-helper';
 
 import { SubContent } from '../sub-content';
+import { UkeComponent, UkePureComponent } from '../uke-basic';
 
 function getHalfMouthDate(type, format, timeDefaultStr) {
   var today = new Date();
@@ -37,7 +38,7 @@ function getHalfMouthDate(type, format, timeDefaultStr) {
  * @class DateShortcut
  * @extends {PureComponent}
  */
-export default class DateShortcut extends PureComponent {
+export default class DateShortcut extends UkePureComponent {
   static propTypes = {
     /** 点击快捷方式的回调 */
     onClick: PropTypes.func.isRequired,
@@ -70,11 +71,11 @@ export default class DateShortcut extends PureComponent {
 
     const { needTime } = props;
 
-    let basicFormat = 'YYYY-MM-DD';
-    // let timeFormat = 'hh:ss:mm';
-    let timeDefaultStr = needTime ? [' 00:00:00', ' 23:59:59'] : [];
-    // let format = basicFormat + (needTime ? (' ' + timeFormat) : '');
-    let gm = window.$UKE.getUkeKeyMap;
+    const basicFormat = 'YYYY-MM-DD';
+    // const timeFormat = 'hh:ss:mm';
+    const timeDefaultStr = needTime ? [' 00:00:00', ' 23:59:59'] : [];
+    // const format = basicFormat + (needTime ? (' ' + timeFormat) : '');
+    const gm = this.gm;
 
     this.defaultDateHelperInfo = [
       {
@@ -109,7 +110,7 @@ export default class DateShortcut extends PureComponent {
   generateDate(itemConfig, idx) {
     const {onClick} = this.props;
 
-    let dateInfo = itemConfig.filter();
+    const dateInfo = itemConfig.filter();
     this.value = dateInfo;
 
     Call(onClick, dateInfo);
@@ -121,7 +122,7 @@ export default class DateShortcut extends PureComponent {
     const {activeIdx} = this.state;
     const { dateHelperInfo, style } = this.props;
     const _dateHelperInfo = !!dateHelperInfo && dateHelperInfo.length > 0 ? dateHelperInfo : this.defaultDateHelperInfo;
-    let gm = window.$UKE.getUkeKeyMap;
+    const gm = this.gm;
 
     return (
       <div className="date-helper-group" style={style}>

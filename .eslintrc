@@ -24,6 +24,7 @@
     ],
     "import/prefer-default-export": 0,
     "no-console": 0,
+    "no-case-declarations": 0,
     "jsx-a11y/click-events-have-key-events": 0,
     "jsx-a11y/no-static-element-interactions": 0,
     "react/jsx-tag-spacing": 0,
@@ -35,6 +36,7 @@
     "react/jsx-first-prop-new-line": 0,
     "react/jsx-one-expression-per-line": 0,
     "react/sort-comp": 0,
+    "react/no-this-in-sfc": 0,
     "react/jsx-closing-bracket-location": [1, "after-props"],
     "react/jsx-filename-extension": [
       1,

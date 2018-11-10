@@ -5,6 +5,14 @@ $iconW: 20px;
   position: relative;
   cursor: pointer;
   display: inline-block;
+  &.error {
+    .menu-wrapper {
+      color: $colorRed !important;
+      .display-title {
+        border-color: rgba($colorRed, 0.6) !important;
+      }
+    }
+  }
   &.multiple {
     .section-mark {
       position: fixed;

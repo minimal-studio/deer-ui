@@ -1,13 +1,11 @@
 import React, { Component } from 'react';
 import { HasValue, DateFormat, MoneyFormat, IsFunc } from 'basic-helper';
+import { UkeComponent, UkePureComponent } from '../uke-basic';
 
-const dateRegex = /date/;
-
-export default class MapperFilter extends Component {
+export default class MapperFilter extends UkeComponent {
   // shouldComponentUpdate(nextProps) {
   //   return JSON.stringify(this.props) !== JSON.stringify(nextProps);
   // }
-  gm = window.$UKE.getKeyMap;
   titleFilter(item, idx) {
     const { title, key } = item;
     return IsFunc(title) ? title(item, idx) : title || this.gm(key);

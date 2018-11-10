@@ -1,6 +1,7 @@
 import React, {Component, PureComponent} from 'react';
 import PropTypes from 'prop-types';
 import { Call, RemoveArrayItem, IsFunc } from 'basic-helper';
+import { UkeComponent, UkePureComponent } from '../uke-basic';
 
 export const selectorValuesType = PropTypes.oneOfType([
   PropTypes.shape({
@@ -15,7 +16,7 @@ export const selectorValuesType = PropTypes.oneOfType([
   )
 ]);
 
-export default class SelectorBasic extends Component {
+export default class SelectorBasic extends UkeComponent {
   static propTypes = {
     values: selectorValuesType.isRequired,
     defaultValue: PropTypes.any,

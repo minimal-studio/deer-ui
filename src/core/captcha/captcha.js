@@ -1,7 +1,8 @@
-import React, {Component, PureComponent} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { Call } from 'basic-helper';
 
+import { UkeComponent } from '../uke-basic';
 import Input from '../form-control/input';
 
 /**
@@ -11,7 +12,7 @@ import Input from '../form-control/input';
  * @class Captcha
  * @extends {Component}
  */
-export default class Captcha extends Component {
+export default class Captcha extends UkeComponent {
   static propTypes = {
     onError: PropTypes.func,
     onChange: PropTypes.func,
@@ -113,7 +114,7 @@ export default class Captcha extends Component {
     this.captchaInput.focus();
   }
   render() {
-    let gm = window.$UKE.getUkeKeyMap;
+    const gm = this.gm;
     const {captchaImg, captchaValue, loading} = this.state;
     const {value, icon} = this.props;
     const _captchaValue = this.isControl ? value : captchaValue;

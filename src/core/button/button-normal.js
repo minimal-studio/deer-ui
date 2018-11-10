@@ -1,6 +1,6 @@
 /* eslint-disable react/button-has-type */
 
-import React, {Component, PureComponent} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
 import { Icon } from '../icon';

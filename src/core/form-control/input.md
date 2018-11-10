@@ -5,3 +5,7 @@ import { InputVerifyClass } from 'ukelli-ui/core/form-control/input-verify'
 
 class Input extends InputVerifyClass {}
 ```
+
+```js
+<Input inputType="number"/>
+```

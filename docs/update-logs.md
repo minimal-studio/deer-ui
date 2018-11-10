@@ -1,3 +1,10 @@
+## 2.7.16
+
+- 重做 Input 的 number 类型的机制，支持输出 number
+- 修复 input-range 不能做表单验证的问题
+- 调整 DropdownMenu 对于无效值的验证以及对应的样式
+- 新增 UkeComponent 和 UkePureComponent，用于被继承用于获取国际化以及内部配置
+
 ## 2.7.15
 
 - 优化 Dropdown 的样式

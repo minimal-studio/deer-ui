@@ -74,7 +74,7 @@ export default class MenuGroup extends SelectorBasic {
     const canSelectAll = isMultiple && !isSelectedAll;
 
     const _style = Object.assign({}, this.offset, style);
-    let gm = $UKE.getUkeKeyMap;
+    const gm = this.gm;
 
     return (
       <div className="menu-list"

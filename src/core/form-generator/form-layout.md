@@ -9,7 +9,7 @@
   btnConfig={[
     {
       action: (formRef, actingRef) => {
-        console.log(formRef, actingRef);
+        console.log(formRef.value, actingRef);
       },
       text: '测试按钮',
       actingRef: 'forTest'
@@ -46,7 +46,24 @@
     {
       ref: 'ref3',
       type: 'input',
-      title: '输入',
+      title: '输入数字',
+      required: true,
+      inputType: 'number'
+    },
+    {
+      refs: ['_ref3', '_ref4'],
+      type: 'input-range',
+      title: '范围输入',
+      required: true,
+      inputType: 'number'
+    },
+    {
+      refu: {
+        'refu1': '1', 'refu2': '2', 'refu3': '3'
+      },
+      type: 'input-selector',
+      title: '选择器输入',
+      required: true,
       inputType: 'number'
     },
   ]}/>
@@ -91,6 +108,7 @@ class ForTest extends React.Component {
         ref: 'ref3',
         type: 'input',
         title: '输入',
+        required: true,
         inputType: 'number'
       },
     ]

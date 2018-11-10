@@ -146,7 +146,7 @@ export default class Tabs extends PureComponent {
     return (
       <div className={className + (inRow ? ' in-row' : '' + (withContent ? ' common-mode' : ''))}>
         <div className="tab-group"
-          droppable
+          droppable="true"
           onDragEnd={e => {
             console.log(e)
           }}>

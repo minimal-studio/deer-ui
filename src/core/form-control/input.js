@@ -4,6 +4,11 @@ import PropTypes from 'prop-types';
 import { Call, HasValue } from 'basic-helper';
 import { Icon } from '../icon';
 
+const controlTypeMapper = {
+  input: 'text',
+  pw: 'password',
+};
+
 let defaultShowInputTitle = true;
 
 /**
@@ -22,8 +27,22 @@ export default class Input extends Component {
     /** 输入框的 icon */
     icon: PropTypes.string,
     /** 输入框类型 */
-    type: PropTypes.string,
+    type: PropTypes.oneOf([
+      /** 等于 text */
+      'input',
+      /** 等于 password */
+      'pw',
+      'password',
+      'text',
+      /** 有浏览器兼容问题，请使用 inputTpe="number" 代替 */
+      'number',
+    ]),
+    /** 期望输出的值的类型 */
+    inputType: PropTypes.string,
+    /** 作为自定义的 placeholder */
     placeholder: PropTypes.string,
+    /** 作为自定义的 placeholder */
+    title: PropTypes.string,
     className: PropTypes.string,
     defaultValue: PropTypes.oneOfType([
       PropTypes.number,
@@ -48,6 +67,7 @@ export default class Input extends Component {
     required: false,
     className: 'form-control',
     type: 'input',
+    inputType: 'string',
   }
   /**
    * 设置 input 控件的默认行为
@@ -91,6 +111,19 @@ export default class Input extends Component {
   getValue() {
     return this.isControl ? this.props.value : this.state.stateVal;
   }
+  /**
+   * 用于过滤是 number 类型的值
+   */
+  numberValFilter() {
+    const { inputType } = this.props;
+    let val = this.getValue();
+    switch (inputType) {
+    case 'number':
+      val = HasValue(+val) ? +val : 0;
+      break;
+    }
+    return val;
+  }
   changeVal(val, elem) {
     if(this.isControl) {
       this.setState({
@@ -101,7 +134,7 @@ export default class Input extends Component {
   }
   render() {
     const {
-      icon, placeholder, inputBtnConfig, type, showTitle = defaultShowInputTitle,
+      icon, placeholder, title, inputBtnConfig, type, showTitle = defaultShowInputTitle,
       className, children, required,
       onFocus, onBlur,
     } = this.props;
@@ -120,10 +153,10 @@ export default class Input extends Component {
       </span>
     ) : null;
 
-    const titleDOM = !!placeholder && showTitle ? (
+    const titleDOM = (!!placeholder || !!title) && showTitle ? (
       <span className="title">
         {iconDOM}
-        <span className="text mr10">{placeholder}</span>
+        <span className="text mr10">{placeholder || title}</span>
         {highlightDOM}
       </span>
     ) : null;
@@ -139,13 +172,16 @@ export default class Input extends Component {
     ) : null;
 
     return (
-      <div className={`input-control ${viewClass}${hasIcon ? ' has-icon' : ''}${inputBtnConfig ? ' has-btn' : ''}`}>
-        <div className="input-con" onClick={e => this.iconInput.focus()}>
+      <div
+        className={`input-control ${viewClass}${hasIcon ? ' has-icon' : ''}${inputBtnConfig ? ' has-btn' : ''}`}>
+        <div
+          className="input-con"
+          onClick={e => this.iconInput.focus()}>
           <span className="input-group">
             {titleDOM}
             <input
               placeholder=""
-              type={type}
+              type={controlTypeMapper[type] || type}
               className={className}
               value={value}
               onFocus={e => {
@@ -154,7 +190,8 @@ export default class Input extends Component {
               }}
               onBlur={e => {
                 this.delForceClass();
-                Call(onBlur, e);
+                const val = this.numberValFilter();
+                Call(onBlur, val, e);
               }}
               onChange={e => {
                 const val = e.target.value;

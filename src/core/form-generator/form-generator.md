@@ -18,6 +18,9 @@
 
 ```js
 <FormGenerator
+  onChange={(values, ref, val) => {
+    console.log(values, ref, val)
+  }}
   formOptions={[
     {
       refs: ['startDate', 'endDate'],
@@ -38,6 +41,18 @@
     {
       ref: 'ref2',
       type: 'select',
+      title: '选择控件',
+      values: {
+        value1: 'value1',
+        value2: 'value2',
+        value3: 'value3',
+      }
+    },
+    {
+      ref: 'ref3',
+      type: 'input',
+      inputType: 'number',
+      required: true,
       title: '选择控件',
       values: {
         value1: 'value1',

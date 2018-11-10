@@ -1,7 +1,8 @@
 import React, {Component, PureComponent} from 'react';
 import PropTypes from 'prop-types';
+import { UkeComponent, UkePureComponent } from '../uke-basic';
 
-export default class Pagination extends Component {
+export default class Pagination extends UkeComponent {
   static propTypes = {
     /** 分页的存储数据，可以为不确定的结构，通过 infoMapper 做映射 */
     pagingInfo: PropTypes.object.isRequired,
@@ -75,7 +76,7 @@ export default class Pagination extends Component {
     const pagingInfo = this.infoTranslate();
     const { pIdx, pSize, total, active } = pagingInfo;
 
-    const gm = window.$UKE.getUkeKeyMap;
+    const gm = this.gm;
 
     const paginBtnCount = Math.ceil(total / pSize);
 

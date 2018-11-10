@@ -6,9 +6,10 @@
  * 修改日期  2017-09-21
  */
 
-import React, {Component, PureComponent} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
+import { UkeComponent, UkePureComponent } from '../uke-basic';
 import Button from '../button/button-normal';
 import TipPanel from '../tip-panel/tip-panel';
 import Toast from '../toast/toast';
@@ -24,7 +25,7 @@ import FormGenerator from './form-generator';
  * 一旦设定 btnConfig, onSubmit btnText className 将会失效
  */
 
-export default class FormLayout extends Component {
+export default class FormLayout extends UkeComponent {
   static propTypes = {
     /** FormGenerator 的配置 */
     formOptions: PropTypes.arrayOf(
@@ -73,7 +74,6 @@ export default class FormLayout extends Component {
     /** 在 form 之后插入的 children */
     childrenAfterForm: PropTypes.any,
   };
-  gm = window.$UKE.getUkeKeyMap;
   componentWillReceiveProps(nextProps) {
     const { resDesc } = nextProps;
     if(resDesc && this.props.resDesc !== resDesc) {
@@ -83,7 +83,7 @@ export default class FormLayout extends Component {
   showResDesc(resInfo) {
     !!resInfo.resDesc && this.toast && this.toast.show(resInfo.resDesc, resInfo.hasErr ? 'error' : 'success');
   }
-  checkForm() {
+  preCheck() {
     const { isPass, desc, ref } = this.formHelper.checkForm();
     if(!isPass) {
       this.showResDesc({
@@ -127,7 +127,7 @@ export default class FormLayout extends Component {
             loading={isBtnLoading}
             className={className}
             onClick={e => {
-              if(this.checkForm()) {
+              if(this.preCheck()) {
                 action(this.formHelper, actingRef);
               }
             }}/>

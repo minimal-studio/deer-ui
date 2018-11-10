@@ -8,11 +8,13 @@ import { LoadScript } from '../config';
 import { Loading } from '../loading';
 import { ShowGlobalModal, CloseGlobalModal } from '../modal';
 
+import { UkePureComponent } from '../uke-basic';
+
 const faceCount = 12;
 
 let croppieUrl = './js/libs/croppie.js';
 
-class CroppieHelper extends PureComponent {
+class CroppieHelper extends UkePureComponent {
   static propTypes = {
     changeAvatar: PropTypes.func,
     onClose: PropTypes.func,
@@ -80,7 +82,7 @@ class CroppieHelper extends PureComponent {
     const {onClose} = this.props;
     const {loadingScript} = this.state;
 
-    let gm = window.$UKE.getUkeKeyMap;
+    const gm = this.gm;
 
     return (
       <Loading loading={loadingScript} inrow>
@@ -125,7 +127,7 @@ class CroppieHelper extends PureComponent {
  * @class Avatar
  * @extends {PureComponent}
  */
-export default class Avatar extends PureComponent {
+export default class Avatar extends UkePureComponent {
   /**
    * 设置 Croppie 库的获取地址
    *
@@ -178,7 +180,6 @@ export default class Avatar extends PureComponent {
     this.togglePanel(false);
   }
   customUpload = e => {
-    const gm = window.$UKE.getUkeKeyMap;
     e.preventDefault();
     e.stopPropagation();
     const modalId = ShowGlobalModal({
@@ -188,7 +189,7 @@ export default class Avatar extends PureComponent {
         <CroppieHelper changeAvatar={this.changeAvatar} onClose={e => CloseGlobalModal(modalId)}/>
       ),
       showFuncBtn: false,
-      title: gm("自定义头像"),
+      title: this.gm("自定义头像"),
     });
   };
 

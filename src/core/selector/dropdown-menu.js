@@ -77,7 +77,6 @@ export default class DropdownMenu extends SelectorBasic {
     isShow: false,
     searchValue: '',
   }
-  gm = window.$UKE.getUkeKeyMap;
   showSubMenu(isShow = true) {
     this.setState({
       isShow,
@@ -108,10 +107,30 @@ export default class DropdownMenu extends SelectorBasic {
     });
   }
   getActiveTitle() {
-    const {value, isMultiple} = this.props;
-    if(!HasValue(value)) return this.gm('无');
+    const { value, isMultiple } = this.props;
 
-    return isMultiple ? value.length + this.gm('项已选择') : this.valuesObj[value];
+    let resTitle = '';
+    this._error = false;
+
+    switch (true) {
+    case !HasValue(value):
+      resTitle = this.gm('无');
+      break;
+    case !!isMultiple:
+      resTitle = value.length + this.gm('项已选择');
+      break;
+    default:
+      let title = this.valuesObj[value];
+      if(HasValue(title)) {
+        resTitle = title;
+      } else {
+        resTitle = this.gm('无效值');
+        this._error = true;
+      }
+      break;
+    }
+
+    return resTitle;
   }
   getValuesLength() {
     const {values} = this;
@@ -144,6 +163,7 @@ export default class DropdownMenu extends SelectorBasic {
       <div
         className={
           "uke-dropdown-menu " +
+          (this._error ? 'error ' : '') + 
           _position + ' ' +
           (className ? ' ' + className : '') +
           (isMultiple ? ' multiple' : ' single') +

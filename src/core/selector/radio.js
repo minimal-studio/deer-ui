@@ -48,7 +48,7 @@ export default class Radio extends SelectorBasic {
   render() {
     const {itemWidth, isMultiple, checkAllBtn = true, itemStyle = {}} = this.props;
     const selectedValue = this.getValue();
-    let gm = window.$UKE.getUkeKeyMap;
+    const gm = this.gm;
 
     const selectAllBtn = isMultiple && checkAllBtn ? (
       <span
