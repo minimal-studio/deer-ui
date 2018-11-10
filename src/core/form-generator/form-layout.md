@@ -36,7 +36,9 @@
     {
       ref: 'ref2',
       type: 'select',
-      title: '选择控件',
+      title: (
+        <span>选择控件</span>
+      ),
       values: {
         value1: 'value1',
         value2: 'value2',

@@ -1,3 +1,7 @@
+## 2.7.17
+
+- 调整 input 的 title 的类型检查
+
 ## 2.7.16
 
 - 重做 Input 的 number 类型的机制，支持输出 number
