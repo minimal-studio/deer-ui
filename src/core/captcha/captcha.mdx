@@ -1,0 +1,20 @@
+---
+name: Captcha
+---
+
+import { Playground, PropsTable } from 'docz'
+import { Captcha } from './';
+
+# Captcha
+
+<PropsTable of={Captcha} />
+
+<Playground>
+  <Captcha
+    onError={e => console.log(e)}
+    onChange={e => console.log(e)}
+    onCaptchaLoad={e => console.log(e)}
+    onBlur={e => console.log(e)}
+    value={'123'}
+    limit={4}/>
+</Playground>

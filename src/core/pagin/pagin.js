@@ -102,7 +102,10 @@ export default class Pagination extends UkeComponent {
     const jumpInputDOM = (
       <div className="jump-input">
         <span>{gm('共')} {paginBtnCount || 1} {gm('页')}, {gm('跳转到第')}</span>
-        <input type="text" className="form-control input-sm ms10 input" onBlur={e => this.changePagin(e.target.value - 1)}/>
+        <input
+          type="text"
+          className="form-control input-sm ms10 input"
+          onBlur={e => this.changePagin(e.target.value - 1)}/>
         <span>{gm('页')}</span>
       </div>
     );
@@ -137,18 +140,20 @@ export default class Pagination extends UkeComponent {
         {first}
         {prev}
       </span>
-    ) : (<span />);
+    ) : null;
     const lastCon = _isNeedHelper ? (
       <span className="item-group">
         {next}
         {last}
       </span>
-    ) : (<span />);
+    ) : null;
     return (
       <div className="pagin-con has-pagin">
-        {firstCon}
-        {btnGroup}
-        {lastCon}
+        <div className="layout btns-wrap">
+          {firstCon}
+          {btnGroup}
+          {lastCon}
+        </div>
         <span className="flex" />
         {pageCountInputDOM}
         {jumpInputDOM}

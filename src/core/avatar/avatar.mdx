@@ -1,0 +1,24 @@
+---
+name: Avatar
+---
+
+import { Playground, PropsTable } from 'docz'
+import { Avatar } from './';
+
+# Avatar
+
+<PropsTable of={Avatar} />
+
+```js
+Avatar.setCroppieUrl('Croppie url');
+```
+
+<Playground>
+  <Avatar
+    size={100}
+    onClick={e => {
+      alert('你好')
+    }}
+    changeAvatarable={true}
+    text="A" />
+</Playground>

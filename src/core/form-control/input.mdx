@@ -1,0 +1,26 @@
+---
+name: Input
+---
+
+import { Playground, PropsTable } from 'docz'
+import { Input } from './';
+
+# Input
+
+> 输入验证控件, 基础类提供基本验证
+
+<PropsTable of={Input} />
+
+<Playground>
+  <Input title="输出 number 类型" inputType="number"/>
+  <hr/>
+  <Input title="输出字符串类型"/>
+  <hr/>
+  <Input
+    title="带有按钮的输入框"
+    inputType="number"
+    inputBtnConfig={{
+      action: (e) => console.log(e),
+      text: '按钮'
+    }}/>
+</Playground>

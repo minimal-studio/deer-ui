@@ -5,8 +5,12 @@
   &.has-pagin {
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
   }
   @include card();
+  .btns-wrap {
+    margin: 5px 0;
+  }
   .item-group {
     display: inline-block;
   }
@@ -15,9 +19,9 @@
   }
   .item {
     display: inline-block;
-    padding: 6px 12px 7px;
-    border: 1px solid #e3e3e3;
-    border-radius: 4px;
+    padding: 3px 12px 3px;
+    border: 1px solid #EEE;
+    border-radius: 3px;
     margin-right: 5px;
     cursor: pointer;
     &:hover {

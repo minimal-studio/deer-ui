@@ -1,0 +1,203 @@
+---
+name: FormLayout
+---
+
+import { Playground, PropsTable } from 'docz'
+import { State, Toggle } from 'react-powerplug'
+import { FormLayout } from './';
+
+# FormLayout
+
+<PropsTable of={FormLayout} />
+
+## 通用
+
+<Playground>
+  <FormLayout
+    btnConfig={[
+      {
+        action: (formRef, actingRef) => {
+          console.log(formRef.value, actingRef);
+        },
+        text: '测试按钮',
+        actingRef: 'forTest'
+      }
+    ]}
+    formOptions={[
+      {
+        refs: ['startDate', 'endDate'],
+        type: 'datetimeRange',
+        title: '日期',
+        tips: [
+          '可以为数组的 tip 1',
+          '可以为数组的 tip 2',
+          '可以为数组的 tip 3',
+        ],
+        required: true,
+        range: ['2018-10-10', '2018-10-11']
+      },
+      {
+        ref: 'ref1',
+        type: 'radio',
+        title: '单选控件',
+        tips: '也可以是单纯的字符串',
+        values: {
+          value1: 'value1',
+          value2: 'value2',
+          value3: 'value3',
+        }
+      },
+      {
+        ref: 'ref2',
+        type: 'select',
+        title: (
+          <span>选择控件</span>
+        ),
+        values: {
+          value1: 'value1',
+          value2: 'value2',
+          value3: 'value3',
+        }
+      },
+      {
+        ref: 'ref3',
+        type: 'input',
+        title: '输入数字',
+        required: true,
+        inputType: 'number'
+      },
+      {
+        refs: ['_ref3', '_ref4'],
+        type: 'input-range',
+        title: '范围输入',
+        required: true,
+        inputType: 'number'
+      },
+      {
+        refu: {
+          'refu1': '1', 'refu2': '2', 'refu3': '3'
+        },
+        type: 'input-selector',
+        title: '选择器输入',
+        required: true,
+        inputType: 'number'
+      },
+    ]}/>
+</Playground>
+
+表单生成器的再一层封装模版，用于渲染通用表单配置
+
+- 表单渲染
+- 表单操作按钮的行为与显示
+- 操作按钮的状态
+
+## 表单联动
+
+<Playground>
+  <State initial={{
+    activeVal: '',
+    formOptions: [
+      {
+        refs: ['startDate', 'endDate'],
+        type: 'datetimeRange',
+        title: '日期',
+        required: true,
+        range: ['2018-10-10', '2018-10-11']
+      },
+      {
+        ref: 'ref1',
+        type: 'radio',
+        title: '单选控件',
+        values: {
+          value1: 'value1',
+          value2: 'value2',
+          value3: 'value3',
+        }
+      },
+      {
+        ref: 'ref2',
+        type: 'select',
+        title: '选择控件',
+        values: {
+          value1: 'value1',
+          value2: 'value2',
+          value3: 'value3',
+        }
+      },
+      {
+        ref: 'ref3',
+        type: 'input',
+        title: '输入',
+        required: true,
+        inputType: 'number'
+      },
+    ],
+    formOptionsMapper: {
+      value1: [
+        {
+          ref: 'test',
+          type: 'input',
+          title: '测试1'
+        }
+      ],
+      value2: [
+        {
+          ref: 'test',
+          type: 'input',
+          title: '测试2'
+        }
+      ],
+      value3: [
+        {
+          ref: 'test',
+          type: 'input',
+          title: '测试3'
+        }
+      ],
+    }
+  }}>
+    {
+      ({ state, setState }) => (
+        <div>
+          <h4>初始表单</h4>
+          <FormLayout
+            btnConfig={[
+              {
+                action: (formRef, actingRef) => {
+                  console.log(formRef, actingRef);
+                },
+                text: '测试按钮',
+                actingRef: 'forTest'
+              }
+            ]}
+            onChange={(value, ref) => {
+              if(ref == 'ref1' || ref == 'ref2') setState({
+                activeVal: value[ref]
+              })
+            }}
+            formOptions={state.formOptions}/>
+          <hr/>
+          {
+            state.activeVal ? (
+              <React.Fragment>
+                <h4>联动表单</h4>
+                <FormLayout
+                  key={state.activeVal}
+                  btnConfig={[
+                    {
+                      action: (formRef, actingRef) => {
+                        console.log(formRef, actingRef);
+                      },
+                      text: '测试按钮',
+                      actingRef: 'forTest'
+                    }
+                  ]}
+                  formOptions={state.formOptionsMapper[state.activeVal]}/>
+              </React.Fragment>
+            ) : null
+          }
+        </div>
+      )
+    }
+  </State>
+</Playground>

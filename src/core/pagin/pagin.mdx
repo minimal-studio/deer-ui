@@ -1,0 +1,65 @@
+---
+name: Pagination
+---
+
+import { Playground, PropsTable } from 'docz'
+import { State, Toggle } from 'react-powerplug'
+import { Pagination } from './';
+
+# Pagination
+
+<PropsTable of={Pagination} />
+
+<Playground>
+  <State initial={{
+    pagin: {
+      PageIndex: 0,
+      PageSize: 10,
+      AllCount: 200,
+      UsePaging: true
+    }
+  }}>
+    {
+      ({ state, setState }) => (
+        <Pagination
+          onPagin={nextPagin => {
+            setState({
+              pagin: nextPagin
+            })
+          }}
+          pagingInfo={state.pagin}/>
+      )
+    }
+  </State>
+</Playground>
+
+```js
+class ForPagin extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      pagin: {
+        PageIndex: 0,
+        PageSize: 10,
+        AllCount: 101,
+        UsePaging: true
+      }
+    }
+  }
+  render() {
+    const { pagin } = this.state;
+    return (
+      <Pagination
+        onPagin={nextPagin => {
+          this.setState({
+            pagin: nextPagin
+          })
+        }}
+        pagingInfo={pagin}/>
+    )
+  }
+}
+
+<ForPagin />
+```

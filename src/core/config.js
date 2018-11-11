@@ -12,7 +12,9 @@ const defaultLanguage = 'zh-CN';
 let language = defaultLanguage;
 
 const ukelliui = {
-  getImage() {},
+  getImage(...args) {
+    return args.join('/');
+  },
   getKeyMap(key) {
     return key;
   },

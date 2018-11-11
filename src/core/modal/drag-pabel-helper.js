@@ -1,12 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import { UkeComponent } from '../uke-basic';
+
 // let SCREEN_WIDTH = document.documentElement.clientWidth;
 function getScreenWidth() {
   return document.documentElement.clientWidth;
 }
 
-export class DragPanelClass extends React.Component {
+export class DragPanelClass extends UkeComponent {
   static propTypes = {
     topLimit: PropTypes.number,
   };

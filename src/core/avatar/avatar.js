@@ -10,8 +10,6 @@ import { ShowGlobalModal, CloseGlobalModal } from '../modal';
 
 import { UkePureComponent } from '../uke-basic';
 
-const faceCount = 12;
-
 let croppieUrl = './js/libs/croppie.js';
 
 class CroppieHelper extends UkePureComponent {
@@ -139,17 +137,27 @@ export default class Avatar extends UkePureComponent {
     croppieUrl = url;
   };
   static propTypes = {
+    /** 头像的大小 */
     size: PropTypes.oneOfType([
       PropTypes.string,
       PropTypes.number,
     ]),
+    /** 头像显示的第一个字 */
     text: PropTypes.string,
+    /** 头像的数组, ['A', 'B', 'face.jpg'] */
+    faceOptions: PropTypes.arrayOf(PropTypes.string),
+    /** 是否可换头像 */
     changeAvatarable: PropTypes.bool,
+    /** ID */
     faceId: PropTypes.any,
+    /** 换头像后的回调 */
     onChangeAvatar: PropTypes.func
   };
   static defaultProps = {
-    size: 50
+    size: 50,
+    text: '',
+    changeAvatarable: false,
+    faceOptions: []
   }
   constructor(props) {
     super(props);
@@ -193,34 +201,37 @@ export default class Avatar extends UkePureComponent {
     });
   };
 
-
   render() {
     const {
-      text = "",
+      text,
       faceId,
       size,
-      changeAvatarable = false
+      faceOptions,
+      changeAvatarable
     } = this.props;
     const { isShow } = this.state;
+    const hasFaceConfig = faceOptions.length > 0 && changeAvatarable;
     const gm = window.$UKE.getUkeKeyMap;
 
     const {avatarImgMap, getImage} = window.$UKE;
 
-    const changeAvatarDOM = changeAvatarable ? (
+    const changeAvatarDOM = hasFaceConfig ? (
       <div>
-        <div className="text-center" style={{width: 100}}><span className="link-btn" onClick={e => this.togglePanel(!isShow)}>{gm('更换头像')}</span></div>
         <div className={"hide-panel" + (isShow ? " show" : "")}>
-          {[...Array(faceCount)].map((_, idx) => {
-            return (
-              <span
-                key={idx}
-                onClick={e => this.changeAvatar(idx)}>
-                <img
-                  alt=""
-                  src={`${getImage(avatarImgMap, idx)}.jpg`}/>
-              </span>
-            );
-          })}
+          <div className="text-center" style={{width: 100}}><span className="link-btn" onClick={e => this.togglePanel(!isShow)}>{gm('更换头像')}</span></div>
+          {
+            faceOptions.map((name, idx) => {
+              return (
+                <span
+                  key={name}
+                  onClick={e => this.changeAvatar(idx)}>
+                  <img
+                    alt=""
+                    src={`${getImage(avatarImgMap, name)}.jpg`}/>
+                </span>
+              );
+            })
+          }
           <div style={{paddingTop: 10}}>
             <span className="link-btn theme" onClick={this.customUpload}>{gm('自定义头像')}</span>
           </div>

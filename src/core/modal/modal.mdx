@@ -1,0 +1,72 @@
+---
+name: Modal
+---
+
+import { Playground, PropsTable } from 'docz'
+import { State, Toggle } from 'react-powerplug'
+import { Modal } from './';
+
+# Modal
+
+<PropsTable of={Modal} />
+
+> 提供内嵌的 modal 组件, 同样也有全局使用 modal 的方法，可以继承 ModalHelper 获取操作 Modal 的一些通用接口接口
+
+<Playground>
+  <State initial={{
+      modalSetting: {
+        title: '',
+        isOpen: false,
+        children: '',
+        id: ''
+      }
+    }}>
+    {
+      ({ state, setState }) => (
+        <div style={{height: 300, position: 'relative'}}>
+          <span className="btn theme flat"
+            onClick={e => setState({
+              modalSetting: {
+                isOpen: true,
+                children: '内容'
+              }
+            })}>打开 Modal</span>
+          <Modal {...state.modalSetting} onCloseModal={e => {
+            setState({
+              modalSetting: {
+                isOpen: false,
+              }
+            })
+          }}/>
+        </div>
+      )
+    }
+  </State>
+</Playground>
+
+```jsx
+import ModalHelper from './modal-helper';
+
+class ForModal extends ModalHelper {
+  render() {
+    return (
+      <div style={{height: 300, position: 'relative'}}>
+        <span className="btn theme flat"
+          onClick={e => this.setModal({
+            isOpen: true,
+            children: '内容'
+          })}>打开 Modal</span>
+        <Modal {...this.state.modalSetting} onCloseModal={e => {
+          this.setModal({
+            isOpen: false
+          })
+        }}>
+          内容
+        </Modal>
+      </div>
+    )
+  }
+}
+
+<ForModal/>
+```

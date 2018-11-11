@@ -57,6 +57,7 @@ export default class Input extends Component {
       /** 传入 input 的 target */
       action: PropTypes.func,
       text: PropTypes.string,
+      color: PropTypes.string,
       className: PropTypes.string,
     }),
     onChange: PropTypes.func,
@@ -163,7 +164,7 @@ export default class Input extends Component {
 
     const inputBtnDOM = inputBtnConfig ? (
       <span
-        className={"input-btn btn flat " + inputBtnConfig.className}
+        className={`input-btn btn flat ${inputBtnConfig.color || 'theme'} ${inputBtnConfig.className || ''}`}
         onClick={() => {
           inputBtnConfig.action(this.iconInput);
         }}>

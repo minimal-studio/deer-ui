@@ -1,0 +1,23 @@
+---
+name: Ranger
+---
+
+import { Playground, PropsTable } from 'docz'
+import { Ranger } from './';
+
+# Ranger
+
+> 滑动选择器
+
+<PropsTable of={Ranger} />
+
+<Playground>
+  <h4>拖动试试</h4>
+  <Ranger
+    range={[0, 99]}
+    precent={true}
+    onChange={val => {
+      console.log(val)
+    }
+  } />
+</Playground>

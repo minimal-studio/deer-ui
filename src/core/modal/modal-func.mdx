@@ -1,0 +1,74 @@
+---
+name: ShowGlobalModal
+---
+
+import { Playground, PropsTable } from 'docz'
+import { ShowGlobalModal, CloseGlobalModal } from './';
+
+# ShowGlobalModal
+
+> 提供了全局的 modal 使用方法，由系统托管 modal 的状态
+
+<Playground>
+  <div>
+    <span
+      className="btn theme flat mr10"
+      onClick={e => ShowGlobalModal({
+        draggable: false,
+        title: '默认的 Modal',
+        children: '任意的内容'
+      })}>
+      默认的 Modal
+    </span>
+
+    <span
+      className="btn gold flat mr10"
+      onClick={e => ShowGlobalModal({
+        title: '没有操作按钮的 Modal',
+        showFuncBtn: false,
+        children: '任意的内容'
+      })}>
+      没有操作按钮的 Modal
+    </span>
+
+    <span
+      className="btn red flat mr10"
+      onClick={e => ShowGlobalModal({
+        draggable: true,
+        title: '按住 header 可拖动的 Modal',
+        children: '任意的内容'
+      })}>
+      可拖动的 Modal
+    </span>
+
+    <span
+      className="btn light-p flat mr10"
+      onClick={e => ShowGlobalModal({
+        type: 'confirm',
+        title: '确认框',
+        confirmText: '是否确定',
+        onConfirm: (isSure) => {
+          alert('确定？' + isSure)
+        }
+      })}>
+      确认框
+    </span>
+  </div>
+</Playground>
+
+```js
+/**
+ * 以下是默认配置，剩余的都传入 Modal
+ * @return {number} 返回该 Modal 的 id，可以用于 CloseGlobalModal 关闭
+ */
+const ModalId = ShowGlobalModal({
+  className = 'fixed',
+  topClassName = 'top-modal-opend',
+  type, confirmText = gm('确定') + '?', title, showFuncBtn = true,
+  width = window.$UKE.isMobile ? '90%' : 600, id, children, draggable,
+  onConfirm,
+  ...forModalProps
+});
+
+CloseGlobalModal(ModalId);
+```

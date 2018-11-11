@@ -1,0 +1,27 @@
+---
+name: DateShortcut
+---
+
+import { Playground, PropsTable } from 'docz'
+import { State, Toggle } from 'react-powerplug'
+import { DateShortcut } from './';
+
+# DateShortcut
+
+<PropsTable of={DateShortcut} />
+
+<Playground>
+  <State initial={{ res: [] }}>
+    {
+      ({ state, setState }) => (
+        <div>
+          返回值: {state.res.join(' - ')}
+          <DateShortcut style={{width: 300}}
+            onClick={e => setState({
+              res: e
+            })}/>
+        </div>
+      )
+    }
+  </State>
+</Playground>

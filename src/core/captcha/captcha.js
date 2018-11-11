@@ -14,13 +14,19 @@ import Input from '../form-control/input';
  */
 export default class Captcha extends UkeComponent {
   static propTypes = {
+    /** 获取错误时的回调 */
     onError: PropTypes.func,
+    /** 值改变时的回调 */
     onChange: PropTypes.func,
+    /** 验证码 Mount 的回调 */
     onCaptchaLoad: PropTypes.func,
+    /** 失去焦点的回调 */
     onBlur: PropTypes.func,
     /** 与 react 受控控件行为一致 */
     value: PropTypes.string,
+    /** icon */
     icon: PropTypes.string,
+    /** 限制输入长度 */
     limit: PropTypes.number,
   };
   static defaultProps = {

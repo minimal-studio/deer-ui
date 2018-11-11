@@ -1,0 +1,37 @@
+---
+name: Loading
+---
+
+import { Playground, PropsTable } from 'docz'
+import { State, Toggle } from 'react-powerplug'
+import { Loading } from './';
+
+# Loading
+
+<PropsTable of={Loading} />
+
+<Playground>
+  <State initial={{ loading: false }}>
+    {
+      ({ state, setState }) => (
+        <div>
+          <span className={"btn flat mb10 " + (state.loading ? 'theme' : 'red')} onClick={e => {
+            setState({
+              loading: !state.loading
+            })
+          }}>切换 {!state.loading ? 'loading' : 'loaded'} 状态</span>
+          <Loading loading={state.loading} inrow={true}>
+            <div style={{backgroundColor: '#f9f9f9', padding: 20}}>
+              内容与 loading 共存
+            </div>
+          </Loading>
+          <Loading loading={state.loading} inrow={false}>
+            <div style={{backgroundColor: '#f9f9f9', padding: 20}}>
+              内容与 loading 只有一个
+            </div>
+          </Loading>
+        </div>
+      )
+    }
+  </State>
+</Playground>
