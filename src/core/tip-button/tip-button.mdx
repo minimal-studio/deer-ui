@@ -1,0 +1,22 @@
+---
+name: TipButton
+---
+
+import { Playground, PropsTable } from 'docz'
+import { TipButton } from './';
+
+# TipButton
+
+<PropsTable of={TipButton} />
+
+<Playground>
+  <TipButton
+    text="弹出层按钮"
+    popover={(
+      <div className="p15">弹出层的内容</div>
+    )}
+    onClick={e => {
+      console.log(e)
+    }}
+  />
+</Playground>

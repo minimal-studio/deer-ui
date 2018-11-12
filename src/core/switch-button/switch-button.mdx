@@ -1,0 +1,25 @@
+---
+name: SwitchBtn
+---
+
+import { Playground, PropsTable } from 'docz'
+import { SwitchBtn } from './';
+
+# SwitchBtn
+
+切换按钮
+
+<PropsTable of={SwitchBtn} />
+
+<Playground>
+  <div style={{width: 300}}>
+    <SwitchBtn
+      onSwitch={e => console.log(e)}
+      activeIdx='btn1'
+      btns={{
+        btn1: '按钮1',
+        btn2: '按钮2',
+        btn3: '按钮3',
+      }} />
+  </div>
+</Playground>
