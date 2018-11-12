@@ -20,7 +20,7 @@ const TitleDOM = ({ title }) => {
     );
   }) : title;
   return (
-    <div className="text-center" style={{padding: '5px 10px'}}>{titleDOM}</div>
+    <div style={{padding: '5px 10px'}}>{titleDOM}</div>
   );
 };
 

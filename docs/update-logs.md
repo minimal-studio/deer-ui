@@ -1,3 +1,7 @@
+## 2.7.19
+
+- 调整 ToolTip 样式
+
 ## 2.7.18
 
 - 新增 FormGenertor 和 ConditionGenerator 的提示按钮
