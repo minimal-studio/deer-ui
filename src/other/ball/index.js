@@ -3,35 +3,54 @@ import PropTypes from 'prop-types';
 
 import RandomDisplayNember from './animate-ball';
 // import RandomDisplayNember from './random.ball';
+const splitStr = ',';
 
 export class Ball extends Component {
+  static propTypes = {
+    openCode: PropTypes.string,
+    animate: PropTypes.bool,
+    numberRange: PropTypes.arrayOf(PropTypes.number),
+    animateTimer: PropTypes.number,
+    activeFilter: PropTypes.string,
+    extendTxt: PropTypes.string,
+    isOpening: PropTypes.bool,
+    size: PropTypes.string
+  };
+  static defaultProps = {
+    openCode: '?????',
+    animateTimer: 300,
+    numberRange: [0, 9],
+  }
   constructor(props) {
     super(props);
-    const {openCode = '?????'} = props;
+    const { openCode } = props;
     const openArr = this.getOpenCodeArr(openCode);
     this.state = {
       openCodeLen: openArr.length,
       openedInfo: {}
-    }
+    };
     this.animateBallRefs = {};
   }
+  hasSplit(str) {
+    return str.indexOf(splitStr) !== -1;
+  }
   getOpenCodeArr(openCode) {
-    return /\,/.test(openCode) ? openCode.split(',') : openCode.split('')
+    return this.hasSplit(openCode) ? openCode.split(splitStr) : openCode.split('');
   }
   componentWillReceiveProps(nextProps) {
     if(this.props.isOpening != nextProps.isOpening || (!/\?+/.test(nextProps.openCode) && nextProps.openCode !== this.props.openCode)) {
-      this.openCodeAnimate(!nextProps.isOpening, nextProps)
+      this.openCodeAnimate(!nextProps.isOpening, nextProps);
     }
   }
   componentWillUnmount() {
-    this.clearTimeout()
+    this.clearTimeout();
   }
   clearTimeout(){
     this.timer && clearTimeout(this.timer);
-    this.timer = null
+    this.timer = null;
   }
   openCodeAnimate(isOpened, props) {
-    const {openCode, animateTimer = 300} = props || this.props;
+    const {openCode, animateTimer} = props || this.props;
     let {openedInfo} = this.state;
     const self = this;
     let openCodeArr = this.getOpenCodeArr(openCode);
@@ -52,11 +71,11 @@ export class Ball extends Component {
   }
   render() {
     const {
-      openCode = '?????', size, animate = false, activeFilter = '', extendTxt = '',
-      numberRange = [0, 9]
+      openCode, size, animate = false, activeFilter = '', extendTxt = '',
+      numberRange
     } = this.props;
 
-    const extendTxtArr = /\,/.test(extendTxt) ? extendTxt.split(',') : extendTxt;
+    const extendTxtArr = this.hasSplit(extendTxt) ? extendTxt.split(splitStr) : extendTxt;
 
     const {openCodeLen, openedInfo} = this.state;
     let openCodeArr = this.getOpenCodeArr(openCode);
@@ -72,7 +91,7 @@ export class Ball extends Component {
 
       let extendTxtDOM = (
         <div key={_idx} className="extend-txt">{extendTxtArr[_idx]}</div>
-      )
+      );
 
       {/* <div className={ballClass + ' flip-container' + (isOpening ? '' : ' flipper active') + (isActive ? ' s' : '')} key={_idx}>
         <div className="front">
@@ -100,7 +119,7 @@ export class Ball extends Component {
               animating={isOpening}/>
             {extendTxtDOM}
           </div>
-        )
+        );
       } else {
         return (
           <div
@@ -108,7 +127,7 @@ export class Ball extends Component {
             className={ballClass + ' b' + (isActive ? ' s' : '')} key={_idx}>
             {_ball}
           </div>
-        )
+        );
       }
     });
 
@@ -116,16 +135,6 @@ export class Ball extends Component {
       <div className="ball-group">
         {ballGroup}
       </div>
-    )
+    );
   }
 }
-Ball.propTypes = {
-  openCode: PropTypes.string.isRequired,
-  animate: PropTypes.bool,
-  numberRange: PropTypes.array,
-  animateTimer: PropTypes.number,
-  activeFilter: PropTypes.string,
-  extendTxt: PropTypes.string,
-  isOpening: PropTypes.bool,
-  size: PropTypes.string
-};

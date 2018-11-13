@@ -5,53 +5,65 @@ let _firstStopColor = '#fe0362';
 let _secondStopColor = '#7473e3';
 
 export default class CountdownBg extends PureComponent {
+  static propTypes = {
+    // id: PropTypes.any.isRequired,
+    percent: PropTypes.number,
+    // text: PropTypes.any.isRequired,
+  };
+  static defaultProps = {
+    percent: 0
+  };
+  static setBgColor = function(firstStopColor, secondStopColor) {
+    _firstStopColor = firstStopColor;
+    _secondStopColor = secondStopColor;
+  };
   constructor(props) {
     super(props);
-    this.addProgress = this.addProgress.bind(this);
-    this.minusProgress = this.minusProgress.bind(this);
+    const { percent } = props;
+
     this.state = {
-      progress: 0,
+      progress: percent,
     };
   }
 
-  addProgress() {
-    var {progress} = this.state;
-    if(progress >= 100){
-      this.setState({
-        progress: 0,
-      });
-    }else {
-      this.setState({
-        progress: progress + 10,
-      });
-    }
-  }
+  // addProgress = () => {
+  //   var {progress} = this.state;
+  //   if(progress >= 100){
+  //     this.setState({
+  //       progress: 0,
+  //     });
+  //   }else {
+  //     this.setState({
+  //       progress: progress + 10,
+  //     });
+  //   }
+  // }
 
-  minusProgress(){
-    var {progress} = this.state;
-    if(progress <= 0) {
-      this.setState({
-        progress: 0,
-      });
-    } else {
-      this.setState({
-        progress: progress - 10,
-      });
-    }
-  }
-  componentWillReceiveProps(nextProps){
-    let {percent} = nextProps;
-    this.setState({
-      progress: percent,
-    });
-  }
+  // minusProgress = () => {
+  //   var {progress} = this.state;
+  //   if(progress <= 0) {
+  //     this.setState({
+  //       progress: 0,
+  //     });
+  //   } else {
+  //     this.setState({
+  //       progress: progress - 10,
+  //     });
+  //   }
+  // }
+  // componentWillReceiveProps(nextProps){
+  //   let {percent} = nextProps;
+  //   this.setState({
+  //     progress: percent,
+  //   });
+  // }
 
   render() {
     let {progress} = this.state;
-    let {percent} = this.props;
+    // let {percent} = this.props;
     let dashLength = Math.PI * 2 * 30;
     let strokeDashoffset =  progress > 0 ? dashLength - dashLength * progress / 100 : dashLength;
-    let textContent = progress + '%';
+    // let textContent = progress + '%';
     return (
       <div className="prassbar-container">
         <div id="svgContainer">
@@ -82,19 +94,3 @@ export default class CountdownBg extends PureComponent {
     // }
   }
 }
-CountdownBg.propTypes = {
-  // id: PropTypes.any.isRequired,
-  percent: PropTypes.any.isRequired,
-  text: PropTypes.any.isRequired,
-};
-
-
-// CountdownBg.defaultProps = {
-//   firstStopColor: '#fe0362',
-//   secondStopColor: '#7473e3'
-// }
-
-CountdownBg.setBgColor = function(firstStopColor, secondStopColor) {
-  _firstStopColor = firstStopColor;
-  _secondStopColor = secondStopColor;
-};

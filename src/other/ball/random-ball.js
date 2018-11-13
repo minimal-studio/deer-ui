@@ -7,15 +7,16 @@ export default class RandomDisplayNember extends Component {
     super(props);
     this.state = {
       numb: 0,
-    }
+    };
     this.timer = null;
   }
   shouldComponentUpdate(nextProps, nextState) {
     return this.props.isStart !== nextProps.isStart || this.state.numb !== nextState.numb;
   }
-  componentWillReceiveProps(nextProps) {
-    this.toggleRandom(nextProps.isStart);
-  }
+  // TODO: 检查这个的影响
+  // componentWillReceiveProps(nextProps) {
+  //   this.toggleRandom(nextProps.isStart);
+  // }
   componentDidMount() {
     this.toggleRandom(this.props.isStart);
   }
@@ -35,13 +36,13 @@ export default class RandomDisplayNember extends Component {
     }
   }
   componentWillUnmount() {
-    if(!!this.timer) clearInterval(this.timer);
+    if(this.timer) clearInterval(this.timer);
   }
   render() {
     const {numb} = this.state;
     return (
       <span>{numb}</span>
-    )
+    );
   }
 }
 RandomDisplayNember.propTypes = {

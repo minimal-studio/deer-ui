@@ -1,3 +1,7 @@
+/**
+ * 目前暂时废弃的组件
+ */
+
 import React, {Component, PureComponent} from 'react';
 import PropTypes from 'prop-types';
 
@@ -24,21 +28,21 @@ export default class CountdownBg extends PureComponent {
 
     this.draw();
   }
-  componentWillReceiveProps(nextProps) {
-    const self = this;
-    let currPercent = self.props.percent;
-    if(this.props.text !== nextProps.text) {
-      if(!!self.timer) clearInterval(self.timer);
-      self.timer = setInterval(() => {
-        let nextPercent = nextProps.percent;
-        let unit = (nextPercent - currPercent) / 20;
+  // TODO: 通过不同的 key 来刷新，不需要这个
+  // componentWillReceiveProps(nextProps) {
+  //   let currPercent = this.props.percent;
+  //   if(this.props.text !== nextProps.text) {
+  //     if(this.timer) clearInterval(this.timer);
+  //     this.timer = setInterval(() => {
+  //       let nextPercent = nextProps.percent;
+  //       let unit = (nextPercent - currPercent) / 20;
 
-        if(!nextPercent || currPercent >= nextPercent) return clearInterval(self.timer);
-        currPercent += unit < 1 ? 1: unit;
-        self.draw(currPercent || 0);
-      }, 20);
-    }
-  }
+  //       if(!nextPercent || currPercent >= nextPercent) return clearInterval(this.timer);
+  //       currPercent += unit < 1 ? 1: unit;
+  //       this.draw(currPercent || 0);
+  //     }, 20);
+  //   }
+  // }
   circle(cx, cy, r) {
     const {ctx, circleX, circleY, radius, lineWidth} = this.canvasInfo;
 
@@ -112,8 +116,8 @@ export default class CountdownBg extends PureComponent {
   render() {
     const {id} = this.props;
     return (
-      <canvas id={"countDown" + id} className="countdown-bg" width="60" height="60"></canvas>
-    )
+      <canvas id={"countDown" + id} className="countdown-bg" width="60" height="60" />
+    );
   }
 }
 CountdownBg.propTypes = {
