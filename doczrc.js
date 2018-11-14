@@ -1,7 +1,7 @@
 import doczPluginNetlify from "docz-plugin-netlify";
 
 export default {
-  dest: 'docz-dist',
+  // dest: 'docz-dist',
   title: 'Ukelli-UI',
   description: 'Ukelli-UI Lib',
   indexHtml: 'docz/index.html',
@@ -17,5 +17,5 @@ export default {
     });
     return config;
   },
-  plugins: [doczPluginNetlify('docz-dist')]
+  plugins: [doczPluginNetlify()]
 };
