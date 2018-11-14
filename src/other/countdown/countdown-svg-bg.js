@@ -17,53 +17,23 @@ export default class CountdownBg extends PureComponent {
     _firstStopColor = firstStopColor;
     _secondStopColor = secondStopColor;
   };
-  constructor(props) {
-    super(props);
-    const { percent } = props;
-
-    this.state = {
-      progress: percent,
-    };
+  static getDerivedStateFromProps(nextProps, prevState) {
+    const { resDesc } = nextProps;
+    if(prevState.prevResDesc !== resDesc) {
+      return {
+        prevResDesc: resDesc,
+        changeDescFromProps: true
+      };
+    } else {
+      return {
+        changeDescFromProps: false
+      };
+    }
   }
-
-  // addProgress = () => {
-  //   var {progress} = this.state;
-  //   if(progress >= 100){
-  //     this.setState({
-  //       progress: 0,
-  //     });
-  //   }else {
-  //     this.setState({
-  //       progress: progress + 10,
-  //     });
-  //   }
-  // }
-
-  // minusProgress = () => {
-  //   var {progress} = this.state;
-  //   if(progress <= 0) {
-  //     this.setState({
-  //       progress: 0,
-  //     });
-  //   } else {
-  //     this.setState({
-  //       progress: progress - 10,
-  //     });
-  //   }
-  // }
-  // componentWillReceiveProps(nextProps){
-  //   let {percent} = nextProps;
-  //   this.setState({
-  //     progress: percent,
-  //   });
-  // }
-
   render() {
-    let {progress} = this.state;
-    // let {percent} = this.props;
+    const { percent } = this.props;
     let dashLength = Math.PI * 2 * 30;
-    let strokeDashoffset =  progress > 0 ? dashLength - dashLength * progress / 100 : dashLength;
-    // let textContent = progress + '%';
+    let strokeDashoffset =  percent > 0 ? dashLength - dashLength * percent / 100 : dashLength;
     return (
       <div className="prassbar-container">
         <div id="svgContainer">

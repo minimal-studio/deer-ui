@@ -50,14 +50,17 @@ export default class Countdown extends Component {
 
     this.jumpElem.innerHTML = `${timeObj.hour}:${timeObj.min}:${timeObj.sec}` || 0;
   }
-  componentWillReceiveProps(nextProps) {
-    if(nextProps.start !== this.props.start) {
-      this.clearTimer();
-    }
-  }
+  // componentWillReceiveProps(nextProps) {
+  //   if(nextProps.start !== this.props.start) {
+  //     this.clearTimer();
+  //   }
+  // }
   shouldComponentUpdate(nextProps, nextState) {
     const isReceiveNewStart = this.props.start !== nextProps.start;
     const isNewCount = this.state.countdown !== nextState.countdown;
+    if(nextProps.start !== this.props.start) {
+      this.clearTimer();
+    }
     return isNewCount ||
            !nextState.isTimeout ||
            !nextState.isTimerStart ||

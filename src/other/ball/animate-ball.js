@@ -17,7 +17,6 @@ if (prefixMap[prefix]) {
   animation = prefixMap[prefix]+'AnimationName';
 }
 
-
 function createDynamicAnimate(options) {
   const {startVal, endVal, animateName} = options;
   if(hasSetKeyAnimateMapper[animateName]) return;
@@ -39,6 +38,12 @@ function createDynamicAnimate(options) {
 }
 
 export default class AnimateBall extends Component {
+  static propTypes = {
+    // index: PropTypes.any,
+    animating: PropTypes.bool,
+    numberRange: PropTypes.array,
+    activeNumb: PropTypes.any,
+  };
   constructor(props) {
     super(props);
     this.numberRangeArr = [];
@@ -134,8 +139,3 @@ export default class AnimateBall extends Component {
     );
   }
 }
-AnimateBall.propTypes = {
-  // index: PropTypes.any,
-  animating: PropTypes.bool,
-  numberRange: PropTypes.array,
-};
