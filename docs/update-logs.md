@@ -3,7 +3,8 @@
 - 调整 ToolTip 样式
 - 调整 DatePicker 的输出格式，优化接口
 - 调整 DateShortcut 的输出格式，优化接口
-- 调整一部分组件的 componentWillReceiveProps 的实现，逐步放弃使用该方法
+- 调整所有包含 componentWillReceiveProps 声明周期函数的组件的实现，逐步放弃使用该方法
+- FormLayout 的 btnConfig 添加是否需要预检查接口
 
 ## 2.7.18
 

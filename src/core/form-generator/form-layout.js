@@ -94,11 +94,19 @@ export default class FormLayout extends UkeComponent {
   //   }
   // }
   // TODO: 废除这个方法，并且不影响之前的效果
-  componentWillReceiveProps(nextProps) {
+  // componentWillReceiveProps(nextProps) {
+  //   const { resDesc } = nextProps;
+  //   if(resDesc && this.props.resDesc !== resDesc) {
+  //     this.showResDesc(nextProps);
+  //   }
+  // }
+  shouldComponentUpdate(nextProps, nextState, nextContext) {
     const { resDesc } = nextProps;
-    if(resDesc && this.props.resDesc !== resDesc) {
+    if(!this.__changeedDesc && resDesc && this.props.resDesc !== resDesc) {
+      this.__changeedDesc = true;
       this.showResDesc(nextProps);
     }
+    return true;
   }
   showResDesc(resInfo) {
     !!resInfo.resDesc && this.toast && this.toast.show(resInfo.resDesc, resInfo.hasErr ? 'error' : 'success');
@@ -135,7 +143,7 @@ export default class FormLayout extends UkeComponent {
     ) : null;
 
     const btnGroup = _btnConfig.map((btn, idx) => {
-      const { action, text, className, actingRef = 'loading' } = btn;
+      const { action, text, className, actingRef = 'loading', preCheck = true } = btn;
       const isBtnLoading = this.props[actingRef];
       const isActive = !!action && !isBtnLoading;
       const key = text + actingRef;
@@ -147,8 +155,16 @@ export default class FormLayout extends UkeComponent {
             loading={isBtnLoading}
             className={className}
             onClick={e => {
-              if(this.preCheck()) {
+              this.__changeedDesc = false;
+              const _action = () => {
                 action(this.formHelper, actingRef);
+              };
+              if(preCheck) {
+                if(this.preCheck()) {
+                  _action();
+                }
+              } else {
+                _action();
               }
             }}/>
         </span>

@@ -18,15 +18,20 @@ export default class DateBaisc extends UkePureComponent {
     /** 统一处理过滤所有的 value 格式 */
     const { needTime, outputAsString, defaultTimes, onChange } = this.props;
 
-    let emitVal = Array.isArray(val) ? val : [val];
+    /** 确保只有一个值的时候的时分秒为 23:59:59 */
+    let emitVal = Array.isArray(val) ? val : [null, val];
+    let resVal = [];
     
-    emitVal = emitVal.map((_val, idx) => {
+    emitVal.forEach((_val, idx) => {
+      if(!_val) return;
       let res = DateFormat(_val, this.dateFormat) + (needTime ? ' ' + defaultTimes[idx] : '');
-      return outputAsString ? res : new Date(res);
+      resVal.push(outputAsString ? res : new Date(res));
     });
 
-    Call(onChange, emitVal);
+    resVal = resVal.length === 1 ? resVal[0] : resVal;
 
-    return emitVal;
+    Call(onChange, resVal);
+
+    return resVal;
   }
 }
