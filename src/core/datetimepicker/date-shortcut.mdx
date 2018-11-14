@@ -10,7 +10,41 @@ import { DateShortcut } from './';
 
 <PropsTable of={DateShortcut} />
 
-<Playground>
+<Playground style={{height: 450}}>
+  <h4>输出字符串结果, 自带时间</h4>
+  <State initial={{ res: [] }}>
+    {
+      ({ state, setState }) => (
+        <div>
+          返回值: {state.res.join(' - ')}
+          <DateShortcut style={{width: 300}}
+            outputAsString={true}
+            onClick={e => setState({
+              res: e
+            })}/>
+        </div>
+      )
+    }
+  </State>
+  <hr/>
+  <h4>输出字符串结果, 不需要时间</h4>
+  <State initial={{ res: [] }}>
+    {
+      ({ state, setState }) => (
+        <div>
+          返回值: {state.res.join(' - ')}
+          <DateShortcut style={{width: 300}}
+            outputAsString={true}
+            needTime={false}
+            onClick={e => setState({
+              res: e
+            })}/>
+        </div>
+      )
+    }
+  </State>
+  <hr/>
+  <h4>输出原生 Date 对象</h4>
   <State initial={{ res: [] }}>
     {
       ({ state, setState }) => (

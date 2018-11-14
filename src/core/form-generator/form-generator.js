@@ -38,6 +38,7 @@ export default class FormGenerator extends FormFilterHelper {
       formOptions, children = '', isMobile = false, id = '',
       showInputTitle, className = "animate-input-title"
     } = this.props;
+    console.log('asd')
     const _showInputTitle = typeof showInputTitle == 'undefined' ? !isMobile : showInputTitle;
 
     return formOptions.length > 0 ? (

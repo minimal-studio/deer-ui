@@ -1,6 +1,9 @@
 ## 2.7.19
 
 - 调整 ToolTip 样式
+- 调整 DatePicker 的输出格式，优化接口
+- 调整 DateShortcut 的输出格式，优化接口
+- 调整一部分组件的 componentWillReceiveProps 的实现，逐步放弃使用该方法
 
 ## 2.7.18
 

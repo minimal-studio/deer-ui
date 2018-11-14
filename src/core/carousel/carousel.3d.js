@@ -56,8 +56,8 @@ export default class Carousel3D extends Component {
     this.configLen = config.length;
     this.eachItemRotate = 360 / this.configLen;
   }
-  componentWillReceiveProps(nextProps) {
-    if(this.props.config.length == 0 && nextProps.config.length > 0) {
+  componentDidUpdate(prevProps) {
+    if(this.props.config.length == 0 && prevProps.config.length > 0) {
       this.startLoop();
     }
   }

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Call, DateFormat, GetDefaultDateInfo } from 'basic-helper';
 
 import { SubContent } from '../sub-content';
-import { UkeComponent, UkePureComponent } from '../uke-basic';
+import DateBasic from './date-basic';
 
 function getHalfMouthDate(type, format, timeDefaultStr) {
   var today = new Date();
@@ -36,12 +36,14 @@ function getHalfMouthDate(type, format, timeDefaultStr) {
  *
  * @export
  * @class DateShortcut
- * @extends {PureComponent}
+ * @extends {DateBasic}
  */
-export default class DateShortcut extends UkePureComponent {
+export default class DateShortcut extends DateBasic {
   static propTypes = {
     /** 点击快捷方式的回调 */
     onClick: PropTypes.func.isRequired,
+    /** 默认的时分秒的值 */
+    defaultTimes: PropTypes.arrayOf(PropTypes.string),
     /** 自定义的时间快捷选项 */
     dateHelperInfo: PropTypes.arrayOf(
       PropTypes.shape({
@@ -55,12 +57,17 @@ export default class DateShortcut extends UkePureComponent {
         filter: PropTypes.func
       })
     ),
-    style: PropTypes.object,
+    /** 是否输出字符串格式，默认为原生 Date 对象 */
+    outputAsString: PropTypes.bool,
+    /** DateShortcut 的 style */
+    style: PropTypes.shape({}),
     /** 是否返回时间 */
     needTime: PropTypes.bool
   };
   static defaultProps = {
     needTime: true,
+    outputAsString: false,
+    defaultTimes: ['00:00:00', '23:59:59'],
   };
   constructor(props) {
     super(props);
@@ -111,9 +118,12 @@ export default class DateShortcut extends UkePureComponent {
     const {onClick} = this.props;
 
     const dateInfo = itemConfig.filter();
-    this.value = dateInfo;
+    const emitRes = this.emitChangeValue(dateInfo);
+    this.value = emitRes;
 
-    Call(onClick, dateInfo);
+    Call(onClick, emitRes);
+    console.log(emitRes)
+    
     this.setState({
       activeIdx: idx
     });

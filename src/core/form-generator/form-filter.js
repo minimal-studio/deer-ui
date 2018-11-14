@@ -17,6 +17,12 @@ import InputSelector from '../form-control/input-selector';
  */
 export default class FormFilterHelper extends UkeComponent {
   _refs = {};
+  state = {};
+  // static getDerivedStateFromProps(props, state) {
+  //   return {
+  //     changeProps: true
+  //   };
+  // }
   constructor(props) {
     super(props);
     this.value = {};
@@ -35,9 +41,14 @@ export default class FormFilterHelper extends UkeComponent {
   resetValues() {
     this.initValues();
   }
-  componentWillReceiveProps(nextProps) {
-    this.resetRequireRefMapper(nextProps);
-  }
+  // TODO: 观察移除 componentWillReceiveProps 这个后果
+  // componentWillReceiveProps(nextProps) {
+  //   this.resetRequireRefMapper(nextProps);
+  // }
+  // componentDidUpdate(prevProps, prevState) {
+  //   console.log(prevProps, prevState)
+  //   // this.resetRequireRefMapper(nextProps);
+  // }
   resetRequireRefMapper(nextProps = this.props) {
     this.requiredRefMapper = {};
     const { conditionConfig, formOptions } = nextProps;

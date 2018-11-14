@@ -1,6 +1,6 @@
 {
   "name": "ukelli-ui",
-  "version": "2.7.18",
+  "version": "2.7.19",
   "main": "./index.js",
   "scripts": {
     "publish": "npm publish ./build",
@@ -27,8 +27,8 @@
   "peerDependencies": {
     "basic-helper": "^1.4.4",
     "prop-types": "^15.5.10",
-    "react": "^16.6.1",
-    "react-dom": "^16.6.1",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
     "react-transition-group": "^2.5.0",
     "unistore": "^3.1.0"
   },
@@ -54,20 +54,20 @@
     "fs-extra": "^7.0.0",
     "jest": "^23.6.0",
     "mini-html-webpack-plugin": "^0.2.3",
+    "react": "^16.6.3",
+    "react-dom": "^16.6.3",
     "react-hot-loader": "^4.3.11",
     "react-powerplug": "^1.0.0",
     "react-styleguidist": "^7.3.10",
     "regenerator-runtime": "^0.12.1",
     "webpack": "^4.20.2",
     "webpack-blocks": "^1.0.0",
+    "unistore": "^3.1.0",
+    "react-transition-group": "^2.5.0",
     "webpack-merge": "^4.1.4"
   },
   "dependencies": {
     "basic-helper": "^1.4.4",
-    "classnames": "^2.2.5",
-    "react": "^16.6.1",
-    "react-dom": "^16.6.1",
-    "react-transition-group": "^2.5.0",
-    "unistore": "^3.1.0"
+    "classnames": "^2.2.5"
   }
 }

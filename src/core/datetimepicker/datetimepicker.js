@@ -5,6 +5,8 @@ import { Call, DateFormat, GenerteID } from 'basic-helper';
 import Flatpickr from '../../libs/flatpickr';
 import '../../libs/flatpickr-zh';
 
+import DateBasic from './date-basic';
+
 import { Icon } from '../icon';
 
 /**
@@ -12,18 +14,21 @@ import { Icon } from '../icon';
  *
  * @export
  * @class DatetimePicker
- * @extends {PureComponent}
+ * @extends {DateBasic}
  */
-export default class DatetimePicker extends PureComponent {
+export default class DatetimePicker extends DateBasic {
   static propTypes = {
     onChange: PropTypes.func,
     /** 是否需要时分秒 */
     needTime: PropTypes.bool,
-    // clickToClose: PropTypes.bool,
+    /** 默认的时分秒的值 */
+    defaultTimes: PropTypes.arrayOf(PropTypes.string),
     /** 是否可以选择时分秒 */
     enableTime: PropTypes.bool,
     /** 类型 */
     mode: PropTypes.string,
+    /** 是否输出字符串格式，默认为原生 Date 对象 */
+    outputAsString: PropTypes.bool,
     /** 语言 */
     lang: PropTypes.string,
     /** 默认值 */
@@ -35,15 +40,21 @@ export default class DatetimePicker extends PureComponent {
     needTime: true,
     // clickToClose: true,
     enableTime: false,
+    outputAsString: false,
     mode: 'single',
     lang: 'zh',
+    defaultTimes: ['00:00:00', '23:59:59'],
   };
   _refs = {};
+  dateFormat = 'YYYY-MM-DD';
+  timeFormat = 'hh:mm:ss';
   constructor(props) {
     super(props);
     const {value, defaultValue, needTime} = this.props;
 
-    this.dateFormater = 'YYYY-MM-DD' + (needTime ? ' hh:mm:ss' : '');
+    this.dateFormater = [this.dateFormat, needTime ? this.timeFormat : undefined].join(' ').trim();
+
+    this.isControl = props.hasOwnProperty('value');
 
     let defaultVal = value || defaultValue;
     this.value = defaultVal;
@@ -54,13 +65,13 @@ export default class DatetimePicker extends PureComponent {
     // setTimeout(this.initPicker.bind(this), 50);
     this.initPicker();
   }
-  componentWillReceiveProps(nextProps) {
-    if(JSON.stringify(this.props.value) !== JSON.stringify(nextProps.value)) {
-      this.datepicker.setDate(nextProps.value, false);
+  componentDidUpdate(prevProps) {
+    if(JSON.stringify(this.props.value) !== JSON.stringify(prevProps.value)) {
+      this.datepicker.setDate(this.props.value, false);
     }
   }
   initPicker() {
-    const { mode, needTime, enableTime, lang } = this.props;
+    const { mode, needTime, enableTime, lang, defaultTimes } = this.props;
 
     this.datepicker = new Flatpickr(this._refs[this._id], {
       enableTime: enableTime,
@@ -70,8 +81,8 @@ export default class DatetimePicker extends PureComponent {
       // enableSeconds: true,
       onClose: (rangeValues) => {
         let emitVal = rangeValues;
-        if(!needTime) emitVal = rangeValues.map(val => DateFormat(val, this.dateFormater));
-        if(mode == 'single' && Array.isArray(emitVal)) emitVal = rangeValues[0];
+        // if(!needTime) emitVal = rangeValues.map(val => DateFormat(val, this.dateFormater));
+        if(mode === 'single' && Array.isArray(emitVal)) emitVal = rangeValues[0];
         this.changeDate(emitVal);
         // if(clickToClose) this.datepicker.close();
       },
@@ -86,11 +97,12 @@ export default class DatetimePicker extends PureComponent {
     if(this.datepicker) this.datepicker.destroy();
   }
   changeDate(val) {
-    const { onChange } = this.props;
     const id = this._id;
-    this.value = DateFormat(Date.parse(this._refs[id].value), this.dateFormater);
+    /** 继承 DateBasic 获取的 emitChangeValue 统一处理过滤并广播的 value 接口 */
+    const emitVal = this.emitChangeValue(val);
+    this.value = emitVal;
     this._refs[id].blur && this._refs[id].blur();
-    Call(onChange, val);
+    // Call(onChange, emitVal);
   }
   render() {
     return (

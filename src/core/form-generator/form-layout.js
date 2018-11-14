@@ -74,6 +74,26 @@ export default class FormLayout extends UkeComponent {
     /** 在 form 之后插入的 children */
     childrenAfterForm: PropTypes.any,
   };
+  // static getDerivedStateFromProps(nextProps, prevState) {
+  //   const { resDesc } = nextProps;
+  //   if(prevState.prevResDesc !== resDesc) {
+  //     return {
+  //       prevResDesc: resDesc,
+  //       changeDescFromProps: true
+  //     };
+  //   } else {
+  //     return {
+  //       changeDescFromProps: false
+  //     };
+  //   }
+  // }
+  // componentDidUpdate() {
+  //   const { changeDescFromProps } = this.state;
+  //   if(changeDescFromProps) {
+  //     this.showResDesc(this.props);
+  //   }
+  // }
+  // TODO: 废除这个方法，并且不影响之前的效果
   componentWillReceiveProps(nextProps) {
     const { resDesc } = nextProps;
     if(resDesc && this.props.resDesc !== resDesc) {

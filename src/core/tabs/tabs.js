@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import { IsFunc } from 'basic-helper';
+import { IsFunc, CallFunc } from 'basic-helper';
 
 import Tab from './tab';
 
@@ -57,14 +57,12 @@ export default class Tabs extends PureComponent {
 
     this.isControlled = props.hasOwnProperty('activeTabIdx');
   }
+  getActiveIdx() {
+    return this.isControlled ? this.props.activeTabIdx : this.state.activeTabIdx;
+  }
   // componentDidMount() {
   //   this.setDefaultTabIdx(this.props);
   // }
-  componentWillReceiveProps(nextProps) {
-    if(this.isControlled && (this.props.activeTabIdx !== nextProps.activeTabIdx)) {
-      this._onChangeTab(nextProps.activeTabIdx);
-    }
-  }
   // setDefaultTabIdx(nextProps) {
   //   const {activeTabIdx = 0} = nextProps;
   //   this.setState({
@@ -72,7 +70,8 @@ export default class Tabs extends PureComponent {
   //   });
   // }
   _onChangeTab(tabIdx) {
-    if(this.state.activeTabIdx === tabIdx) return;
+    const activeTabIdx = this.getActiveIdx();
+    if(activeTabIdx === tabIdx) return;
     this.setState({
       activeTabIdx: tabIdx
     });
@@ -80,7 +79,8 @@ export default class Tabs extends PureComponent {
   onTapTab(tapIdx) {
     if(!this.isControlled) this._onChangeTab(tapIdx);
     const { onChangeTab } = this.props;
-    if(IsFunc(onChangeTab)) onChangeTab(tapIdx);
+    CallFunc(onChangeTab)(tapIdx);
+    // if(IsFunc(onChangeTab)) onChangeTab(tapIdx);
   }
   getTabContents() {
     const {
@@ -88,7 +88,7 @@ export default class Tabs extends PureComponent {
       inRow, withContent, closeabled,
       onClose
     } = this.props;
-    const { activeTabIdx } = this.state;
+    const activeTabIdx = this.getActiveIdx();
 
     let tabs = [];
     let tabContents = [];

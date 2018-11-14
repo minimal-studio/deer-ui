@@ -10,17 +10,31 @@ import { DatetimePicker } from './';
 <PropsTable of={DatetimePicker} />
 
 <Playground>
-  <div className="mb10">
-    默认
-    <DatetimePicker />
-  </div>
-
-  <div className="mb10">
-    时间范围 + 选择时分秒
-    <DatetimePicker
-      needTime={true}
-      enableTime={true}
-      mode="range"
-      onChange={e => console.log(e)} />
-  </div>
+  默认，输出时间对象
+  <DatetimePicker
+    onChange={e => {
+      console.log(e)  
+    }} />
+  <hr/>
+  输出字符串对象
+  <DatetimePicker
+    outputAsString={true}
+    onChange={e => {
+      console.log(e)  
+    }} />
+  <hr/>
+  输出字符串对象, 不带时分秒
+  <DatetimePicker
+    outputAsString={true}
+    needTime={false}
+    onChange={e => {
+      console.log(e)  
+    }} />
+  <hr/>
+  时间范围 + 选择时分秒
+  <DatetimePicker
+    needTime={true}
+    enableTime={true}
+    mode="range"
+    onChange={e => console.log(e)} />
 </Playground>

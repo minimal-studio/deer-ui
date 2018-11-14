@@ -67,8 +67,8 @@ export default class Carousel extends Component {
       onTouchEnd: this.handleTouchEnd,
     };
   }
-  componentWillReceiveProps(nextProps) {
-    if(this.props.carouselItems.length == 0 && nextProps.carouselItems.length > 0) {
+  componentDidUpdate(prevProps) {
+    if(this.props.carouselItems.length == 0 && prevProps.carouselItems.length > 0) {
       this.startLoop();
     }
   }
