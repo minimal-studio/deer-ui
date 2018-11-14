@@ -17,5 +17,5 @@ export default {
     });
     return config;
   },
-  plugins: [doczPluginNetlify()]
+  plugins: [doczPluginNetlify('docz-dist')]
 };
