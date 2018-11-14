@@ -2,7 +2,7 @@ import React, {Component, PureComponent} from 'react';
 import PropTypes from 'prop-types';
 
 import RandomDisplayNember from './animate-ball';
-// import RandomDisplayNember from './random.ball';
+
 const splitStr = ',';
 
 export class Ball extends Component {
@@ -37,36 +37,44 @@ export class Ball extends Component {
   getOpenCodeArr(openCode) {
     return this.hasSplit(openCode) ? openCode.split(splitStr) : openCode.split('');
   }
-  componentWillReceiveProps(nextProps) {
+  // TODO:
+  // componentWillReceiveProps(nextProps) {
+  //   if(this.props.isOpening != nextProps.isOpening || (!/\?+/.test(nextProps.openCode) && nextProps.openCode !== this.props.openCode)) {
+  //     this.openCodeAnimate(!nextProps.isOpening, nextProps);
+  //   }
+  // }
+  shouldComponentUpdate(nextProps) {
     if(this.props.isOpening != nextProps.isOpening || (!/\?+/.test(nextProps.openCode) && nextProps.openCode !== this.props.openCode)) {
       this.openCodeAnimate(!nextProps.isOpening, nextProps);
     }
+    return true;
   }
   componentWillUnmount() {
     this.clearTimeout();
   }
-  clearTimeout(){
+  clearTimeout() {
     this.timer && clearTimeout(this.timer);
     this.timer = null;
   }
   openCodeAnimate(isOpened, props) {
     const {openCode, animateTimer} = props || this.props;
+
     let {openedInfo} = this.state;
-    const self = this;
     let openCodeArr = this.getOpenCodeArr(openCode);
     let openIdx = 0;
-    function setOpenCodeIdx(idx) {
+    
+    const setOpenCodeIdx = (idx) => {
       openedInfo[idx] = isOpened;
-      self.setState({
+      this.setState({
         openedInfo: openedInfo
       });
-      self.clearTimeout();
-      self.timer = setTimeout(() => {
+      this.clearTimeout();
+      this.timer = setTimeout(() => {
         if(openIdx >= openCodeArr.length) return;
         setOpenCodeIdx(openIdx);
       }, animateTimer);
       openIdx++;
-    }
+    };
     setOpenCodeIdx(openIdx);
   }
   render() {
@@ -93,19 +101,6 @@ export class Ball extends Component {
         <div key={_idx} className="extend-txt">{extendTxtArr[_idx]}</div>
       );
 
-      {/* <div className={ballClass + ' flip-container' + (isOpening ? '' : ' flipper active') + (isActive ? ' s' : '')} key={_idx}>
-        <div className="front">
-          <RandomDisplayNember
-            ref={animateBall => {
-              if(!!animateBall && !this.animateBallRefs[_idx]) this.animateBallRefs[_idx] = animateBall;
-            }}
-            index={_idx}
-            numberRange={numberRange}
-            isStart={isOpening}/>
-        </div>
-        <div className="back">{_ball}</div>
-        {extendTxtDOM}
-      </div> */}
       if(animate) {
         return (
           <div
