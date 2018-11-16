@@ -61,6 +61,14 @@ export default class FormLayoutDemo extends React.Component {
       inputType: 'number'
     },
     {
+      ref: 'ref4',
+      type: 'input',
+      title: '输入控件',
+      desc: '测试表达式, 只能输入数字',
+      filter: val => (val + '').replace(/[^0-9]/g, ''),
+      required: true,
+    },
+    {
       refs: ['_ref3', '_ref4'],
       type: 'input-range',
       title: '范围输入',

@@ -1,7 +1,7 @@
 import React, { Component, PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
-import { Call, HasValue } from 'basic-helper';
+import { Call, HasValue, IsFunc } from 'basic-helper';
 import { Icon } from '../icon';
 
 const controlTypeMapper = {
@@ -44,6 +44,8 @@ export default class Input extends Component {
     /** 作为自定义的 placeholder */
     title: PropTypes.any,
     className: PropTypes.string,
+    /** onChange 前执行的过滤器 */
+    filter: PropTypes.func,
     defaultValue: PropTypes.oneOfType([
       PropTypes.number,
       PropTypes.string,
@@ -80,7 +82,7 @@ export default class Input extends Component {
   constructor(props) {
     super(props);
 
-    const {defaultValue, value} = props;
+    const { defaultValue = '', value } = props;
 
     this.isControl = props.hasOwnProperty('value');
     this.value = this.isControl ? value : defaultValue;
@@ -126,7 +128,7 @@ export default class Input extends Component {
     return val;
   }
   changeVal(val, elem) {
-    if(this.isControl) {
+    if(!this.isControl) {
       this.setState({
         stateVal: val
       });
@@ -136,10 +138,10 @@ export default class Input extends Component {
   render() {
     const {
       icon, placeholder, title, inputBtnConfig, type, showTitle = defaultShowInputTitle,
-      className, children, required,
+      className, children, required, filter,
       onFocus, onBlur,
     } = this.props;
-    const {viewClass = ''} = this.state;
+    const { viewClass = '' } = this.state;
     const value = this.getValue();
 
     const hasIcon = !!icon;
@@ -191,11 +193,13 @@ export default class Input extends Component {
               }}
               onBlur={e => {
                 this.delForceClass();
-                const val = this.numberValFilter();
+                let val = this.numberValFilter();
+                val = IsFunc(filter) ? filter(val) : val;
                 Call(onBlur, val, e);
               }}
               onChange={e => {
-                const val = e.target.value;
+                let val = e.target.value;
+                val = IsFunc(filter) ? filter(val) : val;
                 this.changeVal(val, e.target);
               }}
               ref={e => this.iconInput = e}/>

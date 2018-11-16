@@ -16,6 +16,8 @@ import { Input } from './';
   <hr/>
   <Input title="输出字符串类型"/>
   <hr/>
+  <Input title="带有正则过滤器" filter={val => (val + '').replace(/[^0-9]/g, '')} />
+  <hr/>
   <Input
     title="带有按钮的输入框"
     inputType="number"
