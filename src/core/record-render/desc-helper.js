@@ -16,7 +16,7 @@ export default class DescHelper extends MapperFilter {
       /** 用于标记 key */
       key: PropTypes.string.isRequired,
       /** 用于占用一行, 如果超过 100 个字符，则自动转化成占一行的模式 */
-      block: PropTypes.string,
+      block: PropTypes.bool,
     })).isRequired,
     record: PropTypes.shape({}).isRequired
   };
