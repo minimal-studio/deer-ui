@@ -22,6 +22,14 @@ function getPosition(elem) {
   };
 }
 
+
+function getChildrenKeys(children) {
+  if(!children) return [];
+  let _children = Array.isArray(children) ? children : [children];
+  let childrenKeys = _children.map(item => item.key);
+  return childrenKeys;
+}
+
 export default class Popover extends Component {
   static propTypes = {
     /** 是否激活 */
@@ -65,22 +73,32 @@ export default class Popover extends Component {
     type: 'white',
     showCloseBtn: true,
     enableTabIndex: true,
+  };
+  static getDerivedStateFromProps(nextProps, {prevProps}) {
+    let hasChangeChildren = JSON.stringify(getChildrenKeys(nextProps.children)) !== JSON.stringify(getChildrenKeys(prevProps.children));
+    if(hasChangeChildren) {
+      return {
+        childrenChange: true,
+        prevProps: nextProps
+      };
+    }
+    return null;
   }
   constructor(props) {
     super(props);
+
     this.state = {
       popoverOffset: {
         width: 0,
         height: 0
-      }
+      },
+      prevProps: props,
+      childrenChange: false
     };
   }
   shouldComponentUpdate(nextProps) {
     let shouldUpdate = typeof nextProps.update === 'undefined' ? true : nextProps.update;
     return shouldUpdate;
-  }
-  getPopoverDOM(e) {
-    this.popoverDOM = e;
   }
   handleKeyDown = (event) => {
     if (event.keyCode === ESC_KEY) {
@@ -94,16 +112,29 @@ export default class Popover extends Component {
   }
   componentDidMount() {
     this.setContentFocus();
+    this.setPopoverOffset();
   }
-  componentDidUpdate() {
+  setPopoverOffset() {
+    if(!this.popoverDOM) return;
+    const { offsetHeight, offsetWidth } = this.popoverDOM;
+    this.setState({
+      popoverOffset: {
+        width: offsetWidth,
+        height: offsetHeight
+      }
+    });
+  }
+  componentDidUpdate(prevProps, prevState) {
     this.setContentFocus();
     const popover = this.popoverDOM || {};
-    if(this.state.popoverOffset.width === 0 && !!popover.offsetWidth && popover.offsetWidth > 0 || !!popover.offsetWidth && popover.offsetWidth !== this.state.popoverOffset.width) {
-      this.setState({
+    const { offsetWidth, offsetHeight } = popover;
+    if(prevState.childrenChange) {
+      this.__isMounted && this.setState({
         popoverOffset: {
-          width: popover.offsetWidth,
-          height: popover.offsetHeight
-        }
+          width: offsetWidth,
+          height: offsetHeight
+        },
+        childrenChange: false
       });
     }
   }
@@ -119,16 +150,28 @@ export default class Popover extends Component {
 
     switch (position) {
     case 'left':
-      positionStyle = {top: offsetTop + sideOffsetTop, left: offsetLeft - popOffsetWidth - 12};
+      positionStyle = {
+        top: offsetTop + sideOffsetTop,
+        left: offsetLeft - popOffsetWidth - 12
+      };
       break;
     case 'bottom':
-      positionStyle = {top: offsetTop + offsetHeight + offsetHeight / 2, left: offsetLeft - popOffsetWidth / 2};
+      positionStyle = {
+        top: offsetTop + offsetHeight + offsetHeight / 2,
+        left: offsetLeft - popOffsetWidth / 2
+      };
       break;
     case 'top':
-      positionStyle = {top: offsetTop - popOffsetHeight - offsetHeight / 2, left: offsetLeft - popOffsetWidth / 2};
+      positionStyle = {
+        top: offsetTop - popOffsetHeight - offsetHeight / 2,
+        left: offsetLeft - popOffsetWidth / 2
+      };
       break;
     case 'right':
-      positionStyle = {top: offsetTop + sideOffsetTop, left: offsetLeft + offsetWidth + 15};
+      positionStyle = {
+        top: offsetTop + sideOffsetTop,
+        left: offsetLeft + offsetWidth + 15
+      };
       break;
     }
     return positionStyle;
@@ -151,7 +194,7 @@ export default class Popover extends Component {
       container = (
         <div {...obj}
           className={`uke-popover ${fixed ? 'fixed' : ''} ${position} ${className} ${type}`}
-          style={this.calaStyle(position)} ref={e => this.getPopoverDOM(e)}>
+          style={this.calaStyle(position)} ref={e => this.popoverDOM = e}>
           {closeBtn}
           {/* <span className="caret"></span> */}
           {children}

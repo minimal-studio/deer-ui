@@ -4,11 +4,11 @@ import PropTypes from 'prop-types';
 import { getIcon } from '../config';
 
 const Icon = (props) => {
-  const { n, s = 's', type, classNames = [], ...other } = props;
+  const { n, s, type, classNames, className, ...other } = props;
   return (
     <i
       {...other}
-      className={getIcon(n || type, s, ['icon', ...classNames])} />
+      className={getIcon(n || type, s, ['icon', (className ? className : ''), ...classNames])} />
   );
 };
 Icon.propTypes = {
@@ -25,6 +25,11 @@ Icon.propTypes = {
   type: PropTypes.string,
   /** multiple class names */
   classNames: PropTypes.arrayOf(PropTypes.string),
+};
+Icon.defaultProps = {
+  n: 'none',
+  s: 's',
+  classNames: [],
 };
 
 export default Icon;
