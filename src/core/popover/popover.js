@@ -57,11 +57,14 @@ export default class Popover extends Component {
     fixed: PropTypes.bool,
     /** 是否 update 组件 */
     update: PropTypes.bool,
+    /** 是否支持快捷键 Esc 关闭 */
+    enableTabIndex: PropTypes.bool,
   };
   static defaultProps = {
     position: 'right',
     type: 'white',
-    showCloseBtn: true
+    showCloseBtn: true,
+    enableTabIndex: true,
   }
   constructor(props) {
     super(props);
@@ -134,7 +137,7 @@ export default class Popover extends Component {
     const {
       open, children, relativeElem, position,
       className = '', onClose, fixed, type,
-      showCloseBtn
+      showCloseBtn, enableTabIndex
     } = this.props;
     if(!relativeElem) return <span />;
 
@@ -144,10 +147,9 @@ export default class Popover extends Component {
       const closeBtn = showCloseBtn ? (
         <div className="close-btn" onClick={e => onClose()}>x</div>
       ) : null;
-
+      let obj = enableTabIndex ? {tabIndex: '-1', onKeyDown: this.handleKeyDown} : {};
       container = (
-        <div tabIndex="-1"
-          onKeyDown={this.handleKeyDown}
+        <div {...obj}
           className={`uke-popover ${fixed ? 'fixed' : ''} ${position} ${className} ${type}`}
           style={this.calaStyle(position)} ref={e => this.getPopoverDOM(e)}>
           {closeBtn}
