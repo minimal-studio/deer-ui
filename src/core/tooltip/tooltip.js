@@ -59,6 +59,7 @@ export default class ToolTip extends PureComponent {
             props: {
               position,
               showCloseBtn: false,
+              enableTabIndex: false,
               className: 'icon-tip',
               type: 'black'
             },
