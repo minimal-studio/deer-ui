@@ -56,6 +56,10 @@ export default class FormLayout extends UkeComponent {
         text: PropTypes.string,
         /** 记录该按钮的状态 */
         actingRef: PropTypes.string,
+        /** 按钮颜色 */
+        color: PropTypes.string,
+        /** 该按钮是否需要预检查 */
+        preCheck: PropTypes.bool,
       })
     ),
   
@@ -134,6 +138,7 @@ export default class FormLayout extends UkeComponent {
       {
         action: onSubmit,
         text: btnText,
+        color: 'theme',
         className: 'theme'
       }
     ];
@@ -143,7 +148,7 @@ export default class FormLayout extends UkeComponent {
     ) : null;
 
     const btnGroup = _btnConfig.map((btn, idx) => {
-      const { action, text, className, actingRef = 'loading', preCheck = true } = btn;
+      const { action, text, className, color, actingRef = 'loading', preCheck = true } = btn;
       const isBtnLoading = this.props[actingRef];
       const isActive = !!action && !isBtnLoading;
       const key = text + actingRef;
@@ -153,7 +158,7 @@ export default class FormLayout extends UkeComponent {
             disabled={!isActive}
             text={isBtnLoading ? text + this.gm('中') + '...' : text}
             loading={isBtnLoading}
-            className={className}
+            className={color || className || ''}
             onClick={e => {
               this.__changeedDesc = false;
               const _action = () => {
