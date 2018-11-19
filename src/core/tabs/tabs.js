@@ -27,6 +27,8 @@ export default class Tabs extends PureComponent {
     withContent: PropTypes.bool,
     /** tab 可否关闭 */
     closeabled: PropTypes.bool,
+    /** 自定义 tab 关闭组件 */
+    CloseComponent: PropTypes.any,
     /** 是否启用 step 分步模式 */
     stepMode: PropTypes.bool,
     /** children */
@@ -85,7 +87,7 @@ export default class Tabs extends PureComponent {
   getTabContents() {
     const {
       children, height, 
-      inRow, withContent, closeabled,
+      inRow, withContent, closeabled, CloseComponent,
       onClose
     } = this.props;
     const activeTabIdx = this.getActiveIdx();
@@ -123,7 +125,7 @@ export default class Tabs extends PureComponent {
           </span>
           {
             closeabled ? (
-              <span className="close-btn" onClick={e => onClose(idx)}>x</span>
+              CloseComponent ? <CloseComponent onClick={e => onClose(idx)} /> : <span className="close-btn" onClick={e => onClose(idx)}>x</span>
             ) : null
           }
           {_con}
