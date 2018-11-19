@@ -149,7 +149,7 @@ export default class Popover extends Component {
       ) : null;
       let obj = enableTabIndex ? {tabIndex: '-1', onKeyDown: this.handleKeyDown} : {};
       container = (
-        <div 
+        <div {...obj}
           className={`uke-popover ${fixed ? 'fixed' : ''} ${position} ${className} ${type}`}
           style={this.calaStyle(position)} ref={e => this.getPopoverDOM(e)}>
           {closeBtn}
