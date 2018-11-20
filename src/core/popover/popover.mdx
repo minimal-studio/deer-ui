@@ -14,24 +14,74 @@ import { GlobalPopover, PopoverEntity, Popover } from './';
 <PropsTable of={Popover} />
 
 <Playground>
-  <div>
-    <span onMouseEnter={e => {
-      GlobalPopover.show({
-        elem: e.target,
-        props: {
-          showCloseBtn: false,
-          type: 'red'
-        },
-        children: (
-          <div className="p10">任意内容</div>
-        )
-      })
-    }} onMouseLeave={e => {
-      GlobalPopover.close()
-    }}>
-      弹出层
-    </span>
-  </div>
+  <span className="mr10" onMouseEnter={e => {
+    GlobalPopover.show({
+      elem: e.target,
+      props: {
+        showCloseBtn: false,
+        position: 'top',
+        type: 'red'
+      },
+      children: (
+        <div className="p10">任意内容</div>
+      )
+    })
+  }} onMouseLeave={e => {
+    GlobalPopover.close()
+  }}>
+    向上弹出
+  </span>
+  <span className="mr10" onMouseEnter={e => {
+    GlobalPopover.show({
+      elem: e.target,
+      props: {
+        showCloseBtn: false,
+        position: 'bottom',
+        type: 'red'
+      },
+      children: (
+        <div className="p10">任意内容</div>
+      )
+    })
+  }} onMouseLeave={e => {
+    GlobalPopover.close()
+  }}>
+    向下弹出
+  </span>
+  <span className="mr10" onMouseEnter={e => {
+    GlobalPopover.show({
+      elem: e.target,
+      props: {
+        showCloseBtn: false,
+        position: 'left',
+        type: 'red'
+      },
+      children: (
+        <div className="p10">任意内容</div>
+      )
+    })
+  }} onMouseLeave={e => {
+    GlobalPopover.close()
+  }}>
+    向左弹出
+  </span>
+  <span className="mr10" onMouseEnter={e => {
+    GlobalPopover.show({
+      elem: e.target,
+      props: {
+        showCloseBtn: false,
+        position: 'right',
+        type: 'red'
+      },
+      children: (
+        <div className="p10">任意内容</div>
+      )
+    })
+  }} onMouseLeave={e => {
+    GlobalPopover.close()
+  }}>
+    向右弹出
+  </span>
 </Playground>
 
 -------

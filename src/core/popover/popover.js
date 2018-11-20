@@ -22,7 +22,6 @@ function getPosition(elem) {
   };
 }
 
-
 function getChildrenKeys(children) {
   if(!children) return [];
   let _children = Array.isArray(children) ? children : [children];
@@ -138,13 +137,14 @@ export default class Popover extends Component {
       });
     }
   }
-  calaStyle(position) {
+  calaStyle(position, popoverScale) {
     const { relativeElem } = this.props;
     const { offsetWidth = 0, offsetHeight = 0 } = relativeElem;
     const { offsetTop = 0, offsetLeft = 0 } = getElementOffset(relativeElem) || {};
-    const { popoverOffset } = this.state;
-    const popOffsetHeight = popoverOffset.height;
-    const popOffsetWidth = popoverOffset.width;
+    // const { popoverOffset } = this.state;
+    // const popOffsetHeight = popoverOffset.height;
+    // const popOffsetWidth = popoverOffset.width;
+    const { height, width } = popoverScale;
     let sideOffsetTop = -10;
     let positionStyle = {};
 
@@ -152,19 +152,19 @@ export default class Popover extends Component {
     case 'left':
       positionStyle = {
         top: offsetTop + sideOffsetTop,
-        left: offsetLeft - popOffsetWidth - 12
+        left: offsetLeft - width - 12
       };
       break;
     case 'bottom':
       positionStyle = {
         top: offsetTop + offsetHeight + offsetHeight / 2,
-        left: offsetLeft - popOffsetWidth / 2
+        left: offsetLeft - width / 2
       };
       break;
     case 'top':
       positionStyle = {
-        top: offsetTop - popOffsetHeight - offsetHeight / 2,
-        left: offsetLeft - popOffsetWidth / 2
+        top: offsetTop - height - offsetHeight / 2,
+        left: offsetLeft - width / 2
       };
       break;
     case 'right':
@@ -175,6 +175,18 @@ export default class Popover extends Component {
       break;
     }
     return positionStyle;
+  }
+  setSelfPosition(elem) {
+    if(!elem) return;
+    const { position } = this.props;
+    this.popoverDOM = elem;
+    const popoverScale = {
+      width: elem.offsetWidth,
+      height: elem.offsetHeight,
+    };
+    const positionStyle = this.calaStyle(position, popoverScale);
+    elem.style.top = positionStyle.top + 'px';
+    elem.style.left = positionStyle.left + 'px';
   }
   render() {
     const {
@@ -194,7 +206,9 @@ export default class Popover extends Component {
       container = (
         <div {...obj}
           className={`uke-popover ${fixed ? 'fixed' : ''} ${position} ${className} ${type}`}
-          style={this.calaStyle(position)} ref={e => this.popoverDOM = e}>
+          ref={e => {
+            this.setSelfPosition(e);
+          }}>
           {closeBtn}
           {/* <span className="caret"></span> */}
           {children}
