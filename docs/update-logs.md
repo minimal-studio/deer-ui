@@ -1,5 +1,9 @@
 # Update logs of Ukelli UI
 
+## 2.7.22
+
+- 调整 Tabs 的样式问题
+
 ## 2.7.21
 
 - 优化 ToolTip 的结构
