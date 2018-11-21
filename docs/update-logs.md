@@ -1,5 +1,9 @@
 # Update logs of Ukelli UI
 
+## 2.7.24
+
+- 修复一些问题
+
 ## 2.7.23
 
 - 修复 Popover 的定位问题

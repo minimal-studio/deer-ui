@@ -17,19 +17,20 @@ export default class CountdownBg extends PureComponent {
     _firstStopColor = firstStopColor;
     _secondStopColor = secondStopColor;
   };
-  static getDerivedStateFromProps(nextProps, prevState) {
-    const { resDesc } = nextProps;
-    if(prevState.prevResDesc !== resDesc) {
-      return {
-        prevResDesc: resDesc,
-        changeDescFromProps: true
-      };
-    } else {
-      return {
-        changeDescFromProps: false
-      };
-    }
-  }
+  // static getDerivedStateFromProps(nextProps, prevState) {
+  //   const { resDesc } = nextProps;
+  //   if(prevState.prevResDesc !== resDesc) {
+  //     return {
+  //       prevResDesc: resDesc,
+  //       changeDescFromProps: true
+  //     };
+  //   } else {
+  //     return {
+  //       changeDescFromProps: false
+  //     };
+  //   }
+  // }
+  // state = {};
   render() {
     const { percent } = this.props;
     let dashLength = Math.PI * 2 * 30;
