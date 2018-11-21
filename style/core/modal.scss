@@ -101,9 +101,12 @@ $windowActiveShadow: 0 12px 36px rgba(#000, 0.3);
     .uke-modal-content {
       border-radius: 0 0 4px 4px;
       min-height: 140px;
-      max-height: 80vh;
       overflow-y: auto;
       background-color: #FFF;
+      
+      &.max-height {
+        max-height: 80vh;
+      }
     }
   }
   .close-btn {

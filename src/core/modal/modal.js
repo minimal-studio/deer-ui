@@ -19,6 +19,7 @@ export default class Modal extends DragPanelClass {
     title: 'Title',
     className: '',
     children: null,
+    disableContentMaxHeight: false,
   };
   static propTypes = {
     /** title */
@@ -55,6 +56,8 @@ export default class Modal extends DragPanelClass {
     onClose: PropTypes.func,
     /** 是否使用 esc 按键关闭 modal */
     shouldCloseOnEsc: PropTypes.bool,
+    /** 是否关闭 modal content 的最大高度 80vh */
+    disableContentMaxHeight: PropTypes.bool,
   };
   state = {...this.state};
 
@@ -100,9 +103,9 @@ export default class Modal extends DragPanelClass {
   render() {
     const {
       children, title, isOpen, animateType, selectWindow, sectionId,
-      width, style, className, modalLayoutDOM, duration, id,
-      clickBgToClose, showCloseBtn, Header, needMask, draggable,
-      onCloseModal
+      width, style, className, modalLayoutDOM, duration, id, 
+      clickBgToClose, showCloseBtn, Header, needMask, draggable, 
+      onCloseModal, disableContentMaxHeight,
     } = this.props;
 
     let modalIdx = this.props.idx;
@@ -153,7 +156,7 @@ export default class Modal extends DragPanelClass {
                     </header>
                   )
                 }
-                <div className="uke-modal-content">
+                <div className={'uke-modal-content'+(!disableContentMaxHeight ? ' max-height' : '')}>
                   {children}
                 </div>
               </div>
