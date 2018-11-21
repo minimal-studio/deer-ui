@@ -156,7 +156,7 @@ export default class Modal extends DragPanelClass {
                     </header>
                   )
                 }
-                <div className="uke-modal-content" style={disableContentMaxHeight ? {maxHeight: 'none'} : {}}>
+                <div className={'uke-modal-content'+(!disableContentMaxHeight ? ' max-height' : '')}>
                   {children}
                 </div>
               </div>
