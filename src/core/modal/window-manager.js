@@ -11,6 +11,7 @@ const windowManagerStore = createStore(DefaultWindowManagerState);
 
 const windowManagerActions = store => ({
   closeWindow({sectionsList, sectionsQueue}, sectionId) {
+    if(!sectionId) return;
     let nextSectionList = sectionsList;
     let nextSectionQueue = RemoveArrayItem(sectionsQueue, sectionId);
 

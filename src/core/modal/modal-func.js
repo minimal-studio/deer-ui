@@ -25,13 +25,13 @@ class ModalEntity extends ModalHelper {
     });
   }
   render() {
-    const {onCloseModal} = this.props;
+    const { children, onCloseModal } = this.props;
     return (
       <Modal
         {...this.state.modalSetting}
         {...this.props}
         onCloseModal={onCloseModal || this.closeModal.bind(this)}>
-        {this.props.children}
+        {children}
       </Modal>
     );
   }
@@ -53,7 +53,8 @@ const ModalsManager = connect(selector, windowManagerActions)((props) => {
           idx={currSectionIdx}
           sectionId={sectionId}
           selectWindow={selectWindow}
-          {...currItem} onCloseModal={e => closeWindow(sectionId)}>
+          {...currItem}
+          onCloseModal={e => closeWindow(sectionId)}>
           {currItem.children}
         </ModalEntity>
       </CSSTransition>
@@ -131,35 +132,38 @@ function ShowGlobalModal(options) {
     Call(onConfirm, confirm);
     CloseGlobalModal(entityId);
   }
-  if(draggable) {
-    connectedStore.openWindow(options);
-  } else {
-    let entityDOM = setDOMById(entityId, 'top-modal idx-' + entityId);
-    const entityWrapper = (
-      <ModalEntity
-        ref={_Entity => {
-          if(!_Entity) return;
-          Entity[entityId] = _Entity;
-          Entity[entityId].setModal({
-            isOpen: true,
-            title,
-            width
-          });
-        }}
-        topClassName={topClassName}
-        className={className}
-        {...options}
-        onCloseModal={e => {
-          CloseGlobalModal(entityId);
-        }}>
-        {modalTMPL}
-      </ModalEntity>
-    );
-    ReactDOM.render(
-      entityWrapper,
-      entityDOM,
-    );
-  }
+
+  options.children = modalTMPL;
+  connectedStore.openWindow(options);
+  // if(draggable) {
+    // connectedStore.openWindow(options);
+  // } else {
+    // let entityDOM = setDOMById(entityId, 'top-modal idx-' + entityId);
+    // const entityWrapper = (
+    //   <ModalEntity
+    //     ref={_Entity => {
+    //       if(!_Entity) return;
+    //       Entity[entityId] = _Entity;
+    //       Entity[entityId].setModal({
+    //         isOpen: true,
+    //         title,
+    //         width
+    //       });
+    //     }}
+    //     topClassName={topClassName}
+    //     className={className}
+    //     {...options}
+    //     onCloseModal={e => {
+    //       CloseGlobalModal(entityId);
+    //     }}>
+    //     {modalTMPL}
+    //   </ModalEntity>
+    // );
+    // ReactDOM.render(
+    //   entityWrapper,
+    //   entityDOM,
+    // );
+  // }
   return entityId;
 }
 
