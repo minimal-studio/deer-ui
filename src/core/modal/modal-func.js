@@ -39,7 +39,7 @@ class ModalEntity extends ModalHelper {
 
 const ModalsManager = connect(selector, windowManagerActions)((props) => {
   connectedStore = props;
-  const {sectionsList, closeWindow, selectWindow, sectionsQueue} = props;
+  const { sectionsList, closeWindow, selectWindow, sectionsQueue } = props;
   const sections = Object.keys(sectionsList).map(key => {
     const currItem = sectionsList[key];
     const sectionId = currItem.id;

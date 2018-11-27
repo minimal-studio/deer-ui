@@ -40,6 +40,8 @@ const windowManagerActions = store => ({
     let nextSectionList = sectionsList;
     let selectedCodeIdx = nextSectionQueue.indexOf(sectionId);
 
+    if(!nextSectionList[sectionId]) return;
+
     nextSectionList[sectionId] = Object.assign({}, nextSectionList[sectionId], {
       isMinimize: false
     });
