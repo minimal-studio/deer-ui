@@ -1,6 +1,6 @@
 {
   "name": "ukelli-ui",
-  "version": "2.7.25",
+  "version": "2.7.26",
   "main": "./index.js",
   "scripts": {
     "publish": "npm publish ./build",

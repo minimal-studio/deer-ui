@@ -1,5 +1,9 @@
 # Update logs of Ukelli UI
 
+## 2.7.26
+
+- 修复 Modal 的样式问题
+
 ## 2.7.25
 
 - Modal 新增是否禁用 maxHeight 的选项

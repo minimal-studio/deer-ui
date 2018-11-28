@@ -87,6 +87,13 @@ function CloseGlobalModal(entityId) {
   connectedStore.closeWindow(entityId);
 }
 
+const defaultOptions = {
+  className: 'fixed',
+  topClassName: 'top-modal-opend',
+  showFuncBtn: true,
+  width: window.$UKE.isMobile ? '90%' : 600
+};
+
 function ShowGlobalModal(options) {
 
   let gm = window.$UKE.getUkeKeyMap;
@@ -103,6 +110,10 @@ function ShowGlobalModal(options) {
   options.id = entityId;
 
   let modalTMPL = null;
+
+  // if(!draggable) {
+
+  // }
 
   let btnGroupDOM = showFuncBtn ? (
     <div className="btn-group">
@@ -134,6 +145,10 @@ function ShowGlobalModal(options) {
   }
 
   options.children = modalTMPL;
+  options = {
+    ...defaultOptions,
+    ...options,
+  }
   connectedStore.openWindow(options);
   // if(draggable) {
     // connectedStore.openWindow(options);
