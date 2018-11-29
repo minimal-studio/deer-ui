@@ -64,6 +64,8 @@ export default class Popover extends Component {
     fixed: PropTypes.bool,
     /** 是否 update 组件 */
     update: PropTypes.bool,
+    /** 外层的 style */
+    style: PropTypes.object,
     /** 是否支持快捷键 Esc 关闭 */
     enableTabIndex: PropTypes.bool,
   };
@@ -191,7 +193,7 @@ export default class Popover extends Component {
   render() {
     const {
       open, children, relativeElem, position,
-      className = '', onClose, fixed, type,
+      className = '', onClose, fixed, type, style,
       showCloseBtn, enableTabIndex
     } = this.props;
     if(!relativeElem) return <span />;
@@ -206,6 +208,7 @@ export default class Popover extends Component {
       container = (
         <div {...obj}
           className={`uke-popover ${fixed ? 'fixed' : ''} ${position} ${className} ${type}`}
+          style={style}
           ref={e => {
             this.setSelfPosition(e);
           }}>

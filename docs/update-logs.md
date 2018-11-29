@@ -1,5 +1,9 @@
 # Update logs of Ukelli UI
 
+## 2.7.27
+
+- Popover 新增 style
+
 ## 2.7.26
 
 - 修复 Modal 的样式问题
