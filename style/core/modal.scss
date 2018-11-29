@@ -53,20 +53,20 @@ $windowActiveShadow: 0 12px 36px rgba(#000, 0.3);
     .uke-modal-layout {
       position: fixed;
     }
-    &.idx-0 {
-      .animate-layout {
-        z-index: 701;
-        box-shadow: $windowActiveShadow;
-        >.section-mark {
-          position: relative;
-        }
+  }
+  &.idx-0 {
+    .animate-layout {
+      z-index: 701;
+      box-shadow: $windowActiveShadow;
+      >.section-mark {
+        position: relative;
       }
     }
-    @for $i from 1 through 20 {
-      &.idx-#{$i} {
-        .animate-layout {
-          z-index: 601 - $i;
-        }
+  }
+  @for $i from 1 through 20 {
+    &.idx-#{$i} {
+      .animate-layout {
+        z-index: 601 - $i;
       }
     }
   }

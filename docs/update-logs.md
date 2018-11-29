@@ -1,5 +1,9 @@
 # Update logs of Ukelli UI
 
+## 2.7.28
+
+- 调整 Modal 的层级样式
+
 ## 2.7.27
 
 - Popover 新增 style
