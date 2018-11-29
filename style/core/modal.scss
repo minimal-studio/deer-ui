@@ -53,21 +53,30 @@ $windowActiveShadow: 0 12px 36px rgba(#000, 0.3);
     .uke-modal-layout {
       position: fixed;
     }
+    &.idx-0 {
+      .animate-layout {
+        box-shadow: $windowActiveShadow;
+        >.section-mark {
+          position: relative;
+        }
+      }
+      // .uke-modal-layout {
+      //   z-index: 701;
+      // }
+    }
   }
   &.idx-0 {
-    .animate-layout {
-      z-index: 701;
-      box-shadow: $windowActiveShadow;
-      >.section-mark {
-        position: relative;
-      }
-    }
+    z-index: 701;
+    // .uke-modal-layout {
+    //   z-index: 701;
+    // }
   }
   @for $i from 1 through 20 {
     &.idx-#{$i} {
-      .animate-layout {
-        z-index: 601 - $i;
-      }
+      z-index: 601 - $i;
+      // .uke-modal-layout {
+      //   z-index: 601 - $i;
+      // }
     }
   }
   .section-mark {
@@ -76,13 +85,13 @@ $windowActiveShadow: 0 12px 36px rgba(#000, 0.3);
   .animate-layout {
     // @include fill();
     position: relative;
-    z-index: 600;
+    z-index: 100;
   }
   .uke-modal-layout {
     // position: fixed;
     position: relative;
     border-radius: 3px;
-    z-index: 300;
+    // z-index: 100;
     width: 60%;
     box-shadow: 0 12px 36px rgba(#000, 0.3);
 

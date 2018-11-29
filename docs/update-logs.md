@@ -1,5 +1,9 @@
 # Update logs of Ukelli UI
 
+## 2.7.29
+
+- 修复 Modal 错位的问题
+
 ## 2.7.28
 
 - 调整 Modal 的层级样式
