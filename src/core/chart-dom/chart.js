@@ -19,12 +19,18 @@ export default class ChartCom extends PureComponent {
     chartjsURL = path.replace(/\/$/, "/");
   };
   static propTypes = {
+    /** data */
     data: PropTypes.objectOf(PropTypes.any).isRequired,
+    /** 选项 */
     options: PropTypes.objectOf(PropTypes.any),
+    /** ID */
+    id: PropTypes.string,
+    /** type */
     type: PropTypes.string
   };
   static defaultProps = {
-    type: 'line'
+    type: 'line',
+    id: 'ukeChart'
   };
   constructor(props) {
     super(props);
@@ -33,7 +39,7 @@ export default class ChartCom extends PureComponent {
       loading: !window.Chart
     };
   }
-  loadChart(callback) {
+  loadChart = (callback) => {
     LoadScript({
       src: chartjsURL,
       onload: () => {
@@ -69,7 +75,7 @@ export default class ChartCom extends PureComponent {
     //     Call(callback);
     //   });
   }
-  renderChart() {
+  renderChart = () => {
     if(!window.Chart) {
       this.loadChart(this._renderChart);
     } else {
@@ -77,7 +83,7 @@ export default class ChartCom extends PureComponent {
     }
   }
   _renderChart = () => {
-    const {data, type, options = {}} = this.props;
+    const { data, type, options = {} } = this.props;
     const ctx = this.lineChart;
     new window.Chart(ctx, {
       type,
@@ -86,13 +92,16 @@ export default class ChartCom extends PureComponent {
     });
   }
   render() {
-    const {loading} = this.state;
+    const { loading } = this.state;
+    const { id } = this.props;
+
     return (
       <Loading loading={loading}>
         <canvas
           className="lineChart"
+          id={id}
           ref={e => {
-            if(!this.lineChart) this.lineChart = e;
+            this.lineChart = e;
           }}
           style={{width: '100%', height: '100%'}}/>
       </Loading>
