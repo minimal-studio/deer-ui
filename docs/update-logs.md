@@ -1,5 +1,9 @@
 # Update logs of Ukelli UI
 
+## 2.7.30
+
+- 修复 TipPanel 不现实开关按钮的问题
+
 ## 2.7.29
 
 - 修复 Modal 错位的问题
