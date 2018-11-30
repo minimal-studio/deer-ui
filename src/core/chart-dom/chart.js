@@ -7,6 +7,8 @@ import { LoadScript } from '../config';
 
 let chartjsURL = '';
 
+let isLoading = false;
+
 export default class ChartCom extends PureComponent {
   /**
    * 设置 Chart js 库的获取地址
@@ -40,6 +42,7 @@ export default class ChartCom extends PureComponent {
     };
   }
   loadChart = (callback) => {
+    isLoading = true;
     LoadScript({
       src: chartjsURL,
       onload: () => {
@@ -47,43 +50,34 @@ export default class ChartCom extends PureComponent {
           loading: false,
         });
         Call(callback);
+        isLoading = false;
       }
     });
-    // fetch(
-    //   chartjsURL,
-    //   {
-    //     method: 'GET',
-    //     headers: {
-    //       'Content-Type': 'text/plain'
-    //     },
-    //     cache: 'default'
-    //   })
-    //   .then(res => {
-    //     return res.text();
-    //   })
-    //   .then(res => {
-    //     self.setState({
-    //       loading: false,
-    //     });
-    //     try {
-    //       eval(res);
-    //     } catch(e) {
-    //       console.log(e);
-    //     }
-    //   })
-    //   .then(() => {
-    //     Call(callback);
-    //   });
   }
   renderChart = () => {
     if(!window.Chart) {
-      this.loadChart(this._renderChart);
+      if(isLoading) {
+        // 检查 chart js 是否加载完成
+        if(this.timer) clearInterval(this.timer);
+        this.timer = setInterval(() => {
+          if(window.Chart) {
+            clearInterval(this.timer);
+            this.setState({
+              loading: false,
+            });
+            setTimeout(this._renderChart, 100);
+          }
+        }, 100);
+      } else {
+        this.loadChart(this._renderChart);
+      }
     } else {
       setTimeout(this._renderChart, 100);
     }
   }
   _renderChart = () => {
-    const { data, type, options = {} } = this.props;
+    const { data, type, options = {}, id } = this.props;
+    // const ctx = document.querySelector(`#${id}`);
     const ctx = this.lineChart;
     new window.Chart(ctx, {
       type,

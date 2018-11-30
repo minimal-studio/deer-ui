@@ -1,5 +1,9 @@
 # Update logs of Ukelli UI
 
+## 2.7.33
+
+- 优化 ChartCom 的实现，完善加载前后的顺序
+
 ## 2.7.32
 
 - 导出 Card
