@@ -8,19 +8,6 @@ import { DragPanelClass } from './drag-pabel-helper';
 const ESC_KEY = 27;
 
 export default class Modal extends DragPanelClass {
-  static defaultProps = {
-    shouldCloseOnEsc: true,
-    showCloseBtn: true,
-    needMask: true,
-    clickBgToClose: false,
-    draggable: false,
-    duration: 300,
-    animateType: 'modal',
-    title: 'Title',
-    className: '',
-    children: null,
-    maxHeightable: true,
-  };
   static propTypes = {
     /** title */
     title: PropTypes.string,
@@ -59,15 +46,35 @@ export default class Modal extends DragPanelClass {
     /** 是否关闭 modal content 的最大高度 80vh */
     maxHeightable: PropTypes.bool,
   };
+  static defaultProps = {
+    shouldCloseOnEsc: true,
+    showCloseBtn: true,
+    needMask: true,
+    clickBgToClose: false,
+    draggable: false,
+    duration: 300,
+    animateType: 'modal',
+    title: 'Title',
+    className: '',
+    children: null,
+    topClassName: 'modal-opend',
+    maxHeightable: true,
+  };
   state = {...this.state};
 
   componentDidMount() {
     this.setContentFocus();
   }
+  
+  componentWillUnmount() {
+    let { topClassName } = this.props;
+    document.body.classList.remove(topClassName);
+  }
+  
 
   componentDidUpdate(preProps) {
     if(this.props.isOpen !== preProps.isOpen) {
-      let {topClassName = 'modal-opend'} = this.props;
+      let { topClassName } = this.props;
       document.body.classList.toggle(topClassName, this.props.isOpen);
       this.setContentFocus();
 

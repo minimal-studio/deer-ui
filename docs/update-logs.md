@@ -1,5 +1,9 @@
 # Update logs of Ukelli UI
 
+## 2.7.34
+
+- 修复 Modal 的问题
+
 ## 2.7.33
 
 - 优化 ChartCom 的实现，完善加载前后的顺序
