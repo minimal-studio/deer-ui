@@ -1,5 +1,9 @@
 # Update logs of Ukelli UI
 
+## 2.7.32
+
+- 导出 Card
+
 ## 2.7.31
 
 - 新增一个 Card 组件
