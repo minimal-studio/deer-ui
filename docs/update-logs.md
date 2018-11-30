@@ -1,5 +1,9 @@
 # Update logs of Ukelli UI
 
+## 2.7.31
+
+- 新增一个 Card 组件
+
 ## 2.7.30
 
 - 修复 TipPanel 不现实开关按钮的问题

@@ -10,7 +10,7 @@ import { Playground, PropsTable } from 'docz'
 
 > 帮助实现风格一致的 UI
 
-### 布局系统 layout
+## 布局系统 layout
 
 规则:
 
@@ -29,7 +29,7 @@ align-items: flex-start;
 justify-content: flex-start;
 ```
 
-#### justify-content
+### justify-content
 
 <Playground>
   <div className="layout">
@@ -63,7 +63,7 @@ justify-content: flex-start;
   </div>
 </Playground>
 
-#### align-items
+### align-items
 
 <Playground>
   <div className="layout">
@@ -86,7 +86,7 @@ justify-content: flex-start;
   <hr/>
 </Playground>
 
-#### align-content
+### align-content
 
 <Playground>
   <div className="layout" style={{height: 120, display: 'grid'}}>
@@ -111,7 +111,7 @@ justify-content: flex-start;
 
 ---------------
 
-### 内外边距
+## 内外边距
 
 通用样式 margin, padding, 规则为边距类型缩写 + 以 5 px为单位，从 5px - 20px 的 class，例如
 
@@ -144,7 +144,7 @@ padding: 0 10px;
 
 ---------------
 
-### 表格
+## 表格
 
 <Playground>
   <table className="table">
@@ -181,31 +181,31 @@ padding: 0 10px;
 
 ---------------
 
-### 文字
+## 文字
 
 - text-center
 - text-left
 - text-right
 
 <Playground>
-  <div class="text-center">文字居中</div>
+  <div className="text-center">文字居中</div>
   <hr/>
-  <div class="text-left">文字居左</div>
+  <div className="text-left">文字居左</div>
   <hr/>
-  <div class="text-right">文字居右</div>
+  <div className="text-right">文字居右</div>
 </Playground>
 
 ---------------
 
-### 定位
+## 定位
 
 - fill 填充整个页面
 - relative 相对定位
 
 <Playground>
-  <div class="relative">相对定位</div>
-  <div class="relative">
-    <div class="fill">填满整个父元素</div>
+  <div className="relative">相对定位</div>
+  <div className="relative">
+    <div className="fill">填满整个父元素</div>
   </div>
 </Playground>
 
@@ -221,25 +221,25 @@ padding: 0 10px;
 
 ---------------
 
-### 显示控制
+## 显示控制
 
 - hidden
 - hide
 
 ---------------
 
-### 颜色
+## 颜色
 
 <Playground>
-  <div class="relative">相对定位</div>
-  <div class="relative">
-    <div class="fill">填满整个父元素</div>
+  <div className="relative">相对定位</div>
+  <div className="relative">
+    <div className="fill">填满整个父元素</div>
   </div>
 </Playground>
 
 ---------------
 
-### SCSS 定义
+## SCSS 定义
 
 ```css
 $colorRed: #f86270;
