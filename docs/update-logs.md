@@ -1,5 +1,10 @@
 # Update logs of Ukelli UI
 
+## 2.7.35
+
+- 优化轮播图组件
+- 整理图标命名
+
 ## 2.7.34
 
 - 修复 Modal 的问题

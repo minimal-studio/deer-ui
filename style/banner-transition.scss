@@ -1,0 +1,54 @@
+$bannerTransDuration   : 0.4s;
+
+// banner
+// to next
+.banner-to-next-enter {
+  opacity: 0.01;
+  transform: translateX(10%);
+}
+
+.banner-to-next-enter.banner-to-next-enter-active {
+  opacity: 1;
+  transition: opacity $bannerTransDuration ease, transform $bannerTransDuration ease;
+  transform: translateX(0);
+  // transform: scale(1);
+}
+
+.banner-to-next-exit {
+  opacity: 1;
+  // transform: scale(1);
+  transform: translateX(0);
+}
+
+.banner-to-next-exit.banner-to-next-exit-active {
+  opacity: 0.01;
+  transition: opacity $bannerTransDuration ease, transform $bannerTransDuration ease;
+  // transform: scale(1.1);
+  transform: translateX(-10%);
+}
+
+// to prev
+.banner-to-prev-enter {
+  opacity: 0.01;
+  transform: translateX(-10%);
+}
+
+.banner-to-prev-enter.banner-to-prev-enter-active {
+  opacity: 1;
+  transition: opacity $bannerTransDuration ease, transform $bannerTransDuration ease;
+  transform: translateX(0);
+  // transform: scale(1);
+}
+
+.banner-to-prev-exit {
+  opacity: 1;
+  // transform: scale(1);
+  transform: translateX(0);
+}
+
+.banner-to-prev-exit.banner-to-prev-exit-active {
+  opacity: 0.01;
+  transition: opacity $bannerTransDuration ease, transform $bannerTransDuration ease;
+  // transform: scale(1.1);
+  transform: translateX(10%);
+}
