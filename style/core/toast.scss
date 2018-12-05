@@ -9,6 +9,7 @@
   justify-content: flex-end;
   flex-direction: column;
   align-items: center;
+  z-index: 9;
   .desc-item {
     box-shadow: 0 1px 3px rgba(#000, 0.3);
     display: flex;
