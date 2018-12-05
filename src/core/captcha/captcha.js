@@ -69,7 +69,7 @@ export default class Captcha extends UkeComponent {
         if(hasErr) {
           this.clearTimeout();
           this.getCaptchaTimer = setTimeout(() => {
-            this.refreshCaptcha();
+            this.refreshCaptcha(false);
           }, 1000);
         } else {
           this.setState({
@@ -89,15 +89,15 @@ export default class Captcha extends UkeComponent {
   clearTimeout() {
     this.getCaptchaTimer && clearTimeout(this.getCaptchaTimer);
   }
-  shouldRefreshCaptcha(should = false) {
+  shouldRefreshCaptcha(should = false, needFocus) {
     let clickTime = Date.now();
     if(should || clickTime - this.refreshTime > 1 * 60 * 1000) {
       this.getCaptcha();
     }
-    this.select();
+    if (needFocus) this.select();
   }
-  refreshCaptcha() {
-    this.shouldRefreshCaptcha(true);
+  refreshCaptcha(needFocus=true) {
+    this.shouldRefreshCaptcha(true, needFocus);
   }
   changeCaptcha(val) {
     const {onChange} = this.props;
