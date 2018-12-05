@@ -1,5 +1,9 @@
 # Update logs of Ukelli UI
 
+## 2.7.37
+
+- 优化 FormGenerator 的自定义组件接口
+
 ## 2.7.36
 
 - 调整验证码自动刷新的策略，不再无限刷新

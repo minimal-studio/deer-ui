@@ -199,16 +199,32 @@ export default class FormFilterHelper extends UkeComponent {
   //   }
   //   this.changeValue(__val, ref);
   // }
+  loadPlugin = (Plugin, props) => {
+    let P = IsFunc(Plugin) ? <Plugin /> : Plugin;
+
+    P = React.cloneElement(P, props);
+
+    return P;
+  }
+  // TODO: 调整此实现
+  /**
+   * 表单插件接口
+   *
+   * @param {object} config 配置项
+   * @memberof FormFilterHelper
+   */
   getCustomForm = (config) => {
     const { ref, getCustomFormControl, ...other } = config;
     let customeComponent = IsFunc(getCustomFormControl) ? getCustomFormControl() : null;
 
-    return customeComponent.component ? (
-      <customeComponent.component
-        {...other}
-        {...customeComponent.props}
-        onChange={val => this.changeValue(val, ref)}/>
-    ) : null;
+    if(!customeComponent) return;
+
+    const component = customeComponent.component || customeComponent;
+    const cusProps = customeComponent.props || {};
+
+    return this.loadPlugin(component, {
+      ...other, ...cusProps, onChange: val => this.changeValue(val, ref)
+    });
   }
   getCaptcha = (config) => {
     const { ref, ...other } = config;

@@ -1,6 +1,6 @@
 {
   "name": "ukelli-ui",
-  "version": "2.7.36",
+  "version": "2.7.37",
   "main": "./index.js",
   "scripts": {
     "publish": "npm publish ./build",
@@ -42,7 +42,7 @@
     "babel-core": "^7.0.0-bridge.0",
     "babel-eslint": "^10.0.1",
     "babel-jest": "^23.6.0",
-    "docz": "^0.12.9",
+    "docz": "^0.12.15",
     "docz-plugin-netlify": "^1.1.4",
     "eslint": "^5.7.0",
     "eslint-config-airbnb": "^17.1.0",
@@ -60,11 +60,11 @@
     "react-hot-loader": "^4.3.11",
     "react-powerplug": "^1.0.0",
     "react-styleguidist": "^7.3.10",
+    "react-transition-group": "^2.5.0",
     "regenerator-runtime": "^0.12.1",
+    "unistore": "^3.1.0",
     "webpack": "^4.20.2",
     "webpack-blocks": "^1.0.0",
-    "unistore": "^3.1.0",
-    "react-transition-group": "^2.5.0",
     "webpack-merge": "^4.1.4"
   },
   "dependencies": {
