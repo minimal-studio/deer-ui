@@ -9,6 +9,8 @@ import { State, Toggle } from 'react-powerplug'
 import { FormLayout } from './';
 import FormLayoutDemo from './form-layout-demo'
 
+import FormOptionsDesc from './form-options-demo.md';
+
 # FormLayout
 
 <PropsTable of={FormLayout} />
@@ -101,6 +103,7 @@ import FormLayoutDemo from './form-layout-demo'
                 action: (formRef, actingRef) => {
                   console.log(formRef, actingRef);
                 },
+                type: 'submit',
                 text: '测试按钮, 带预检查',
                 actingRef: 'forTest'
               },
@@ -145,3 +148,5 @@ import FormLayoutDemo from './form-layout-demo'
     }
   </State>
 </Playground>
+
+<FormOptionsDesc/>

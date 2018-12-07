@@ -77,11 +77,11 @@
 
 .form-group {
   margin: 20px 0;
-  &.required {
-    .control-label {
-      color: darken($themeColor, 40%);
-    }
-  }
+  // &.required {
+  //   .control-label {
+  //     color: darken($themeColor, 40%);
+  //   }
+  // }
   &.error {
     .control-label {
       color: $colorRed;
