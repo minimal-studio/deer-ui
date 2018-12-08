@@ -115,7 +115,7 @@ export default class LinkSelector extends UkeComponent {
           this.extendsDOM.unshift(childDOM);
         }
         dom = (
-          <div key={foldIdx} className="folder">
+          <div key={foldIdx} className={"folder" + (isActive ? ' active' : '')}>
             <div
               className="fold-title"
               onClick={e => this.selectItem(currSelectedIdx, currDataIdx)}>
