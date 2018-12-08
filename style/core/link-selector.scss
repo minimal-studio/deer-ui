@@ -1,0 +1,28 @@
+.uke-link-selector {
+  .items {
+    @include layout;
+  }
+  .wrapper {
+    position: relative;
+    // @include layout;
+  }
+  .folder {
+    padding: 6px 10px;
+    // display: inline-block;
+    .icon {
+      margin-left: 5px;
+      color: #888;
+    }
+    .fold-title {
+
+    }
+    >.fold {
+
+    }
+    .children {
+      position: absolute;
+      top: 0;
+      left: 100%;
+    }
+  }
+}

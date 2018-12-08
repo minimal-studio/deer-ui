@@ -1,5 +1,16 @@
 # Update logs of Ukelli UI
 
+## 2.7.38
+
+### 优化
+
+- 优化分页的实现
+- 优化 FormGenerator 的表单组件，实现 submit 提交
+
+### 新功能
+
+- 添加 LinkSelector 联动选择器
+
 ## 2.7.37
 
 - 优化 FormGenerator 的自定义组件接口

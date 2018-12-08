@@ -14,11 +14,17 @@ import { Pagination } from './';
 
 <Playground>
   <State initial={{
-    pagin: {
-      PageIndex: 0,
-      PageSize: 10,
-      AllCount: 200,
-      UsePaging: true
+    pagingInfo: {
+      active: true,
+      total: 1000,
+      pIdx: 0,
+      pSize: 10
+    },
+    paginTransfer: {
+      active: 'active',
+      total: 'total',
+      pIdx: 'pIdx',
+      pSize: 'pSize'
     }
   }}>
     {
@@ -26,10 +32,11 @@ import { Pagination } from './';
         <Pagination
           onPagin={nextPagin => {
             setState({
-              pagin: nextPagin
+              pagingInfo: nextPagin
             })
           }}
-          pagingInfo={state.pagin}/>
+          infoMapper={state.paginTransfer}
+          pagingInfo={state.pagingInfo}/>
       )
     }
   </State>

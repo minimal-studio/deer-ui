@@ -1,0 +1,64 @@
+---
+name: LinkSelector
+route: /LinkSelector
+menu: Selector / 选择器
+---
+
+import { Playground, PropsTable } from 'docz'
+import { State, Toggle } from 'react-powerplug'
+import { LinkSelector } from './';
+
+# LinkSelector
+
+> 基于 selector 的单选组件
+
+<PropsTable of={LinkSelector} />
+
+<Playground>
+  {
+    () => {
+      return (
+        <LinkSelector data={[
+          {
+            title: '联动1',
+            code: 'value1',
+            child: [{
+              title: '联动1-1',
+              code: 'value1-1',
+              child: [{
+                code: 'value1-1-1',
+                title: '联动1-1-1',
+              }]
+            }, {
+              title: '联动1-2',
+              code: 'value1-2',
+              child: [{
+                code: 'value1-2-1',
+                title: '联动1-2-1',
+              }]
+            }],
+          },
+          {
+            title: '联动2',
+            code: 'value2',
+            child: [{
+              title: '联动2-1',
+              code: 'value2-1',
+              child: [{
+                title: '联动2-1-1',
+                code: 'value2-1-1',
+              }]
+            }, {
+              title: '联动2-2',
+              code: 'value2-2',
+              child: [{
+                title: '联动2-2-1',
+                code: 'value2-2-1',
+              }]
+            }],
+          },
+        ]} />
+      )
+    }
+  }
+</Playground>
