@@ -6,6 +6,7 @@
 
 - 优化分页的实现
 - 优化 FormGenerator 的表单组件，实现 submit 提交
+- 修复 DatePicker 输出时分秒的错误
 
 ### 新功能
 

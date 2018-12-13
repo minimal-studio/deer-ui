@@ -16,10 +16,13 @@ export default class DateBaisc extends UkePureComponent {
   };
   emitChangeValue(val) {
     /** 统一处理过滤所有的 value 格式 */
-    const { needTime, outputAsString, defaultTimes, onChange } = this.props;
+    const { needTime, enableTime, outputAsString, defaultTimes, onChange } = this.props;
+
 
     /** 确保只有一个值的时候的时分秒为 23:59:59 */
     let emitVal = Array.isArray(val) ? val : [null, val];
+    if(enableTime) return emitVal;
+    
     let resVal = [];
     
     emitVal.forEach((_val, idx) => {
