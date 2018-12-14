@@ -52,10 +52,20 @@ export default class FormLayout extends UkeComponent {
     /** 可以配置一个或多个操作按钮 */
     btnConfig: PropTypes.arrayOf(
       PropTypes.shape({
+        /** 该按钮的操作 */
         action: PropTypes.func,
+        /** 该按钮的类型 */
+        type: PropTypes.oneOf([
+          'submit', 'button'
+        ]),
+        /** 该按钮的字 */
         text: PropTypes.string,
         /** 记录该按钮的状态 */
         actingRef: PropTypes.string,
+        /** 按钮颜色 */
+        color: PropTypes.string,
+        /** 该按钮是否需要预检查 */
+        preCheck: PropTypes.bool,
       })
     ),
   
@@ -112,6 +122,7 @@ export default class FormLayout extends UkeComponent {
     !!resInfo.resDesc && this.toast && this.toast.show(resInfo.resDesc, resInfo.hasErr ? 'error' : 'success');
   }
   preCheck() {
+    if(!this.formHelper) return;
     const { isPass, desc, ref } = this.formHelper.checkForm();
     if(!isPass) {
       this.showResDesc({
@@ -120,6 +131,19 @@ export default class FormLayout extends UkeComponent {
       });
     }
     return isPass;
+  }
+  _handleClickBtn = ({ actingRef, preCheck = true, action, type }) => {
+    this.__changeedDesc = false;
+    const _action = () => {
+      action(this.formHelper, actingRef);
+    };
+    if(preCheck) {
+      if(this.preCheck()) {
+        _action();
+      }
+    } else {
+      _action();
+    }
   }
   render() {
     const {
@@ -130,10 +154,15 @@ export default class FormLayout extends UkeComponent {
       onSubmit, onChange, ...other
     } = this.props;
 
+    let formType = '';
+    let onSubmitForGen = null;
+
     const _btnConfig = btnConfig ? btnConfig : [
       {
         action: onSubmit,
         text: btnText,
+        color: 'theme',
+        type: 'button',
         className: 'theme'
       }
     ];
@@ -143,30 +172,29 @@ export default class FormLayout extends UkeComponent {
     ) : null;
 
     const btnGroup = _btnConfig.map((btn, idx) => {
-      const { action, text, className, actingRef = 'loading', preCheck = true } = btn;
+      const {
+        action, text, className, color, actingRef = 'loading', type = 'button',
+      } = btn;
       const isBtnLoading = this.props[actingRef];
       const isActive = !!action && !isBtnLoading;
       const key = text + actingRef;
+      if(type === 'submit') {
+        if(formType === 'submit') console.warn('定义了多个 type 为 submit 的按钮');
+        formType = 'submit';
+        onSubmitForGen = (e) => {
+          e.preventDefault();
+          this._handleClickBtn(btn);
+        };
+      }
       return (
         <span className="mr5" key={key}>
           <Button
             disabled={!isActive}
             text={isBtnLoading ? text + this.gm('中') + '...' : text}
             loading={isBtnLoading}
-            className={className}
-            onClick={e => {
-              this.__changeedDesc = false;
-              const _action = () => {
-                action(this.formHelper, actingRef);
-              };
-              if(preCheck) {
-                if(this.preCheck()) {
-                  _action();
-                }
-              } else {
-                _action();
-              }
-            }}/>
+            type={type}
+            className={color || className || ''}
+            onClick={e => this._handleClickBtn(btn)}/>
         </span>
       );
     });
@@ -178,7 +206,9 @@ export default class FormLayout extends UkeComponent {
         {childrenBeforeForm}
         <FormGenerator
           {...other}
+          type={formType}
           onChange={onChange}
+          onSubmit={onSubmitForGen}
           isVertical={isVertical}
           isMobile={isMobile}
           showInputTitle={showInputTitle}

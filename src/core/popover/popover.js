@@ -22,6 +22,13 @@ function getPosition(elem) {
   };
 }
 
+function getChildrenKeys(children) {
+  if(!children) return [];
+  let _children = Array.isArray(children) ? children : [children];
+  let childrenKeys = _children.map(item => item.key);
+  return childrenKeys;
+}
+
 export default class Popover extends Component {
   static propTypes = {
     /** 是否激活 */
@@ -57,27 +64,42 @@ export default class Popover extends Component {
     fixed: PropTypes.bool,
     /** 是否 update 组件 */
     update: PropTypes.bool,
+    /** 外层的 style */
+    style: PropTypes.object,
+    /** 是否支持快捷键 Esc 关闭 */
+    enableTabIndex: PropTypes.bool,
   };
   static defaultProps = {
     position: 'right',
     type: 'white',
-    showCloseBtn: true
+    showCloseBtn: true,
+    enableTabIndex: true,
+  };
+  static getDerivedStateFromProps(nextProps, {prevProps}) {
+    let hasChangeChildren = JSON.stringify(getChildrenKeys(nextProps.children)) !== JSON.stringify(getChildrenKeys(prevProps.children));
+    if(hasChangeChildren) {
+      return {
+        childrenChange: true,
+        prevProps: nextProps
+      };
+    }
+    return null;
   }
   constructor(props) {
     super(props);
+
     this.state = {
       popoverOffset: {
         width: 0,
         height: 0
-      }
+      },
+      prevProps: props,
+      childrenChange: false
     };
   }
   shouldComponentUpdate(nextProps) {
     let shouldUpdate = typeof nextProps.update === 'undefined' ? true : nextProps.update;
     return shouldUpdate;
-  }
-  getPopoverDOM(e) {
-    this.popoverDOM = e;
   }
   handleKeyDown = (event) => {
     if (event.keyCode === ESC_KEY) {
@@ -91,50 +113,88 @@ export default class Popover extends Component {
   }
   componentDidMount() {
     this.setContentFocus();
+    this.setPopoverOffset();
   }
-  componentDidUpdate() {
+  setPopoverOffset() {
+    if(!this.popoverDOM) return;
+    const { offsetHeight, offsetWidth } = this.popoverDOM;
+    this.setState({
+      popoverOffset: {
+        width: offsetWidth,
+        height: offsetHeight
+      }
+    });
+  }
+  componentDidUpdate(prevProps, prevState) {
     this.setContentFocus();
     const popover = this.popoverDOM || {};
-    if(this.state.popoverOffset.width === 0 && !!popover.offsetWidth && popover.offsetWidth > 0 || !!popover.offsetWidth && popover.offsetWidth !== this.state.popoverOffset.width) {
-      this.setState({
+    const { offsetWidth, offsetHeight } = popover;
+    if(prevState.childrenChange) {
+      this.__isMounted && this.setState({
         popoverOffset: {
-          width: popover.offsetWidth,
-          height: popover.offsetHeight
-        }
+          width: offsetWidth,
+          height: offsetHeight
+        },
+        childrenChange: false
       });
     }
   }
-  calaStyle(position) {
+  calaStyle(position, popoverScale) {
     const { relativeElem } = this.props;
     const { offsetWidth = 0, offsetHeight = 0 } = relativeElem;
     const { offsetTop = 0, offsetLeft = 0 } = getElementOffset(relativeElem) || {};
-    const { popoverOffset } = this.state;
-    const popOffsetHeight = popoverOffset.height;
-    const popOffsetWidth = popoverOffset.width;
+    // const { popoverOffset } = this.state;
+    // const popOffsetHeight = popoverOffset.height;
+    // const popOffsetWidth = popoverOffset.width;
+    const { height, width } = popoverScale;
     let sideOffsetTop = -10;
     let positionStyle = {};
 
     switch (position) {
     case 'left':
-      positionStyle = {top: offsetTop + sideOffsetTop, left: offsetLeft - popOffsetWidth - 12};
+      positionStyle = {
+        top: offsetTop + sideOffsetTop,
+        left: offsetLeft - width - 12
+      };
       break;
     case 'bottom':
-      positionStyle = {top: offsetTop + offsetHeight + offsetHeight / 2, left: offsetLeft - popOffsetWidth / 2};
+      positionStyle = {
+        top: offsetTop + offsetHeight + offsetHeight / 2,
+        left: offsetLeft - width / 2
+      };
       break;
     case 'top':
-      positionStyle = {top: offsetTop - popOffsetHeight - offsetHeight / 2, left: offsetLeft - popOffsetWidth / 2};
+      positionStyle = {
+        top: offsetTop - height - offsetHeight / 2,
+        left: offsetLeft - width / 2
+      };
       break;
     case 'right':
-      positionStyle = {top: offsetTop + sideOffsetTop, left: offsetLeft + offsetWidth + 15};
+      positionStyle = {
+        top: offsetTop + sideOffsetTop,
+        left: offsetLeft + offsetWidth + 15
+      };
       break;
     }
     return positionStyle;
   }
+  setSelfPosition(elem) {
+    if(!elem) return;
+    const { position } = this.props;
+    this.popoverDOM = elem;
+    const popoverScale = {
+      width: elem.offsetWidth,
+      height: elem.offsetHeight,
+    };
+    const positionStyle = this.calaStyle(position, popoverScale);
+    elem.style.top = positionStyle.top + 'px';
+    elem.style.left = positionStyle.left + 'px';
+  }
   render() {
     const {
       open, children, relativeElem, position,
-      className = '', onClose, fixed, type,
-      showCloseBtn
+      className = '', onClose, fixed, type, style,
+      showCloseBtn, enableTabIndex
     } = this.props;
     if(!relativeElem) return <span />;
 
@@ -144,12 +204,14 @@ export default class Popover extends Component {
       const closeBtn = showCloseBtn ? (
         <div className="close-btn" onClick={e => onClose()}>x</div>
       ) : null;
-
+      let obj = enableTabIndex ? {tabIndex: '-1', onKeyDown: this.handleKeyDown} : {};
       container = (
-        <div tabIndex="-1"
-          onKeyDown={this.handleKeyDown}
+        <div {...obj}
           className={`uke-popover ${fixed ? 'fixed' : ''} ${position} ${className} ${type}`}
-          style={this.calaStyle(position)} ref={e => this.getPopoverDOM(e)}>
+          style={style}
+          ref={e => {
+            this.setSelfPosition(e);
+          }}>
           {closeBtn}
           {/* <span className="caret"></span> */}
           {children}

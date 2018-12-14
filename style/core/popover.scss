@@ -15,28 +15,9 @@
     @include popbg();
   }
   @include bgColor;
-  // &.black {
-  //   @include popbg(#000, #FFF);
-  // }
-  // &.theme {
-  //   @include popbg($themeColor, #FFF);
-  // }
-  // &.blue {
-  //   @include popbg($colorBlue, #FFF);
-  // }
-  // &.red {
-  //   @include popbg($colorRed, #FFF);
-  // }
-  // &.green {
-  //   @include popbg($colorGreen, #FFF);
-  // }
-  // &.gold {
-  //   @include popbg($colorGold, #FFF);
-  // }
   &.fixed {
     position: fixed;
   }
-  // border: 1px solid #DDD;
   &.top {
     .caret {
       top: -8px;

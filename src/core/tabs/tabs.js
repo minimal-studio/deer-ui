@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { IsFunc, CallFunc } from 'basic-helper';
 
 import Tab from './tab';
+import { ToolTip } from '../tooltip';
 
 /**
  * 提供多种不同 Tab 切换方式与模版
@@ -27,6 +28,8 @@ export default class Tabs extends PureComponent {
     withContent: PropTypes.bool,
     /** tab 可否关闭 */
     closeabled: PropTypes.bool,
+    /** 关闭组件的提示 */
+    closeTip: PropTypes.any,
     /** 是否启用 step 分步模式 */
     stepMode: PropTypes.bool,
     /** children */
@@ -85,7 +88,7 @@ export default class Tabs extends PureComponent {
   getTabContents() {
     const {
       children, height, 
-      inRow, withContent, closeabled,
+      inRow, withContent, closeabled, closeTip,
       onClose
     } = this.props;
     const activeTabIdx = this.getActiveIdx();
@@ -122,10 +125,15 @@ export default class Tabs extends PureComponent {
             {tabChild}
           </span>
           {
-            closeabled ? (
-              <span className="close-btn" onClick={e => onClose(idx)}>x</span>
-            ) : null
+            closeabled && (
+              <ToolTip className="close-btn" title={closeTip}
+                clickToClose
+                onClick={e => onClose(idx)}>
+                <span>x</span>
+              </ToolTip>
+            )
           }
+          {/* <span className="close-btn" onClick={e => onClose(idx)}>x</span> */}
           {_con}
         </div>
       );

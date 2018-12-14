@@ -24,6 +24,10 @@ const TitleDOM = ({ title }) => {
   );
 };
 
+const Div = ({classNames, ...props}) => (
+  <div {...props} />
+);
+
 /**
  * 提供简单的提示按钮, 其余 props 都会传入到 icon 组件
  *
@@ -35,6 +39,8 @@ export default class ToolTip extends PureComponent {
   static propTypes = {
     /** 提示的标题 */
     title: PropTypes.any,
+    /** 点击即关闭弹出曾 */
+    clickToClose: PropTypes.bool,
     /** 弹出的位置 */
     position: PropTypes.oneOf([
       'bottom',
@@ -49,9 +55,10 @@ export default class ToolTip extends PureComponent {
     position: 'bottom'
   }
   render() {
-    const { title, onClick, position, ...other } = this.props;
+    const { title, clickToClose, onClick, position, component, children, ...other } = this.props;
+    const Com = children ? Div : component ? component : Icon;
     return (
-      <Icon
+      <Com
         {...other}
         onMouseEnter={e => {
           Popover.show({
@@ -59,6 +66,7 @@ export default class ToolTip extends PureComponent {
             props: {
               position,
               showCloseBtn: false,
+              enableTabIndex: false,
               className: 'icon-tip',
               type: 'black'
             },
@@ -70,13 +78,16 @@ export default class ToolTip extends PureComponent {
         }}
         onClick={e => {
           Call(onClick, e);
+          if(clickToClose) return Popover.close();
           debounce.exec(() => {
             Popover.show({
               children: <TitleDOM title={this.props.title}/>,
             });
-          }, 1);
+          }, 15);
         }}
-        classNames={['relative']}/>
+        classNames={['relative']}>
+        {children}
+      </Com>
     );
   }
 }

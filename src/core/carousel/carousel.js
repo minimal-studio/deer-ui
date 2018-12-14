@@ -35,13 +35,18 @@ export default class Carousel extends Component {
     isMobile: PropTypes.bool,
     /** 过场动画的持续时间 */
     transitionTimer: PropTypes.number,
+    thumbType: PropTypes.oneOf([
+      'thumb',
+      'dot',
+    ]),
     /** 缩略图和大图的缩小比例 */
     thumbRate: PropTypes.number,
   };
   static defaultProps = {
     actionClass: 'action-area',
     transitionName: 'banner',
-    transitionTimer: 600,
+    thumbType: 'dot',
+    transitionTimer: 400,
     thumbRate: 15,
     isMobile: false
   };
@@ -149,11 +154,62 @@ export default class Carousel extends Component {
     Call(activeItem.action, activeItem, activeIdx);
   }
 
+  getThumb() {
+    const { isMobile, carouselItems, styleConfig, thumbRate, thumbType } = this.props;
+    const { activeIdx } = this.state;
+
+    let thumbGenerator;
+
+    switch (thumbType) {
+    case 'thumb':
+      const { width, height } = styleConfig;
+      const imgWHRate = width / height;
+      const thumbImgStyle = {
+        width: width / thumbRate,
+        height: width / imgWHRate / thumbRate
+      };
+      thumbGenerator = (item, idx) => this.genCarouselDOM(item, idx, thumbImgStyle);
+      break;
+    case 'dot':
+    default:
+      thumbGenerator = (item, idx) => {
+        return (
+          <span className="dot-item" />
+        );
+      };
+      break;
+    }
+
+    let thumbDOM = !isMobile && (
+      <div className="thumb-contaner">
+        {
+          carouselItems.map((item, idx) => {
+            let isActive = idx == activeIdx;
+            return (
+              <div
+                className={"thumb-item" + (isActive ? ' active' : '') + ' ' + thumbType}
+                key={idx}>
+                <div
+                  className="_mark"
+                  onClick={e => {
+                    this.setActiveIdx(idx);
+                  }}>
+                  {thumbGenerator(item, idx)}
+                </div>
+              </div>
+            );
+          })
+        }
+      </div>
+    );
+    return thumbDOM;
+  }
+
   render() {
     const {
       carouselItems, styleConfig, 
       isMobile, transitionTimer, 
-      transitionName,
+      transitionName, thumbType,
       thumbRate,
     } = this.props;
     if(!carouselItems || carouselItems.length == 0) {
@@ -161,14 +217,8 @@ export default class Carousel extends Component {
         <span className="no-banner" />
       );
     }
-    const {activeIdx, toNext, activeItem} = this.state;
-
-    const {width, height, margin} = styleConfig;
-    const imgWHRate = width / height;
-    const thumbImgStyle = {
-      width: width / thumbRate,
-      height: width / imgWHRate / thumbRate
-    };
+    const { activeIdx, toNext, activeItem } = this.state;
+    const { width, height, margin } = styleConfig;
 
     return (
       <div
@@ -185,29 +235,7 @@ export default class Carousel extends Component {
           </CSSTransition>
         </TransitionGroup>
         {
-          isMobile ? (
-            <span />
-          ) : (
-            <div className="thumb-contaner">
-              {
-                carouselItems.map((item, idx) => {
-                  let isActive = idx == activeIdx;
-                  return (
-                    <div
-                      className={"thumb-item" + (isActive ? ' active' : '')} key={idx}>
-                      <div
-                        className="_mark"
-                        onClick={e => {
-                          this.setActiveIdx(idx);
-                        }} />
-                      {this.genCarouselDOM(item, idx, thumbImgStyle)}
-                      {/* {item} */}
-                    </div>
-                  );
-                })
-              }
-            </div>
-          )
+          this.getThumb()
         }
         {
           isMobile ? null : (
@@ -215,12 +243,12 @@ export default class Carousel extends Component {
               <div
                 className="prev-btn func-btn"
                 onClick={e => this.setActiveIdx(activeIdx - 1)}>
-                <Icon n="arrow"/>
+                <Icon n="arrow-left"/>
               </div>
               <div
                 className="next-btn func-btn"
                 onClick={e => this.setActiveIdx(activeIdx + 1)}>
-                <Icon n="arrow"/>
+                <Icon n="arrow-right"/>
               </div>
             </React.Fragment>
           )

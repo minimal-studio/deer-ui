@@ -1,5 +1,7 @@
 ---
 name: Radio
+route: /Radio
+menu: Selector / 选择器
 ---
 
 import { Playground, PropsTable } from 'docz'
@@ -15,20 +17,38 @@ import { Radio } from './';
 <Playground>
   {
     () => {
-      let radio1, radio2;
+      let radio1, radio2, radio3;
       return (
         <State initial={{
-          value: 'value1'
+          value: 'value1',
+          valueMul: ['value1']
         }}>
           {
             ({ state, setState }) => {
-              const { value } = state;
+              const { value, valueMul } = state;
               return (
                 <div>
+                  <span className="mr10">多选 {value}</span>
+                  <Radio
+                    ref={e => radio3 = e}
+                    onChange={val => {
+                      setState({
+                        valueMul: val
+                      })
+                    }}
+                    isMultiple
+                    value={valueMul}
+                    values={{
+                      value1: '显示的值1',
+                      value2: '显示的值2',
+                      value3: '显示的值3',
+                    }}
+                  />
                   <span className="mr10">实际的值 {value}</span>
                   <Radio
                     ref={e => radio1 = e}
                     onChange={val => {
+                      console.log(val)
                       setState({
                         value: val
                       })
@@ -55,7 +75,8 @@ import { Radio } from './';
                     }}
                     value={value}
                     itemStyle={{
-                      border: '1px solid #EEE'
+                      border: '1px solid #EEE',
+                      maxWidth: 100
                     }}
                     values={{
                       value1: (

@@ -28,9 +28,12 @@ export default class Captcha extends UkeComponent {
     icon: PropTypes.string,
     /** 限制输入长度 */
     limit: PropTypes.number,
+    /** 尝试自动刷新验证码的次数 */
+    autoRetryTime: PropTypes.number,
   };
   static defaultProps = {
     limit: 4,
+    autoRetryTime: 10,
     icon: 'security',
   }
   constructor(props) {
@@ -46,6 +49,8 @@ export default class Captcha extends UkeComponent {
     this.value = props.value;
     this.captchaKey = '';
     this.refreshTime = 0;
+    // 自动尝试刷新验证码
+    this.retryTime = 0;
   }
   componentDidMount() {
     this.getCaptcha();
@@ -56,7 +61,7 @@ export default class Captcha extends UkeComponent {
   getCaptcha(props) {
     props = props || this.props;
     this.refreshTime = Date.now();
-    const { onError } = props;
+    const { autoRetryTime, onError } = props;
 
     this.setState({
       loading: true
@@ -65,11 +70,13 @@ export default class Captcha extends UkeComponent {
     if(window.$UKE.queryCAPTCHAData) {
       window.$UKE.queryCAPTCHAData(options => {
         if (this.__unmount) return;
-        const {hasErr, captchaImage, captchaKey} = options;
+        const { hasErr, captchaImage, captchaKey } = options;
         if(hasErr) {
           this.clearTimeout();
           this.getCaptchaTimer = setTimeout(() => {
-            this.refreshCaptcha(false);
+            // 如果自动刷新次数少于设置项，则自动刷新
+            if(this.retryTime < autoRetryTime) this.refreshCaptcha(false);
+            this.retryTime++;
           }, 1000);
         } else {
           this.setState({

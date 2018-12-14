@@ -1,11 +1,12 @@
-## import 方式
 
-## 结构
+# import 方式
+
+## 类别
 
 - src/core  核心组件集
 - src/other 其他组件集合库
 
-## /core 中各个组件的引入方式
+## /core 按需加载
 
 ```jsx static
 import CitySelector from 'ukelli-ui/core/city-selector';

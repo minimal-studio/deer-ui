@@ -1,11 +1,15 @@
 ---
 name: FormLayout
+route: /FormLayout
+menu: FormGenerator / 表单生成
 ---
 
 import { Playground, PropsTable } from 'docz'
 import { State, Toggle } from 'react-powerplug'
 import { FormLayout } from './';
 import FormLayoutDemo from './form-layout-demo'
+
+import FormOptionsDesc from './form-options-demo.md';
 
 # FormLayout
 
@@ -22,6 +26,7 @@ import FormLayoutDemo from './form-layout-demo'
 - 表单渲染
 - 表单操作按钮的行为与显示
 - 操作按钮的状态
+- 表单预检查，可以通过 preCheck 关闭
 
 ## 表单联动
 
@@ -98,9 +103,19 @@ import FormLayoutDemo from './form-layout-demo'
                 action: (formRef, actingRef) => {
                   console.log(formRef, actingRef);
                 },
-                text: '测试按钮',
+                type: 'submit',
+                text: '测试按钮, 带预检查',
                 actingRef: 'forTest'
-              }
+              },
+              {
+                action: (formRef, actingRef) => {
+                  console.log(formRef, actingRef);
+                },
+                color: 'red',
+                text: '测试按钮, 关闭预检查',
+                preCheck: false,
+                actingRef: 'forTest'
+              },
             ]}
             onChange={(value, ref) => {
               if(ref == 'ref1' || ref == 'ref2') setState({
@@ -133,3 +148,5 @@ import FormLayoutDemo from './form-layout-demo'
     }
   </State>
 </Playground>
+
+<FormOptionsDesc/>

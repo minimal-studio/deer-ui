@@ -1,5 +1,7 @@
 ---
 name: ChartCom
+route: /ChartCom
+menu: Components / 组件
 ---
 
 import { Playground, PropsTable } from 'docz'
@@ -11,6 +13,68 @@ import { ChartCom } from './';
 
 <PropsTable of={ChartCom} />
 
+<Playground style={{height: 600}}>
+  {
+    () => {
+      ChartCom.setChartJSPath('https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.4/Chart.bundle.min.js');
+      const mockData = {
+        labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+        datasets: [{
+          label: '# of Votes',
+          data: [12, 19, 3, 5, 2, 3],
+          backgroundColor: [
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(54, 162, 235, 0.2)',
+            'rgba(255, 206, 86, 0.2)',
+            'rgba(75, 192, 192, 0.2)',
+            'rgba(153, 102, 255, 0.2)',
+            'rgba(255, 159, 64, 0.2)'
+          ],
+          borderColor: [
+            'rgba(255,99,132,1)',
+            'rgba(54, 162, 235, 1)',
+            'rgba(255, 206, 86, 1)',
+            'rgba(75, 192, 192, 1)',
+            'rgba(153, 102, 255, 1)',
+            'rgba(255, 159, 64, 1)'
+          ],
+          borderWidth: 1
+        }]
+      };
+      const options = {
+        scales: {
+          yAxes: [{
+            ticks: {
+              beginAtZero:true
+            }
+          }]
+        }
+      }
+      let chartDOM1 = '';
+      let chartDOM2 = '';
+      setTimeout(() => {
+        chartDOM1.renderChart();
+      }, 15)
+      setTimeout(() => {
+        chartDOM2.renderChart();
+      }, 15)
+      return (
+        <div>
+          <ChartCom
+            type="bar"
+            id="chartDOM1"
+            options={options}
+            data={mockData} ref={e => chartDOM1 = e} />
+          <ChartCom
+            type="line"
+            id="chartDOM2"
+            options={options}
+            data={mockData} ref={e => chartDOM2 = e} />
+        </div>
+      )
+    }
+  }
+</Playground>
 
 ```jsx static
 import { ChartCom } from 'ukelli-ui';

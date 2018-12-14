@@ -58,7 +58,7 @@ export default class TipPanel extends PureComponent {
           needToolTip ? (
             <ToolTip
               title={showContent ? '缩起': '展开'}
-              type={showContent ? "circle-up" : "circle-down"}
+              n={showContent ? "circle-up" : "circle-down"}
               onClick={e => this.toggleContent()}/>
           ) : null
         }

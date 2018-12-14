@@ -25,13 +25,13 @@ class ModalEntity extends ModalHelper {
     });
   }
   render() {
-    const {onCloseModal} = this.props;
+    const { children, onCloseModal } = this.props;
     return (
       <Modal
         {...this.state.modalSetting}
         {...this.props}
         onCloseModal={onCloseModal || this.closeModal.bind(this)}>
-        {this.props.children}
+        {children}
       </Modal>
     );
   }
@@ -39,7 +39,7 @@ class ModalEntity extends ModalHelper {
 
 const ModalsManager = connect(selector, windowManagerActions)((props) => {
   connectedStore = props;
-  const {sectionsList, closeWindow, selectWindow, sectionsQueue} = props;
+  const { sectionsList, closeWindow, selectWindow, sectionsQueue } = props;
   const sections = Object.keys(sectionsList).map(key => {
     const currItem = sectionsList[key];
     const sectionId = currItem.id;
@@ -53,7 +53,8 @@ const ModalsManager = connect(selector, windowManagerActions)((props) => {
           idx={currSectionIdx}
           sectionId={sectionId}
           selectWindow={selectWindow}
-          {...currItem} onCloseModal={e => closeWindow(sectionId)}>
+          {...currItem}
+          onCloseModal={e => closeWindow(sectionId)}>
           {currItem.children}
         </ModalEntity>
       </CSSTransition>
@@ -86,6 +87,13 @@ function CloseGlobalModal(entityId) {
   connectedStore.closeWindow(entityId);
 }
 
+const defaultOptions = {
+  className: 'fixed',
+  topClassName: 'top-modal-opend',
+  showFuncBtn: true,
+  width: window.$UKE.isMobile ? '90%' : 600
+};
+
 function ShowGlobalModal(options) {
 
   let gm = window.$UKE.getUkeKeyMap;
@@ -102,6 +110,10 @@ function ShowGlobalModal(options) {
   options.id = entityId;
 
   let modalTMPL = null;
+
+  // if(!draggable) {
+
+  // }
 
   let btnGroupDOM = showFuncBtn ? (
     <div className="btn-group">
@@ -131,35 +143,42 @@ function ShowGlobalModal(options) {
     Call(onConfirm, confirm);
     CloseGlobalModal(entityId);
   }
-  if(draggable) {
-    connectedStore.openWindow(options);
-  } else {
-    let entityDOM = setDOMById(entityId, 'top-modal idx-' + entityId);
-    const entityWrapper = (
-      <ModalEntity
-        ref={_Entity => {
-          if(!_Entity) return;
-          Entity[entityId] = _Entity;
-          Entity[entityId].setModal({
-            isOpen: true,
-            title,
-            width
-          });
-        }}
-        topClassName={topClassName}
-        className={className}
-        {...options}
-        onCloseModal={e => {
-          CloseGlobalModal(entityId);
-        }}>
-        {modalTMPL}
-      </ModalEntity>
-    );
-    ReactDOM.render(
-      entityWrapper,
-      entityDOM,
-    );
+
+  options.children = modalTMPL;
+  options = {
+    ...defaultOptions,
+    ...options,
   }
+  connectedStore.openWindow(options);
+  // if(draggable) {
+    // connectedStore.openWindow(options);
+  // } else {
+    // let entityDOM = setDOMById(entityId, 'top-modal idx-' + entityId);
+    // const entityWrapper = (
+    //   <ModalEntity
+    //     ref={_Entity => {
+    //       if(!_Entity) return;
+    //       Entity[entityId] = _Entity;
+    //       Entity[entityId].setModal({
+    //         isOpen: true,
+    //         title,
+    //         width
+    //       });
+    //     }}
+    //     topClassName={topClassName}
+    //     className={className}
+    //     {...options}
+    //     onCloseModal={e => {
+    //       CloseGlobalModal(entityId);
+    //     }}>
+    //     {modalTMPL}
+    //   </ModalEntity>
+    // );
+    // ReactDOM.render(
+    //   entityWrapper,
+    //   entityDOM,
+    // );
+  // }
   return entityId;
 }
 

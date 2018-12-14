@@ -3,7 +3,11 @@ $normalColor: #CCC;
 .uke-radio-container {
   .group {
     @include layout();
+    align-items: center;
     // padding-left: $cycleScale;
+    .selectAllBtn {
+      margin-right: 10px;
+    }
     .item {
       $itemPaddingHeight: 10px;
       padding: 5px $itemPaddingHeight;

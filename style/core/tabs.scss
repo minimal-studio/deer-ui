@@ -60,7 +60,8 @@ $tabTextColor: #999;
         color: #000;
         background-color: #FFF;
         box-shadow: 0 3px 3px rgba(#000, 0.2);
-        display: none;
+        // display: none;
+        opacity: 0;
         &:hover {
           color: #FFF;
           background-color: $colorRed;
@@ -73,7 +74,8 @@ $tabTextColor: #999;
         color: $tabTextHoverColor;
         z-index: 2;
         .close-btn {
-          display: block;
+          // display: block;
+          opacity: 1;
         }
       }
       &.active {

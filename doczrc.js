@@ -6,9 +6,7 @@ export default {
   description: 'Ukelli-UI Lib',
   indexHtml: 'docz/index.html',
   wrapper: 'docz/wrapper',
-  menu: [
-    { name: 'Core', menu: ['Avatar', 'Button'] },
-  ],
+  codeSandbox: false,
   modifyBundlerConfig: (config) => {
     config.resolve.extensions.push('.scss');
     config.module.rules.push({

@@ -1,0 +1,31 @@
+---
+name: Card
+route: /Card
+menu: Layout / 布局
+---
+
+import { Playground, PropsTable } from 'docz'
+import { Card, CardContainer } from '.';
+
+# Card And CardContainer
+
+> Props of Card
+
+<PropsTable of={Card} />
+
+[参考布局系统](/Preset-class#布局系统-layout)
+
+> Props of CardContainer
+
+<PropsTable of={CardContainer} />
+
+<Playground style={{height: 600}}>
+  <CardContainer>
+    <Card row={10}>
+      <h4>Title</h4>
+    </Card>
+    <Card row={10}>
+      <h4>Title</h4>
+    </Card>
+  </CardContainer>
+</Playground>

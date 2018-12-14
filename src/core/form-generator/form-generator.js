@@ -17,11 +17,18 @@ export default class FormGenerator extends FormFilterHelper {
     ).isRequired,
     /** 是否移动端，开启移动端渲染 */
     isMobile: PropTypes.bool,
+    /** 表单的类型 */
+    type: PropTypes.string,
+    /** 表单类型为 submit 时触发的回调 */
+    onSubmit: PropTypes.func,
     /** 是否显示 input 组建的 title */
     showInputTitle: PropTypes.bool,
     /** 内容改变 */
     onChange: PropTypes.func,
   };
+  static defaultProps = {
+    onSubmit: () => {}
+  }
   formItemRefs = {};
   showDesc = (checkRes) => {
     const {ref, isPass} = checkRes;
@@ -36,18 +43,20 @@ export default class FormGenerator extends FormFilterHelper {
   render() {
     const {
       formOptions, children = '', isMobile = false, id = '',
-      showInputTitle, className = "animate-input-title"
+      showInputTitle, className = "animate-input-title", onSubmit
     } = this.props;
     const _showInputTitle = typeof showInputTitle == 'undefined' ? !isMobile : showInputTitle;
 
     return formOptions.length > 0 ? (
-      <div className={(isMobile ? 'vertical-form' : 'horizontal-form') + ' form-container ' + className}>
+      <form
+        onSubmit={onSubmit}
+        className={(isMobile ? 'vertical-form' : 'horizontal-form') + ' form-container ' + className}>
         {
           formOptions.map((condition, idx) => {
             if(!condition) return;
             let needTitle = _showInputTitle ? true : !/input|password/.test(condition.type);
             let _con = this.wrapConditionTitle(condition);
-            let {className = ''} = condition;
+            let { className = '' } = condition;
             let itemRef = _con.ref || (_con.refs ? _con.refs[0] : 'q');
             const isRequired = _con.required;
 
@@ -83,7 +92,7 @@ export default class FormGenerator extends FormFilterHelper {
           })
         }
         {children}
-      </div>
+      </form>
     ) : <span />;
   }
 }

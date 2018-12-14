@@ -122,7 +122,6 @@ export default class DateShortcut extends DateBasic {
     this.value = emitRes;
 
     Call(onClick, emitRes);
-    console.log(emitRes)
     
     this.setState({
       activeIdx: idx
