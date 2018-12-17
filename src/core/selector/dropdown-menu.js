@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
-import {HasValue} from 'basic-helper';
+import { HasValue } from 'basic-helper';
 
 import positionFilter from '../position-filter';
 import SelectorBasic, { selectorValuesType } from './selector';
@@ -107,7 +107,8 @@ export default class DropdownMenu extends SelectorBasic {
     });
   }
   getActiveTitle() {
-    const { value, isMultiple } = this.props;
+    const { isMultiple } = this.props;
+    const value = this.getValue();
 
     let resTitle = '';
     this._error = false;
@@ -133,7 +134,7 @@ export default class DropdownMenu extends SelectorBasic {
     return resTitle;
   }
   getValuesLength() {
-    const {values} = this;
+    const { values } = this;
     return Array.isArray(values) ? values.length : Object.keys(values).length;
   }
   handleChange = (val) => {
@@ -151,7 +152,7 @@ export default class DropdownMenu extends SelectorBasic {
     const {
       style = {}, className = '', isMultiple, withInput, position
     } = this.props;
-    const {isShow, searchValue} = this.state;
+    const { isShow, searchValue } = this.state;
     const _selectedValue = this.getValue();
     
     const isSelectedAll = this.checkIsSelectedAll();
@@ -224,14 +225,14 @@ export default class DropdownMenu extends SelectorBasic {
                   }
                   <div className="action-group">
                     <div className="action-btn" onClick={e => {
-                      canSelectAll ? this.selectAll() : this.changeEvent([]);
+                      canSelectAll ? this.selectAll() : this.clearAll();
                     }}>
                       {this.gm(canSelectAll ? '全选' : '取消')}
                     </div>
                     <div className="items-group">
                       {
                         this.values.map((dataItem, idx) => {
-                          const {text, value, icon, img} = dataItem;
+                          const { text, value, icon, img } = dataItem;
   
                           const isActive = itemActiveFilter(_selectedValue, value);
                           // HasValue(_selectedValue) && (_selectedValue + '').indexOf(value) > -1;

@@ -30,7 +30,7 @@ export default class SelectorBasic extends UkeComponent {
   constructor(props) {
     super(props);
 
-    const {value, defaultValue, isMultiple} = props;
+    const { value, defaultValue, isMultiple } = props;
 
     // 如果是多选模式，value, defaultValue 必须为array，否则value, defaultValue必须为string
 
@@ -55,7 +55,8 @@ export default class SelectorBasic extends UkeComponent {
   //   return isChange || this.state.isShow !== nextState.isShow;
   // }
   changeValue(value, idx) {
-    const {isMultiple} = this.props;
+    const { isNum, isMultiple } = this.props;
+    if(isNum) value = +value;
     const selectedValue = this.getValue();
 
     let nextValue = [];
@@ -82,9 +83,10 @@ export default class SelectorBasic extends UkeComponent {
     };
   }
   wrapObjValToArr(values) {
+    const { isNum } = this.props;
     return Object.keys(values).map(valKey => ({
       text: values[valKey],
-      value: valKey
+      value: isNum ? +valKey : valKey
     }));
   }
   wrapArrayValToObj(values) {
@@ -94,8 +96,13 @@ export default class SelectorBasic extends UkeComponent {
     });
     return result;
   }
+  /**
+   * 选择器统一的更改 value 接口，会自动根据自身是否受控组件来更改
+   * @param {*} nextValue 下一个 value
+   * @param  {...any} other 
+   */
   changeEvent(nextValue, ...other) {
-    const {isNum, isMultiple} = this.props;
+    const { isNum, isMultiple } = this.props;
     if(isNum) {
       nextValue.forEach((_, idx) => {
         nextValue[idx] = +_;
@@ -117,6 +124,9 @@ export default class SelectorBasic extends UkeComponent {
   }
   selectAll() {
     this.changeEvent(Object.keys(this.props.values));
+  }
+  clearAll() {
+    this.changeEvent([]);
   }
   checkIsSelectedAll() {
     const selectedValue = this.getValue();

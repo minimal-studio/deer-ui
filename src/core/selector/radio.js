@@ -46,25 +46,29 @@ export default class Radio extends SelectorBasic {
     this.changeValue(value, idx);
   }
   render() {
-    const {itemWidth, isMultiple, checkAllBtn = true, itemStyle = {}} = this.props;
+    const { itemWidth, isMultiple, checkAllBtn = true, itemStyle = {} } = this.props;
     const selectedValue = this.getValue();
+    const isSelectedAll = isMultiple && selectedValue.length === this.values.length;
     const gm = this.gm;
 
     const selectAllBtn = isMultiple && checkAllBtn ? (
       <span
-        className="btn warn flat selectAllBtn"
-        onClick={e => this.selectAll()}>{gm('全选')}
+        className={"btn flat selectAllBtn " + (isSelectedAll ? 'red' : 'theme')}
+        onClick={e => isSelectedAll ? this.clearAll() : this.selectAll()}>
+        {gm(isSelectedAll ? '清除' : '全选')}
       </span>
     ) : null;
 
     const radioGroup = this.values.map((item, idx) => {
-      let {text, value, img} = item;
+      let { text, value, img } = item;
       let isActive = isMultiple ? (selectedValue || []).indexOf(value) > -1 : selectedValue == value;
 
       return (
         <div
           className={"item" + (isActive ? ' active' : '')}
-          style={{width: itemWidth, ...itemStyle}}
+          style={{
+            width: itemWidth, ...itemStyle
+          }}
           key={value}
           onClick={e => this.selectItem(value, idx)}>
           {

@@ -24,15 +24,21 @@ import { DropdownMenu } from './';
         value2: '显示的值2',
         value3: '显示的值3',
       }
+      const values2 = {
+        1: '数字1',
+        2: '数字2',
+        3: '数字3',
+      }
       let dropdown, dropdownMul;
       return (
         <State initial={{
           value: 'value1',
-          valueMul: []
+          valueMul: [],
+          valueMul2: [],
         }}>
           {
             ({ state, setState }) => {
-              const { value, valueMul } = state;
+              const { value, valueMul, valueMul2 } = state;
               return (
                 <div>
                   <div className="mu10">
@@ -61,6 +67,21 @@ import { DropdownMenu } from './';
                       values={values}
                     />
                     <span className="ml10">多选的实际的值 {valueMul.join(',')}</span>
+                  </div>
+                  <div className="mu10">
+                    <DropdownMenu
+                      ref={e => dropdownMul = e}
+                      onChange={val => {
+                        setState({
+                          valueMul2: val
+                        })
+                      }}
+                      isMultiple={true}
+                      isNum={true}
+                      value={valueMul2}
+                      values={values2}
+                    />
+                    <span className="ml10">多选的实际的值 {valueMul2.join(',')}</span>
                   </div>
                   <div>
                     <div className="mu10">可以通过 ref 来改变 DropdownMenu 的值</div>
