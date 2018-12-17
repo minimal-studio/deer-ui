@@ -75,7 +75,7 @@ export default class Captcha extends UkeComponent {
           this.clearTimeout();
           this.getCaptchaTimer = setTimeout(() => {
             // 如果自动刷新次数少于设置项，则自动刷新
-            if(this.retryTime < autoRetryTime) this.refreshCaptcha();
+            if(this.retryTime < autoRetryTime) this.refreshCaptcha(false);
             this.retryTime++;
           }, 1000);
         } else {
@@ -96,15 +96,15 @@ export default class Captcha extends UkeComponent {
   clearTimeout() {
     this.getCaptchaTimer && clearTimeout(this.getCaptchaTimer);
   }
-  shouldRefreshCaptcha(should = false) {
+  shouldRefreshCaptcha(should = false, needFocus) {
     let clickTime = Date.now();
     if(should || clickTime - this.refreshTime > 1 * 60 * 1000) {
       this.getCaptcha();
     }
-    this.select();
+    if (needFocus) this.select();
   }
-  refreshCaptcha() {
-    this.shouldRefreshCaptcha(true);
+  refreshCaptcha(needFocus=true) {
+    this.shouldRefreshCaptcha(true, needFocus);
   }
   changeCaptcha(val) {
     const {onChange} = this.props;
