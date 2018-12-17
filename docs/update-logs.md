@@ -1,5 +1,9 @@
 # Update logs of Ukelli UI
 
+## 2.7.41
+
+- 修复 radio 的判断
+
 ## 2.7.40
 
 - 修复下拉选择器对于 isNum 的判断问题

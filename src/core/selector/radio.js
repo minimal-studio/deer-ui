@@ -48,7 +48,7 @@ export default class Radio extends SelectorBasic {
   render() {
     const { itemWidth, isMultiple, checkAllBtn = true, itemStyle = {} } = this.props;
     const selectedValue = this.getValue();
-    const isSelectedAll = isMultiple && selectedValue.length === this.values.length;
+    const isSelectedAll = isMultiple && selectedValue && selectedValue.length === this.values.length;
     const gm = this.gm;
 
     const selectAllBtn = isMultiple && checkAllBtn ? (
