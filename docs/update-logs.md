@@ -1,5 +1,9 @@
 # Update logs of Ukelli UI
 
+## 2.7.42
+
+- 修复 FormLayout onSubmit 触发两次的问题
+
 ## 2.7.41
 
 - 修复 radio 的判断

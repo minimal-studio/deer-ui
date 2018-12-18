@@ -49,7 +49,10 @@ export default class FormGenerator extends FormFilterHelper {
 
     return formOptions.length > 0 ? (
       <form
-        onSubmit={onSubmit}
+        onSubmit={(e) => {
+          e.preventDefault();
+          onSubmit && onSubmit();
+        }}
         className={(isMobile ? 'vertical-form' : 'horizontal-form') + ' form-container ' + className}>
         {
           formOptions.map((condition, idx) => {

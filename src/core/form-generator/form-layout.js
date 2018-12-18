@@ -178,11 +178,11 @@ export default class FormLayout extends UkeComponent {
       const isBtnLoading = this.props[actingRef];
       const isActive = !!action && !isBtnLoading;
       const key = text + actingRef;
+      const isSubmit = type === 'submit';
       if(type === 'submit') {
-        if(formType === 'submit') console.warn('定义了多个 type 为 submit 的按钮');
+        if(isSubmit) console.warn('定义了多个 type 为 submit 的按钮');
         formType = 'submit';
         onSubmitForGen = (e) => {
-          e.preventDefault();
           this._handleClickBtn(btn);
         };
       }
@@ -194,7 +194,7 @@ export default class FormLayout extends UkeComponent {
             loading={isBtnLoading}
             type={type}
             className={color || className || ''}
-            onClick={e => this._handleClickBtn(btn)}/>
+            onClick={e => !isSubmit && this._handleClickBtn(btn)}/>
         </span>
       );
     });
