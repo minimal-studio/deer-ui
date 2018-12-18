@@ -1,5 +1,9 @@
 # Update logs of Ukelli UI
 
+## 2.7.45
+
+- 优化 Modal 的样式
+
 ## 2.7.44
 
 - 去除多余样式

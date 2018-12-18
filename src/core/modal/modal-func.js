@@ -87,12 +87,24 @@ function CloseGlobalModal(entityId) {
   connectedStore.closeWindow(entityId);
 }
 
-const defaultOptions = {
+const getModalDefaultWidth = (modalType) => {
+  let width = 600;
+  switch (modalType) {
+  case 'confirm':
+    width = 300;
+    break;
+  default:
+    break;
+  }
+  return width;
+};
+
+const getDefaultOptions = (options) => ({
   className: 'fixed',
   topClassName: 'top-modal-opend',
   showFuncBtn: true,
-  width: window.$UKE.isMobile ? '90%' : 600
-};
+  width: window.$UKE.isMobile ? '90%' : getModalDefaultWidth(options.type)
+});
 
 function ShowGlobalModal(options) {
 
@@ -111,10 +123,6 @@ function ShowGlobalModal(options) {
 
   let modalTMPL = null;
 
-  // if(!draggable) {
-
-  // }
-
   let btnGroupDOM = showFuncBtn ? (
     <div className="btn-group">
       <span className="btn flat default" onClick={e => onClickBtn(false)}>{gm('取消')}</span>
@@ -126,7 +134,13 @@ function ShowGlobalModal(options) {
   case 'confirm':
     modalTMPL = (
       <div className="confirm-container">
-        <div className="content">{confirmText}</div>
+        <div className="content">
+          {
+            React.isValidElement(confirmText) ? confirmText : (
+              <h2 className="text-center">{confirmText}</h2>
+            )
+          }
+        </div>
         {btnGroupDOM}
       </div>
     );
@@ -146,38 +160,38 @@ function ShowGlobalModal(options) {
 
   options.children = modalTMPL;
   options = {
-    ...defaultOptions,
+    ...getDefaultOptions(options),
     ...options,
-  }
+  };
   connectedStore.openWindow(options);
   // if(draggable) {
-    // connectedStore.openWindow(options);
+  // connectedStore.openWindow(options);
   // } else {
-    // let entityDOM = setDOMById(entityId, 'top-modal idx-' + entityId);
-    // const entityWrapper = (
-    //   <ModalEntity
-    //     ref={_Entity => {
-    //       if(!_Entity) return;
-    //       Entity[entityId] = _Entity;
-    //       Entity[entityId].setModal({
-    //         isOpen: true,
-    //         title,
-    //         width
-    //       });
-    //     }}
-    //     topClassName={topClassName}
-    //     className={className}
-    //     {...options}
-    //     onCloseModal={e => {
-    //       CloseGlobalModal(entityId);
-    //     }}>
-    //     {modalTMPL}
-    //   </ModalEntity>
-    // );
-    // ReactDOM.render(
-    //   entityWrapper,
-    //   entityDOM,
-    // );
+  // let entityDOM = setDOMById(entityId, 'top-modal idx-' + entityId);
+  // const entityWrapper = (
+  //   <ModalEntity
+  //     ref={_Entity => {
+  //       if(!_Entity) return;
+  //       Entity[entityId] = _Entity;
+  //       Entity[entityId].setModal({
+  //         isOpen: true,
+  //         title,
+  //         width
+  //       });
+  //     }}
+  //     topClassName={topClassName}
+  //     className={className}
+  //     {...options}
+  //     onCloseModal={e => {
+  //       CloseGlobalModal(entityId);
+  //     }}>
+  //     {modalTMPL}
+  //   </ModalEntity>
+  // );
+  // ReactDOM.render(
+  //   entityWrapper,
+  //   entityDOM,
+  // );
   // }
   return entityId;
 }

@@ -11,20 +11,31 @@ $windowActiveShadow: 0 12px 36px rgba(#000, 0.3);
     position: fixed;
   }
 }
-.confirm-container,.global-modal-container {
+.global-modal-container {
+  .content {
+    min-height: 100px;
+  }
   .btn-group {
-    display: flex;
-    padding: 10px;
-    justify-content: center;
-    .btn {
-      margin-right: 10px;
-    }
+    justify-content: flex-end;
   }
 }
 .confirm-container {
   .content {
-    min-height: 120px;
+    min-height: 100px;
     padding: 10px;
+  }
+  .btn-group {
+    // justify-content: center;
+    justify-content: flex-end;
+  }
+}
+.confirm-container,.global-modal-container {
+  .btn-group {
+    display: flex;
+    padding: 10px;
+    .btn {
+      margin-right: 10px;
+    }
   }
 }
 .uke-modal-container {
@@ -96,20 +107,22 @@ $windowActiveShadow: 0 12px 36px rgba(#000, 0.3);
     box-shadow: 0 12px 36px rgba(#000, 0.3);
 
     .uke-modal-header {
-      text-align: center;
+      // text-align: center;
       border-radius: 4px 4px 0 0;
       width: 100%;
-      padding: 0.1px;
+      padding: 5px 20px;
       background-color: #FFF;
       cursor: default;
       .title {
         font-weight: bold;
+        font-size: 16px;
       }
     }
 
     .uke-modal-content {
       border-radius: 0 0 4px 4px;
-      min-height: 140px;
+      min-height: 100px;
+      padding: 0.1px;
       overflow-y: auto;
       background-color: #FFF;
       
@@ -125,7 +138,11 @@ $windowActiveShadow: 0 12px 36px rgba(#000, 0.3);
     font-size: 16px;
     cursor: pointer;
     background-color: #FFF;
-    color: $themeColor;
+    // color: $themeColor;
+    color: #444;
+    &:hover {
+      color: $themeColor;
+    }
     // border: 1px solid darken($themeColor, 5%);
   }
 }

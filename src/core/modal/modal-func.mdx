@@ -18,7 +18,7 @@ import { ShowGlobalModal, CloseGlobalModal } from './';
       onClick={e => ShowGlobalModal({
         draggable: false,
         title: '默认的 Modal',
-        children: '任意的内容'
+        children: <div className="p20">任意的内容</div>
       })}>
       默认的 Modal
     </span>
@@ -28,7 +28,7 @@ import { ShowGlobalModal, CloseGlobalModal } from './';
       onClick={e => ShowGlobalModal({
         title: '没有操作按钮的 Modal',
         showFuncBtn: false,
-        children: '任意的内容'
+        children: <div className="p20">任意的内容</div>
       })}>
       没有操作按钮的 Modal
     </span>
@@ -38,7 +38,7 @@ import { ShowGlobalModal, CloseGlobalModal } from './';
       onClick={e => ShowGlobalModal({
         draggable: true,
         title: '按住 header 可拖动的 Modal',
-        children: '任意的内容'
+        children: <div className="p20">任意的内容</div>
       })}>
       可拖动的 Modal
     </span>
