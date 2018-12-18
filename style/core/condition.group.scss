@@ -2,12 +2,6 @@
 
 $formControlBgColor: #f9f9f9;
 
-.report-fix-con {
-  @include card();
-  margin: 0;
-  padding: 10px 10px;
-}
-
 .condition-group {
   position: relative;
   display: flex;

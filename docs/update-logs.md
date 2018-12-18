@@ -1,5 +1,9 @@
 # Update logs of Ukelli UI
 
+## 2.7.44
+
+- 去除多余样式
+
 ## 2.7.42
 
 - 修复 FormLayout onSubmit 触发两次的问题
