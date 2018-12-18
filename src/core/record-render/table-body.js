@@ -11,6 +11,16 @@ const tdSpecClassMapper = {
   checkbox: 'check-td'
 };
 
+const excludeKey = (target, keys) => {
+  let res = Object.assign({}, target);
+  keys.forEach(item => {
+    res[item] = '';
+  });
+  return res;
+};
+
+const excludeKeys = ['records', 'keyMapper'];
+
 /**
  * 提供一个快速的表格数据渲染容器，不需要关注具体如何渲染，只需要传入对应的数据和过滤器
  *
@@ -54,7 +64,7 @@ export default class Table extends MapperFilter {
     /** 当选中时往表格顶部嵌入的内容 */
     whenCheckAction: PropTypes.any
   };
-  excludeField = /action|checkbox/;
+  excludeField = ['action', 'checkbox'];
   static defaultProps = {
     sortIgnores: ['checkbox'],
     needCheck: false,
@@ -74,6 +84,18 @@ export default class Table extends MapperFilter {
 
     this.firstTDDOMs = {};
     this.sameSortTime = 0;
+  }
+
+  shouldComponentUpdate(nextProps, nextState, nextContext) {
+    /** 渲染前做自定义的数据对比，提升表格渲染的效率 */
+    let _thisProps = excludeKey(this.props, excludeKeys);
+    let _nextProps = excludeKey(nextProps, excludeKeys);
+
+    const isStateChange = JSON.stringify(this.state) !== JSON.stringify(nextState);
+    const isPropsChange = JSON.stringify(_thisProps) !== JSON.stringify(_nextProps);
+    const isKeyMapperChange = this.props.keyMapper != nextProps.keyMapper;
+    const isRecordsChange = this.props.records != nextProps.records;
+    return isStateChange || isPropsChange || isKeyMapperChange || isRecordsChange;
   }
 
   componentDidMount() {
@@ -200,7 +222,7 @@ export default class Table extends MapperFilter {
 
       const { key } = item;
       const currText = record[key];
-      const actionRes = (!needAction && this.excludeField.test(key)) ? '-' : this.mapperFilter(item, record, parentIdx);
+      const actionRes = (!needAction && this.excludeField.indexOf(key) !== -1) ? '-' : this.mapperFilter(item, record, parentIdx);
 
       if(needCount) {
         const isNum = !isNaN(+currText) || isStringNumRegex.test(currText);
@@ -248,8 +270,8 @@ export default class Table extends MapperFilter {
   }
 
   recordDescFilter() {
-    const {sortField, isDesc} = this.state;
-    const {records} = this.props;
+    const { sortField, isDesc } = this.state;
+    const { records } = this.props;
     if(!sortField) return records;
     let result = [...records];
     result.sort((itemPrev, itemNext) => {

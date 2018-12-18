@@ -1,5 +1,9 @@
 # Update logs of Ukelli UI
 
+## 2.7.46
+
+- 提升 Table 的渲染效率
+
 ## 2.7.45
 
 - 优化 Modal 的样式

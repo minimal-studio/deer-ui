@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { Component, PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { IsFunc, CallFunc } from 'basic-helper';
 
@@ -12,7 +12,7 @@ import { ToolTip } from '../tooltip';
  * @class Tabs
  * @extends {PureComponent}
  */
-export default class Tabs extends PureComponent {
+export default class Tabs extends Component {
   /**
    * Tab 的引用
    *
@@ -99,10 +99,9 @@ export default class Tabs extends PureComponent {
     React.Children.map(children, (tabChild, idx) => {
       if(!tabChild || typeof tabChild.type !== 'function') return;
       const isActive = (idx === activeTabIdx);
-      let { contentClass = '', labelClass = '' } = tabChild.props;
+      let { contentClass = '', labelClass = '', atRight, label } = tabChild.props;
       let _labelClass = 'tab ' + labelClass + (isActive ? ' active' : '');
-      _labelClass += tabChild.props.atRight ? ' right' : '';
-
+      _labelClass += atRight ? ' right' : '';
 
       const _tabContent = withContent || (!withContent && isActive) ? (
         <div
@@ -111,14 +110,14 @@ export default class Tabs extends PureComponent {
           style={height ? {height} : {}}>
           {tabChild.props.children || null}
         </div>
-      ) : undefined;
+      ) : null;
 
       if(!inRow || withContent) tabContents.push(_tabContent);
 
       const _con = inRow ? _tabContent : null;
 
       const _tab = (
-        <div key={"tab-" + idx}
+        <div key={label}
           className={_labelClass}
           draggable>
           <span onClick={e => this.onTapTab(idx)}>
@@ -146,10 +145,10 @@ export default class Tabs extends PureComponent {
   }
   render() {
     const {
-      className = 'tabs-container', 
+      className = 'tabs-container',
       inRow, withContent,
     } = this.props;
-    const {tabs, tabContents} = this.getTabContents();
+    const { tabs, tabContents } = this.getTabContents();
 
     return (
       <div className={className + (inRow ? ' in-row' : '' + (withContent ? ' common-mode' : ''))}>
