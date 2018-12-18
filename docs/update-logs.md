@@ -1,5 +1,9 @@
 # Update logs of Ukelli UI
 
+## 2.7.47
+
+- 修复 FormLayout 对 submit 的误报
+
 ## 2.7.46
 
 - 提升 Table 的渲染效率
