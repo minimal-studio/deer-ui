@@ -1,0 +1,55 @@
+---
+name: Switch
+route: /Switch
+menu: Selector / 选择器
+---
+
+import { Playground, PropsTable } from 'docz'
+import { State, Toggle } from 'react-powerplug'
+import { Switch } from './';
+
+# Switch
+
+开关
+
+<PropsTable of={Switch} />
+
+<Playground>
+  <State initial={{
+      checked: false,
+      checked2: 0,
+    }}>
+    {
+      ({ state, setState }) => {
+        return (
+          <div>
+            <h4>开关, 输出: {state.checked.toString()}</h4>
+            <Switch
+              onChange={val => setState({
+                checked: val
+              })}
+              defaultChecked={true}
+              checked={state.checked} />
+            <h4>输出期望值: {state.checked2}</h4>
+            <Switch
+              onChange={val => {
+                console.log(val)
+                setState({
+                  checked2: val
+                })
+              }}
+              outputs={[1, 0]}
+              defaultChecked={true}
+              checked={state.checked2} />
+            <h4>禁止的开关</h4>
+            <Switch
+              onChange={val => {}}
+              disabled
+              checked={false}
+              tips={['开', '关']} />
+          </div>
+        )
+      }
+    }
+  </State>
+</Playground>

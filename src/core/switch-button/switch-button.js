@@ -14,6 +14,8 @@ export default class SwitchButton extends PureComponent {
     btns: PropTypes.object.isRequired,
     /** 是否只有唯一值 */
     unique: PropTypes.bool,
+    /** 是否输出数字 */
+    isNum: PropTypes.bool,
     /** 是否禁用 */
     disabled: PropTypes.bool,
     /** 当前激活的 index */
@@ -22,37 +24,56 @@ export default class SwitchButton extends PureComponent {
     onSwitch: PropTypes.func.isRequired
   };
   static defaultProps = {
-    unique: true
+    unique: true,
+    disabled: false,
+    isNum: false,
   }
+  _refs = {};
   constructor(props) {
     super(props);
     this.value = props.activeIdx;
   }
+  componentDidMount() {
+    /** 为了让指示器初始化显示宽度 */
+    this.forceUpdate();
+  }
   render() {
-    const {btns, activeIdx, disabled = false, unique, onSwitch} = this.props;
+    const {
+      btns, activeIdx, disabled, unique, isNum,
+      onSwitch
+    } = this.props;
+
+    const btnsArr = Object.keys(btns);
+
+    const btnGroup = btnsArr.map((btnKey, idx) => {
+      const btnText = btns[btnKey].text || btns[btnKey];
+      const isActive = btnKey == activeIdx && !disabled;
+      return (
+        <span
+          disabled={disabled}
+          key={btnText}
+          ref={e => this._refs[btnKey] = e}
+          className={'switch-btn' + (isActive ? ' active' : '')}
+          onClick={e => {
+            if((!unique || activeIdx != btnKey) && !disabled) {
+              this.value = btnKey;
+              isNum ? btnKey = +btnKey : btnKey;
+              onSwitch(btnKey, isActive);
+            }
+          }}>{btnText}
+        </span>
+      );
+    });
+    const activeDOM = this._refs[activeIdx] || {};
 
     const switchBtnGroup = (
-      <div className="switch-btn-group layout j-c-b">
-        {
-          Object.keys(btns).map(btnKey => {
-            const btnText = btns[btnKey].text || btns[btnKey];
-            const isActive = btnKey === activeIdx && !disabled;
-            return (
-              <span
-                disabled={disabled}
-                key={btnText}
-                className={isActive ? 'switch-btn active' : 'switch-btn'}
-                onClick={e => {
-                  if((!unique || activeIdx !== btnKey) && !disabled) {
-                    this.value = btnKey;
-                    onSwitch(btnKey, isActive);
-                  }
-                }}>{btnText}
-              </span>
-            );
-          })
-        }
-      </div>
+      <span className="switch-btn-group">
+        {btnGroup}
+        <span className="indicator" style={{
+          transform: `translateX(${activeDOM.offsetLeft}px)`,
+          width: activeDOM.offsetWidth
+        }} />
+      </span>
     );
     return switchBtnGroup;
   }

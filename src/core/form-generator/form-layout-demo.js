@@ -20,75 +20,8 @@ export default class FormLayoutDemo extends React.Component {
     },
   ];
   formOptions = formOptions;
-  // formOptions = [
-  //   {
-  //     refs: ['startDate', 'endDate'],
-  //     type: 'datetimeRange',
-  //     title: '日期',
-  //     tips: [
-  //       '可以为数组的 tip 1',
-  //       '可以为数组的 tip 2',
-  //       '可以为数组的 tip 3',
-  //     ],
-  //     required: true,
-  //     range: ['2018-10-10', '2018-10-11']
-  //   },
-  //   {
-  //     ref: 'ref1',
-  //     type: 'radio',
-  //     title: '单选控件',
-  //     tips: '也可以是单纯的字符串',
-  //     values: {
-  //       value1: 'value1',
-  //       value2: 'value2',
-  //       value3: 'value3',
-  //     }
-  //   },
-  //   {
-  //     ref: 'ref2',
-  //     type: 'select',
-  //     title: (
-  //       <span>选择控件</span>
-  //     ),
-  //     values: {
-  //       value1: 'value1',
-  //       value2: 'value2',
-  //       value3: 'value3',
-  //     }
-  //   },
-  //   {
-  //     ref: 'ref3',
-  //     type: 'input',
-  //     title: '输入数字',
-  //     required: true,
-  //     inputType: 'number'
-  //   },
-  //   {
-  //     ref: 'ref4',
-  //     type: 'input',
-  //     title: '输入控件',
-  //     desc: '测试表达式, 只能输入数字',
-  //     filter: val => (val + '').replace(/[^0-9]/g, ''),
-  //     required: true,
-  //   },
-  //   {
-  //     refs: ['_ref3', '_ref4'],
-  //     type: 'input-range',
-  //     title: '范围输入',
-  //     required: true,
-  //     inputType: 'number'
-  //   },
-  //   {
-  //     refu: {
-  //       'refu1': '1', 'refu2': '2', 'refu3': '3'
-  //     },
-  //     type: 'input-selector',
-  //     title: '选择器输入',
-  //     required: true,
-  //     inputType: 'number'
-  //   },
-  // ];
   submit(formData, actingRef) {
+    console.log(formData)
     // 模拟获取数据
     setTimeout(() => {
       this.setState({

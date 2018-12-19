@@ -1,5 +1,16 @@
 # Update logs of Ukelli UI
 
+-----------------
+
+## 2.8.0
+
+### 新功能
+
+- 添加 Switch 开关组件
+- 添加对应 Switch 的 FormGenerator 的设置
+
+-----------------
+
 ## 2.7.47
 
 - 修复 FormLayout 对 submit 的误报
@@ -209,6 +220,8 @@
 
 - 新增一个 Steps 分步组件
 
+-----------------
+
 ## 2.6.9
 
 - 修复 formFilter 检查 required 的问题
@@ -250,6 +263,8 @@
 - 调整了分页组件（Pagination）的实现
 - 调整了 Popover 的接口，把 setPopover 调整为 set，showPopover 调整为 show，把 closePopover 调整为 close
 - Tab 现在挂载在 Tbas 中，可以通过 Tbas.Tab 引用
+
+-----------------
 
 ## 2.5.12
 
@@ -293,6 +308,8 @@ let defaultIconMapper = {
 }
 ```
 
+-----------------
+
 ## 2.4.33
 
 - 把 Avatar 中的依赖抽离出来
@@ -307,7 +324,7 @@ import { Avatar } from 'ukelli-ui';
 Avatar.setCroppieUrl(loadUrl);
 ```
 
------------
+-----------------
 
 ## 2.4.31
 
@@ -328,25 +345,17 @@ setUkeLang('zh-HK');
 
 切换语言时，也需要设置外部
 
------------
-
 ## 2.4.22
 
 - Modal 新增可拖动模式
-
------------
 
 ## 2.4.20
 
 - Ranger 支持手势滑动
 
------------
-
 ## 2.4.8
 
 - DropdownMenu 支持 number 的 value
-
------------
 
 ## 2.4.0
 
@@ -379,7 +388,7 @@ class ActionBasic extends StateManager {
 }
 ```
 
------------
+-----------------
 
 ## 2.3.0
 
@@ -392,20 +401,20 @@ class ActionBasic extends StateManager {
 - 重做 ranger 的样式与交互，新增 input verify 辅助
 - 增强 input verify 的功能，
 
------------
+-----------------
 
 ## 2.2.4
 
 - 优化 Notification 的样式, 新增可以控制的 action btn 的 text
 
------------
+-----------------
 
 ## 2.2.*
 
 - 不再使用 $GH ，而是更严谨的 import 对应的方法
 - 优化 Notify 全局方法
 
------------
+-----------------
 
 ## 2.1.*
 
@@ -417,20 +426,20 @@ class ActionBasic extends StateManager {
 6. 调整 formLayout showDesc 的时机，更友好的提示
 7. formGenarator 新增两个参数 showInputTitle: bool， isMobile: bool，可控制显示的模版
 
------------
+-----------------
 
 ## 2.0.*
 
 1. 重做的 dropdown menu
 2. 分离 core 和 other 文件
 
------------
+-----------------
 
 ## 1.8.*
 
 1. 新增 notification 通知组件
 
------------
+-----------------
 
 ## 1.7.*
 

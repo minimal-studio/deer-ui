@@ -92,6 +92,12 @@ const formOptions = [
     title: '范围',
     range: [0, 10]
   },
+  {
+    ref: 'switch',
+    type: 'switch',
+    title: '开关',
+    defaultChecked: true
+  },
 ];
 
 export default formOptions;

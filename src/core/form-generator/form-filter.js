@@ -10,6 +10,7 @@ import { Ranger } from '../range-selector';
 import { Captcha } from '../captcha';
 import { ToolTip } from '../tooltip';
 import InputSelector from '../form-control/input-selector';
+import Switch from '../switch-button/switch';
 
 /**
  * 表单生成器
@@ -330,11 +331,7 @@ export default class FormFilterHelper extends UkeComponent {
           this.changeValue(val, ref);
           Call(config.onBlur, val);
         }}
-        onChange={val => this.changeValue(val, ref)}
-        // onChange={(val, elem) => this.onInputChange({
-        //   val, ref, ...config
-        // })}
-      />
+        onChange={val => this.changeValue(val, ref)}/>
     );
   }
   getTextArea = (config) => {
@@ -432,6 +429,14 @@ export default class FormFilterHelper extends UkeComponent {
       </div>
     );
   }
+  getSwitch = (config) => {
+    const { ref, ...other } = config;
+    return (
+      <Switch ref={e => this.ref = e} {...other}
+        checked={this.getValue(ref)}
+        onChange={val => this.changeValue(val, ref)} />
+    );
+  }
   typeMapper = {
     'customForm': this.getCustomForm,
     'captcha': this.getCaptcha,
@@ -448,6 +453,7 @@ export default class FormFilterHelper extends UkeComponent {
     'button': this.getButton,
     'datetime': this.getDatetime,
     'datetimeRange': this.getDatetimeRange,
+    'switch': this.getSwitch,
   }
   greneratFormDOM(config) {
     const { type } = config;

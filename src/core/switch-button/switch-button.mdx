@@ -5,6 +5,7 @@ menu: Selector / 选择器
 ---
 
 import { Playground, PropsTable } from 'docz'
+import { State, Toggle } from 'react-powerplug'
 import { SwitchBtn } from './';
 
 # SwitchBtn
@@ -14,14 +15,29 @@ import { SwitchBtn } from './';
 <PropsTable of={SwitchBtn} />
 
 <Playground>
-  <div style={{width: 300}}>
-    <SwitchBtn
-      onSwitch={e => console.log(e)}
-      activeIdx='btn1'
-      btns={{
-        btn1: '按钮1',
-        btn2: '按钮2',
-        btn3: '按钮3',
-      }} />
-  </div>
+
+  <State initial={{
+      activeIdx: 'btn1',
+      activeIdx2: 0
+    }}>
+    {
+      ({ state, setState }) => {
+        return (
+          <div>
+            <h4>多个选择</h4>
+            <SwitchBtn
+              onSwitch={val => setState({
+                activeIdx: val
+              })}
+              activeIdx={state.activeIdx}
+              btns={{
+                btn1: '按钮1',
+                btn2: '按钮2',
+                btn3: '按钮312123123',
+              }} />
+          </div>
+        )
+      }
+    }
+  </State>
 </Playground>
