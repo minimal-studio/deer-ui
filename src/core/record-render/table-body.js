@@ -11,15 +11,15 @@ const tdSpecClassMapper = {
   checkbox: 'check-td'
 };
 
-const excludeKey = (target, keys) => {
-  let res = Object.assign({}, target);
-  keys.forEach(item => {
-    res[item] = '';
-  });
-  return res;
-};
+// const excludeKey = (target, keys) => {
+//   let res = Object.assign({}, target);
+//   keys.forEach(item => {
+//     res[item] = '';
+//   });
+//   return res;
+// };
 
-const excludeKeys = ['records', 'keyMapper'];
+// const excludeKeys = ['records', 'keyMapper'];
 
 /**
  * 提供一个快速的表格数据渲染容器，不需要关注具体如何渲染，只需要传入对应的数据和过滤器
@@ -86,17 +86,17 @@ export default class Table extends MapperFilter {
     this.sameSortTime = 0;
   }
 
-  shouldComponentUpdate(nextProps, nextState, nextContext) {
-    /** 渲染前做自定义的数据对比，提升表格渲染的效率 */
-    let _thisProps = excludeKey(this.props, excludeKeys);
-    let _nextProps = excludeKey(nextProps, excludeKeys);
+  // shouldComponentUpdate(nextProps, nextState, nextContext) {
+  //   /** 渲染前做自定义的数据对比，提升表格渲染的效率 */
+  //   let _thisProps = excludeKey(this.props, excludeKeys);
+  //   let _nextProps = excludeKey(nextProps, excludeKeys);
 
-    const isStateChange = JSON.stringify(this.state) !== JSON.stringify(nextState);
-    const isPropsChange = JSON.stringify(_thisProps) !== JSON.stringify(_nextProps);
-    const isKeyMapperChange = this.props.keyMapper != nextProps.keyMapper;
-    const isRecordsChange = this.props.records != nextProps.records;
-    return isStateChange || isPropsChange || isKeyMapperChange || isRecordsChange;
-  }
+  //   const isStateChange = JSON.stringify(this.state) !== JSON.stringify(nextState);
+  //   const isPropsChange = JSON.stringify(_thisProps) !== JSON.stringify(_nextProps);
+  //   const isKeyMapperChange = this.props.keyMapper != nextProps.keyMapper;
+  //   const isRecordsChange = this.props.records != nextProps.records;
+  //   return isStateChange || isPropsChange || isKeyMapperChange || isRecordsChange;
+  // }
 
   componentDidMount() {
     window.addEventListener('resize', this.resizeCalcSize);

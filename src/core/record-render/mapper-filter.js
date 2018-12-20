@@ -3,10 +3,28 @@ import { HasValue, DateFormat, MoneyFormat, IsFunc } from 'basic-helper';
 import { UkeComponent, UkePureComponent } from '../uke-basic';
 import { ToolTip } from '../tooltip';
 
+const excludeKey = (target, keys) => {
+  let res = Object.assign({}, target);
+  keys.forEach(item => {
+    res[item] = '';
+  });
+  return res;
+};
+
 export default class MapperFilter extends UkeComponent {
-  // shouldComponentUpdate(nextProps) {
-  //   return JSON.stringify(this.props) !== JSON.stringify(nextProps);
-  // }
+  /** 可以覆盖的 excludeKeys */
+  excludeKeys = ['records', 'keyMapper'];
+  shouldComponentUpdate(nextProps, nextState, nextContext) {
+    /** 渲染前做自定义的数据对比，提升表格渲染的效率 */
+    let _thisProps = excludeKey(this.props, this.excludeKeys);
+    let _nextProps = excludeKey(nextProps, this.excludeKeys);
+
+    const isStateChange = JSON.stringify(this.state) !== JSON.stringify(nextState);
+    const isPropsChange = JSON.stringify(_thisProps) !== JSON.stringify(_nextProps);
+    const isKeyMapperChange = this.props.keyMapper != nextProps.keyMapper;
+    const isRecordsChange = this.props.records != nextProps.records;
+    return isStateChange || isPropsChange || isKeyMapperChange || isRecordsChange;
+  }
   titleFilter(item, idx) {
     const { title, key, tips } = item;
     const titleDOM = IsFunc(title) ? title(item, idx) : title || this.gm(key);
@@ -50,3 +68,7 @@ export default class MapperFilter extends UkeComponent {
     return contentResult;
   }
 }
+
+export {
+  excludeKey
+};
