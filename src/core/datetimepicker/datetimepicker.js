@@ -71,9 +71,10 @@ export default class DatetimePicker extends DateBasic {
     }
   }
   initPicker() {
-    const { mode, needTime, enableTime, lang, defaultTimes } = this.props;
+    const { mode, needTime, enableTime, lang, defaultTimes, ...others } = this.props;
 
     this.datepicker = new Flatpickr(this._refs[this._id], {
+      ...others,
       enableTime: enableTime,
       time_24hr: true,
       dateFormat: 'Y-m-d' + (enableTime ? ' H:i:S' : ''),
