@@ -29,7 +29,7 @@ function getChildrenKeys(children) {
 function getLeft(offsetTop, offsetLeft, offsetWidth, offsetHeight, width, height, fromRight = false) {
   let left = offsetLeft - width - 12;
   if(left - width <= 0 && !fromRight) return getRight(...arguments);
-  if(left + width > ScreenWidth) left = ScreenWidth - width;
+  // if(left + width > ScreenWidth) left = ScreenWidth - width;
   return {
     top: offsetTop + sideOffsetTop,
     left
@@ -39,7 +39,7 @@ function getLeft(offsetTop, offsetLeft, offsetWidth, offsetHeight, width, height
 function getRight(offsetTop, offsetLeft, offsetWidth, offsetHeight, width, height) {
   let left = offsetLeft + offsetWidth + 15;
   if(left + width >= ScreenWidth) return getLeft(...arguments, true);
-  if(left - width <= 0) left = ScreenWidth - width;
+  // if(left - width <= 0) left = ScreenWidth - width;
   return {
     top: offsetTop + sideOffsetTop,
     left
