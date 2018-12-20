@@ -278,6 +278,25 @@ export default class FormFilterHelper extends UkeComponent {
         }}/>
     );
   }
+  getInputSelectorS = (config) => {
+    const { inputProps = {}, refForS, values, required, ref, ...other } = config;
+    return (
+      <InputSelector 
+        {...other}
+        ref={e => {
+          this._refs[ref] = e;
+        }}
+        values={values}
+        inputProps={inputProps}
+        value={this.zeroFilter(this.getValue(ref), '')}
+        onChange={(val, activeRef) => {
+          this.changeValues({
+            [ref]: val,
+            [refForS]: activeRef
+          });
+        }}/>
+    );
+  }
   getInputSelector = (config) => {
     const { inputProps = {}, refu, required, ref, ...other } = config;
     return (
@@ -442,6 +461,7 @@ export default class FormFilterHelper extends UkeComponent {
     'captcha': this.getCaptcha,
     'select-n': this.getSelectNative,
     'select': this.getSelect,
+    'input-selector-s': this.getInputSelectorS,
     'input-selector': this.getInputSelector,
     'input-range': this.getInputRange,
     'input': this.getInput,

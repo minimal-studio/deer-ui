@@ -93,6 +93,26 @@ const formOptions = [
     range: [0, 10]
   },
   {
+    refu: {
+      value1: '选择1',
+      value2: '选择2',
+      value3: '选择3',
+    },
+    type: 'input-selector',
+    title: '输入选择器, 等于多个输入框',
+  },
+  {
+    ref: 'MainRef',
+    refForS: 'RefForSelector',
+    type: 'input-selector-s',
+    values: {
+      value1: '选择1',
+      value2: '选择2',
+      value3: '选择3',
+    },
+    title: '输入选择器, 分开输入和选择器两个标记',
+  },
+  {
     ref: 'switch',
     type: 'switch',
     title: '开关',

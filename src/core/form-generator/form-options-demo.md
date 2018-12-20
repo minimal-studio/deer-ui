@@ -5,6 +5,7 @@
 - select-n
 - select
 - input-selector
+- input-selector-s
 - input-range
 - input
 - password
@@ -15,6 +16,7 @@
 - button
 - datetime
 - datetimeRange
+- switch
 
 ## 表单配置例子
 
@@ -89,7 +91,6 @@ const formOptions = [
         }
       };
     },
-    required: true,
     title: '自定义的表单组件1',
     values: {
       value1: 'value1',
@@ -101,7 +102,6 @@ const formOptions = [
     ref: 'customer2',
     type: 'customForm',
     getCustomFormControl: () => CustomerCom,
-    required: true,
     title: '自定义的表单组件2',
     values: {
       value1: 'value1',
@@ -114,6 +114,32 @@ const formOptions = [
     type: 'input-range',
     title: '范围',
     range: [0, 10]
+  },
+  {
+    refu: {
+      value1: '选择1',
+      value2: '选择2',
+      value3: '选择3',
+    },
+    type: 'input-selector',
+    title: '输入选择器, 等于多个输入框',
+  },
+  {
+    ref: 'MainRef',
+    refForS: 'RefForSelector',
+    type: 'input-selector-s',
+    values: {
+      value1: '选择1',
+      value2: '选择2',
+      value3: '选择3',
+    },
+    title: '输入选择器, 分开输入和选择器两个标记',
+  },
+  {
+    ref: 'switch',
+    type: 'switch',
+    title: '开关',
+    defaultChecked: true
   },
 ];
 ```
