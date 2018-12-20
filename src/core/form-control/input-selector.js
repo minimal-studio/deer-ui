@@ -27,9 +27,9 @@ export default class InputSelector extends Component {
   constructor(props) {
     super(props);
 
-    const {refuDefaultIdx, values} = props;
+    const { defaultSelectorIdx, values } = props;
     this.state = {
-      selectRef: refuDefaultIdx || Object.keys(values)[0],
+      selectRef: defaultSelectorIdx || Object.keys(values)[0],
       inputVal: ''
     };
   }

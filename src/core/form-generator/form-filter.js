@@ -279,13 +279,14 @@ export default class FormFilterHelper extends UkeComponent {
     );
   }
   getInputSelectorS = (config) => {
-    const { inputProps = {}, refForS, values, required, ref, ...other } = config;
+    const { inputProps = {}, refuDefaultIdx, refForS, values, required, ref, ...other } = config;
     return (
       <InputSelector 
         {...other}
         ref={e => {
           this._refs[ref] = e;
         }}
+        defaultSelectorIdx={refuDefaultIdx}
         values={values}
         inputProps={inputProps}
         value={this.zeroFilter(this.getValue(ref), '')}
@@ -298,7 +299,7 @@ export default class FormFilterHelper extends UkeComponent {
     );
   }
   getInputSelector = (config) => {
-    const { inputProps = {}, refu, required, ref, ...other } = config;
+    const { inputProps = {}, refuDefaultIdx, refu, required, ref, ...other } = config;
     return (
       <InputSelector 
         {...other}
@@ -307,6 +308,7 @@ export default class FormFilterHelper extends UkeComponent {
             this._refs[_ref] = e;
           }
         }}
+        defaultSelectorIdx={refuDefaultIdx}
         values={refu}
         inputProps={inputProps}
         value={this.zeroFilter(this.getValue(ref), '')}
