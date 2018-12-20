@@ -1,13 +1,13 @@
 ---
-name: ShowGlobalModal
-route: /ShowGlobalModal
-menu: Func / 全局函数
+name: ShowModal
+route: /ShowModal
+menu: Utils / 全局函数
 ---
 
 import { Playground, PropsTable } from 'docz'
-import { ShowGlobalModal, CloseGlobalModal } from './';
+import { ShowModal, CloseModal, ShowGlobalModal, CloseGlobalModal } from './';
 
-# ShowGlobalModal
+# ShowModal
 
 > 提供了全局的 modal 使用方法，由系统托管 modal 的状态
 
@@ -15,7 +15,7 @@ import { ShowGlobalModal, CloseGlobalModal } from './';
   <div>
     <span
       className="btn theme flat mr10"
-      onClick={e => ShowGlobalModal({
+      onClick={e => ShowModal({
         draggable: false,
         title: '默认的 Modal',
         children: <div className="p20">任意的内容</div>
@@ -25,7 +25,7 @@ import { ShowGlobalModal, CloseGlobalModal } from './';
 
     <span
       className="btn gold flat mr10"
-      onClick={e => ShowGlobalModal({
+      onClick={e => ShowModal({
         title: '没有操作按钮的 Modal',
         showFuncBtn: false,
         children: <div className="p20">任意的内容</div>
@@ -35,7 +35,7 @@ import { ShowGlobalModal, CloseGlobalModal } from './';
 
     <span
       className="btn red flat mr10"
-      onClick={e => ShowGlobalModal({
+      onClick={e => ShowModal({
         draggable: true,
         title: '按住 header 可拖动的 Modal',
         children: <div className="p20">任意的内容</div>
@@ -45,7 +45,7 @@ import { ShowGlobalModal, CloseGlobalModal } from './';
 
     <span
       className="btn light-p flat mr10"
-      onClick={e => ShowGlobalModal({
+      onClick={e => ShowModal({
         type: 'confirm',
         title: '确认框',
         confirmText: '是否确定',
@@ -61,9 +61,9 @@ import { ShowGlobalModal, CloseGlobalModal } from './';
 ```js
 /**
  * 以下是默认配置，剩余的都传入 Modal
- * @return {number} 返回该 Modal 的 id，可以用于 CloseGlobalModal 关闭
+ * @return {number} 返回该 Modal 的 id，可以用于 CloseModal 关闭
  */
-const ModalId = ShowGlobalModal({
+const ModalId = ShowModal({
   className = 'fixed',
   topClassName = 'top-modal-opend',
   type, confirmText = gm('确定') + '?', title, showFuncBtn = true,
@@ -72,5 +72,5 @@ const ModalId = ShowGlobalModal({
   ...forModalProps
 });
 
-CloseGlobalModal(ModalId);
+CloseModal(ModalId);
 ```

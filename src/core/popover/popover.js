@@ -4,29 +4,66 @@ import PropTypes from 'prop-types';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
 import { getElementOffset } from '../set-dom';
+import { getScreenWidth, getScreenHeight, getScrollTop } from '../utils';
 
 const ESC_KEY = 27;
 
-function getPosition(elem) {
-  var offsetLeft = elem.offsetLeft;
-  if (elem.offsetParent != null) {
-    offsetLeft += getPosition(elem.offsetParent).offsetLeft;
-  }
-  var offsetTop = elem.offsetTop;
-  if (elem.offsetParent != null) {
-    offsetTop += getPosition(elem.offsetParent).offsetTop;
-  }
-  return {
-    offsetTop: offsetTop,
-    offsetLeft: offsetLeft
-  };
-}
+let sideOffsetTop = -10;
+let ScreenWidth = getScreenWidth();
+let ScreenHeight = getScreenHeight();
+window.onresize = () => {
+  ScreenWidth = getScreenWidth();
+  ScreenHeight = getScreenHeight();
+};
 
 function getChildrenKeys(children) {
   if(!children) return [];
   let _children = Array.isArray(children) ? children : [children];
   let childrenKeys = _children.map(item => item.key);
   return childrenKeys;
+}
+
+/**
+ * 计算最终的 top 和 left，并且根据浏览器可视边界判断最终结果
+ */
+function getLeft(offsetTop, offsetLeft, offsetWidth, offsetHeight, width, height, fromRight = false) {
+  let left = offsetLeft - width - 12;
+  if(left - width <= 0 && !fromRight) return getRight(...arguments);
+  if(left + width > ScreenWidth) left = ScreenWidth - width;
+  return {
+    top: offsetTop + sideOffsetTop,
+    left
+  };
+}
+
+function getRight(offsetTop, offsetLeft, offsetWidth, offsetHeight, width, height) {
+  let left = offsetLeft + offsetWidth + 15;
+  if(left + width >= ScreenWidth) return getLeft(...arguments, true);
+  if(left - width <= 0) left = ScreenWidth - width;
+  return {
+    top: offsetTop + sideOffsetTop,
+    left
+  };
+}
+
+function getTop(offsetTop, offsetLeft, offsetWidth, offsetHeight, width, height) {
+  let top = offsetTop - height - offsetHeight / 2;
+  let scroll = getScrollTop();
+  if(top - height - scroll <= 0) return getBottom(...arguments);
+  return {
+    top,
+    left: offsetLeft
+  };
+}
+
+function getBottom(offsetTop, offsetLeft, offsetWidth, offsetHeight, width, height) {
+  let top = offsetTop + offsetHeight + offsetHeight / 2;
+  let scroll = getScrollTop();
+  if(top + height - scroll >= ScreenHeight) return getTop(...arguments);
+  return {
+    top,
+    left: offsetLeft
+  };
 }
 
 export default class Popover extends Component {
@@ -143,37 +180,23 @@ export default class Popover extends Component {
     const { relativeElem } = this.props;
     const { offsetWidth = 0, offsetHeight = 0 } = relativeElem;
     const { offsetTop = 0, offsetLeft = 0 } = getElementOffset(relativeElem) || {};
-    // const { popoverOffset } = this.state;
-    // const popOffsetHeight = popoverOffset.height;
-    // const popOffsetWidth = popoverOffset.width;
     const { height, width } = popoverScale;
-    let sideOffsetTop = -10;
+
     let positionStyle = {};
+    const args = [offsetTop, offsetLeft, offsetWidth, offsetHeight, width, height];
 
     switch (position) {
     case 'left':
-      positionStyle = {
-        top: offsetTop + sideOffsetTop,
-        left: offsetLeft - width - 12
-      };
+      positionStyle = getLeft(...args);
       break;
     case 'bottom':
-      positionStyle = {
-        top: offsetTop + offsetHeight + offsetHeight / 2,
-        left: offsetLeft - width / 2
-      };
+      positionStyle = getBottom(...args);
       break;
     case 'top':
-      positionStyle = {
-        top: offsetTop - height - offsetHeight / 2,
-        left: offsetLeft - width / 2
-      };
+      positionStyle = getTop(...args);
       break;
     case 'right':
-      positionStyle = {
-        top: offsetTop + sideOffsetTop,
-        left: offsetLeft + offsetWidth + 15
-      };
+      positionStyle = getRight(...args);
       break;
     }
     return positionStyle;

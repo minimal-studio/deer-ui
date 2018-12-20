@@ -2,6 +2,13 @@
 
 -----------------
 
+## 2.8.1
+
+- 添加日期控件的更多 props
+- 优化 popover 对于边界的判断
+- GlobalPopover 新增一个别名 Pop
+- 新增 ShowModal 和 CloseModal， 对应 ShowGlobalModal 和 CloseGlobalModal 的别名
+
 ## 2.8.0
 
 ### 新功能

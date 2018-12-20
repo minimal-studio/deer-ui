@@ -2,11 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { UkeComponent } from '../uke-basic';
+import { getScreenWidth } from '../utils';
 
 // let SCREEN_WIDTH = document.documentElement.clientWidth;
-function getScreenWidth() {
-  return document.documentElement.clientWidth;
-}
 
 export class DragPanelClass extends UkeComponent {
   static propTypes = {

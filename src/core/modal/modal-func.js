@@ -211,6 +211,9 @@ ReactDOM.render(
  * })
  */
 
+const ShowModal = ShowGlobalModal;
+const CloseModal = CloseGlobalModal;
+
 export {
-  ShowGlobalModal, CloseGlobalModal
+  ShowModal, CloseModal, ShowGlobalModal, CloseGlobalModal
 };

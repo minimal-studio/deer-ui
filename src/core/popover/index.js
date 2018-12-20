@@ -1,6 +1,6 @@
 import Popover from './popover';
-import {GlobalPopover, PopoverEntity} from './popover-func';
+import { Pop, GlobalPopover, PopoverEntity } from './popover-func';
 
 export {
-  Popover, GlobalPopover, PopoverEntity
+  Popover, Pop, GlobalPopover, PopoverEntity
 };

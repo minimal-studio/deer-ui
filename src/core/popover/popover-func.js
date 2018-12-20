@@ -113,6 +113,7 @@ class PopoverEntity {
 }
 
 const GlobalPopover = new PopoverEntity();
+const Pop = GlobalPopover;
 
 /**
  * 例子
@@ -124,5 +125,5 @@ const GlobalPopover = new PopoverEntity();
 
 
 export {
-  GlobalPopover, PopoverEntity
+  Pop, GlobalPopover, PopoverEntity
 };

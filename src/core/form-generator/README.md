@@ -48,6 +48,7 @@ const formOptions = {
     [refName2]: 'ref 的显示名2',
     [refName3]: 'ref 的显示名3',
   }, // 用于实际与远端接口对接的字段
+  refuDefaultIdx: [refName1],
   type: 'input-selector',
 }
 ```

@@ -1,23 +1,23 @@
 ---
-name: GlobalPopover
-route: /GlobalPopover
-menu: Func / 全局函数
+name: Pop
+route: /Pop
+menu: Utils / 全局函数
 ---
 
 import { Playground, PropsTable } from 'docz'
-import { GlobalPopover, PopoverEntity, Popover } from './';
+import { Pop, GlobalPopover, PopoverEntity, Popover } from './';
 
-# GlobalPopover
+# Pop
 
 ## 一般用法
 
-> 通过操作 GlobalPopover
+> 通过操作 Pop
 
 <PropsTable of={Popover} />
 
 <Playground>
   <span className="mr10" onMouseEnter={e => {
-    GlobalPopover.show({
+    Pop.show({
       elem: e.target,
       props: {
         showCloseBtn: false,
@@ -29,12 +29,12 @@ import { GlobalPopover, PopoverEntity, Popover } from './';
       )
     })
   }} onMouseLeave={e => {
-    GlobalPopover.close()
+    Pop.close()
   }}>
     向上弹出
   </span>
   <span className="mr10" onMouseEnter={e => {
-    GlobalPopover.show({
+    Pop.show({
       elem: e.target,
       props: {
         showCloseBtn: false,
@@ -46,12 +46,12 @@ import { GlobalPopover, PopoverEntity, Popover } from './';
       )
     })
   }} onMouseLeave={e => {
-    GlobalPopover.close()
+    Pop.close()
   }}>
     向下弹出
   </span>
   <span className="mr10" onMouseEnter={e => {
-    GlobalPopover.show({
+    Pop.show({
       elem: e.target,
       props: {
         showCloseBtn: false,
@@ -63,12 +63,12 @@ import { GlobalPopover, PopoverEntity, Popover } from './';
       )
     })
   }} onMouseLeave={e => {
-    GlobalPopover.close()
+    Pop.close()
   }}>
     向左弹出
   </span>
   <span className="mr10" onMouseEnter={e => {
-    GlobalPopover.show({
+    Pop.show({
       elem: e.target,
       props: {
         showCloseBtn: false,
@@ -80,7 +80,7 @@ import { GlobalPopover, PopoverEntity, Popover } from './';
       )
     })
   }} onMouseLeave={e => {
-    GlobalPopover.close()
+    Pop.close()
   }}>
     向右弹出
   </span>
