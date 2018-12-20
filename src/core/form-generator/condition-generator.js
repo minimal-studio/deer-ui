@@ -2,6 +2,7 @@ import React, {Component, PureComponent} from 'react';
 import PropTypes from 'prop-types';
 
 import FormFilterHelper from './form-filter';
+import FormTypes from './form-filter-types';
 
 /**
  * 查询条件生成器
@@ -24,24 +25,7 @@ export default class ConditionGenerator extends FormFilterHelper {
         /** 是否必填 */
         required: PropTypes.bool,
         /** 控件的类型 */
-        type: PropTypes.oneOf([
-          'customForm',
-          'captcha',
-          'select-n',
-          'select',
-          'input-selector',
-          'input-range',
-          'input',
-          'password',
-          'textarea',
-          'ranger',
-          'text',
-          'radio',
-          'hidden',
-          'button',
-          'datetime',
-          'datetimeRange',
-        ]),
+        type: PropTypes.oneOf(FormTypes),
       })
     ).isRequired,
     /** 查询条件变化时的回调 */
