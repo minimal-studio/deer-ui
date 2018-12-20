@@ -57,23 +57,21 @@
       }
 
     </style>
+    <script>
+      window.__removeLoading = function() {
+        var loadingBg = document.querySelector('#loadingBg');
+        if(!loadingBg) return;
+        document.body.removeChild(loadingBg)
+      }
+    </script>
     {{ head }}
   </head>
   <body>
     <div id="root" />
-    <div class="holder" id="loadingBg">
-      <div class="preloader"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
-    </div>
     <div class="__loader" id="loadingBg">
       <div id="shadow"></div>
       <div id="box"></div>
     </div>
-    <!-- <div class="sk-folding-cube" id="loadingBg">
-      <div class="sk-cube1 sk-cube"></div>
-      <div class="sk-cube2 sk-cube"></div>
-      <div class="sk-cube4 sk-cube"></div>
-      <div class="sk-cube3 sk-cube"></div>
-    </div> -->
     {{ footer }}
   </body>
 </html>
