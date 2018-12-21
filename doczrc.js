@@ -7,6 +7,8 @@ export default {
   indexHtml: 'docz/index.html',
   wrapper: 'docz/wrapper',
   codeSandbox: false,
+  hashRouter: true,
+  menu: ['Getting Started', 'Style', 'Utils'],
   modifyBundlerConfig: (config) => {
     config.resolve.extensions.push('.scss');
     config.module.rules.push({
