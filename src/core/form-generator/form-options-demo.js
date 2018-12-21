@@ -117,7 +117,12 @@ const formOptions = [
     ref: 'switch',
     type: 'switch',
     title: '开关',
-    defaultChecked: true
+    defaultValue: true
+  },
+  {
+    ref: 'textarea',
+    type: 'textarea',
+    title: '文本',
   },
 ];
 

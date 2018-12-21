@@ -17,6 +17,10 @@
   position: relative;
   padding: 0.1px;
 }
+textarea.form-control {
+  width: 400px;
+  height: 100px;
+}
 .form-control {
   &select {
     padding: 0;

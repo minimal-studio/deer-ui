@@ -36,7 +36,7 @@ export default class FormFilterHelper extends UkeComponent {
     this.requiredRefMapper = {};
   }
   initValues() {
-    const {conditionConfig, formOptions} = this.props;
+    const { conditionConfig, formOptions } = this.props;
     this.setDefaultValues(formOptions || conditionConfig);
   }
   resetValues() {
@@ -451,10 +451,11 @@ export default class FormFilterHelper extends UkeComponent {
     );
   }
   getSwitch = (config) => {
-    const { ref, ...other } = config;
+    const { ref, defaultValue, ...other } = config;
     return (
       <Switch ref={e => this.ref = e} {...other}
         checked={this.getValue(ref)}
+        defaultChecked={defaultValue}
         onChange={val => this.changeValue(val, ref)} />
     );
   }
