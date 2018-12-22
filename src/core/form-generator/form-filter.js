@@ -200,6 +200,9 @@ export default class FormFilterHelper extends UkeComponent {
   //   }
   //   this.changeValue(__val, ref);
   // }
+  saveRef = (ref) => {
+    return elem => this._refs[ref] = elem;
+  }
   loadPlugin = (Plugin, props) => {
     let P = IsFunc(Plugin) ? <Plugin /> : Plugin;
 
@@ -224,7 +227,8 @@ export default class FormFilterHelper extends UkeComponent {
     const cusProps = customeComponent.props || {};
 
     return this.loadPlugin(component, {
-      ...other, ...cusProps, onChange: val => this.changeValue(val, ref)
+      ...other, ...cusProps, onChange: val => this.changeValue(val, ref),
+      ref: this.saveRef(ref)
     });
   }
   getCaptcha = (config) => {
@@ -235,7 +239,7 @@ export default class FormFilterHelper extends UkeComponent {
       <Captcha
         {...other}
         value={this.getValue(ref) || ''}
-        ref={e => this._refs['CaptchaCode'] = e}
+        ref={this.saveRef('CaptchaCode')}
         onChange={captchaConfig => {
           this.changeValue(captchaConfig.value, ref);
           if(captchaConfig.isPass) {
@@ -250,6 +254,7 @@ export default class FormFilterHelper extends UkeComponent {
     return (
       <select 
         className="form-control"
+        ref={this.saveRef(ref)}
         value={this.getValue(ref)} onChange={e => {
           this.changeValue(e.target.value, ref);
         }}>
@@ -272,6 +277,7 @@ export default class FormFilterHelper extends UkeComponent {
     return (
       <DropdownMenu
         {...other}
+        ref={this.saveRef(ref)}
         value={this.getValue(ref)}
         onChange={val => {
           this.changeValue(val, ref);
@@ -283,9 +289,7 @@ export default class FormFilterHelper extends UkeComponent {
     return (
       <InputSelector 
         {...other}
-        ref={e => {
-          this._refs[ref] = e;
-        }}
+        ref={this.saveRef(ref)}
         defaultSelectorIdx={refuDefaultIdx}
         values={values}
         inputProps={inputProps}
@@ -305,7 +309,8 @@ export default class FormFilterHelper extends UkeComponent {
         {...other}
         ref={e => {
           for (const _ref in refu) {
-            this._refs[_ref] = e;
+            // this._refs[_ref] = e;
+            this.saveRef(ref)(e);
           }
         }}
         defaultSelectorIdx={refuDefaultIdx}
@@ -344,7 +349,7 @@ export default class FormFilterHelper extends UkeComponent {
     return (
       <Input
         {...other}
-        ref={e => this._refs[ref] = e}
+        ref={this.saveRef(ref)}
         className={formClass}
         value={this.zeroFilter(this.getValue(ref), '')}
         onBlur={(val, e) => {
@@ -361,6 +366,7 @@ export default class FormFilterHelper extends UkeComponent {
       <textarea
         defaultValue={this.getValue(ref)}
         className="form-control"
+        ref={this.saveRef(ref)}
         id={ref}
         onBlur={e => this.changeValue(e.target.value, ref)} />
     );
@@ -370,6 +376,7 @@ export default class FormFilterHelper extends UkeComponent {
     return (
       <Ranger
         {...other}
+        ref={this.saveRef(ref)}
         value={this.getValue(ref)}
         onChange={val => this.changeValue(val, ref)}/>
     );
@@ -387,6 +394,7 @@ export default class FormFilterHelper extends UkeComponent {
     return (
       <Radio
         {...other}
+        ref={this.saveRef(ref)}
         value={this.zeroFilter(this.value[ref])}
         onChange={val => {
           this.changeValue(val, ref);
@@ -398,6 +406,7 @@ export default class FormFilterHelper extends UkeComponent {
     return (
       <span
         className={'btn flat ' + className}
+        ref={this.saveRef(ref)}
         onClick={e => Call(onClick, e, ref)}>
         {text}
       </span>
@@ -435,7 +444,8 @@ export default class FormFilterHelper extends UkeComponent {
         <DatetimePicker
           mode="range"
           {...other}
-          ref={e => this._refs[datetimeRangeRef] = e}
+          // ref={e => this._refs[datetimeRangeRef] = e}
+          ref={this.saveRef(datetimeRangeRef)}
           id={datetimeRangeRef}
           value={this.value[datetimeRangeRef] || range}
           onChange={(val) => changeDateValues(val)}/>

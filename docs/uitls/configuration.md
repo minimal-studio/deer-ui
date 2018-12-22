@@ -2,6 +2,30 @@
 
 > Ukelli UI 提供一个 setUkelliConfig 接口，设置 UI 库内部结构
 
+## 默认的 UkelliConfig
+
+```js
+const DefaultUkeConfig = {
+  getImage(...args) {
+    return args.join('/');
+  },
+  getKeyMap(key) {
+    return key;
+  },
+  getUkeKeyMap(key) {
+    const keyMapper = langConfig[language] || langConfig[defaultLanguage];
+    return keyMapper[key] || key;
+  },
+  queryCAPTCHAData() {},
+  queryQRCodeData() {},
+  avatarImgMap: '',
+  iconMapper: {},
+  iconPrefix: (s) => `fa${s} fa-`,
+}
+```
+
+## setUkelliConfig
+
 ```jsx static
 import { setUkelliConfig } from 'ukelli-ui';
 

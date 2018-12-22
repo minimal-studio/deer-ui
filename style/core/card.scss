@@ -1,6 +1,12 @@
 .card-container {
   .card {
     // @include card;
-    box-shadow: 0 4px 10px rgba(#000, 0.05);
+    box-shadow: 0 2px 4px rgba(#000, 0.05);
+    padding: 0.1px;
+    transition: box-shadow 0.2s ease;
+    background-color: #FFF;
+    &:hover {
+      box-shadow: 0 10px 12px rgba(#000, 0.05);
+    }
   }
 }

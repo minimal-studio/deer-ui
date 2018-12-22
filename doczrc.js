@@ -12,18 +12,22 @@ export default {
   // theme: 'docz/theme/index.tsx',
   codeSandbox: false,
   hashRouter: true,
-  propsParser: false,
+  // propsParser: false,
   htmlContext: {
     head: {
       links: [{
         rel: 'stylesheet',
-        href: 'https://codemirror.net/theme/dracula.css'
+        // href: 'https://codemirror.net/theme/dracula.css'
+        href: 'https://codemirror.net/theme/mdn-like.css'
       }]
     }
   },
   themeConfig: themeConfig,
   menu: [
-    'Getting Started', 'Style', 'Utils',
+    'Getting Started',
+    'Style',
+    'Layout',
+    'Utils',
     'Components / 组件',
     'Selector / 选择器',
     'Form / 表单',

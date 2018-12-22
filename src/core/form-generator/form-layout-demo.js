@@ -21,7 +21,6 @@ export default class FormLayoutDemo extends React.Component {
   ];
   formOptions = formOptions;
   submit(formData, actingRef) {
-    console.log(formData)
     // 模拟获取数据
     setTimeout(() => {
       this.setState({

@@ -31,6 +31,7 @@ export * from './modal';
 export * from './selector';
 export * from './steps';
 export * from './card';
+export * from './gird';
 
 export * from './config';
 export * from './set-dom';

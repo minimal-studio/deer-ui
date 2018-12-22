@@ -1,0 +1,14 @@
+@import './color-map.scss';
+
+@for $i from 1 through length($colorsMap) {
+  $item: nth($colorsMap, $i);
+  
+  .bg_#{map-get($item, name)} {
+    $color: map-get($item, color);
+    background-color: $color;
+  }
+  .t_#{map-get($item, name)} {
+    $color: map-get($item, color);
+    color: $color;
+  }
+}

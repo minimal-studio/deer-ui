@@ -1,0 +1,60 @@
+---
+name: Icons
+route: /Icons
+menu: Style
+---
+
+# Icons
+
+> 默认使用 fontawesome 的 icons，使用 Icon 组件时默认添加了 fa fa- 前缀，只需要填写对应的图标命即可
+>
+> 需要引入 fontawesome 的 css
+
+- 如果需要切换图表库，可以通过 setUkelliConfig 设置 icon 的前缀
+- 同时支持 icon 的名字映射，通过 setUkelliConfig 设置 iconMapper
+
+## HTML
+
+```jsx
+<html>
+<head></head>
+<body>
+
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+</body>
+</html>
+```
+
+## In APP Config
+
+```js static
+import { setUkelliConfig } from 'ukelli-ui';
+
+// 以下为默认设置，可以覆盖
+setUkelliConfig({
+  iconMapper: {
+    arrow: 'angle-left',
+    date: 'calendar-alt',
+    more: 'equals',
+    close: 'times',
+    noData: 'thermometer-empty',
+    success: 'check',
+    error: 'exclamation-circle',
+    'circle-up': 'arrow-circle-up',
+    'circle-down': 'arrow-circle-down',
+  },
+  // icon 的前缀, 关于 iconStyle 详情查看 https://fontawesome.com 描述
+  iconPrefix: (iconStyle) => `fa${iconStyle} fa-`
+});
+```
+
+## Component Usage
+
+```js
+<Icon n="balance-scale" />
+```
+
+参考
+
+- [fontawesome icon](https://fontawesome.com/icons?d=gallery&m=free)
+- [fontawesome icon style](https://fontawesome.com)

@@ -1,0 +1,146 @@
+---
+name: Typography
+route: /Typography
+menu: Style
+---
+
+import { Playground, PropsTable } from 'docz'
+
+# Typography
+
+> 预设排版
+
+## Heading
+
+<Playground>
+  <h1>h1.Heading</h1>
+  <h2>h2.Heading</h2>
+  <h3>h3.Heading</h3>
+  <h4>h4.Heading</h4>
+  <h5>h5.Heading</h5>
+  <h6>h6.Heading</h6>
+  <p>多年以后，奥雷连诺上校站在行刑队面前，准会想起父亲带他去参观冰块的那个遥远的下午。当时，马孔多是个二十户人家的村庄，一座座土房都盖在河岸上，河水清澈，沿着遍布石头的河床流去，河里的石头光滑、洁白，活象史前的巨蛋。这块天地还是新开辟的，许多东西都叫不出名字，不得不用手指指点点。</p>
+  <p>每年三月，衣衫褴楼的吉卜赛人都要在村边搭起帐篷，在笛鼓的喧嚣声中，向马孔多的居民介绍科学家的最新发明。他们首先带来的是磁铁。一个身躯高大的吉卜赛人，自称梅尔加德斯，满脸络腮胡子，手指瘦得象鸟的爪子，向观众出色地表演了他所谓的马其顿炼金术士创造的世界第八奇迹。他手里拿着两大块磁铁，从一座农舍走到另一座农舍，大家都惊异地看见，铁锅、铁盆、铁钳、铁炉都从原地倒下，木板上的钉子和螺丝嘎吱嘎吱地拼命想挣脱出来，甚至那些早就丢失的东西也从找过多次的地方兀然出现，乱七八糟地跟在梅尔加德斯的魔铁后面。“东西也是有生命的，”吉卜赛人用刺耳的声调说，“只消唤起它们的灵性。”霍·阿·布恩蒂亚狂热的想象力经常超过大自然的创造力，甚至越过奇迹和魔力的限度，他认为这种暂时无用的科学发明可以用来开采地下的金子。</p>
+</Playground>
+
+## 内外边距
+
+通用样式 margin, padding, 规则为边距类型缩写 + 以 5 px为单位，从 5px - 20px 的 class，例如
+
+<Playground>
+  <div style={{width: 300, height: 300, background: '#EEE', padding: '0.1px'}}>
+    <div style={{width: 50, height: 50, background: '#DDD'}} className="mb10"></div>
+    <div style={{width: 50, height: 50, background: '#DDD'}} className="ml10"></div>
+  </div>
+</Playground>
+
+```css static
+# mt10
+margin-top: 10px;
+
+# mu10 -> margin upset, 上下边距
+margin: 10px 0;
+
+# ms10 -> margin side, 左右边距
+margin: 0 10px;
+
+# pt10
+padding-top: 10px;
+
+# pu10 -> padding upset, 上下边距
+padding: 10px 0;
+
+# ps10 -> padding side, 左右边距
+padding: 0 10px;
+```
+
+---------------
+
+## 表格
+
+<Playground>
+  <table className="table">
+    <thead>
+      <tr>
+        <th>序号</th>
+        <th>表头1</th>
+        <th>表头2</th>
+        <th>表头3</th>
+        <th>表头4</th>
+        <th>表头5</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>1</td>
+        <td>单元1</td>
+        <td>单元2</td>
+        <td>单元3</td>
+        <td>单元4</td>
+        <td>单元5</td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td>单元1</td>
+        <td>单元2</td>
+        <td>单元3</td>
+        <td>单元4</td>
+        <td>单元5</td>
+      </tr>
+    </tbody>
+  </table>
+</Playground>
+
+---------------
+
+## 文字
+
+- text-center
+- text-left
+- text-right
+
+<Playground>
+  <div className="text-center">文字居中</div>
+  <hr/>
+  <div className="text-left">文字居左</div>
+  <hr/>
+  <div className="text-right">文字居右</div>
+</Playground>
+
+---------------
+
+## 定位
+
+- fill 填充整个页面
+- relative 相对定位
+
+<Playground>
+  <div className="relative">相对定位</div>
+  <div className="relative">
+    <div className="fill">填满整个父元素</div>
+  </div>
+</Playground>
+
+```css
+.fill {
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  position: absolute;
+}
+```
+
+---------------
+
+## 显示控制
+
+- hidden
+- hide
+
+<Playground>
+  <div className="relative">相对定位</div>
+  <div className="relative">
+    <div className="fill">填满整个父元素</div>
+  </div>
+</Playground>

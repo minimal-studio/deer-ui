@@ -1,3 +1,6 @@
+const fontFamily = "Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace";
+const codemirror = 'mdn-like';
+
 export default {
   /**
    * Mode
@@ -6,15 +9,15 @@ export default {
   /**
    * Show/hide Playground editor by default
    */
-  showPlaygroundEditor: true,
+  showPlaygroundEditor: false,
   /**
    * Set the numbers of max lines before scroll editor
    */
-  linesToScrollEditor: 14,
+  linesToScrollEditor: 20,
   /**
    * Customize codemirror theme
    */
-  codemirrorTheme: 'dracula',
+  codemirrorTheme: codemirror,
   /**
    * Logo
    */
@@ -46,12 +49,12 @@ export default {
    */
   styles: {
     body: {
-      fontFamily: 'Inconsolata, Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace',
+      // fontFamily: fontFamily,
       // fontSize: 16,
       // lineHeight: 1.6,
     },
     container: {
-      width: ['100%', '100%', 920],
+      width: ['100%', '100%', 1190],
       padding: ['20px', '0 40px 40px'],
     },
     h1: {
@@ -95,11 +98,11 @@ export default {
       margin: '0 3px',
       padding: '4px 6px',
       borderRadius: '3px',
-      fontFamily: 'Inconsolata, Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace',
+      fontFamily: fontFamily,
       fontSize: '1em',
     },
     pre: {
-      fontFamily: 'Inconsolata, Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace',
+      fontFamily: fontFamily,
       fontSize: 14,
       lineHeight: 1.8,
     },
@@ -112,7 +115,7 @@ export default {
       display: ['block', 'block', 'block', 'table'],
       width: '100%',
       marginBottom: [20, 40],
-      fontFamily: 'Inconsolata, Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace',
+      fontFamily: fontFamily,
       fontSize: 14,
     },
     blockquote: {

@@ -11,7 +11,7 @@
   justify-content: flex-start;
   @for $i from 0 through 20 {
     .row-#{$i} {
-      flex-basis: $i * 5%;
+      width: $i * 5%;
       &.text-item {
         max-width: $i * $rowUnitMaxWidth;
       }
