@@ -18,9 +18,9 @@ setUkeLang('zh-HK');
 Modal 提供可拖动模式
 
 ```jsx static
-import { ShowGlobalModal, CloseGlobalModal } from 'ukelli-ui';
+import { ShowModal, CloseModal } from 'ukelli-ui';
 
-const ModalId = ShowGlobalModal({
+const ModalId = ShowModal({
   id: '', // 唯一 ID，如果是拖动模式，用于定位具体 Modal
   children: (
     <span></span>
@@ -31,8 +31,8 @@ const ModalId = ShowGlobalModal({
   onCloseModal: func, // 关闭窗口的回调
 });
 
-// 可以使用 CloseGlobalModal 关闭已打开的 Modal
-CloseGlobalModal(ModalId);
+// 可以使用 CloseModal 关闭已打开的 Modal
+CloseModal(ModalId);
 ```
 
 Loading 组件提供两种模式，根据 inrow 参数做判定

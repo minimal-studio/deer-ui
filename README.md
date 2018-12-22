@@ -3,35 +3,50 @@
 [![Build Status](https://travis-ci.org/ukelli/ukelli-ui.svg?branch=master)](https://travis-ci.org/ukelli/ukelli-ui)
 [![install size](https://packagephobia.now.sh/badge?p=ukelli-ui)](https://packagephobia.now.sh/result?p=ukelli-ui)
 
-> 简易的 UI 库，像 Uke 小吉他一样轻松愉悦
-> 
-> 对使用者友好，对开发者友好，打通开发与用户的桥梁
+> 轻量级 React UI 框架，以人为本，简约而不简单
 
-## 应用场景
+## Installation / 安装
 
-- 快速开发管理功能模块业务
-- 快速构建 React 应用
-- 可配置自由度高
-- 轻量级 UI 实现
-
-## 使用
+### Via Npm
 
 ```shell
+# yarn
 yarn add ukelli-ui
+
+# npm
+npm i ukelli-ui
 ```
+
+## Usage / 使用
 
 ```js
-import { ShowGlobalModal } from 'ukelli-ui';
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { ShowModal, CloseModal } from 'ukelli-ui/core/modal';
+import { Button } from 'ukelli-ui/core/button';
 
-ShowGlobalModal({
-  title: '弹出层',
-  children: (
-    <div>内容</div>
-  )
-})
+const handleClick = (e) => {
+  const ModalID = ShowModal({
+    title: '弹出层',
+    elem: e,
+    children: (
+      <div>内容</div>
+    )
+  })
+
+  // CloseModal(ModalID)
+}
+
+const App = () => (
+  <Button onClick={handleClick}>
+    弹出层
+  </Button>
+)
+
+ReactDOM.render(<App />, document.querySelector('#Main'));
 ```
 
-## 参与
+## 本地构建
 
 > 基于 docz 编写的文档和示例
 
@@ -44,7 +59,7 @@ yarn docz:dev
 
 打开 [http://localhost:3000/](http://localhost:3000/) 本地预览
 
-### 相关参考
+## 相关参考
 
 - [在线文档](https://ui.ukelli.com/)
 - [更新日志](./docs/update-logs.md)
