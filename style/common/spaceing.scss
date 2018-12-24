@@ -1,0 +1,46 @@
+
+
+@for $i from 1 through 4 {
+  .p#{$i * 5} {
+    padding: $i * 5px;
+  }
+  .ps#{$i * 5} {
+    padding: 0 $i * 5px;
+  }
+  .pu#{$i * 5} {
+    padding: $i * 5px 0;
+  }
+  .pt#{$i * 5} {
+    padding-top: $i * 5px;
+  }
+  .pr#{$i * 5} {
+    padding-right: $i * 5px;
+  }
+  .pl#{$i * 5} {
+    padding-left: $i * 5px;
+  }
+  .pb#{$i * 5} {
+    padding-bottom: $i * 5px;
+  }
+  .m#{$i * 5} {
+    margin: $i * 5px;
+  }
+  .ms#{$i * 5} {
+    margin: 0 $i * 5px;
+  }
+  .mu#{$i * 5} {
+    margin: $i * 5px 0;
+  }
+  .mt#{$i * 5} {
+    margin-top: $i * 5px;
+  }
+  .mr#{$i * 5} {
+    margin-right: $i * 5px;
+  }
+  .ml#{$i * 5} {
+    margin-left: $i * 5px;
+  }
+  .mb#{$i * 5} {
+    margin-bottom: $i * 5px;
+  }
+}

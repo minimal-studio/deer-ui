@@ -1,18 +1,20 @@
 ---
-name: Gird
-route: /Gird
+name: Grid
+route: /Grid
 menu: Layout
 ---
 
 import { Playground, PropsTable } from 'docz'
-import { Gird } from '../../src/core/gird'
+import { Grid } from '../../src/core/grid'
 import { Card } from '../../src/core/card';
 
-# Gird
+# Grid
+
+> Layout 的组件化实现
 
 <Playground>
-  <Gird container space={24}>
-    <Gird item row={12}>
+  <Grid container space={20}>
+    <Grid item xs={12} sm={6}>
       <Card className="m10">
         <div className="p10">
           <h3>如题 row-9</h3>
@@ -20,6 +22,6 @@ import { Card } from '../../src/core/card';
           <p>人类的本质是一部复读机上集</p>
         </div>
       </Card>
-    </Gird>
-  </Gird>
+    </Grid>
+  </Grid>
 </Playground>

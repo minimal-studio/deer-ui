@@ -62,7 +62,7 @@ export default class Table extends MapperFilter {
     /** 无视的排序字段 */
     sortIgnores: PropTypes.arrayOf(PropTypes.string),
     /** 当选中时往表格顶部嵌入的内容 */
-    whenCheckAction: PropTypes.any
+    whenCheckAction: PropTypes.any,
   };
   excludeField = ['action', 'checkbox'];
   static defaultProps = {
@@ -85,18 +85,6 @@ export default class Table extends MapperFilter {
     this.firstTDDOMs = {};
     this.sameSortTime = 0;
   }
-
-  // shouldComponentUpdate(nextProps, nextState, nextContext) {
-  //   /** 渲染前做自定义的数据对比，提升表格渲染的效率 */
-  //   let _thisProps = excludeKey(this.props, excludeKeys);
-  //   let _nextProps = excludeKey(nextProps, excludeKeys);
-
-  //   const isStateChange = JSON.stringify(this.state) !== JSON.stringify(nextState);
-  //   const isPropsChange = JSON.stringify(_thisProps) !== JSON.stringify(_nextProps);
-  //   const isKeyMapperChange = this.props.keyMapper != nextProps.keyMapper;
-  //   const isRecordsChange = this.props.records != nextProps.records;
-  //   return isStateChange || isPropsChange || isKeyMapperChange || isRecordsChange;
-  // }
 
   componentDidMount() {
     window.addEventListener('resize', this.resizeCalcSize);
@@ -122,7 +110,8 @@ export default class Table extends MapperFilter {
   }
 
   toggleSelectItem = (item, idx) => {
-    let nextCheckedItems = this.state.checkedItems;
+    const { checkedItems } = this.state;
+    const nextCheckedItems = {...checkedItems};
     if(nextCheckedItems[idx]) {
       delete nextCheckedItems[idx];
     } else {
@@ -132,7 +121,8 @@ export default class Table extends MapperFilter {
   }
 
   toggleAllItems(allCheck) {
-    let nextCheckedItems = this.state.checkedItems;
+    const { checkedItems } = this.state;
+    let nextCheckedItems = {...checkedItems};
     if(!allCheck) {
       nextCheckedItems = {};
     } else {

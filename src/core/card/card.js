@@ -1,26 +1,26 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Card = ({ children, row = 20, className, style }) => {
+const Card = ({ children, className, style, p = 0.1 }) => {
   return (
     <div 
-      style={style}
-      className={"card row-" + row + (className ? ' ' + className : '')}>
+      style={{
+        style,
+        padding: p
+      }}
+      className={"card " + (className ? ' ' + className : '')}>
       {children}
     </div>
   );
 };
 
 Card.propTypes = {
+  /** padding */
+  p: PropTypes.number,
   /** 顾名思义 */
   className: PropTypes.string,
   /** 顾名思义 */
   style: PropTypes.shape({}),
-  /** row 为多少，详情参考 布局系统 layout */
-  row: PropTypes.oneOfType([
-    PropTypes.number,
-    PropTypes.string,
-  ])
 };
 
 const CardContainer = ({ children, isCol, className, style }) => {

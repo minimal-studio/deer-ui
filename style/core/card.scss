@@ -2,7 +2,6 @@
   .card {
     // @include card;
     box-shadow: 0 2px 4px rgba(#000, 0.05);
-    padding: 0.1px;
     transition: box-shadow 0.2s ease;
     background-color: #FFF;
     &:hover {

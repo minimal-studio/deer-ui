@@ -1,0 +1,128 @@
+@mixin gridCale($space, $class, $isImportant: false) {
+  $itemUnits: $space;
+  @for $i from 0 through $itemUnits {
+    $width: $i * 100% / $itemUnits;
+    .#{$class}-#{$i} {
+      @if $isImportant {
+        width: $width !important;
+        flex-basis: $width !important;
+      } @else {
+        width: $width;
+        flex-basis: $width;
+      }
+    }
+  }
+}
+
+@mixin paddingForGrid($padding) {
+  margin: - $padding * 1px;
+  [class*=row-],
+  [class*=xl-],
+  [class*=lg-],
+  [class*=sm-],
+  [class*=xs-], {
+    padding: $padding / 2 * 1px;
+  }
+}
+
+@mixin spaceing() {
+  &.space- {
+    &5 {
+      @include paddingForGrid(5);
+    }
+    &10 {
+      @include paddingForGrid(10);
+    }
+    &15 {
+      @include paddingForGrid(15);
+    }
+    &20 {
+      @include paddingForGrid(15);
+    }
+    &25 {
+      @include paddingForGrid(15);
+    }
+    &30 {
+      @include paddingForGrid(15);
+    }
+  }
+}
+
+@mixin flexUtils() {
+  
+  /* define wrap */
+  &.nowrap {
+    flex-wrap: nowrap;
+  }
+  &.rewrap {
+    flex-wrap: wrap-reverse;
+  }
+  &.rerow {
+    flex-direction: row-reverse;
+  }
+  /* wrap end */
+  /* define flex direction */
+  &.col {
+    flex-direction: column;
+  }
+  &.recol {
+    flex-direction: column-reverse;
+  }
+  /* define flex direction end */
+  /* define align-content shorthand a-c-{prop} */
+  &.a-c- {
+    &start {
+      align-content: flex-start;
+    }
+    &e {
+      align-content: flex-end;
+    }
+    &c {
+      align-content: center;
+    }
+    &b {
+      align-content: space-between;
+    }
+    &around {
+      align-content: space-around;
+    }
+    &str {
+      align-content: stretch;
+    }
+  }
+  /* define align-content end */
+  /* define align-item shorthand a-i-{prop} */
+  &.a-i- {
+    &start {
+      align-items: flex-start;
+    }
+    &e {
+      align-items: flex-end;
+    }
+    &c {
+      align-items: center;
+    }
+    &bl {
+      align-items: baseline;
+    }
+    &str {
+      align-items: stretch;
+    }
+  }
+  /* define align-item end */
+  /* define justify-content shorthand j-c-{prop} */
+  &.j-c- {
+    &c {
+      justify-content: center;
+    }
+    &e {
+      justify-content: flex-end;
+    }
+    &b {
+      justify-content: space-between;
+    }
+    &a {
+      justify-content: space-around;
+    }
+  }
+}

@@ -4,23 +4,87 @@ route: /Flex
 menu: Layout
 ---
 
-# Flex layout via css class
+import { Playground, PropsTable } from 'docz'
+import { Card } from '../../src/core/card';
 
-规则:
+# Flex layout System
 
-- layout + 对应的布局属性的缩写 + row- + 一份的占用的大小, 例如
-- layout 为一行，分为 20 份，一个 row-1 占用一份
-- 控制布局的行为使用缩写，例如 __justify-content: center === j-c-c__
+规则: 3 个重要的 class，用于构建 layout 系统的基线
 
-.layout 的默认属性
+- .grid: 为 flex 布局的起点, 一共切割为 12 份
+- .space-[5, 10, 15]: 以 5 为单位的，每个单元的 padding
+- xs, sm, lg, xl: [1, 2, 3, ..., 12]: 为具体定格元素布局的单元, 一共 12 份
 
-```css
-display: flex;
-flex-direction: row;
-flex-wrap: wrap;
-align-content: flex-start;
-align-items: flex-start;
-justify-content: flex-start;
+```js
+<div className="grid space-5">
+  <div className="sm-3 xs-12">
+    ...
+  </div>
+  <div className="sm-4 xs-12">
+    ...
+  </div>
+  <div className="sm-1 xs-12">
+    ...
+  </div>
+  <div className="sm-7 xs-12">
+    // 新占一行
+    ...
+  </div>
+</div>
 ```
 
-### justify-content
+## Demo
+
+<Playground className="bg_default">
+  <div className="card-container">
+    <div className="grid space-20">
+      <div className="sm-6 xs-12">
+        <Card p={10}>
+          sm-6
+        </Card>
+      </div>
+      <div className="sm-6 xs-12">
+        <Card p={10}>
+          sm-6
+        </Card>
+      </div>
+      <div className="sm-4 xs-12">
+        <Card p={10}>
+          sm-4
+        </Card>
+      </div>
+      <div className="sm-4 xs-12">
+        <Card p={10}>
+          sm-4
+        </Card>
+      </div>
+      <div className="sm-4 xs-12">
+        <Card p={10}>
+          sm-4
+        </Card>
+      </div>
+      <div className="sm-3 xs-12">
+        <Card p={10}>
+          sm-4
+        </Card>
+      </div>
+      <div className="sm-3 xs-12">
+        <Card p={10}>
+          sm-4
+        </Card>
+      </div>
+      <div className="sm-3 xs-12">
+        <Card p={10}>
+          sm-4
+        </Card>
+      </div>
+      <div className="sm-3 xs-12">
+        <Card p={10}>
+          sm-4
+        </Card>
+      </div>
+    </div>
+  </div>
+</Playground>
+
+## TODO: 支持移动版的布局

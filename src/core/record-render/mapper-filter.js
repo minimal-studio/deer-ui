@@ -13,16 +13,17 @@ const excludeKey = (target, keys) => {
 
 export default class MapperFilter extends UkeComponent {
   /** 可以覆盖的 excludeKeys */
-  excludeKeys = ['records', 'keyMapper'];
+  excludeKeys = ['records', 'keyMapper', 'whenCheckAction'];
   shouldComponentUpdate(nextProps, nextState, nextContext) {
     /** 渲染前做自定义的数据对比，提升表格渲染的效率 */
     let _thisProps = excludeKey(this.props, this.excludeKeys);
     let _nextProps = excludeKey(nextProps, this.excludeKeys);
 
-    const isStateChange = JSON.stringify(this.state) !== JSON.stringify(nextState);
+    const isStateChange = this.state != nextState;
     const isPropsChange = JSON.stringify(_thisProps) !== JSON.stringify(_nextProps);
     const isKeyMapperChange = this.props.keyMapper != nextProps.keyMapper;
     const isRecordsChange = this.props.records != nextProps.records;
+    // const isCheckedItemsChange = this.state.checkedItems != nextState.checkedItems;
     return isStateChange || isPropsChange || isKeyMapperChange || isRecordsChange;
   }
   titleFilter(item, idx) {

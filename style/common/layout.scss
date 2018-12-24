@@ -1,3 +1,6 @@
+@import './spaceing.scss';
+@import './utils.scss';
+
 // TODO: 完善根据屏幕宽度设置 layout
 
 .layout {
@@ -9,145 +12,24 @@
   align-content: flex-start;
   align-items: flex-start;
   justify-content: flex-start;
-  @for $i from 0 through 20 {
-    .row-#{$i} {
-      width: $i * 5%;
-      &.text-item {
-        max-width: $i * $rowUnitMaxWidth;
-      }
-    }
-  }
+  @include spaceing();
+  @include gridCale(20, 'row');
   .flex1 {
     flex: 1;
   }
-  /* define wrap */
-  &.nowrap {
-    flex-wrap: nowrap;
-  }
-  &.rewrap {
-    flex-wrap: wrap-reverse;
-  }
-  &.rerow {
-    flex-direction: row-reverse;
-  }
-  /* wrap end */
-  /* define flex direction */
-  &.col {
-    flex-direction: column;
-  }
-  &.recol {
-    flex-direction: column-reverse;
-  }
-  /* define flex direction end */
-  /* define align-content shorthand a-c-{prop} */
-  &.a-c- {
-    &start {
-      align-content: flex-start;
-    }
-    &e {
-      align-content: flex-end;
-    }
-    &c {
-      align-content: center;
-    }
-    &b {
-      align-content: space-between;
-    }
-    &around {
-      align-content: space-around;
-    }
-    &str {
-      align-content: stretch;
-    }
-  }
-  /* define align-content end */
-  /* define align-item shorthand a-i-{prop} */
-  &.a-i- {
-    &start {
-      align-items: flex-start;
-    }
-    &e {
-      align-items: flex-end;
-    }
-    &c {
-      align-items: center;
-    }
-    &bl {
-      align-items: baseline;
-    }
-    &str {
-      align-items: stretch;
-    }
-  }
-  /* define align-item end */
-  /* define justify-content shorthand j-c-{prop} */
-  &.j-c- {
-    &c {
-      justify-content: center;
-    }
-    &e {
-      justify-content: flex-end;
-    }
-    &b {
-      justify-content: space-between;
-    }
-    &a {
-      justify-content: space-around;
-    }
-  }
   /* define justify-content end */
+}
+
+/** 共享一份 flex 的布局机制 */
+.layout,.grid {
+  @include flexUtils;
 }
 
 .flex {
   flex: 1;
 }
 
-@for $i from 1 through 4 {
-  .p#{$i * 5} {
-    padding: $i * 5px;
-  }
-  .ps#{$i * 5} {
-    padding: 0 $i * 5px;
-  }
-  .pu#{$i * 5} {
-    padding: $i * 5px 0;
-  }
-  .pt#{$i * 5} {
-    padding-top: $i * 5px;
-  }
-  .pr#{$i * 5} {
-    padding-right: $i * 5px;
-  }
-  .pl#{$i * 5} {
-    padding-left: $i * 5px;
-  }
-  .pb#{$i * 5} {
-    padding-bottom: $i * 5px;
-  }
-  .m#{$i * 5} {
-    margin: $i * 5px;
-  }
-  .ms#{$i * 5} {
-    margin: 0 $i * 5px;
-  }
-  .mu#{$i * 5} {
-    margin: $i * 5px 0;
-  }
-  .mt#{$i * 5} {
-    margin-top: $i * 5px;
-  }
-  .mr#{$i * 5} {
-    margin-right: $i * 5px;
-  }
-  .ml#{$i * 5} {
-    margin-left: $i * 5px;
-  }
-  .mb#{$i * 5} {
-    margin-bottom: $i * 5px;
-  }
-}
-
-// Small devices (landscape phones, 576px and up)
+// // Small devices (landscape phones, 576px and up)
 // @media (min-width: 576px) {
   
 // }
