@@ -13,7 +13,7 @@ import { ChartCom } from './';
 
 <PropsTable of={ChartCom} />
 
-<Playground style={{height: 600}}>
+<Playground style={{height: 400}}>
   {
     () => {
       ChartCom.setChartJSPath('https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.4/Chart.bundle.min.js');
@@ -59,17 +59,21 @@ import { ChartCom } from './';
         chartDOM2.renderChart();
       }, 15)
       return (
-        <div>
-          <ChartCom
-            type="bar"
-            id="chartDOM1"
-            options={options}
-            data={mockData} ref={e => chartDOM1 = e} />
-          <ChartCom
-            type="line"
-            id="chartDOM2"
-            options={options}
-            data={mockData} ref={e => chartDOM2 = e} />
+        <div className="layout">
+          <div className="row-9">
+            <ChartCom
+              type="bar"
+              id="chartDOM1"
+              options={options}
+              data={mockData} ref={e => chartDOM1 = e} />
+          </div>
+          <div className="row-9">
+            <ChartCom
+              type="line"
+              id="chartDOM2"
+              options={options}
+              data={mockData} ref={e => chartDOM2 = e} />
+          </div>
         </div>
       )
     }

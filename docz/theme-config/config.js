@@ -13,7 +13,7 @@ export default {
   /**
    * Set the numbers of max lines before scroll editor
    */
-  linesToScrollEditor: 20,
+  linesToScrollEditor: 50,
   /**
    * Customize codemirror theme
    */
@@ -92,7 +92,7 @@ export default {
       margin: '10px 0 10px 20px',
     },
     playground: {
-      padding: ['1.5em', '2em'],
+      padding: ['1em', '1.5em'],
     },
     code: {
       margin: '0 3px',

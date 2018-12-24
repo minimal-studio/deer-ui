@@ -3,7 +3,7 @@
 [![Build Status](https://travis-ci.org/ukelli/ukelli-ui.svg?branch=master)](https://travis-ci.org/ukelli/ukelli-ui)
 [![install size](https://packagephobia.now.sh/badge?p=ukelli-ui)](https://packagephobia.now.sh/result?p=ukelli-ui)
 
-> 轻量级 React UI 框架，以人为本，简约而不简单
+> 轻量级 React UI 框架，探索另一种开发方式，尝试另一种可能。
 
 ## Installation / 安装
 
