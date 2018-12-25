@@ -19,7 +19,6 @@ const Grid = (props) => {
     [lg]: `lg-${lg}`,
     [xl]: `xl-${xl}`,
   });
-  console.log(_className)
 
   return (
     <C 
