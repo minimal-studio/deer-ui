@@ -112,6 +112,9 @@
   /* define align-item end */
   /* define justify-content shorthand j-c-{prop} */
   &.j-c- {
+    &s {
+      justify-content: flex-start;
+    }
     &c {
       justify-content: center;
     }

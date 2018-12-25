@@ -6,22 +6,25 @@ menu: Layout
 
 import { Playground, PropsTable } from 'docz'
 import { Grid } from '../../src/core/grid'
-import { Card } from '../../src/core/card';
+import { Card, CardContainer } from '../../src/core/card';
 
 # Grid
 
 > Layout 的组件化实现
 
-<Playground>
-  <Grid container space={20}>
-    <Grid item xs={12} sm={6}>
-      <Card className="m10">
-        <div className="p10">
-          <h3>如题 row-9</h3>
-          <hr/>
-          <p>人类的本质是一部复读机上集</p>
-        </div>
-      </Card>
+<Playground className="bg_default">
+  <CardContainer>
+    <Grid container space={20}>
+      <Grid item xs={12} sm={6}>
+        <Card>
+          ...
+        </Card>
+      </Grid>
+      <Grid item xs={12} sm={6}>
+        <Card>
+          ...
+        </Card>
+      </Grid>
     </Grid>
-  </Grid>
+  </CardContainer>
 </Playground>

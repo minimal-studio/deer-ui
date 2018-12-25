@@ -5,26 +5,56 @@ import classNames from 'classnames';
 const LayoutSpaces = [0, 5, 10, 15, 20, 25, 30];
 const RowSet = ['auto', 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 
+const JustifyMap = {
+  start: 'j-c-s',
+  end: 'j-c-e',
+  center: 'j-c-c',
+  between: 'j-c-b',
+  around: 'j-c-a',
+};
+const AlignContentMap = {
+  start: 'a-c-start',
+  end: 'a-c-e',
+  center: 'a-c-c',
+  between: 'a-c-b',
+  around: 'a-c-around',
+  stretch: 'a-c-str',
+};
+const AlignItemMap = {
+  start: 'a-i-start',
+  end: 'a-i-e',
+  center: 'a-i-c',
+  baseline: 'a-i-bl',
+  stretch: 'a-i-str',
+};
+const JustifyProps = Object.keys(JustifyMap);
+const AlignContentProps = Object.keys(AlignContentMap);
+const AlignItemProps = Object.keys(AlignItemMap);
+
 const Grid = (props) => {
   const {
     children, className, style, component,
     space, container, item,
+    justify, alignContent, alignItem,
     xs, sm, lg, xl
   } = props;
   const C = component;
   const _className = classNames({
-    [className]: className,
-    [xs]: `xs-${xs}`,
-    [sm]: `sm-${sm}`,
-    [lg]: `lg-${lg}`,
-    [xl]: `xl-${xl}`,
+    [className]: className || '',
+    [JustifyMap[justify]]: justify,
+    [AlignContentMap[alignContent]]: alignContent,
+    [AlignItemMap[alignItem]]: alignItem,
+    [`xs-${xs}`]: xs,
+    [`sm-${sm}`]: sm,
+    [`lg-${lg}`]: lg,
+    [`xl-${xl}`]: xl,
+    [`j-c-c`]: xl,
   });
-  console.log(_className)
 
   return (
     <C 
       style={style}
-      className={`${container ? `layout space-${space} ` : ''} ${_className}`}>
+      className={`${container ? `grid space-${space} ` : ''} ${_className}`}>
       {children}
     </C>
   );
@@ -52,6 +82,12 @@ Grid.propTypes = {
   lg: PropTypes.oneOf(LayoutSpaces),
   /** 对于 屏幕宽度 < 1200px, > 992px 的分布 */
   xl: PropTypes.oneOf(LayoutSpaces),
+  /** justify-content */
+  justify: PropTypes.oneOf(JustifyProps),
+  /** justify-content */
+  alignContent: PropTypes.oneOf(AlignContentProps),
+  /** justify-item */
+  alignItem: PropTypes.oneOf(AlignItemProps),
   /** 是否作为容器 */
   container: PropTypes.bool,
   /** 是否作为子组件 */
@@ -59,12 +95,15 @@ Grid.propTypes = {
   /** 顾名思义 */
   style: PropTypes.shape({}),
   /** row 为多少，详情参考 布局系统 layout */
-  row: PropTypes.oneOf(RowSet),
+  // row: PropTypes.oneOf(RowSet),
 };
 Grid.defaultProps = {
   component: 'div',
   space: 24,
   container: false,
+  justify: 'start',
+  alignContent: 'start',
+  alignItem: 'start',
   item: false,
 };
 
