@@ -1,4 +1,4 @@
-import { defineGlobalScope, IsFunc } from 'basic-helper';
+import { defineGlobalScope, IsFunc, Call } from 'basic-helper';
 import chKeyMapper from '../i18n/zh-CN';
 import enKeyMapper from '../i18n/en-US';
 import defaultIconMapper from './icon-mapper';
@@ -43,32 +43,37 @@ export function getIcon(iconName, iconStyle, moreClassName) {
 }
 
 export function LoadStuff({src, onload, type}) {
-  var times = 0;
+  return new Promise((resolve, reject) => {
+    let times = 0;
 
-  var loadUrl = src;
-
-  function load(element) {
-    if (times > 2) return 0;
-    times++;
-    element.onload = onload;
-    element.onerror = load;
-    document.body.appendChild(element);
-  }
-
-  switch (type) {
-  case 'css':
-    var link = document.createElement('link');
-    link.rel = 'stylesheet';
-    link.href = loadUrl;
-    load(link);
-    break;
-  case 'script':
-    var script = document.createElement('script');
-    script.type = 'text/javascript';
-    script.src = loadUrl;
-    load(script);
-    break;
-  }
+    let loadUrl = src;
+  
+    function load(element) {
+      if (times > 2) return 0;
+      times++;
+      element.onload = function() {
+        Call(onload, ...arguments);
+        resolve(...arguments);
+      };
+      element.onerror = load;
+      document.body.appendChild(element);
+    }
+  
+    switch (type) {
+    case 'css':
+      let link = document.createElement('link');
+      link.rel = 'stylesheet';
+      link.href = loadUrl;
+      load(link);
+      break;
+    case 'script':
+      let script = document.createElement('script');
+      script.type = 'text/javascript';
+      script.src = loadUrl;
+      load(script);
+      break;
+    }
+  });
 }
 
 /**

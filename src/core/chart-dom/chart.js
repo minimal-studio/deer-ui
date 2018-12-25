@@ -41,45 +41,42 @@ export default class ChartCom extends PureComponent {
       loading: !window.Chart
     };
   }
-  loadChart = (callback) => {
+  loadChart = async (callback) => {
     isLoading = true;
-    LoadScript({
+
+    await LoadScript({
       src: chartjsURL,
-      onload: () => {
-        this.setState({
-          loading: false,
-        });
-        Call(callback);
-        isLoading = false;
-      }
     });
+
+    this.setState({
+      loading: false,
+    });
+    Call(callback);
+    isLoading = false;
   }
   renderChart = () => {
     if(!window.Chart) {
+      if(this.timer) clearTimeout(this.timer);
       if(isLoading) {
         // 检查 chart js 是否加载完成
-        if(this.timer) clearInterval(this.timer);
-        this.timer = setInterval(() => {
-          if(window.Chart) {
-            clearInterval(this.timer);
-            this.setState({
-              loading: false,
-            });
-            setTimeout(this._renderChart, 100);
-          }
-        }, 100);
+        this.timer = setTimeout(() => {
+          this.setState({
+            loading: false,
+          });
+          this.renderChart();
+        }, 200);
       } else {
         this.loadChart(this._renderChart);
       }
     } else {
-      setTimeout(this._renderChart, 100);
+      this._renderChart();
     }
   }
   _renderChart = () => {
     const { data, type, options = {}, id } = this.props;
     // const ctx = document.querySelector(`#${id}`);
     const ctx = this.lineChart;
-    new window.Chart(ctx, {
+    return new window.Chart(ctx, {
       type,
       data,
       options

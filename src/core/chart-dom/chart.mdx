@@ -14,7 +14,7 @@ import { Grid } from '../grid';
 
 <PropsTable of={ChartCom} />
 
-<Playground style={{height: 400}}>
+<Playground style={{height: '100%'}}>
   {
     () => {
       ChartCom.setChartJSPath('https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.4/Chart.bundle.min.js');
@@ -56,24 +56,44 @@ import { Grid } from '../grid';
       setTimeout(() => {
         chartDOM1.renderChart();
       }, 15)
-      setTimeout(() => {
+      {/* setTimeout(() => {
         chartDOM2.renderChart();
-      }, 15)
+      }, 200)
+      setTimeout(() => {
+        chartDOM3.renderChart();
+      }, 400) */}
+      setTimeout(() => {
+        chartDOM4.renderChart();
+      }, 600)
       return (
         <Grid container className="p10" space={20}>
-          <Grid>
+          <Grid lg={6}>
             <ChartCom
               type="bar"
               id="chartDOM1"
               options={options}
               data={mockData} ref={e => chartDOM1 = e} />
           </Grid>
-          <Grid>
+          <Grid lg={6}>
             <ChartCom
               type="line"
               id="chartDOM2"
               options={options}
               data={mockData} ref={e => chartDOM2 = e} />
+          </Grid>
+          <Grid lg={6}>
+            <ChartCom
+              type="radar"
+              id="chartDOM3"
+              options={options}
+              data={mockData} ref={e => chartDOM3 = e} />
+          </Grid>
+          <Grid lg={6}>
+            <ChartCom
+              type="pie"
+              id="chartDOM4"
+              options={options}
+              data={mockData} ref={e => chartDOM4 = e} />
           </Grid>
         </Grid>
       )
