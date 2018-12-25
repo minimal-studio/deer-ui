@@ -75,13 +75,13 @@ Grid.propTypes = {
   /** 边框的宽度 */
   space: PropTypes.oneOf(LayoutSpaces),
   /** 对于 屏幕宽度 < 576px 的分布 */
-  xs: PropTypes.oneOf(LayoutSpaces),
+  xs: PropTypes.oneOf(RowSet),
   /** 对于 屏幕宽度 < 768px, > 576px 的分布 */
-  sm: PropTypes.oneOf(LayoutSpaces),
+  sm: PropTypes.oneOf(RowSet),
   /** 对于 屏幕宽度 < 992px, > 768px 的分布 */
-  lg: PropTypes.oneOf(LayoutSpaces),
+  lg: PropTypes.oneOf(RowSet),
   /** 对于 屏幕宽度 < 1200px, > 992px 的分布 */
-  xl: PropTypes.oneOf(LayoutSpaces),
+  xl: PropTypes.oneOf(RowSet),
   /** justify-content */
   justify: PropTypes.oneOf(JustifyProps),
   /** justify-content */
