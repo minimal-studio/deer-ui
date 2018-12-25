@@ -23,11 +23,11 @@ Card.propTypes = {
   style: PropTypes.shape({}),
 };
 
-const CardContainer = ({ children, isCol, className, style }) => {
+const CardContainer = ({ children, className, style }) => {
   return (
     <div
       style={style}
-      className={"card-container layout" + (isCol ? ' col' : '') + (className ? ' ' + className : '')}>
+      className={"card-container " + (className ? className : '')}>
       {children}
     </div>
   );
