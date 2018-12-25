@@ -99,7 +99,7 @@ Grid.propTypes = {
 };
 Grid.defaultProps = {
   component: 'div',
-  space: 24,
+  space: 0,
   container: false,
   justify: 'start',
   alignContent: 'start',
