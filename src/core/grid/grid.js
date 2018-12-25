@@ -27,28 +27,45 @@ const AlignItemMap = {
   baseline: 'a-i-bl',
   stretch: 'a-i-str',
 };
+const WrapMap = {
+  wrap: 'wrap',
+  nowrap: 'nowrap',
+};
+const DirectionMap = {
+  col: 'col',
+  reCol: 're-col',
+  row: 'row',
+  reRow: 're-row',
+};
 const JustifyProps = Object.keys(JustifyMap);
 const AlignContentProps = Object.keys(AlignContentMap);
 const AlignItemProps = Object.keys(AlignItemMap);
+const DirectionProps = Object.keys(DirectionMap);
+const WrapProps = Object.keys(WrapMap);
 
 const Grid = (props) => {
   const {
     children, className, style, component,
-    space, container, item,
+    space, container, item, 
+    direction, wrap,
     justify, alignContent, alignItem,
     xs, sm, lg, xl
   } = props;
   const C = component;
+  const isItem = typeof item != 'undefined' ? item : !container;
   const _className = classNames({
     [className]: className || '',
-    [JustifyMap[justify]]: justify,
-    [AlignContentMap[alignContent]]: alignContent,
-    [AlignItemMap[alignItem]]: alignItem,
+    [JustifyMap[justify]]: container && justify,
+    [AlignContentMap[alignContent]]: container && alignContent,
+    [AlignItemMap[alignItem]]: container && alignItem,
+    [WrapMap[wrap]]: container && wrap,
+    [DirectionMap[direction]]: container && direction,
     [`xs-${xs}`]: xs,
     [`sm-${sm}`]: sm,
     [`lg-${lg}`]: lg,
     [`xl-${xl}`]: xl,
     [`j-c-c`]: xl,
+    'g-item': isItem,
   });
 
   return (
@@ -90,6 +107,10 @@ Grid.propTypes = {
   alignItem: PropTypes.oneOf(AlignItemProps),
   /** 是否作为容器 */
   container: PropTypes.bool,
+  /** 方向 */
+  direction: PropTypes.oneOf(DirectionProps),
+  /** flex-wrap */
+  wrap: PropTypes.oneOf(WrapProps),
   /** 是否作为子组件 */
   item: PropTypes.bool,
   /** 顾名思义 */
@@ -100,11 +121,10 @@ Grid.propTypes = {
 Grid.defaultProps = {
   component: 'div',
   space: 0,
+  direction: 'row',
+  wrap: 'wrap',
   container: false,
-  justify: 'start',
-  alignContent: 'start',
-  alignItem: 'start',
-  item: false,
+  // item: false,
 };
 
 export default Grid;

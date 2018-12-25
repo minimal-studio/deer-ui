@@ -13,7 +13,7 @@
     }
   }
 }
-
+ 
 @mixin paddingForGrid($padding) {
   margin: - $padding * 1px;
   [class*=row-],
@@ -57,16 +57,19 @@
   &.rewrap {
     flex-wrap: wrap-reverse;
   }
-  &.rerow {
-    flex-direction: row-reverse;
-  }
   /* wrap end */
   /* define flex direction */
   &.col {
     flex-direction: column;
   }
-  &.recol {
+  &.re-col {
     flex-direction: column-reverse;
+  }
+  &.row {
+    flex-direction: row;
+  }
+  &.re-row {
+    flex-direction: row-reverse;
   }
   /* define flex direction end */
   /* define align-content shorthand a-c-{prop} */

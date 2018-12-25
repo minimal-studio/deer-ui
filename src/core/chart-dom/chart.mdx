@@ -6,6 +6,7 @@ menu: Components / 组件
 
 import { Playground, PropsTable } from 'docz'
 import { ChartCom } from './';
+import { Grid } from '../grid';
 
 # ChartCom
 
@@ -59,22 +60,22 @@ import { ChartCom } from './';
         chartDOM2.renderChart();
       }, 15)
       return (
-        <div className="layout">
-          <div className="row-9">
+        <Grid container className="p10" space={20}>
+          <Grid>
             <ChartCom
               type="bar"
               id="chartDOM1"
               options={options}
               data={mockData} ref={e => chartDOM1 = e} />
-          </div>
-          <div className="row-9">
+          </Grid>
+          <Grid>
             <ChartCom
               type="line"
               id="chartDOM2"
               options={options}
               data={mockData} ref={e => chartDOM2 = e} />
-          </div>
-        </div>
+          </Grid>
+        </Grid>
       )
     }
   }
