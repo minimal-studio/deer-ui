@@ -6,7 +6,9 @@ menu: Components / 组件
 
 import { Playground, PropsTable } from 'docz'
 import { State, Toggle } from 'react-powerplug'
+import { RemoveArrayItem } from 'basic-helper'
 import { Tabs, Tab } from './';
+import tabsColl from './tabs-demo'
 
 # Tabs
 
@@ -15,17 +17,31 @@ import { Tabs, Tab } from './';
 ## 默认的 Tabs，状态由 Tabs 控制
 
 <Playground>
-  <Tabs>
-    <Tab label="切换到内容1">
-      内容1
-    </Tab>
-    <Tab label="切换到内容2">
-      内容2
-    </Tab>
-    <Tab label="切换到内容3">
-      内容3
-    </Tab>
-  </Tabs>
+  <State initial={{
+    tabs: tabsColl,
+  }}>
+    {
+      ({ state, setState }) => {
+        return (
+          <Tabs closeabled onClose={idx => setState(({tabs}) => {
+              const nextTabs = [...tabs];
+              nextTabs.splice(idx, 1);
+              return {
+                tabs: nextTabs
+              }
+            })}>
+            {
+              state.tabs.map(tab => {
+                return (
+                  <Tab {...tab} key={tab.label} />
+                )
+              })
+            }
+          </Tabs>
+        )
+      }
+    }
+  </State>
 </Playground>
 
 ---------

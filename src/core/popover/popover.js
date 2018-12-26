@@ -126,10 +126,10 @@ export default class Popover extends Component {
     super(props);
 
     this.state = {
-      popoverOffset: {
-        width: 0,
-        height: 0
-      },
+      // popoverOffset: {
+      //   width: 0,
+      //   height: 0
+      // },
       prevProps: props,
       childrenChange: false
     };
@@ -150,36 +150,43 @@ export default class Popover extends Component {
   }
   componentDidMount() {
     this.setContentFocus();
-    this.setPopoverOffset();
+    // this.setPopoverOffset();
   }
-  setPopoverOffset() {
-    if(!this.popoverDOM) return;
-    const { offsetHeight, offsetWidth } = this.popoverDOM;
-    this.setState({
-      popoverOffset: {
-        width: offsetWidth,
-        height: offsetHeight
-      }
-    });
-  }
+  // setPopoverOffset() {
+  //   if(!this.popoverDOM) return;
+  //   const { offsetHeight, offsetWidth } = this.popoverDOM;
+  //   this.setState({
+  //     popoverOffset: {
+  //       width: offsetWidth,
+  //       height: offsetHeight
+  //     }
+  //   });
+  // }
   componentDidUpdate(prevProps, prevState) {
     this.setContentFocus();
-    const popover = this.popoverDOM || {};
-    const { offsetWidth, offsetHeight } = popover;
+    console.log(this.props);
+    // const popover = this.popoverDOM || {};
+    // const { offsetWidth, offsetHeight } = popover;
     if(prevState.childrenChange) {
       this.__isMounted && this.setState({
-        popoverOffset: {
-          width: offsetWidth,
-          height: offsetHeight
-        },
+        // popoverOffset: {
+        //   width: offsetWidth,
+        //   height: offsetHeight
+        // },
         childrenChange: false
       });
     }
   }
-  calaStyle(position, popoverScale) {
+  getRelativeElemOffset() {
     const { relativeElem } = this.props;
     const { offsetWidth = 0, offsetHeight = 0 } = relativeElem;
     const { offsetTop = 0, offsetLeft = 0 } = getElementOffset(relativeElem) || {};
+    return {
+      offsetWidth, offsetHeight, offsetTop, offsetLeft
+    };
+  }
+  calaStyle(position, popoverScale) {
+    const { offsetWidth, offsetHeight, offsetTop, offsetLeft } = this.getRelativeElemOffset();
     const { height, width } = popoverScale;
 
     let positionStyle = {};

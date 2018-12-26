@@ -98,11 +98,10 @@ const pop = new PopoverEntity({
   fixed: {}, // 是否 fixed 定位
 });
 
-pop.setPopover({
+pop.show({
   width = 400, onClose,
   elem, // 相对的 document 元素
   children,
-  open, // 是否打开
   props, // 传入 popover 实体对象的 props
 });
 ```

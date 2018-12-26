@@ -16,7 +16,7 @@ export class PopoverHelper extends Component {
     console.warn('closePopover 要被废弃了，请使用 close');
     this.close();
   }
-  close() {
+  close() { 
     this.setState({
       open: false
     });
@@ -87,9 +87,9 @@ class PopoverEntity {
     const popoverWrapper = (
       <PopoverWrapper
         {...props}
-        ref={_popoverEntity => {
-          if(!_popoverEntity) return;
-          this.popoverEntity = _popoverEntity;
+        ref={e => {
+          if(!e) return;
+          this.popoverEntity = e;
           this.popoverEntity.show(elem, open, children);
         }}/>
     );
