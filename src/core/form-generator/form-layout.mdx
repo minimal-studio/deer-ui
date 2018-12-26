@@ -31,122 +31,169 @@ import FormOptionsDesc from './form-options-demo.md';
 ## 表单联动
 
 <Playground>
-  <State initial={{
-    activeVal: '',
-    formOptions: [
-      {
-        refs: ['startDate', 'endDate'],
-        type: 'datetimeRange',
-        title: '日期',
-        required: true,
-        range: ['2018-10-10', '2018-10-11']
-      },
-      {
-        ref: 'ref1',
-        type: 'radio',
-        title: '单选控件',
-        values: {
-          value1: 'value1',
-          value2: 'value2',
-          value3: 'value3',
-        }
-      },
-      {
-        ref: 'ref2',
-        type: 'select',
-        title: '选择控件',
-        values: {
-          value1: 'value1',
-          value2: 'value2',
-          value3: 'value3',
-        }
-      },
-      {
-        ref: 'ref3',
-        type: 'input',
-        title: '输入',
-        required: true,
-        inputType: 'number'
-      },
-    ],
-    formOptionsMapper: {
-      value1: [
+  {
+    () => {
+      const formOptions1 = [
         {
-          ref: 'test',
+          refs: ['startDate', 'endDate'],
+          type: 'datetimeRange',
+          title: '日期',
+          required: true,
+          range: ['2018-10-10', '2018-10-11']
+        },
+        {
+          ref: 'ref1',
+          type: 'radio',
+          title: '单选控件',
+          values: {
+            value1: 'value1',
+            value2: 'value2',
+            value3: 'value3',
+          }
+        },
+        {
+          ref: 'ref2',
+          type: 'select',
+          title: '选择控件',
+          values: {
+            value1: 'value1',
+            value2: 'value2',
+            value3: 'value3',
+          }
+        },
+        {
+          ref: 'ref3',
+          type: 'input',
+          title: '输入',
+          required: true,
+          inputType: 'number'
+        },
+      ]
+      const formOptions2 = [
+        {
+          ref: 'ref1',
+          type: 'radio',
+          title: '单选控件',
+          values: {
+            value1: 'value1',
+            value2: 'value2',
+            value3: 'value3',
+          }
+        },
+        {
+          ref: 'test1',
           type: 'input',
           title: '测试1'
-        }
-      ],
-      value2: [
+        },
         {
-          ref: 'test',
+          ref: 'test2',
           type: 'input',
           title: '测试2'
-        }
-      ],
-      value3: [
+        },
         {
-          ref: 'test',
+          ref: 'test3',
           type: 'input',
           title: '测试3'
         }
-      ],
-    }
-  }}>
-    {
-      ({ state, setState }) => (
-        <div>
-          <h4>初始表单</h4>
-          <FormLayout
-            btnConfig={[
-              {
-                action: (formRef, actingRef) => {
-                  console.log(formRef, actingRef);
-                },
-                type: 'submit',
-                text: '测试按钮, 带预检查',
-                actingRef: 'forTest'
-              },
-              {
-                action: (formRef, actingRef) => {
-                  console.log(formRef, actingRef);
-                },
-                color: 'red',
-                text: '测试按钮, 关闭预检查',
-                preCheck: false,
-                actingRef: 'forTest'
-              },
-            ]}
-            onChange={(value, ref) => {
-              if(ref == 'ref1' || ref == 'ref2') setState({
-                activeVal: value[ref]
-              })
-            }}
-            formOptions={state.formOptions}/>
-          <hr/>
+      ];
+      const formOptions3 = [
+        {
+          ref: 'ref1',
+          type: 'radio',
+          title: '单选控件',
+          values: {
+            value1: 'value1',
+            value2: 'value2',
+            value3: 'value3',
+          }
+        },
+        {
+          ref: 'test4',
+          type: 'input',
+          title: '测试联动1'
+        },
+        {
+          ref: 'test5',
+          type: 'input',
+          title: '测试联动2'
+        },
+        {
+          ref: 'test6',
+          type: 'input',
+          title: '测试联动3'
+        }
+      ]
+      const formOptionsMapper = {
+        value1: formOptions1,
+        value2: formOptions2,
+        value3: formOptions3,
+      }
+      return (
+        <State initial={{
+          activeVal: '',
+          formOptions: [...formOptions1],
+        }}>
           {
-            state.activeVal ? (
-              <React.Fragment>
-                <h4>联动表单</h4>
+            ({ state, setState }) => (
+              <div>
+                <h4>初始表单</h4>
                 <FormLayout
-                  key={state.activeVal}
                   btnConfig={[
+                    {
+                      action: (formRef, actingRef) => {
+                        console.log(formRef.value, actingRef);
+                      },
+                      type: 'submit',
+                      text: '测试按钮, 带预检查',
+                      actingRef: 'forTest'
+                    },
                     {
                       action: (formRef, actingRef) => {
                         console.log(formRef, actingRef);
                       },
-                      text: '测试按钮',
+                      color: 'red',
+                      text: '测试按钮, 关闭预检查',
+                      preCheck: false,
                       actingRef: 'forTest'
-                    }
+                    },
                   ]}
-                  formOptions={state.formOptionsMapper[state.activeVal]}/>
-              </React.Fragment>
-            ) : null
+                  onChange={(value, ref, val) => {
+                    if(ref == 'ref1' || ref == 'ref2') setState((state) => {
+                      console.log(formOptionsMapper[val])
+                      return {
+                        activeVal: value[ref],
+                        formOptions: formOptionsMapper[val]
+                      }
+                    })
+                  }}
+                  formOptions={state.formOptions}/>
+                <hr/>
+                {/* {
+                  state.activeVal ? (
+                    <React.Fragment>
+                      <h4>联动表单</h4>
+                      <FormLayout
+                        key={state.activeVal}
+                        btnConfig={[
+                          {
+                            action: (formRef, actingRef) => {
+                              console.log(formRef, actingRef);
+                            },
+                            text: '测试按钮',
+                            actingRef: 'forTest'
+                          }
+                        ]}
+                        formOptions={state.formOptions2[state.activeVal]}/>
+                    </React.Fragment>
+                  ) : null
+                } */}
+              </div>
+            )
           }
-        </div>
+        </State>
       )
     }
-  </State>
+  }
 </Playground>
 
 <FormOptionsDesc/>

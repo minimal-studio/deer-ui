@@ -107,6 +107,7 @@ const formOptions = [
     refForS: 'RefForSelector',
     type: 'input-selector-s',
     defaultValueForS: 1,
+    defaultValue: '123123',
     isNum: true,
     values: {
       1: '选择1',

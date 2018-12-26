@@ -2,6 +2,10 @@
 
 -----------------
 
+## 2.9.6
+
+- 增强 FormFilter 对新传入的 FormOptions 的支持
+
 ## 2.9.5
 
 - 调整 FormFilter 的 input-selector 的默认值参数配置参数，refuDefaultIdx -> defaultValueForS

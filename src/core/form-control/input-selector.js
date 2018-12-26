@@ -14,6 +14,8 @@ import { selectorValuesType } from '../selector/selector';
  */
 export default class InputSelector extends Component {
   static propTypes = {
+    /** 给 input 的 value */
+    value: PropTypes.any,
     /** 通用 selector 的 values 配置参数 */
     values: selectorValuesType,
     /** 值改变时触发的回调 */
@@ -27,10 +29,10 @@ export default class InputSelector extends Component {
   constructor(props) {
     super(props);
 
-    const { defaultSelectorIdx, values } = props;
+    const { defaultSelectorIdx, value, values } = props;
     this.state = {
       selectRef: defaultSelectorIdx || Object.keys(values)[0],
-      inputVal: ''
+      inputVal: value
     };
   }
   changeRef = (val) => {

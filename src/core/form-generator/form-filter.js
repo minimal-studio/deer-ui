@@ -29,26 +29,44 @@ export default class FormFilterHelper extends UkeComponent {
     this.value = {};
     this.requiredRefMapper = {}; // 用于检测是否通过表单强制要求验证的mapper
 
-    this.initValues();
+    this.initValues(props);
   }
   componentWillUnmount() {
     this.value = {};
     this.requiredRefMapper = {};
   }
-  initValues() {
-    const { conditionConfig, formOptions } = this.props;
+  initValues(props) {
+    const { conditionConfig, formOptions } = props;
     this.setDefaultValues(formOptions || conditionConfig);
   }
-  resetValues() {
-    this.initValues();
+  resetValues(props = this.props) {
+    const { formOptions } = props;
+    let nextValue = {};
+    for (const options of formOptions) {
+      // const val = this.value[valKey];
+      const { ref } = options;
+      if(this.value[ref]) nextValue[ref] = this.value[ref];
+    }
+    this.value = nextValue;
+    this.initValues(props);
   }
   // TODO: 观察移除 componentWillReceiveProps 这个后果
   // componentWillReceiveProps(nextProps) {
   //   this.resetRequireRefMapper(nextProps);
   // }
-  // componentDidUpdate(prevProps, prevState) {
-  //   console.log(prevProps, prevState)
-  //   // this.resetRequireRefMapper(nextProps);
+  checkFormOptions(prevProps) {
+    if(this.props.formOptions != prevProps.formOptions) {
+      this.resetValues();
+      this.resetRequireRefMapper(this.props);
+    }
+  }
+  componentDidUpdate(prevProps, prevState) {
+    this.checkFormOptions(prevProps);
+  }
+  // shouldComponentUpdate(nextProps, nextState, nextContext) {
+  //   console.log(this.props.formOptions, nextProps.formOptions);
+  //   this.checkFormOptions(nextProps);
+  //   return true;     
   // }
   resetRequireRefMapper(nextProps = this.props) {
     this.requiredRefMapper = {};
@@ -90,11 +108,12 @@ export default class FormFilterHelper extends UkeComponent {
   }
   setDefaultValue(config) {
     const {
-      defaultValue, ref, refs, range, refu, defaultValueForS,
+      defaultValue, ref, refs, range, refu, refForS, defaultValueForS,
     } = config;
 
     if(HasValue(defaultValue)) {
       if(ref) this.value[ref] = defaultValue;
+      if(refForS) this.value[refForS] = this.value[refForS] || defaultValueForS;
       if(IsObj(refu)) {
         /** 判断是否有 defaultValueForS，如果有则直接使用，否则区 refu 第一个作为默认值 */
         let targetKey;
