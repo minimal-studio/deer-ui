@@ -195,7 +195,7 @@ this.conditionOptions = [{
     'User': '用户', 'Agent': '代理', 'SuperAgent': '总代'
   },
   // 默认的 refu 配置，不填默认为第一个
-  refuDefaultIdx: 'User',
+  defaultValueForS: 'User',
   // 是否可以多选，未实现
   multiple: false,
   // 具体的类型

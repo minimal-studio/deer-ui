@@ -11,7 +11,7 @@ export default class FormLayoutDemo extends React.Component {
   btnConfig = [
     {
       action: (formRef, actingRef) => {
-        // console.log(formRef.value, actingRef);
+        console.log(formRef.value, actingRef);
         this.submit(formRef.value, actingRef);
       },
       type: 'submit',

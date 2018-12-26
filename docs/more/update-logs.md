@@ -2,6 +2,10 @@
 
 -----------------
 
+## 2.9.5
+
+- 调整 FormFilter 的 input-selector 的默认值参数配置参数，refuDefaultIdx -> defaultValueForS
+
 ## 2.9.4
 
 - 改进 LoadScript 的机制

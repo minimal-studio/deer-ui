@@ -90,16 +90,16 @@ export default class FormFilterHelper extends UkeComponent {
   }
   setDefaultValue(config) {
     const {
-      defaultValue, ref, refs, range, refu, refuDefaultIdx
+      defaultValue, ref, refs, range, refu, defaultValueForS,
     } = config;
 
     if(HasValue(defaultValue)) {
       if(ref) this.value[ref] = defaultValue;
       if(IsObj(refu)) {
-        /** 判断是否有 refuDefaultIdx，如果有则直接使用，否则区 refu 第一个作为默认值 */
+        /** 判断是否有 defaultValueForS，如果有则直接使用，否则区 refu 第一个作为默认值 */
         let targetKey;
-        if(HasValue(refuDefaultIdx)) {
-          targetKey = refuDefaultIdx;
+        if(HasValue(defaultValueForS)) {
+          targetKey = defaultValueForS;
         } else {
           targetKey = Object.keys(refu)[0];
         }
@@ -285,12 +285,12 @@ export default class FormFilterHelper extends UkeComponent {
     );
   }
   getInputSelectorS = (config) => {
-    const { inputProps = {}, refuDefaultIdx, refForS, values, required, ref, ...other } = config;
+    const { inputProps = {}, defaultValueForS, refForS, values, required, ref, ...other } = config;
     return (
       <InputSelector 
         {...other}
         ref={this.saveRef(ref)}
-        defaultSelectorIdx={refuDefaultIdx}
+        defaultSelectorIdx={defaultValueForS}
         values={values}
         inputProps={inputProps}
         value={this.zeroFilter(this.getValue(ref), '')}
@@ -303,7 +303,7 @@ export default class FormFilterHelper extends UkeComponent {
     );
   }
   getInputSelector = (config) => {
-    const { inputProps = {}, refuDefaultIdx, refu, required, ref, ...other } = config;
+    const { inputProps = {}, defaultValueForS, refu, required, ref, ...other } = config;
     return (
       <InputSelector 
         {...other}
@@ -313,7 +313,7 @@ export default class FormFilterHelper extends UkeComponent {
             this.saveRef(ref)(e);
           }
         }}
-        defaultSelectorIdx={refuDefaultIdx}
+        defaultSelectorIdx={defaultValueForS}
         values={refu}
         inputProps={inputProps}
         value={this.zeroFilter(this.getValue(ref), '')}

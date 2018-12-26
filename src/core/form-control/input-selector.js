@@ -17,7 +17,7 @@ export default class InputSelector extends Component {
     /** 通用 selector 的 values 配置参数 */
     values: selectorValuesType,
     /** 值改变时触发的回调 */
-    onChange: PropTypes.func,
+    onChange: PropTypes.func, 
     /** 传入 input 控件的 props */
     inputProps: PropTypes.object,
   };
@@ -36,7 +36,7 @@ export default class InputSelector extends Component {
   changeRef = (val) => {
     if(!val) return;
     // console.log(...args)
-    const {inputVal} = this.state;
+    const { inputVal } = this.state;
     this.setState({
       selectRef: val
     });
