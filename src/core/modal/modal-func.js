@@ -77,21 +77,17 @@ function getEntityIdLen() {
 
 function CloseModal(entityId) {
   if(!entityId) return;
-  Entity[entityId] && Entity[entityId].closeModal();
-  delete Entity[entityId];
-  function deleteModalNode() {
-    let modalNode = document.getElementById(entityId);
-    if(modalNode) modalNode.parentElement.removeChild(modalNode);
-  }
-  setTimeout(() => deleteModalNode(), 300);
+  // Entity[entityId] && Entity[entityId].closeModal();
+  // delete Entity[entityId];
+  // function deleteModalNode() {
+  //   let modalNode = document.getElementById(entityId);
+  //   if(modalNode) modalNode.parentElement.removeChild(modalNode);
+  // }
+  // setTimeout(() => deleteModalNode(), 300);
   connectedStore.closeWindow(entityId);
 }
 function CloseAllModal() {
-  for (const modalId in Entity) {
-    if (Entity.hasOwnProperty(modalId)) {
-      CloseModal(modalId);
-    }
-  }
+  connectedStore.closeAllWindow();
 }
 
 const getModalDefaultWidth = (modalType) => {

@@ -1,5 +1,5 @@
 import createStore from 'unistore';
-import {RemoveArrayItem, GenerteID} from 'basic-helper';
+import { RemoveArrayItem } from 'basic-helper';
 
 const DefaultWindowManagerState = {
   minSecQueue: [],
@@ -10,6 +10,11 @@ const DefaultWindowManagerState = {
 const windowManagerStore = createStore(DefaultWindowManagerState);
 
 const windowManagerActions = store => ({
+  closeAllWindow() {
+    store.setState({
+      ...DefaultWindowManagerState
+    });
+  },
   closeWindow({sectionsList, sectionsQueue}, sectionId) {
     if(!sectionId) return;
     let nextSectionList = sectionsList;

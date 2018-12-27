@@ -5,7 +5,7 @@ menu: Utils
 ---
 
 import { Playground, PropsTable } from 'docz'
-import { ShowModal, CloseModal, ShowGlobalModal, CloseGlobalModal } from './';
+import { ShowModal, CloseModal, ShowGlobalModal, CloseGlobalModal, CloseAllModal } from './';
 
 # ShowModal
 
@@ -54,6 +54,12 @@ import { ShowModal, CloseModal, ShowGlobalModal, CloseGlobalModal } from './';
         }
       })}>
       确认框
+    </span>
+
+    <span
+      className="btn green flat mr10"
+      onClick={e => CloseAllModal()}>
+      关闭所有 Modal
     </span>
   </div>
 </Playground>

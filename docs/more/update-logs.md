@@ -2,6 +2,10 @@
 
 -----------------
 
+## 2.9.9
+
+- 完善 CloseAllModal 的机制
+
 ## 2.9.8
 
 - 导出 CloseAllModal 方法

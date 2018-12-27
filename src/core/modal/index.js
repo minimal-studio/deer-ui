@@ -6,5 +6,5 @@ import { DragPanelClass } from './drag-pabel-helper';
 export * from './window-manager';
 
 export {
-  ShowModal, CloseModal, Modal, ModalHelper, ShowGlobalModal, CloseGlobalModal, DragPanelClass
+  ShowModal, CloseModal, Modal, ModalHelper, ShowGlobalModal, CloseGlobalModal, DragPanelClass, CloseAllModal
 };
