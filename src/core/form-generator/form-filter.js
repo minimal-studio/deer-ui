@@ -19,11 +19,6 @@ import Switch from '../switch-button/switch';
 export default class FormFilterHelper extends UkeComponent {
   _refs = {};
   state = {};
-  // static getDerivedStateFromProps(props, state) {
-  //   return {
-  //     changeProps: true
-  //   };
-  // }
   constructor(props) {
     super(props);
     this.value = {};
@@ -31,16 +26,19 @@ export default class FormFilterHelper extends UkeComponent {
 
     this.initValues(props);
   }
+  getFormOptions(props) {
+    return props.formOptions || props.conditionConfig;
+  }
   componentWillUnmount() {
     this.value = {};
     this.requiredRefMapper = {};
   }
   initValues(props) {
-    const { conditionConfig, formOptions } = props;
-    this.setDefaultValues(formOptions || conditionConfig);
+    const formOptions = this.getFormOptions(props);
+    this.setDefaultValues(formOptions);
   }
   resetValues(props = this.props) {
-    const { formOptions } = props;
+    const formOptions = this.getFormOptions(props);
     let nextValue = {};
     for (const options of formOptions) {
       // const val = this.value[valKey];
@@ -50,12 +48,10 @@ export default class FormFilterHelper extends UkeComponent {
     this.value = nextValue;
     this.initValues(props);
   }
-  // TODO: 观察移除 componentWillReceiveProps 这个后果
-  // componentWillReceiveProps(nextProps) {
-  //   this.resetRequireRefMapper(nextProps);
-  // }
   checkFormOptions(prevProps) {
-    if(this.props.formOptions != prevProps.formOptions) {
+    const thisFormOptions = this.getFormOptions(this.props);
+    const prevFormOptions = this.getFormOptions(prevProps);
+    if(thisFormOptions != prevFormOptions) {
       this.resetValues();
       this.resetRequireRefMapper(this.props);
     }
@@ -63,15 +59,10 @@ export default class FormFilterHelper extends UkeComponent {
   componentDidUpdate(prevProps, prevState) {
     this.checkFormOptions(prevProps);
   }
-  // shouldComponentUpdate(nextProps, nextState, nextContext) {
-  //   console.log(this.props.formOptions, nextProps.formOptions);
-  //   this.checkFormOptions(nextProps);
-  //   return true;     
-  // }
   resetRequireRefMapper(nextProps = this.props) {
     this.requiredRefMapper = {};
-    const { conditionConfig, formOptions } = nextProps;
-    const configArr = formOptions || conditionConfig || [];
+    const formOptions = this.getFormOptions(nextProps);
+    const configArr = formOptions;
     configArr.forEach(config => this.setRequiredRefMapper(config));
   }
   setRequiredRefMapper(config) {
@@ -200,25 +191,6 @@ export default class FormFilterHelper extends UkeComponent {
     let targetVal = this.value[ref];
     return HasValue(targetVal) ? targetVal : other;
   }
-  // onInputChange = ({val, disabled, inputType = 'string', ref}) => {
-  //   if (disabled) return;
-  //   let __val = val;
-  //   // let __val = elem.value;
-  //   switch (inputType) {
-  //   case 'dotnumber':
-  //     let _tmpVal = +__val;
-  //     __val = _tmpVal === 0 ? (__val == '0.' ? '0.' : undefined) : (_tmpVal ? (/\.\d{3,}/.test(__val) ? _tmpVal.toFixed(2) : __val): undefined);
-  //     break;
-  //   case 'number':
-  //     __val = +((+__val === 0 ? (__val === '' ? '' : 0) : (+__val || '')) + '').replace(/\..+/, '');
-  //     break;
-  //   case 'string':
-  //   default:
-  //     __val = __val + '';
-  //     break;
-  //   }
-  //   this.changeValue(__val, ref);
-  // }
   saveRef = (ref) => {
     return elem => this._refs[ref] = elem;
   }

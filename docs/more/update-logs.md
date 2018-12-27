@@ -2,6 +2,11 @@
 
 -----------------
 
+## 2.9.7
+
+- 新增一个 CloseAllModal 的方法
+- FormFilter 支持 ConditionGenerator
+
 ## 2.9.6
 
 - 增强 FormFilter 对新传入的 FormOptions 的支持

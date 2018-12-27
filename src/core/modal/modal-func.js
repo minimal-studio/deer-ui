@@ -75,7 +75,7 @@ function getEntityIdLen() {
   return Object.keys(Entity).length;
 }
 
-function CloseGlobalModal(entityId) {
+function CloseModal(entityId) {
   if(!entityId) return;
   Entity[entityId] && Entity[entityId].closeModal();
   delete Entity[entityId];
@@ -85,6 +85,13 @@ function CloseGlobalModal(entityId) {
   }
   setTimeout(() => deleteModalNode(), 300);
   connectedStore.closeWindow(entityId);
+}
+function CloseAllModal() {
+  for (const modalId in Entity) {
+    if (Entity.hasOwnProperty(modalId)) {
+      CloseModal(modalId);
+    }
+  }
 }
 
 const getModalDefaultWidth = (modalType) => {
@@ -106,7 +113,7 @@ const getDefaultOptions = (options) => ({
   width: window.$UKE.isMobile ? '90%' : getModalDefaultWidth(options.type)
 });
 
-function ShowGlobalModal(options) {
+function ShowModal(options) {
 
   let gm = window.$UKE.getUkeKeyMap;
 
@@ -155,7 +162,7 @@ function ShowGlobalModal(options) {
   }
   function onClickBtn(confirm) {
     Call(onConfirm, confirm);
-    CloseGlobalModal(entityId);
+    CloseModal(entityId);
   }
 
   options.children = modalTMPL;
@@ -164,35 +171,6 @@ function ShowGlobalModal(options) {
     ...options,
   };
   connectedStore.openWindow(options);
-  // if(draggable) {
-  // connectedStore.openWindow(options);
-  // } else {
-  // let entityDOM = setDOMById(entityId, 'top-modal idx-' + entityId);
-  // const entityWrapper = (
-  //   <ModalEntity
-  //     ref={_Entity => {
-  //       if(!_Entity) return;
-  //       Entity[entityId] = _Entity;
-  //       Entity[entityId].setModal({
-  //         isOpen: true,
-  //         title,
-  //         width
-  //       });
-  //     }}
-  //     topClassName={topClassName}
-  //     className={className}
-  //     {...options}
-  //     onCloseModal={e => {
-  //       CloseGlobalModal(entityId);
-  //     }}>
-  //     {modalTMPL}
-  //   </ModalEntity>
-  // );
-  // ReactDOM.render(
-  //   entityWrapper,
-  //   entityDOM,
-  // );
-  // }
   return entityId;
 }
 
@@ -204,16 +182,10 @@ ReactDOM.render(
   modalsManagerContainer,
 );
 
-/**
- * 例子
- * ShowGlobalModal({
- *   type, confirmText = '确定？', title, width = 400, onConfirm
- * })
- */
-
-const ShowModal = ShowGlobalModal;
-const CloseModal = CloseGlobalModal;
+const ShowGlobalModal = ShowModal;
+const CloseGlobalModal = CloseModal;
 
 export {
-  ShowModal, CloseModal, ShowGlobalModal, CloseGlobalModal
+  ShowModal, CloseModal,
+  ShowGlobalModal, CloseGlobalModal, CloseAllModal
 };
