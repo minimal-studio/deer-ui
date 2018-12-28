@@ -80,7 +80,9 @@ export default class FormFilterHelper extends UkeComponent {
       break;
     case !!refu:
       for (const _ref in refu) {
-        this._requiredMapperSetter(_ref, title);
+        if(refu.hasOwnProperty(_ref)) {
+          this._requiredMapperSetter(_ref, title);
+        }
       }
       break;
     }
@@ -300,8 +302,9 @@ export default class FormFilterHelper extends UkeComponent {
         {...other}
         ref={e => {
           for (const _ref in refu) {
-            // this._refs[_ref] = e;
-            this.saveRef(ref)(e);
+            if(refu.hasOwnProperty(_ref)) {
+              this.saveRef(ref)(e);
+            }
           }
         }}
         defaultSelectorIdx={defaultValueForS}
