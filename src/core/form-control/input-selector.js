@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import Input from './input';
 import Selector from '../selector/dropdown-menu';
 import { selectorValuesType } from '../selector/selector';
+import FormControlBasic from './form-control-basic';
 
 /**
  * 选择器 + 输入控件
@@ -12,7 +13,7 @@ import { selectorValuesType } from '../selector/selector';
  * @class InputSelector
  * @extends {Component}
  */
-export default class InputSelector extends Component {
+export default class InputSelector extends FormControlBasic {
   static propTypes = {
     /** 给 input 的 value */
     value: PropTypes.any,
@@ -38,7 +39,7 @@ export default class InputSelector extends Component {
   changeRef = (val) => {
     if(!val) return;
     // console.log(...args)
-    const { inputVal } = this.state;
+    const inputVal = this.getValue();
     this.setState({
       selectRef: val
     });
@@ -48,13 +49,22 @@ export default class InputSelector extends Component {
     this._input.focus();
   }
   changeInput = (val) => {
-    this.setState({
-      inputVal: val
-    });
+    if(!this.isControl) {
+      this.setState({
+        inputVal: val
+      });
+    } else {
+      this.emitChange(val, this.state.selectRef);
+    }
+  }
+  emitChange = (inputVal) => {
+    const { onChange } = this.props;
+    onChange && onChange(inputVal, this.state.selectRef);
   }
   render() {
     const { inputProps, values, onChange, inputType, ...other } = this.props;
-    const { selectRef, inputVal } = this.state;
+    const { selectRef } = this.state;
+    const inputVal = this.getValue();
     return (
       <div className="input-selector">
         <Selector
@@ -68,9 +78,7 @@ export default class InputSelector extends Component {
           inputType={inputType}
           onChange={this.changeInput} 
           value={inputVal}
-          onBlur={(val, e) => {
-            onChange(val, selectRef);
-          }}/>
+          onBlur={this.emitChange}/>
       </div>
     );
   }

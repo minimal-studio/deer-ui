@@ -2,6 +2,7 @@ import React, {Component, PureComponent} from 'react';
 import PropTypes from 'prop-types';
 import { Call, RemoveArrayItem, IsFunc } from 'basic-helper';
 import { UkeComponent, UkePureComponent } from '../uke-basic';
+import FormControlBasic from '../form-control/form-control-basic';
 
 export const selectorValuesType = PropTypes.oneOfType([
   PropTypes.shape({
@@ -16,7 +17,7 @@ export const selectorValuesType = PropTypes.oneOfType([
   )
 ]);
 
-export default class SelectorBasic extends UkeComponent {
+export default class SelectorBasic extends FormControlBasic {
   static propTypes = {
     values: selectorValuesType.isRequired,
     defaultValue: PropTypes.any,
@@ -31,10 +32,6 @@ export default class SelectorBasic extends UkeComponent {
     super(props);
 
     const { value, defaultValue, isMultiple } = props;
-
-    // 如果是多选模式，value, defaultValue 必须为array，否则value, defaultValue必须为string
-
-    this.isControl = props.hasOwnProperty('value');
 
     // 受控模式, 详情请查看 react control form
     // selectedValue = [...values];
@@ -57,11 +54,6 @@ export default class SelectorBasic extends UkeComponent {
   toArr(target) {
     return Array.isArray(target) ? target : [target];
   }
-  // shouldUpdateComponent(nextState, nextProps) {
-  //   // 如果是受控模式，必须是外部value改变才作出渲染
-  //   const isChange = this.isControl ? JSON.stringify(this.props) !== JSON.stringify(nextProps) : JSON.stringify(this.state) !== JSON.stringify(nextState);
-  //   return isChange || this.state.isShow !== nextState.isShow;
-  // }
   changeValue(value, idx) {
     const { isNum, isMultiple } = this.props;
     if(isNum) value = +value;
@@ -139,9 +131,5 @@ export default class SelectorBasic extends UkeComponent {
   checkIsSelectedAll() {
     const selectedValue = this.getValue();
     return !!this.values && !!selectedValue && (this.values.length == selectedValue.length);
-  }
-  getValue() {
-    // return this.state.selectedValue;
-    return this.isControl ? this.props.value : this.state.selectedValue;
   }
 }

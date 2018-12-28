@@ -12,40 +12,64 @@ import { ConditionGenerator } from './';
 <PropsTable of={ConditionGenerator} />
 
 <Playground>
-  <ConditionGenerator
-    conditionConfig={[
-      {
-        refs: ['startDate', 'endDate'],
-        type: 'datetimeRange',
-        title: '时间',
-      },
-      {
-        ref: 'ref1',
-        type: 'radio',
-        title: '单选控件',
-        values: {
-          value1: 'value1',
-          value2: 'value2',
-          value3: 'value3',
-        }
-      },
-      {
-        ref: 'ref2',
-        type: 'select',
-        title: '选择控件',
-        values: {
-          value1: 'value1',
-          value2: 'value2',
-          value3: 'value3',
-        }
-      },
-      {
-        refs: ['s', 'e'],
-        type: 'input-range',
-        title: '范围',
-        range: [0, 10]
-      },
-    ]}/>
+  {
+    () => {
+      let domRef;
+      return (
+        <ConditionGenerator
+          ref={e => domRef = e}
+          onChange={(values, ref, val) => {
+            if(ref === 'ref1') {
+              domRef.changeValue(val, 'ref_for_input')
+            }
+          }}
+          conditionConfig={[
+            {
+              refs: ['startDate', 'endDate'],
+              type: 'datetimeRange',
+              title: '时间',
+            },
+            {
+              ref: 'ref1',
+              type: 'radio',
+              title: '单选控件',
+              values: {
+                value1: 'value1',
+                value2: 'value2',
+                value3: 'value3',
+              }
+            },
+            {
+              ref: 'ref_for_input',
+              refForS: 'ref_for_selector',
+              type: 'input-selector-s',
+              title: '选择输入框',
+              values: {
+                value1: 'value1',
+                value2: 'value2',
+                value3: 'value3',
+              }
+            },
+            {
+              ref: 'ref2',
+              type: 'select',
+              title: '选择控件',
+              values: {
+                value1: 'value1',
+                value2: 'value2',
+                value3: 'value3',
+              }
+            },
+            {
+              refs: ['s', 'e'],
+              type: 'input-range',
+              title: '范围',
+              range: [0, 10]
+            },
+          ]}/>
+      )
+    }
+  }
 </Playground>
 
 查询条件生成器，组合内置的 UI 控件，生成查询条件组合，内置以下控件，通过 type 属性控制
