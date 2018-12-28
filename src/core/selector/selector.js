@@ -46,6 +46,14 @@ export default class SelectorBasic extends UkeComponent {
 
     this.wrapValues();
   }
+  
+  shouldComponentUpdate(nextProps, prevState) {
+    if(this.props.values != nextProps.values) {
+      this.wrapValues(nextProps.values);
+    }
+    return true;
+  }
+  
   toArr(target) {
     return Array.isArray(target) ? target : [target];
   }
