@@ -51,20 +51,28 @@ import { Grid } from '../grid';
           }]
         }
       }
-      let chartDOM1 = '';
-      let chartDOM2 = '';
+      let chartDOM1;
+      let chartDOM2;
+      let chartDOM3;
+      let chartDOM4;
       setTimeout(() => {
+        chartDOM1.renderChart();
+        chartDOM2.renderChart();
+        chartDOM3.renderChart();
+        chartDOM4.renderChart();
+      }, 15)
+      {/* setTimeout(() => {
         chartDOM1.renderChart();
       }, 15)
       setTimeout(() => {
         chartDOM2.renderChart();
-      }, 30)
+      }, 15)
       setTimeout(() => {
         chartDOM3.renderChart();
-      }, 45)
+      }, 15)
       setTimeout(() => {
         chartDOM4.renderChart();
-      }, 60)
+      }, 15) */}
       return (
         <Grid container className="p10" space={20}>
           <Grid lg={6}>
