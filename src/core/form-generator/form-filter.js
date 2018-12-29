@@ -21,6 +21,9 @@ export default class FormFilterHelper extends UkeComponent {
   state = {};
   constructor(props) {
     super(props);
+    this.state = {
+      value: {}
+    };
     this.value = {};
     this.requiredRefMapper = {}; // 用于检测是否通过表单强制要求验证的mapper
 
@@ -63,7 +66,11 @@ export default class FormFilterHelper extends UkeComponent {
     this.requiredRefMapper = {};
     const formOptions = this.getFormOptions(nextProps);
     const configArr = formOptions;
-    configArr.forEach(config => this.setRequiredRefMapper(config));
+    for (let i = 0; i < configArr.length; i++) {
+      const config = configArr[i];
+      this.setRequiredRefMapper(config);
+    }
+    // configArr.forEach(config => this.setRequiredRefMapper(config));
   }
   setRequiredRefMapper(config) {
     if(!config || !config.required) return;
@@ -93,11 +100,13 @@ export default class FormFilterHelper extends UkeComponent {
     });
   }
   setDefaultValues(options = []) {
-    options.forEach(config => {
-      if(!config) return;
-      this.setDefaultValue(config);
-      this.setRequiredRefMapper(config);
-    });
+    for (let i = 0; i < options.length; i++) {
+      const config = options[i];
+      if(config) {
+        this.setDefaultValue(config);
+        this.setRequiredRefMapper(config);
+      }
+    }
   }
   setDefaultValue(config) {
     const {
@@ -105,7 +114,8 @@ export default class FormFilterHelper extends UkeComponent {
     } = config;
 
     if(HasValue(defaultValue)) {
-      if(ref) this.value[ref] = defaultValue;
+      /** 观察这个地方，可能引起的内容不更新的问题 */
+      if(ref) this.value[ref] = this.value[ref] || defaultValue;
       if(refForS) this.value[refForS] = this.value[refForS] || defaultValueForS;
       if(IsObj(refu)) {
         /** 判断是否有 defaultValueForS，如果有则直接使用，否则区 refu 第一个作为默认值 */
@@ -164,20 +174,32 @@ export default class FormFilterHelper extends UkeComponent {
     const targetDOM = this._refs[ref];
     if(!!targetDOM && !!targetDOM.focus) targetDOM.focus();
   }
+  /**
+   * 改变单个值
+   * @public
+   * @param {any} value 目标改变的值的 value
+   * @param {string} ref 改变的值的 ref
+   * @param {boolean} update 是否更新视图
+   */
   changeValue(value, ref, update = true) {
+    setTimeout(() => {
+      console.log(this.value)
+    }, 100);
     if(this.value[ref] === value) return;
     this.value[ref] = value;
-    if(update) this.forceUpdate();
+    if(update) this.setState({
+      value: this.value
+    });
     Call(this.props.onChange, this.value, ref, value);
   }
+  /**
+   * 改变多个值
+   * @public
+   * @param {object} valRefMapper 改变的值的 object
+   * @param {boolean} update 是否更新视图
+   */
   changeValues(valRefMapper, update = true) {
     const refs = Object.keys(valRefMapper);
-    /**
-     * valRefMapper
-     * {
-     *   ref: val
-     * }
-     */
     refs.forEach(ref => {
       const val = valRefMapper[ref];
       this.changeValue(val, ref, update);

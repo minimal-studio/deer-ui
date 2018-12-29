@@ -45,6 +45,7 @@ import FormOptionsDesc from './form-options-demo.md';
           ref: 'ref1',
           type: 'radio',
           title: '单选控件',
+          defaultValue: 'value2',
           values: {
             value1: 'value1',
             value2: 'value2',
@@ -136,7 +137,6 @@ import FormOptionsDesc from './form-options-demo.md';
           {
             ({ state, setState }) => (
               <div>
-                <h4>初始表单</h4>
                 <FormLayout
                   btnConfig={[
                     {
@@ -149,7 +149,7 @@ import FormOptionsDesc from './form-options-demo.md';
                     },
                     {
                       action: (formRef, actingRef) => {
-                        console.log(formRef, actingRef);
+                        console.log(formRef.value, actingRef);
                       },
                       color: 'red',
                       text: '测试按钮, 关闭预检查',
@@ -158,10 +158,10 @@ import FormOptionsDesc from './form-options-demo.md';
                     },
                   ]}
                   onChange={(value, ref, val) => {
-                    if(ref == 'ref1' || ref == 'ref2') setState((state) => {
+                    if(ref == 'ref1') setState((state) => {
                       console.log(formOptionsMapper[val])
                       return {
-                        activeVal: value[ref],
+                        activeVal: val,
                         formOptions: formOptionsMapper[val]
                       }
                     })
