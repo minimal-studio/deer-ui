@@ -38,7 +38,7 @@ export default class ChartCom extends PureComponent {
     super(props);
 
     this.state = {
-      loading: !window.Chart
+      loading: !window.Chart,
     };
   }
   loadChart = async (callback) => {
@@ -57,8 +57,8 @@ export default class ChartCom extends PureComponent {
   renderChart = () => {
     if(!window.Chart) {
       if(this.timer) clearTimeout(this.timer);
-      if(isLoading) {
-        // 检查 chart js 是否加载完成
+      if(isLoading || !this.lineChart) {
+        /** 确保 chartjs 加载成功，以及 canvas 准备妥当 */
         this.timer = setTimeout(() => {
           this.setState({
             loading: false,
