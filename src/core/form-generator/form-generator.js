@@ -33,10 +33,12 @@ export default class FormGenerator extends FormFilterHelper {
   showDesc = (checkRes) => {
     const {ref, isPass} = checkRes;
     for (const itemRef in this.formItemRefs) {
-      const currFormItem = this.formItemRefs[itemRef];
-      currFormItem.classList.remove('error');
-      if(itemRef == ref && !isPass) {
-        this.formItemRefs[ref].classList.add('error');
+      if(this.formItemRefs.hasOwnProperty(itemRef)) {
+        const currFormItem = this.formItemRefs[itemRef];
+        currFormItem.classList.remove('error');
+        if(itemRef == ref && !isPass) {
+          this.formItemRefs[ref].classList.add('error');
+        }
       }
     }
   }
