@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import Input from './input';
 import Selector from '../selector/dropdown-menu';
 import { selectorValuesType } from '../selector/selector';
-import FormControlBasic from './form-control-basic';
+import FormControlBasic from './form-control-basic'; 
 
 /**
  * 选择器 + 输入控件
@@ -68,6 +68,7 @@ export default class InputSelector extends FormControlBasic {
     return (
       <div className="input-selector">
         <Selector
+          needAction={false}
           {...other}
           values={values}
           onChange={this.changeRef}

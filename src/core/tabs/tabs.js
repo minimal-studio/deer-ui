@@ -108,7 +108,9 @@ export default class Tabs extends Component {
           className={"tab-content " + (contentClass) + (isActive ? '' : ' hide')}
           key={tabChild.key || "tab-con-" + idx}
           style={height ? {height} : {}}>
-          {tabChild.props.children || null}
+          {
+            tabChild.props.children
+          }
         </div>
       ) : null;
 

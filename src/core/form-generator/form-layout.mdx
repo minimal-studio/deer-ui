@@ -33,34 +33,30 @@ import FormOptionsDesc from './form-options-demo.md';
 <Playground>
   {
     () => {
+      const radioValues = {
+        value1: 'value1',
+        value2: 'value2',
+        value3: 'value3',
+      }
       const formOptions1 = [
         {
           refs: ['startDate', 'endDate'],
           type: 'datetimeRange',
           title: '日期',
           required: true,
-          range: ['2018-10-10', '2018-10-11']
         },
         {
           ref: 'ref1',
           type: 'radio',
           title: '单选控件',
           defaultValue: 'value2',
-          values: {
-            value1: 'value1',
-            value2: 'value2',
-            value3: 'value3',
-          }
+          values: radioValues
         },
         {
           ref: 'ref2',
           type: 'select',
           title: '选择控件',
-          values: {
-            value1: 'value1',
-            value2: 'value2',
-            value3: 'value3',
-          }
+          values: radioValues
         },
         {
           ref: 'ref3',
@@ -75,11 +71,7 @@ import FormOptionsDesc from './form-options-demo.md';
           ref: 'ref1',
           type: 'radio',
           title: '单选控件',
-          values: {
-            value1: 'value1',
-            value2: 'value2',
-            value3: 'value3',
-          }
+          values: radioValues
         },
         {
           ref: 'test1',
@@ -102,11 +94,7 @@ import FormOptionsDesc from './form-options-demo.md';
           ref: 'ref1',
           type: 'radio',
           title: '单选控件',
-          values: {
-            value1: 'value1',
-            value2: 'value2',
-            value3: 'value3',
-          }
+          values: radioValues
         },
         {
           ref: 'test4',

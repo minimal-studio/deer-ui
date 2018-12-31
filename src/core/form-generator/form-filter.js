@@ -329,17 +329,20 @@ export default class FormFilterHelper extends UkeComponent {
         defaultSelectorIdx={defaultValueForS}
         values={refu}
         inputProps={inputProps}
-        value={this.zeroFilter(this.getValue(ref), '')}
+        value={this.zeroFilter(this.getValue(this.__activeRefU), '')}
         onChange={(val, activeRef) => {
-          Object.keys(refu).map((itemRef) => {
-            /** selector 改变时，需要把其余的清空，确保输出只有一个 */
-            if(activeRef !== itemRef) {
-              delete this.value[itemRef];
-              delete this.requiredRefMapper[itemRef];
-            } else if(required) {
-              this.requiredRefMapper[activeRef] = config.title;
-            }
-          });
+          this.__activeRefU = activeRef;
+          if(!this.value.hasOwnProperty(activeRef)) {
+            Object.keys(refu).map((itemRef) => {
+              /** selector 改变时，需要把其余的清空，确保输出只有一个 */
+              if(activeRef !== itemRef) {
+                delete this.value[itemRef];
+                delete this.requiredRefMapper[itemRef];
+              } else if(required) {
+                this.requiredRefMapper[activeRef] = config.title;
+              }
+            });
+          }
           this.changeValue(val, activeRef);
         }}/>
     );

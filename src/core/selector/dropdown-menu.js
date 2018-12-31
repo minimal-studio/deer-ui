@@ -60,6 +60,8 @@ export default class DropdownMenu extends SelectorBasic {
     isNum: PropTypes.bool,
     /** 是否带搜索输入 */
     withInput: PropTypes.bool,
+    /** 是否需要清楚选择的按钮 */
+    needAction: PropTypes.bool,
     /** 是否多选 */
     isMultiple: PropTypes.bool,
     /** 传入 dropdownMenu 的 style */
@@ -71,6 +73,7 @@ export default class DropdownMenu extends SelectorBasic {
   };
   static defaultProps = {
     withInput: true,
+    needAction: true,
     position: 'bottom,left',
   };
   state = {
@@ -150,7 +153,7 @@ export default class DropdownMenu extends SelectorBasic {
   }
   render() {
     const {
-      style = {}, className = '', isMultiple, withInput, position
+      style = {}, className = '', isMultiple, withInput, position, needAction
     } = this.props;
     const { isShow, searchValue } = this.state;
     const _selectedValue = this.getValue();
@@ -224,11 +227,15 @@ export default class DropdownMenu extends SelectorBasic {
                     ) : null
                   }
                   <div className="action-group">
-                    <div className="action-btn" onClick={e => {
-                      canSelectAll ? this.selectAll() : this.clearAll();
-                    }}>
-                      {this.gm(canSelectAll ? '全选' : '取消')}
-                    </div>
+                    {
+                      needAction && (
+                        <div className="action-btn" onClick={e => {
+                          canSelectAll ? this.selectAll() : this.clearAll();
+                        }}>
+                          {this.gm(canSelectAll ? '全选' : '取消')}
+                        </div>
+                      )
+                    }
                     <div className="items-group">
                       {
                         this.values.map((dataItem, idx) => {

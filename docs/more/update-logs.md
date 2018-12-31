@@ -2,6 +2,11 @@
 
 -----------------
 
+## 2.9.16
+
+- 优化 DropdownMenu，添加是否需要 action 按钮的配置
+- 优化 FormFilter 对于 InputSelector 的支持
+
 ## 2.9.15
 
 - 调整 loading 动画的 zIndex
