@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { UkeComponent } from '../uke-basic';
+import { UkeComponent } from '../uke-utils';
 import { getScreenWidth } from '../utils';
 
 // let SCREEN_WIDTH = document.documentElement.clientWidth;

@@ -1,7 +1,7 @@
 import React, {Component, PureComponent} from 'react';
 import PropTypes from 'prop-types';
 import { Call, RemoveArrayItem, IsFunc } from 'basic-helper';
-import { UkeComponent, UkePureComponent } from '../uke-basic';
+import { UkeComponent, UkePureComponent } from '../uke-utils';
 import FormControlBasic from '../form-control/form-control-basic';
 
 export const selectorValuesType = PropTypes.oneOfType([

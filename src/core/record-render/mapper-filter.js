@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { HasValue, DateFormat, MoneyFormat, IsFunc } from 'basic-helper';
-import { UkeComponent, UkePureComponent } from '../uke-basic';
+import { UkeComponent, UkePureComponent } from '../uke-utils';
 import { ToolTip } from '../tooltip';
 
 const excludeKey = (target, keys) => {

@@ -8,7 +8,7 @@ import { LoadScript } from '../config';
 import { Loading } from '../loading';
 import { ShowGlobalModal, CloseGlobalModal } from '../modal';
 
-import { UkePureComponent } from '../uke-basic';
+import { UkePureComponent } from '../uke-utils';
 
 let croppieUrl = './js/libs/croppie.js';
 

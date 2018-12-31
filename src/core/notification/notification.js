@@ -4,7 +4,7 @@ import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import { EventEmitter, Call } from 'basic-helper';
 import { Icon } from '../icon';
 import positionFilter from '../position-filter';
-import { UkeComponent, UkePureComponent } from '../uke-basic';
+import { UkeComponent, UkePureComponent } from '../uke-utils';
 
 const TRANSFORM_TIMER = 300;
 

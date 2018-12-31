@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Call, DateFormat } from 'basic-helper';
 
-import { UkePureComponent } from '../uke-basic';
+import { UkePureComponent } from '../uke-utils';
 
 export default class DateBaisc extends UkePureComponent {
   static propTypes = {

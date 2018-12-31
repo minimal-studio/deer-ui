@@ -7,7 +7,7 @@ import {
   ShowGlobalModal, CloseGlobalModal
 } from '..';
 
-import { UkeComponent } from '../uke-basic';
+import { UkeComponent } from '../uke-utils';
 
 export default class LinkSelector extends UkeComponent {
   static propTypes = {

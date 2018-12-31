@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Call, CallFunc, IsFunc, HasValue, IsObj } from 'basic-helper';
 
-import { UkeComponent } from '../uke-basic';
+import { UkeComponent } from '../uke-utils';
 
 import { DatetimePicker, DateShortcut } from '../datetimepicker';
 import { Radio, DropdownMenu } from '../selector';

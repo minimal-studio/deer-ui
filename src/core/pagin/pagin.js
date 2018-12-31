@@ -1,6 +1,6 @@
 import React, {Component, PureComponent} from 'react';
 import PropTypes from 'prop-types';
-import { UkeComponent, UkePureComponent } from '../uke-basic';
+import { UkeComponent, UkePureComponent } from '../uke-utils';
 
 export default class Pagination extends UkeComponent {
   static propTypes = {

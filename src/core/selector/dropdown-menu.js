@@ -38,6 +38,10 @@ const itemActiveFilter = (val, targetVal) => {
   }
   return isInclueVal;
 };
+const handleDOMClick = (e) => {
+  console.log(e);
+};
+document.addEventListener('click', handleDOMClick);
 
 /**
  * 下拉菜单组件，带有输入搜索功能
@@ -79,6 +83,9 @@ export default class DropdownMenu extends SelectorBasic {
   state = {
     isShow: false,
     searchValue: '',
+  }
+  handleDOMClick = (e) => {
+    console.log(e);
   }
   showSubMenu(isShow = true) {
     this.setState({

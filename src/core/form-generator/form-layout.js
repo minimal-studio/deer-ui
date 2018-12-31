@@ -9,7 +9,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { UkeComponent, UkePureComponent } from '../uke-basic';
+import { UkeComponent, UkePureComponent } from '../uke-utils';
 import Button from '../button/button-normal';
 import TipPanel from '../tip-panel/tip-panel';
 import Toast from '../toast/toast';

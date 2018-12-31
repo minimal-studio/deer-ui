@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Call } from 'basic-helper';
 
-import { UkeComponent } from '../uke-basic';
+import { UkeComponent } from '../uke-utils';
 import Input from '../form-control/input';
 
 /**
