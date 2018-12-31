@@ -30,11 +30,12 @@ export default class InputSelector extends FormControlBasic {
   constructor(props) {
     super(props);
 
-    const { defaultSelectorIdx, value, values } = props;
+    const { defaultSelectorIdx, value, defaultValue, values } = props;
     this.state = {
       selectRef: defaultSelectorIdx || Object.keys(values)[0],
-      inputVal: value
+      inputVal: this.isControl ? value : defaultValue || ''
     };
+    this.stateValueMark = 'inputVal';
   }
   changeRef = (val) => {
     if(!val) return;
@@ -43,7 +44,7 @@ export default class InputSelector extends FormControlBasic {
     this.setState({
       selectRef: val
     });
-    if(inputVal) this.props.onChange(inputVal, val);
+    this.props.onChange(inputVal, val);
   }
   focus() {
     this._input.focus();
@@ -53,6 +54,7 @@ export default class InputSelector extends FormControlBasic {
       this.setState({
         inputVal: val
       });
+      this.emitChange(this._input.value, this.state.selectRef);
     } else {
       this.emitChange(val, this.state.selectRef);
     }

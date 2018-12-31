@@ -128,6 +128,7 @@ export default class Input extends Component {
     return val;
   }
   changeVal(val, elem) {
+    this.value = val;
     if(!this.isControl) {
       this.setState({
         stateVal: val

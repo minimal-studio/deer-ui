@@ -95,9 +95,9 @@ const formOptions = [
   },
   {
     refu: {
-      value1: '选择1',
-      value2: '选择2',
-      value3: '选择3',
+      refuValue1: '选择1',
+      refuValue2: '选择2',
+      refuValue3: '选择3',
     },
     type: 'input-selector',
     title: '输入选择器, 等于多个输入框',

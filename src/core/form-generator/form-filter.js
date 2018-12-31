@@ -12,6 +12,10 @@ import { ToolTip } from '../tooltip';
 import InputSelector from '../form-control/input-selector';
 import Switch from '../switch-button/switch';
 
+const wrapInputSelectorMarkForRefu = (activeRef) => {
+  return `__isActive${activeRef}`;
+};
+
 /**
  * 表单生成器
  * 统一的聚合表单
@@ -315,27 +319,28 @@ export default class FormFilterHelper extends UkeComponent {
     );
   }
   getInputSelector = (config) => {
-    const { inputProps = {}, defaultValueForS, refu, required, ref, ...other } = config;
+    const { inputProps = {}, defaultValueForS, refu, required, ...other } = config;
     return (
       <InputSelector 
         {...other}
         ref={e => {
           for (const _ref in refu) {
             if(refu.hasOwnProperty(_ref)) {
-              this.saveRef(ref)(e);
+              this.saveRef(_ref)(e);
             }
           }
         }}
         defaultSelectorIdx={defaultValueForS}
         values={refu}
         inputProps={inputProps}
-        value={this.zeroFilter(this.getValue(this.__activeRefU), '')}
+        // value={this.zeroFilter(this.getValue(this[activeMark]), '')}
         onChange={(val, activeRef) => {
-          this.__activeRefU = activeRef;
           if(!this.value.hasOwnProperty(activeRef)) {
             Object.keys(refu).map((itemRef) => {
+              const activeMark = wrapInputSelectorMarkForRefu(activeRef);
               /** selector 改变时，需要把其余的清空，确保输出只有一个 */
-              if(activeRef !== itemRef) {
+              this[activeMark] = activeRef === itemRef;
+              if(!this[activeMark]) {
                 delete this.value[itemRef];
                 delete this.requiredRefMapper[itemRef];
               } else if(required) {

@@ -2,6 +2,10 @@
 
 -----------------
 
+## 2.9.17
+
+- 完善 FormFilter 对于 refu 的 input-selector 的判断机制
+
 ## 2.9.16
 
 - 优化 DropdownMenu，添加是否需要 action 按钮的配置
