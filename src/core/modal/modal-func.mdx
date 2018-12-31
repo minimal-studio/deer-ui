@@ -18,6 +18,9 @@ import { ShowModal, CloseModal, ShowGlobalModal, CloseGlobalModal, CloseAllModal
       onClick={e => ShowModal({
         draggable: false,
         title: '默认的 Modal',
+        onClose: () => {
+          console.log('asd')
+        },
         children: <div className="p20">任意的内容</div>
       })}>
       默认的 Modal

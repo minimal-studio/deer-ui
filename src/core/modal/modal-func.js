@@ -114,8 +114,6 @@ function ShowModal(options) {
   let gm = window.$UKE.getUkeKeyMap;
 
   const {
-    className = 'fixed',
-    topClassName = 'top-modal-opend',
     type, confirmText = gm('确定') + '?', title, showFuncBtn = true,
     width = window.$UKE.isMobile ? '90%' : 600, id, children, draggable,
     onConfirm

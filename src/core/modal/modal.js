@@ -37,9 +37,9 @@ export default class Modal extends DragPanelClass {
     isOpen: PropTypes.bool.isRequired,
     /** 头部插件，传入未事例化的组件 */
     Header: PropTypes.func,
-    /** 关闭 modal 时的回调 */
-    onCloseModal: PropTypes.func.isRequired,
     /** 关闭 modal */
+    onCloseModal: PropTypes.func.isRequired,
+    /** 关闭 modal 时的回调 */
     onClose: PropTypes.func,
     /** 是否使用 esc 按键关闭 modal */
     shouldCloseOnEsc: PropTypes.bool,
@@ -67,21 +67,20 @@ export default class Modal extends DragPanelClass {
   }
   
   componentWillUnmount() {
-    let { topClassName } = this.props;
+    let { topClassName, isOpen } = this.props;
     document.body.classList.remove(topClassName);
+
+    /**
+     * 关闭窗口的 callback
+     */
+    if(isOpen) Call(this.props.onClose);
   }
   
-
   componentDidUpdate(preProps) {
     if(this.props.isOpen !== preProps.isOpen) {
       let { topClassName } = this.props;
       document.body.classList.toggle(topClassName, this.props.isOpen);
       this.setContentFocus();
-
-      /**
-       * 关闭窗口的callback
-       */
-      if(!this.props.isOpen) Call(this.props.onClose);
     }
   }
 

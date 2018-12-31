@@ -2,6 +2,10 @@
 
 -----------------
 
+## 2.9.14
+
+- 完善 Modal 的 onClose 回调
+
 ## 2.9.13
 
 - Selector 组件的 values 改变时再触发一次 changeValue，保证数据的输出的正确性
