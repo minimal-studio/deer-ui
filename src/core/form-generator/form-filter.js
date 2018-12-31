@@ -182,9 +182,6 @@ export default class FormFilterHelper extends UkeComponent {
    * @param {boolean} update 是否更新视图
    */
   changeValue(value, ref, update = true) {
-    setTimeout(() => {
-      console.log(this.value)
-    }, 100);
     if(this.value[ref] === value) return;
     this.value[ref] = value;
     if(update) this.setState({

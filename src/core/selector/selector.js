@@ -45,8 +45,10 @@ export default class SelectorBasic extends FormControlBasic {
   }
   
   shouldComponentUpdate(nextProps, prevState) {
+    /** 当 values 发生改变时，重新计算 this.values, 并且清空 value */
     if(this.props.values != nextProps.values) {
       this.wrapValues(nextProps.values);
+      this.changeValue();
     }
     return true;
   }
