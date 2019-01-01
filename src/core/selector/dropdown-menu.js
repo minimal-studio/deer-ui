@@ -101,7 +101,7 @@ export default class DropdownMenu extends SelectorBasic {
     onClickItem && onClickItem(dataItem);
     this.changeValue(dataItem.value, idx);
     if(!isMultiple) {
-      this.blur();
+      this.hide();
     }
   }
   onSearch(val) {
@@ -182,9 +182,6 @@ export default class DropdownMenu extends SelectorBasic {
             (withInput ? ' input-mode' : '') +
             (isShow ? ' show' : '')
           }
-          onClick={e => {
-            this.showSubMenu();
-          }}
           style={style}>
           <span className="menu-wrapper" 
             onClick={e => {
@@ -193,6 +190,7 @@ export default class DropdownMenu extends SelectorBasic {
               // } else {
               //   this.focusInput();
               // }
+              this.showSubMenu();
               if(!isMultiple) this.focusInput();
             }}>
             <div className="display-title">
