@@ -54,6 +54,7 @@ export default class SelectorBasic extends FormControlBasic {
   }
   
   toArr(target) {
+    if(!target) return target;
     return Array.isArray(target) ? target : [target];
   }
   changeValue(value, idx) {
