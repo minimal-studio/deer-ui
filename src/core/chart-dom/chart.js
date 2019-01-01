@@ -28,11 +28,23 @@ export default class ChartCom extends PureComponent {
     /** ID */
     id: PropTypes.string,
     /** type */
-    type: PropTypes.string
+    type: PropTypes.string,
+    /** type */
+    height: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
+    ]),
+    /** type */
+    width: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
+    ])
   };
   static defaultProps = {
     type: 'line',
-    id: 'ukeChart'
+    id: 'ukeChart',
+    height: '100%',
+    width: '100%',
   };
   constructor(props) {
     super(props);
@@ -94,7 +106,7 @@ export default class ChartCom extends PureComponent {
   }
   render() {
     const { loading } = this.state;
-    const { id } = this.props;
+    const { id, height, width } = this.props;
 
     return (
       <Loading loading={loading}>
@@ -104,7 +116,7 @@ export default class ChartCom extends PureComponent {
           ref={e => {
             this.lineChart = e;
           }}
-          style={{width: '100%', height: '100%'}}/>
+          style={{width, height}}/>
       </Loading>
     );
   }
