@@ -41,6 +41,9 @@ export default class ChartCom extends PureComponent {
       loading: !window.Chart,
     };
   }
+  componentWillUnmount = () => {
+    this.Chart.destroy();
+  }
   loadChart = async (callback) => {
     isLoading = true;
 
@@ -76,11 +79,18 @@ export default class ChartCom extends PureComponent {
     const { data, type, options = {}, id } = this.props;
     // const ctx = document.querySelector(`#${id}`);
     const ctx = this.lineChart;
-    return new window.Chart(ctx, {
-      type,
-      data,
-      options
-    });
+    if(this.Chart) {
+      Object.assign(this.Chart, {
+        data, type, options
+      });
+      this.Chart.update();
+    } else {
+      this.Chart = new window.Chart(ctx, {
+        type,
+        data,
+        options
+      });
+    }
   }
   render() {
     const { loading } = this.state;

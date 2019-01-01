@@ -5,6 +5,8 @@ menu: Components / 组件
 ---
 
 import { Playground, PropsTable } from 'docz'
+import { Random } from 'basic-helper'
+import { State, Toggle } from 'react-powerplug'
 import { ChartCom } from './';
 import { Grid } from '../grid';
 
@@ -17,12 +19,19 @@ import { Grid } from '../grid';
 <Playground style={{height: '100%'}}>
   {
     () => {
-      ChartCom.setChartJSPath('https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.4/Chart.bundle.min.js');
-      const mockData = {
+      ChartCom.setChartJSPath('https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.min.js');
+      const getMockData = () => ({
         labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
         datasets: [{
           label: '# of Votes',
-          data: [12, 19, 3, 5, 2, 3],
+          data: [
+            Random([0, 20]),
+            Random([0, 20]),
+            Random([0, 20]),
+            Random([0, 20]),
+            Random([0, 20]),
+            Random([0, 20])
+          ],
           backgroundColor: [
             'rgba(255, 99, 132, 0.2)',
             'rgba(54, 162, 235, 0.2)',
@@ -41,7 +50,7 @@ import { Grid } from '../grid';
           ],
           borderWidth: 1
         }]
-      };
+      });
       const options = {
         scales: {
           yAxes: [{
@@ -55,12 +64,15 @@ import { Grid } from '../grid';
       let chartDOM2;
       let chartDOM3;
       let chartDOM4;
-      setTimeout(() => {
-        chartDOM1.renderChart();
-        chartDOM2.renderChart();
-        chartDOM3.renderChart();
-        chartDOM4.renderChart();
-      }, 15)
+      const renderChart = () => {
+        setTimeout(() => {
+          chartDOM1.renderChart();
+          chartDOM2.renderChart();
+          chartDOM3.renderChart();
+          chartDOM4.renderChart();
+        }, 15)
+      }
+      renderChart();
       {/* setTimeout(() => {
         chartDOM1.renderChart();
       }, 15)
@@ -74,36 +86,54 @@ import { Grid } from '../grid';
         chartDOM4.renderChart();
       }, 15) */}
       return (
-        <Grid container className="p10" space={20}>
-          <Grid lg={6}>
-            <ChartCom
-              type="bar"
-              id="chartDOM1"
-              options={options}
-              data={mockData} ref={e => chartDOM1 = e} />
-          </Grid>
-          <Grid lg={6}>
-            <ChartCom
-              type="line"
-              id="chartDOM2"
-              options={options}
-              data={mockData} ref={e => chartDOM2 = e} />
-          </Grid>
-          <Grid lg={6}>
-            <ChartCom
-              type="radar"
-              id="chartDOM3"
-              options={options}
-              data={mockData} ref={e => chartDOM3 = e} />
-          </Grid>
-          <Grid lg={6}>
-            <ChartCom
-              type="pie"
-              id="chartDOM4"
-              options={options}
-              data={mockData} ref={e => chartDOM4 = e} />
-          </Grid>
-        </Grid>
+        <State initial={{
+          mockData: getMockData(),
+        }}>
+          {
+            ({ state, setState }) => {
+              const { mockData } = state;
+              return (
+                <Grid container className="p10" space={20}>
+                  <Grid lg={6}>
+                    <ChartCom
+                      type="bar"
+                      id="chartDOM1"
+                      options={options}
+                      data={mockData} ref={e => chartDOM1 = e} />
+                  </Grid>
+                  <Grid lg={6}>
+                    <ChartCom
+                      type="line"
+                      id="chartDOM2"
+                      options={options}
+                      data={mockData} ref={e => chartDOM2 = e} />
+                  </Grid>
+                  <Grid lg={6}>
+                    <ChartCom
+                      type="radar"
+                      id="chartDOM3"
+                      options={options}
+                      data={mockData} ref={e => chartDOM3 = e} />
+                  </Grid>
+                  <Grid lg={6}>
+                    <ChartCom
+                      type="pie"
+                      id="chartDOM4"
+                      options={options}
+                      data={mockData} ref={e => chartDOM4 = e} />
+                  </Grid>
+                  <Grid lg={6}>
+                    <span className="btn theme" onClick={e => {
+                      setState({
+                        mockData: getMockData()
+                      }, renderChart())
+                    }}>重新渲染</span>
+                  </Grid>
+                </Grid>
+              )
+            }
+          }
+        </State>
       )
     }
   }

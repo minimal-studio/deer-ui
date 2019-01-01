@@ -142,11 +142,11 @@ export default class DropdownMenu extends SelectorBasic {
     const { values } = this;
     return Array.isArray(values) ? values.length : Object.keys(values).length;
   }
-  handleChange = (val) => {
-    const { isMultiple, onChange } = this.props;
-    if(isMultiple) this.focusInput();
-    onChange(val);
-  }
+  // handleChange = (val) => {
+  //   const { isMultiple, onChange } = this.props;
+  //   if(isMultiple) this.focusInput();
+  //   onChange(val);
+  // }
   hide = (isShow = false) => {
     this.setState({
       isShow,

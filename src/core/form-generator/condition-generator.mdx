@@ -16,57 +16,74 @@ import { ConditionGenerator } from './';
     () => {
       let domRef;
       return (
-        <ConditionGenerator
-          ref={e => domRef = e}
-          onChange={(values, ref, val) => {
-            if(ref === 'ref1') {
-              domRef.changeValue(val, 'ref_for_input')
-            }
-          }}
-          conditionConfig={[
-            {
-              refs: ['startDate', 'endDate'],
-              type: 'datetimeRange',
-              title: '时间',
-            },
-            {
-              ref: 'ref1',
-              type: 'radio',
-              title: '单选控件',
-              values: {
-                value1: 'value1',
-                value2: 'value2',
-                value3: 'value3',
+        <div>
+          <ConditionGenerator
+            ref={e => domRef = e}
+            onChange={(values, ref, val) => {
+              console.log(values)
+              if(ref === 'ref1') {
+                domRef.changeValue(val, 'ref_for_input')
               }
-            },
-            {
-              ref: 'ref_for_input',
-              refForS: 'ref_for_selector',
-              type: 'input-selector-s',
-              title: '选择输入框',
-              values: {
-                value1: 'value1',
-                value2: 'value2',
-                value3: 'value3',
-              }
-            },
-            {
-              ref: 'ref2',
-              type: 'select',
-              title: '选择控件',
-              values: {
-                value1: 'value1',
-                value2: 'value2',
-                value3: 'value3',
-              }
-            },
-            {
-              refs: ['s', 'e'],
-              type: 'input-range',
-              title: '范围',
-              range: [0, 10]
-            },
-          ]}/>
+            }}
+            conditionConfig={[
+              {
+                refs: ['startDate', 'endDate'],
+                type: 'datetimeRange',
+                title: '时间',
+              },
+              {
+                ref: 'ref1',
+                type: 'radio',
+                title: '单选控件',
+                values: {
+                  value1: 'value1',
+                  value2: 'value2',
+                  value3: 'value3',
+                }
+              },
+              {
+                ref: 'refSelector',
+                type: 'select',
+                title: '多选控件',
+                isMultiple: true,
+                isNum: true,
+                defaultValue: [1, 2],
+                values: {
+                  1: 'value1',
+                  2: 'value2',
+                  3: 'value3',
+                }
+              },
+              {
+                ref: 'ref_for_input',
+                refForS: 'ref_for_selector',
+                type: 'input-selector-s',
+                title: '选择输入框',
+                values: {
+                  value1: 'value1',
+                  value2: 'value2',
+                  value3: 'value3',
+                }
+              },
+              {
+                ref: 'ref2',
+                type: 'select',
+                title: '选择控件',
+                values: {
+                  value1: 'value1',
+                  value2: 'value2',
+                  value3: 'value3',
+                }
+              },
+              {
+                refs: ['s', 'e'],
+                type: 'input-range',
+                title: '范围',
+                range: [0, 10]
+              },
+            ]}/>
+          <span onClick={e => console.log(domRef.value)} className="theme btn flat">查看查询条件的值</span>
+        </div>
       )
     }
   }
