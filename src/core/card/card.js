@@ -5,7 +5,7 @@ const Card = ({ children, className, style, p = 0.1 }) => {
   return (
     <div 
       style={{
-        style,
+        ...style,
         padding: p
       }}
       className={"card " + (className ? ' ' + className : '')}>
