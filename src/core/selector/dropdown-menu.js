@@ -7,6 +7,7 @@ import { HasValue } from 'basic-helper';
 import positionFilter from '../position-filter';
 import SelectorBasic, { selectorValuesType } from './selector';
 import { Icon } from '../icon';
+import ClickAway from '../uke-utils/click-away';
 
 const MenuItem = ({isActive, text, icon, ...other}) => {
   return (
@@ -38,10 +39,6 @@ const itemActiveFilter = (val, targetVal) => {
   }
   return isInclueVal;
 };
-const handleDOMClick = (e) => {
-  console.log(e);
-};
-document.addEventListener('click', handleDOMClick);
 
 /**
  * 下拉菜单组件，带有输入搜索功能
@@ -91,9 +88,6 @@ export default class DropdownMenu extends SelectorBasic {
     this.setState({
       isShow,
     });
-  }
-  hideSubMenu() {
-    this.showSubMenu(false);
   }
   // emitChange(...args) {
   //   const {isMultiple, onChange} = this.props;
@@ -152,11 +146,17 @@ export default class DropdownMenu extends SelectorBasic {
     if(isMultiple) this.focusInput();
     onChange(val);
   }
-  blur(isShow = false) {
+  hide = (isShow = false) => {
     this.setState({
       isShow,
       searchValue: ''
     });
+  }
+  blur = () => {
+    // this.hide();
+  }
+  handleClickAway = () => {
+    this.hide();
   }
   render() {
     const {
@@ -171,106 +171,106 @@ export default class DropdownMenu extends SelectorBasic {
     const _position = positionFilter(position);
 
     return (
-      <div
-        className={
-          "uke-dropdown-menu " +
-          (this._error ? 'error ' : '') + 
-          _position + ' ' +
-          (className ? ' ' + className : '') +
-          (isMultiple ? ' multiple' : ' single') +
-          (withInput ? ' input-mode' : '') +
-          (isShow ? ' show' : '')
-        }
-        style={style}>
-        <span className="menu-wrapper" 
-          onClick={e => {
-            if(isMultiple) {
-              this.showSubMenu();
-            } else {
-              this.focusInput();
-            }
-          }}>
-          <div className="display-title">
-            {activeTitle}
-          </div>
-          {
-            isMultiple ? null : (
-              <input type="text" 
-                ref={_i => {
-                  if(_i) this._input = _i;
-                }}
-                placeholder={activeTitle}
-                value={searchValue}
-                className="search-input"
-                onBlur={e => this.blur()}
-                onFocus={e => this.showSubMenu()}
-                onChange={e => {
-                  this.onSearch(e.target.value);
-                }}/>
-            )
+      <ClickAway onClickAway={this.handleClickAway}>
+        <div
+          className={
+            "uke-dropdown-menu " +
+            (this._error ? 'error ' : '') + 
+            _position + ' ' +
+            (className ? ' ' + className : '') +
+            (isMultiple ? ' multiple' : ' single') +
+            (withInput ? ' input-mode' : '') +
+            (isShow ? ' show' : '')
           }
-          <div className="icon-wrap">
-            <Icon n="angle-down" />
-          </div>
-        </span>
-        {/* <div className="drop-tip">
-        </div> */}
-        <TransitionGroup component={null}>
-          <CSSTransition
-            key={isShow ? 'opened' : 'none'}
-            classNames="drop-menu"
-            timeout={200}>
+          onClick={e => {
+            this.showSubMenu();
+          }}
+          style={style}>
+          <span className="menu-wrapper" 
+            onClick={e => {
+              // if(isMultiple) {
+              //   this.showSubMenu();
+              // } else {
+              //   this.focusInput();
+              // }
+              if(!isMultiple) this.focusInput();
+            }}>
+            <div className="display-title">
+              {activeTitle}
+            </div>
             {
-              isShow ? (
-                <div className={
-                  "dropdown-items " + 
-                  _position
-                }>
-                  <span className="caret" />
-                  {
-                    isMultiple ? (
-                      <div onClick={e => this.hideSubMenu()} 
-                        className="section-mark" />
-                    ) : null
-                  }
-                  <div className="action-group">
-                    {
-                      needAction && (
-                        <div className="action-btn" onClick={e => {
-                          canSelectAll ? this.selectAll() : this.clearAll();
-                        }}>
-                          {this.gm(canSelectAll ? '全选' : '取消')}
-                        </div>
-                      )
-                    }
-                    <div className="items-group">
+              isMultiple ? null : (
+                <input type="text" 
+                  ref={_i => {
+                    if(_i) this._input = _i;
+                  }}
+                  placeholder={activeTitle}
+                  value={searchValue}
+                  className="search-input"
+                  // onBlur={this.blur}
+                  // onFocus={e => this.showSubMenu()}
+                  onChange={e => {
+                    this.onSearch(e.target.value);
+                  }}/>
+              )
+            }
+            <div className="icon-wrap">
+              <Icon n="angle-down" />
+            </div>
+          </span>
+          {/* <div className="drop-tip">
+          </div> */}
+          <TransitionGroup component={null}>
+            <CSSTransition
+              key={isShow ? 'opened' : 'none'}
+              classNames="drop-menu"
+              timeout={200}>
+              {
+                isShow ? (
+                  <div className={
+                    "dropdown-items " + 
+                    _position
+                  }>
+                    <span className="caret" />
+                    <div className="action-group">
                       {
-                        this.values.map((dataItem, idx) => {
-                          const { text, value, icon, img } = dataItem;
-  
-                          const isActive = itemActiveFilter(_selectedValue, value);
-                          // HasValue(_selectedValue) && (_selectedValue + '').indexOf(value) > -1;
-                          let renderable = !searchValue ? true : (text.indexOf(searchValue) != -1 || value.toLowerCase().indexOf(searchValue) != -1);
-  
-                          return renderable ? (
-                            <MenuItem
-                              key={value}
-                              isActive={isActive}
-                              onClick={e => {
-                                this.handleClick(dataItem, idx);
-                              }}
-                              {...dataItem}/>
-                          ) : null;
-                        })
+                        needAction && (
+                          <div className="action-btn" onClick={e => {
+                            canSelectAll ? this.selectAll() : this.clearAll();
+                          }}>
+                            {this.gm(canSelectAll ? '全选' : '取消')}
+                          </div>
+                        )
                       }
+                      <div className="items-group">
+                        {
+                          this.values.map((dataItem, idx) => {
+                            const { text, value, icon, img } = dataItem;
+    
+                            const isActive = itemActiveFilter(_selectedValue, value);
+                            // HasValue(_selectedValue) && (_selectedValue + '').indexOf(value) > -1;
+                            let renderable = !searchValue ? true : (text.indexOf(searchValue) != -1 || value.toLowerCase().indexOf(searchValue) != -1);
+    
+                            return renderable ? (
+                              <MenuItem
+                                key={value}
+                                isActive={isActive}
+                                onClick={e => {
+                                  this.handleClick(dataItem, idx);
+                                }}
+                                {...dataItem}/>
+                            ) : null;
+                          })
+                        }
+                      </div>
                     </div>
                   </div>
-                </div>
-              ) : <span />
-            }
-          </CSSTransition>
-        </TransitionGroup>
-      </div>
+                ) : <span />
+              }
+            </CSSTransition>
+          </TransitionGroup>
+        </div>
+      </ClickAway>
     );
   }
 }

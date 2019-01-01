@@ -126,7 +126,7 @@ export default class FormLayout extends UkeComponent {
     const { isPass, desc, ref } = this.formHelper.checkForm();
     if(!isPass) {
       this.showResDesc({
-        resDesc: desc + this.gm('必须'),
+        resDesc: desc + this.gm('必填|选'),
         hasErr: true
       });
     }
