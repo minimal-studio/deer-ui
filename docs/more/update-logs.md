@@ -2,6 +2,10 @@
 
 -----------------
 
+## 2.9.21
+
+- 优化 DropdownMenu 对于 multiple 模式下的默认值的设置
+
 ## 2.9.20
 
 - 升级 BasicHelper

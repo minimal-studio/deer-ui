@@ -78,6 +78,7 @@ export default class DropdownMenu extends SelectorBasic {
     position: 'bottom,left',
   };
   state = {
+    ...this.state,
     isShow: false,
     searchValue: '',
   }
@@ -156,7 +157,7 @@ export default class DropdownMenu extends SelectorBasic {
     // this.hide();
   }
   handleClickAway = () => {
-    this.hide();
+    if(this.state.isShow) this.hide();
   }
   render() {
     const {

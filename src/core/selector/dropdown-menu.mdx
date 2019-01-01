@@ -63,7 +63,7 @@ import { DropdownMenu } from './';
                         })
                       }}
                       isMultiple={true}
-                      value={valueMul}
+                      defaultValue={['value1', 'value2']}
                       values={values}
                     />
                     <span className="ml10">多选的实际的值 {valueMul.join(',')}</span>
@@ -124,6 +124,57 @@ import { DropdownMenu } from './';
                       value={'123'}
                       values={values}
                     />
+                  </div>
+                </div>
+              )
+            }
+          }
+        </State>
+      )
+    }
+  }
+</Playground>
+
+## 传入 defaultValue 给 isMultople 的下拉菜单
+
+<Playground>
+  {
+    () => {
+      const values = {
+        value1: '显示的值1',
+        value2: '显示的值2',
+        value3: '显示的值3',
+      }
+      const values2 = {
+        1: '数字1',
+        2: '数字2',
+        3: '数字3',
+      }
+      let dropdown, dropdownMul;
+      return (
+        <State initial={{
+          value: 'value1',
+          valueMul: [],
+          valueMul2: [],
+        }}>
+          {
+            ({ state, setState }) => {
+              const { value, valueMul, valueMul2 } = state;
+              return (
+                <div>
+                  <div className="mu10">
+                    <DropdownMenu
+                      ref={e => dropdownMul = e}
+                      onChange={val => {
+                        setState({
+                          valueMul: val
+                        })
+                      }}
+                      isMultiple={true}
+                      defaultValue={['value1', 'value2']}
+                      values={values}
+                    />
+                    <span className="ml10">多选的实际的值 {valueMul.join(',')}</span>
                   </div>
                 </div>
               )

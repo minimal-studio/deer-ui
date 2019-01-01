@@ -31,14 +31,14 @@ export default class SelectorBasic extends FormControlBasic {
   constructor(props) {
     super(props);
 
-    const { value, defaultValue, isMultiple } = props;
+    const { value, defaultValue } = props;
 
     // 受控模式, 详情请查看 react control form
     // selectedValue = [...values];
     // value 结构: ['values.value']
-    this.value = value || defaultValue;
+    this.value = this.toArr(value || defaultValue);
     this.state = {
-      selectedValue: this.toArr(this.value),
+      selectedValue: this.value,
     };
 
     this.wrapValues();
@@ -119,6 +119,7 @@ export default class SelectorBasic extends FormControlBasic {
       this.setState({
         selectedValue: nextValue,
       });
+      this.value = nextValue;
     }
   }
   emitChange(...args) {

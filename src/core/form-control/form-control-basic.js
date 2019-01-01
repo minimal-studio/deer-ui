@@ -17,7 +17,6 @@ export default class FormControlBasic extends UkeComponent {
     this.stateValueMark = 'selectedValue';
   }
   getValue(stateValueMark = this.stateValueMark) {
-    // return this.state.selectedValue;
     return this.isControl ? this.props.value : this.state[stateValueMark];
   }
 }
