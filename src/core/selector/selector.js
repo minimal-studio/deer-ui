@@ -1,6 +1,6 @@
 import React, {Component, PureComponent} from 'react';
 import PropTypes from 'prop-types';
-import { Call, RemoveArrayItem, IsFunc } from 'basic-helper';
+import { Call, RemoveArrayItem, IsFunc, HasValue } from 'basic-helper';
 import { UkeComponent, UkePureComponent } from '../uke-utils';
 import FormControlBasic from '../form-control/form-control-basic';
 
@@ -36,7 +36,7 @@ export default class SelectorBasic extends FormControlBasic {
     // 受控模式, 详情请查看 react control form
     // selectedValue = [...values];
     // value 结构: ['values.value']
-    this.value = this.toArr(value || defaultValue);
+    this.value = this.toArr(HasValue(value) ? value : defaultValue);
     this.state = {
       selectedValue: this.value,
     };
@@ -54,7 +54,7 @@ export default class SelectorBasic extends FormControlBasic {
   }
   
   toArr(target) {
-    if(!target) return target;
+    if(!HasValue(target)) return target;
     return Array.isArray(target) ? target : [target];
   }
   changeValue(value, idx) {

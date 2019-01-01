@@ -25,6 +25,7 @@ import { DropdownMenu } from './';
         value3: '显示的值3',
       }
       const values2 = {
+        0: '数字0',
         1: '数字1',
         2: '数字2',
         3: '数字3',
@@ -77,7 +78,7 @@ import { DropdownMenu } from './';
                       }}
                       isMultiple={true}
                       isNum={true}
-                      value={valueMul2}
+                      defaultValue={[1, 0]}
                       values={values2}
                     />
                     <span className="ml10">多选的实际的值 {valueMul2.join(',')}</span>
