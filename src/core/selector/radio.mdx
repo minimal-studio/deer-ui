@@ -18,6 +18,20 @@ import { Radio } from './';
   {
     () => {
       let radio1, radio2, radio3;
+      const values1 = {
+        value1: '显示的值1',
+        value2: '显示的值2',
+        value3: '显示的值3',
+      }
+      const values2 = {
+        value1: (
+          <h1>标题</h1>
+        ),
+        value2: (
+          <img src="http://www.ray-joy.com/UploadFiles/clubfiles/2013-07/201307281047259067.jpg"/>
+        ),
+        value3: '显示的值3',
+      }
       return (
         <State initial={{
           value: 'value1',
@@ -38,11 +52,7 @@ import { Radio } from './';
                     }}
                     isMultiple
                     value={valueMul}
-                    values={{
-                      value1: '显示的值1',
-                      value2: '显示的值2',
-                      value3: '显示的值3',
-                    }}
+                    values={values1}
                   />
                   <span className="mr10">实际的值 {value}</span>
                   <Radio
@@ -54,11 +64,7 @@ import { Radio } from './';
                       })
                     }}
                     value={value}
-                    values={{
-                      value1: '显示的值1',
-                      value2: '显示的值2',
-                      value3: '显示的值3',
-                    }}
+                    values={values1}
                   />
                   <div>
                     <div className="mu10">可以通过 ref 来改变 Radio 的值</div>
@@ -78,15 +84,7 @@ import { Radio } from './';
                       border: '1px solid #EEE',
                       maxWidth: 100
                     }}
-                    values={{
-                      value1: (
-                        <h1>标题</h1>
-                      ),
-                      value2: (
-                        <img src="http://www.ray-joy.com/UploadFiles/clubfiles/2013-07/201307281047259067.jpg"/>
-                      ),
-                      value3: '显示的值3',
-                    }}
+                    values={values2}
                   />
                 </div>
               )

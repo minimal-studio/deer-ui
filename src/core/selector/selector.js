@@ -17,6 +17,22 @@ export const selectorValuesType = PropTypes.oneOfType([
   )
 ]);
 
+const checkValuesIsEqual = (value1, value2) => {
+  let res;
+  if(Array.isArray(value1)) {
+    res = value1.length === value2.length;
+  } else {
+    const valObj1 = Object.keys(value1);
+    const valObj2 = Object.keys(value2);
+    if(valObj1.length !== valObj2.length) {
+      res = false;
+    } else {
+      res = JSON.stringify(valObj1) === JSON.stringify(valObj2);
+    }
+  }
+  return res;
+};
+
 export default class SelectorBasic extends FormControlBasic {
   static propTypes = {
     values: selectorValuesType.isRequired,
@@ -46,7 +62,7 @@ export default class SelectorBasic extends FormControlBasic {
   
   shouldComponentUpdate(nextProps, prevState) {
     /** 当 values 发生改变时，重新计算 this.values, 并且清空 value */
-    if(this.props.values != nextProps.values) {
+    if(!checkValuesIsEqual(this.props.values, nextProps.values)) {
       this.wrapValues(nextProps.values);
       this.changeValue();
     }
