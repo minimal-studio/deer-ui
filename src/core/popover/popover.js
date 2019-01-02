@@ -164,7 +164,6 @@ export default class Popover extends Component {
   // }
   componentDidUpdate(prevProps, prevState) {
     this.setContentFocus();
-    console.log(this.props);
     // const popover = this.popoverDOM || {};
     // const { offsetWidth, offsetHeight } = popover;
     if(prevState.childrenChange) {

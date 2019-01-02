@@ -60,21 +60,24 @@ export default class SelectorBasic extends FormControlBasic {
   changeValue(value, idx) {
     const { isNum, isMultiple } = this.props;
     if(isNum) value = +value;
-    const selectedValue = this.getValue();
+    if(HasValue(value)) {
+      const selectedValue = this.getValue();
+      let nextValue = [];
 
-    let nextValue = [];
-    if(isMultiple) {
-      nextValue = selectedValue || [];
-      if(nextValue.indexOf(value) > -1) {
-        nextValue = RemoveArrayItem(nextValue, value);
+      if(isMultiple) {
+        nextValue = selectedValue || [];
+        if(nextValue.indexOf(value) > -1) {
+          nextValue = RemoveArrayItem(nextValue, value);
+        } else {
+          nextValue.push(value);
+        }
       } else {
-        nextValue.push(value);
+        nextValue = [value];
       }
+      this.changeEvent(nextValue, {prevVal: selectedValue, idx});
     } else {
-      nextValue = [value];
+      this.emitChange();
     }
-
-    this.changeEvent(nextValue, {prevVal: selectedValue, idx});
   }
   wrapValues(values = this.props.values) {
     let isArrayValues = Array.isArray(values);

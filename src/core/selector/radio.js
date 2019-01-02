@@ -26,6 +26,7 @@ export default class Radio extends SelectorBasic {
     defaultValue: PropTypes.oneOfType([
       PropTypes.string,
       PropTypes.number,
+      PropTypes.array,
     ]),
     /** 受控组件的 value */
     value: PropTypes.oneOfType([
