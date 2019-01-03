@@ -70,8 +70,11 @@ export default class DatetimePicker extends DateBasic {
       this.datepicker.setDate(this.props.value, false);
     }
   }
+  componentWillUnmount() {
+    if(this.datepicker) this.datepicker.destroy();
+  }
   initPicker() {
-    const { mode, needTime, enableTime, lang, defaultTimes, ...others } = this.props;
+    const { mode, needTime, enableTime, lang, defaultTimes, onChange, ...others } = this.props;
 
     this.datepicker = new Flatpickr(this._refs[this._id], {
       ...others,
@@ -94,16 +97,12 @@ export default class DatetimePicker extends DateBasic {
       defaultDate: this.value
     });
   }
-  componentWillUnmount() {
-    if(this.datepicker) this.datepicker.destroy();
-  }
   changeDate(val) {
     const id = this._id;
     /** 继承 DateBasic 获取的 emitChangeValue 统一处理过滤并广播的 value 接口 */
     const emitVal = this.emitChangeValue(val);
     this.value = emitVal;
     this._refs[id].blur && this._refs[id].blur();
-    // Call(onChange, emitVal);
   }
   render() {
     return (
@@ -113,7 +112,8 @@ export default class DatetimePicker extends DateBasic {
           className="form-control input-sm"
           id={this._id}
           ref={e => this._refs[this._id] = e}
-          onChange={e => this.changeDate()}/>
+          // onChange={e => this.changeDate()}
+        />
         <Icon n="date" data-toggle
           onClick={e => {
             (this.datepicker ? this.datepicker.toggle : function(){})();

@@ -21,17 +21,19 @@ export default class DateBaisc extends UkePureComponent {
 
     /** 确保只有一个值的时候的时分秒为 23:59:59 */
     let emitVal = Array.isArray(val) ? val : [null, val];
-    if(enableTime) return emitVal;
-    
     let resVal = [];
+    if(enableTime) {
+      resVal = emitVal;
+    } else {
     
-    emitVal.forEach((_val, idx) => {
-      if(!_val) return;
-      let res = DateFormat(_val, this.dateFormat) + (needTime ? ' ' + defaultTimes[idx] : '');
-      resVal.push(outputAsString ? res : new Date(res));
-    });
-
-    resVal = resVal.length === 1 ? resVal[0] : resVal;
+      emitVal.forEach((_val, idx) => {
+        if(!_val) return;
+        let res = DateFormat(_val, this.dateFormat) + (needTime ? ' ' + defaultTimes[idx] : '');
+        resVal.push(outputAsString ? res : new Date(res));
+      });
+  
+      resVal = resVal.length === 1 ? resVal[0] : resVal;
+    }
 
     Call(onChange, resVal);
 

@@ -5,6 +5,7 @@ menu: Form / 表单
 ---
 
 import { Playground, PropsTable } from 'docz'
+import { State, Toggle } from 'react-powerplug'
 import { DatetimePicker } from './';
 
 # DatetimePicker
@@ -12,31 +13,58 @@ import { DatetimePicker } from './';
 <PropsTable of={DatetimePicker} />
 
 <Playground>
-  默认，输出时间对象
-  <DatetimePicker
-    onChange={e => {
-      console.log(e)  
-    }} />
-  <hr/>
-  输出字符串对象
-  <DatetimePicker
-    outputAsString={true}
-    onChange={e => {
-      console.log(e)  
-    }} />
-  <hr/>
-  输出字符串对象, 不带时分秒
-  <DatetimePicker
-    outputAsString={true}
-    needTime={false}
-    onChange={e => {
-      console.log(e)  
-    }} />
-  <hr/>
-  时间范围 + 选择时分秒
-  <DatetimePicker
-    needTime={true}
-    enableTime={true}
-    mode="range"
-    onChange={e => console.log(e)} />
+  <State initial={{
+    date1: '',
+    date2: '',
+    date3: '',
+    date4: '',
+  }}>
+    {
+      ({ state, setState }) => {
+        const { date1, date2, date3, date4 } = state;
+        return (
+          <div>
+            默认，输出时间对象 {date1.toString()}
+            <DatetimePicker
+              onChange={e => {
+                console.log(e)
+                setState({
+                  date1: e
+                })
+              }} />
+            <hr/>
+            输出字符串对象 {date2.toString()}
+            <DatetimePicker
+              outputAsString={true}
+              onChange={e => {
+                setState({
+                  date2: e
+                })
+              }} />
+            <hr/>
+            输出字符串对象, 不带时分秒 {date3.toString()}
+            <DatetimePicker
+              outputAsString={true}
+              needTime={false}
+              onChange={e => {
+                setState({
+                  date3: e
+                })
+              }} />
+            <hr/>
+            时间范围 + 选择时分秒 {date4.toString()}
+            <DatetimePicker
+              needTime={true}
+              enableTime={true}
+              mode="range"
+              onChange={e => {
+                setState({
+                  date4: e
+                })
+              }} />
+          </div>
+        )
+      }
+    }
+  </State>
 </Playground>
