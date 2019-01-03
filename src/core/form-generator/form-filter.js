@@ -450,7 +450,7 @@ export default class FormFilterHelper extends UkeComponent {
   getDatetimeRange = (config) => {
     let { ref, range, refs, ...other } = config;
     let [refS, refE] = refs;
-    let datetimeRangeRef = refS[0] + 'datetimeRangeRef';
+    let datetimeRangeRef = refs[0] + 'datetimeRangeRef';
 
     const changeDateValues = (vals) => {
       this.changeValues({

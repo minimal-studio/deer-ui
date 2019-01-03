@@ -2,6 +2,10 @@
 
 -----------------
 
+## 2.9.31
+
+- 修复 DatePicker 的问题
+
 ## 2.9.30
 
 - 优化 FormFilter 对 getFormOptions 的判断

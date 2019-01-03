@@ -11,9 +11,16 @@ const formOptions = [
   {
     refs: ['startDate', 'endDate'],
     type: 'datetimeRange',
-    title: '日期',
+    title: '日期1',
     tips: '123',
-    defaultValue: ['2018-10-10', '2018-10-11']
+    defaultValue: []
+  },
+  {
+    refs: ['startDate2', 'endDate2'],
+    type: 'datetimeRange',
+    title: '日期2',
+    tips: '123',
+    defaultValue: []
   },
   {
     ref: 'ref1',
