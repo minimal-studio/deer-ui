@@ -2,6 +2,10 @@
 
 -----------------
 
+## 2.9.30
+
+- 优化 FormFilter 对 getFormOptions 的判断
+
 ## 2.9.29
 
 - 优化 Modal 的实现

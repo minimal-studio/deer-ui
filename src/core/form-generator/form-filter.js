@@ -33,7 +33,8 @@ export default class FormFilterHelper extends UkeComponent {
 
     this.initValues(props);
   }
-  getFormOptions(props) {
+  getFormOptions(props = this.props) {
+    if(!props) return [];
     return props.formOptions || props.conditionConfig;
   }
   componentWillUnmount() {
