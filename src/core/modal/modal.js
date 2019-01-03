@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { Call, IsFunc } from 'basic-helper';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import { DragPanelClass } from './drag-pabel-helper';
+import { Icon } from '../icon';
 
 const ESC_KEY = 27;
 
@@ -21,6 +22,10 @@ export default class Modal extends DragPanelClass {
     idx: PropTypes.oneOfType([
       PropTypes.string, PropTypes.number
     ]),
+    /** 用于嵌入 Modal 之中的模版 */
+    template: PropTypes.func,
+    /** 是否需要动画效果 */
+    animation: PropTypes.bool,
     /** class name */
     className: PropTypes.string,
     /** 当 modal 打开是，在 body 挂载的 class name */
@@ -49,6 +54,7 @@ export default class Modal extends DragPanelClass {
   static defaultProps = {
     shouldCloseOnEsc: true,
     showCloseBtn: true,
+    animation: true,
     needMask: true,
     clickBgToClose: false,
     draggable: false,
@@ -64,6 +70,10 @@ export default class Modal extends DragPanelClass {
 
   componentDidMount() {
     this.setContentFocus();
+  }
+
+  shouldComponentUpdate(nextProps, nextState, nextContext) {
+    return this.props != nextProps || this.state != nextState;
   }
   
   componentWillUnmount() {
@@ -106,11 +116,17 @@ export default class Modal extends DragPanelClass {
     }
   }
 
+  wrapPropsForTMPL = () => {
+    return {
+      ...this.props
+    };
+  }
+
   render() {
     const {
-      children, title, isOpen, animateType, selectWindow, sectionId,
-      width, style, className, modalLayoutDOM, duration, id, 
-      clickBgToClose, showCloseBtn, Header, needMask, draggable, 
+      children, title, isOpen, animateType, selectWindow, sectionId, idx,
+      width, style, className, modalLayoutDOM, duration, id, template,
+      clickBgToClose, showCloseBtn, Header, needMask, draggable, animation,
       onCloseModal, maxHeightable,
     } = this.props;
 
@@ -121,7 +137,8 @@ export default class Modal extends DragPanelClass {
 
     const closeBtnDOM = showCloseBtn ? (
       <span className="close-btn"
-        onClick={e => onCloseModal()}>x
+        onClick={e => onCloseModal()}>
+        <Icon n="close" />
       </span>
     ) : null;
 
@@ -132,10 +149,11 @@ export default class Modal extends DragPanelClass {
 
     const transitionKey = isOpen ? 'modal-open' : 'modal-close';
     
-    const sections = isOpen ? (
+    const sections = isOpen ? IsFunc(template) ? template(this.wrapPropsForTMPL()) : (
       <div className={'uke-modal-container ' + classNames + ' idx-' + modalIdx}
         onMouseDown={e => {
-          selectWindow && selectWindow(id);
+          /** 用于判断是否通过 ShowModal 打开的 Modal，如果有 idx != 0 的时候才触发选择窗口 */
+          idx && selectWindow && selectWindow(id);
         }}>
         <div className="animate-layout">
           {
@@ -179,7 +197,7 @@ export default class Modal extends DragPanelClass {
       </div>
     ) : <span />;
 
-    return (
+    return animation ? (
       <TransitionGroup component={null}>
         <CSSTransition
           key={transitionKey}
@@ -188,6 +206,6 @@ export default class Modal extends DragPanelClass {
           {sections}
         </CSSTransition>
       </TransitionGroup>
-    );
+    ) : sections;
   }
 }

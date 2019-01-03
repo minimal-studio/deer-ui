@@ -60,6 +60,26 @@ import { ShowModal, CloseModal, ShowGlobalModal, CloseGlobalModal, CloseAllModal
     </span>
 
     <span
+      className="btn light-p flat mr10"
+      onClick={e => ShowModal({
+        title: '自定义 Modal 模版',
+        template: (props) => {
+          console.log(props)
+          return (
+            <div onClick={e => props.onCloseModal()} style={{
+              position: 'fixed', top: 0, right: 0,
+              boxShadow: '0 4px 10px rgba(0,0,0,0.1)',
+              zIndex: 999,
+              height: 400, width: 1000, backgroundColor: '#FFF'}}>
+              自定义的 Modal 模版
+            </div>
+          )
+        }
+      })}>
+      自定义 Modal 模版
+    </span>
+
+    <span
       className="btn green flat mr10"
       onClick={e => CloseAllModal()}>
       关闭所有 Modal
@@ -70,7 +90,7 @@ import { ShowModal, CloseModal, ShowGlobalModal, CloseGlobalModal, CloseAllModal
 ```js
 /**
  * 以下是默认配置，剩余的都传入 Modal
- * @return {number} 返回该 Modal 的 id，可以用于 CloseModal 关闭
+ * @return {number} 返回该 Modal 的 id，可以用于 CloseModal
  */
 const ModalId = ShowModal({
   className = 'fixed',

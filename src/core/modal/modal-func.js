@@ -53,10 +53,10 @@ const ModalsManager = connect(selector, windowManagerActions)((props) => {
           idx={currSectionIdx}
           sectionId={sectionId}
           selectWindow={selectWindow}
+          animation={false}
+          isOpen
           {...currItem}
-          onCloseModal={e => closeWindow(sectionId)}>
-          {currItem.children}
-        </ModalEntity>
+          onCloseModal={e => closeWindow(sectionId)} />
       </CSSTransition>
     );
   });
