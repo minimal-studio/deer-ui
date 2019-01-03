@@ -5,7 +5,7 @@
   "scripts": {
     "publish": "npm publish ./build",
     "release": "npm version patch; npm run publish:build",
-    "publish:build": "npm run build; npm run publish",
+    "publish:build": "nrm use npm; npm run build; npm run publish",
     "build": "rm -rf ./build/; npm run build:babel; npm run build:copy-files; npm run copy-style",
     "copy-style": "cp -R ./style ./build/",
     "build:babel": "NODE_ENV=production babel ./src --out-dir ./build --ignore spec.js",
