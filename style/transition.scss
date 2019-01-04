@@ -18,7 +18,7 @@
 $fadeTransDuration     : 0.2s;
 $toastransDuration     : 0.2s;
 $popoverTransDuration  : 0.2s;
-$loadingTransDuration  : 0.2s;
+$loadingTransDuration  : 200ms;
 $modalTSDuration       : 0.3s;
 $dropMenuTSDuration    : 0.3s;
 $notifyTransDuration   : 0.2s;
@@ -163,31 +163,52 @@ $notifyTransDuration   : 0.2s;
 // loading
 .loading-enter {
   opacity: 0.01;
-  .loading-container {
-    position: absolute !important;
-  }
+  position: absolute !important;
+  top: 0;
+  left: 0;
+  right: 0;
 }
 
 .loading-enter.loading-enter-active {
   opacity: 1;
   transition: opacity $loadingTransDuration ease;
-  .loading-container {
-    position: absolute !important;
-  }
 }
 
 .loading-exit {
   opacity: 1;
-  .loading-container {
-    position: absolute !important;
-  }
 }
 
 .loading-exit.loading-exit-active {
   opacity: 0.01;
   transition: opacity $loadingTransDuration ease;
+}
+
+// loading-row
+.loading-row-enter {
+  position: absolute !important;
+  top: 0;
+  left: 0;
+  right: 0;
   .loading-container {
-    position: absolute !important;
+    opacity: 0.01;
+  }
+}
+
+.loading-row-enter.loading-row-enter-active {
+  .loading-container {
+    opacity: 1;
+  }
+}
+
+.loading-row-exit {
+  .loading-container {
+    opacity: 1;
+  }
+}
+
+.loading-row-exit.loading-row-exit-active {
+  .loading-container {
+    opacity: 0.01;
   }
 }
 

@@ -118,6 +118,9 @@ export default class FormLayout extends UkeComponent {
     }
     return true;
   }
+  componentDidMount() {
+    console.log(this.props.a)
+  }
   showResDesc(resInfo) {
     !!resInfo.resDesc && this.toast && this.toast.show(resInfo.resDesc, resInfo.hasErr ? 'error' : 'success');
   }

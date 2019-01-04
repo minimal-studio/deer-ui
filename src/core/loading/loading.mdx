@@ -12,28 +12,42 @@ import { Loading } from './';
 
 <PropsTable of={Loading} />
 
-<Playground>
-  <State initial={{ loading: false }}>
-    {
-      ({ state, setState }) => (
-        <div>
-          <span className={"btn flat mb10 " + (state.loading ? 'theme' : 'red')} onClick={e => {
-            setState({
-              loading: !state.loading
-            })
-          }}>切换 {!state.loading ? 'loading' : 'loaded'} 状态</span>
-          <Loading loading={state.loading} inrow={true}>
-            <div style={{backgroundColor: '#f9f9f9', padding: 20}}>
-              内容与 loading 共存
-            </div>
-          </Loading>
-          <Loading loading={state.loading} inrow={false}>
-            <div style={{backgroundColor: '#f9f9f9', padding: 20}}>
-              内容与 loading 只有一个
-            </div>
-          </Loading>
-        </div>
+<Playground style={{height: 500}}>
+  {
+    () => {
+      const C = ({ title }) => {
+        return (
+          <div className="p20 mb10 bg_default">
+            {title}
+          </div>
+        )
+      }
+      return (
+        <State initial={{ loading: true }}>
+          {
+            ({ state, setState }) => (
+              <div>
+                <span
+                  className={"btn flat mb10 " + (state.loading ? 'theme' : 'red')}
+                  onClick={e => {
+                    setState({
+                      loading: !state.loading
+                    })
+                }}>
+                  切到 {!state.loading ? 'loading' : 'loaded'} 状态
+                </span>
+                <Loading loading={state.loading} inrow={true}>
+                  <C title="内容与 loading 共存" />
+                  <C title="内容与 loading 共存" />
+                </Loading>
+                <Loading loading={state.loading} inrow={false}>
+                  <C title="内容与 loading 只有一个" />
+                </Loading>
+              </div>
+            )
+          }
+        </State>
       )
     }
-  </State>
+  }
 </Playground>

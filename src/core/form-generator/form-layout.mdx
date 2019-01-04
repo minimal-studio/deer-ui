@@ -7,6 +7,7 @@ menu: FormGenerator / 表单生成
 import { Playground, PropsTable } from 'docz'
 import { State, Toggle } from 'react-powerplug'
 import { FormLayout } from './';
+import { Loading } from '../loading';
 import FormLayoutDemo from './form-layout-demo'
 
 import FormOptionsDesc from './form-options-demo.md';
@@ -216,35 +217,42 @@ import FormOptionsDesc from './form-options-demo.md';
       return (
         <State initial={{
           formOptions: [...formOptions1],
+          loading: true
         }}>
           {
             ({ state, setState }) => (
               <div>
                 <h4>动态表单</h4>
-                <FormLayout
-                  btnConfig={[
-                    {
-                      action: (formRef, actingRef) => {
-                        console.log(formRef.value, actingRef);
+                <span className="btn theme flat" onClick={e => setState({
+                  loading: !state.loading
+                })}>渲染</span>
+                <Loading loading={state.loading}>
+                  <FormLayout
+                    btnConfig={[
+                      {
+                        action: (formRef, actingRef) => {
+                          console.log(formRef.value, actingRef);
+                        },
+                        type: 'submit',
+                        text: '测试按钮, 带预检查',
+                        actingRef: 'forTest'
                       },
-                      type: 'submit',
-                      text: '测试按钮, 带预检查',
-                      actingRef: 'forTest'
-                    },
-                  ]}
-                  onChange={(value, ref, val) => {
-                    if(ref == 'ref1') setState(({ formOptions }) => {
-                      // 克隆一个全新的 formOptions，不要影响到上一个
-                      const nextState = [...formOptions];
-                      // 更改新 formOptions 的目标的 values
-                      nextState[1].values = {...valuesMapper[val]};
-                      nextState[2].values = valuesMapper[val];
-                      return {
-                        formOptions: nextState
-                      }
-                    })
-                  }}
-                  formOptions={state.formOptions}/>
+                    ]}
+                    a="asd"
+                    onChange={(value, ref, val) => {
+                      if(ref == 'ref1') setState(({ formOptions }) => {
+                        // 克隆一个全新的 formOptions，不要影响到上一个
+                        const nextState = [...formOptions];
+                        // 更改新 formOptions 的目标的 values
+                        nextState[1].values = {...valuesMapper[val]};
+                        nextState[2].values = valuesMapper[val];
+                        return {
+                          formOptions: nextState
+                        }
+                      })
+                    }}
+                    formOptions={state.formOptions}/>
+                </Loading>
               </div>
             )
           }

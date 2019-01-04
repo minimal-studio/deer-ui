@@ -4,11 +4,11 @@ $loaderColor: #3ca9d1;
 
 .loading-control {
   height: 100%;
-  min-height: 100px;
+  // min-height: 100px;
   position: relative;
-  >div {
-    height: 100%;
-  }
+  // >div {
+  //   height: 100%;
+  // }
   .mask {
     @include fill();
     background-color: rgba(0, 0, 0, 0.1);
@@ -16,148 +16,87 @@ $loaderColor: #3ca9d1;
   }
 }
 .loading-container {
-  @include fill();
-  text-align: center;
+  // @include fill();
+  // text-align: center;
   width: 100%;
-  position: relative;
-  z-index: 2;
+  // position: relative;
+  z-index: 1;
+  transition: all ease 0.2s;
 }
-// .loader:before,
-// .loader:after,
-// .loader {
-//   border-radius: 50%;
-//   width: $loaderScale;
-//   height: $loaderScale;
-//   animation-fill-mode: both;
-//   animation: load7 1.8s infinite ease-in-out;
-//   &.sm {
-//     width: $loaderScale / 2;
-//     height: $loaderScale / 2;
-//   }
-// }
-// .loader {
-//   font-size: 10px;
-//   margin: 10px auto 40px;
-//   position: relative;
-//   text-indent: -9999em;
-//   transform: translateZ(0);
-//   animation-delay: -0.16s;
-// }
-// .loader:before {
-//   left: -3.5em;
-//   -webkit-animation-delay: -0.32s;
-//   animation-delay: -0.32s;
-// }
-// .loader:after {
-//   left: 3.5em;
-// }
-// .loader:before,
-// .loader:after {
-//   content: '';
+// .loader1 {
+//   $scale: 50px;
+//   width: $scale;
+//   height: $scale;
 //   position: absolute;
-//   top: 0;
-// }
-// @keyframes load7 {
-//   0%,
-//   80%,
-//   100% {
-//     box-shadow: 0 2.5em 0 -1.3em #3ca9d1;
+//   top: 50%;
+//   left: 50%;
+//   margin-top: - $scale / 2;
+//   margin-left: - $scale / 2;
+//   .block {
+//     width: 20px;
+//     height: 20px;
+//     /*border:5px solid #fff;*/
+//     position:absolute;
+//     &:nth-child(1) {
+//       top: 0;
+//       left: 0;
+//       right: auto;
+//       bottom: auto;
+//       -webkit-animation: top-left 3s infinite;
+//       background-color: #00aacf;
+//     }
+//     &:nth-child(2) {
+//       top: 0;
+//       left: 25px;
+//       right: auto;
+//       bottom: auto;
+//       -webkit-animation: top-right 3s infinite;
+//       background-color: #f6c574;
+//     }
+//     &:nth-child(3) {
+//       top: 25px;
+//       left: 0;
+//       right: auto;
+//       bottom: auto;
+//       -webkit-animation: bottom-left 3s infinite;
+//       background-color: #fc5652;
+//     }
+//     &:nth-child(4) {
+//       top: 25px;
+//       left: 25px;
+//       right: auto;
+//       bottom: auto;
+//       -webkit-animation: bottom-right 3s infinite;
+//       background-color: #00b3a0;
+//     }
 //   }
-//   40% {
-//     box-shadow: 0 2.5em 0 0 #3ca9d1;
-//   }
 // }
-// .fade-enter {
-//   opacity: 0.01;
-// }
-//
-// .fade-enter.fade-enter-active {
-//   opacity: 1;
-//   transition: opacity 500ms ease-in;
-// }
-//
-// .fade-exit {
-//   opacity: 1;
-// }
-//
-// .fade-exit.fade-exit-active {
-//   opacity: 0.01;
-//   transition: opacity 300ms ease-in;
-// }
-.loader1 {
-  $scale: 50px;
-  width: $scale;
-  height: $scale;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  margin-top: - $scale / 2;
-  margin-left: - $scale / 2;
-  .block {
-    width: 20px;
-    height: 20px;
-    /*border:5px solid #fff;*/
-    position:absolute;
-    &:nth-child(1) {
-      top: 0;
-      left: 0;
-      right: auto;
-      bottom: auto;
-      -webkit-animation: top-left 3s infinite;
-      background-color: #00aacf;
-    }
-    &:nth-child(2) {
-      top: 0;
-      left: 25px;
-      right: auto;
-      bottom: auto;
-      -webkit-animation: top-right 3s infinite;
-      background-color: #f6c574;
-    }
-    &:nth-child(3) {
-      top: 25px;
-      left: 0;
-      right: auto;
-      bottom: auto;
-      -webkit-animation: bottom-left 3s infinite;
-      background-color: #fc5652;
-    }
-    &:nth-child(4) {
-      top: 25px;
-      left: 25px;
-      right: auto;
-      bottom: auto;
-      -webkit-animation: bottom-right 3s infinite;
-      background-color: #00b3a0;
-    }
-  }
-}
 
-@-webkit-keyframes top-left {
-  0%  { left: 0; top:0; }
-  25% { left: 25px; top:0; -webkit-transform: rotate(90deg) }
-  50% { left: 25px; top: 25px; -webkit-transform: rotate(180deg) }
-  75% { left: 0; top: 25px; -webkit-transform: rotate(270deg) }
-  100%  { left: 0; top:0; -webkit-transform: rotate(360deg) }
-}
-@-webkit-keyframes top-right {
-  0% { left: 25px; top:0; }
-  25% { left: 25px; top: 25px; }
-  50% { left: 0; top: 25px; }
-  75%  { left: 0; top:0; }
-  100% { left: 25px; top:0; }
-}
-@-webkit-keyframes bottom-left {
-  0% { left: 25px; top: 25px; }
-  25% { left: 0; top: 25px; -webkit-transform: rotate(90deg) }
-  50%  { left: 0; top:0; -webkit-transform: rotate(180deg) }
-  75%  { left: 25px; top:0; -webkit-transform: rotate(270deg) }
-  100% { left: 25px; top:25px; -webkit-transform: rotate(360deg) }
-}
-@-webkit-keyframes bottom-right {
-  0% { left: 0; top: 25px; }
-  25%   { left: 0; top:0; }
-  50% { left: 25px; top:0; }
-  75% { left: 25px; top: 25px; }
-  100% { left: 0; top: 25px; }
-}
+// @-webkit-keyframes top-left {
+//   0%  { left: 0; top:0; }
+//   25% { left: 25px; top:0; -webkit-transform: rotate(90deg) }
+//   50% { left: 25px; top: 25px; -webkit-transform: rotate(180deg) }
+//   75% { left: 0; top: 25px; -webkit-transform: rotate(270deg) }
+//   100%  { left: 0; top:0; -webkit-transform: rotate(360deg) }
+// }
+// @-webkit-keyframes top-right {
+//   0% { left: 25px; top:0; }
+//   25% { left: 25px; top: 25px; }
+//   50% { left: 0; top: 25px; }
+//   75%  { left: 0; top:0; }
+//   100% { left: 25px; top:0; }
+// }
+// @-webkit-keyframes bottom-left {
+//   0% { left: 25px; top: 25px; }
+//   25% { left: 0; top: 25px; -webkit-transform: rotate(90deg) }
+//   50%  { left: 0; top:0; -webkit-transform: rotate(180deg) }
+//   75%  { left: 25px; top:0; -webkit-transform: rotate(270deg) }
+//   100% { left: 25px; top:25px; -webkit-transform: rotate(360deg) }
+// }
+// @-webkit-keyframes bottom-right {
+//   0% { left: 0; top: 25px; }
+//   25%   { left: 0; top:0; }
+//   50% { left: 25px; top:0; }
+//   75% { left: 25px; top: 25px; }
+//   100% { left: 0; top: 25px; }
+// }
