@@ -18,17 +18,28 @@ import { SwitchBtn } from './';
 
   <State initial={{
       activeIdx: 'btn1',
-      activeIdx2: 0
     }}>
     {
       ({ state, setState }) => {
         return (
           <div>
-            <h4>多个选择</h4>
+            <h4>选择按钮</h4>
             <SwitchBtn
               onSwitch={val => setState({
                 activeIdx: val
               })}
+              activeIdx={state.activeIdx}
+              btns={{
+                btn1: '按钮1',
+                btn2: '按钮2',
+                btn3: '按钮312123123',
+              }} />
+            <h4>禁用状态</h4>
+            <SwitchBtn
+              onSwitch={val => setState({
+                activeIdx: val
+              })}
+              disabled
               activeIdx={state.activeIdx}
               btns={{
                 btn1: '按钮1',

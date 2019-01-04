@@ -47,7 +47,7 @@ export default class SwitchButton extends PureComponent {
 
     const btnGroup = btnsArr.map((btnKey, idx) => {
       const btnText = btns[btnKey].text || btns[btnKey];
-      const isActive = btnKey == activeIdx && !disabled;
+      const isActive = btnKey == activeIdx;
       return (
         <span
           disabled={disabled}
