@@ -217,44 +217,53 @@ import FormOptionsDesc from './form-options-demo.md';
       return (
         <State initial={{
           formOptions: [...formOptions1],
-          loading: true
+          loading: false
         }}>
           {
-            ({ state, setState }) => (
-              <div>
-                <h4>动态表单</h4>
-                <span className="btn theme flat" onClick={e => setState({
-                  loading: !state.loading
-                })}>渲染</span>
-                <Loading loading={state.loading}>
-                  <FormLayout
-                    btnConfig={[
-                      {
-                        action: (formRef, actingRef) => {
-                          console.log(formRef.value, actingRef);
+            ({ state, setState }) => {
+              let formRef = {};
+              return (
+                <div>
+                  <h4>动态表单</h4>
+                  <span className="btn theme flat mr10" onClick={e => setState({
+                    loading: !state.loading
+                  })}>模拟异步获取表单条件</span>
+                  <span className="btn red flat" onClick={e => {
+                    formRef.showResDesc({
+                      hasErr: false,
+                      resDesc: '成功'
+                    })
+                  }}>使用 FormLayout 的 Toast 提示</span>
+                  <Loading loading={state.loading}>
+                    <FormLayout
+                      btnConfig={[
+                        {
+                          action: (formRef, actingRef) => {
+                            console.log(formRef.value, actingRef);
+                          },
+                          type: 'submit',
+                          text: '测试按钮, 带预检查',
+                          actingRef: 'forTest'
                         },
-                        type: 'submit',
-                        text: '测试按钮, 带预检查',
-                        actingRef: 'forTest'
-                      },
-                    ]}
-                    a="asd"
-                    onChange={(value, ref, val) => {
-                      if(ref == 'ref1') setState(({ formOptions }) => {
-                        // 克隆一个全新的 formOptions，不要影响到上一个
-                        const nextState = [...formOptions];
-                        // 更改新 formOptions 的目标的 values
-                        nextState[1].values = {...valuesMapper[val]};
-                        nextState[2].values = valuesMapper[val];
-                        return {
-                          formOptions: nextState
-                        }
-                      })
-                    }}
-                    formOptions={state.formOptions}/>
-                </Loading>
-              </div>
-            )
+                      ]}
+                      ref={e => formRef = e}
+                      onChange={(value, ref, val) => {
+                        if(ref == 'ref1') setState(({ formOptions }) => {
+                          // 克隆一个全新的 formOptions，不要影响到上一个
+                          const nextState = [...formOptions];
+                          // 更改新 formOptions 的目标的 values
+                          nextState[1].values = {...valuesMapper[val]};
+                          nextState[2].values = valuesMapper[val];
+                          return {
+                            formOptions: nextState
+                          }
+                        })
+                      }}
+                      formOptions={state.formOptions}/>
+                  </Loading>
+                </div>
+              )
+            }
           }
         </State>
       )
