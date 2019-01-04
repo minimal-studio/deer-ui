@@ -2,6 +2,10 @@
 
 -----------------
 
+## 2.9.32
+
+- 调整 input-control 的 class
+
 ## 2.9.31
 
 - 修复 DatePicker 的问题
