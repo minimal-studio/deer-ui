@@ -25,23 +25,26 @@ menu: Style
 </html>
 ```
 
-## In APP Config
+## 设置内置组件的 Icon
 
 ```js static
 import { setUkelliConfig } from 'ukelli-ui';
 
-// 以下为默认设置，可以覆盖
+// Ukelli UI 组件使用的默认 icon
 setUkelliConfig({
   iconMapper: {
-    arrow: 'angle-left',
+    'arrow-left': 'angle-left',
+    'arrow-right': 'angle-right',
     date: 'calendar-alt',
     more: 'equals',
     close: 'times',
     noData: 'thermometer-empty',
     success: 'check',
+    question: 'question-circle',
     error: 'exclamation-circle',
     'circle-up': 'arrow-circle-up',
     'circle-down': 'arrow-circle-down',
+    'arrow': 'arrow',
   },
   // icon 的前缀, 关于 iconStyle 详情查看 https://fontawesome.com 描述
   iconPrefix: (iconStyle) => `fa${iconStyle} fa-`
