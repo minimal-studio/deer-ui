@@ -121,6 +121,9 @@ export default class FormLayout extends UkeComponent {
   showResDesc(resInfo) {
     !!resInfo.resDesc && this.toast && this.toast.show(resInfo.resDesc, resInfo.hasErr ? 'error' : 'success');
   }
+  showDesc() {
+    this.showResDesc(...arguments);
+  }
   preCheck() {
     if(!this.formHelper) return;
     const { isPass, desc, ref } = this.formHelper.checkForm();
