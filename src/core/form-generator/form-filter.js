@@ -54,6 +54,9 @@ export default class FormFilterHelper extends UkeComponent {
       if(Array.isArray(refs)) {
         const refsID = this.getRefsID(refs);
         if(this.value[refsID]) nextValue[refsID] = this.value[refsID];
+        for (const itemRef of refs) {
+          if(this.value[itemRef]) nextValue[itemRef] = this.value[itemRef];
+        }
       }
     }
     this.value = nextValue;
