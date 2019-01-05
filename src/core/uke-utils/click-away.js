@@ -17,7 +17,7 @@ export default class ClickAway extends Component {
     /** 点击 children 以外的区域时触发的回调 */
     onClickAway: PropTypes.func.isRequired,
     /** children */
-    children: PropTypes.element.isRequired,
+    children: PropTypes.any.isRequired,
   }
   __mounted = false;
   componentDidMount() {
