@@ -69,6 +69,12 @@ import FormOptionsDesc from './form-options-demo.md';
       ]
       const formOptions2 = [
         {
+          refs: ['startDate', 'endDate'],
+          type: 'datetimeRange',
+          title: '日期',
+          required: true,
+        },
+        {
           ref: 'ref1',
           type: 'radio',
           title: '单选控件',
@@ -91,6 +97,12 @@ import FormOptionsDesc from './form-options-demo.md';
         }
       ];
       const formOptions3 = [
+        {
+          refs: ['startDate', 'endDate'],
+          type: 'datetimeRange',
+          title: '日期',
+          required: true,
+        },
         {
           ref: 'ref1',
           type: 'radio',

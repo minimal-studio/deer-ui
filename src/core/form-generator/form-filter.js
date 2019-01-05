@@ -33,13 +33,12 @@ export default class FormFilterHelper extends UkeComponent {
 
     this.initValues(props);
   }
-  getFormOptions(props = this.props) {
-    if(!props) return [];
-    return props.formOptions || props.conditionConfig;
-  }
   componentWillUnmount() {
     this.value = {};
     this.requiredRefMapper = {};
+  }
+  componentDidUpdate(prevProps, prevState) {
+    this.checkFormOptions(prevProps);
   }
   initValues(props) {
     const formOptions = this.getFormOptions(props);
@@ -50,11 +49,19 @@ export default class FormFilterHelper extends UkeComponent {
     let nextValue = {};
     for (const options of formOptions) {
       // const val = this.value[valKey];
-      const { ref } = options;
+      const { ref, refs } = options;
       if(this.value[ref]) nextValue[ref] = this.value[ref];
+      if(Array.isArray(refs)) {
+        const refsID = this.getRefsID(refs);
+        if(this.value[refsID]) nextValue[refsID] = this.value[refsID];
+      }
     }
     this.value = nextValue;
     this.initValues(props);
+  }
+  getFormOptions(props = this.props) {
+    if(!props) return [];
+    return props.formOptions || props.conditionConfig;
   }
   checkFormOptions(prevProps) {
     const thisFormOptions = this.getFormOptions(this.props);
@@ -63,9 +70,6 @@ export default class FormFilterHelper extends UkeComponent {
       this.resetValues();
       this.resetRequireRefMapper(this.props);
     }
-  }
-  componentDidUpdate(prevProps, prevState) {
-    this.checkFormOptions(prevProps);
   }
   resetRequireRefMapper(nextProps = this.props) {
     this.requiredRefMapper = {};
@@ -227,7 +231,10 @@ export default class FormFilterHelper extends UkeComponent {
 
     return P;
   }
-  // TODO: 调整此实现
+  /** 获取 refs 的 ID */
+  getRefsID = (refs) => {
+    return Array.isArray(refs) ? refs.join('-') : '';
+  }
   /**
    * 表单插件接口
    *
@@ -450,7 +457,7 @@ export default class FormFilterHelper extends UkeComponent {
   getDatetimeRange = (config) => {
     let { ref, range, refs, ...other } = config;
     let [refS, refE] = refs;
-    let datetimeRangeRef = refs[0] + 'datetimeRangeRef';
+    let datetimeRangeRef = this.getRefsID(refs);
 
     const changeDateValues = (vals) => {
       this.changeValues({
