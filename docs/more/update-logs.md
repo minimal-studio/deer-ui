@@ -2,6 +2,10 @@
 
 -----------------
 
+## 2.10.5
+
+- Loading 组件支持 children 函数写法
+
 ## 2.10.4
 
 - 调整 ClickAway 的 props 检查
