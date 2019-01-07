@@ -43,6 +43,7 @@
     "babel-core": "^7.0.0-bridge.0",
     "babel-eslint": "^10.0.1",
     "babel-jest": "^23.6.0",
+    "codemirror": "^5.42.2",
     "docz": "^0.13.5",
     "docz-plugin-netlify": "^1.1.4",
     "docz-theme-default": "^0.13.5",
