@@ -63,6 +63,7 @@
     "react-powerplug": "^1.0.0",
     "react-transition-group": "^2.5.0",
     "regenerator-runtime": "^0.12.1",
+    "style-loader": "^0.23.1",
     "unistore": "^3.1.0",
     "webpack": "^4.20.2",
     "webpack-blocks": "^1.0.0",
