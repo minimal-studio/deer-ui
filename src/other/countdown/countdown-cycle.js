@@ -10,87 +10,6 @@ const timeTitleMapper = {
   sec: '秒'
 };
 
-const AnimatedCard = ({ position, animation, digit }) => {
-  return(
-    <div className={`flipCard ${position} ${animation}`}>
-      <span>{digit}</span>
-    </div>
-  );
-};
-
-const StaticCard = ({ position, digit }) => {
-  return(
-    <div className={position}>
-      <span>{digit}</span>
-    </div>
-  );
-};
-
-const FlipUnitContainer = ({ digit, shuffle, unit }) => {	
-  
-  // assign digit values
-  let currentDigit = digit;
-  let previousDigit = digit - 1;
-
-  // to prevent a negative value
-  if ( unit !== 'hours') {
-    previousDigit = previousDigit === -1 
-      ? 59 
-      : previousDigit;
-  } else {
-    previousDigit = previousDigit === -1 
-      ? 23 
-      : previousDigit;
-  }
-
-  // add zero
-  if ( currentDigit < 10 ) {
-    currentDigit = `0${currentDigit}`;
-  } 
-  if ( previousDigit < 10 ) {
-    previousDigit = `0${previousDigit}`;
-  }
-
-  // shuffle digits
-  const digit1 = shuffle 
-    ? previousDigit 
-    : currentDigit;
-  const digit2 = !shuffle 
-    ? previousDigit 
-    : currentDigit;
-
-  // shuffle animations
-  const animation1 = shuffle 
-    ? 'fold' 
-    : 'unfold';
-  const animation2 = !shuffle 
-    ? 'fold' 
-    : 'unfold';
-
-  return(
-    <div className={'flipUnitContainer'}>
-      <StaticCard 
-        position={'upperCard'} 
-        digit={currentDigit} 
-        />
-      <StaticCard 
-        position={'lowerCard'} 
-        digit={previousDigit} 
-        />
-      <AnimatedCard 
-        position={'first'}
-        digit={digit1}
-        animation={animation1}
-        />
-      <AnimatedCard 
-        position={'second'}
-        digit={digit2}
-        animation={animation2}
-        />
-    </div>
-  );
-};
-
 export default class Countdown extends Component {
   static propTypes = {
     start: PropTypes.number.isRequired,
@@ -247,18 +166,18 @@ export default class Countdown extends Component {
     this.setJumpElemCount(timeObj);
 
     return(
-      <section className="flipClock">
+      <section className="countdown">
         {
           Object.keys(timeObj).map((time, idx) => {
             let currTime = timeObj[time];
 
             let countBg = this.getBgDOM(timeObj, time, idx);
             return (
-              <FlipUnitContainer
-                unit={time}
-                digit={currTime} 
-                shuffle={false} 
-              />
+              <span className={"item " + time} key={time}>
+                <span className="text">{currTime}</span>
+                {countBg}
+                <span className="foot">{timeTitleMapper[time]}</span>
+              </span>
             );
           })
         }

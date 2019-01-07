@@ -61,7 +61,6 @@
     "react-dom": "^16.6.3",
     "react-hot-loader": "^4.3.11",
     "react-powerplug": "^1.0.0",
-    "react-styleguidist": "^7.3.10",
     "react-transition-group": "^2.5.0",
     "regenerator-runtime": "^0.12.1",
     "unistore": "^3.1.0",
