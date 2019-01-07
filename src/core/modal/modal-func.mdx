@@ -11,6 +11,8 @@ import { ShowModal, CloseModal, ShowGlobalModal, CloseGlobalModal, CloseAllModal
 
 > 提供了全局的 modal 使用方法，由系统托管 modal 的状态
 
+## Usage
+
 <Playground>
   <div>
     <span
@@ -29,21 +31,11 @@ import { ShowModal, CloseModal, ShowGlobalModal, CloseGlobalModal, CloseAllModal
     <span
       className="btn gold flat mr10"
       onClick={e => ShowModal({
-        title: '没有操作按钮的 Modal',
-        showFuncBtn: false,
+        title: '有操作按钮的 Modal',
+        showFuncBtn: true,
         children: <div className="p20">任意的内容</div>
       })}>
-      没有操作按钮的 Modal
-    </span>
-
-    <span
-      className="btn red flat mr10"
-      onClick={e => ShowModal({
-        draggable: true,
-        title: '按住 header 可拖动的 Modal',
-        children: <div className="p20">任意的内容</div>
-      })}>
-      可拖动的 Modal
+      有操作按钮的 Modal
     </span>
 
     <span
@@ -58,33 +50,56 @@ import { ShowModal, CloseModal, ShowGlobalModal, CloseGlobalModal, CloseAllModal
       })}>
       确认框
     </span>
-
-    <span
-      className="btn light-p flat mr10"
-      onClick={e => ShowModal({
-        title: '自定义 Modal 模版',
-        template: (props) => {
-          console.log(props)
-          return (
-            <div onClick={e => props.onCloseModal()} style={{
-              position: 'fixed', top: 0, right: 0,
-              boxShadow: '0 4px 10px rgba(0,0,0,0.1)',
-              zIndex: 999,
-              height: 400, width: 1000, backgroundColor: '#FFF'}}>
-              自定义的 Modal 模版
-            </div>
-          )
-        }
-      })}>
-      自定义 Modal 模版
-    </span>
-
-    <span
-      className="btn green flat mr10"
-      onClick={e => CloseAllModal()}>
-      关闭所有 Modal
-    </span>
   </div>
+</Playground>
+
+## 多个弹窗并存
+
+> 可以弹出多个窗口，并且可拖动
+
+<Playground>
+  <span
+    className="btn red flat mr10"
+    onClick={e => ShowModal({
+      draggable: true,
+      elem: e,
+      title: '按住 header 可拖动的 Modal',
+      children: <div className="p20">任意的内容</div>
+    })}>
+    多个可拖动的 Modal
+  </span>
+
+  <span
+    className="btn green flat mr10"
+    onClick={e => CloseAllModal()}>
+    关闭所有 Modal
+  </span>
+</Playground>
+
+## 自定义弹出模版
+
+> Modal 提供接口，可以弹出任意自定义内容
+
+<Playground>
+  <span
+    className="btn wine flat mr10"
+    onClick={e => ShowModal({
+      title: '自定义 Modal 模版',
+      template: (props) => {
+        console.log(props)
+        return (
+          <div onClick={e => props.onCloseModal()} style={{
+            position: 'fixed', top: 0, right: 0,
+            boxShadow: '0 4px 10px rgba(0,0,0,0.1)',
+            zIndex: 999,
+            height: 400, width: 1000, backgroundColor: '#FFF'}}>
+            自定义的 Modal 模版
+          </div>
+        )
+      }
+    })}>
+    自定义 Modal 模版
+  </span>
 </Playground>
 
 ```js

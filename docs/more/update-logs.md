@@ -2,6 +2,11 @@
 
 -----------------
 
+## 2.10.6
+
+- 增强 Button 的 loading 体验
+- 调整 ShowModal ，默认没用按钮
+
 ## 2.10.5
 
 - Loading 组件支持 children 函数写法

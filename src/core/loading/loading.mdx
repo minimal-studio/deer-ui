@@ -6,6 +6,7 @@ menu: Components / 组件
 
 import { Playground, PropsTable } from 'docz'
 import { State, Toggle } from 'react-powerplug'
+import { Button } from '../button';
 import { Loading } from './';
 
 # Loading
@@ -58,15 +59,18 @@ const { loading } = this.state;
           {
             ({ state, setState }) => (
               <div>
-                <span
-                  className={"btn flat mb10 " + (state.loading ? 'theme' : 'red')}
+                <Button
+                  loading={state.loading}
+                  loadingDisable={false}
+                  className="mb10"
                   onClick={e => {
                     setState({
                       loading: !state.loading
                     })
-                }}>
+                  }}
+                  color={state.loading ? 'theme' : 'red'} >
                   切到 {!state.loading ? 'loading' : 'loaded'} 状态
-                </span>
+                </Button>
                 <Loading loading={state.loading} inrow={true}>
                   <C title="内容与 loading 共存" />
                   <C title="内容与 loading 共存" />

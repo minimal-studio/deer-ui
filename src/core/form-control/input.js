@@ -26,6 +26,8 @@ export default class Input extends Component {
     showTitle: PropTypes.bool,
     /** 输入框的 icon */
     icon: PropTypes.string,
+    /** icon 的名字 */
+    n: PropTypes.string,
     /** 输入框类型 */
     type: PropTypes.oneOf([
       /** 等于 text */
@@ -138,17 +140,18 @@ export default class Input extends Component {
   }
   render() {
     const {
-      icon, placeholder, title, inputBtnConfig, type, showTitle = defaultShowInputTitle,
+      n, icon, placeholder, title, inputBtnConfig, type, showTitle = defaultShowInputTitle,
       className, children, required, filter,
       onFocus, onBlur,
     } = this.props;
     const { viewClass = '' } = this.state;
     const value = this.getValue();
 
-    const hasIcon = !!icon;
+    const _icon = icon || n;
+    const hasIcon = !!_icon;
 
     const iconDOM = hasIcon ? (
-      <Icon n={icon}/>
+      <Icon n={_icon}/>
     ) : null;
 
     let highlightDOM = required ? (
@@ -157,7 +160,7 @@ export default class Input extends Component {
       </span>
     ) : null;
 
-    const titleDOM = (!!placeholder || !!title) && showTitle ? (
+    const titleDOM = (hasIcon || !!placeholder || !!title) && showTitle ? (
       <span className="title">
         {iconDOM}
         <span className="text mr10">{placeholder || title}</span>

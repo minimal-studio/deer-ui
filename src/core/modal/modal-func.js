@@ -105,7 +105,7 @@ const getModalDefaultWidth = (modalType) => {
 const getDefaultOptions = (options) => ({
   className: 'fixed',
   topClassName: 'top-modal-opend',
-  showFuncBtn: true,
+  showFuncBtn: false,
   width: window.$UKE.isMobile ? '90%' : getModalDefaultWidth(options.type)
 });
 
@@ -114,17 +114,18 @@ function ShowModal(options) {
   let gm = window.$UKE.getUkeKeyMap;
 
   const {
-    type, confirmText = gm('确定') + '?', title, showFuncBtn = true,
+    type, confirmText = gm('确定') + '?', title, showFuncBtn, elem,
     width = window.$UKE.isMobile ? '90%' : 600, id, children, draggable,
     onConfirm
   } = options;
+  const _showFuncBtn = type == 'confirm' || showFuncBtn;
 
   let entityId = id || GenerteID();
   options.id = entityId;
 
   let modalTMPL = null;
 
-  let btnGroupDOM = showFuncBtn ? (
+  let btnGroupDOM = _showFuncBtn ? (
     <div className="btn-group">
       <span className="btn flat default" onClick={e => onClickBtn(false)}>{gm('取消')}</span>
       <span className="btn flat theme" onClick={e => onClickBtn(true)}>{gm('确定')}</span>

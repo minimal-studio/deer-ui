@@ -7,6 +7,8 @@ import { Icon } from '../icon';
 
 const defaultProps = {
   loading: false,
+  loadingHint: true,
+  loadingDisable: true,
   disabled: false,
   type: 'button',
   color: 'theme',
@@ -17,13 +19,16 @@ const defaultProps = {
 const Button = (props) => {
   let gm = window.$UKE.getUkeKeyMap;
   const {
-    loading, disabled, text = gm('提交'), icon, type,
-    color, className, onClick
+    loading, disabled, text = gm('提交'), icon, type, children,
+    color, className, loadingHint, loadingDisable, onClick
   } = props;
 
-  const clickable = !disabled && !loading;
+  const clickable = !disabled && (!loading || !loadingDisable);
   const iconDOM = icon ? (
     <Icon n={icon} classNames={['btn-icon']}/>
+  ) : null;
+  const loadingTip = loadingHint && loading ? (
+    <Icon n="loading" classNames={['btn-loading ml5']}/>
   ) : null;
 
   return (
@@ -32,10 +37,14 @@ const Button = (props) => {
       type={type}
       className={`btn flat ${color} ${className}`}
       onClick={e => {
-        if(!disabled) onClick(e);
+        if(clickable) onClick(e);
       }}>
-      {iconDOM}
-      {text}
+      <span className="layout a-i-c">
+        {iconDOM}
+        {text}
+        {children}
+        {loadingTip}
+      </span>
     </button>
   );
 };
@@ -44,12 +53,18 @@ Button.defaultProps = defaultProps;
 Button.propTypes = {
   /** 是否加载中 */
   loading: PropTypes.bool,
+  /** 是否需要加载中的提示 */
+  loadingHint: PropTypes.bool,
+  /** 加载中是否禁用 */
+  loadingDisable: PropTypes.bool,
   /** 设置 btn 的 class */
   className: PropTypes.string,
   /** 设置 btn 的 icon, 可以使用 iconMapper 来引用 */
   icon: PropTypes.string,
   /** btn 的字 */
   text: PropTypes.string,
+  /** children */
+  children: PropTypes.any,
   /** btn 的类型 */
   type: PropTypes.string,
   /** btn 的颜色 [theme, red, gold...] */

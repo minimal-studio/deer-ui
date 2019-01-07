@@ -16,6 +16,8 @@ export default class Modal extends DragPanelClass {
     width: PropTypes.oneOfType([
       PropTypes.string, PropTypes.number
     ]),
+    /** 点击的元素 */
+    // elem: PropTypes.node,
     /** 动画的持续时间 */
     duration: PropTypes.number,
     /** 当前 modal 的 index */

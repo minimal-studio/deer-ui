@@ -11,7 +11,7 @@ import { Input } from './';
 
 > 输入验证控件, 基础类提供基本验证
 
-<PropsTable of={Input} />
+## Usage
 
 <Playground>
   <Input title="输出 number 类型" inputType="number"/>
@@ -19,6 +19,8 @@ import { Input } from './';
   <Input title="输出字符串类型"/>
   <hr/>
   <Input title="带有正则过滤器" filter={val => (val + '').replace(/[^0-9]/g, '')} />
+  <hr/>
+  <Input n="phone" />
   <hr/>
   <Input
     title="带有按钮的输入框"
@@ -28,3 +30,15 @@ import { Input } from './';
       text: '按钮'
     }}/>
 </Playground>
+
+## 带动画的 Title 效果
+
+> 在外层添加 class .animate-input-title
+
+<Playground>
+  <div className="animate-input-title">
+    <Input n="phone" />
+  </div>
+</Playground>
+
+<PropsTable of={Input} />

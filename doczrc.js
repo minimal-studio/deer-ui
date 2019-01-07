@@ -79,13 +79,6 @@ export default {
             font-weight: 600;
             color: white;
           }
-          .highlight {
-            background: #ea567c;
-            color: white;
-            margin: 0 3px;
-            padding: 4px 6px;
-            border-radius: 3px;
-          }
           .grommetux-meter {
             height: 70px;
           }
