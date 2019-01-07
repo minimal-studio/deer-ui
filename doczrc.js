@@ -26,15 +26,6 @@ export default {
           * {
             box-sizing: border-box;
           }
-          #root > div > div:first-of-type {
-            width: 350px;
-            min-width: 350px;
-          }
-          #root > div > div:first-of-type > div:first-of-type {
-            padding: 30px;
-            width: 350px;
-            min-width: 350px;
-          }
           #root > div > div:first-of-type > div:first-of-type > div:last-of-type {
             display: none;
           }
@@ -141,6 +132,7 @@ export default {
     'Form / 表单',
     'FormGenerator / 表单生成',
     'Table / 表格渲染',
+    'Other / 其他组件',
     'More',
   ],
   modifyBundlerConfig: (config) => {

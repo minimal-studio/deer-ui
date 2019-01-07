@@ -10,6 +10,37 @@ import { Loading } from './';
 
 # Loading
 
+## Usage
+
+> 注意，由于 React 的机制，在 render 中，无论是否使用 Loading 包裹，如果不希望子组件在 loading 状态下被渲染出来，可以有两种方式
+
+### 1. function children
+
+```js
+<Loading loading={true}>
+  {
+    () => {
+      return (
+        <div>Loading 状态下不渲染 children</div>
+      )
+    }
+  }
+</Loading>
+```
+
+### 2. 判定
+
+```js
+const { loading } = this.state;
+<Loading loading={loading}>
+  {
+    !loading && (
+      <div>Loading 状态下不渲染 children</div>
+    )
+  }
+</Loading>
+```
+
 <PropsTable of={Loading} />
 
 <Playground style={{height: 500}}>
