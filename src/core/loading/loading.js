@@ -1,6 +1,7 @@
 import React, {Component, PureComponent} from 'react';
 import PropTypes from 'prop-types';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
+import { IsFunc } from 'basic-helper';
 
 // import LoadingDOMSnip from './snip';
 import LoadingProgress from './progress';
@@ -41,7 +42,7 @@ export default class Loading extends Component {
     );
   }
   render() {
-    const { loading = false, children, inrow, loadingDOM, timeout, animationClass } = this.props;
+    const { loading, children, inrow, loadingDOM, timeout, animationClass } = this.props;
 
     let loadingDOMFilterRes;
 
@@ -67,7 +68,7 @@ export default class Loading extends Component {
             <div className="loading-container">
               {loadingDOMFilterRes}
             </div>
-            {children}
+            {IsFunc(children) ? children() : children}
           </React.Fragment>
         );
       } else {
@@ -78,7 +79,7 @@ export default class Loading extends Component {
         );
       }
     } else {
-      container = children;
+      container = IsFunc(children) ? children() : children;
     }
 
     // switch (true) {

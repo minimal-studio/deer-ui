@@ -41,7 +41,14 @@ import { Loading } from './';
                   <C title="内容与 loading 共存" />
                 </Loading>
                 <Loading loading={state.loading} inrow={false}>
-                  <C title="内容与 loading 只有一个" />
+                  {
+                    () => {
+                      console.log('asd')
+                      return (
+                        <C title="内容与 loading 只有一个" />
+                      )
+                    }
+                  }
                 </Loading>
               </div>
             )

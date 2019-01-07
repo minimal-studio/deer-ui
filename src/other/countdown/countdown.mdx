@@ -1,0 +1,28 @@
+---
+name: Countdown
+route: /Countdown
+menu: Other
+---
+
+import { Playground, PropsTable } from 'docz'
+import { Countdown } from './';
+
+import '../../../style/other/default.scss'
+
+# Countdown
+
+<PropsTable of={Countdown} />
+
+<Playground className="bg_default">
+  {
+    () => {
+      return (
+        <Countdown
+          start={66}
+          onTimeout={e => {
+            console.log(e)
+          }} />
+      )
+    }
+  }
+</Playground>
