@@ -42,6 +42,8 @@ export default {
     dark: '#13161F',
     blue: '#0B5FFF',
     skyBlue: '#1FB6FF',
+    primary: '#449bea',
+    sidebarBg: 'white',
     /** properties bellow depends on mode select */
   },
   /**
