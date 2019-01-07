@@ -5,23 +5,34 @@ menu: Other
 ---
 
 import { Playground, PropsTable } from 'docz'
-import { Countdown } from './';
+import { CountdownFlip } from './';
 
 import '../../../style/other/default.scss'
 
-# Countdown
+# CountdownFlip
 
-<PropsTable of={Countdown} />
+<PropsTable of={CountdownFlip} />
 
 <Playground className="bg_default">
   {
     () => {
       return (
-        <Countdown
-          start={66}
-          onTimeout={e => {
-            console.log(e)
-          }} />
+        <div>
+          <CountdownFlip
+            start={66}
+            height={40}
+            width={60}
+            onTimeout={e => {
+              console.log(e)
+            }} />
+          <hr />
+          <CountdownFlip
+            start={66}
+            needProgress
+            onTimeout={e => {
+              console.log(e)
+            }} />
+        </div>
       )
     }
   }
