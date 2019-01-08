@@ -1,6 +1,7 @@
 import React, {Component, PureComponent} from 'react';
 import PropTypes from 'prop-types';
 import { Call, ToFixed, TimeFormat } from 'basic-helper';
+import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import { Grid } from '../../core/grid';
 
 const timeTitleMapper = {
@@ -11,16 +12,16 @@ const timeTitleMapper = {
 
 const AnimatedCard = ({ position, animation, digit, style }) => {
   return(
-    <div className={`flipCard ${position} ${animation}`} style={style}>
-      <span>{digit}</span>
+    <div className={`flip-card ${position} ${animation}`} style={style}>
+      <span className="count">{digit}</span>
     </div>
   );
 };
 
 const StaticCard = ({ position, digit, style }) => {
   return(
-    <div className={position}>
-      <span>{digit}</span>
+    <div className={position} style={style}>
+      <span className="count">{digit}</span>
     </div>
   );
 };
@@ -34,7 +35,7 @@ let FlipDigitCache = {};
 
 const FlipUnitContainer = ({
   digit, unit, increase = false,
-  width = 140, height = 120
+  width = 140, height = 120, flipItemStyle
 }) => {	
   
   // assign digit values
@@ -86,17 +87,20 @@ const FlipUnitContainer = ({
     height, width, fontSize: height / 1.3
   };
   const styleForAnimate = {
+    ...flipItemStyle,
     height: height / 2,
     width,
   };
 
   return (
-    <div className="flipUnitContainer" style={scaleStyle}>
+    <div className="flip-unit-container" style={scaleStyle}>
       <StaticCard 
-        position="upperCard" 
+        position="before" 
+        style={flipItemStyle}
         digit={currentDigit}/>
       <StaticCard 
-        position="lowerCard" 
+        position="now" 
+        style={flipItemStyle}
         digit={previousDigit}/>
       <AnimatedCard 
         style={styleForAnimate}
@@ -114,11 +118,19 @@ const FlipUnitContainer = ({
 
 export default class Countdown extends Component {
   static propTypes = {
+    /** 倒计时开始时间 */
     start: PropTypes.number.isRequired,
+    /** 每一个 flip 的宽度 */
     width: PropTypes.number,
+    /** 每一个 flip 的高度 */
     height: PropTypes.number,
-    countdownNotifyTimer: PropTypes.any,
+    /** 给每一个 flip 的 style */
+    flipItemStyle: PropTypes.shape({}),
+    /** 需要广播的时间节点 */
+    countdownNotifyTimer: PropTypes.number,
+    /** 广播的时间节点触发的回调 */
     onCountdownNotify: PropTypes.func,
+    /** 时间到 0 的时候触发的回调 */
     onTimeout: PropTypes.func.isRequired
   };
   static defaultProps = {
@@ -212,24 +224,24 @@ export default class Countdown extends Component {
     return oneRound;
   }
   render () {
-    const { width, height, countdownNotifyTimer, onCountdownNotify, onTimeout, ...other } = this.props;
+    const { width, height, countdownNotifyTimer, onCountdownNotify, onTimeout, flipItemStyle, className, ...other } = this.props;
     const { countdown } = this.state;
     const timeObj = TimeFormat(countdown);
 
     this.setJumpElemCount(timeObj);
+    const hasCountdown = countdown != -1;
 
-    return countdown == -1 ? <span /> : (
-      <section className="flipClock">
+    const container = !hasCountdown ? <span /> : (
+      <section className={"flip-clock " + (className ? className : '')}>
         <Grid container>
-
           {
             Object.keys(timeObj).map((unit, idx) => {
               let currTime = timeObj[unit];
-
               return (
                 <Grid key={unit} {...other}>
                   <FlipUnitContainer
                     unit={unit}
+                    flipItemStyle={flipItemStyle}
                     width={width}
                     height={height}
                     digit={currTime} />
@@ -239,6 +251,17 @@ export default class Countdown extends Component {
           }
         </Grid>
       </section>
+    );
+
+    return (
+      <TransitionGroup component={null}>
+        <CSSTransition
+          key={hasCountdown ? 'has' : 'none'}
+          classNames="fade"
+          timeout={200}>
+          {container}
+        </CSSTransition>
+      </TransitionGroup>
     );
   }
 }

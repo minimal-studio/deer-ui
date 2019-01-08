@@ -5,26 +5,24 @@ menu: Other / 其他组件
 ---
 
 import { Playground, PropsTable } from 'docz'
-import { CountdownFlip } from './';
+import { FlipClock } from './';
 
 import '../../../style/other/default.scss'
 
-# CountdownFlip
-
-<PropsTable of={CountdownFlip} />
+# FlipClock
 
 ## Usage
 
 ### Import Component
 
 ```js
-import Countdown from 'ukelli-ui/other/countdown/countdown';
+import Countdown from 'ukelli-ui/other/countdown/clip-clock';
 ```
 
 ### Import Style
 
 ```scss
-@import 'ukelli-ui/style/other/countdown.scss'
+@import 'ukelli-ui/style/other/flip-clock.scss';
 ```
 
 <Playground className="bg_default">
@@ -32,7 +30,7 @@ import Countdown from 'ukelli-ui/other/countdown/countdown';
     () => {
       return (
         <div>
-          <CountdownFlip
+          <FlipClock
             start={66}
             height={40}
             width={60}
@@ -40,8 +38,19 @@ import Countdown from 'ukelli-ui/other/countdown/countdown';
               console.log(e)
             }} />
           <hr />
-          <CountdownFlip
+          <FlipClock
             start={66}
+            needProgress
+            onTimeout={e => {
+              console.log(e)
+            }} />
+          <hr />
+          <FlipClock
+            start={66}
+            flipItemStyle={{
+              backgroundColor: '#f7f7f7',
+              color: '#555'
+            }}
             needProgress
             onTimeout={e => {
               console.log(e)
@@ -51,3 +60,5 @@ import Countdown from 'ukelli-ui/other/countdown/countdown';
     }
   }
 </Playground>
+
+<PropsTable of={FlipClock} />

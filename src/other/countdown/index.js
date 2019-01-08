@@ -1,7 +1,7 @@
 import Countdown from './countdown-cycle';
-import CountdownFlip from './countdown';
+import FlipClock from './flip-clock';
 import CountdownBg from './countdown-svg-bg';
 
 export {
-  Countdown, CountdownBg, CountdownFlip
+  Countdown, CountdownBg, FlipClock
 };
