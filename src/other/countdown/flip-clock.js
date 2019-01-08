@@ -172,8 +172,8 @@ export default class Countdown extends Component {
   componentDidMount() {
     this.startCountdown();
   }
-  componentDidUpdate(prevProps) {
-    if(this.props.start != prevProps.start) {
+  componentDidUpdate(prevProps, prevState) {
+    if(this.props.start != prevProps.start || !this.state.isTimerStart) {
       this.clearTimer();
       this.startCountdown();
     }
