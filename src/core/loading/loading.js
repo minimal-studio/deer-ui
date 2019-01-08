@@ -63,7 +63,8 @@ export default class Loading extends Component {
 
     let container;
     let key = loading ? 'loading' : 'loaded';
-    let animationClassName = animationClass + (inrow ? '-row' : '');
+    // let animationClassName = animationClass + (inrow ? '-row' : '');
+    let animationClassName = animationClass + '-row';
 
     if(loading) {
       if(inrow) {
