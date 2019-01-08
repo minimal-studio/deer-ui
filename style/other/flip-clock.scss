@@ -106,6 +106,8 @@ $height: 120px;
 		border: 1px solid $border;
 		border-top: 0.5px solid $border;
 		@include boxShadown;
+		@include animate(unfold, $easeInOut, 0.6s);
+		transform-style: preserve-3d;
 		
 		span {
 			transform: translateY(-50%);
@@ -123,21 +125,13 @@ $height: 120px;
 		border: 0.5px solid $border;
 		border-bottom: 0.5px solid $border;
 		@include boxShadown;
+		@include animate(fold, $easeInOut, 0.6s);
+		transform-style: preserve-3d;
 		
 		span {
 			transform: translateY(50%);
 		}
 	}
-}
-
-.fold {
-	@include animate(fold, $easeInOut, 0.6s);
-	transform-style: preserve-3d;
-}
-
-.unfold {
-	@include animate(unfold, $easeInOut, 0.6s);
-	transform-style: preserve-3d;
 }
 
 @keyframes fold {
