@@ -28,7 +28,7 @@ const StaticCard = ({ position, digit, style }) => {
   );
 };
 
-class FlipUnitContainer extends React.PureComponent {
+class FlipUnitContainer extends React.Component {
   static propTypes = {
     digit: PropTypes.oneOfType([
       PropTypes.number,
@@ -49,28 +49,29 @@ class FlipUnitContainer extends React.PureComponent {
     preDigit: 0,
     shuffle: true
   }
-  // shouldComponentUpdate(nextProps) {
-  //   if(this.props.digit !== nextProps.digit) {
-  //     this.preDigit = this.props.digit;
-  //     this.shuffle = !this.shuffle;
-  //   }
-  //   return true;
-  // }
-  componentDidUpdate(prevProps) {
-    if(this.props.digit !== prevProps.digit) {
-      this.setState(({ preDigit, shuffle }) => {
-        return {
-          preDigit: prevProps.digit,
-          shuffle: !shuffle
-        };
-      });
+  shouldComponentUpdate(nextProps) {
+    if(this.props.digit !== nextProps.digit) {
+      this.preDigit = this.props.digit;
+      this.shuffle = !this.shuffle;
     }
+    return true;
   }
+  // componentDidUpdate(prevProps) {
+  //   if(this.props.digit !== prevProps.digit) {
+  //     this.setState(({ preDigit, shuffle }) => {
+  //       return {
+  //         preDigit: prevProps.digit,
+  //         shuffle: !shuffle
+  //       };
+  //     });
+  //   }
+  // }
   render() {
     const {
       digit, unit, width = 140, height = 120, flipItemStyle
     } = this.props;
-    const { shuffle, preDigit } = this.state;
+    // const { shuffle, preDigit } = this.state;
+    const { shuffle, preDigit } = this;
 
     let previousDigit = +preDigit || 0;
     let currentDigit = +digit;
@@ -163,13 +164,19 @@ export default class Countdown extends Component {
     const isReceiveNewProps = this.props !== nextProps;
     const isNewCount = this.state.countdown !== nextState.countdown;
     const isChangeTimerStatus = this.state.isTimerStart !== nextState.isTimerStart;
+    // if(isReceiveNewProps) {
+    //   this.clearTimer();
+    // }
     return isNewCount || isReceiveNewProps || isChangeTimerStatus;
   }
   componentDidMount() {
     this.startCountdown();
   }
-  componentDidUpdate() {
-    this.startCountdown();
+  componentDidUpdate(prevProps) {
+    if(this.props.start != prevProps.start) {
+      this.clearTimer();
+      this.startCountdown();
+    }
   }
   componentWillUnmount() {
     this.clearTimer();
@@ -178,7 +185,7 @@ export default class Countdown extends Component {
     const { start } = this.props;
     if (this.state.isTimerStart || start === 0) return;
     this.clearTimer();
-    this.interval = this.startTimer();
+    this.startTimer();
   }
   setJumpElemCount(timeObj) {
     if(!this.jumpElem) return;
@@ -207,7 +214,7 @@ export default class Countdown extends Component {
       isTimerStart: true,
       countdown: countdown
     });
-    let oneRound = setInterval(() => {
+    this.interval = setInterval(() => {
       countdown--;
       this.setState({
         countdown: (countdown < 0) ? 0 : countdown
@@ -223,7 +230,6 @@ export default class Countdown extends Component {
         // });
       }
     }, 1000);
-    return oneRound;
   }
   render () {
     const { width, height, countdownNotifyTimer, onCountdownNotify, onTimeout, flipItemStyle, className, ...other } = this.props;
