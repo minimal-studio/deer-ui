@@ -5,6 +5,7 @@ menu: Other / 其他组件
 ---
 
 import { Playground, PropsTable } from 'docz'
+import { State, Toggle } from 'react-powerplug'
 import { FlipClock } from './';
 
 import '../../../style/other/default.scss'
@@ -29,33 +30,51 @@ import Countdown from 'ukelli-ui/other/countdown/clip-clock';
   {
     () => {
       return (
-        <div>
-          <FlipClock
-            start={66}
-            height={40}
-            width={60}
-            onTimeout={e => {
-              console.log(e)
-            }} />
-          <hr />
-          <FlipClock
-            start={66}
-            needProgress
-            onTimeout={e => {
-              console.log(e)
-            }} />
-          <hr />
-          <FlipClock
-            start={66}
-            flipItemStyle={{
-              backgroundColor: '#f7f7f7',
-              color: '#555'
-            }}
-            needProgress
-            onTimeout={e => {
-              console.log(e)
-            }} />
-        </div>
+        <State initial={{
+          count1: 4,
+          count2: 12,
+          count3: 22,
+        }}>
+          {
+            ({ state, setState}) => {
+              return (
+                <div>
+                  <FlipClock
+                    start={state.count1}
+                    height={40}
+                    width={60}
+                    onTimeout={e => {
+                      setState({
+                        count1: 5
+                      })
+                    }} />
+                  <hr />
+                  <FlipClock
+                    start={state.count2}
+                    needProgress
+                    onTimeout={e => {
+                      setState({
+                        count2: 12
+                      })
+                    }} />
+                  <hr />
+                  <FlipClock
+                    start={state.count3}
+                    flipItemStyle={{
+                      backgroundColor: '#f7f7f7',
+                      color: '#555'
+                    }}
+                    needProgress
+                    onTimeout={e => {
+                      setState({
+                        count3: 22
+                      })
+                    }} />
+                </div>
+              )
+            }
+          }
+        </State>
       )
     }
   }
