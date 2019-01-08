@@ -7,7 +7,7 @@ menu: Components / 组件
 import { Playground, PropsTable } from 'docz'
 import { State, Toggle } from 'react-powerplug'
 import { Button } from '../button';
-import { Loading } from './';
+import { Loading, LoadingProgress, LoadingPlaceholder } from './';
 
 # Loading
 
@@ -42,7 +42,7 @@ const { loading } = this.state;
 </Loading>
 ```
 
-<PropsTable of={Loading} />
+## Usage
 
 <Playground style={{height: 500}}>
   {
@@ -72,7 +72,9 @@ const { loading } = this.state;
                   切到 {!state.loading ? 'loading' : 'loaded'} 状态
                 </Button>
                 <Loading loading={state.loading} inrow={true}>
-                  <C title="内容与 loading 共存" />
+                  {
+                    state.loading && <C title="内容与 loading 共存" />
+                  }
                   <C title="内容与 loading 共存" />
                 </Loading>
                 <Loading loading={state.loading} inrow={false}>
@@ -93,3 +95,16 @@ const { loading } = this.state;
     }
   }
 </Playground>
+
+## Loading 样式
+
+<Playground>
+  <h3>Progress</h3>
+  <div className="relative pb20">
+    <LoadingProgress />
+  </div>
+  <h3>Placeholder</h3>
+  <LoadingPlaceholder />
+</Playground>
+
+<PropsTable of={Loading} />

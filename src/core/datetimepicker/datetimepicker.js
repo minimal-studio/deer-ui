@@ -23,6 +23,10 @@ export default class DatetimePicker extends DateBasic {
     needTime: PropTypes.bool,
     /** 默认的时分秒的值 */
     defaultTimes: PropTypes.arrayOf(PropTypes.string),
+    /** 是否 toISOString */
+    toISOString: PropTypes.bool,
+    /** 是否添加时区的 */
+    addTimeOffset: PropTypes.bool,
     /** 是否可以选择时分秒 */
     enableTime: PropTypes.bool,
     /** 类型 */
@@ -38,6 +42,8 @@ export default class DatetimePicker extends DateBasic {
   };
   static defaultProps = {
     needTime: true,
+    toISOString: true,
+    addTimeOffset: true,
     // clickToClose: true,
     enableTime: false,
     outputAsString: false,

@@ -38,10 +38,10 @@ export default class Loading extends Component {
         classNames="loading"
         timeout={timeout}
         key={key}>
-        {children}
-        {/* <div>
+        {/* {children} */}
+        <div>
           {children}
-        </div> */}
+        </div>
       </CSSTransition>
     );
   }
@@ -63,8 +63,8 @@ export default class Loading extends Component {
 
     let container;
     let key = loading ? 'loading' : 'loaded';
-    // let animationClassName = animationClass + (inrow ? '-row' : '');
-    let animationClassName = animationClass + '-row';
+    let animationClassName = animationClass + (inrow ? '-row' : '');
+    // let animationClassName = animationClass + '-row';
 
     if(loading) {
       if(inrow) {
@@ -73,7 +73,9 @@ export default class Loading extends Component {
             <div className="loading-container">
               {loadingDOMFilterRes}
             </div>
-            {IsFunc(children) ? children() : children}
+            {
+              IsFunc(children) ? children() : children
+            }
           </React.Fragment>
         );
       } else {

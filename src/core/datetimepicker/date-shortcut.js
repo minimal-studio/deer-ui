@@ -44,6 +44,10 @@ export default class DateShortcut extends DateBasic {
     onClick: PropTypes.func.isRequired,
     /** 默认的时分秒的值 */
     defaultTimes: PropTypes.arrayOf(PropTypes.string),
+    /** 是否 toISOString */
+    toISOString: PropTypes.bool,
+    /** 是否添加时区的 */
+    addTimeOffset: PropTypes.bool,
     /** 自定义的时间快捷选项 */
     dateHelperInfo: PropTypes.arrayOf(
       PropTypes.shape({
@@ -66,6 +70,8 @@ export default class DateShortcut extends DateBasic {
   };
   static defaultProps = {
     needTime: true,
+    toISOString: true,
+    addTimeOffset: true,
     outputAsString: false,
     defaultTimes: ['00:00:00', '23:59:59'],
   };

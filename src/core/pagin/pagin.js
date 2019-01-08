@@ -1,6 +1,14 @@
 import React, {Component, PureComponent} from 'react';
 import PropTypes from 'prop-types';
+import ReactDOM from 'react-dom';
 import { UkeComponent, UkePureComponent } from '../uke-utils';
+import Selector from '../selector/dropdown-menu';
+import { getElementOffset } from '../set-dom';
+import { getScreenWidth, getScreenHeight, getScrollTop } from '../utils';
+
+const pageListData = [10, 20, 30, 40, 50];
+let pageListMap = {};
+pageListData.forEach(item => pageListMap[item] = `${item} 条/页`);
 
 export default class Pagination extends UkeComponent {
   static propTypes = {
@@ -17,6 +25,8 @@ export default class Pagination extends UkeComponent {
       /** 是否激活分页 */
       active: PropTypes.string,
     }),
+    /** 是否显示全部项 */
+    displayTotal: PropTypes.bool,
     /** 是否需要辅助分页的按钮 */
     isNeedHelper: PropTypes.bool,
     /** 前面的按钮数量 */
@@ -26,6 +36,7 @@ export default class Pagination extends UkeComponent {
     /** 分页切换时的回调 */
     onPagin: PropTypes.func.isRequired
   };
+  dropdownPosition = 'bottom';
   static defaultProps = {
     infoMapper: {
       pIdx: 'PageIndex',
@@ -34,8 +45,19 @@ export default class Pagination extends UkeComponent {
       active: 'UsePaging',
     },
     isNeedHelper: true,
+    displayTotal: true,
     prevBtnCount: 3,
     lastBtnCount: 3,
+  }
+  componentDidMount() {
+    this.node = ReactDOM.findDOMNode(this);
+  }
+  componentDidUpdate() {
+    if(!this.node) return;
+    const { offsetTop } = getElementOffset(this.node);
+    if(getScreenHeight() < offsetTop + getScrollTop() + 200) {
+      this.dropdownPosition = 'top';
+    }
   }
   infoTranslate(nextPaginInfo) {
     const { pagingInfo, infoMapper } = this.props;
@@ -70,7 +92,7 @@ export default class Pagination extends UkeComponent {
   }
   render () {
     const {
-      isNeedHelper,
+      isNeedHelper, displayTotal,
       lastBtnCount, prevBtnCount
     } = this.props;
     const pagingInfo = this.infoTranslate();
@@ -90,7 +112,8 @@ export default class Pagination extends UkeComponent {
 
     const jumpInputDOM = (
       <div className="jump-input">
-        <span>{gm('共')} {paginBtnCount || 1} {gm('页')}, {gm('跳转到第')}</span>
+        {/* <span>{gm('共')} {paginBtnCount || 1} {gm('页')}, {gm('跳至')}</span> */}
+        <span>{gm('跳至')}</span>
         <input
           type="text"
           className="form-control input-sm ms10 input"
@@ -100,11 +123,18 @@ export default class Pagination extends UkeComponent {
     );
     const pageCountInputDOM = (
       <div className="mr10 page-size-input">
-        <span>{gm('每页')}</span>
+        <Selector
+          defaultValue={10}
+          isNum
+          needAction={false}
+          position={this.dropdownPosition}
+          onChange={nextVal => this.changePagin(pIdx, nextVal)}
+          values={pageListMap} />
+        {/* <span>{gm('每页')}</span>
         <input type="text" className="form-control input-sm ms10 input"
           defaultValue={pSize}
           onBlur={e => this.changePagin(pIdx, e.target.value)}/>
-        <span>{gm('条记录')}</span>
+        <span>{gm('条')}</span> */}
       </div>
     );
     const btnGroup = (
@@ -115,7 +145,9 @@ export default class Pagination extends UkeComponent {
             let isActive = currIdx == (pIdx + 1);
             if(currIdx > 0 && currIdx < paginBtnCount + 1) {
               return (
-                <span key={currIdx} className={"item" + (isActive ? ' active' : '')} onClick={e => this.changePagin(currIdx - 1)}>
+                <span key={currIdx}
+                  className={"item" + (isActive ? ' active' : '')}
+                  onClick={e => this.changePagin(currIdx - 1)}>
                   {currIdx}
                 </span>
               );
@@ -143,6 +175,9 @@ export default class Pagination extends UkeComponent {
           {btnGroup}
           {lastCon}
         </div>
+        {
+          displayTotal && <span> {gm('共')} {total} {gm('项')}</span>
+        }
         <span className="flex" />
         {pageCountInputDOM}
         {jumpInputDOM}
