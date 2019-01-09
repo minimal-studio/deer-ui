@@ -7,6 +7,10 @@ import { IsFunc } from 'basic-helper';
 import LoadingProgress from './progress';
 import LoadingDOMPlaceholder from './placeholder';
 
+const childrenFuncFilter = (children) => {
+  return IsFunc(children) ? children() : children;
+};
+
 export default class Loading extends Component {
   static propTypes = {
     /** timeout */
@@ -62,90 +66,40 @@ export default class Loading extends Component {
     }
 
     let container;
-    let key = loading ? 'loading' : 'loaded';
-    let animationClassName = animationClass + (inrow ? '-row' : '');
-    // let animationClassName = animationClass + '-row';
 
-    if(loading) {
-      if(inrow) {
-        container = (
-          <React.Fragment>
-            <div className="loading-container">
-              {loadingDOMFilterRes}
-            </div>
-            {
-              IsFunc(children) ? children() : children
-            }
-          </React.Fragment>
-        );
-      } else {
-        container = (
+    switch (true) {
+    // solution 1, render chidlren with progress
+    case loading && inrow:
+      container = [
+        this.transitionWrap(
+          'loading',
           <div className="loading-container">
             {loadingDOMFilterRes}
           </div>
-        );
-      }
-    } else {
-      container = IsFunc(children) ? children() : children;
+        ),
+        this.transitionWrap('loaded', childrenFuncFilter(children))
+      ];
+      break;
+      // solution 2, when inrow and no children or not inrow, just render placeholder
+    case loading && !inrow:
+      container = this.transitionWrap(
+        'loading',
+        <div className="loading-container">
+          {loadingDOMFilterRes}
+        </div>
+      );
+      break;
+      // solution 3, just render children
+    case !loading:
+      container = this.transitionWrap('loaded', childrenFuncFilter(children));
+      break;
+    default:
     }
-
-    // switch (true) {
-    // // solution 1, render chidlren with progress
-    // case loading && inrow:
-    //   // container = [
-    //   //   this.transitionWrap(
-    //   //     'loading',
-    //   //     <div className="loading-container">
-    //   //       {loadingDOMFilterRes}
-    //   //     </div>
-    //   //   ),
-    //   //   this.transitionWrap('loaded', children)
-    //   // ];
-    //   container = (
-    //     <React.Fragment>
-    //       <div className="loading-container">
-    //         {loadingDOMFilterRes}
-    //       </div>
-    //       {children}
-    //     </React.Fragment>
-    //   );
-    //   break;
-    //   // solution 2, when inrow and no children or not inrow, just render placeholder
-    // case loading && !inrow:
-    //   // container = this.transitionWrap(
-    //   //   'loading',
-    //   //   <div className="loading-container">
-    //   //     {loadingDOMFilterRes}
-    //   //   </div>
-    //   // );
-    //   container = (
-    //     <div className="loading-container">
-    //       {loadingDOMFilterRes}
-    //     </div>
-    //   );
-    //   break;
-    //   // solution 3, just render children
-    // case !loading:
-    //   // container = this.transitionWrap('loaded', children);
-    //   container = children;
-    //   break;
-    // default:
-    // }
     return (
       <div className={"loading-control " + (loading ? 'loading' : 'planning')}>
         <TransitionGroup
-          appear={false}
           component={null}>
-          <CSSTransition
-            classNames={animationClassName}
-            timeout={timeout}
-            key={key}>
-            {/* {container} */}
-            <div>
-              {container}
-            </div>
-          </CSSTransition>
-          {/* {container} */}
+          {container}
         </TransitionGroup>
       </div>
     );
