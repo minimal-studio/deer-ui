@@ -40,8 +40,7 @@ export default class DatetimePicker extends DateBasic {
   };
   static defaultProps = {
     needTime: true,
-    toISOString: true,
-    addTimeOffset: true,
+    toUTC: true,
     // clickToClose: true,
     enableTime: false,
     outputAsString: false,

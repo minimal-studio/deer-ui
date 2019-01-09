@@ -68,8 +68,7 @@ export default class DateShortcut extends DateBasic {
   };
   static defaultProps = {
     needTime: true,
-    toISOString: true,
-    addTimeOffset: true,
+    toUTC: true,
     outputAsString: false,
     defaultTimes: ['00:00:00', '23:59:59'],
   };
