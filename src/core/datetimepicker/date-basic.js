@@ -1,14 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Call, DateFormat } from 'basic-helper';
+import { ToUTC } from 'basic-helper/datetime-helper';
 
 import { UkePureComponent } from '../uke-utils';
-
-const timeZoneOffset = (new Date()).getTimezoneOffset();
-const timeZoneOffsetStamp = timeZoneOffset * 60000;
-let timeZone = timeZoneOffset / 60 * -1;
-if(Math.abs(timeZone) < 10) timeZone = `0${Math.abs(timeZone)}`;
-const timeZoneSuffix = `${timeZone > 0 ? '+' : '-'}${timeZone}:00`;
 
 export default class DateBaisc extends UkePureComponent {
   static propTypes = {
@@ -41,9 +36,9 @@ export default class DateBaisc extends UkePureComponent {
         let resDate = DateFormat(_val, this.dateFormat) + (needTime ? ' ' + defaultTimes[idx] : '');
         if(!outputAsString) {
           if(toUTC) {
-            let resDatstamp = Date.parse(resDate);
             // res.setHours(res.getHours() + Math.abs(this.timeZoneOffset / 60));
-            resDate = new Date(resDatstamp - timeZoneOffsetStamp).toISOString().split('.')[0] + `${timeZoneSuffix}`;
+            // resDate = new Date(resDatstamp - timeZoneOffsetStamp).toISOString().split('.')[0] + `${timeZoneSuffix}`;
+            resDate = ToUTC(resDate);
           }
         }
         resVal.push(resDate);

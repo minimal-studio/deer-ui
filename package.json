@@ -71,7 +71,7 @@
     "webpack-merge": "^4.1.4"
   },
   "dependencies": {
-    "basic-helper": "^1.4.5",
+    "basic-helper": "^1.4.6",
     "classnames": "^2.2.5"
   }
 }
