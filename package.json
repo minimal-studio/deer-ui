@@ -26,7 +26,7 @@
   "author": "Alex",
   "license": "MIT",
   "peerDependencies": {
-    "basic-helper": "^1.4.5",
+    "basic-helper": "^1.4.7",
     "prop-types": "^15.5.10",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
@@ -71,7 +71,7 @@
     "webpack-merge": "^4.1.4"
   },
   "dependencies": {
-    "basic-helper": "^1.4.6",
+    "basic-helper": "^1.4.7",
     "classnames": "^2.2.5"
   }
 }
