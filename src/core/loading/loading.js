@@ -23,6 +23,7 @@ export default class Loading extends Component {
     children: PropTypes.oneOfType([
       PropTypes.func,
       PropTypes.element,
+      PropTypes.bool,
       PropTypes.array,
     ]),
     /** 可以替换默认的 loading 模版 */
