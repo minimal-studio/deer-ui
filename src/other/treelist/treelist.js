@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import { Call } from "basic-helper";
 import { Icon } from '../../core/icon';
 
 const Tree = (({ level, treeData, parentNode, activeLevel, selectedItems, itemFilter, onCheck, onToggle }) => {
@@ -75,7 +76,8 @@ export default class TreeList extends Component {
       title: PropTypes.string,
       value: PropTypes.string,
       id: PropTypes.string,
-    })
+    }),
+    onChange: PropTypes.func
   }
   static defaultProps = {
     fieldMapper: {
@@ -90,6 +92,7 @@ export default class TreeList extends Component {
     selectedItems: {}
   };
   itemFilter = (item) => {
+    if(!item) return;
     const { fieldMapper } = this.props;
     const { child, value, title, id } = fieldMapper;
     return {
@@ -116,24 +119,28 @@ export default class TreeList extends Component {
     return res;
   }
   onCheck = (targetNode, parentNode) => {
+    const { onChange } = this.props;
     const { child, id } = this.itemFilter(targetNode);
-    parentNode = this.itemFilter(parentNode);
-    const parentChildren = parentNode.child || [];
-    const parentChildrenLen = parentChildren.length;
     this.setState(({ selectedItems }) => {
       let nextState = {...selectedItems};
       nextState[id] = !nextState[id];
 
       /** 检查父节点的所有 child 是否都选中了 */
-      let activeChildCount = 0;
-      for (let i = 0; i < parentChildrenLen; i++) {
-        const childItem = this.itemFilter(parentChildren[i]);
-        if(nextState[childItem.id]) activeChildCount ++;
+      if(parentNode) {
+        parentNode = this.itemFilter(parentNode);
+        const parentChildren = parentNode.child || [];
+        const parentChildrenLen = parentChildren.length;
+        let activeChildCount = 0;
+        for (let i = 0; i < parentChildrenLen; i++) {
+          const childItem = this.itemFilter(parentChildren[i]);
+          if(nextState[childItem.id]) activeChildCount ++;
+        }
+        if(activeChildCount === parentChildrenLen) nextState[parentNode.id] = true;
       }
-      if(activeChildCount === parentChildrenLen) nextState[parentNode.id] = true;
       
       let IDs = this.getChildIDs(child, nextState[id]);
       Object.assign(nextState, IDs);
+      Call(onChange, nextState);
       return {
         selectedItems: nextState
       };

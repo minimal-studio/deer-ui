@@ -82,7 +82,11 @@ import '../../../style/other/default.scss'
           {
             ({ state, setState }) => {
               return (
-                <TreeList treeData={treeData} />
+                <TreeList
+                  onChange={val => {
+                    console.log(val)
+                  }}
+                  treeData={treeData} />
               )
             }
           }
