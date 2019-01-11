@@ -1,10 +1,10 @@
-$cycleScale: 16px;
+$frameScale: 16px;
 $normalColor: #CCC;
 .uke-radio-container {
   .group {
     @include layout();
     align-items: center;
-    // padding-left: $cycleScale;
+    // padding-left: $frameScale;
     .selectAllBtn {
       margin-right: 10px;
     }
@@ -12,12 +12,12 @@ $normalColor: #CCC;
       $itemPaddingHeight: 10px;
       padding: 5px $itemPaddingHeight;
       position: relative;
-      margin-left: $cycleScale;
+      margin-left: $frameScale;
       margin-right: 10px;
       cursor: pointer;
       min-width: 60px;
       &.active {
-        .cycle {
+        .frame {
           border-color: $themeColor;
           .unit {
             background-color: $themeColor;
@@ -28,14 +28,14 @@ $normalColor: #CCC;
       &:hover {
         color: $themeColor;
       }
-      .cycle {
+      .frame {
         position: absolute;
-        left: -$cycleScale;
-        width: $cycleScale;
-        height: $cycleScale;
+        left: -$frameScale;
+        width: $frameScale;
+        height: $frameScale;
         border-radius: 50%;
         top: 50%;
-        transform: translateY(- $cycleScale / 2);
+        transform: translateY(- $frameScale / 2);
         
         border: 1px solid $normalColor;
         overflow: hidden;
@@ -46,6 +46,14 @@ $normalColor: #CCC;
           border-radius: 50%;
           transition: all ease 0.2s;
         }
+      }
+    }
+  }
+  &.multiple {
+    .frame {
+      border-radius: 2px !important;
+      .unit {
+        border-radius: 2px !important;
       }
     }
   }

@@ -79,14 +79,14 @@ export default class Radio extends SelectorBasic {
           }
           <div className="text">{text}</div>
           {/* <div className="caret"></div> */}
-          <div className="cycle">
+          <div className="frame">
             <div className="unit"/>
           </div>
         </div>
       );
     });
     return (
-      <div className="uke-radio-container">
+      <div className={"uke-radio-container" + (isMultiple ? ' multiple' : '')}>
         <div className="group">
           {selectAllBtn}
           {radioGroup}
