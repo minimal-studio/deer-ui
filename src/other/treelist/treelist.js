@@ -135,7 +135,7 @@ export default class TreeList extends Component {
           const childItem = this.itemFilter(parentChildren[i]);
           if(nextState[childItem.id]) activeChildCount ++;
         }
-        if(activeChildCount === parentChildrenLen) nextState[parentNode.id] = true;
+        nextState[parentNode.id] = activeChildCount === parentChildrenLen;
       }
       
       let IDs = this.getChildIDs(child, nextState[id]);
