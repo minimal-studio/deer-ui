@@ -12,6 +12,8 @@ import '../../../style/other/default.scss'
 
 # TreeList
 
+<PropsTable of={TreeList} />
+
 ## Usage
 
 <Playground>
@@ -95,3 +97,19 @@ import '../../../style/other/default.scss'
     }
   }
 </Playground>
+
+## 调节 TreeListData 的字段与组件内部字段的对应关系
+
+```js
+<TreeList
+  fieldMapper={{
+    child: 'Children',
+    id: 'ID',
+    value: 'Value',
+    title: 'Name',
+  }}
+  onChange={val => {
+    console.log(val)
+  }}
+  treeData={treeData} />
+```
