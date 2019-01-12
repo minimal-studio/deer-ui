@@ -30,7 +30,7 @@ const Tree = (({ level, treeData, parentNode, activeLevel, selectedItems, itemFi
                     onChange={(e) => {
                       onCheck(item, parentNode);
                     }}
-                    checked={!!selectedItems[id]} />
+                    checked={selectedItems.hasOwnProperty(id)} />
                   <span>
                     {title}
                   </span>
@@ -74,7 +74,7 @@ export default class TreeList extends Component {
     fieldMapper: PropTypes.shape({
       child: PropTypes.string,
       title: PropTypes.string,
-      value: PropTypes.string,
+      value: PropTypes.any,
       id: PropTypes.string,
     }),
     onChange: PropTypes.func
@@ -103,13 +103,13 @@ export default class TreeList extends Component {
       id: item[id],
     };
   }
-  getChildIDs = (targetNode, value) => {
+  getChildIDs = (targetNode) => {
     let res = {};
     const recuresive = (item) => {
       if(item) {
         for (let i = 0; i < item.length; i++) {
           const _item = item[i];
-          const { child, id } = this.itemFilter(_item);
+          const { child, id, value } = this.itemFilter(_item);
           res[id] = value;
           if(Array.isArray(child)) recuresive(child);
         }
@@ -120,10 +120,14 @@ export default class TreeList extends Component {
   }
   onCheck = (targetNode, parentNode) => {
     const { onChange } = this.props;
-    const { child, id } = this.itemFilter(targetNode);
+    const { child, id, value } = this.itemFilter(targetNode);
     this.setState(({ selectedItems }) => {
       let nextState = {...selectedItems};
-      nextState[id] = !nextState[id];
+      if(nextState.hasOwnProperty(id)) {
+        delete nextState[id];
+      } else {
+        nextState[id] = value;
+      }
 
       /** 检查父节点的所有 child 是否都选中了 */
       if(parentNode) {
@@ -133,14 +137,15 @@ export default class TreeList extends Component {
         let activeChildCount = 0;
         for (let i = 0; i < parentChildrenLen; i++) {
           const childItem = this.itemFilter(parentChildren[i]);
-          if(nextState[childItem.id]) activeChildCount ++;
+          if(nextState.hasOwnProperty(childItem.id)) activeChildCount ++;
         }
-        nextState[parentNode.id] = activeChildCount === parentChildrenLen;
+        if(activeChildCount === parentChildrenLen) nextState[parentNode.id] = parentNode.value;
       }
       
-      let IDs = this.getChildIDs(child, nextState[id]);
+      let IDs = this.getChildIDs(child);
       Object.assign(nextState, IDs);
       Call(onChange, nextState);
+      this.selectedItems = nextState;
       return {
         selectedItems: nextState
       };
