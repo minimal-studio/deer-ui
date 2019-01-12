@@ -322,9 +322,10 @@ export default class FormFilterHelper extends UkeComponent {
         inputProps={inputProps}
         value={this.zeroFilter(this.getValue(ref), '')}
         onChange={(val, activeRef) => {
+          const isEmptyVal = val == '';
           this.changeValues({
-            [ref]: val,
-            [refForS]: activeRef
+            [ref]: isEmptyVal ? undefined : val,
+            [refForS]: isEmptyVal ? undefined : activeRef
           });
         }}/>
     );
@@ -389,7 +390,7 @@ export default class FormFilterHelper extends UkeComponent {
           this.changeValue(val, ref);
           Call(config.onBlur, val);
         }}
-        onChange={val => this.changeValue(val, ref)}/>
+        onChange={val => this.changeValue(val == '' ? undefined : val, ref)}/>
     );
   }
   getTextArea = (config) => {

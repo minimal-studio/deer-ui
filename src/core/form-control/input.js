@@ -24,6 +24,8 @@ export default class Input extends Component {
     required: PropTypes.bool,
     /** 是否显示 title */
     showTitle: PropTypes.bool,
+    /** 是否获取焦点后选中文字 */
+    forceToSelect: PropTypes.bool,
     /** 输入框的 icon */
     icon: PropTypes.string,
     /** icon 的名字 */
@@ -70,6 +72,7 @@ export default class Input extends Component {
   };
   static defaultProps = {
     required: false,
+    forceToSelect: false,
     className: 'form-control',
     type: 'input',
     inputType: 'string',
@@ -78,7 +81,7 @@ export default class Input extends Component {
    * 设置 input 控件的默认行为
    * @public
    */
-  static setConfig = ({showTitle}) => {
+  static setConfig = ({ showTitle }) => {
     defaultShowInputTitle = showTitle;
   };
   constructor(props) {
@@ -119,18 +122,18 @@ export default class Input extends Component {
   /**
    * 用于过滤是 number 类型的值
    */
-  numberValFilter() {
+  numberValFilter(val) {
     const { inputType } = this.props;
-    let val = this.getValue();
+    val = HasValue(val) ? val : this.getValue();
     switch (inputType) {
     case 'number':
-      val = HasValue(+val) ? +val : 0;
+      val = HasValue(val) ? +val : undefined;
       break;
     }
     return val;
   }
   changeVal(val, elem) {
-    this.value = val;
+    this.value = this.numberValFilter(val);
     if(!this.isControl) {
       this.setState({
         stateVal: val
@@ -199,7 +202,7 @@ export default class Input extends Component {
                 this.delForceClass();
                 let val = this.numberValFilter();
                 val = IsFunc(filter) ? filter(val) : val;
-                Call(onBlur, val, e);
+                if(typeof val != 'undefined') Call(onBlur, val, e);
               }}
               onChange={e => {
                 let val = e.target.value;
