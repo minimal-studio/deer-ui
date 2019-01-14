@@ -12,6 +12,10 @@
   overflow-y: auto;
   overflow-x: hidden;
 }
+.break-word {
+  white-space: inherit;
+  word-break: break-all;
+}
 .table-header {
   table-layout: fixed;
   thead {
@@ -128,8 +132,8 @@
         padding: 8px 2px;
         text-align: center;
         border-top: 0;
-        word-break: keep-all;
-        white-space: nowrap;
+        word-break: break-all;
+        white-space: inherit;
         vertical-align: middle;
         color: $tableBodyTextColor;
         min-width: 80px;

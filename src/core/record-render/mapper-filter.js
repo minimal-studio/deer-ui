@@ -15,6 +15,7 @@ const excludeKey = (target, keys) => {
 export default class MapperFilter extends UkeComponent {
   /** 可以覆盖的 excludeKeys */
   excludeKeys = ['records', 'keyMapper', 'whenCheckAction'];
+  sortIgnores = [];
   shouldComponentUpdate(nextProps, nextState, nextContext) {
     /** 渲染前做自定义的数据对比，提升表格渲染的效率 */
     let _thisProps = excludeKey(this.props, this.excludeKeys);
