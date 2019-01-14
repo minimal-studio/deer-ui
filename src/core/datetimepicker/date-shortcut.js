@@ -1,6 +1,7 @@
 import React, {Component, PureComponent} from 'react';
 import PropTypes from 'prop-types';
 import { Call, DateFormat, GetDefaultDateInfo } from 'basic-helper';
+import { DateRange, ToUTC } from 'basic-helper/datetime-helper';
 
 import { SubContent } from '../sub-content';
 import DateBasic from './date-basic';
@@ -21,10 +22,10 @@ function getHalfMouthDate(type, format, timeDefaultStr) {
   let result = [];
   switch (type) {
   case 'up':
-    result = [upStartDate, upEndDate];
+    result = [ToUTC(upStartDate), ToUTC(upEndDate)];
     break;
   case 'down':
-    result = [downStartDate, downEndDate];
+    result = [ToUTC(downStartDate), ToUTC(downEndDate)];
     break;
   }
 
@@ -86,6 +87,7 @@ export default class DateShortcut extends DateBasic {
     const timeDefaultStr = needTime ? [' 00:00:00', ' 23:59:59'] : [];
     // const format = basicFormat + (needTime ? (' ' + timeFormat) : '');
     const gm = this.gm;
+    const dateRangeOptions = {extendFormat: timeDefaultStr};
 
     this.defaultDateHelperInfo = [
       {
@@ -96,12 +98,12 @@ export default class DateShortcut extends DateBasic {
       },
       {
         filter() {
-          return GetDefaultDateInfo(0, 0, undefined, timeDefaultStr);
+          return DateRange(0, 0, dateRangeOptions);
         },
         t: gm('今天')
       }, {
         filter() {
-          return GetDefaultDateInfo(1, -1, undefined, timeDefaultStr);
+          return DateRange(1, -1, dateRangeOptions);
         },
         t: gm('昨天')
       }, {
