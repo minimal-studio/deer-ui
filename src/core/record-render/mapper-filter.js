@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { HasValue, DateFormat, MoneyFormat, IsFunc } from 'basic-helper';
+import { HasValue, DateFormat, MoneyFormat, IsFunc, IsObj } from 'basic-helper';
 import { UkeComponent, UkePureComponent } from '../uke-utils';
 import { ToolTip } from '../tooltip';
+import Dropdown from '../selector/dropdown-menu';
 
 const excludeKey = (target, keys) => {
   let res = Object.assign({}, target);
@@ -28,7 +29,31 @@ export default class MapperFilter extends UkeComponent {
   }
   titleFilter(item, idx) {
     const { title, key, tips } = item;
-    const titleDOM = IsFunc(title) ? title(item, idx) : title || this.gm(key);
+    let titleDOM;
+    switch (true) {
+    case IsFunc(title):
+      titleDOM = title(item, idx);
+      break;
+    case IsObj(title) && title.type == 'selector':
+      let {
+        outside = true,
+        invalidTip = this.gm('全部'),
+        defaultTitle = this.gm(key),
+        cancelTitle = this.gm('全部')
+      } = title;
+      titleDOM = (
+        <Dropdown {...title}
+          outside={outside}
+          defaultTitle={defaultTitle}
+          invalidTip={invalidTip}
+          cancelTitle={cancelTitle} />
+      );
+      if(this.sortIgnores.indexOf(key) === -1) this.sortIgnores.push(key);
+      break;
+    default:
+      titleDOM = title || this.gm(key);
+      break;
+    }
     const tipsDOM = tips ? (
       <ToolTip n="question" s="r" title={tips}/>
     ) : null;

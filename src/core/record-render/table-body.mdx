@@ -7,12 +7,15 @@ menu: Table / 表格渲染
 import { Playground, PropsTable } from 'docz'
 import { ShowGlobalModal } from '../modal';
 import { Table, DescHelper } from './';
+import { DropdownMenu } from '../selector';
 
 # Table
 
 ## 通用表格渲染
 
 <PropsTable of={Table} />
+
+## 通用配置
 
 <Playground>
   {
@@ -42,6 +45,16 @@ import { Table, DescHelper } from './';
         {key: 'birth', date: 1},
         {key: 'obj', filter: (_, item) => {
           return _.account
+        }},
+        {key: 'status', title: {
+          type: 'selector',
+          values: {
+            normal: '正常',
+            abnormal: '异常',
+          },
+          onChange: (val) => {
+            console.log(val);
+          }
         }},
         {key: 'action', filter: (str, item) => {
           return (
@@ -109,6 +122,49 @@ import { Table, DescHelper } from './';
     }
   }
 </Playground>
+
+## 在表头添加选择器
+
+> 通过传入不同类型的 title 字段，实现多种表头
+
+### 1. object title
+
+```js
+// propsForSelector 会全部传入 DropdownMenu，type 用于标记是什么类型
+const keyMapper = {
+  key: 'status',
+  title: {
+    type: 'selector',
+    ...propsForSelector
+  }
+}
+```
+
+### 2. function title
+
+```js
+// 定义 title 的过滤器，实现返回任意内容
+const keyMapper = {
+  key: 'any',
+  title: () => {
+    return (
+      <div>
+        ...
+      </div>
+    )
+  }
+}
+```
+
+### 3. string title
+
+```js
+// 一般的文字内容
+const keyMapper = {
+  key: 'title',
+  title: '表头'
+}
+```
 
 
 模版提供一下功能

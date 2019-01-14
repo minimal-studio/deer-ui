@@ -65,8 +65,9 @@ export default class Table extends MapperFilter {
     whenCheckAction: PropTypes.any,
   };
   excludeField = ['action', 'checkbox'];
+  sortIgnores = ['action', 'checkbox'];
   static defaultProps = {
-    sortIgnores: ['checkbox'],
+    sortIgnores: [],
     needCheck: false,
     checkWidth: 30,
     needCount: false,
@@ -196,7 +197,7 @@ export default class Table extends MapperFilter {
   }
 
   ignoreFilter(str) {
-    return this.props.sortIgnores.indexOf(str) !== -1;
+    return [...this.sortIgnores, ...this.props.sortIgnores].indexOf(str) !== -1;
   }
 
   getMapperItemsDOM(record, parentIdx, needCount, needAction = true) {
