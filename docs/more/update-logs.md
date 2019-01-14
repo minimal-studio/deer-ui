@@ -5,7 +5,7 @@
 ## 2.13.7
 
 - 修复 DropdownMenu 的定位问题
-- 修复 TableTable 的最长样式问题
+- 修复 Table 的最长样式问题
 
 ## 2.13.6
 
