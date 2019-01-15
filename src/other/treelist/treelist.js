@@ -67,6 +67,7 @@ export default class TreeList extends Component {
         child: PropTypes.array,
         title: PropTypes.string.isRequired,
         value: PropTypes.any,
+        active: PropTypes.any,
         id: PropTypes.any,
       })
     ),
@@ -74,6 +75,7 @@ export default class TreeList extends Component {
     fieldMapper: PropTypes.shape({
       child: PropTypes.string,
       title: PropTypes.string,
+      active: PropTypes.string,
       value: PropTypes.any,
       id: PropTypes.string,
     }),
@@ -83,22 +85,47 @@ export default class TreeList extends Component {
     fieldMapper: {
       child: 'child',
       title: 'title',
+      active: 'active',
       value: 'value',
       id: 'id',
     }
   }
-  state = {
-    activeLevel: {},
-    selectedItems: {}
-  };
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      activeLevel: {},
+      selectedItems: {}
+    };
+  }
+  componentDidMount() {
+    this.getDefaultActiveItems();
+  }
+  getDefaultActiveItems = () => {
+    let res = {};
+    const recuresive = (item) => {
+      if(item) {
+        for (let i = 0; i < item.length; i++) {
+          const _item = item[i];
+          const { child, active } = this.itemFilter(_item);
+          if(active) {
+            this.onCheck(_item);
+          } else if(Array.isArray(child)) recuresive(child);
+        }
+      }
+    };
+    recuresive(this.props.treeData);
+    return res;
+  }
   itemFilter = (item) => {
     if(!item) return;
     const { fieldMapper } = this.props;
-    const { child, value, title, id } = fieldMapper;
+    const { child, value, title, id, active } = fieldMapper;
     return {
       ...item,
       child: item[child],
       value: item[value],
+      active: item[active],
       title: item[title],
       id: item[id],
     };
@@ -123,8 +150,16 @@ export default class TreeList extends Component {
     const { child, id, value } = this.itemFilter(targetNode);
     this.setState(({ selectedItems }) => {
       let nextState = {...selectedItems};
-      if(nextState.hasOwnProperty(id)) {
+      let IDs = this.getChildIDs(child);
+      const isNextNeedCheck = !nextState.hasOwnProperty(id);
+      if(!isNextNeedCheck) {
         delete nextState[id];
+        for (const key in IDs) {
+          if (IDs.hasOwnProperty(key)) {
+            delete nextState[key];
+            delete IDs[key];
+          }
+        }
       } else {
         nextState[id] = value;
       }
@@ -139,10 +174,13 @@ export default class TreeList extends Component {
           const childItem = this.itemFilter(parentChildren[i]);
           if(nextState.hasOwnProperty(childItem.id)) activeChildCount ++;
         }
-        if(activeChildCount === parentChildrenLen) nextState[parentNode.id] = parentNode.value;
+        if(activeChildCount === parentChildrenLen) {
+          nextState[parentNode.id] = parentNode.value;
+        } else {
+          delete nextState[parentNode.id];
+        }
       }
       
-      let IDs = this.getChildIDs(child);
       Object.assign(nextState, IDs);
       Call(onChange, nextState);
       this.selectedItems = nextState;

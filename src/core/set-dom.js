@@ -12,10 +12,10 @@ export default function setDOMById(targetID, className = '') {
 
 export function getElementLeft(element) {
   if(!element) return;
-  var actualLeft = element.offsetLeft;
   var current = element.offsetParent;
+  var actualLeft = element.offsetLeft;
   while (current !== null) {
-    actualLeft += (current.offsetLeft + current.clientLeft);
+    actualLeft += (current.offsetLeft + current.clientLeft - current.scrollLeft);
     current = current.offsetParent;
   }
   return actualLeft;
@@ -26,7 +26,7 @@ export function getElementTop(element) {
   var actualTop = element.offsetTop;
   var current = element.offsetParent;
   while (current !== null) {
-    actualTop += (current.offsetTop + current.clientTop);
+    actualTop += (current.offsetTop + current.clientTop - current.scrollTop);
     current = current.offsetParent;
   }
   return actualTop;

@@ -15,75 +15,77 @@ import { Pop, GlobalPopover, PopoverEntity, Popover } from './';
 
 <PropsTable of={Popover} />
 
-<Playground>
-  <span className="mr10" onMouseEnter={e => {
-    Pop.show({
-      elem: e.target,
-      props: {
-        showCloseBtn: false,
-        position: 'top',
-        type: 'red'
-      },
-      children: (
-        <div className="p10">任意内容</div>
-      )
-    })
-  }} onMouseLeave={e => {
-    Pop.close()
-  }}>
-    向上弹出
-  </span>
-  <span className="mr10" onMouseEnter={e => {
-    Pop.show({
-      elem: e.target,
-      props: {
-        showCloseBtn: false,
-        position: 'bottom',
-        type: 'red'
-      },
-      children: (
-        <div className="p10">任意内容</div>
-      )
-    })
-  }} onMouseLeave={e => {
-    Pop.close()
-  }}>
-    向下弹出
-  </span>
-  <span className="mr10" onMouseEnter={e => {
-    Pop.show({
-      elem: e.target,
-      props: {
-        showCloseBtn: false,
-        position: 'left',
-        type: 'red'
-      },
-      children: (
-        <div className="p10">任意内容</div>
-      )
-    })
-  }} onMouseLeave={e => {
-    Pop.close()
-  }}>
-    向左弹出
-  </span>
-  <span className="mr10" onMouseEnter={e => {
-    Pop.show({
-      elem: e.target,
-      props: {
-        showCloseBtn: false,
-        position: 'right',
-        type: 'red'
-      },
-      children: (
-        <div className="p10">任意内容</div>
-      )
-    })
-  }} onMouseLeave={e => {
-    Pop.close()
-  }}>
-    向右弹出
-  </span>
+<Playground style={{overflowX: 'auto'}}>
+  <div className="layout j-c-b" style={{width: '110%'}}>
+    <span className="mr10" onMouseEnter={e => {
+      Pop.show({
+        elem: e.target,
+        props: {
+          showCloseBtn: false,
+          position: 'top',
+          type: 'red'
+        },
+        children: (
+          <div className="p10">任意内容任意内容任意内容任意内容任意内容任意内容任意内容任意内容任意内容任意内容任意内容任意内容任意内容任意内容任意内容任意内容</div>
+        )
+      })
+    }} onMouseLeave={e => {
+      Pop.close()
+    }} style={{width: 100, display: 'inline-block'}}>
+      向上弹出
+    </span>
+    <span className="mr10" onMouseEnter={e => {
+      Pop.show({
+        elem: e.target,
+        props: {
+          showCloseBtn: false,
+          position: 'bottom',
+          type: 'red'
+        },
+        children: (
+          <div className="p10">任意内容</div>
+        )
+      })
+    }} onMouseLeave={e => {
+      Pop.close()
+    }} style={{width: 100, display: 'inline-block'}}>
+      向下弹出
+    </span>
+    <span className="mr10" onMouseEnter={e => {
+      Pop.show({
+        elem: e.target,
+        props: {
+          showCloseBtn: false,
+          position: 'left',
+          type: 'red'
+        },
+        children: (
+          <div className="p10">任意内容</div>
+        )
+      })
+    }} onMouseLeave={e => {
+      Pop.close()
+    }} style={{width: 100, display: 'inline-block'}}>
+      向左弹出
+    </span>
+    <span className="mr10" onMouseEnter={e => {
+      Pop.show({
+        elem: e.target,
+        props: {
+          showCloseBtn: false,
+          position: 'right',
+          type: 'red'
+        },
+        children: (
+          <div className="p10">任意内容</div>
+        )
+      })
+    }} onMouseLeave={e => {
+      Pop.close()
+    }} style={{width: 100, display: 'inline-block'}}>
+      向右弹出
+    </span>
+  </div>
 </Playground>
 
 -------
