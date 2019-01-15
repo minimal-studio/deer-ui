@@ -2,6 +2,10 @@
 
 -----------------
 
+## 2.13.9
+
+- Treelist 新增 defaultValue
+
 ## 2.13.8
 
 - 修复 Treelist 的选择问题

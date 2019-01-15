@@ -79,6 +79,7 @@ export default class TreeList extends Component {
       value: PropTypes.any,
       id: PropTypes.string,
     }),
+    defaultValue: PropTypes.shape({}),
     onChange: PropTypes.func
   }
   static defaultProps = {
@@ -88,14 +89,15 @@ export default class TreeList extends Component {
       active: 'active',
       value: 'value',
       id: 'id',
-    }
+    },
+    defaultValue: {}
   }
   constructor(props) {
     super(props);
 
     this.state = {
       activeLevel: {},
-      selectedItems: {}
+      selectedItems: props.defaultValue
     };
   }
   componentDidMount() {

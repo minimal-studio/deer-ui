@@ -36,7 +36,6 @@ import { TreeList } from 'ukelli-ui/other/treelist';
           title: '树形1',
           value: 'value1',
           id: 'value1',
-          active: true,
           child: [{
             title: '树形1-1',
             value: 'value1-1',
@@ -100,6 +99,9 @@ import { TreeList } from 'ukelli-ui/other/treelist';
                 <TreeList
                   onChange={val => {
                     console.log(val)
+                  }}
+                  defaultValue={{
+                    'value2-2': 'value2-2'
                   }}
                   treeData={treeData} />
               )
