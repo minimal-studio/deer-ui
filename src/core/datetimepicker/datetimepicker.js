@@ -55,8 +55,6 @@ export default class DatetimePicker extends DateBasic {
     super(props);
     const {value, defaultValue, needTime} = this.props;
 
-    this.dateFormater = [this.dateFormat, needTime ? this.timeFormat : undefined].join(' ').trim();
-
     this.isControl = props.hasOwnProperty('value');
 
     let defaultVal = value || defaultValue;
@@ -86,12 +84,11 @@ export default class DatetimePicker extends DateBasic {
       dateFormat: 'Y-m-d' + (enableTime ? ' H:i:S' : ''),
       disableMobile: true,
       // enableSeconds: true,
-      onClose: (rangeValues) => {
-        let emitVal = rangeValues;
-        // if(!needTime) emitVal = rangeValues.map(val => DateFormat(val, this.dateFormater));
+      onChange: (rangeValues, dateStr, instance) => {
+        if(instance.isOpen) return;
+        let emitVal = [...rangeValues];
         if(mode === 'single' && Array.isArray(emitVal)) emitVal = rangeValues[0];
         this.changeDate(emitVal);
-        // if(clickToClose) this.datepicker.close();
       },
       locale: lang,
       // wrap: true,

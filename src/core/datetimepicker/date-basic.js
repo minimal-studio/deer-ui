@@ -27,25 +27,22 @@ export default class DateBaisc extends UkePureComponent {
     /** 确保只有一个值的时候的时分秒为 23:59:59 */
     let emitVal = Array.isArray(val) ? val : [null, val];
     let resVal = [];
-    if(enableTime) {
-      resVal = emitVal;
-    } else {
-    
-      emitVal.forEach((_val, idx) => {
-        if(!_val) return;
-        let resDate = DateFormat(_val, this.dateFormat) + (needTime ? ' ' + defaultTimes[idx] : '');
-        if(!outputAsString) {
-          if(toUTC) {
-            // res.setHours(res.getHours() + Math.abs(this.timeZoneOffset / 60));
-            // resDate = new Date(resDatstamp - timeZoneOffsetStamp).toISOString().split('.')[0] + `${timeZoneSuffix}`;
-            resDate = ToUTC(resDate);
-          }
+    emitVal.forEach((_val, idx) => {
+      if(!_val) return;
+      let resDate;
+      if(enableTime) {
+        resDate = DateFormat(_val, `${this.dateFormat} ${this.timeFormat}`);
+      } else {
+        resDate = DateFormat(_val, this.dateFormat) + (needTime ? ' ' + defaultTimes[idx] : '');
+      }
+      if(!outputAsString) {
+        if(toUTC) {
+          resDate = ToUTC(resDate);
         }
-        resVal.push(resDate);
-      });
-  
-      resVal = resVal.length === 1 ? resVal[0] : resVal;
-    }
+      }
+      resVal.push(resDate);
+    });
+    resVal = resVal.length === 1 ? resVal[0] : resVal;
 
     Call(onChange, resVal);
 
