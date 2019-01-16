@@ -132,8 +132,11 @@
         padding: 8px 2px;
         text-align: center;
         border-top: 0;
-        word-break: break-all;
-        white-space: inherit;
+        // word-break: break-all;
+        // white-space: inherit;
+        /** 为了让表格形成一行 */
+        word-break: keep-all;
+        white-space: nowrap;
         vertical-align: middle;
         color: $tableBodyTextColor;
         min-width: 80px;
@@ -141,6 +144,10 @@
         // border-right: 1px solid #e9e9e9;
         &.check-td  {
           min-width: 30px !important;
+        }
+        &.break-word {
+          word-break: break-all;
+          white-space: inherit;
         }
       }
       &:nth-of-type(even) {

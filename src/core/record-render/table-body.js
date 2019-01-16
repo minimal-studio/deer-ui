@@ -11,6 +11,8 @@ const tdSpecClassMapper = {
   checkbox: 'check-td'
 };
 
+const tdMaxWidth = 400;
+
 // const excludeKey = (target, keys) => {
 //   let res = Object.assign({}, target);
 //   keys.forEach(item => {
@@ -64,14 +66,14 @@ export default class Table extends MapperFilter {
     /** 当选中时往表格顶部嵌入的内容 */
     whenCheckAction: PropTypes.any,
   };
-  excludeField = ['action', 'checkbox'];
-  sortIgnores = ['action', 'checkbox'];
   static defaultProps = {
     sortIgnores: [],
     needCheck: false,
     checkWidth: 30,
     needCount: false,
   };
+  excludeField = ['action', 'checkbox'];
+  sortIgnores = ['action', 'checkbox'];
   constructor(props) {
     super(props);
 
@@ -172,7 +174,8 @@ export default class Table extends MapperFilter {
     let nextContainerWidth = 0;
     Object.keys(this.firstTDDOMs).forEach(tdIdx => {
       let currTDDOM = this.firstTDDOMs[tdIdx];
-      nextHeaderWidthMapper[tdIdx] = currTDDOM.offsetWidth;
+      let currWidth = currTDDOM.offsetWidth || this.state.headerWidthMapper[tdIdx];
+      nextHeaderWidthMapper[tdIdx] = currWidth;
       nextContainerWidth += nextHeaderWidthMapper[tdIdx];
     });
     if(
@@ -211,7 +214,7 @@ export default class Table extends MapperFilter {
       const item = keyMapper[_idx];
       if(!item) continue;
 
-      const { key } = item;
+      const { key, className } = item;
       const currText = record[key];
       const actionRes = (!needAction && this.excludeField.indexOf(key) !== -1) ? '-' : this.mapperFilter(item, record, parentIdx);
 
@@ -227,16 +230,19 @@ export default class Table extends MapperFilter {
       }
 
       const tdKey = key + '_' + currText;
+      let style = {};
+      let _className = className;
       
       result.push(
         <td
           ref={tdDOM => {
-            if(tdDOM && parentIdx == 0) {
+            if(parentIdx == 0 && tdDOM) {
               this.firstTDDOMs[_idx] = tdDOM;
             }
+            if(tdDOM && tdDOM.offsetWidth > tdMaxWidth) tdDOM.classList.add('break-word');
           }}
-          style={item.w ? {width: item.w, whiteSpace: 'pre-wrap'} : null}
-          className={(tdSpecClassMapper[key] || '') + ' ' + (item.className || '')}
+          style={item.w ? {width: item.w, whiteSpace: 'pre-wrap'} : style}
+          className={(tdSpecClassMapper[key] || '') + (_className ? ' ' + _className : '')}
           key={tdKey}>
           {actionRes}
         </td>
@@ -309,6 +315,10 @@ export default class Table extends MapperFilter {
     });
   }
 
+  saveTable = e => {
+    if(e) this.tableRenderDOM = e;
+  }
+
   render() {
     const {
       needCount, height, whenCheckAction
@@ -341,8 +351,8 @@ export default class Table extends MapperFilter {
               {
                 keyMapper.map((item, idx) => {
                   if(!item) return;
-                  const { key } = item;
-                  const currHeaderWidth = item.w || headerWidthMapper[idx];
+                  const { key, w } = item;
+                  const currHeaderWidth = w || headerWidthMapper[idx];
                   
                   let title = '';
                   if(key !== 'checkbox') {
@@ -417,9 +427,8 @@ export default class Table extends MapperFilter {
     );
 
     return (
-      <div className={"table-render" + (hasChecked ? ' has-checked' : '')} ref={tableRenderDOM => {
-        if(tableRenderDOM) this.tableRenderDOM = tableRenderDOM;
-      }}>
+      <div className={"table-render" + (hasChecked ? ' has-checked' : '')}
+        ref={this.saveTable}>
         {
           hasChecked && !!whenCheckAction? (
             <div className="checked-actions">{whenCheckAction}</div>

@@ -5,7 +5,7 @@ menu: Table / 表格渲染
 ---
 
 import { Playground, PropsTable } from 'docz'
-import { ShowGlobalModal } from '../modal';
+import { ShowModal } from '../modal';
 import { Table, DescHelper } from './';
 import { DropdownMenu } from '../selector';
 
@@ -58,11 +58,31 @@ import { DropdownMenu } from '../selector';
         }},
         {key: 'action', filter: (str, item) => {
           return (
-            <span
-              onClick={e => ShowGlobalModal({
-                children: <DescHelper keyMapper={keyMapper} record={item} />
-              })}
-              className="link-btn">详情</span>
+            <div>
+              <span
+                onClick={e => ShowModal({
+                  children: <DescHelper keyMapper={keyMapper} record={item} />
+                })}
+                className="link-btn">详情</span>
+              <span
+                onClick={e => ShowModal({
+                  width: 1000,
+                  children: (
+                    <Table
+                      keyMapper={keyMapper}
+                      ref={e => table = e}
+                      whenCheckAction={(
+                        <span className="btn theme mu10" onClick={e => table.clearCheckeds()}>
+                          清除所有的以选中项
+                        </span>
+                      )}
+                      needCheck
+                      needCount
+                      records={records} />
+                  )
+                })}
+                className="link-btn t_red">弹出表格</span>
+            </div>
           )
         }}
       ]
@@ -177,7 +197,7 @@ const keyMapper = {
 
 ```js
 const DescHelper = require('./desc-helper').default;
-const { ShowGlobalModal } = require('../modal');
+const { ShowModal } = require('../modal');
 
 class ForTable extends React.Component {
   constructor(props) {
@@ -211,7 +231,7 @@ class ForTable extends React.Component {
       {key: 'action', filter: (str, item) => {
         return (
           <span
-            onClick={e => ShowGlobalModal({
+            onClick={e => ShowModal({
               children: <DescHelper keyMapper={this.keyMapper} record={item} />
             })}
             className="link-btn">详情</span>
