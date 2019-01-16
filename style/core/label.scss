@@ -1,21 +1,24 @@
-$themeMapper: (
-  red: $colorRed,
-  green: $colorGreen,
-  black: $colorBlack,
-  cyan: $colorCyan,
-  orange: $colorOrange,
-  blue: $colorBlue
-);
+// $themeMapper: (
+//   red: $colorRed,
+//   green: $colorGreen,
+//   black: $colorBlack,
+//   cyan: $colorCyan,
+//   orange: $colorOrange,
+//   grey: $colorGrey,
+//   blue: $colorBlue
+// );
 
 .uke-label {
   display: inline-block;
   color: #FFF;
   padding: 3px 12px;
-  margin: 0 3px;
+  // margin: 0 3px;
+  margin-left: 3px;
+  margin-right: 3px;
   border-radius: 4px;
-  @each $name, $value in $themeMapper {
-    &.#{$name} {
-      background-color: $value;
-    }
-  }
+  // @each $name, $value in $themeMapper {
+  //   &.#{$name} {
+  //     background-color: $value;
+  //   }
+  // }
 }

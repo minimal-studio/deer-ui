@@ -5,6 +5,7 @@ menu: Style
 ---
 
 import { Playground, PropsTable } from 'docz'
+import { Label } from '../../src/core/label'
 
 # Color
 
@@ -67,7 +68,7 @@ $themeColor: $colorBlue;
   {
     () => {
       const colorsColl = [
-        'theme', 'red', 'yellow', 'gold', 'blue', 'green', 'light-p',
+        'theme', 'red', 'orange', 'yellow', 'gold', 'blue', 'green', 'light-p',
         'primary', 'default', 'white', 'important', 'warn', 'black',
         'grey', 'wine'
       ];
@@ -87,6 +88,9 @@ $themeColor: $colorBlue;
       const allBlockText = colorsColl.map(color => {
         return <BlockText key={color} className={`t_${color}`} />
       })
+      const allLabel = colorsColl.map(color => {
+        return <Label key={color} color={color} text={color} className="mb5" />
+      })
 
       return (
         <div className="bg_default p20">
@@ -94,6 +98,8 @@ $themeColor: $colorBlue;
           {allBlock}
           <h3>字</h3>
           {allBlockText}
+          <h3>Label</h3>
+          {allLabel}
         </div>
       )
     }
