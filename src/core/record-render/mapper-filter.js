@@ -41,13 +41,14 @@ export default class MapperFilter extends UkeComponent {
         invalidTip = this.gm('全部'),
         defaultTitle = this.gm(key),
         cancelTitle = this.gm('全部'),
+        ref = key,
         onChange,
         ...other
       } = title;
       titleDOM = (
         <Dropdown {...other}
           onChange={val => Call(onChange, {
-            [key]: val
+            [ref]: val
           })}
           outside={outside}
           defaultTitle={defaultTitle}
