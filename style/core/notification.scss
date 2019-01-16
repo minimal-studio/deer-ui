@@ -8,22 +8,27 @@ $transtionTimer: 300ms;
 $itemW: 360px;
 
 @mixin nitifyItem($bgColor, $textColor) {
-  background-color: rgba($bgColor, 0.98);
-  color: $textColor;
+  border-left: 3px solid $bgColor;
+  // color: $textColor;
 
   &:hover {
-    background-color: rgba($bgColor, 1);
+    // background-color: rgba($bgColor, 1);
+    box-shadow: 0 12px 48px rgba(#000, 0.2);
+  }
+  .notify-type-tip {
+    // font-size: 30px;
+    color: $bgColor;
   }
   .title {
     // border-color: rgba($bgColor, 1);
   }
-  .close-btn {
-    // background-color: rgba($textColor, 1);
-    color: $textColor;
-  }
-  .action {
-    color: $textColor;
-  }
+  // .close-btn {
+  //   // background-color: rgba($textColor, 1);
+  //   color: $textColor;
+  // }
+  // .action {
+  //   color: $textColor;
+  // }
 }
 
 #NOTIFICATION_CONTAINER {
@@ -47,21 +52,28 @@ $itemW: 360px;
     .close-btn {
       background-color: transparent !important;
       font-size: 22px;
+      color: #999;
     }
 
     @include positionHelper();
+
+    .notify-type-tip {
+      font-size: 30px;
+    }
 
     .notify-item {
       box-shadow: 0 0 24px rgba(0, 0, 0, 0.2);
       position: relative;
       cursor: pointer;
       transition: all 0.3s ease;
+      display: flex;
       // border-bottom: 1px dashed #CCC;
       margin-bottom: 10px;
       padding: 10px;
       width: $itemW;
       border-radius: 4px 0 0 4px;
       transition: all ease 0.2s;
+      background-color: #FFF;
 
       &:hover {
         // transform: scale(1.02);
@@ -107,8 +119,8 @@ $itemW: 360px;
       &.error {
         @include nitifyItem($colorRed, #FFF);
       }
-      &.warm {
-        @include nitifyItem($colorYellow, #FFF);
+      &.warn {
+        @include nitifyItem($colorOrange, #FFF);
       }
       &.black {
         @include nitifyItem($colorBlack, #FFF);

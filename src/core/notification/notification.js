@@ -7,14 +7,25 @@ import positionFilter from '../position-filter';
 import { UkeComponent, UkePureComponent } from '../uke-utils';
 
 const TRANSFORM_TIMER = 300;
+const defaultTimeToClose = 7;
+
+const iconMapper = {
+  normal: '',
+  success: 'check-circle',
+  error: 'times-circle',
+  warn: 'exclamation-circle',
+  black: '',
+  white: '',
+};
 
 export default class Notification extends UkePureComponent {
   static propTypes = {
     handleClick: PropTypes.func,
+    iconMapper: PropTypes.shape({})
   };
-  // static defaultProps = {
-  //   position: 'top,right',
-  // };
+  static defaultProps = {
+    // iconMapper: 'top,right',
+  };
   constructor(props) {
     super(props);
     this.timers = {};
@@ -93,8 +104,9 @@ export default class Notification extends UkePureComponent {
     this.setTipHideTimer(msgObj);
   }
   setTipHideTimer(msgObj) {
-    const { id, lifecycle = 7 } = msgObj;
-    if(!id || lifecycle < 0) return;
+    const { id, timer = defaultTimeToClose, lifecycle = defaultTimeToClose } = msgObj;
+    const _timer = timer || lifecycle;
+    if(!id || _timer <= 0) return;
     this.timers[id] = setTimeout(() => {
       this.closeTip(id);
     }, lifecycle * 1000);
@@ -122,19 +134,28 @@ export default class Notification extends UkePureComponent {
                       className={`notify-item ${type}`}
                       onMouseEnter={e => this.clearTargetTimer(msgID)}
                       onMouseLeave={e => this.startTargetTimer(item)}>
-                      <div className="title">{title ? title : gm('新消息')}</div>
-                      <div className="text">{text || ''}</div>
-                      {
-                        (onClickTip || handleClick) ? (
-                          <div className="action"
-                            onClick={e => this.clickTip(item, msgID)}>
-                            <span className="flex" />
-                            <span className="action-btn">{actionText}</span>
-                          </div>
-                        ) : null
-                      }
-                      <div className="close-btn" onClick={e => this.closeTip(msgID)}>
-                        <Icon n="close"/>
+                      <div className="notify-type-tip">
+                        {
+                          iconMapper[type] && (
+                            <Icon n={iconMapper[type]} />
+                          )
+                        }
+                      </div>
+                      <div className="content flex">
+                        <div className="title">{title ? title : gm('新消息')}</div>
+                        <div className="text">{text || ''}</div>
+                        {
+                          (onClickTip || handleClick) ? (
+                            <div className="action"
+                              onClick={e => this.clickTip(item, msgID)}>
+                              <span className="flex" />
+                              <span className="action-btn">{actionText}</span>
+                            </div>
+                          ) : null
+                        }
+                        <div className="close-btn" onClick={e => this.closeTip(msgID)}>
+                          <Icon n="close"/>
+                        </div>
                       </div>
                     </div>
                   </CSSTransition>

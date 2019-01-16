@@ -24,7 +24,7 @@ import { Notify, CancelNotify } from './';
           // id: 'ID',
           title: '通知标题',
           type: 'white', //[success error normal warn black white] default 'desc'
-          lifecycle: 7,
+          timer: -1,
           onClickTip: (e) => {console.log(e)},
           actionText: '有 action 时显示的文字',
         }
@@ -40,7 +40,7 @@ import { Notify, CancelNotify } from './';
           text: '通知内容',
           // id: 'ID',
           title: '通知标题',
-          type: 'error', //[success error normal warn black white] default 'desc'
+          type: 'warn', //[success error normal warn black white] default 'desc'
           lifecycle: 7,
           onClickTip: (e) => {console.log(e)},
           actionText: '有 action 时显示的文字',
@@ -64,7 +64,7 @@ import { Notify, CancelNotify } from './';
         }
       })
     }}>
-    成功的颜色
+    成功
   </span>
 </Playground>
 
