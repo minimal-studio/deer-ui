@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { HasValue, DateFormat, MoneyFormat, IsFunc, IsObj } from 'basic-helper';
+import { HasValue, DateFormat, MoneyFormat, IsFunc, IsObj, Call } from 'basic-helper';
 import { UkeComponent, UkePureComponent } from '../uke-utils';
 import { ToolTip } from '../tooltip';
 import Dropdown from '../selector/dropdown-menu';
@@ -40,10 +40,15 @@ export default class MapperFilter extends UkeComponent {
         outside = true,
         invalidTip = this.gm('全部'),
         defaultTitle = this.gm(key),
-        cancelTitle = this.gm('全部')
+        cancelTitle = this.gm('全部'),
+        onChange,
+        ...other
       } = title;
       titleDOM = (
-        <Dropdown {...title}
+        <Dropdown {...other}
+          onChange={val => Call(onChange, {
+            [key]: val
+          })}
           outside={outside}
           defaultTitle={defaultTitle}
           invalidTip={invalidTip}
