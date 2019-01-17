@@ -30,7 +30,7 @@ export default class Toast extends PureComponent {
    * @memberof Toast
    * @public
    */
-  show(desc, type = 'desc', timer = 50000) {
+  show(desc, type = 'desc', timer = 5000) {
     const {descQueue} = this.state;
     const currDescId = Date.now();
 
