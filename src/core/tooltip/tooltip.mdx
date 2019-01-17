@@ -5,22 +5,54 @@ menu: Components / 组件
 ---
 
 import { Playground, PropsTable } from 'docz'
+import { State, Toggle } from 'react-powerplug'
 import { ToolTip } from './';
-import ToolTipDemo from './demo'
 
 # ToolTip
 
 <PropsTable of={ToolTip} />
 
 <Playground>
-  <div>
-    左边
-    <ToolTipDemo position="left" />
-    右边
-    <ToolTipDemo position="right" />
-    下面
-    <ToolTipDemo position="bottom" />
-    上面
-    <ToolTipDemo position="top" />
-  </div>
+  {
+    () => {
+      return (
+        <State initial={{
+          isOpen: 'isOpen',
+          position: 'left'
+        }}>
+          {
+            ({ setState, state }) => {
+              const { isOpen, position } = state;
+              return (
+                <div>
+                  <span className="ms10 link" onClick={e => setState({
+                    position: 'left'
+                  })}>左边</span>
+                  <span className="ms10 link" onClick={e => setState({
+                    position: 'right'
+                  })}>右边</span>
+                  <span className="ms10 link" onClick={e => setState({
+                    position: 'top'
+                  })}>上</span>
+                  <span className="ms10 link" onClick={e => setState({
+                    position: 'bottom'
+                  })}>下</span>
+                  <hr />
+                  <ToolTip
+                    onClick={e => setState({
+                      isOpen: !isOpen
+                    })}
+                    position={position}
+                    title={!isOpen ? "打开书" : "关闭书"}
+                    n={isOpen ? "book-open" : "book"}>
+                    打开位置 {position}
+                  </ToolTip>
+                </div>
+              )
+            }
+          }
+        </State>
+      )
+    }
+  }
 </Playground>

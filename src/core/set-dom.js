@@ -11,32 +11,28 @@ export default function setDOMById(targetID, className = '') {
 }
 
 export function getElementLeft(element) {
-  if(!element) return;
-  var current = element.offsetParent;
-  var actualLeft = element.offsetLeft;
-  while (current !== null) {
-    actualLeft += (current.offsetLeft + current.clientLeft - current.scrollLeft);
-    current = current.offsetParent;
-  }
-  return actualLeft;
+  return getElementOffset(element).offsetLeft;
 }
 
 export function getElementTop(element) {
-  if(!element) return;
-  var actualTop = element.offsetTop;
-  var current = element.offsetParent;
-  while (current !== null) {
-    actualTop += (current.offsetTop + current.clientTop - current.scrollTop);
-    current = current.offsetParent;
-  }
-  return actualTop;
+  return getElementOffset(element).offsetTop;
 }
 
-export function getElementOffset(elem) {
-  if(!elem) return console.log('please pass elem');
-  let left = getElementLeft(elem);
-  let top = getElementTop(elem);
+export function getElementOffset(element) {
+  if(!element) return;
+  var actualTop = element.offsetTop;
+  var actualLeft = element.offsetLeft;
+  var current = element.offsetParent;
+  while (current !== null) {
+    const currentStyle = getComputedStyle(current);
+    const isFixed = currentStyle.position === 'fixed';
+    console.log(current, current.scrollTop)
+    actualLeft += (current.offsetLeft + current.clientLeft - (isFixed ? current.scrollLeft : 0));
+    actualTop += (current.offsetTop + current.clientTop - (isFixed ? current.scrollTop : 0));
+    current = current.offsetParent;
+  }
   return {
-    offsetLeft: left, offsetTop: top
+    offsetLeft: actualLeft,
+    offsetTop: actualTop
   };
 }

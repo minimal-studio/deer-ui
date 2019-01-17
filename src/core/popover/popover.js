@@ -4,66 +4,15 @@ import PropTypes from 'prop-types';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
 import { getElementOffset } from '../set-dom';
-import { getScreenWidth, getScreenHeight, getScrollTop } from '../utils';
+import { getLeft, getRight, getTop, getBottom } from '../uke-utils/position';
 
 const ESC_KEY = 27;
-
-let sideOffsetTop = -10;
-let ScreenWidth = getScreenWidth();
-let ScreenHeight = getScreenHeight();
-window.onresize = () => {
-  ScreenWidth = getScreenWidth();
-  ScreenHeight = getScreenHeight();
-};
 
 function getChildrenKeys(children) {
   if(!children) return [];
   let _children = Array.isArray(children) ? children : [children];
   let childrenKeys = _children.map(item => item.key);
   return childrenKeys;
-}
-
-/**
- * 计算最终的 top 和 left，并且根据浏览器可视边界判断最终结果
- */
-function getLeft(offsetTop, offsetLeft, offsetWidth, offsetHeight, width, height, fromRight = false) {
-  let left = offsetLeft - width - 12;
-  if(left - width <= 0 && !fromRight) return getRight(...arguments);
-  // if(left + width > ScreenWidth) left = ScreenWidth - width;
-  return {
-    top: offsetTop + sideOffsetTop,
-    left
-  };
-}
-
-function getRight(offsetTop, offsetLeft, offsetWidth, offsetHeight, width, height) {
-  let left = offsetLeft + offsetWidth + 15;
-  if(left + width >= ScreenWidth) return getLeft(...arguments, true);
-  // if(left - width <= 0) left = ScreenWidth - width;
-  return {
-    top: offsetTop + sideOffsetTop,
-    left
-  };
-}
-
-function getTop(offsetTop, offsetLeft, offsetWidth, offsetHeight, width, height) {
-  let top = offsetTop - height - offsetHeight / 2;
-  let scroll = getScrollTop();
-  if(top - height - scroll <= 0) return getBottom(...arguments);
-  return {
-    top,
-    left: offsetLeft
-  };
-}
-
-function getBottom(offsetTop, offsetLeft, offsetWidth, offsetHeight, width, height) {
-  let top = offsetTop + offsetHeight + offsetHeight / 2;
-  let scroll = getScrollTop();
-  if(top + height - scroll >= ScreenHeight) return getTop(...arguments);
-  return {
-    top,
-    left: offsetLeft
-  };
 }
 
 export default class Popover extends Component {
@@ -207,7 +156,7 @@ export default class Popover extends Component {
     }
     return positionStyle;
   }
-  setSelfPosition(elem) {
+  setSelfPosition = (elem) => {
     if(!elem) return;
     const { position } = this.props;
     this.popoverDOM = elem;
@@ -238,9 +187,7 @@ export default class Popover extends Component {
         <div {...obj}
           className={`uke-popover ${fixed ? 'fixed' : ''} ${position} ${className} ${type}`}
           style={style}
-          ref={e => {
-            this.setSelfPosition(e);
-          }}>
+          ref={this.setSelfPosition}>
           {closeBtn}
           {/* <span className="caret"></span> */}
           {children}

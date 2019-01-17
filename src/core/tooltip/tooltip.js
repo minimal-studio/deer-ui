@@ -25,7 +25,7 @@ const TitleDOM = ({ title }) => {
 };
 
 const Div = ({classNames, ...props}) => (
-  <div {...props} />
+  <span {...props} />
 );
 
 /**
@@ -41,6 +41,8 @@ export default class ToolTip extends PureComponent {
     title: PropTypes.any,
     /** 点击即关闭弹出曾 */
     clickToClose: PropTypes.bool,
+    /** 包裹的组件 */
+    component: PropTypes.any,
     /** 弹出的位置 */
     position: PropTypes.oneOf([
       'bottom',

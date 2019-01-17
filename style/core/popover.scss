@@ -1,8 +1,8 @@
 @import './color-mixin.scss';
 
 .uke-popover {
-  position: absolute;
-  z-index: 444;
+  position: fixed;
+  z-index: 1122;
   background-color: #FFF;
   min-width: 60px;
   min-height: 30px;

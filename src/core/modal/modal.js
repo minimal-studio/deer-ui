@@ -89,9 +89,9 @@ export default class Modal extends DragPanelClass {
   }
   
   componentDidUpdate(preProps) {
+    let { topClassName, draggable } = this.props;
+    !draggable && document.body.classList.add(topClassName);
     if(this.props.isOpen !== preProps.isOpen) {
-      let { topClassName } = this.props;
-      document.body.classList.toggle(topClassName, this.props.isOpen);
       this.setContentFocus();
     }
   }

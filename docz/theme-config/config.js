@@ -52,8 +52,8 @@ export default {
   styles: {
     body: {
       // fontFamily: fontFamily,
-      // fontSize: 16,
-      // lineHeight: 1.6,
+      fontSize: 14,
+      lineHeight: 1.4,
     },
     container: {
       width: ['100%', '100%', 1190],
