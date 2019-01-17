@@ -1,3 +1,5 @@
+import { getScrollTop } from './utils';
+
 export default function setDOMById(targetID, className = '') {
   if(!targetID) console.log('params id is required');
   let targetDOM = document.getElementById(targetID);
@@ -24,13 +26,12 @@ export function getElementOffset(element) {
   var actualLeft = element.offsetLeft;
   var current = element.offsetParent;
   while (current !== null) {
-    const currentStyle = getComputedStyle(current);
-    const isFixed = currentStyle.position === 'fixed';
-    console.log(current, current.scrollTop)
-    actualLeft += (current.offsetLeft + current.clientLeft - (isFixed ? current.scrollLeft : 0));
-    actualTop += (current.offsetTop + current.clientTop - (isFixed ? current.scrollTop : 0));
+    actualLeft += (current.offsetLeft + current.clientLeft - current.scrollLeft);
+    actualTop += (current.offsetTop + current.clientTop - current.scrollTop);
     current = current.offsetParent;
   }
+  /** 需要把 body 的滚动加上 */
+  actualTop -= getScrollTop();
   return {
     offsetLeft: actualLeft,
     offsetTop: actualTop

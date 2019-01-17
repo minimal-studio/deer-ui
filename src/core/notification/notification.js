@@ -5,18 +5,10 @@ import { EventEmitter, Call } from 'basic-helper';
 import { Icon } from '../icon';
 import positionFilter from '../position-filter';
 import { UkeComponent, UkePureComponent } from '../uke-utils';
+import { tipIcons } from '../uke-utils/icon-mapper';
 
 const TRANSFORM_TIMER = 300;
 const defaultTimeToClose = 7;
-
-const iconMapper = {
-  normal: '',
-  success: 'check-circle',
-  error: 'times-circle',
-  warn: 'exclamation-circle',
-  black: '',
-  white: '',
-};
 
 export default class Notification extends UkePureComponent {
   static propTypes = {
@@ -136,8 +128,8 @@ export default class Notification extends UkePureComponent {
                       onMouseLeave={e => this.startTargetTimer(item)}>
                       <div className="notify-type-tip">
                         {
-                          iconMapper[type] && (
-                            <Icon n={iconMapper[type]} />
+                          tipIcons[type] && (
+                            <Icon n={tipIcons[type]} />
                           )
                         }
                       </div>

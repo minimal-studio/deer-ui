@@ -185,15 +185,14 @@ export default class DropdownMenu extends SelectorBasic {
     if(this.state.isShow) this.hide();
   }
   handleClickMenu = e => {
-    const { outside, isMultiple } = this.props;
+    const { outside, isMultiple, position } = this.props;
     if(outside) {
       e.preventDefault();
       // console.log(e.pageX)
       const { clientX, clientY } = e;
       const { offsetTop, offsetLeft } = getElementOffset(e.target);
-      const scrollTop = getScrollTop();
       this.containerOffset = {
-        offsetTop: offsetTop - scrollTop + e.target.offsetHeight + 10,
+        offsetTop: offsetTop + e.target.offsetHeight + 10,
         offsetLeft: clientX - 30
         // offsetTop: clientX + 10,
         // offsetLeft: clientY

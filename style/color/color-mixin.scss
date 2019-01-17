@@ -1,0 +1,28 @@
+@import './color-map.scss';
+@mixin popbg($bg: #FFF, $fontColor: #666) {
+  background-color: $bg;
+  color: $fontColor;
+}
+
+@mixin bgColor {
+  @for $i from 1 through length($colorsMap) {
+    $item: nth($colorsMap, $i);
+    
+    &.#{map-get($item, name)} {
+      $color: map-get($item, color);
+      background-color: $color;
+      color: #FFF;
+    }
+  }
+}
+
+@mixin borderColor {
+  @for $i from 1 through length($colorsMap) {
+    $item: nth($colorsMap, $i);
+    
+    &.#{map-get($item, name)} {
+      $color: map-get($item, color);
+      border-color: $color;
+    }
+  }
+}
