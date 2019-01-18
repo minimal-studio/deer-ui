@@ -239,7 +239,7 @@ export default class Table extends MapperFilter {
             if(parentIdx == 0 && tdDOM) {
               this.firstTDDOMs[_idx] = tdDOM;
             }
-            if(tdDOM && tdDOM.offsetWidth > tdMaxWidth) tdDOM.classList.add('break-word');
+            if(tdDOM && tdDOM.offsetWidth >= tdMaxWidth) tdDOM.classList.add('break-word');
           }}
           style={item.w ? {width: item.w, whiteSpace: 'pre-wrap'} : style}
           className={(tdSpecClassMapper[key] || '') + (_className ? ' ' + _className : '')}

@@ -105,18 +105,30 @@ export default class DropdownWrapper extends React.PureComponent {
   }
   childrenFilter = () => {
     const { children, outside } = this.props;
+    const { isShow } = this.state;
     const dropdownCom = (
-      <div className={
-        "dropdown-items " + 
-        this._position
-      } style={outside ? {
-        top: this.containerOffset.offsetTop,
-        left: this.containerOffset.offsetLeft,
-        position: 'fixed'
-      } : {}}>
-        <span className="caret" />
-        {children(this.getPropsForChild())}
-      </div>
+      <TransitionGroup component={null}>
+        <CSSTransition
+          key={isShow ? 'opened' : 'none'}
+          classNames="drop-menu"
+          timeout={200}>
+          {
+            isShow ? (
+              <div className={
+                "dropdown-items " + 
+                this._position
+              } style={outside ? {
+                top: this.containerOffset.offsetTop,
+                left: this.containerOffset.offsetLeft,
+                position: 'fixed'
+              } : {}}>
+                <span className="caret" />
+                {children(this.getPropsForChild())}
+              </div>
+            ) : <span />
+          }
+        </CSSTransition>
+      </TransitionGroup>
     );
 
     return outside ? ReactDOM.createPortal(
@@ -158,17 +170,10 @@ export default class DropdownWrapper extends React.PureComponent {
               ) : null
             }
             <div className="icon-wrap">
-              <Icon n="angle-down" />
+              <Icon n="angle-down" /> 
             </div>
           </span>
-          <TransitionGroup component={null}>
-            <CSSTransition
-              key={isShow ? 'opened' : 'none'}
-              classNames="drop-menu"
-              timeout={200}>
-              {isShow ? this.childrenFilter() : <span />}
-            </CSSTransition>
-          </TransitionGroup>
+          {this.childrenFilter()}
         </div>
       </ClickAway>
     );
