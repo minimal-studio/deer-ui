@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { HasValue, DateFormat, MoneyFormat, IsFunc, IsObj, Call } from 'basic-helper';
 import { UkeComponent, UkePureComponent } from '../uke-utils';
 import { ToolTip } from '../tooltip';
+import { Label } from '../label';
 import Dropdown from '../selector/dropdown-menu';
 
 const excludeKey = (target, keys) => {
@@ -92,6 +93,12 @@ export default class MapperFilter extends UkeComponent {
       break;
     case !!mapper.namesMapper:
       contentResult = mapper.namesMapper[currContent] || currContent || '';
+      break;
+    case !!mapper.labels:
+      const labelColor = mapper.labels[currContent];
+      contentResult = labelColor ? (
+        <Label color={labelColor} text={currContent} />
+      ) : currContent;
       break;
     }
     if(IsFunc(mapper.filter)) {

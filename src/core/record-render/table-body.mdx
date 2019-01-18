@@ -41,7 +41,9 @@ import { DropdownMenu } from '../selector';
           }
         },
         {key: 'age'},
-        {key: 'add'},
+        {key: 'add', labels: {
+          cn: 'red'
+        }},
         {key: 'birth', date: 1},
         {key: 'obj', filter: (_, item) => {
           return _.account
@@ -186,8 +188,88 @@ const keyMapper = {
 }
 ```
 
+## 表格项中的过滤器
 
-模版提供一下功能
+### 万能的 filter
+
+可以返回任意想要的字段，在以下内置过滤器中找不到符合预期的，可以通过 filter 返回
+
+```js
+const keyMapper = [
+  {
+    key: '',
+    filter: (str, item, mapper, idx) => {
+      return (
+        // 任意内容
+      )
+    }
+  }
+]
+```
+
+### labels
+
+内置的 labels 过滤器
+
+```js
+const keyMapper = [
+  {
+    key: '',
+    labels: {
+      // srcStr 匹配的字符
+      // labelColor label 的颜色
+      [srcStr]: [labelColor]
+    }
+  }
+]
+```
+
+### namesMapper
+
+内置的 字段映射 过滤器
+
+```js
+const keyMapper = [
+  {
+    key: '',
+    namesMapper: {
+      // srcStr 匹配的字符
+      // mapStr 映射的值
+      [srcStr]: [mapStr]
+    }
+  }
+]
+```
+
+### date || datetime
+
+内置的时间过滤器
+
+```js
+const keyMapper = [
+  {
+    key: '',
+    date: boolean, // 格式成 YYYY-MM-DD
+    datetime: boolean, // 格式成 YYYY-MM-DD hh:mm:ss
+  }
+]
+```
+
+### money || abvMoney
+
+内置的金钱格式化过滤器
+
+```js
+const keyMapper = [
+  {
+    key: '',
+    money: boolean, // 格式成金钱
+    abvMoney: boolean, // 格式成金钱绝对值
+  }
+]
+```
+
+## RecordRender 提供的能力
 
 - 渲染远端表格数据
 - 数据的具体字段过滤器
