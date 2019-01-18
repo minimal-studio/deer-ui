@@ -1,20 +1,13 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
-
-import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import { HasValue } from 'basic-helper';
+import classnames from 'classnames';
 
 import setDOMById, { getElementOffset } from '../set-dom';
-import { getScrollTop } from '../utils';
 import positionFilter from '../position-filter';
 import SelectorBasic, { selectorValuesType } from './selector';
 import { Icon } from '../icon';
-import ClickAway from '../uke-utils/click-away';
-
-const dropdownContainerID = 'DropdownContainer';
-
-const dropdownContainerDOM = setDOMById(dropdownContainerID, 'uke-dropdown-menu');
+import DropdownWrapper from './dropdown-wrapper';
 
 const MenuItem = ({isActive, text, icon, ...other}) => {
   return (
@@ -99,36 +92,14 @@ export default class DropdownMenu extends SelectorBasic {
   state = {
     ...this.state,
     isShow: false,
-    searchValue: '',
   }
-  handleDOMClick = (e) => {
-    console.log(e);
-  }
-  showSubMenu(isShow = true) {
-    this.setState({
-      isShow,
-    });
-  }
-  // emitChange(...args) {
-  //   const {isMultiple, onChange} = this.props;
-  //   if(!isMultiple) onChange(val, ...other);
-  // }
-  focusInput() {
-    this._input.focus();
-  }
-  handleClick(dataItem, idx) {
+  handleClick(dataItem, idx, callback) {
     const { onClickItem, isMultiple } = this.props;
     onClickItem && onClickItem(dataItem);
     this.changeValue(dataItem.value, idx);
     if(!isMultiple) {
-      this.hide();
+      callback();
     }
-  }
-  onSearch(val) {
-    val = val.trim();
-    this.setState({
-      searchValue: val
-    });
   }
   getActiveTitle() {
     const { isMultiple, defaultTitle, invalidTip } = this.props;
@@ -143,6 +114,10 @@ export default class DropdownMenu extends SelectorBasic {
       break;
     case !!isMultiple:
       resTitle = value.length + this.gm('项已选择');
+      break;
+    case !this.valuesObj.hasOwnProperty(value):
+      resTitle = invalidTip;
+      this._error = true;
       break;
     default:
       let title = this.valuesObj[value];
@@ -163,161 +138,63 @@ export default class DropdownMenu extends SelectorBasic {
     const { values } = this;
     return Array.isArray(values) ? values.length : Object.keys(values).length;
   }
-  // handleChange = (val) => {
-  //   const { isMultiple, onChange } = this.props;
-  //   if(isMultiple) this.focusInput();
-  //   onChange(val);
-  // }
-  hide = () => {
-    this.setState({
-      isShow: false,
-      searchValue: ''
-    });
-    if(this.addScrollListener) {
-      document.removeEventListener('scroll', this.hide);
-      this.addScrollListener = false;
-    }
-  }
-  blur = () => {
-    // this.hide();
-  }
-  handleClickAway = () => {
-    if(this.state.isShow) this.hide();
-  }
-  handleClickMenu = e => {
-    const { outside, isMultiple, position } = this.props;
-    if(outside) {
-      e.preventDefault();
-      // console.log(e.pageX)
-      const { clientX, clientY } = e;
-      const { offsetTop, offsetLeft } = getElementOffset(e.target);
-      this.containerOffset = {
-        offsetTop: offsetTop + e.target.offsetHeight + 10,
-        offsetLeft: clientX - 30
-        // offsetTop: clientX + 10,
-        // offsetLeft: clientY
-      };
-      if(!this.addScrollListener) document.addEventListener('scroll', this.hide);
-      this.addScrollListener = true;
-    }
-    this.showSubMenu();
-    if(!isMultiple) this.focusInput();
-  }
   render() {
     const {
-      style = {}, className = '', isMultiple, withInput, position, needAction,
-      outside, cancelTitle
+      isMultiple, needAction, cancelTitle
     } = this.props;
-    const { isShow, searchValue } = this.state;
     const _selectedValue = this.getValue();
     
     const isSelectedAll = this.checkIsSelectedAll();
     const canSelectAll = isMultiple && !isSelectedAll;
-    const activeTitle = this.getActiveTitle();
-    const _position = positionFilter(position);
-
-    const dropdownCom = (
-      <TransitionGroup component={null}>
-        <CSSTransition
-          key={isShow ? 'opened' : 'none'}
-          classNames="drop-menu"
-          timeout={200}>
-          {
-            isShow ? (
-              <div className={
-                "dropdown-items " + 
-                _position
-              } style={outside ? {
-                top: this.containerOffset.offsetTop,
-                left: this.containerOffset.offsetLeft,
-                position: 'fixed'
-              } : {}}>
-                <span className="caret" />
-                <div className="action-group">
-                  {
-                    needAction && (
-                      <div className="action-btn" onClick={e => {
-                        canSelectAll ? this.selectAll() : this.clearAll();
-                      }}>
-                        {this.gm(canSelectAll ? '全选' : cancelTitle)}
-                      </div>
-                    )
-                  }
-                  <div className="items-group">
-                    {
-                      this.values.map((dataItem, idx) => {
-                        const { text, value, icon, img } = dataItem;
-
-                        const isActive = itemActiveFilter(_selectedValue, value);
-                        // HasValue(_selectedValue) && (_selectedValue + '').indexOf(value) > -1;
-                        let renderable = !searchValue ? true : (text.indexOf(searchValue) != -1 || value.toLowerCase().indexOf(searchValue) != -1);
-
-                        return renderable ? (
-                          <MenuItem
-                            key={value}
-                            isActive={isActive}
-                            onClick={e => {
-                              this.handleClick(dataItem, idx);
-                            }}
-                            {...dataItem}/>
-                        ) : null;
-                      })
-                    }
-                  </div>
-                </div>
-              </div>
-            ) : <span />
-          }
-        </CSSTransition>
-      </TransitionGroup>
-    );
+    const menuTitle = this.getActiveTitle();
 
     return (
-      <ClickAway onClickAway={this.handleClickAway}>
-        <div
-          className={
-            "uke-dropdown-menu " +
-            (this._error ? 'error ' : '') + 
-            _position + ' ' +
-            (className ? ' ' + className : '') +
-            (isMultiple ? ' multiple' : ' single') +
-            (withInput ? ' input-mode' : '') +
-            (isShow ? ' show' : '')
+      <DropdownWrapper {...this.props} menuTitle={menuTitle}
+        withInput={!isMultiple}
+        error={this._error}
+        className={classnames({
+          "multiple": isMultiple,
+          "single": !isMultiple,
+        })}>
+        {
+          ({ hide, searchValue }) => {
+            return (
+              <div className="action-group">
+                {
+                  needAction && (
+                    <div className="action-btn" onClick={e => {
+                      canSelectAll ? this.selectAll() : this.clearAll();
+                    }}>
+                      {this.gm(canSelectAll ? '全选' : cancelTitle)}
+                    </div>
+                  )
+                }
+                <div className="items-group">
+                  {
+                    this.values.map((dataItem, idx) => {
+                      const { text, value, icon, img } = dataItem;
+      
+                      const isActive = itemActiveFilter(_selectedValue, value);
+                      // HasValue(_selectedValue) && (_selectedValue + '').indexOf(value) > -1;
+                      let renderable = !searchValue ? true : (text.indexOf(searchValue) != -1 || value.toLowerCase().indexOf(searchValue) != -1);
+      
+                      return renderable ? (
+                        <MenuItem
+                          key={value}
+                          isActive={isActive}
+                          onClick={e => {
+                            this.handleClick(dataItem, idx, hide);
+                          }}
+                          {...dataItem}/>
+                      ) : null;
+                    })
+                  }
+                </div>
+              </div>
+            );
           }
-          style={style}>
-          <span className="menu-wrapper" 
-            onClick={this.handleClickMenu}>
-            <div className="display-title">
-              {activeTitle}
-            </div>
-            {
-              isMultiple ? null : (
-                <input type="text" 
-                  ref={_i => {
-                    if(_i) this._input = _i;
-                  }}
-                  placeholder={activeTitle}
-                  value={searchValue}
-                  className="search-input"
-                  onChange={e => {
-                    this.onSearch(e.target.value);
-                  }}/>
-              )
-            }
-            <div className="icon-wrap">
-              <Icon n="angle-down" />
-            </div>
-          </span>
-          {/* <div className="drop-tip">
-          </div> */}
-          {
-            outside ? ReactDOM.createPortal(
-              dropdownCom,
-              dropdownContainerDOM
-            ) : dropdownCom
-          }
-        </div>
-      </ClickAway>
+        }
+      </DropdownWrapper>
     );
   }
 }

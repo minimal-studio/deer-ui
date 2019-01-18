@@ -2,6 +2,19 @@
 
 -----------------
 
+## 2.14.0
+
+### 新功能
+
+- 抽离 Dropdown 的实现，新增一个 DropdownWrapper 组件，可以打开任意内容
+- 新增一个 DropdownGroup 的组件
+
+### 改进
+
+- DropdownMenu 使用 DropdownWrapper 实现
+
+-----------------
+
 ## 2.13.21
 
 - 调整表格过滤器的顺序

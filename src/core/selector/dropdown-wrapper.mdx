@@ -1,0 +1,44 @@
+---
+name: DropdownWrapper
+route: /DropdownWrapper
+menu: Utils
+---
+
+import { Playground, PropsTable } from 'docz'
+import { State, Toggle } from 'react-powerplug'
+import DropdownWrapper from './dropdown-wrapper';
+
+# DropdownWrapper
+
+> 通用的下拉组件，可以渲染任意子内容
+
+<PropsTable of={DropdownWrapper} />
+
+<Playground>
+  {
+    () => {
+      return (
+        <State initial={{}}>
+        {
+          ({ state, setState }) => {
+            return (
+              <DropdownWrapper>
+                {
+                  (options) => {
+                    console.log(options)
+                    return (
+                      <div className="p10" style={{width: 400}}>
+                        任意内容
+                      </div>
+                    )
+                  }
+                }
+              </DropdownWrapper>
+            )
+          }
+        }
+        </State>
+      )
+    }
+  }
+</Playground>

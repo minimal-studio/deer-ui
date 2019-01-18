@@ -1,0 +1,63 @@
+---
+name: DropdownGroup
+route: /DropdownGroup
+menu: Selector / 选择器
+---
+
+import { Playground, PropsTable } from 'docz'
+import { State, Toggle } from 'react-powerplug'
+import DropdownGroup from './dropdown-group';
+
+# DropdownGroup
+
+```js
+import 'ukelli-ui/core/selector/dropdown-group';
+```
+
+<PropsTable of={DropdownGroup} />
+
+<Playground>
+  {
+    () => {
+      return (
+        <State initial={{
+          values: {
+            group1: {
+              Title: 'group1',
+              values: {
+                value11: '显示1-1',
+                value12: '显示1-2',
+                value13: '显示1-3',
+                value14: '显示1-4',
+              }
+            },
+            group2: {
+              Title: 'group2',
+              values: {
+                value21: '显示2-1',
+                value22: '显示2-2',
+                value23: '显示2-3',
+                value24: '显示2-4',
+              },
+            },
+          },
+        }}>
+        {
+          ({ state, setState }) => {
+            return (
+              <DropdownGroup
+                defaultValue={["value11"]}
+                fieldMapper={{
+                  title: 'Title',
+                  values: 'values'
+                }} onChange={val => {
+                  console.log(val)
+                }} groupData={state.values} />
+            )
+          }
+        }
+        </State>
+      )
+    }
+  }
+</Playground>

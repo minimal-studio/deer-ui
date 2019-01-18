@@ -18,6 +18,7 @@ export const selectorValuesType = PropTypes.oneOfType([
 ]);
 
 const checkValuesIsEqual = (value1, value2) => {
+  if(!value1 || !value2) return true;
   let res;
   if(Array.isArray(value1)) {
     res = value1.length === value2.length;
@@ -79,18 +80,24 @@ export default class SelectorBasic extends FormControlBasic {
     if(HasValue(value)) {
       const selectedValue = this.getValue();
       let nextValue = [];
+      let removeItem;
+      let addVal;
 
       if(isMultiple) {
         nextValue = selectedValue || [];
-        if(nextValue.indexOf(value) > -1) {
-          nextValue = RemoveArrayItem(nextValue, value);
+        const valueIdx = nextValue.indexOf(value);
+        if(valueIdx > -1) {
+          removeItem = nextValue.splice(valueIdx, 1);
+          // nextValue = RemoveArrayItem(nextValue, value);
         } else {
           nextValue.push(value);
+          addVal = [value];
         }
       } else {
         nextValue = [value];
+        addVal = value;
       }
-      this.changeEvent(nextValue, {prevVal: selectedValue, idx});
+      this.changeEvent(nextValue, {prevVal: selectedValue, idx, removeItem, addVal});
     } else {
       this.emitChange();
     }
@@ -105,6 +112,7 @@ export default class SelectorBasic extends FormControlBasic {
     };
   }
   wrapObjValToArr(values) {
+    if(!values) return {};
     const { isNum } = this.props;
     return Object.keys(values).map(valKey => ({
       text: values[valKey],
@@ -146,10 +154,10 @@ export default class SelectorBasic extends FormControlBasic {
     Call(this.props.onChange, ...args);
   }
   selectAll() {
-    this.changeEvent(Object.keys(this.props.values));
+    this.changeEvent(Object.keys(this.props.values), {preVal: this.getValue()});
   }
   clearAll() {
-    this.changeEvent([]);
+    this.changeEvent([], {preVal: this.getValue()});
   }
   checkIsSelectedAll() {
     const selectedValue = this.getValue();
