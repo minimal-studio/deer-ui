@@ -26,10 +26,6 @@ export default {
           * {
             box-sizing: border-box;
           }
-          html, body, #root {
-            height: auto !important;
-            min-height: auto !important;
-          }
           #root > div > div:first-of-type > div:first-of-type > div:last-of-type {
             display: none;
           }
