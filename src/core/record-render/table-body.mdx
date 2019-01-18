@@ -43,6 +43,8 @@ import { DropdownMenu } from '../selector';
         {key: 'age'},
         {key: 'add', labels: {
           cn: 'red'
+        }, namesMapper: {
+          cn: '中国', uk: '英国'
         }},
         {key: 'birth', date: 1},
         {key: 'obj', filter: (_, item) => {
@@ -193,9 +195,8 @@ const keyMapper = {
 各个处理器的处理顺序，要多个定义过滤器时需要关注
 
 1. date || datetime || money || abvMoney
-2. labels
-3. namesMapper
-4. filter
+2. labels && namesMapper
+3. filter
 
 ### date || datetime
 
