@@ -72,6 +72,14 @@ export default class MapperFilter extends UkeComponent {
       </div>
     );
   }
+  /**
+   * mapperFilter 字段过滤器处理顺序
+   * 
+   * 1. date || datetime || money || abvMoney
+   * 2. labels
+   * 3. namesMapper
+   * 4. filter
+   */
   mapperFilter(mapper, record, rowIdx) {
     let currContent = record[mapper.key];
     if(!HasValue(currContent)) {
@@ -80,6 +88,7 @@ export default class MapperFilter extends UkeComponent {
 
     let contentResult = currContent;
 
+    /** 互相冲突的字段，即不可能同时为 datetime 也是 money 的 */
     switch (true) {
     case !!mapper.date:
     case !!mapper.datetime:
@@ -91,15 +100,33 @@ export default class MapperFilter extends UkeComponent {
       contentResult = MoneyFormat(contentResult);
       if(mapper.abvMoney) contentResult = contentResult.replace('-', '');
       break;
-    case !!mapper.namesMapper:
-      contentResult = mapper.namesMapper[currContent] || currContent || '';
-      break;
-    case !!mapper.labels:
+    // case !!mapper.namesMapper:
+    //   contentResult = mapper.namesMapper[currContent] || currContent || '';
+    //   break;
+    // case !!mapper.labels:
+    //   const labelColor = mapper.labels[currContent];
+    //   contentResult = labelColor ? (
+    //     <Label color={labelColor} text={currContent} />
+    //   ) : currContent;
+    //   break;
+    }
+    // if(mapper.date || mapper.datetime) {
+    //   var format = 'YYYY-MM-DD' + (mapper.date ? '' : ' hh:mm:ss');
+    //   contentResult = /0001/.test(currContent) ? '-' : DateFormat(currContent, format);
+    // }
+    // if(mapper.money || mapper.abvMoney) {
+    //   contentResult = MoneyFormat(contentResult);
+    //   if(mapper.abvMoney) contentResult = contentResult.replace('-', '');
+    // }
+    /** 并不冲突的，需要有流式处理，swtich case 只能互相冲突的情况 */
+    if(mapper.labels) {
       const labelColor = mapper.labels[currContent];
       contentResult = labelColor ? (
         <Label color={labelColor} text={currContent} />
       ) : currContent;
-      break;
+    }
+    if(mapper.namesMapper) {
+      contentResult = mapper.namesMapper[currContent] || currContent || '';
     }
     if(IsFunc(mapper.filter)) {
       contentResult = mapper.filter(contentResult, record, mapper, rowIdx);

@@ -190,22 +190,41 @@ const keyMapper = {
 
 ## 表格项中的过滤器
 
-### 万能的 filter
+各个处理器的处理顺序，要多个定义过滤器时需要关注
 
-可以返回任意想要的字段，在以下内置过滤器中找不到符合预期的，可以通过 filter 返回
+1. date || datetime || money || abvMoney
+2. labels
+3. namesMapper
+4. filter
+
+### date || datetime
+
+内置的时间过滤器
 
 ```js
 const keyMapper = [
   {
     key: '',
-    filter: (str, item, mapper, idx) => {
-      return (
-        // 任意内容
-      )
-    }
+    date: boolean, // 格式成 YYYY-MM-DD
+    datetime: boolean, // 格式成 YYYY-MM-DD hh:mm:ss
   }
 ]
 ```
+
+### money || abvMoney
+
+内置的金钱格式化过滤器
+
+```js
+const keyMapper = [
+  {
+    key: '',
+    money: boolean, // 格式成金钱
+    abvMoney: boolean, // 格式成金钱绝对值
+  }
+]
+```
+
 
 ### labels
 
@@ -241,30 +260,19 @@ const keyMapper = [
 ]
 ```
 
-### date || datetime
+### 万能的 filter
 
-内置的时间过滤器
-
-```js
-const keyMapper = [
-  {
-    key: '',
-    date: boolean, // 格式成 YYYY-MM-DD
-    datetime: boolean, // 格式成 YYYY-MM-DD hh:mm:ss
-  }
-]
-```
-
-### money || abvMoney
-
-内置的金钱格式化过滤器
+可以返回任意想要的字段，在以下内置过滤器中找不到符合预期的，可以通过 filter 返回
 
 ```js
 const keyMapper = [
   {
     key: '',
-    money: boolean, // 格式成金钱
-    abvMoney: boolean, // 格式成金钱绝对值
+    filter: (str, item, mapper, idx) => {
+      return (
+        // 任意内容
+      )
+    }
   }
 ]
 ```
