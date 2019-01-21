@@ -2,6 +2,13 @@
 
 -----------------
 
+## 2.14.2
+
+- 新增 Checkbox
+- 优化 Radio 对于选中图标的支持
+- 优化 DropdownGroup 的输出值
+- 优化 Pagination 的 className
+
 ## 2.14.1
 
 - 修复 DropdownWrapper 的 outside 的问题

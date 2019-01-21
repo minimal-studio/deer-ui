@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { RemoveArrayItem } from 'basic-helper';
 
 import SelectorBasic from './selector';
-import Radio from './radio';
+import Checkbox from './checkbox';
 import DropdownWrapper from './dropdown-wrapper';
 
 export default class MultipleSelector extends SelectorBasic {
@@ -19,11 +19,11 @@ export default class MultipleSelector extends SelectorBasic {
       values: PropTypes.string,
     }),
     /** defaultValue */
-    defaultValue: PropTypes.arrayOf(PropTypes.any)
+    defaultValue: PropTypes.object,
   }
   static defaultProps = {
     isMultiple: true,
-    defaultValue: [],
+    defaultValue: {},
     fieldMapper: {
       title: 'title',
       values: 'values',
@@ -33,56 +33,52 @@ export default class MultipleSelector extends SelectorBasic {
     super(props);
 
     this.state = {
-      selectedValue: props.defaultValue || []
+      selectedValue: props.defaultValue || {}
     };
   }
-  checkIsSelectedInGroup(groupVal) {
-    const selectedValue = this.getValue();
-    let isPass = true;
-    groupVal.forEach(val => {
-      if(selectedValue.indexOf(val) == -1) isPass = false;
-    });
-    return isPass;
+  // getValue = () => {
+  //   return this.state.selectedValue;
+  // }
+  numberValFilter(numberValues, groupKey) {
+    const { groupData } = this.props;
+    if(!groupData[groupKey].isNum) return numberValues;
+    let res = [];
+    for (let i = 0; i < numberValues.length; i++) {
+      const item = numberValues[i];
+      res[i] = +item;
+    }
+    return res;
   }
-  changeGroup(vals) {
-    const selectedValue = this.getValue();
-    let nextValues = [...selectedValue];
-    vals.forEach(val => {
-      if(nextValues.indexOf(val) == -1) {
-        nextValues.push(val);
+  changeGroup(groupKey, isNextGroupActive, groupValues) {
+    this.setState(({ selectedValue }) => {
+      let nextValues = {...selectedValue};
+      if(isNextGroupActive) {
+        nextValues[groupKey] = this.numberValFilter([...groupValues], groupKey);
       } else {
-        nextValues = RemoveArrayItem(nextValues, val);
+        nextValues[groupKey] = [];
       }
+      this.emitChange(nextValues);
+      return {
+        selectedValue: nextValues
+      };
     });
-    this.changeEvent(nextValues);
   }
-  /**
-   * 获取组中 values 和 value 的交集
-   * @param {array} groupValues 目标 values
-   */
-  getGroupActiveVal(groupValues) {
-    const selectedValue = this.getValue();
-    let valueActive = [];
-    for (const item of selectedValue) {
-      if(groupValues.indexOf(item) !== -1) {
-        valueActive.push(item);
+  changeValue(groupKey, value) {
+    const { groupData } = this.props;
+    this.setState(({ selectedValue }) => {
+      let nextValues = {...selectedValue};
+      let operatorGroup = nextValues[groupKey] ? [...nextValues[groupKey]] : [];
+      if(operatorGroup.indexOf(value) != -1) {
+        operatorGroup = RemoveArrayItem(operatorGroup, value);
+      } else {
+        operatorGroup.push(value);
       }
-    }
-    return valueActive;
-  }
-  /**
-   * 获取组中 values 和 value 的差集
-   * @param {array} groupValues 目标 values
-   */
-  getGroupPlanVal(groupValues) {
-    const selectedValue = this.getValue();
-    let valuePlan = [];
-    for (const item of groupValues) {
-      if(selectedValue.indexOf(item) === -1) {
-        valuePlan.push(item);
-      }
-    }
-    return valuePlan;
+      nextValues[groupKey] = this.numberValFilter(operatorGroup, groupKey);
+      this.emitChange(nextValues);
+      return {
+        selectedValue: nextValues
+      };
+    });
   }
   itemFilter = (item) => {
     if(!item) return;
@@ -97,50 +93,44 @@ export default class MultipleSelector extends SelectorBasic {
   handleChange() {}
   render() {
     const { groupData } = this.props;
+    const groupDataArr = Object.keys(groupData);
 
     return (
       <DropdownWrapper>
         {
           (helper) => {
+            const selectedValue = this.getValue();
             return (
               <div className="multiple-selector p10" style={{width: 400}}>
                 {
-                  Object.keys(groupData).map((valueKey, idx) => {
-                    const currItem = groupData[valueKey];
-                    const { title, values } = this.itemFilter(currItem);
+                  groupDataArr.map((groupKey, idx) => {
+                    const currItem = groupData[groupKey];
+                    const { title, values, isNum } = this.itemFilter(currItem);
                     const subValues = values;
                     const subValuesGroup = Object.keys(subValues);
-                    const isActiveGroup = this.checkIsSelectedInGroup(subValuesGroup);
-                    const valueActive = this.getGroupActiveVal(subValuesGroup);
+                    const valueActive = selectedValue[groupKey];
+                    const isActiveGroup = valueActive && valueActive.length === subValuesGroup.length;
+                    const isLastGroup = idx === groupDataArr.length - 1;
 
                     return (
-                      <div key={valueKey} 
+                      <div key={groupKey} 
                         className={"item-group" + (isActiveGroup ? ' active' : '')}>
-                        <div className="title _btn"
-                          onClick={e => {
-                            this.changeGroup(subValuesGroup);
-                          }}>
-                          {title}
-                        </div>
-                        <Radio
-                          isMultiple
-                          onChange={(val, options) => {
-                            let _val = val;
-                            if(val.length == 0) {
-                              _val = valueActive;
-                            } else if(val.length == subValuesGroup.length) {
-                              _val = this.getGroupPlanVal(subValuesGroup);
-                            }
-                            if(options) {
-                              const { removeItem, addVal, preVal } = options;
-                              // if(preVal.length > 0) _val = preVal;
-                              if(removeItem) _val = removeItem;
-                              if(addVal) _val = addVal;
-                            }
-                            this.changeGroup(_val);
+                        <Checkbox
+                          values={{
+                            1: title,
                           }}
+                          value={isActiveGroup}
+                          isMultiple={false}
+                          onChange={() => this.changeGroup(groupKey, !isActiveGroup, subValuesGroup)} />
+                        <Checkbox
+                          onChange={(val, options) => {
+                            const { targetVal } = options;
+                            this.changeValue(groupKey, targetVal);
+                          }}
+                          isNum={isNum}
                           value={valueActive}
                           values={subValues} />
+                        {!isLastGroup && <hr />}
                       </div>
                     );
                   })

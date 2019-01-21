@@ -32,7 +32,7 @@ const tdMaxWidth = 400;
  */
 export default class Table extends MapperFilter {
   static propTypes = {
-    /** 定义数据渲染的字段的映射配置 */
+    /** 表格渲染的核心配置，RecordRender 的机制是根据 keyMapper 配置遍历 records 中的每一个具体字段，找到对应的过滤器，实现通用的表格处理 */
     keyMapper: PropTypes.arrayOf(PropTypes.shape({
       /** 字段的 key */
       key: PropTypes.string.isRequired,
@@ -48,6 +48,8 @@ export default class Table extends MapperFilter {
       w: PropTypes.any,
       /** 是否以绝对值格式化成金钱 */
       abvMoney: PropTypes.any,
+      /** 是否以绝对值格式化成金钱 */
+      count: PropTypes.any,
       /** 该字段的值的映射 mapper */
       namesMapper: PropTypes.shape({
         key: PropTypes.string
@@ -211,16 +213,16 @@ export default class Table extends MapperFilter {
     let result = [];
 
     for (let _idx = 0; _idx < keyMapperLen; _idx++) {
-      const item = keyMapper[_idx];
-      if(!item) continue;
+      const mapperItem = keyMapper[_idx];
+      if(!mapperItem) continue;
 
-      const { key, className } = item;
+      const { key, className, count = true } = mapperItem;
       const currText = record[key];
-      const actionRes = (!needAction && this.excludeField.indexOf(key) !== -1) ? '-' : this.mapperFilter(item, record, parentIdx);
+      const actionRes = (!needAction && this.excludeField.indexOf(key) !== -1) ? '-' : this.mapperFilter(mapperItem, record, parentIdx);
 
       if(needCount) {
         const isNum = !isNaN(+currText) || isStringNumRegex.test(currText);
-        if(isNum) {
+        if(count && isNum) {
           // 这里是处理累加的逻辑，如果为字符串的字段，则先把逗号去除
           const isNumbTxt = +((currText + '').replace(',', ''));
           if(!isNaN(isNumbTxt) && typeof isNumbTxt === 'number') {
@@ -241,7 +243,7 @@ export default class Table extends MapperFilter {
             }
             if(tdDOM && tdDOM.offsetWidth >= tdMaxWidth) tdDOM.classList.add('break-word');
           }}
-          style={item.w ? {width: item.w, whiteSpace: 'pre-wrap'} : style}
+          style={mapperItem.w ? {width: mapperItem.w, whiteSpace: 'pre-wrap'} : style}
           className={(tdSpecClassMapper[key] || '') + (_className ? ' ' + _className : '')}
           key={tdKey}>
           {actionRes}
@@ -331,7 +333,7 @@ export default class Table extends MapperFilter {
     const hasRecord = records.length > 0;
     const keyMapper = this.getKeyMapper();
 
-    const isAllCheck = Object.keys(checkedItems).length == records.length;
+    const isAllCheck = hasRecord && (Object.keys(checkedItems).length == records.length);
 
     if(!Array.isArray(records)) {
       console.error('records 必须为 []');

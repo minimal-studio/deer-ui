@@ -14,6 +14,51 @@ import DropdownGroup from './dropdown-group';
 import 'ukelli-ui/core/selector/dropdown-group';
 ```
 
+## 数据结构
+
+groupData 的第一层 key 为 id，作为对应的数据外层
+
+```js
+const groupData = {
+  group1: {
+    Title: '第一组',
+    values: {
+      value11: '显示1-1',
+      value12: '显示1-2',
+      value13: '显示1-3',
+      value14: '显示1-4',
+    }
+  },
+  group2: {
+    Title: '第二组',
+    values: {
+      value21: '显示2-1',
+      value22: '显示2-2',
+      value23: '显示2-3',
+      value24: '显示2-4',
+    },
+  },
+  group3: {
+    Title: '第三组，数字 value',
+    isNum: true,
+    values: {
+      1: '显示2-1',
+      2: '显示2-2',
+      3: '显示2-3',
+      4: '显示2-4',
+    },
+  },
+}
+
+// 对应的内部数据结构
+
+state = {
+  group1: [],
+  group2: [],
+  group3: [],
+}
+```
+
 <PropsTable of={DropdownGroup} />
 
 <Playground>
@@ -23,7 +68,7 @@ import 'ukelli-ui/core/selector/dropdown-group';
         <State initial={{
           values: {
             group1: {
-              Title: 'group1',
+              Title: '第一组',
               values: {
                 value11: '显示1-1',
                 value12: '显示1-2',
@@ -32,12 +77,22 @@ import 'ukelli-ui/core/selector/dropdown-group';
               }
             },
             group2: {
-              Title: 'group2',
+              Title: '第二组',
               values: {
                 value21: '显示2-1',
                 value22: '显示2-2',
                 value23: '显示2-3',
                 value24: '显示2-4',
+              },
+            },
+            group3: {
+              Title: '第三组，数字 value',
+              isNum: true,
+              values: {
+                1: '显示2-1',
+                2: '显示2-2',
+                3: '显示2-3',
+                4: '显示2-4',
               },
             },
           },
@@ -46,7 +101,9 @@ import 'ukelli-ui/core/selector/dropdown-group';
           ({ state, setState }) => {
             return (
               <DropdownGroup
-                defaultValue={["value11"]}
+                defaultValue={{
+                  group1: ["value11"]
+                }}
                 fieldMapper={{
                   title: 'Title',
                   values: 'values'

@@ -1,6 +1,7 @@
 import React, {Component, PureComponent} from 'react';
 import PropTypes from 'prop-types';
 
+import { Icon } from '../icon';
 import SelectorBasic, { selectorValuesType } from './selector';
 
 export default class Radio extends SelectorBasic {
@@ -30,6 +31,7 @@ export default class Radio extends SelectorBasic {
     ]),
     /** 受控组件的 value */
     value: PropTypes.oneOfType([
+      PropTypes.boolean,
       PropTypes.string,
       PropTypes.number,
       PropTypes.array,
@@ -47,7 +49,7 @@ export default class Radio extends SelectorBasic {
     this.changeValue(value, idx);
   }
   render() {
-    const { itemWidth, isMultiple, checkAllBtn = true, itemStyle = {} } = this.props;
+    const { itemWidth, isMultiple, checkAllBtn = true, itemStyle = {}, n } = this.props;
     const selectedValue = this.getValue();
     const isSelectedAll = isMultiple && selectedValue && selectedValue.length === this.values.length;
     const gm = this.gm;
@@ -74,13 +76,15 @@ export default class Radio extends SelectorBasic {
           onClick={e => this.selectItem(value, idx)}>
           {
             img ? (
-              <img src={img} alt=""/>
+              <img src={img} alt="" />
             ) : null
           }
           <div className="text">{text}</div>
           {/* <div className="caret"></div> */}
-          <div className="frame">
-            <div className="unit"/>
+          <div className={"frame" + (n ? ' icon-mode' : '')}>
+            {
+              n ? <Icon n={n} /> : <div className="unit"/>
+            }
           </div>
         </div>
       );

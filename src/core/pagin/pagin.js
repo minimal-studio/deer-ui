@@ -138,7 +138,7 @@ export default class Pagination extends UkeComponent {
       </div>
     );
     const btnGroup = (
-      <div className="btn-group">
+      <div className="pagin-btn-group">
         {
           [...Array(prevBtnCount + lastBtnCount + 1)].map((_, idx) => {
             let currIdx = pIdx - prevBtnCount + idx + 1;

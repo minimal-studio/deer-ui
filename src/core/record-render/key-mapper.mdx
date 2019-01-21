@@ -1,0 +1,151 @@
+---
+name: KeyMapper
+route: /KeyMapper
+menu: Table / 表格渲染
+---
+
+# keyMapper
+
+表格渲染的核心配置，RecordRender 的机制是根据 keyMapper 配置遍历 records 中的每一个具体字段，找到对应的过滤器，实现通用的表格处理
+
+## 在 TableHeader 添加选择器
+
+> 通过传入不同类型的 title 字段，实现多种表头
+
+### 1. object title
+
+```js
+// propsForSelector 会全部传入 DropdownMenu，type 用于标记是什么类型
+const keyMapper = {
+  key: 'status',
+  title: {
+    type: 'selector',
+    ...propsForSelector
+  }
+}
+```
+
+### 2. function title
+
+```js
+// 定义 title 的过滤器，实现返回任意内容
+const keyMapper = {
+  key: 'any',
+  title: () => {
+    return (
+      <div>
+        ...
+      </div>
+    )
+  }
+}
+```
+
+### 3. string title
+
+```js
+// 一般的文字内容
+const keyMapper = {
+  key: 'title',
+  title: '表头'
+}
+```
+
+## 在 TableBody 中的过滤器
+
+> 各个处理器的处理顺序，要多个定义过滤器时需要关注
+
+1. date || datetime || money || abvMoney || count
+2. labels && namesMapper
+3. filter
+
+### date || datetime
+
+> 内置的时间过滤器
+
+```js
+const keyMapper = [
+  {
+    key: '',
+    date: boolean, // 格式成 YYYY-MM-DD
+    datetime: boolean, // 格式成 YYYY-MM-DD hh:mm:ss
+  }
+]
+```
+
+### money || abvMoney
+
+> 内置的金钱格式化过滤器
+
+```js
+const keyMapper = [
+  {
+    key: '',
+    money: boolean, // 格式成金钱
+    abvMoney: boolean, // 格式成金钱绝对值
+  }
+]
+```
+
+### count
+
+> 是否纳入统计
+
+### labels
+
+> 内置的 labels 过滤器
+
+```js
+const keyMapper = [
+  {
+    key: '',
+    labels: {
+      // srcStr 匹配的字符
+      // labelColor label 的颜色
+      [srcStr]: [labelColor]
+    }
+  }
+]
+```
+
+### namesMapper
+
+> 内置的 字段映射 过滤器
+
+```js
+const keyMapper = [
+  {
+    key: '',
+    namesMapper: {
+      // srcStr 匹配的字符
+      // mapStr 映射的值
+      [srcStr]: [mapStr]
+    }
+  }
+]
+```
+
+### 万能的 filter
+
+> 可以返回任意想要的字段，在以下内置过滤器中找不到符合预期的，可以通过 filter 返回
+
+```js
+const keyMapper = [
+  {
+    key: '',
+    filter: (str, item, mapper, idx) => {
+      return (
+        // 任意内容
+      )
+    }
+  }
+]
+```
+
+## RecordRender 提供的能力
+
+- 渲染远端表格数据
+- 数据的具体字段过滤器
+- 点击表头做已有数据排序
+- 统计所有能统计的数字值
+- 带有项选项器

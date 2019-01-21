@@ -19,6 +19,12 @@ $normalColor: #CCC;
       &.active {
         .frame {
           border-color: $themeColor;
+          &.icon-mode {
+            .icon {
+              transform: scale(1);
+              color: $themeColor;
+            }
+          }
           .unit {
             background-color: $themeColor;
             transform: scale(0.6);
@@ -39,6 +45,20 @@ $normalColor: #CCC;
         
         border: 1px solid $normalColor;
         overflow: hidden;
+        &.icon-mode {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          text-align: center;
+        }
+        .icon {
+          font-size: 10px;
+          transition: transform 0.2s ease;
+          transform: scale(0);
+          // position: absolute;
+          // top: 2px;
+          // left: 2px;
+        }
         .unit {
           @include fill;
           transform: scale(0.4);

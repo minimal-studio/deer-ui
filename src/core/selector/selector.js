@@ -80,11 +80,12 @@ export default class SelectorBasic extends FormControlBasic {
     if(HasValue(value)) {
       const selectedValue = this.getValue();
       let nextValue = [];
+      let targetVal = value;
       let removeItem;
       let addVal;
 
       if(isMultiple) {
-        nextValue = selectedValue || [];
+        nextValue = selectedValue ? [...selectedValue] : [];
         const valueIdx = nextValue.indexOf(value);
         if(valueIdx > -1) {
           removeItem = nextValue.splice(valueIdx, 1);
@@ -97,7 +98,7 @@ export default class SelectorBasic extends FormControlBasic {
         nextValue = [value];
         addVal = value;
       }
-      this.changeEvent(nextValue, {prevVal: selectedValue, idx, removeItem, addVal});
+      this.changeEvent(nextValue, {prevVal: selectedValue, idx, removeItem, addVal, targetVal});
     } else {
       this.emitChange();
     }
