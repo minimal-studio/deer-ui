@@ -15,6 +15,7 @@ export default [
   'radio',
   'hidden',
   'button',
+  'checkbox',
   'datetime',
   'datetimeRange',
 ];

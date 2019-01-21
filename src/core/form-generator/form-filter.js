@@ -4,7 +4,7 @@ import { Call, CallFunc, IsFunc, HasValue, IsObj } from 'basic-helper';
 import { UkeComponent } from '../uke-utils';
 
 import { DatetimePicker, DateShortcut } from '../datetimepicker';
-import { Radio, DropdownMenu } from '../selector';
+import { Radio, DropdownMenu, Checkbox } from '../selector';
 import { Input } from '../form-control';
 import { Ranger } from '../range-selector';
 import { Captcha } from '../captcha';
@@ -422,10 +422,10 @@ export default class FormFilterHelper extends UkeComponent {
       </span>
     );
   }
-  getRadio = (config) => {
+  radioFactory = (Comp) => (config) => {
     const { ref, ...other } = config;
     return (
-      <Radio
+      <Comp
         {...other}
         ref={this.saveRef(ref)}
         value={this.zeroFilter(this.value[ref])}
@@ -434,6 +434,8 @@ export default class FormFilterHelper extends UkeComponent {
         }}/>
     );
   }
+  getRadio = this.radioFactory(Radio)
+  getCheckbox = this.radioFactory(Checkbox)
   getButton = (config) => {
     const { ref, className, text, onClick } = config;
     return (
@@ -516,6 +518,7 @@ export default class FormFilterHelper extends UkeComponent {
     'ranger': this.getRange,
     'text': this.getText,
     'radio': this.getRadio,
+    'checkbox': this.getCheckbox,
     'button': this.getButton,
     'datetime': this.getDatetime,
     'datetimeRange': this.getDatetimeRange,

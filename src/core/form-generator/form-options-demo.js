@@ -33,6 +33,16 @@ const formOptions = [
     }
   },
   {
+    ref: 'ref_checkbox',
+    type: 'checkbox',
+    title: 'checkbox控件',
+    values: {
+      value1: 'value1',
+      value2: 'value2',
+      value3: 'value3',
+    }
+  },
+  {
     ref: 'ref22',
     type: 'radio',
     title: '多选控件',

@@ -2,6 +2,10 @@
 
 -----------------
 
+## 2.14.3
+
+- FormFilter 支持 Checkbox 控件
+
 ## 2.14.2
 
 - 新增 Checkbox
