@@ -22,7 +22,42 @@ import DropdownWrapper from './dropdown-wrapper';
         {
           ({ state, setState }) => {
             return (
-              <DropdownWrapper>
+              <DropdownWrapper menuTitle="标题">
+                {
+                  (options) => {
+                    console.log(options)
+                    return (
+                      <div className="p10" style={{width: 400}}>
+                        任意内容
+                      </div>
+                    )
+                  }
+                }
+              </DropdownWrapper>
+            )
+          }
+        }
+        </State>
+      )
+    }
+  }
+</Playground>
+
+## 自定义外层显示内容
+
+<Playground>
+  {
+    () => {
+      return (
+        <State initial={{}}>
+        {
+          ({ state, setState }) => {
+            return (
+              <DropdownWrapper menuWrapper={() => {
+                return (
+                  <div>显示内容</div>
+                )
+              }}>
                 {
                   (options) => {
                     console.log(options)

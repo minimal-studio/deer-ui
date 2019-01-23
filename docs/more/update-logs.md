@@ -2,6 +2,10 @@
 
 -----------------
 
+## 2.14.7
+
+- DropdownWrapper 添加可自定义的外层菜单
+
 ## 2.14.6
 
 - DropdownGroup 添加 title

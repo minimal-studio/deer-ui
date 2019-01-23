@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from "prop-types";
 import classnames from 'classnames';
+import { IsFunc } from 'basic-helper';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
 import { Icon } from '../icon';
@@ -33,6 +34,8 @@ export default class DropdownWrapper extends React.PureComponent {
     ]),
     /** 接受函数 children，只在 show 的时候渲染 */
     children: PropTypes.func,
+    /** 用于渲染最外层的内容 */
+    menuWrapper: PropTypes.func,
     /** style */
     style: PropTypes.shape({}),
   }
@@ -150,7 +153,7 @@ export default class DropdownWrapper extends React.PureComponent {
   render() {
     const { isShow, searchValue } = this.state;
     const {
-      className, withInput, position, style, menuTitle, error
+      className, withInput, style, menuTitle, error, menuWrapper
     } = this.props;
 
     return (
@@ -167,22 +170,28 @@ export default class DropdownWrapper extends React.PureComponent {
           style={style}>
           <span className="menu-wrapper" 
             onClick={this.handleClickMenu}>
-            <div className="display-title">
-              {menuTitle}
-            </div>
             {
-              withInput ? (
-                <input type="text"
-                  ref={this.saveInput}
-                  placeholder={typeof menuTitle === 'string' ? menuTitle : ''}
-                  value={searchValue}
-                  className="search-input"
-                  onChange={this.onSearch}/>
-              ) : null
+              IsFunc(menuWrapper) ? menuWrapper(this.getPropsForChild()) : (
+                <div className="display-menu">
+                  <div className="display-title">
+                    {menuTitle}
+                  </div>
+                  {
+                    withInput ? (
+                      <input type="text"
+                        ref={this.saveInput}
+                        placeholder={typeof menuTitle === 'string' ? menuTitle : ''}
+                        value={searchValue}
+                        className="search-input"
+                        onChange={this.onSearch}/>
+                    ) : null
+                  }
+                  <div className="icon-wrap">
+                    <Icon n="angle-down" /> 
+                  </div>
+                </div>
+              )
             }
-            <div className="icon-wrap">
-              <Icon n="angle-down" /> 
-            </div>
           </span>
           {this.childrenFilter()}
         </div>
