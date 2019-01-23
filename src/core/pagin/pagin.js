@@ -6,7 +6,7 @@ import Selector from '../selector/dropdown-menu';
 import { getElementOffset } from '../set-dom';
 import { getScreenWidth, getScreenHeight, getScrollTop } from '../utils';
 
-const pageListData = [10, 20, 30, 40, 50];
+const pageListData = [10, 20, 30, 40, 50, 100];
 let pageListMap = {};
 pageListData.forEach(item => pageListMap[item] = `${item} 条/页`);
 
@@ -124,7 +124,7 @@ export default class Pagination extends UkeComponent {
     const pageCountInputDOM = (
       <div className="mr10 page-size-input">
         <Selector
-          defaultValue={10}
+          value={pSize}
           isNum
           needAction={false}
           position={this.dropdownPosition}
