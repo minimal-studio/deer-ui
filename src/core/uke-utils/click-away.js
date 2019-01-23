@@ -21,15 +21,9 @@ export default class ClickAway extends Component {
   }
   __mounted = false;
   componentDidMount() {
-    this.node = ReactDOM.findDOMNode(this);
+    // this.node = ReactDOM.findDOMNode(this);
+    this.updateNodeRef();
     this.__mounted = true;
-    // TODO: 使用事件委托机制
-    // const ID = UUID();
-    // this.node.ID = ID;
-    // Nodes[ID] = {
-    //   node: this.node,
-    //   click: this.handleClick
-    // };
     document.addEventListener('click', this.handleClick);
   }
   componentWillUnmount() {
@@ -41,6 +35,9 @@ export default class ClickAway extends Component {
     if(!this.node.contains(event.target)) {
       this.props.onClickAway(event);
     }
+  }
+  updateNodeRef = () => {
+    this.node = ReactDOM.findDOMNode(this);
   }
   render() {
     const { children } = this.props;

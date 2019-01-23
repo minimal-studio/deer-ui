@@ -99,14 +99,15 @@ export default class Tabs extends Component {
     React.Children.map(children, (tabChild, idx) => {
       if(!tabChild || typeof tabChild.type !== 'function') return;
       const isActive = (idx === activeTabIdx);
-      let { contentClass = '', labelClass = '', atRight, label, key } = tabChild.props;
+      const tabKey = tabChild.key;
+      let { contentClass = '', labelClass = '', atRight, label } = tabChild.props;
       let _labelClass = 'tab ' + labelClass + (isActive ? ' active' : '');
       _labelClass += atRight ? ' right' : '';
 
       const _tabContent = withContent || (!withContent && isActive) ? (
         <div
           className={"tab-content " + (contentClass) + (isActive ? '' : ' hide')}
-          key={tabChild.key || "tab-con-" + idx}
+          key={tabKey || "tab-con-" + idx}
           style={height ? {height} : {}}>
           {
             tabChild.props.children
@@ -119,7 +120,7 @@ export default class Tabs extends Component {
       const _con = inRow ? _tabContent : null;
 
       const _tab = (
-        <div key={key || label}
+        <div key={tabKey || label}
           className={_labelClass}
           draggable>
           <span onClick={e => this.onTapTab(idx)}>

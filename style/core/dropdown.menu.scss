@@ -7,6 +7,11 @@ $iconW: 20px;
   // }
   z-index: 1111;
 }
+.dropdown-group {
+  max-height: 400px;
+  width: 400px;
+  overflow-y: auto;
+}
 .uke-dropdown-menu {
   position: relative;
   cursor: pointer;

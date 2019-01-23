@@ -2,6 +2,12 @@
 
 -----------------
 
+## 2.14.6
+
+- DropdownGroup 添加 title
+- 添加 Dropdown LinkSelector
+- 修复 Tabs 的 key 的问题
+
 ## 2.14.5
 
 - 修复 Table 的样式

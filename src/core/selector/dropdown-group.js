@@ -6,7 +6,7 @@ import SelectorBasic from './selector';
 import Checkbox from './checkbox';
 import DropdownWrapper from './dropdown-wrapper';
 
-export default class MultipleSelector extends SelectorBasic {
+export default class DropdownGroup extends SelectorBasic {
   static propTypes = {
     /** group data */
     groupData: PropTypes.shape({
@@ -18,6 +18,8 @@ export default class MultipleSelector extends SelectorBasic {
       title: PropTypes.string,
       values: PropTypes.string,
     }),
+    /** style */
+    style: PropTypes.object,
     /** defaultValue */
     defaultValue: PropTypes.object,
   }
@@ -32,8 +34,12 @@ export default class MultipleSelector extends SelectorBasic {
   constructor(props) {
     super(props);
 
+    const { defaultValue } = props;
+    let selectedCount = this.calculateCount(defaultValue);
+
     this.state = {
-      selectedValue: props.defaultValue || {}
+      selectedValue: defaultValue || {},
+      selectedCount
     };
   }
   // getValue = () => {
@@ -49,6 +55,17 @@ export default class MultipleSelector extends SelectorBasic {
     }
     return res;
   }
+  calculateCount(group) {
+    let selectedCount = 0;
+    if(!group) return selectedCount;
+    for (const key in group) {
+      if (group.hasOwnProperty(key)) {
+        const item = group[key];
+        if(Array.isArray(item)) selectedCount += item.length;
+      }
+    }
+    return selectedCount;
+  }
   changeGroup(groupKey, isNextGroupActive, groupValues) {
     this.setState(({ selectedValue }) => {
       let nextValues = {...selectedValue};
@@ -59,12 +76,12 @@ export default class MultipleSelector extends SelectorBasic {
       }
       this.emitChange(nextValues);
       return {
-        selectedValue: nextValues
+        selectedValue: nextValues,
+        selectedCount: this.calculateCount(nextValues)
       };
     });
   }
   changeValue(groupKey, value) {
-    const { groupData } = this.props;
     this.setState(({ selectedValue }) => {
       let nextValues = {...selectedValue};
       let operatorGroup = nextValues[groupKey] ? [...nextValues[groupKey]] : [];
@@ -76,7 +93,8 @@ export default class MultipleSelector extends SelectorBasic {
       nextValues[groupKey] = this.numberValFilter(operatorGroup, groupKey);
       this.emitChange(nextValues);
       return {
-        selectedValue: nextValues
+        selectedValue: nextValues,
+        selectedCount: this.calculateCount(nextValues)
       };
     });
   }
@@ -90,18 +108,21 @@ export default class MultipleSelector extends SelectorBasic {
       values: item[values],
     };
   }
+  getTitle = () => {
+    return `${this.state.selectedCount}${this.gm('项已选')}`;
+  }
   handleChange() {}
   render() {
-    const { groupData } = this.props;
+    const { groupData, style, ...other } = this.props;
     const groupDataArr = Object.keys(groupData);
 
     return (
-      <DropdownWrapper>
+      <DropdownWrapper menuTitle={this.getTitle()} {...other}>
         {
           (helper) => {
             const selectedValue = this.getValue();
             return (
-              <div className="multiple-selector p10" style={{width: 400}}>
+              <div className="dropdown-group p10" style={style}>
                 {
                   groupDataArr.map((groupKey, idx) => {
                     const currItem = groupData[groupKey];

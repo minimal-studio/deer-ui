@@ -25,7 +25,12 @@ export default class DropdownWrapper extends React.PureComponent {
     /** className */
     className: PropTypes.string,
     /** 外层的 title */
-    menuTitle: PropTypes.string,
+    menuTitle: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
+      PropTypes.element,
+      PropTypes.node,
+    ]),
     /** 接受函数 children，只在 show 的时候渲染 */
     children: PropTypes.func,
     /** style */
@@ -136,6 +141,12 @@ export default class DropdownWrapper extends React.PureComponent {
       dropdownContainerDOM
     ) : dropdownCom;
   }
+  saveClickAway = (e) => {
+    this.clickAwayRef = e;
+    if(e) {
+      this.updateNodeRef = e.updateNodeRef;
+    }
+  }
   render() {
     const { isShow, searchValue } = this.state;
     const {
@@ -143,7 +154,7 @@ export default class DropdownWrapper extends React.PureComponent {
     } = this.props;
 
     return (
-      <ClickAway onClickAway={this.handleClickAway}>
+      <ClickAway ref={this.saveClickAway} onClickAway={this.handleClickAway}>
         <div
           className={classnames({
             "uke-dropdown-menu": true,
@@ -163,7 +174,7 @@ export default class DropdownWrapper extends React.PureComponent {
               withInput ? (
                 <input type="text"
                   ref={this.saveInput}
-                  placeholder={menuTitle}
+                  placeholder={typeof menuTitle === 'string' ? menuTitle : ''}
                   value={searchValue}
                   className="search-input"
                   onChange={this.onSearch}/>

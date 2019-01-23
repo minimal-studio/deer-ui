@@ -2,9 +2,9 @@ import React, {Component, PureComponent} from 'react';
 import PropTypes from 'prop-types';
 
 import { CallFunc, Call } from 'basic-helper';
+import DropdownWrapper from './dropdown-wrapper';
 import {
-  Tabs, Tab, Loading, TipPanel, Icon,
-  ShowGlobalModal, CloseGlobalModal
+  Icon,
 } from '..';
 
 import { UkeComponent } from '../uke-utils';
@@ -39,12 +39,14 @@ export default class LinkSelector extends UkeComponent {
       selectedIndexMap: [
         // 0, 1, 0
       ],
+      selectedItems: []
     };
     this.extendsDOM = [];
     this.activeItems = [];
   }
-  componentDidMount() {
-  }
+  // componentDidUpdate() {
+  //   this.dropWrapper && this.dropWrapper.updateNodeRef();
+  // }
   itemMapFilter = (item) => {
     const { mappers } = this.props;
     const { child, code, title, icon } = mappers;
@@ -77,11 +79,26 @@ export default class LinkSelector extends UkeComponent {
   };
   selectItem = (foldIdx, activeIdx) => {
     this.setState(({ selectedIndexMap }) => {
-      let nextState = [...selectedIndexMap];
-      nextState.splice(foldIdx + 1);
-      nextState[foldIdx] = activeIdx;
+      const { data } = this.props;
+      let nextIndexMap = [...selectedIndexMap];
+      let nextActiveGroup = [];
+      nextIndexMap.splice(foldIdx + 1);
+      nextIndexMap[foldIdx] = activeIdx;
+
+      const recursive = (currDataGroup, level) => {
+        const idx = nextIndexMap[level];
+        const currData = currDataGroup[idx];
+        if(!currData) return;
+        let item = this.itemMapFilter(currData);
+        let { child } = item;
+        nextActiveGroup.push(item);
+        if(child && level < nextIndexMap.length) recursive(child, level + 1);
+      };
+      recursive(data, 0);
+
       return {
-        selectedIndexMap: nextState
+        selectedIndexMap: nextIndexMap,
+        selectedItems: nextActiveGroup
       };
     });
   }
@@ -89,10 +106,7 @@ export default class LinkSelector extends UkeComponent {
     this.extendsDOM = [];
     this.activeItems = [];
     if (!initDataList || !Array.isArray(initDataList)) return;
-    const { gm } = this;
     const { selectedIndexMap } = this.state;
-    let foldIdx = 0;
-    let result = [];
     const recursive = (currSelectedIdx, currDataList) => {
       let currDOMSets = [];
       const nextSelectedIdx = currSelectedIdx + 1;
@@ -102,12 +116,8 @@ export default class LinkSelector extends UkeComponent {
         const isActive = activeItemIdx === currDataIdx;
         let _item = this.itemMapFilter(item);
         let { child, title, code, icon } = _item;
-        let key = code + title;
         let hasChildren = child && child.length > 0;
 
-        let currFoldIdx = foldIdx;
-
-        ++foldIdx;
         let dom = null;
         if(isActive) this.activeItems.push(_item);
         if (hasChildren && isActive) {
@@ -115,7 +125,7 @@ export default class LinkSelector extends UkeComponent {
           this.extendsDOM.unshift(childDOM);
         }
         dom = (
-          <div key={foldIdx} className={"folder" + (isActive ? ' active' : '')}>
+          <div key={currDataIdx} className={"folder" + (isActive ? ' active' : '')}>
             <div
               className="fold-title"
               onClick={e => this.selectItem(currSelectedIdx, currDataIdx)}>
@@ -134,41 +144,63 @@ export default class LinkSelector extends UkeComponent {
     };
     return recursive.call(this, 0, initDataList);
   }
-  render() {
-    const { data, selectedIndexMap } = this.props;
-    console.log(this.extendsDOM);
-
-    return (
-      <div className="uke-link-selector">
-        <div className="items">
-          <div className="wrapper">
-            {
-              this.getAllSet(data)
-            }
-          </div>
+  getSelectedTitle = () => {
+    let res = this.gm('请选择');
+    const { selectedItems } = this.state;
+    console.log(selectedItems)
+    if(selectedItems.length > 0) {
+      res = (
+        <div>
           {
-            [...this.extendsDOM].map((item, idx) => {
-              return (
-                <div className="wrapper" key={idx}>
-                  {item}
-                </div>
-              );
-            })
-          }
-        </div>
-        <div className="selected-items">
-          {
-            this.activeItems.map(item => {
+            selectedItems.map((item, idx) => {
               const { code, title } = item;
+              const isLastest = idx == selectedItems.length - 1;
               return (
                 <span key={code + title}>
-                  {title}{' > '}
+                  {title}{!isLastest && ' > '}
                 </span>
               );
             })
           }
         </div>
-      </div>
+      );
+    }
+    return res;
+  }
+  saveDropWrapper = e => {
+    this.dropWrapper = e;
+  }
+  render() {
+    const { data, ...propsForDropWrapper } = this.props;
+    const selectedTitle = this.getSelectedTitle();
+
+    return (
+      <DropdownWrapper ref={this.saveDropWrapper} {...propsForDropWrapper} menuTitle={selectedTitle}>
+        {
+          (helper) => {
+            return (
+              <div className="uke-link-selector" style={{width: 400}}>
+                <div className="items">
+                  <div className="wrapper">
+                    {
+                      this.getAllSet(data)
+                    }
+                  </div>
+                  {
+                    [...this.extendsDOM].map((item, idx) => {
+                      return (
+                        <div className="wrapper" key={idx}>
+                          {item}
+                        </div>
+                      );
+                    })
+                  }
+                </div>
+              </div>
+            );
+          }
+        }
+      </DropdownWrapper>
     );
   }
 }
