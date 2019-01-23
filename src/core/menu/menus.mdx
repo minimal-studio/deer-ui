@@ -1,0 +1,35 @@
+---
+name: Menus
+route: /Menus
+menu: Components / 组件
+---
+
+import { Playground, PropsTable } from 'docz'
+import { Menus } from './';
+
+# Menus
+
+<PropsTable of={Menus} />
+
+<Playground className="bg_default">
+  <Menus data={[
+    {
+      text: '菜单1',
+      icon: 'check',
+      action: () => {}
+    },
+    {
+      text: '菜单2',
+      action: () => {}
+    },
+    {
+      text: '菜单3',
+      action: () => {}
+    },
+    {
+      text: '菜单4',
+      action: () => {}
+    },
+  ]} />
+</Playground>
+

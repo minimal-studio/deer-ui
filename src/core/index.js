@@ -11,6 +11,7 @@ export * from './icon';
 export * from './tip';
 export * from './label';
 export * from './tooltip';
+export * from './menu';
 
 export * from './notification';
 export * from './sub-content';

@@ -1,0 +1,16 @@
+.uke-menus {
+  background-color: #FFF;
+  display: inline-block;
+  min-width: 180px;
+  .menu-item {
+    padding: 8px 10px;
+    border-bottom: 1px solid #EEE;
+    cursor: pointer;
+    .icon {
+      margin-right: 6px;
+    }
+    &:hover {
+      background-color: rgba(#000, 0.02);
+    }
+  }
+}
