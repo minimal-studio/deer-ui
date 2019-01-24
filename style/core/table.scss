@@ -48,12 +48,12 @@
   .checked-actions {
     opacity: 0;
     position: absolute;
-    z-index: -1;
+    // z-index: -1;
     bottom: 100%;
     background-color: #FFF;
     padding: 5px 10px;
     box-shadow: 0 -3px 6px rgba(39,44,49,.1);
-    transition: all ease 0.2s;
+    transition: all ease 0.3s;
     transform: translateY(20px);
     display: flex;
     align-items: center;
@@ -94,17 +94,17 @@
     background-color: $tableHeaderBgColor;
     tr {
       th {
-        border-bottom: 1px solid #eee;
+        border-bottom: 1px solid #ddd;
         font-weight: normal;
         color: $tableHeaderTextColor;
         padding: 8px 0;
-        // vertical-align: middle;
+        vertical-align: middle;
         // border-bottom: 2px solid #ddd;
         text-align: center;
         text-overflow: ellipsis;
         white-space: nowrap;
         overflow: hidden;
-        background: linear-gradient(180deg, #FFF, #f6f6f6);
+        background: linear-gradient(180deg, #fefefe, #f6f6f6);
         // &:hover {
         //   background-color: darken($tableHeaderBgColor, 2%);
         // }
