@@ -323,7 +323,7 @@ export default class Table extends MapperFilter {
 
   render() {
     const {
-      needCount, height, whenCheckAction
+      needCount, height, whenCheckAction, needCheck
     } = this.props;
     const {
       headerWidthMapper, containerWidth, sortField, isDesc,
@@ -333,7 +333,8 @@ export default class Table extends MapperFilter {
     const hasRecord = records.length > 0;
     const keyMapper = this.getKeyMapper();
 
-    const isAllCheck = hasRecord && (Object.keys(checkedItems).length == records.length);
+    const checkedItemLen = Object.keys(checkedItems).length;
+    const isAllCheck = hasRecord && (checkedItemLen == records.length);
 
     if(!Array.isArray(records)) {
       console.error('records 必须为 []');
@@ -432,8 +433,11 @@ export default class Table extends MapperFilter {
       <div className={"table-render" + (hasChecked ? ' has-checked' : '')}
         ref={this.saveTable}>
         {
-          hasChecked && !!whenCheckAction? (
-            <div className="checked-actions">{whenCheckAction}</div>
+          needCheck && whenCheckAction ? (
+            <div className={"checked-actions" + (hasChecked ? ' show' : '')}>
+              <span className="mr10">已选 <span className="t_green">{checkedItemLen}</span> 项, 点击<span className="link" onClick={this.clearCheckeds}>取消</span>全部</span>
+              {whenCheckAction}
+            </div>
           ) : null
         }
         {tableHeader}
