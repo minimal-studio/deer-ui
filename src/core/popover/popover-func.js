@@ -2,6 +2,7 @@ import React, {Component, PureComponent} from 'react';
 import ReactDOM from 'react-dom';
 
 import Popover from './popover';
+import setDOMById from '../set-dom';
 
 export class PopoverHelper extends Component {
   constructor(props) {
@@ -24,10 +25,11 @@ export class PopoverHelper extends Component {
   showPopover() {
     this.show(...arguments);
   }
-  show(elem, isShow, children) {
+  show(elem, isShow, children, props) {
     const _isShow = typeof isShow !== 'undefined' ? isShow : !this.state.open;
     this.setState(prevState => {
       return {
+        ...props,
         relativeElem: elem || prevState.relativeElem,
         open: _isShow,
         children: children || prevState.children
@@ -56,6 +58,25 @@ class PopoverEntity {
     this.prevOptions = {};
 
     this.lifeTimer = null;
+
+    this.initDOM({});
+  }
+  savePopWrapper = e => {
+    if(!e) return;
+    this.popoverEntity = e;
+  }
+  initDOM(props) {
+    let topPopoverDOM = setDOMById(this.id);
+
+    const popoverWrapper = (
+      <PopoverWrapper
+        {...props}
+        ref={this.savePopWrapper}/>
+    );
+    ReactDOM.render(
+      popoverWrapper,
+      topPopoverDOM,
+    );
   }
   showPopover() {
     console.warn('showPopover 要被废弃了，请使用 show 或者 set');
@@ -72,31 +93,12 @@ class PopoverEntity {
   set(options) {
     const _options = Object.assign({}, this.prevOptions, options);
     const {
-      width = 400, onClose, elem, children, open, props = this.prevProps
+      elem, children, open, props = this.prevProps
     } = _options;
     this.prevProps = props;
     this.prevOptions = _options;
 
-    let topPopoverDOM = document.querySelector('#' + this.id);
-    if(!topPopoverDOM) {
-      topPopoverDOM = document.createElement('div');
-      topPopoverDOM.id = this.id;
-      document.body.appendChild(topPopoverDOM);
-    }
-
-    const popoverWrapper = (
-      <PopoverWrapper
-        {...props}
-        ref={e => {
-          if(!e) return;
-          this.popoverEntity = e;
-          this.popoverEntity.show(elem, open, children);
-        }}/>
-    );
-    ReactDOM.render(
-      popoverWrapper,
-      topPopoverDOM,
-    );
+    this.popoverEntity.show(elem, open, children, props);
   }
   close() {
     const nextState = {

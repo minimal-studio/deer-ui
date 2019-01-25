@@ -144,7 +144,7 @@ export default class Popover extends Component {
     case 'left':
       positionStyle = getLeft(...args);
       break;
-    case 'bottom':
+    case 'bottom': 
       positionStyle = getBottom(...args);
       break;
     case 'top':
@@ -187,7 +187,7 @@ export default class Popover extends Component {
         <div {...obj}
           className={`uke-popover ${fixed ? 'fixed' : ''} ${position} ${className} ${type}`}
           style={style}
-          ref={this.setSelfPosition}>
+          ref={e => this.setSelfPosition(e)}>
           {closeBtn}
           {/* <span className="caret"></span> */}
           {children}

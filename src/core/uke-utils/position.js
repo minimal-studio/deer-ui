@@ -34,9 +34,8 @@ export function getRight(offsetTop, offsetLeft, offsetWidth, offsetHeight, width
 }
 
 export function getTop(offsetTop, offsetLeft, offsetWidth, offsetHeight, width, height) {
-  let scroll = getScrollTop();
   let top = offsetTop - height - offsetHeight / 2;
-  if(top - height - scroll <= 0) return getBottom(...arguments);
+  if(top - height <= 0) return getBottom(...arguments);
   return {
     top,
     left: offsetLeft
@@ -44,9 +43,8 @@ export function getTop(offsetTop, offsetLeft, offsetWidth, offsetHeight, width, 
 }
 
 export function getBottom(offsetTop, offsetLeft, offsetWidth, offsetHeight, width, height) {
-  let scroll = getScrollTop();
   let top = offsetTop + offsetHeight + offsetHeight / 2;
-  if(top + height - scroll >= ScreenHeight) return getTop(...arguments);
+  if(top + height >= ScreenHeight) return getTop(...arguments);
   return {
     top,
     left: offsetLeft
