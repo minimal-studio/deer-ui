@@ -39,6 +39,8 @@ export default class ToolTip extends PureComponent {
   static propTypes = {
     /** 提示的标题 */
     title: PropTypes.any,
+    /** 颜色 */
+    color: PropTypes.string,
     /** 点击即关闭弹出曾 */
     clickToClose: PropTypes.bool,
     /** 包裹的组件 */
@@ -57,7 +59,7 @@ export default class ToolTip extends PureComponent {
     position: 'bottom'
   }
   render() {
-    const { title, clickToClose, onClick, position, component, children, ...other } = this.props;
+    const { title, clickToClose, onClick, position, component, children, color = 'black', ...other } = this.props;
     const Com = children ? Div : component ? component : Icon;
     return (
       <Com
@@ -70,7 +72,7 @@ export default class ToolTip extends PureComponent {
               showCloseBtn: false,
               enableTabIndex: false,
               className: 'icon-tip',
-              type: 'black'
+              type: color
             },
             children: <TitleDOM title={title}/>,
           });
