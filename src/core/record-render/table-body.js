@@ -174,14 +174,16 @@ export default class Table extends MapperFilter {
   calcSize() {
     let nextHeaderWidthMapper = {};
     let nextContainerWidth = 0;
-    Object.keys(this.firstTDDOMs).forEach(tdIdx => {
+    const { headerWidthMapper } = this.state;
+    const keyMapper = this.getKeyMapper();
+    keyMapper.forEach((_, tdIdx) => {
       let currTDDOM = this.firstTDDOMs[tdIdx];
-      let currWidth = currTDDOM.offsetWidth || this.state.headerWidthMapper[tdIdx];
+      let currWidth = currTDDOM.offsetWidth || headerWidthMapper[tdIdx];
       nextHeaderWidthMapper[tdIdx] = currWidth;
       nextContainerWidth += nextHeaderWidthMapper[tdIdx];
     });
     if(
-      JSON.stringify(nextHeaderWidthMapper) !== JSON.stringify(this.state.headerWidthMapper)
+      JSON.stringify(nextHeaderWidthMapper) !== JSON.stringify(headerWidthMapper)
     ) {
       const tableRenderWidth = this.tableRenderDOM.offsetWidth;
       this.setState({
