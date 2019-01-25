@@ -176,6 +176,7 @@ export default class Table extends MapperFilter {
     let nextContainerWidth = 0;
     const { headerWidthMapper } = this.state;
     const keyMapper = this.getKeyMapper();
+    if(Object.keys(this.firstTDDOMs).length === 0) return;
     keyMapper.forEach((_, tdIdx) => {
       let currTDDOM = this.firstTDDOMs[tdIdx];
       let currWidth = currTDDOM.offsetWidth || headerWidthMapper[tdIdx];
