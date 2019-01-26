@@ -59,6 +59,8 @@ export default class Table extends MapperFilter {
     records: PropTypes.arrayOf(PropTypes.object).isRequired,
     /** 是否需要统计 */
     needCount: PropTypes.bool,
+    /** 是否需要排序 */
+    needSort: PropTypes.bool,
     /** 是否多选 */
     needCheck: PropTypes.bool,
     /** checkbox 的宽度 */
@@ -71,6 +73,7 @@ export default class Table extends MapperFilter {
   static defaultProps = {
     sortIgnores: [],
     needCheck: false,
+    needSort: true,
     checkWidth: 30,
     needCount: false,
   };
@@ -326,7 +329,7 @@ export default class Table extends MapperFilter {
 
   render() {
     const {
-      needCount, height, whenCheckAction, needCheck
+      needCount, height, whenCheckAction, needCheck, needSort
     } = this.props;
     const {
       headerWidthMapper, containerWidth, sortField, isDesc,
@@ -377,11 +380,14 @@ export default class Table extends MapperFilter {
                       transform: `rotate(${!isDesc ? '180deg' : '0deg'})`
                     }}/>
                   ) : null;
+                  const clickHandlerForTh = needSort ? {
+                    onClick: () => this.orderRecord(key)
+                  } : {};
                   return (
                     <th 
                       className={`${isOrdering ? ('_order ' + (isDesc ? '_desc ' : '_asc ')) : ''}_btn`}
                       key={key} 
-                      onClick={e => this.orderRecord(key)}
+                      {...clickHandlerForTh}
                       style={{
                         width: currHeaderWidth
                       }}>
