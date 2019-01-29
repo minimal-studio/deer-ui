@@ -71,7 +71,7 @@ export default class DropdownMenu extends SelectorBasic {
     isNum: PropTypes.bool,
     /** 是否带搜索输入 */
     withInput: PropTypes.bool,
-    /** 是否需要清楚选择的按钮 */
+    /** 是否需要清除选择的按钮 */
     needAction: PropTypes.bool,
     /** 是否多选 */
     isMultiple: PropTypes.bool,
