@@ -112,8 +112,10 @@ export default class DropdownWrapper extends React.PureComponent {
     };
   }
   childrenFilter = () => {
-    const { children, outside } = this.props;
+    const { children, outside, position } = this.props;
     const { isShow } = this.state;
+    const isLeft = position.indexOf('left') !== -1;
+    const caretOffset = this.displayTitleDOM ? this.displayTitleDOM.offsetWidth / 2 : 10;
     const dropdownCom = (
       <TransitionGroup component={null}>
         <CSSTransition
@@ -130,7 +132,11 @@ export default class DropdownWrapper extends React.PureComponent {
                 left: this.containerOffset.offsetLeft,
                 position: 'fixed'
               } : {}}>
-                <span className="caret" />
+                <span className="caret" style={isLeft ? {
+                  left: caretOffset
+                } : {
+                  right: caretOffset
+                }} />
                 {children(this.getPropsForChild())}
               </div>
             ) : <span />
@@ -168,7 +174,7 @@ export default class DropdownWrapper extends React.PureComponent {
             [this._position]: true,
           })}
           style={style}>
-          <span className="menu-wrapper" 
+          <span className="menu-wrapper" ref={e => this.displayTitleDOM = e}
             onClick={this.handleClickMenu}>
             {
               IsFunc(menuWrapper) ? menuWrapper(this.getPropsForChild()) : (

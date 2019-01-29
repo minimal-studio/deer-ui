@@ -81,6 +81,7 @@ $iconW: 20px;
   .menu-wrapper {
     // background-color: #FFF;
     line-height: $itemH;
+    display: inline-block;
     // min-width: 140px;
     .icon {
       z-index: 1;
