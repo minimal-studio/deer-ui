@@ -39,6 +39,7 @@ $itemW: 360px;
   .notify-group {
     position: fixed;
     z-index: 1000;
+    pointer-events: none;
 
     &.has-msg {
       .scroll-content {
@@ -74,6 +75,7 @@ $itemW: 360px;
       border-radius: 4px 0 0 4px;
       transition: all ease 0.2s;
       background-color: #FFF;
+      pointer-events: auto;
 
       &:hover {
         // transform: scale(1.02);
