@@ -25,6 +25,8 @@ export default class Tabs extends Component {
   static propTypes = {
     /** tab 内容与 tab 标签是否在同一行 */
     inRow: PropTypes.bool,
+    /** 是否只渲染 content */
+    onlyContent: PropTypes.bool,
     /** tab 内容与 tab 标签是否共存 */
     withContent: PropTypes.bool,
     /** tab 可否关闭 */
@@ -51,6 +53,7 @@ export default class Tabs extends Component {
   static defaultProps = {
     inRow: false,
     withContent: false,
+    onlyContent: false,
     closeable: false,
   }
   constructor(props) {
@@ -143,6 +146,9 @@ export default class Tabs extends Component {
       tabs.push(_tab);
     });
 
+    this.tabs = tabs;
+    this.tabContents = tabContents;
+
     return {
       tabs, tabContents
     };
@@ -150,19 +156,24 @@ export default class Tabs extends Component {
   render() {
     const {
       className = 'tabs-container',
-      inRow, withContent,
+      inRow, withContent, onlyContent
     } = this.props;
+
     const { tabs, tabContents } = this.getTabContents();
 
     return (
       <div className={className + (inRow ? ' in-row' : '' + (withContent ? ' common-mode' : ''))}>
-        <div className="tab-group"
-          droppable="true"
-          onDragEnd={e => {
-            console.log(e)
-          }}>
-          {tabs}
-        </div>
+        {
+          !onlyContent && (
+            <div className="tab-group"
+              droppable="true"
+              onDragEnd={e => {
+                console.log(e)
+              }}>
+              {tabs}
+            </div>
+          )
+        }
         {inRow ? null : tabContents}
       </div>
     );

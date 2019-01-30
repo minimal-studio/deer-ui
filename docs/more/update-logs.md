@@ -2,6 +2,10 @@
 
 -----------------
 
+## 2.14.21
+
+- Tabs 新增只渲染 content 的参数
+
 ## 2.14.20
 
 - Tabs 的 closeabled 改为 closeable
