@@ -16,14 +16,14 @@ import tabsColl from './tabs-demo'
 
 ## 默认的 Tabs，状态由 Tabs 控制
 
-<Playground>
+<Playground className="bg_default">
   <State initial={{
     tabs: tabsColl,
   }}>
     {
       ({ state, setState }) => {
         return (
-          <Tabs closeabled onClose={idx => setState(({tabs}) => {
+          <Tabs closeable onClose={idx => setState(({tabs}) => {
               const nextTabs = [...tabs];
               nextTabs.splice(idx, 1);
               return {
@@ -48,16 +48,16 @@ import tabsColl from './tabs-demo'
 
 ## Tab 内容与 Tab 标签并列
 
-<Playground>
+<Playground className="bg_default">
   <Tabs inRow={true}>
     <Tab label="切换到内容1">
-      内容1
+      <div className="p10">内容1</div>
     </Tab>
     <Tab label="切换到内容2">
-      内容2
+      <div className="p10">内容2</div>
     </Tab>
     <Tab label="切换到内容3">
-      内容3
+      <div className="p10">内容3</div>
     </Tab>
   </Tabs>
 </Playground>
@@ -66,7 +66,7 @@ import tabsColl from './tabs-demo'
 
 ## 父组件控制 Tabs
 
-<Playground>
+<Playground className="bg_default">
   {
     () => {
 
@@ -92,13 +92,13 @@ import tabsColl from './tabs-demo'
                       })
                     }}>
                     <Tab label="切换到内容1">
-                      内容1
+                      <div className="p10">内容1</div>
                     </Tab>
                     <Tab label="切换到内容2">
-                      内容2
+                      <div className="p10">内容2</div>
                     </Tab>
                     <Tab label="切换到内容3">
-                      内容3
+                      <div className="p10">内容3</div>
                     </Tab>
                   </Tabs>
                 </div>

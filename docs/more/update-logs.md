@@ -2,6 +2,11 @@
 
 -----------------
 
+## 2.14.20
+
+- Tabs 的 closeabled 改为 closeable
+- 调整 Tabs 的 closeBtn 的样式
+
 ## 2.14.19
 
 - 优化 DropdownWrapper 的指示器的位置

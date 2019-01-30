@@ -50,21 +50,24 @@ $tabTextColor: #999;
       background-color: #fafafa;
       margin-right: 5px;
       box-shadow: inset 0 -1px 1px rgba(#999, 0.1);
-      .close-btn {
+      ._close-btn {
         display: inline-block;
         // padding: 5px;
-        line-height: 22px;
+        // line-height: 22px;
         position: absolute;
-        right: -8px;
-        top: -8px;
-        color: #000;
-        background-color: #FFF;
-        box-shadow: 0 3px 3px rgba(#000, 0.2);
+        top: 50%;
+        right: 4px;
+        // top: -8px;
+        color: #999;
+        // background-color: #FFF;
+        // box-shadow: 0 3px 3px rgba(#000, 0.2);
         // display: none;
         opacity: 0;
+        transform: translateY(-50%);
+        transition: opacity ease 0.2s;
         &:hover {
-          color: #FFF;
-          background-color: $colorRed;
+          color: $colorRed;
+          // background-color: $colorRed;
         }
       }
       &.right {
@@ -73,9 +76,16 @@ $tabTextColor: #999;
       &:hover {
         color: $tabTextHoverColor;
         z-index: 2;
-        .close-btn {
+        ._close-btn {
           // display: block;
+          // transform: scale(1);
           opacity: 1;
+        }
+        .tab-label {
+          // padding-right: 30px;
+          .text {
+            transform: translateX(10px);
+          }
         }
       }
       &.active {
@@ -91,7 +101,7 @@ $tabTextColor: #999;
       }
       .tab-label {
         display: inline-block;
-        padding: 10px 20px;
+        padding: 10px 26px;
         border-top: 1px solid transparent;
       }
     }

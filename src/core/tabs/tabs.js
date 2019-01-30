@@ -4,6 +4,7 @@ import { IsFunc, CallFunc } from 'basic-helper';
 
 import Tab from './tab';
 import { ToolTip } from '../tooltip';
+import { Icon } from '../icon';
 
 /**
  * 提供多种不同 Tab 切换方式与模版
@@ -27,7 +28,7 @@ export default class Tabs extends Component {
     /** tab 内容与 tab 标签是否共存 */
     withContent: PropTypes.bool,
     /** tab 可否关闭 */
-    closeabled: PropTypes.bool,
+    closeable: PropTypes.bool,
     /** 关闭组件的提示 */
     closeTip: PropTypes.any,
     /** 是否启用 step 分步模式 */
@@ -50,7 +51,7 @@ export default class Tabs extends Component {
   static defaultProps = {
     inRow: false,
     withContent: false,
-    closeabled: false,
+    closeable: false,
   }
   constructor(props) {
     super(props);
@@ -88,7 +89,7 @@ export default class Tabs extends Component {
   getTabContents() {
     const {
       children, height, 
-      inRow, withContent, closeabled, closeTip,
+      inRow, withContent, closeable, closeTip,
       onClose
     } = this.props;
     const activeTabIdx = this.getActiveIdx();
@@ -127,11 +128,11 @@ export default class Tabs extends Component {
             {tabChild}
           </span>
           {
-            closeabled && (
-              <ToolTip className="close-btn" title={closeTip}
+            closeable && (
+              <ToolTip className="_close-btn" title={closeTip}
                 clickToClose
                 onClick={e => onClose(idx)}>
-                <span>x</span>
+                x
               </ToolTip>
             )
           }
