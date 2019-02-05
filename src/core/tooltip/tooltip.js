@@ -41,6 +41,8 @@ export default class ToolTip extends PureComponent {
     title: PropTypes.any,
     /** 颜色 */
     color: PropTypes.string,
+    /** 传入 children 的 classNames */
+    classNames: PropTypes.arrayOf(PropTypes.string),
     /** 点击即关闭弹出曾 */
     clickToClose: PropTypes.bool,
     /** 包裹的组件 */
@@ -56,10 +58,14 @@ export default class ToolTip extends PureComponent {
     onClick: PropTypes.func,
   }
   static defaultProps = {
-    position: 'bottom'
+    position: 'bottom',
+    classNames: []
   }
   render() {
-    const { title, clickToClose, onClick, position, component, children, color = 'black', ...other } = this.props;
+    const {
+      title, clickToClose, onClick, position, component,
+      children, color = 'black', classNames, ...other
+    } = this.props;
     const Com = children ? Div : component ? component : Icon;
     return (
       <Com
@@ -89,7 +95,7 @@ export default class ToolTip extends PureComponent {
             });
           }, 15);
         }}
-        classNames={['relative']}>
+        classNames={[...classNames, 'relative']}>
         {children}
       </Com>
     );

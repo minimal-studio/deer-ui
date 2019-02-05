@@ -2,6 +2,10 @@
 
 -----------------
 
+## 2.14.24
+
+- 调整 ConditionGenerator 的样式
+
 ## 2.14.23
 
 - 修正 Menus 的 props checker
