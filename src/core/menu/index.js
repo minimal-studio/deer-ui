@@ -1,5 +1,5 @@
-import Menus from './menus';
+import Menus, { MenuItem } from './menus';
 
 export {
-  Menus
+  Menus, MenuItem
 };

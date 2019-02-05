@@ -3,22 +3,23 @@ import PropTypes from 'prop-types';
 import { HasValue } from 'basic-helper';
 import classnames from 'classnames';
 
-import setDOMById, { getElementOffset } from '../set-dom';
-import positionFilter from '../position-filter';
 import SelectorBasic, { selectorValuesType } from './selector';
-import { Icon } from '../icon';
 import DropdownWrapper from './dropdown-wrapper';
+import { MenuItem } from '../menu';
+// import setDOMById, { getElementOffset } from '../set-dom';
+// import positionFilter from '../position-filter';
+// import { Icon } from '../icon';
 
-const MenuItem = ({isActive, text, icon, ...other}) => {
-  return (
-    <div
-      className={"menu-item" + (isActive ? ' active' : '')}
-      {...other}>
-      {icon ? <Icon n={icon}/> : null}
-      {text}
-    </div>
-  );
-};
+// const MenuItem = ({isActive, text, icon, ...other}) => {
+//   return (
+//     <div
+//       className={"menu-item" + (isActive ? ' active' : '')}
+//       {...other}>
+//       {icon ? <Icon n={icon}/> : null}
+//       {text}
+//     </div>
+//   );
+// };
 
 const itemActiveFilter = (val, targetVal) => {
   let has = HasValue(val);
@@ -68,7 +69,7 @@ export default class DropdownMenu extends SelectorBasic {
     /** 是否多选 */
     isMultiple: PropTypes.bool,
     /** 传入 dropdownMenu 的 style */
-    style: PropTypes.object,
+    style: PropTypes.shape({}),
     /** 没有值时显示的 title */
     defaultTitle: PropTypes.string,
     /** 无效值的显示 */
