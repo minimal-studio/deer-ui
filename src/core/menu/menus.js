@@ -22,7 +22,7 @@ const Menus = (props) => {
       {
         data ? data.map((item, idx) => {
           if(menuDividGroup.indexOf(item) !== -1) return (
-            <hr />
+            <hr key={idx} />
           );
           const { action, id, ...other } = item;
           return (
@@ -35,14 +35,18 @@ const Menus = (props) => {
 };
 Menus.propTypes = {
   /** Menus 数据，可以为对象，如果为 '-' 或 'hr'，则渲染分隔线 */
-  data: PropTypes.oneOf([
-    PropTypes.arrayOf(PropTypes.shape({
-      text: PropTypes.any,
-      id: PropTypes.string,
-      action: PropTypes.func,
-    })),
-    PropTypes.oneOf(menuDividGroup)
-  ])
+  data: PropTypes.arrayOf(
+    PropTypes.oneOfType([
+      PropTypes.shape({
+        text: PropTypes.any,
+        id: PropTypes.string,
+        action: PropTypes.func,
+      }),
+      PropTypes.oneOf([
+        'hr', '-'
+      ]),
+    ])
+  )
 };
 
 export default Menus;
