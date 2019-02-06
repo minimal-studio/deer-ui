@@ -2,6 +2,10 @@
 
 -----------------
 
+## 2.14.28
+
+- 修复 radio 的 props checker 的警告
+
 ## 2.14.27
 
 - 完善 PureIcon 和 Icon 的切换

@@ -25,16 +25,11 @@ export default class Radio extends SelectorBasic {
     checkAllBtn: PropTypes.bool,
     /** 默认值 */
     defaultValue: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.number,
-      PropTypes.array,
+      PropTypes.any
     ]),
     /** 受控组件的 value */
     value: PropTypes.oneOfType([
-      PropTypes.boolean,
-      PropTypes.string,
-      PropTypes.number,
-      PropTypes.array,
+      PropTypes.any,
     ]),
     /** 传入每个 item 的 style */
     itemStyle: PropTypes.object,
