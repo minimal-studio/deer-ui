@@ -29,6 +29,9 @@ export default {
           #root > div > div:first-of-type > div:first-of-type > div:last-of-type {
             display: none;
           }
+          ul ul {
+            padding-left: 30px !important;
+          }
           #root > div > div:first-of-type > div:first-of-type > div:nth-child(2):before {
             background: transparent;
           }
