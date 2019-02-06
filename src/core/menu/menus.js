@@ -5,12 +5,12 @@ import { Icon, PureIcon } from '../icon';
 const menuDividGroup = ['-', 'hr'];
 
 const MenuItem = ({ isActive, text, icon, s, pureIcon, ...other }) => {
-  const I = pureIcon ? PureIcon : Icon;
+  const I = pureIcon ? <PureIcon n={pureIcon} /> : icon && <Icon n={icon} s={s} />;
   return (
     <div
       className={"menu-item" + (isActive ? ' active' : '')}
       {...other}>
-      {icon ? <I n={icon} s={s} /> : null}
+      {I}
       {text}
     </div>
   );
