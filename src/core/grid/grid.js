@@ -65,6 +65,7 @@ const Grid = (props) => {
     [`lg-${lg}`]: lg,
     [`xl-${xl}`]: xl,
     [`j-c-c`]: xl,
+    'g-container': container,
     'g-item': isItem,
   });
 
