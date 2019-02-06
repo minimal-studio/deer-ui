@@ -6,20 +6,6 @@ import classnames from 'classnames';
 import SelectorBasic, { selectorValuesType } from './selector';
 import DropdownWrapper from './dropdown-wrapper';
 import { MenuItem } from '../menu';
-// import setDOMById, { getElementOffset } from '../set-dom';
-// import positionFilter from '../position-filter';
-// import { Icon } from '../icon';
-
-// const MenuItem = ({isActive, text, icon, ...other}) => {
-//   return (
-//     <div
-//       className={"menu-item" + (isActive ? ' active' : '')}
-//       {...other}>
-//       {icon ? <Icon n={icon}/> : null}
-//       {text}
-//     </div>
-//   );
-// };
 
 const itemActiveFilter = (val, targetVal) => {
   let has = HasValue(val);
@@ -174,7 +160,7 @@ export default class DropdownMenu extends SelectorBasic {
                   {
                     this.values.map((dataItem, idx) => {
                       const { text, value, icon, img } = dataItem;
-      
+
                       const isActive = itemActiveFilter(_selectedValue, value);
                       // HasValue(_selectedValue) && (_selectedValue + '').indexOf(value) > -1;
                       let renderable = !searchValue ? true : (text.indexOf(searchValue) != -1 || value.toLowerCase().indexOf(searchValue) != -1);

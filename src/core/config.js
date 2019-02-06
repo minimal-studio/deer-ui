@@ -33,12 +33,12 @@ export function getIconMapper() {
   return Object.assign({}, defaultIconMapper, ukelliui.iconMapper);
 }
 
-export function getIcon(iconName, iconStyle, moreClassName) {
+export function getIcon(iconName, iconStyle, moreClassName, useIconConfig) {
   const iconMapper = getIconMapper();
   const iconPrefix = getUkelliConfig('iconPrefix');
   if(!iconName) return iconMapper;
   let moreClassNameArr = Array.isArray(moreClassName) ? moreClassName : [moreClassName];
-  let resultStr = (IsFunc(iconPrefix) ? iconPrefix(iconStyle) : iconPrefix) + (iconMapper[iconName] || iconName) + ' ' + moreClassNameArr.join(' ');
+  let resultStr = (useIconConfig ? (IsFunc(iconPrefix) ? iconPrefix(iconStyle) : iconPrefix) : '') + (iconMapper[iconName] || iconName) + ' ' + moreClassNameArr.join(' ');
   return resultStr;
 }
 

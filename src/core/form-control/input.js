@@ -143,7 +143,7 @@ export default class Input extends Component {
   }
   render() {
     const {
-      n, icon, placeholder, title, inputBtnConfig, type, showTitle = defaultShowInputTitle,
+      n, s, icon, placeholder, title, inputBtnConfig, type, showTitle = defaultShowInputTitle,
       className, children, required, filter,
       onFocus, onBlur,
     } = this.props;
@@ -154,7 +154,7 @@ export default class Input extends Component {
     const hasIcon = !!_icon;
 
     const iconDOM = hasIcon ? (
-      <Icon n={_icon}/>
+      <Icon n={_icon} s={s} />
     ) : null;
 
     let highlightDOM = required ? (

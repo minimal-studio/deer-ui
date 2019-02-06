@@ -1,5 +1,5 @@
-import Icon from './icon';
+import Icon, { PureIcon } from './icon';
 
 export {
-  Icon
+  Icon, PureIcon
 };

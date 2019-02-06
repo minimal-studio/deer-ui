@@ -19,16 +19,16 @@ const defaultProps = {
 const Button = (props) => {
   let gm = window.$UKE.getUkeKeyMap;
   const {
-    loading, disabled, text = gm('提交'), icon, type, children,
+    loading, disabled, text = gm('提交'), icon, s, type, children,
     color, className, loadingHint, loadingDisable, onClick
   } = props;
 
   const clickable = !disabled && (!loading || !loadingDisable);
   const iconDOM = icon ? (
-    <Icon n={icon} classNames={['btn-icon']}/>
+    <Icon n={icon} s={s} classNames={['btn-icon']}/>
   ) : null;
   const loadingTip = loadingHint && loading ? (
-    <Icon n="loading" classNames={['btn-loading ml5']}/>
+    <Icon n="loading" s={s} classNames={['btn-loading ml5']}/>
   ) : null;
 
   return (

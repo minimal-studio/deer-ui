@@ -1,15 +1,16 @@
 import React, {Component, PureComponent} from 'react';
 import PropTypes from 'prop-types';
-import { Icon } from '../icon';
+import { Icon, PureIcon } from '../icon';
 
 const menuDividGroup = ['-', 'hr'];
 
-const MenuItem = ({isActive, text, icon, ...other}) => {
+const MenuItem = ({ isActive, text, icon, s, pureIcon, ...other }) => {
+  const I = pureIcon ? PureIcon : Icon;
   return (
     <div
       className={"menu-item" + (isActive ? ' active' : '')}
       {...other}>
-      {icon ? <Icon n={icon}/> : null}
+      {icon ? <I n={icon} s={s} /> : null}
       {text}
     </div>
   );
@@ -40,6 +41,8 @@ Menus.propTypes = {
       PropTypes.shape({
         text: PropTypes.any,
         id: PropTypes.string,
+        icon: PropTypes.string,
+        pureIcon: PropTypes.string,
         action: PropTypes.func,
       }),
       PropTypes.oneOf([

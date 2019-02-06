@@ -1,20 +1,9 @@
 import React, {Component, PureComponent} from 'react';
 import PropTypes from 'prop-types';
 
-import { Icon } from '../icon';
 import SelectorBasic from './selector';
 import { getElementLeft, getElementTop } from '../set-dom';
-
-export const MenuItem = ({isActive, text, icon, ...other}) => {
-  return (
-    <div
-      className={"menu-item" + (isActive ? ' active' : '')}
-      {...other}>
-      {icon ? <Icon n={icon}/> : null}
-      {text}
-    </div>
-  );
-};
+import { MenuItem } from '../menu';
 
 export default class MenuGroup extends SelectorBasic {
   static propTypes = {
