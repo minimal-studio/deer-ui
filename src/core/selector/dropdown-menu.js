@@ -127,7 +127,7 @@ export default class DropdownMenu extends SelectorBasic {
   }
   render() {
     const {
-      isMultiple, needAction, cancelTitle
+      isMultiple, needAction, cancelTitle, withInput
     } = this.props;
     const _selectedValue = this.getValue();
     
@@ -137,7 +137,7 @@ export default class DropdownMenu extends SelectorBasic {
 
     return (
       <DropdownWrapper {...this.props} menuTitle={menuTitle}
-        withInput={!isMultiple}
+        withInput={!withInput ? withInput : !isMultiple}
         error={this._error}
         className={classnames({
           "multiple": isMultiple,
