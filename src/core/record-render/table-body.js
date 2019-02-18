@@ -104,14 +104,7 @@ export default class Table extends MapperFilter {
   }
 
   componentDidUpdate() {
-    if (!this._firstCalc) {
-      this.calcSize();
-      this._firstCalc = true;
-    }
-    this.timer && clearTimeout(this.timer);
-    this.timer = setTimeout(() => {
-      this.calcSize();
-    }, 300);
+    this.calcSize();
   }
 
   /**
