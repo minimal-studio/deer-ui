@@ -175,7 +175,7 @@ export default class Table extends MapperFilter {
   }
 
   calcSize() {
-    let nextHeaderWidthMapper = {};
+    let nextHeaderWidthMapper = [];
     let nextContainerWidth = 0;
     const { headerWidthMapper } = this.state;
     const keyMapper = this.getKeyMapper();
@@ -187,7 +187,7 @@ export default class Table extends MapperFilter {
       nextContainerWidth += nextHeaderWidthMapper[tdIdx];
     });
     if(
-      JSON.stringify(nextHeaderWidthMapper) !== JSON.stringify(headerWidthMapper)
+      nextHeaderWidthMapper.join(',') !== headerWidthMapper.join(',')
     ) {
       const tableRenderWidth = this.tableRenderDOM.offsetWidth;
       this.setState({
