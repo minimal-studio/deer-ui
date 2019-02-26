@@ -65,7 +65,7 @@ yarn docz:dev
 
 - [在线文档](https://ui.ukelli.com/)
 - [聚合表单](https://ui.ukelli.com/#/G-Desc)
-- [更新日志](./docs/update-logs.md)
+- [更新日志](./docs/CHANGELOG.md)
 - [关于 FormGenerator 的 UI 的逻辑](./docs/ui-logic.md)
 - [按需加载](./docs/import-desc.md)
 - [配置设置](./docs/configuration.md)
