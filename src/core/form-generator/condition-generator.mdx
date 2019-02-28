@@ -84,6 +84,7 @@ import { ConditionGenerator } from './';
               },
             ]}/>
           <span onClick={e => console.log(domRef.value)} className="theme btn flat">查看查询条件的值</span>
+          <span className="ml10" onClick={e => domRef.clearValue()} className="theme btn red">清空条件</span>
         </div>
       )
     }

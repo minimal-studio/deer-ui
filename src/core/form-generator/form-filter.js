@@ -106,6 +106,15 @@ export default class FormFilterHelper extends UkeComponent {
       break;
     }
   }
+  clearValue = () => {
+    this.setState(() => {
+      this.value = {};
+      this.requiredRefMapper = {};
+      return {
+        value: {}
+      };
+    });
+  }
   _requiredMapperSetter = (ref, title) => {
     this.requiredRefMapper = Object.assign({}, this.requiredRefMapper, {
       [ref]: title

@@ -259,6 +259,12 @@ import FormOptionsDesc from './form-options-demo.md';
                               text: '测试按钮, 带预检查',
                               actingRef: 'forTest'
                             },
+                            {
+                              action: () => {
+                                formRef.clearValue();
+                              },
+                              text: '清空内容'
+                            }
                           ]}
                           ref={e => formRef = e}
                           onChange={(value, ref, val) => {

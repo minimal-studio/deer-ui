@@ -148,6 +148,11 @@ export default class FormLayout extends UkeComponent {
       _action();
     }
   }
+  saveFormRef = (e) => {
+    if(!e) return;
+    this.formHelper = e;
+    this.clearValue = e.clearValue;
+  }
   render() {
     const {
       tipInfo, btnConfig, className = '', isVertical, isMobile,
@@ -216,7 +221,7 @@ export default class FormLayout extends UkeComponent {
           isMobile={isMobile}
           showInputTitle={showInputTitle}
           formOptions={formOptions}
-          ref={e => this.formHelper = e}>
+          ref={this.saveFormRef}>
           {childrenBeforeBtn}
           <div className="form-group">
             <span className="control-label" />

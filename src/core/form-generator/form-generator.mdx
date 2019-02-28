@@ -18,12 +18,19 @@ import FormOptionsDesc from './form-options-demo.md';
   {
     () => {
       /** formOptions 查看 ./form-options-demo.js */
+      let formRef;
       return (
-        <FormGenerator
-          onChange={(values, ref, val) => {
-            console.log(values, ref, val)
-          }}
-          formOptions={formOptions}/>
+        <div>
+          <FormGenerator
+            ref={e => formRef = e}
+            onChange={(values, ref, val) => {
+              console.log(values, ref, val)
+            }}
+            formOptions={formOptions}/>
+          <span className="btn theme flat" onClick={e => {
+              formRef.clearValue();
+          }}>清空表单</span>
+        </div>
       )
     }
   }
