@@ -28,7 +28,6 @@ import { Switch } from './';
               onChange={val => setState({
                 checked: val
               })}
-              defaultChecked={true}
               checked={state.checked} />
             <h4>输出期望值: {state.checked2}</h4>
             <Switch
@@ -39,8 +38,14 @@ import { Switch } from './';
                 })
               }}
               outputs={[1, 0]}
-              defaultChecked={true}
               checked={state.checked2} />
+            <h4>不受控组件</h4>
+            <Switch
+              onChange={val => {
+                console.log(val)
+              }}
+              outputs={[1, 0]}
+              defaultChecked={true} />
             <h4>禁止的开关</h4>
             <Switch
               onChange={val => {}}

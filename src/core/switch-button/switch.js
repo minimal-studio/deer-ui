@@ -1,6 +1,7 @@
 /* eslint-disable react/no-array-index-key */
 
 import React, { Component, PureComponent } from 'react';
+import { HasValue } from 'basic-helper';
 import PropTypes from 'prop-types';
 
 /**
@@ -36,12 +37,27 @@ export default class Switch extends PureComponent {
   }
   constructor(props) {
     super(props);
-    this.checked = props.defaultChecked || props.checked;
+    this.isControl = HasValue(props.checked);
+    this.state = {
+      checked: this.isControl ? props.checked : props.defaultChecked
+    };
+  }
+  getValue = () => {
+    return this.isControl ? this.props.checked : this.state.checked;
+  }
+  onChange = (nextValue) => {
+    if(!this.isControl) {
+      this.setState({
+        checked: nextValue
+      });
+    }
+    this.props.onChange(nextValue);
   }
   render() {
     const {
-      checked, disabled, tips, outputs, onChange,
+      disabled, tips, outputs
     } = this.props;
+    const checked = this.getValue();
     const text = tips[checked ? 0 : 1];
 
     const switchBtnGroup = (
@@ -50,8 +66,7 @@ export default class Switch extends PureComponent {
           const nextChecked = !checked;
           let emitVal = outputs[nextChecked ? 0 : 1];
           if(!disabled) {
-            this.checked = nextChecked;
-            onChange(emitVal);
+            this.onChange(emitVal);
           }
         }}>
         <span
