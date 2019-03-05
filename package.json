@@ -2,7 +2,9 @@
   "name": "ukelli-ui",
   "version": "2.14.34",
   "main": "./index.js",
-  "files": ["*"],
+  "files": [
+    "*"
+  ],
   "scripts": {
     "publish": "npm publish ./build",
     "release": "npm version patch; npm run publish:build",
@@ -27,7 +29,7 @@
   "author": "Alex",
   "license": "MIT",
   "peerDependencies": {
-    "basic-helper": "^1.4.8",
+    "basic-helper": "^1.4.10",
     "prop-types": "^15.5.10",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
@@ -44,6 +46,7 @@
     "babel-core": "^7.0.0-bridge.0",
     "babel-eslint": "^10.0.1",
     "babel-jest": "^23.6.0",
+    "basic-helper": "^1.4.10",
     "codemirror": "^5.42.2",
     "docz": "^0.13.5",
     "docz-plugin-netlify": "^1.1.4",
@@ -72,7 +75,6 @@
     "webpack-merge": "^4.1.4"
   },
   "dependencies": {
-    "basic-helper": "^1.4.8",
     "classnames": "^2.2.5"
   }
 }
