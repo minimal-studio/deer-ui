@@ -54,7 +54,7 @@ export default class ChartCom extends PureComponent {
     };
   }
   componentWillUnmount = () => {
-    this.Chart.destroy();
+    this.Chart && this.Chart.destroy && this.Chart.destroy();
   }
   loadChart = async (callback) => {
     isLoading = true;
