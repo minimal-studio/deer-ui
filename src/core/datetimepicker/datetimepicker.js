@@ -106,7 +106,7 @@ export default class DatetimePicker extends DateBasic {
   }
   render() {
     return (
-      <div className="flatpickr">
+      <div className={(enableTime ? 'time ' : '') + "flatpickr"}>
         <input
           type="text"
           className="form-control input-sm"

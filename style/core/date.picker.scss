@@ -36,6 +36,9 @@
 .flatpickr {
   position: relative;
   width: 240px;
+  &.time {
+    width: 300px;
+  }
   .form-control {
     width: 100% !important;
     min-width: 100% !important;
