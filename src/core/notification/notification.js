@@ -18,12 +18,13 @@ export default class Notification extends UkePureComponent {
   static defaultProps = {
     // iconMapper: 'top,right',
   };
+  timers = {};
+  IDIncrement = 0;
   constructor(props) {
     super(props);
-    this.timers = {};
-    this.IDIncrement = 0;
+    
     this.state = {
-      systemTips: {},
+      notifyItems: {},
       position: 'top,right'
     };
     EventEmitter.on('NOTIFY', this.receiveNotify);
@@ -59,10 +60,10 @@ export default class Notification extends UkePureComponent {
   receiveNotify = (notifyConfig, _position) => {
     notifyConfig = this.notifyConfigFilter(notifyConfig);
     const { id } = notifyConfig;
-    this.setState(({systemTips, position}) => {
+    this.setState(({ notifyItems, position }) => {
       return {
-        systemTips: {
-          ...systemTips,
+        notifyItems: {
+          ...notifyItems,
           [id]: notifyConfig
         },
         position: _position || position
@@ -80,12 +81,18 @@ export default class Notification extends UkePureComponent {
     Call(onClickTip, clickTarget);
   }
   closeTip(msgID) {
-    this.setState(({systemTips}) => {
-      let nextState = Object.assign({}, systemTips);
+    this.setState(({ notifyItems }) => {
+      let nextState = Object.assign({}, notifyItems);
       delete nextState[msgID];
       return {
-        systemTips: nextState
+        notifyItems: nextState
       };
+    });
+  }
+  clearAllNotify = () => {
+    Object.keys(this.timers).forEach(timerID => clearTimeout(timerID));
+    this.setState({
+      notifyItems: {}
     });
   }
   clearTargetTimer(msgID) {
@@ -105,17 +112,27 @@ export default class Notification extends UkePureComponent {
   }
   render() {
     const { handleClick } = this.props;
-    const { position, systemTips } = this.state;
-    const hasMsg = Object.keys(systemTips).length > 0;
+    const { position, notifyItems } = this.state;
+    const notifyItemsKeys = Object.keys(notifyItems);
+    const notifyItemsKeysLen = notifyItemsKeys.length;
+    const hasMsg = notifyItemsKeysLen > 0;
+    const needClearAllBtn = hasMsg;
     const gm = this.gm;
 
     const container = (
       <div className={`notify-group ${positionFilter(position)} ${hasMsg ? 'has-msg' : 'no-msg'}`}>
         <div className="msg-panel scroll-content">
+          {
+            needClearAllBtn && (
+              <div className="notify-item" onClick={this.clearAllNotify}>
+                清除所有通知
+              </div>
+            )
+          }
           <TransitionGroup component={null}>
             {
-              Object.keys(systemTips).map(msgID => {
-                const item = systemTips[msgID];
+              notifyItemsKeys.map(msgID => {
+                const item = notifyItems[msgID];
                 const { type = 'normal', title, text, onClickTip, actionText = gm('点击查看详情') } = item;
                 return (
                   <CSSTransition
@@ -124,6 +141,12 @@ export default class Notification extends UkePureComponent {
                     classNames="notify">
                     <div
                       className={`notify-item ${type}`}
+                      ref={e => {
+                        if(e) {
+                          e.style.height = e.offsetHeight + 'px';
+                          console.log(e)
+                        }
+                      }}
                       onMouseEnter={e => this.clearTargetTimer(msgID)}
                       onMouseLeave={e => this.startTargetTimer(item)}>
                       <div className="notify-type-tip">
@@ -145,7 +168,7 @@ export default class Notification extends UkePureComponent {
                             </div>
                           ) : null
                         }
-                        <div className="close-btn" onClick={e => this.closeTip(msgID)}>
+                        <div className="_close-btn" onClick={e => this.closeTip(msgID)}>
                           <Icon n="close"/>
                         </div>
                       </div>

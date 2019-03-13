@@ -20,8 +20,8 @@ $toastransDuration     : 0.2s;
 $popoverTransDuration  : 0.2s;
 $loadingTransDuration  : 200ms;
 $modalTSDuration       : 0.3s;
-$dropMenuTSDuration    : 0.3s;
-$notifyTransDuration   : 0.2s;
+$dropMenuTSDuration    : 0.2s;
+$notifyTransDuration   : 300ms;
 
 @mixin modal($animateName, $offset: 20px, $duration: $modalTSDuration) {
   .#{$animateName}-enter {
@@ -81,7 +81,7 @@ $notifyTransDuration   : 0.2s;
 .drop-menu-enter.drop-menu-enter-active {
   transform: translateY(0);
   opacity: 1;
-  transition: transform $notifyTransDuration ease, opacity $notifyTransDuration ease;
+  transition: transform $dropMenuTSDuration ease, opacity $dropMenuTSDuration ease;
 }
 
 .drop-menu-exit {
@@ -92,30 +92,35 @@ $notifyTransDuration   : 0.2s;
 .drop-menu-exit.drop-menu-exit-active {
   opacity: 0.01;
   transform: translateY(-5px);
-  transition: transform $notifyTransDuration ease, opacity $notifyTransDuration ease;
+  transition: transform $dropMenuTSDuration ease, opacity $dropMenuTSDuration ease;
 }
 
 // notify
 .notify-enter {
   opacity: 0.01;
-  transform: translateX(20%);
+  transform: scale(0);
 }
 
 .notify-enter.notify-enter-active {
-  transform: translateX(0);
+  transform-origin: right top;
+  transform: scale(1);
   opacity: 1;
-  transition: transform $notifyTransDuration easeInOut, opacity $notifyTransDuration easeInOut;
+  transition: all $notifyTransDuration ease;
 }
 
 .notify-exit {
   opacity: 1;
-  transform: translateX(0);
+  // transform: scale(1);
 }
 
 .notify-exit.notify-exit-active {
+  transform-origin: right top;
   opacity: 0.01;
-  transform: translateX(20%);
-  transition: transform $notifyTransDuration easeInOut, opacity $notifyTransDuration easeInOut;
+  height: 0 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  overflow: hidden;
+  transition: all $notifyTransDuration ease;
 }
 
 // fade
