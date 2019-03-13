@@ -25,6 +25,9 @@ import { ConditionGenerator } from './';
                 domRef.changeValue(val, 'ref_for_input')
               }
             }}
+            onSubmit={value => {
+              console.log(value)
+            }}
             conditionConfig={[
               {
                 refs: ['startDate', 'endDate'],
@@ -82,9 +85,12 @@ import { ConditionGenerator } from './';
                 title: '范围',
                 range: [0, 10]
               },
-            ]}/>
-          <span onClick={e => console.log(domRef.value)} className="theme btn flat">查看查询条件的值</span>
-          <span className="ml10" onClick={e => domRef.clearValue()} className="theme btn red">清空条件</span>
+            ]}>
+            <div>
+              <button type="submit" className="theme btn flat">查看查询条件的值</button>
+              <span className="ml10" onClick={e => domRef.clearValue()} className="theme btn red">清空条件</span>
+            </div>
+          </ConditionGenerator>
         </div>
       )
     }

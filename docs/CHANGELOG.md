@@ -2,6 +2,10 @@
 
 -----------------
 
+## 2.14.38
+
+- 修复 DatetimePicker 的 enableTime 时不触发 onChange 的问题
+
 ## 2.14.37
 
 - 修复日期控件 unmount 时可能出现的错误

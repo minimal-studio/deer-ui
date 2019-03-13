@@ -85,7 +85,7 @@ export default class DatetimePicker extends DateBasic {
       disableMobile: true,
       // enableSeconds: true,
       onChange: (rangeValues, dateStr, instance) => {
-        if(instance.isOpen) return;
+        if(!enableTime && instance.isOpen) return;
         let emitVal = [...rangeValues];
         if(mode === 'single' && Array.isArray(emitVal)) emitVal = rangeValues[0];
         this.changeDate(emitVal);
