@@ -55,6 +55,10 @@ export default class Captcha extends UkeComponent {
   componentDidMount() {
     this.getCaptcha();
   }
+  componentWillUnmount() {
+    this.__unmount = true;
+    this.clearTimeout();
+  }
   select() {
     this.captchaInput.select();
   }
@@ -84,14 +88,10 @@ export default class Captcha extends UkeComponent {
             captchaImg: captchaImage
           });
           this.captchaKey = captchaKey;
-          this.props.onCaptchaLoad && this.props.onCaptchaLoad();
+          this.props.onCaptchaLoad && this.props.onCaptchaLoad(captchaKey);
         }
       });
     }
-  }
-  componentWillUnmount() {
-    this.__unmount = true;
-    this.clearTimeout();
   }
   clearTimeout() {
     this.getCaptchaTimer && clearTimeout(this.getCaptchaTimer);
@@ -103,7 +103,7 @@ export default class Captcha extends UkeComponent {
     }
     if (needFocus) this.select();
   }
-  refreshCaptcha(needFocus=true) {
+  refreshCaptcha(needFocus = true) {
     this.shouldRefreshCaptcha(true, needFocus);
   }
   changeCaptcha(val) {
