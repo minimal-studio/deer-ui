@@ -9,14 +9,50 @@ import { Captcha } from './';
 
 # Captcha
 
+## 实现异步接口
+
+```js
+import { Captcha } from 'ukelli-ui';
+
+const getData = (callback) => {
+  // 请求成功后调用 callback，传入 3 个必要参数
+  callback({
+    hasErr: false, // 是否发生错误
+    captchaImage: '', // 验证码的图片
+    captchaKey: '' // 验证码的 key
+  })
+}
+
+// 任选其一
+Captcha.setQueryCAPTCHAData(getData);
+setUkelliConfig({
+  queryCAPTCHAData: getData
+})
+```
+
 <PropsTable of={Captcha} />
 
 <Playground>
-  <Captcha
-    onError={e => console.log(e)}
-    onChange={e => console.log(e)}
-    onCaptchaLoad={e => console.log(e)}
-    onBlur={e => console.log(e)}
-    value={'123'}
-    limit={4}/>
+  {
+    () => {
+      Captcha.setQueryCAPTCHAData((callback) => {
+        setTimeout(() => {
+          callback({
+            hasErr: false,
+            captchaImage: 'https://cms.marketplace.org/sites/default/files/styles/primary-image-400x222/public/captcha.png?itok=JsLPSa66',
+            captchaKey: '12412412512513'
+          })
+        }, 1000);
+      });
+      return (
+        <Captcha
+          onError={e => console.log(e)}
+          onChange={e => console.log(e)}
+          onCaptchaLoad={e => console.log(e)}
+          onBlur={e => console.log(e)}
+          value={'123'}
+          limit={4}/>
+      )
+    }
+  }
 </Playground>

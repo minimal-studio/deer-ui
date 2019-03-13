@@ -144,6 +144,12 @@ const formOptions = [
     type: 'textarea',
     title: '文本',
   },
+  {
+    ref: 'captchCode',
+    type: 'captcha',
+    keyRef: 'captchKey',
+    title: '验证码',
+  },
 ];
 
 export default formOptions;

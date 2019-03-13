@@ -268,14 +268,13 @@ export default class FormFilterHelper extends UkeComponent {
     });
   }
   getCaptcha = (config) => {
-    const { ref, ...other } = config;
-    let captchaKeyRef = 'CaptchaKey';
+    const { ref, keyRef = 'CaptchaKey', ...other } = config;
     return (
       <Captcha
         {...other}
         value={this.getValue(ref) || ''}
         ref={this.saveRef('CaptchaCode')}
-        onCaptchaLoad={captchKey => this.changeValue(captchKey, captchaKeyRef)}
+        onCaptchaLoad={captchKey => this.changeValue(captchKey, keyRef)}
         onChange={captchaConfig => {
           this.changeValue(captchaConfig.value, ref);
         }}/>

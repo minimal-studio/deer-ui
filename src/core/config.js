@@ -22,7 +22,7 @@ const ukelliui = {
     const keyMapper = langConfig[language] || langConfig[defaultLanguage];
     return keyMapper[key] || key;
   },
-  queryCAPTCHAData() {},
+  queryCAPTCHAData: null,
   queryQRCodeData() {},
   avatarImgMap: '',
   iconMapper: {},

@@ -6,6 +6,7 @@ menu: FormGenerator / 表单生成
 
 import { Playground, PropsTable } from 'docz'
 import { FormGenerator } from './';
+import { setUkelliConfig } from '../';
 
 import formOptions from './form-options-demo';
 import FormOptionsDesc from './form-options-demo.md';
@@ -17,6 +18,17 @@ import FormOptionsDesc from './form-options-demo.md';
 <Playground>
   {
     () => {
+      setUkelliConfig({
+        queryCAPTCHAData: (callback) => {
+          setTimeout(() => {
+            callback({
+              hasErr: false,
+              captchaImage: 'https://cms.marketplace.org/sites/default/files/styles/primary-image-400x222/public/captcha.png?itok=JsLPSa66',
+              captchaKey: '12412412512513'
+            })
+          }, 1000);
+        }
+      })
       /** formOptions 查看 ./form-options-demo.js */
       let formRef;
       return (
@@ -27,7 +39,10 @@ import FormOptionsDesc from './form-options-demo.md';
               console.log(values, ref, val)
             }}
             formOptions={formOptions}/>
-          <span className="btn theme flat" onClick={e => {
+          <span className="btn theme flat mr10" onClick={e => {
+              console.log(formRef.value);
+          }}>提交</span>
+          <span className="btn red flat" onClick={e => {
               formRef.clearValue();
           }}>清空表单</span>
         </div>

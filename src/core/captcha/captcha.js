@@ -5,6 +5,8 @@ import { Call } from 'basic-helper';
 import { UkeComponent } from '../uke-utils';
 import Input from '../form-control/input';
 
+let queryCAPTCHAData = null;
+
 /**
  * 验证码，需要先通过 setUkelliConfig 设置获取验证码的方式
  *
@@ -36,6 +38,9 @@ export default class Captcha extends UkeComponent {
     autoRetryTime: 10,
     icon: 'security',
   }
+  static setQueryCAPTCHAData = (func) => {
+    queryCAPTCHAData = func;
+  }
   constructor(props) {
     super(props);
     this.state = {
@@ -63,16 +68,16 @@ export default class Captcha extends UkeComponent {
     this.captchaInput.select();
   }
   getCaptcha(props) {
-    props = props || this.props;
     this.refreshTime = Date.now();
-    const { autoRetryTime, onError } = props;
+    const { autoRetryTime, onError, onCaptchaLoad } = this.props;
+    const _queryCAPTCHAData = queryCAPTCHAData || window.$UKE.queryCAPTCHAData;
 
     this.setState({
       loading: true
     });
 
-    if(window.$UKE.queryCAPTCHAData) {
-      window.$UKE.queryCAPTCHAData(options => {
+    if(_queryCAPTCHAData) {
+      _queryCAPTCHAData(options => {
         if (this.__unmount) return;
         const { hasErr, captchaImage, captchaKey } = options;
         if(hasErr) {
@@ -88,9 +93,11 @@ export default class Captcha extends UkeComponent {
             captchaImg: captchaImage
           });
           this.captchaKey = captchaKey;
-          this.props.onCaptchaLoad && this.props.onCaptchaLoad(captchaKey);
+          Call(onCaptchaLoad, captchaKey);
         }
       });
+    } else {
+      console.log(`请先设置获取验证码的接口, 详情 https://ui.ukelli.com/#/Captcha`);
     }
   }
   clearTimeout() {
