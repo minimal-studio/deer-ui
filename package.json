@@ -72,7 +72,7 @@
     "sass-loader": "^7.1.0",
     "style-loader": "^0.23.1",
     "unistore": "^3.1.0",
-    "webpack": "^4.20.2"
+    "webpack": "4.28.4"
   },
   "dependencies": {
     "classnames": "^2.2.5"
