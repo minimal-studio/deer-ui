@@ -49,8 +49,6 @@ export default class DatetimePicker extends DateBasic {
     defaultTimes: ['00:00:00', '23:59:59'],
   };
   _refs = {};
-  dateFormat = 'YYYY-MM-DD';
-  timeFormat = 'hh:mm:ss';
   constructor(props) {
     super(props);
     const {value, defaultValue, needTime} = this.props;
@@ -83,6 +81,8 @@ export default class DatetimePicker extends DateBasic {
       time_24hr: true,
       dateFormat: 'Y-m-d' + (enableTime ? ' H:i:S' : ''),
       disableMobile: true,
+      defaultHour: 0,
+      // allowInput: true,
       // enableSeconds: true,
       onChange: (rangeValues, dateStr, instance) => {
         if(!enableTime && instance.isOpen) return;
@@ -97,7 +97,7 @@ export default class DatetimePicker extends DateBasic {
       defaultDate: this.value
     });
   }
-  changeDate(val) {
+  changeDate = (val) => {
     const id = this._id;
     /** 继承 DateBasic 获取的 emitChangeValue 统一处理过滤并广播的 value 接口 */
     const emitVal = this.emitChangeValue(val);
@@ -105,6 +105,7 @@ export default class DatetimePicker extends DateBasic {
     this._refs[id].blur && this._refs[id].blur();
   }
   render() {
+    const { enableTime } = this.props;
     return (
       <div className={(enableTime ? 'time ' : '') + "flatpickr"}>
         <input

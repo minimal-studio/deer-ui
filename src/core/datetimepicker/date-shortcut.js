@@ -120,7 +120,7 @@ export default class DateShortcut extends DateBasic {
     ];
   }
   generateDate(itemConfig, idx) {
-    const {onClick} = this.props;
+    const { onClick } = this.props;
 
     const dateInfo = itemConfig.filter();
     const emitRes = this.emitChangeValue(dateInfo);

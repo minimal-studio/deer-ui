@@ -144,7 +144,6 @@ export default class Notification extends UkePureComponent {
                       ref={e => {
                         if(e) {
                           e.style.height = e.offsetHeight + 'px';
-                          console.log(e)
                         }
                       }}
                       onMouseEnter={e => this.clearTargetTimer(msgID)}

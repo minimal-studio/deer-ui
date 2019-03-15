@@ -17,7 +17,9 @@ export default class DateBaisc extends UkePureComponent {
     /** 是否输出字符串格式，默认为原生 Date 对象 */
     outputAsString: PropTypes.bool,
   };
-  emitChangeValue(val) {
+  dateFormat = 'YYYY-MM-DD';
+  timeFormat = 'hh:mm:ss';
+  emitChangeValue = (val) => {
     /** 统一处理过滤所有的 value 格式 */
     const {
       needTime, enableTime, outputAsString, defaultTimes,

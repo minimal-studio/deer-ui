@@ -11,6 +11,7 @@ const formOptions = [
   {
     refs: ['startDate', 'endDate'],
     type: 'datetimeRange',
+    enableTime: true,
     title: '日期1',
     tips: '123',
     defaultValue: []
