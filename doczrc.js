@@ -1,4 +1,5 @@
 import doczPluginNetlify from "docz-plugin-netlify";
+import { css } from 'docz-plugin-css';
 
 import themeConfig from './docz/theme-config/config';
 
@@ -131,13 +132,18 @@ export default {
     'Other / 其他组件',
     'More',
   ],
-  modifyBundlerConfig: (config) => {
-    config.resolve.extensions.push('.scss');
-    config.module.rules.push({
-      test: /\.scss$/,
-      use: ["style-loader", "css-loader", "sass-loader"]
-    });
-    return config;
-  },
-  plugins: [doczPluginNetlify()]
+  // modifyBundlerConfig: (config) => {
+  //   config.resolve.extensions.push('.scss');
+  //   config.module.rules.push({
+  //     test: /\.scss$/,
+  //     use: ["style-loader", "css-loader", "sass-loader"]
+  //   });
+  //   return config;
+  // },
+  plugins: [
+    doczPluginNetlify(),
+    css({
+      preprocessor: 'sass',
+    })
+  ]
 };
