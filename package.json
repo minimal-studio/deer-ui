@@ -70,7 +70,7 @@
     "react-transition-group": "^2.5.0",
     "regenerator-runtime": "^0.12.1",
     "unistore": "^3.1.0",
-    "webpack": "4.28.4"
+    "webpack": "4.20.2"
   },
   "dependencies": {
     "classnames": "^2.2.5"
