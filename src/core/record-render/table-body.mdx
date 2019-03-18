@@ -42,6 +42,7 @@ import KeyMapper from './key-mapper.mdx';
           }
         },
         {key: 'age', selectable: false, count: false},
+        {key: 'property', selectable: false},
         {key: 'add', labels: {
           cn: 'red'
         }, namesMapper: {
@@ -94,7 +95,8 @@ import KeyMapper from './key-mapper.mdx';
       const records = [
         {
           username: 'alex',
-          age: '100,100',
+          age: '100',
+          property: '100,000',
           add: 'cn',
           obj: {
             account: 123,
@@ -104,6 +106,7 @@ import KeyMapper from './key-mapper.mdx';
         {
           username: 'chili',
           age: '102',
+          property: '200,000',
           add: 'cn',
           obj: {
             account: 123,
@@ -112,6 +115,7 @@ import KeyMapper from './key-mapper.mdx';
         },
         {
           username: 'dove',
+          property: '300,000',
           age: '50',
           add: 'cn1241241241257172590812903890128590127095712905709125u012',
           obj: {
@@ -121,6 +125,7 @@ import KeyMapper from './key-mapper.mdx';
         },
         {
           username: 'susam',
+          property: '400,000',
           age: '20',
           add: 'uk',
           obj: {
@@ -131,7 +136,8 @@ import KeyMapper from './key-mapper.mdx';
       ]
       return (
         <State initial={{
-          keyMapper: keyMapper
+          keyMapper: keyMapper,
+          records: [...records]
         }}>
           {
             ({ state, setState }) => {
@@ -139,27 +145,35 @@ import KeyMapper from './key-mapper.mdx';
 
               return (
                 <div>
-                  <span className="btn red mr10" onClick={e => {
-                    let next
-                    setState(({ keyMapper }) => {
-                      let nextKeyMapper = [...keyMapper];
-                      nextKeyMapper.splice(-1, 1);
-                      return {
-                        keyMapper: nextKeyMapper
-                      }
-                    })
-                  }}>减少最后一个 keyMapper</span>
-                  <span className="btn theme mr10" onClick={e => {
-                    let next
-                    setState(({ keyMapper }) => {
-                      let nextKeyMapper = [...keyMapper, {
-                        key: 'len' + keyMapper.length
-                      }];
-                      return {
-                        keyMapper: nextKeyMapper
-                      }
-                    })
-                  }}>增加一个 keyMapper</span>
+                  <div className="mb10">
+                    <span className="btn red mr10" onClick={e => {
+                      setState(({ keyMapper }) => {
+                        let nextKeyMapper = [...keyMapper];
+                        nextKeyMapper.splice(-1, 1);
+                        return {
+                          keyMapper: nextKeyMapper
+                        }
+                      })
+                    }}>减少最后一个 keyMapper</span>
+                    <span className="btn theme mr10" onClick={e => {
+                      setState(({ keyMapper }) => {
+                        let nextKeyMapper = [...keyMapper, {
+                          key: 'len' + keyMapper.length
+                        }];
+                        return {
+                          keyMapper: nextKeyMapper
+                        }
+                      })
+                    }}>增加一个 keyMapper</span>
+                    <span className="btn green mr10" onClick={e => {
+                      setState(({ records }) => {
+                        let nextKeyMapper = [...records, records[0]];
+                        return {
+                          records: nextKeyMapper
+                        }
+                      })
+                    }}>增加一条记录</span>
+                  </div>
                   <Table
                     keyMapper={state.keyMapper}
                     ref={e => table = e}
@@ -170,7 +184,7 @@ import KeyMapper from './key-mapper.mdx';
                     )}
                     needCheck
                     needCount
-                    records={records} />
+                    records={state.records} />
                 </div>
               )
             }

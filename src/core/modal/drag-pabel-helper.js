@@ -22,14 +22,25 @@ export class DragPanelClass extends UkeComponent {
     elemOriginY: 0
   };
   getScreenWidth = getScreenWidth;
+  setLayoutInitPosition = (elem) => {
+    if(!this.isSetPosition) {
+      this.isSetPosition = true;
+      // elem.style.left = (this.getScreenWidth() - elem.offsetWidth) / 2 + 'px';
+      // elem.style.top = '100px';
+      elem.style.transform = `translate(${(this.getScreenWidth() - elem.offsetWidth) / 2}px, 100px)`;
+    }
+  }
   dragStart(event, elem) {
+    const elemTransform = elem.style.transform;
+    const arr = elemTransform.split(',');
+    const [translateX, translateY] = arr.map(item => item.replace(/[^\d.]/g, ''));
     this.drapElemInfo = {
       isDrapStart: true,
       dragElem: elem,
       dragOriginX: event.clientX,
       dragOriginY: event.clientY,
-      elemOrigonX: elem.offsetLeft,
-      elemOriginY: elem.offsetTop
+      elemOrigonX: +translateX || 0,
+      elemOriginY: +translateY || 0
     };
     this.mouseMoving();
     event.stopPropagation();
@@ -59,8 +70,8 @@ export class DragPanelClass extends UkeComponent {
     if(setTopOffset < topLimit) {
       setTopOffset = topLimit;
     }
-    dragElem.style.left = setLeftOffset + "px";
-    dragElem.style.top = setTopOffset + "px";
+    dragElem.style.transform = `translate(${setLeftOffset}px, ${setTopOffset}px)`;
+    // dragElem.style.transform = setTopOffset + "px";
   }
   dragEnd = (event) => {
     if (!this.drapElemInfo.isDrapStart) return;

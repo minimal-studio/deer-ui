@@ -9,6 +9,9 @@ const defaultIconMapper = {
   loading: 'circle-notch',
   question: 'question-circle',
   error: 'exclamation-circle',
+  max: 'expand',
+  restore: 'compress',
+  min: 'minus',
   'circle-up': 'arrow-circle-up',
   'circle-down': 'arrow-circle-down',
 };

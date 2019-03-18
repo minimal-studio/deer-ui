@@ -2,6 +2,12 @@
 
 -----------------
 
+## 2.14.43
+
+- 优化表格统计的格式
+- 优化 Modal 的实现，使用 transfrom 替代 top left 定位
+- Modal 组件新增最大化最小化功能
+
 ## 2.14.42
 
 - 修复 DateRanger 的 enableTime 出现的问题

@@ -72,29 +72,49 @@ export default class DatetimePicker extends DateBasic {
   componentWillUnmount() {
     if(this.datepicker) this.datepicker.destroy();
   }
+  setInstanceEnd = (instance) => {
+    if(instance.hourElement.value == '00') return;
+    instance.hourElement.value = '23';
+    instance.minuteElement.value = '59';
+    instance.secondElement.value = '59';
+  }
   initPicker() {
     const { mode, needTime, enableTime, lang, defaultTimes, onChange, ...others } = this.props;
 
     this.datepicker = new Flatpickr(this._refs[this._id], {
       ...others,
-      enableTime: enableTime,
+      enableTime,
       time_24hr: true,
       dateFormat: 'Y-m-d' + (enableTime ? ' H:i:S' : ''),
       disableMobile: true,
+      defaultDate: this.value,
       defaultHour: 0,
-      // allowInput: true,
-      // enableSeconds: true,
-      onChange: (rangeValues, dateStr, instance) => {
-        if(!enableTime && instance.isOpen) return;
-        let emitVal = [...rangeValues];
-        if(mode === 'single' && Array.isArray(emitVal)) emitVal = rangeValues[0];
-        this.changeDate(emitVal);
-      },
+      enableSeconds: true,
       locale: lang,
-      // wrap: true,
       mode,
       // allowInput: true,
-      defaultDate: this.value
+      // wrap: true,
+      // allowInput: true,
+      onChange: (rangeValues, dateStr, instance) => {
+        if(!enableTime && instance.isOpen) return;
+
+        const valueLen = rangeValues.length;
+        let emitVal = [...rangeValues];
+        if(mode === 'single' && Array.isArray(emitVal)) {
+          emitVal = rangeValues[0];
+          // this.setInstanceEnd(instance);
+          this.changeDate(emitVal);
+        } else if(mode === 'range') {
+          if(valueLen === 2) {
+            // this.datepicker.set({
+            //   defaultHour: 23,
+            //   defaultMinute: 59
+            // });
+            // this.setInstanceEnd(instance);
+            this.changeDate(emitVal);
+          }
+        }
+      },
     });
   }
   changeDate = (val) => {
@@ -112,10 +132,8 @@ export default class DatetimePicker extends DateBasic {
           type="text"
           className="form-control input-sm"
           id={this._id}
-          ref={e => this._refs[this._id] = e}
-          // onChange={e => this.changeDate()}
-        />
-        <Icon n="date" data-toggle
+          ref={e => this._refs[this._id] = e}/>
+        <Icon n="date"
           onClick={e => {
             (this.datepicker ? this.datepicker.toggle : function(){})();
           }}/>

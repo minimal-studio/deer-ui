@@ -1,6 +1,6 @@
 import React, {Component, PureComponent} from 'react';
 import PropTypes from 'prop-types';
-import { Call, IsFunc } from 'basic-helper';
+import { Call, IsFunc, MoneyFormat } from 'basic-helper';
 
 import MapperFilter from './mapper-filter';
 import { Icon } from '../icon';
@@ -261,7 +261,7 @@ export default class Table extends MapperFilter {
   }
 
   getStatisticDOM(record) {
-    if(this.props.needCount && Object.keys(record).length > 0) return this.getMapperItemsDOM(record, 'statistics', false, false);
+    if(Object.keys(record).length > 0) return this.getMapperItemsDOM(record, 'statistics', false, false);
   }
 
   getHeaderWidth() {
@@ -421,14 +421,27 @@ export default class Table extends MapperFilter {
                 );
               })
             }
+          </tbody>
+          <tfoot>
             {
-              this.props.needCount ? (
-                <tr className="theme">
-                  {this.getStatisticDOM(this.statistics)}
+              needCount ? (
+                <tr className="theme statistics">
+                  {/* {this.getStatisticDOM(this.statistics)} */}
+                  {
+                    keyMapper.map((keyMap, idx) => {
+                      const { key } = keyMap;
+                      const currItem = this.statistics[key];
+                      return (
+                        <td key={key}>
+                          {currItem ? currItem.toLocaleString('en-US') : '-'}
+                        </td>
+                      );
+                    })
+                  }
                 </tr>
               ) : null
             }
-          </tbody>
+          </tfoot>
         </table>
       </div>
     ) : (

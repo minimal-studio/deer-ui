@@ -10,12 +10,12 @@ const DefaultWindowManagerState = {
 const windowManagerStore = createStore(DefaultWindowManagerState);
 
 const windowManagerActions = store => ({
-  closeAllWindow() {
+  closeAllWindow: () => {
     store.setState({
       ...DefaultWindowManagerState
     });
   },
-  closeWindow({sectionsList, sectionsQueue}, sectionId) {
+  closeWindow: ({sectionsList, sectionsQueue}, sectionId) => {
     if(!sectionId) return;
     let nextSectionList = sectionsList;
     let nextSectionQueue = RemoveArrayItem(sectionsQueue, sectionId);
@@ -27,7 +27,7 @@ const windowManagerActions = store => ({
       sectionsQueue: nextSectionQueue
     });
   },
-  openWindow({sectionsList, sectionsQueue}, modalConfig) {
+  openWindow: ({sectionsList, sectionsQueue}, modalConfig) => {
     let sectionId = modalConfig.id;
     let nextState = Object.assign({}, sectionsList);
     
@@ -40,10 +40,13 @@ const windowManagerActions = store => ({
       sectionsQueue: [sectionId, ...sectionsQueue]
     });
   },
-  selectWindow({sectionsQueue, sectionsList}, sectionId) {
-    let nextSectionQueue = sectionsQueue;
+  selectWindow: ({sectionsQueue, sectionsList, minSecQueue}, sectionId) => {
+    if(!sectionId) return;
+
+    let nextSectionQueue = [...sectionsQueue];
     let nextSectionList = sectionsList;
     let selectedCodeIdx = nextSectionQueue.indexOf(sectionId);
+    let nextMinSecQueue = RemoveArrayItem(minSecQueue, sectionId);
 
     if(!nextSectionList[sectionId]) return;
 
@@ -51,39 +54,46 @@ const windowManagerActions = store => ({
       isMinimize: false
     });
 
-    let selectedCode = nextSectionQueue.splice(selectedCodeIdx, 1);
-    nextSectionQueue = selectedCode.concat(nextSectionQueue);
-
-    store.setState({
-      sectionsList: nextSectionList,
-      sectionsQueue: nextSectionQueue
-    });
-  },
-  minimizeWindow({minSecQueue, sectionsQueue, sectionsList}, sectionId) {
-    let nextSectionQueue = [...sectionsQueue];
-    let nextMinSecQueue = [...minSecQueue];
-    let nextSectionList = sectionsList;
-
-    let displayingWindows = [...nextSectionQueue];
-    let miniArr = [sectionId].concat(nextMinSecQueue);
-
-    nextSectionList[sectionId] = Object.assign({}, nextSectionList[sectionId], {
-      isMinimize: true
-    });
-
-    miniArr.forEach(minItem => {
-      let currIdx = displayingWindows.indexOf(minItem);
-      if(currIdx !== -1) displayingWindows.splice(currIdx, 1);
-    });
-
-    if(displayingWindows.length !== 0) {
-      this.selectWindow(displayingWindows[0]);
-    }
+    nextSectionQueue.splice(selectedCodeIdx, 1);
+    nextSectionQueue = [sectionId].concat(nextSectionQueue);
 
     store.setState({
       sectionsList: nextSectionList,
       sectionsQueue: nextSectionQueue,
       minSecQueue: nextMinSecQueue
+    });
+  },
+  minimizeWindow: ({minSecQueue, sectionsQueue, sectionsList}, sectionId) => {
+    if(!sectionId) return;
+    let nextSectionQueue = [...sectionsQueue];
+    let nextMinSecQueue = [...minSecQueue];
+    let nextSectionList = Object.assign({}, sectionsList);
+
+    let displayingQueue = [...nextSectionQueue];
+    let miniArr = [sectionId].concat(nextMinSecQueue);
+    miniArr = miniArr.deduplication();
+
+    nextSectionList[sectionId] = Object.assign({}, nextSectionList[sectionId], {
+      isMinimize: true,
+      // isMaximize: false
+    });
+
+    miniArr.forEach(minItem => {
+      let currIdx = displayingQueue.indexOf(minItem);
+      if(currIdx !== -1) displayingQueue.splice(currIdx, 1);
+    });
+
+    nextSectionQueue = displayingQueue;
+
+    if(displayingQueue.length !== 0) {
+      // this.selectWindow(displayingQueue[0]);
+      // nextSectionList = 
+    }
+
+    store.setState({
+      sectionsList: nextSectionList,
+      sectionsQueue: nextSectionQueue,
+      minSecQueue: miniArr
     });
   }
 });

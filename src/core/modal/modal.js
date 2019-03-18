@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 
 import { Call, IsFunc } from 'basic-helper';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
+import classnames from 'classnames';
+
 import { DragPanelClass } from './drag-pabel-helper';
 import { Icon } from '../icon';
 
@@ -40,8 +42,14 @@ export default class Modal extends DragPanelClass {
     needMask: PropTypes.bool,
     /** 是否渲染关闭 modal 的按钮 */
     showCloseBtn: PropTypes.bool,
+    /** 是否需要最大化按钮 */
+    needMaxBtn: PropTypes.bool,
+    /** 是否需要最小化按钮 */
+    needMinBtn: PropTypes.bool,
     /** 当前 modal 是否打开 */
     isOpen: PropTypes.bool.isRequired,
+    /** 是否需要头部 */
+    needHeader: PropTypes.bool,
     /** 头部插件，传入未事例化的组件 */
     Header: PropTypes.func,
     /** 关闭 modal */
@@ -56,6 +64,9 @@ export default class Modal extends DragPanelClass {
   static defaultProps = {
     shouldCloseOnEsc: true,
     showCloseBtn: true,
+    needMaxBtn: true,
+    needMinBtn: true,
+    needHeader: true,
     animation: true,
     needMask: true,
     clickBgToClose: false,
@@ -68,10 +79,14 @@ export default class Modal extends DragPanelClass {
     topClassName: 'modal-opend',
     maxHeightable: true,
   };
-  state = {...this.state};
+  state = {
+    ...this.state,
+    isMaximize: false
+  };
 
   componentDidMount() {
     this.setContentFocus();
+    this.__mount = true;
   }
 
   shouldComponentUpdate(nextProps, nextState, nextContext) {
@@ -81,6 +96,7 @@ export default class Modal extends DragPanelClass {
   componentWillUnmount() {
     let { topClassName, isOpen } = this.props;
     document.body.classList.remove(topClassName);
+    this.__mount = false;
 
     /**
      * 关闭窗口的 callback
@@ -102,19 +118,11 @@ export default class Modal extends DragPanelClass {
     }
   }
 
-  setLayoutInitPosition(elem) {
-    if(this.props.draggable && elem && !this.isSetPosition) {
-      this.isSetPosition = true;
-      elem.style.left = (this.getScreenWidth() - elem.offsetWidth) / 2 + 'px';
-      elem.style.top = '100px';
-    }
-  }
-
   handleKeyDown = (event) => {
     if (this.props.shouldCloseOnEsc && event.keyCode === ESC_KEY && this.props.showCloseBtn != false) {
       event.preventDefault();
       event.stopPropagation();
-      this.props.onCloseModal(event);
+      this.closeModal(event);
     }
   }
 
@@ -124,25 +132,55 @@ export default class Modal extends DragPanelClass {
     };
   }
 
+  maximinzeWindow = (isMaximize) => {
+    this.setState({
+      isMaximize
+    });
+  }
+
+  closeModal = () => {
+    this.props.onCloseModal();
+  }
+
   render() {
     const {
       children, title, isOpen, animateType, selectWindow, sectionId, idx,
       width, style, className, modalLayoutDOM, duration, id, template,
       clickBgToClose, showCloseBtn, Header, needMask, draggable, animation,
-      onCloseModal, maxHeightable,
+      onCloseModal, maxHeightable, needHeader, needMaxBtn, needMinBtn,
+      minimizeWindow,
+      // isMaximize
     } = this.props;
+    const { isMaximize } = this.state;
 
-    let modalIdx = this.props.idx;
+    let modalIdx = this.props.idx || 0;
 
     const _needMark = draggable ? false : needMask;
-    const classNames = className + (draggable ? ' drag-mode' : ' normal-mode');
+    const classNames = classnames({
+      [className]: !!className,
+      'drag-mode': draggable,
+      'normal-mode': !draggable,
+      maximinze: isMaximize
+    });
 
-    const closeBtnDOM = showCloseBtn ? (
-      <span className="close-btn"
+    const closeBtnDOM = showCloseBtn && (
+      <span className="close _btn"
         onClick={e => onCloseModal()}>
         <Icon n="close" />
       </span>
-    ) : null;
+    );
+    const maxBtnDOM = needMaxBtn && (
+      <span className="max _btn"
+        onClick={e => this.maximinzeWindow(!isMaximize)}>
+        <Icon n={isMaximize ? "restore" : "max"} />
+      </span>
+    );
+    const minBtnDOM = !isMaximize && minimizeWindow && needMinBtn && (
+      <span className="min _btn"
+        onClick={e => minimizeWindow(sectionId)}>
+        <Icon n="min" />
+      </span>
+    );
 
     const _style = Object.assign({}, style, {
       width,
@@ -162,24 +200,33 @@ export default class Modal extends DragPanelClass {
             modalLayoutDOM ? modalLayoutDOM : (
               <div className="uke-modal-layout"
                 ref={c => {
+                  if(!c) return;
                   this._content = c;
-                  this.setLayoutInitPosition(c);
+                  draggable && this.setLayoutInitPosition(c);
                 }}
                 style={_style}
                 onKeyDown={this.handleKeyDown}
                 tabIndex="-1">
                 {
-                  IsFunc(Header) ? (
-                    <Header onCloseModal={onCloseModal}/>
-                  ) : (
-                    <header className="uke-modal-header"
-                      onMouseDown={e => {
-                        draggable && this.dragStart(e, this._content);
-                        selectWindow && selectWindow(id);
-                      }}>
-                      <h5 className="title">{title}</h5>
-                      {closeBtnDOM}
-                    </header>
+                  needHeader && (
+                    IsFunc(Header) ? (
+                      <Header onCloseModal={this.closeModal}/>
+                    ) : (
+                      <header className="uke-modal-header">
+                        <div
+                          onMouseDown={e => {
+                            !isMaximize && draggable && this.dragStart(e, this._content);
+                            selectWindow && selectWindow(id);
+                          }}>
+                          <h5 className="title">{title}</h5>
+                        </div>
+                        <span className="btn-set">
+                          {minBtnDOM}
+                          {maxBtnDOM}
+                          {closeBtnDOM}
+                        </span>
+                      </header>
+                    )
                   )
                 }
                 <div className={'uke-modal-content'+(maxHeightable ? ' max-height' : '')}>
@@ -192,7 +239,7 @@ export default class Modal extends DragPanelClass {
         {
           _needMark ? (
             <div className="section-mark" onClick={e => {
-              if(clickBgToClose) onCloseModal();
+              if(clickBgToClose) this.closeModal();
             }} />
           ) : null
         }

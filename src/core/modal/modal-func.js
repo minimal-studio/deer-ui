@@ -39,8 +39,11 @@ class ModalEntity extends ModalHelper {
 
 const ModalsManager = connect(selector, windowManagerActions)((props) => {
   connectedStore = props;
-  const { sectionsList, closeWindow, selectWindow, sectionsQueue } = props;
-  const sections = Object.keys(sectionsList).map(key => {
+  const {
+    sectionsList, closeWindow, selectWindow, sectionsQueue,
+    minimizeWindow, minSecQueue
+  } = props;
+  const sections = Array.isArray(sectionsQueue) && sectionsQueue.map(key => {
     const currItem = sectionsList[key];
     const sectionId = currItem.id;
     const currSectionIdx = sectionsQueue.indexOf(sectionId);
@@ -53,6 +56,7 @@ const ModalsManager = connect(selector, windowManagerActions)((props) => {
           idx={currSectionIdx}
           sectionId={sectionId}
           selectWindow={selectWindow}
+          minimizeWindow={minimizeWindow}
           animation={false}
           isOpen
           {...currItem}
@@ -66,6 +70,19 @@ const ModalsManager = connect(selector, windowManagerActions)((props) => {
         component={null}>
         {sections}
       </TransitionGroup>
+      <div className="min-container">
+        {
+          minSecQueue.map(minSectionId => {
+            const currItem = sectionsList[minSectionId];
+            return (
+              <div key={minSectionId}
+                className="min-item" onClick={e => selectWindow(minSectionId)}>
+                {currItem.title}
+              </div>
+            );
+          })
+        }
+      </div>
     </div>
   );
 });
@@ -113,10 +130,11 @@ function ShowModal(options) {
 
   let gm = window.$UKE.getUkeKeyMap;
 
-  const {
-    type, confirmText = gm('确定') + '?', title, showFuncBtn, elem,
-    width = window.$UKE.isMobile ? '90%' : 600, id, children, draggable,
-    onConfirm
+  let {
+    type, confirmText = gm('确定') + '?', title, showFuncBtn,
+    // width = window.$UKE.isMobile ? '90%' : 600, 
+    id, children,
+    onConfirm, needHeader
   } = options;
   const _showFuncBtn = type == 'confirm' || showFuncBtn;
 
@@ -134,6 +152,7 @@ function ShowModal(options) {
 
   switch (type) {
   case 'confirm':
+    needHeader = false;
     modalTMPL = (
       <div className="confirm-container">
         <div className="content">
@@ -156,7 +175,7 @@ function ShowModal(options) {
     );
   }
   function onClickBtn(confirm) {
-    Call(onConfirm, confirm);
+    confirm && Call(onConfirm, confirm);
     CloseModal(entityId);
   }
 
@@ -164,6 +183,7 @@ function ShowModal(options) {
   options = {
     ...getDefaultOptions(options),
     ...options,
+    needHeader,
   };
   connectedStore.openWindow(options);
   return entityId;
