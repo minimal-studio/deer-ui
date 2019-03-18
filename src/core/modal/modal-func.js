@@ -126,6 +126,17 @@ const getDefaultOptions = (options) => ({
   width: window.$UKE.isMobile ? '90%' : getModalDefaultWidth(options.type)
 });
 
+// const generteID = (obj) => {
+//   let keyStr;
+//   try {
+//     keyStr = JSON.stringify(obj);
+//     // keyStr.split(0, 32);
+//   } catch(e) {
+//     console.log(e);
+//   }
+//   return btoa(unescape(encodeURIComponent(keyStr)));
+// };
+
 function ShowModal(options) {
 
   let gm = window.$UKE.getUkeKeyMap;
@@ -138,6 +149,7 @@ function ShowModal(options) {
   } = options;
   const _showFuncBtn = type == 'confirm' || showFuncBtn;
 
+  // let entityId = id || generteID(children);
   let entityId = id || GenerteID();
   options.id = entityId;
 

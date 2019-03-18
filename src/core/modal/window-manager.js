@@ -29,15 +29,17 @@ const windowManagerActions = store => ({
   },
   openWindow: ({sectionsList, sectionsQueue}, modalConfig) => {
     let sectionId = modalConfig.id;
-    let nextState = Object.assign({}, sectionsList);
+    let nextListState = Object.assign({}, sectionsList);
+
+    const hasCurrSection = !!nextListState[sectionId];
     
-    nextState[sectionId] = Object.assign({}, nextState[sectionId], modalConfig, {
-      isMinimize: false
-    });
+    // nextListState[sectionId] = Object.assign({}, nextListState[sectionId], modalConfig, {
+    //   isMinimize: false
+    // });
 
     store.setState({
-      sectionsList: nextState,
-      sectionsQueue: [sectionId, ...sectionsQueue]
+      sectionsList: nextListState,
+      sectionsQueue: hasCurrSection ? sectionsQueue : [sectionId, ...sectionsQueue]
     });
   },
   selectWindow: ({sectionsQueue, sectionsList, minSecQueue}, sectionId) => {
@@ -50,9 +52,9 @@ const windowManagerActions = store => ({
 
     if(!nextSectionList[sectionId]) return;
 
-    nextSectionList[sectionId] = Object.assign({}, nextSectionList[sectionId], {
-      isMinimize: false
-    });
+    // nextSectionList[sectionId] = Object.assign({}, nextSectionList[sectionId], {
+    //   isMinimize: false
+    // });
 
     nextSectionQueue.splice(selectedCodeIdx, 1);
     nextSectionQueue = [sectionId].concat(nextSectionQueue);
@@ -73,10 +75,10 @@ const windowManagerActions = store => ({
     let miniArr = [sectionId].concat(nextMinSecQueue);
     miniArr = miniArr.deduplication();
 
-    nextSectionList[sectionId] = Object.assign({}, nextSectionList[sectionId], {
-      isMinimize: true,
-      // isMaximize: false
-    });
+    // nextSectionList[sectionId] = Object.assign({}, nextSectionList[sectionId], {
+    //   isMinimize: true,
+    //   // isMaximize: false
+    // });
 
     miniArr.forEach(minItem => {
       let currIdx = displayingQueue.indexOf(minItem);
