@@ -17,7 +17,7 @@
     "styleguide": "NODE_ENV=development styleguidist server",
     "styleguide:build": "NODE_ENV=production styleguidist build",
     "docz:dev": "docz dev",
-    "docz:build": "docz build"
+    "docz:build": "NODE_ENV=production docz build"
   },
   "repository": {
     "type": "git",
