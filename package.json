@@ -47,6 +47,7 @@
     "babel-eslint": "^10.0.1",
     "babel-jest": "^24.5.0",
     "basic-helper": "^1.4.11",
+    "buble": "0.19.4",
     "codemirror": "^5.42.2",
     "css-loader": "^2.1.1",
     "docz": "^0.13.7",
