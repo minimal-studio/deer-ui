@@ -5,6 +5,7 @@ import { Call, GenerteID } from 'basic-helper';
 import { Provider, connect } from 'unistore/react';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
+import { Icon } from '../icon';
 import ModalHelper from './modal-helper';
 import Modal from './modal';
 import setDOMById from '../set-dom';
@@ -45,6 +46,7 @@ const ModalsManager = connect(selector, windowManagerActions)((props) => {
   } = props;
   const sections = Array.isArray(sectionsQueue) && sectionsQueue.map(key => {
     const currItem = sectionsList[key];
+    if(!currItem) return;
     const sectionId = currItem.id;
     const currSectionIdx = sectionsQueue.indexOf(sectionId);
     return (
@@ -76,8 +78,9 @@ const ModalsManager = connect(selector, windowManagerActions)((props) => {
             const currItem = sectionsList[minSectionId];
             return (
               <div key={minSectionId}
-                className="min-item" onClick={e => selectWindow(minSectionId)}>
-                {currItem.title}
+                className="min-item">
+                <span className="title" onClick={e => selectWindow(minSectionId)}>{currItem.title}</span>
+                <Icon n="close" onClick={e => closeWindow(minSectionId)} />
               </div>
             );
           })

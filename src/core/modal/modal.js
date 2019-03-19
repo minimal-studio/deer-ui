@@ -149,6 +149,7 @@ export default class Modal extends DragPanelClass {
       clickBgToClose, showCloseBtn, Header, needMask, draggable, animation,
       onCloseModal, maxHeightable, needHeader, needMaxBtn, needMinBtn,
       minimizeWindow,
+      isMinimize,
       // isMaximize
     } = this.props;
     const { isMaximize } = this.state;
@@ -160,7 +161,8 @@ export default class Modal extends DragPanelClass {
       [className]: !!className,
       'drag-mode': draggable,
       'normal-mode': !draggable,
-      maximinze: isMaximize
+      maximinze: isMaximize,
+      miniminze: isMinimize
     });
 
     const closeBtnDOM = showCloseBtn && (
@@ -190,7 +192,7 @@ export default class Modal extends DragPanelClass {
     const transitionKey = isOpen ? 'modal-open' : 'modal-close';
     
     const sections = isOpen ? IsFunc(template) ? template(this.wrapPropsForTMPL()) : (
-      <div className={'uke-modal-container ' + classNames + ' idx-' + modalIdx}
+      <div className={`uke-modal-container ${classNames} idx-${isMinimize ? '-1' : modalIdx}`}
         onMouseDown={e => {
           /** 用于判断是否通过 ShowModal 打开的 Modal，如果有 idx != 0 的时候才触发选择窗口 */
           idx && selectWindow && selectWindow(id);

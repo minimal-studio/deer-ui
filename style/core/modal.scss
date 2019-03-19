@@ -18,13 +18,21 @@ $windowActiveShadow: 0 12px 36px rgba(#000, 0.3);
       border-radius: 4px 4px 0 0;
       opacity: 0.6;
       color: #555;
-      max-width: 150px;
-      text-overflow: ellipsis;
-      word-break: keep-all;
-      white-space: nowrap;
-      overflow: hidden;
+      display: flex;
+      align-items: center;
       &:hover {
         opacity: 1;
+      }
+      .title {
+        display: inline-block;
+        max-width: 150px;
+        text-overflow: ellipsis;
+        word-break: keep-all;
+        white-space: nowrap;
+        overflow: hidden;
+      }
+      .icon {
+        margin-left: 10px;
       }
     }
   }
@@ -37,9 +45,9 @@ $windowActiveShadow: 0 12px 36px rgba(#000, 0.3);
   .uke-modal-container {
     overflow-y: auto;
   }
-  .section-mark {
-    position: fixed;
-  }
+  // .section-mark {
+  //   position: fixed;
+  // }
 }
 .global-modal-container {
   .content {
@@ -69,8 +77,15 @@ $windowActiveShadow: 0 12px 36px rgba(#000, 0.3);
   }
 }
 .uke-modal-container {
+  // opacity: 1;
+  // transition: opacity ease 0.3s;
+  pointer-events: none;
+  transition: transform ease 0.2s, opacity ease 0.2s;
+  @include fill();
+  .uke-modal-layout, .section-mark {
+    pointer-events: all;
+  }
   &.normal-mode {
-    @include fill();
     z-index: 999;
     .uke-modal-layout {
       margin: 2% auto 0;
@@ -85,12 +100,12 @@ $windowActiveShadow: 0 12px 36px rgba(#000, 0.3);
     }
   }
   &.drag-mode {
-    .animate-layout {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-    }
+    // .animate-layout {
+    //   position: fixed;
+    //   top: 0;
+    //   left: 0;
+    //   right: 0;
+    // }
     .uke-modal-layout {
       position: fixed;
     }
@@ -136,35 +151,47 @@ $windowActiveShadow: 0 12px 36px rgba(#000, 0.3);
       transform: translate(0, 0) !important;
     }
   }
+  &.miniminze {
+    transform: scale(1.02);
+    opacity: 0;
+    .uke-modal-layout, .section-mark {
+      pointer-events: none;
+    }
+    // transform-origin: 100% 100%;
+  }
   .section-mark {
     background-color: rgba(0,0,0,0.3);
   }
   .animate-layout {
     // @include fill();
+    // pointer-events: all;
     position: relative;
-    z-index: 100;
+    z-index: 1;
   }
   .uke-modal-layout {
     // position: fixed;
     position: relative;
     border-radius: 3px;
-    transition: top ease 0.3s, left ease 0.3s, right ease 0.3s, bottom ease 0.3s;
+    transition: top ease 0.3s, left ease 0.3s, right ease 0.3s, bottom ease 0.3s, opacity ease 0.3s;
     // z-index: 100;
     width: 60%;
     box-shadow: 0 12px 36px rgba(#000, 0.3);
+    opacity: 1;
 
     .uke-modal-header {
       // text-align: center;
       border-radius: 4px 4px 0 0;
       width: 100%;
-      padding: 5px 20px;
       background-color: #FFF;
       border-bottom: 1px solid #EEE;
       position: relative;
       cursor: default;
+      // user-select: none;
       .title {
         font-weight: bold;
         font-size: 16px;
+        padding: 12px 20px;
+        margin: 0;
       }
     }
 

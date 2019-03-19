@@ -48,9 +48,13 @@ export default class MapperFilter extends UkeComponent {
       } = title;
       titleDOM = (
         <Dropdown {...other}
-          onChange={val => Call(onChange, {
-            [ref]: val
-          })}
+          onChange={val => {
+            const emitVal = {
+              [ref]: val
+            };
+            Call(onChange, emitVal);
+            Call(this.props.onChange, emitVal, title);
+          }}
           outside={outside}
           defaultTitle={defaultTitle}
           invalidTip={invalidTip}

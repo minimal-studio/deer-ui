@@ -59,6 +59,8 @@ export default class Table extends MapperFilter {
     records: PropTypes.arrayOf(PropTypes.object).isRequired,
     /** 是否需要统计 */
     needCount: PropTypes.bool,
+    /** 一些表头的选择器 onChange 的回调, 回调参数 [emitVal, selectorConfig] */
+    onChange: PropTypes.func,
     /** 是否需要排序 */
     needSort: PropTypes.bool,
     /** 是否多选 */
