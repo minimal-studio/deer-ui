@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
-import { EventEmitter, Call } from 'basic-helper';
+import { EventEmitter, Call, HasValue } from 'basic-helper';
 import { Icon } from '../icon';
 import positionFilter from '../position-filter';
 import { UkeComponent, UkePureComponent } from '../uke-utils';
@@ -104,11 +104,14 @@ export default class Notification extends UkePureComponent {
   }
   setTipHideTimer(msgObj) {
     const { id, timer = defaultTimeToClose, lifecycle = defaultTimeToClose } = msgObj;
-    const _timer = timer || lifecycle;
+    let _timer;
+    if(HasValue(lifecycle)) _timer = lifecycle;
+    if(HasValue(timer)) _timer = timer;
     if(!id || _timer <= 0) return;
+
     this.timers[id] = setTimeout(() => {
       this.closeTip(id);
-    }, lifecycle * 1000);
+    }, _timer * 1000);
   }
   render() {
     const { handleClick } = this.props;
