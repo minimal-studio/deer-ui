@@ -91,10 +91,11 @@ $windowActiveShadow: 0 12px 36px rgba(#000, 0.3);
       margin: 2% auto 0;
     }
   }
-  &.fixed {
+  &.fixed, &.side-modal {
     position: fixed;
     overflow: auto;
     padding-bottom: 50px;
+    z-index: 1111;
     .section-mark {
       position: fixed;
     }
@@ -116,23 +117,14 @@ $windowActiveShadow: 0 12px 36px rgba(#000, 0.3);
           position: relative;
         }
       }
-      // .uke-modal-layout {
-      //   z-index: 701;
-      // }
     }
   }
   &.idx-0 {
     z-index: 701;
-    // .uke-modal-layout {
-    //   z-index: 701;
-    // }
   }
   @for $i from 1 through 20 {
     &.idx-#{$i} {
       z-index: 601 - $i;
-      // .uke-modal-layout {
-      //   z-index: 601 - $i;
-      // }
     }
   }
   &.maximinze {
@@ -159,13 +151,53 @@ $windowActiveShadow: 0 12px 36px rgba(#000, 0.3);
     }
     // transform-origin: 100% 100%;
   }
+  &.side-modal {
+    .uke-modal-layout {
+      margin: 0 !important;
+      position: fixed;
+      background-color: #FFF;
+    }
+    &.right {
+      .uke-modal-layout {
+        right: 0;
+        top: 0;
+        bottom: 0;
+      }
+    }
+    &.left {
+      .uke-modal-layout {
+        left: 0;
+        top: 0;
+        bottom: 0;
+      }
+    }
+    &.top {
+      .uke-modal-layout {
+        left: 0;
+        right: 0;
+        top: 0;
+      }
+    }
+    &.bottom {
+      .uke-modal-layout {
+        left: 0;
+        right: 0;
+        bottom: 0;
+      }
+    }
+    &.top, &.bottom {
+      .uke-modal-layout {
+        width: 100% !important;
+      }
+    }
+  }
   .section-mark {
     background-color: rgba(0,0,0,0.3);
   }
   .animate-layout {
-    // @include fill();
+    @include fill();
     // pointer-events: all;
-    position: relative;
+    // position: relative;
     z-index: 1;
   }
   .uke-modal-layout {

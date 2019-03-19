@@ -47,12 +47,13 @@ const ModalsManager = connect(selector, windowManagerActions)((props) => {
   const sections = Array.isArray(sectionsQueue) && sectionsQueue.map(key => {
     const currItem = sectionsList[key];
     if(!currItem) return;
-    const sectionId = currItem.id;
+    const { id, animateType = 'modal' } = currItem;
+    const sectionId = id;
     const currSectionIdx = sectionsQueue.indexOf(sectionId);
     return (
       <CSSTransition
         key={key}
-        classNames="modal"
+        classNames={animateType}
         timeout={300}>
         <ModalEntity
           idx={currSectionIdx}
@@ -97,37 +98,33 @@ function getEntityIdLen() {
 
 function CloseModal(entityId) {
   if(!entityId) return;
-  // Entity[entityId] && Entity[entityId].closeModal();
-  // delete Entity[entityId];
-  // function deleteModalNode() {
-  //   let modalNode = document.getElementById(entityId);
-  //   if(modalNode) modalNode.parentElement.removeChild(modalNode);
-  // }
-  // setTimeout(() => deleteModalNode(), 300);
   connectedStore.closeWindow(entityId);
 }
 function CloseAllModal() {
   connectedStore.closeAllWindow();
 }
 
+/**
+ * 给对应的 type 的 modal 返回默认的 width
+ * @param {string} modalType modal 的类型
+ */
 const getModalDefaultWidth = (modalType) => {
-  let width = 600;
-  switch (modalType) {
-  case 'confirm':
-    width = 300;
-    break;
-  default:
-    break;
-  }
-  return width;
+  const widthConfig = {
+    confirm: 300,
+    'side': 400
+  };
+  return widthConfig[modalType] || 600;
 };
 
-const getDefaultOptions = (options) => ({
-  className: 'fixed',
-  topClassName: 'top-modal-opend',
-  showFuncBtn: false,
-  width: window.$UKE.isMobile ? '90%' : getModalDefaultWidth(options.type)
-});
+const getDefaultOptions = (options) => {
+  const { width, type } = options;
+  return {
+    className: 'fixed',
+    topClassName: 'top-modal-opend',
+    showFuncBtn: false,
+    width: width ? width : window.$UKE.isMobile ? '90%' : getModalDefaultWidth(type)
+  };
+};
 
 // const generteID = (obj) => {
 //   let keyStr;
@@ -147,7 +144,7 @@ function ShowModal(options) {
   let {
     type, confirmText = gm('确定') + '?', title, showFuncBtn,
     // width = window.$UKE.isMobile ? '90%' : 600, 
-    id, children,
+    id, children, position = 'right',
     onConfirm, needHeader
   } = options;
   const _showFuncBtn = type == 'confirm' || showFuncBtn;
@@ -177,6 +174,19 @@ function ShowModal(options) {
             )
           }
         </div>
+        {btnGroupDOM}
+      </div>
+    );
+    break;
+  case 'side':
+    options = Object.assign({}, {
+      animateType: `${position}-side-modal`,
+      className: 'side-modal',
+      clickBgToClose: true
+    }, options);
+    modalTMPL = (
+      <div className="global-modal-container">
+        <div className="content">{children}</div>
         {btnGroupDOM}
       </div>
     );

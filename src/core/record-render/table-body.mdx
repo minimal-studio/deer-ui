@@ -184,6 +184,9 @@ import KeyMapper from './key-mapper.mdx';
                     )}
                     needCheck
                     needCount
+                    onChange={(emitVal, config) => {
+                      console.log(emitVal, config)
+                    }}
                     records={state.records} />
                 </div>
               )

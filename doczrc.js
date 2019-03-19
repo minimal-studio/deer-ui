@@ -33,6 +33,9 @@ export default {
           ul ul {
             padding-left: 30px !important;
           }
+          #root > div > div:first-of-type {
+            z-index: 101;
+          }
           #root > div > div:first-of-type > div:first-of-type > div:nth-child(2):before {
             background: transparent;
           }

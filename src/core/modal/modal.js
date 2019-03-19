@@ -148,7 +148,7 @@ export default class Modal extends DragPanelClass {
       width, style, className, modalLayoutDOM, duration, id, template,
       clickBgToClose, showCloseBtn, Header, needMask, draggable, animation,
       onCloseModal, maxHeightable, needHeader, needMaxBtn, needMinBtn,
-      minimizeWindow,
+      minimizeWindow, position,
       isMinimize,
       // isMaximize
     } = this.props;
@@ -159,6 +159,7 @@ export default class Modal extends DragPanelClass {
     const _needMark = draggable ? false : needMask;
     const classNames = classnames({
       [className]: !!className,
+      [position]: !!position,
       'drag-mode': draggable,
       'normal-mode': !draggable,
       maximinze: isMaximize,

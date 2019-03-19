@@ -11,7 +11,13 @@ import { ShowModal, CloseModal, ShowGlobalModal, CloseGlobalModal, CloseAllModal
 
 > 提供了全局的 modal 使用方法，由系统托管 modal 的状态
 
-## Usage
+重要参数说明：
+
+- id: 用于初始化 Modal 的标记，如果没有，则随机生成一个。主要用于标记最小化的 Modal
+- type: 用于标记弹出层的类型，默认为 modal，主要有 side, modal, confirm
+- draggable: 是否可拖动模式，只有在 type = modal 时有效，默认为 false
+
+## 一般用法
 
 <Playground>
   <div>
@@ -74,6 +80,53 @@ import { ShowModal, CloseModal, ShowGlobalModal, CloseGlobalModal, CloseAllModal
     className="btn green flat mr10"
     onClick={e => CloseAllModal()}>
     关闭所有 Modal
+  </span>
+</Playground>
+
+## 不同方向弹出
+
+> 在不同的方向弹出
+
+<Playground>
+  <span
+    className="btn red flat mr10"
+    onClick={e => ShowModal({
+      title: '有操作按钮的 Modal',
+      type: 'side',
+      position: 'right',
+      children: <div className="p20">任意的内容</div>
+    })}>
+    右边弹出
+  </span>
+  <span
+    className="btn warn flat mr10"
+    onClick={e => ShowModal({
+      title: '有操作按钮的 Modal',
+      type: 'side',
+      position: 'left',
+      children: <div className="p20">任意的内容</div>
+    })}>
+    左边弹出
+  </span>
+  <span
+    className="btn green flat mr10"
+    onClick={e => ShowModal({
+      title: '有操作按钮的 Modal',
+      type: 'side',
+      position: 'top',
+      children: <div className="p20">任意的内容</div>
+    })}>
+    上边弹出
+  </span>
+  <span
+    className="btn blue flat mr10"
+    onClick={e => ShowModal({
+      title: '有操作按钮的 Modal',
+      type: 'side',
+      position: 'bottom',
+      children: <div className="p20">任意的内容</div>
+    })}>
+    下边弹出
   </span>
 </Playground>
 

@@ -19,7 +19,7 @@ $fadeTransDuration     : 0.2s;
 $toastransDuration     : 0.2s;
 $popoverTransDuration  : 0.2s;
 $loadingTransDuration  : 200ms;
-$modalTSDuration       : 0.3s;
+$modalTSDuration       : 300ms;
 $dropMenuTSDuration    : 0.2s;
 $notifyTransDuration   : 300ms;
 
@@ -68,9 +68,59 @@ $notifyTransDuration   : 300ms;
     }
   }
 }
+@mixin sideModal($animateName, $offset: 20px, $duration: $modalTSDuration) {
+  .#{$animateName}-enter {
+    .animate-layout {
+      transform: translateX($offset);
+      opacity: 0;
+    }
+    .section-mark {
+      opacity: 0.01;
+    }
+  }
+
+  .#{$animateName}-enter.#{$animateName}-enter-active {
+    .animate-layout {
+      transform: translateX(0);
+      opacity: 1;
+      transition: all $duration ease;
+    }
+    .section-mark {
+      opacity: 1;
+      transition: opacity $duration ease;
+    }
+  }
+
+  .#{$animateName}-exit {
+    .animate-layout {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    .section-mark {
+      opacity: 1;
+    }
+  }
+
+  .#{$animateName}-exit.#{$animateName}-exit-active {
+    .animate-layout {
+      transform: translateX($offset);
+      opacity: 0.01;
+      transition: all $duration ease;
+    }
+    .section-mark {
+      opacity: 0.01;
+      transition: opacity $duration ease;
+    }
+  }
+}
 
 // modal
 @include modal(modal, 20px);
+@include modal(top-side-modal, -20px);
+@include modal(bottom-side-modal, 20px);
+@include sideModal(right-side-modal, 100px);
+@include sideModal(left-side-modal, -100px);
+
 
 // drop-menu
 .drop-menu-enter {
