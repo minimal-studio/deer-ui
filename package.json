@@ -51,7 +51,6 @@
     "css-loader": "^2.1.1",
     "docz": "^0.13.7",
     "docz-plugin-css": "^0.11.0",
-    "docz-plugin-netlify": "^1.1.4",
     "docz-theme-default": "^0.13.7",
     "eslint": "^5.12.0",
     "eslint-config-airbnb": "^17.1.0",
