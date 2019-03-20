@@ -186,17 +186,19 @@ $tdPadding: 10px;
         /** 为了让表格形成一行 */
         word-break: keep-all;
         white-space: nowrap;
-        vertical-align: middle;
+        // vertical-align: middle;
         color: $tableBodyTextColor;
-        min-width: 80px;
+        min-width: 100px;
         max-width: 400px !important;
         // border-right: 1px solid #e9e9e9;
         &.check-td  {
           min-width: 30px !important;
+          width: 30px !important;
         }
         &.break-word {
           word-break: break-word;
           white-space: inherit;
+          min-width: 400px;
         }
       }
       &:nth-of-type(even) {

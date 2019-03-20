@@ -58,6 +58,11 @@ export default class Table extends MapperFilter {
     })).isRequired,
     /** 需要渲染的目标记录 */
     records: PropTypes.arrayOf(PropTypes.object).isRequired,
+    /** 用于获取 row key */
+    rowKey: PropTypes.oneOfType([
+      PropTypes.func,
+      PropTypes.string,
+    ]),
     /** 是否需要统计 */
     needCount: PropTypes.bool,
     /** 是否固定头部 */
@@ -85,6 +90,10 @@ export default class Table extends MapperFilter {
   };
   excludeField = ['action', 'checkbox'];
   sortIgnores = ['action', 'checkbox'];
+  firstTDDOMs = {};
+  sameSortTime = 0;
+  fixedLeftGroup = {};
+  fixedRightGroup = {};
   constructor(props) {
     super(props);
 
@@ -95,9 +104,6 @@ export default class Table extends MapperFilter {
       isDesc: false,
       checkedItems: {},
     };
-
-    this.firstTDDOMs = {};
-    this.sameSortTime = 0;
   }
 
   componentDidMount() {
@@ -169,18 +175,29 @@ export default class Table extends MapperFilter {
     let result = keyMapper;
 
     if(needCheck) {
-      const checkExtend = {
+      const fixedLeft = keyMapper[0].fixed == 'left';
+      const checkExtend = Object.assign({}, fixedLeft ? {fixed: 'left'} : {}, {
         key: 'checkbox',
-        w: checkWidth,
+        // w: checkWidth,
         filter: this.getCheckbox
-      };
+      });
       result = [checkExtend, ...keyMapper];
     }
+
+    this.getFixedGroup(result);
 
     return result;
   }
 
+  getFixedGroup = (keyMapper) => {
+    let result = {};
+    keyMapper.forEach(item => {
+      
+    });
+  }
+
   calcSize() {
+    if(!this.tableRenderDOM) return;
     let nextHeaderWidthMapper = [];
     let nextContainerWidth = 0;
     const { headerWidthMapper } = this.state;
@@ -204,7 +221,8 @@ export default class Table extends MapperFilter {
   }
 
   resizeCalcSize = () => {
-    const {containerWidth} = this.state;
+    if(!this.tableRenderDOM) return;
+    const { containerWidth } = this.state;
     if(containerWidth != 'auto' && containerWidth < this.tableRenderDOM.offsetWidth) {
       this.setState({
         containerWidth: 'auto'
@@ -215,6 +233,13 @@ export default class Table extends MapperFilter {
 
   ignoreFilter(str) {
     return [...this.sortIgnores, ...this.props.sortIgnores].indexOf(str) !== -1;
+  }
+
+  tdRefSaver = (idx, parentIdx) => tdDOM => {
+    if(parentIdx == 0 && tdDOM) {
+      this.firstTDDOMs[idx] = tdDOM;
+    }
+    if(tdDOM && tdDOM.offsetWidth >= tdMaxWidth) tdDOM.classList.add('break-word');
   }
 
   getMapperItemsDOM(record, parentIdx, needCount, needAction = true) {
@@ -244,19 +269,14 @@ export default class Table extends MapperFilter {
       }
 
       const tdKey = key + '_' + currText;
-      let style = {};
+      // let style = {};
       let _className = className;
       
       result.push(
         <td
-          ref={tdDOM => {
-            if(parentIdx == 0 && tdDOM) {
-              this.firstTDDOMs[_idx] = tdDOM;
-            }
-            if(tdDOM && tdDOM.offsetWidth >= tdMaxWidth) tdDOM.classList.add('break-word');
-          }}
-          style={mapperItem.w ? {width: mapperItem.w, whiteSpace: 'pre-wrap'} : style}
-          className={(tdSpecClassMapper[key] || '') + (_className ? ' ' + _className : '')}
+          ref={this.tdRefSaver(_idx, parentIdx)}
+          // style={mapperItem.w ? {width: mapperItem.w, whiteSpace: 'pre-wrap'} : style}
+          className={`${tdSpecClassMapper[key] || ''} ${_className ? _className : ''}`}
           key={tdKey}>
           {actionRes}
         </td>
@@ -330,12 +350,23 @@ export default class Table extends MapperFilter {
   }
 
   saveTable = e => {
-    if(e) this.tableRenderDOM = e;
+    this.tableRenderDOM = e;
+  }
+
+  getRowKey = (record, idx) => {
+    const { rowKey } = this.props;
+    let key;
+    if(rowKey) {
+      key = IsFunc(rowKey) ? rowKey(record) : record[rowKey];
+    } else {
+      key = idx;
+    }
+    return key;
   }
 
   render() {
     const {
-      needCount, height, whenCheckAction, needCheck, needSort, fixHead,
+      needCount, height, whenCheckAction, needCheck, needSort, fixHead, rowKey
     } = this.props;
     const {
       headerWidthMapper, containerWidth, sortField, isDesc,
@@ -420,13 +451,13 @@ export default class Table extends MapperFilter {
         <table className="table nomargin table-body">
           <tbody>
             {
-              records.map((record, _idx) => {
+              records.map((record, idx) => {
                 if(!record) return;
-                const { _highlight = '' } = record;
-                let idx = _idx;
+                const { _highlight } = record;
+                let key = this.getRowKey(record, idx);
                 return (
                   <tr
-                    key={idx}
+                    key={key}
                     className={_highlight}>
                     {this.getMapperItemsDOM(record, idx, needCount)}
                   </tr>

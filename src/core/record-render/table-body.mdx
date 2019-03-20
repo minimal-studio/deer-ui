@@ -49,7 +49,10 @@ import KeyMapper from './key-mapper.mdx';
         }, namesMapper: {
           cn: '中国', uk: '英国'
         }},
-        {key: 'birth', date: 1},
+        {key: 'birth1', date: 1},
+        {key: 'birth2', date: 1},
+        {key: 'birth3', date: 1},
+        {key: 'birth4', date: 1},
         {key: 'obj', filter: (_, item) => {
           return _.account
         }},
@@ -99,9 +102,9 @@ import KeyMapper from './key-mapper.mdx';
       ];
       const records = [
         {
+          id: 1,
           username: 'alex',
           age: '100',
-          w: 100,
           property: '100,000',
           add: 'cn',
           obj: {
@@ -110,6 +113,7 @@ import KeyMapper from './key-mapper.mdx';
           birth: new Date('1999-01-01'),
         },
         {
+          id: 2,
           username: 'chili',
           age: '102',
           property: '200,000',
@@ -120,6 +124,7 @@ import KeyMapper from './key-mapper.mdx';
           birth: new Date('1999-01-01'),
         },
         {
+          id: 3,
           username: 'dove',
           property: '300,000',
           age: '50',
@@ -130,6 +135,29 @@ import KeyMapper from './key-mapper.mdx';
           birth: new Date('1999-01-01'),
         },
         {
+          id: 4,
+          username: 'susam',
+          property: '400,000',
+          age: '20',
+          add: 'uk',
+          obj: {
+            account: 123,
+          },
+          birth: new Date('1999-01-01'),
+        },
+        {
+          id: 5,
+          username: 'susam',
+          property: '400,000',
+          age: '20',
+          add: 'uk',
+          obj: {
+            account: 123,
+          },
+          birth: new Date('1999-01-01'),
+        },
+        {
+          id: 6,
           username: 'susam',
           property: '400,000',
           age: '20',
@@ -188,6 +216,8 @@ import KeyMapper from './key-mapper.mdx';
                         清除所有的以选中项
                       </span>
                     )}
+                    rowKey={record => record.id}
+                    height={200}
                     needCheck
                     needCount
                     onChange={(emitVal, config) => {
