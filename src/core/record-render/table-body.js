@@ -1,6 +1,7 @@
 import React, {Component, PureComponent} from 'react';
 import PropTypes from 'prop-types';
 import { Call, IsFunc, MoneyFormat } from 'basic-helper';
+import classnames from 'classnames';
 
 import MapperFilter from './mapper-filter';
 import { Icon } from '../icon';
@@ -59,6 +60,8 @@ export default class Table extends MapperFilter {
     records: PropTypes.arrayOf(PropTypes.object).isRequired,
     /** 是否需要统计 */
     needCount: PropTypes.bool,
+    /** 是否固定头部 */
+    fixHead: PropTypes.bool,
     /** 一些表头的选择器 onChange 的回调, 回调参数 [emitVal, selectorConfig] */
     onChange: PropTypes.func,
     /** 是否需要排序 */
@@ -76,6 +79,7 @@ export default class Table extends MapperFilter {
     sortIgnores: [],
     needCheck: false,
     needSort: true,
+    fixHead: true,
     checkWidth: 30,
     needCount: false,
   };
@@ -331,7 +335,7 @@ export default class Table extends MapperFilter {
 
   render() {
     const {
-      needCount, height, whenCheckAction, needCheck, needSort
+      needCount, height, whenCheckAction, needCheck, needSort, fixHead,
     } = this.props;
     const {
       headerWidthMapper, containerWidth, sortField, isDesc,
@@ -377,17 +381,23 @@ export default class Table extends MapperFilter {
                   }
 
                   const isOrdering = sortField == key;
-                  const sortTip = isOrdering ? (
-                    <span className="caret" style={{
-                      transform: `rotate(${!isDesc ? '180deg' : '0deg'})`
-                    }}/>
-                  ) : null;
+                  const canOrder = needSort && !this.ignoreFilter(key);
+                  const sortTip = canOrder && (
+                    <span className={`sort-caret-group ${isDesc ? 'desc' : 'asc'}`}>
+                      <span className="caret up" style={{
+                        transform: `rotate(180deg)`
+                      }}/>
+                      <span className="caret down" />
+                    </span>
+                  );
+
                   const clickHandlerForTh = needSort ? {
                     onClick: () => this.orderRecord(key)
                   } : {};
+
                   return (
                     <th 
-                      className={`${isOrdering ? ('_order ' + (isDesc ? '_desc ' : '_asc ')) : ''}_btn`}
+                      className={`${isOrdering ? (isDesc ? '_desc' : '_asc') : ''} ${canOrder ? '_order _btn' : ''}`}
                       key={key} 
                       {...clickHandlerForTh}
                       style={{
@@ -426,7 +436,7 @@ export default class Table extends MapperFilter {
           </tbody>
           <tfoot>
             {
-              needCount ? (
+              needCount && (
                 <tr className="theme statistics">
                   {/* {this.getStatisticDOM(this.statistics)} */}
                   {
@@ -441,7 +451,7 @@ export default class Table extends MapperFilter {
                     })
                   }
                 </tr>
-              ) : null
+              )
             }
           </tfoot>
         </table>
@@ -457,15 +467,17 @@ export default class Table extends MapperFilter {
       <div className={"table-render" + (hasChecked ? ' has-checked' : '')}
         ref={this.saveTable}>
         {
-          needCheck && whenCheckAction ? (
+          needCheck && whenCheckAction && (
             <div className={"checked-actions" + (hasChecked ? ' show' : '')}>
-              <span className="mr10">已选 <span className="t_green">{checkedItemLen}</span> 项, 点击<span className="link" onClick={this.clearCheckeds}>取消</span>全部</span>
+              <span className="mr10">
+                <span className="mr10">已选 <span className="t_green">{checkedItemLen}</span> 项</span>
+                <span className="link" onClick={this.clearCheckeds}>清除</span>
+              </span>
               {whenCheckAction}
             </div>
-          ) : null
+          )
         }
         {tableHeader}
-        {/* {hideTable} */}
         {tableBody}
       </div>
     );

@@ -1,6 +1,7 @@
 // @import "../var.scss";
 $itemH: 30px;
 $iconW: 20px;
+$itemPadding: 6px 12px;
 #DropdownContainer {
   // .dropdown-items {
   //   width: 200px;
@@ -22,6 +23,11 @@ $iconW: 20px;
       .display-title {
         border-color: rgba($colorRed, 0.6) !important;
       }
+    }
+  }
+  &.has-val {
+    .menu-wrapper {
+      color: $themeColor;
     }
   }
   &.multiple {
@@ -75,19 +81,19 @@ $iconW: 20px;
       color: $themeColor;
       .display-title {
         border-color: rgba($themeColor, 0.6);
+        // box-shadow: 0 0 4px rgba($themeColor, 0.5);
       }
     }
   }
+  .display-menu {
+    transition: color ease 0.2s, border-color ease 0.2s;
+    // line-height: $itemH;
+  }
   .menu-wrapper {
-    // background-color: #FFF;
-    line-height: $itemH;
     display: inline-block;
-    // min-width: 140px;
     .icon {
       z-index: 1;
     }
-    // line-height: 32px;
-    // height: 32px;
   }
   .icon-wrap {
     position: absolute;
@@ -115,14 +121,25 @@ $iconW: 20px;
         transform: rotate(0);
       }
     }
-    &.input-mode.single {
-      .search-input {
-        opacity: 1;
-        z-index: 1;
+    &.input-mode {
+      &.single {
+        .search-input {
+          opacity: 1;
+          z-index: 1;
+        }
+        .display-title {
+          opacity: 0;
+        }
       }
-      .display-title {
-        opacity: 0;
-      }
+    }
+  }
+  &.input-mode, &.multiple {
+    .display-title,.search-input {
+      border: 1px solid #e7e7e7;
+      border-radius: 3px;
+    }
+    .menu-wrapper {
+      color: #888;
     }
   }
   .display-title {
@@ -131,11 +148,12 @@ $iconW: 20px;
     // position: relative;
     width: 100%;
     cursor: pointer;
+    transition: border-color ease 0.2s, box-shadow ease 0.2s;
   }
   .display-title,.search-input {
-    border: 1px solid #e7e7e7;
-    padding: 0 30px 0 10px;
-    border-radius: 3px;
+    // border: 1px solid #e7e7e7;
+    padding: 3px 30px 3px 10px;
+    // border-radius: 3px;
   }
   .search-input {
     position: absolute;
@@ -154,7 +172,7 @@ $iconW: 20px;
     position: relative;
     z-index: 11;
     .action-btn {
-      padding: 6px;
+      padding: $itemPadding;
       color: #AAA;
       &:hover {
         background-color: #f9f9f9;
@@ -169,11 +187,15 @@ $iconW: 20px;
   .menu-item {
     color: #777;
     transition: border ease 0.1s;
-    border-left: 0 solid $colorRed;
-    padding: 5px 10px;
+    border-left: 0 solid $themeColor;
+    padding: $itemPadding;
     &.active {
       border-left-width: 2px;
-      color: $colorRed !important;
+      color: rgba($themeColor, 0.8) !important;
+      // color: #FFF;
+      // &:hover {
+      //   background-color: $themeColor !important;
+      // }
     }
   }
   .items-group {

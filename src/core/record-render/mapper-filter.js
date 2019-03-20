@@ -4,6 +4,7 @@ import { UkeComponent, UkePureComponent } from '../uke-utils';
 import { ToolTip } from '../tooltip';
 import { Label } from '../label';
 import Dropdown from '../selector/dropdown-menu';
+// import Selector from './select-filter';
 
 const excludeKey = (target, keys) => {
   let res = Object.assign({}, target);
@@ -17,6 +18,7 @@ export default class MapperFilter extends UkeComponent {
   /** 可以覆盖的 excludeKeys */
   excludeKeys = ['records', 'keyMapper', 'whenCheckAction'];
   sortIgnores = [];
+  selectorCache = {};
   shouldComponentUpdate(nextProps, nextState, nextContext) {
     /** 渲染前做自定义的数据对比，提升表格渲染的效率 */
     let _thisProps = excludeKey(this.props, this.excludeKeys);
@@ -39,15 +41,32 @@ export default class MapperFilter extends UkeComponent {
     case IsObj(title) && title.type == 'selector':
       let {
         outside = true,
-        invalidTip = this.gm('全部'),
+        invalidTip = this.gm('默认'),
         defaultTitle = this.gm(key),
-        cancelTitle = this.gm('全部'),
+        cancelTitle = this.gm('默认'),
         ref = key,
         onChange,
         ...other
       } = title;
+      // const propsForSelector = {
+      //   outside,
+      //   invalidTip,
+      //   defaultTitle,
+      //   cancelTitle,
+      //   ref,
+      //   onChange,
+      //   ...other
+      // };
       titleDOM = (
+        // <Selector config={propsForSelector} onChange={val => {
+        //   const emitVal = {
+        //     [ref]: val
+        //   };
+        //   Call(onChange, emitVal);
+        //   Call(this.props.onChange, emitVal, title);
+        // }} />
         <Dropdown {...other}
+          withInput={false}
           onChange={val => {
             const emitVal = {
               [ref]: val

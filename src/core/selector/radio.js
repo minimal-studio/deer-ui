@@ -23,6 +23,8 @@ export default class Radio extends SelectorBasic {
     isMultiple: PropTypes.bool,
     /** 是否需要多选按钮 */
     checkAllBtn: PropTypes.bool,
+    /** 是否竖向排列 */
+    column: PropTypes.bool,
     /** 默认值 */
     defaultValue: PropTypes.oneOfType([
       PropTypes.any
@@ -32,7 +34,7 @@ export default class Radio extends SelectorBasic {
       PropTypes.any,
     ]),
     /** 传入每个 item 的 style */
-    itemStyle: PropTypes.object,
+    itemStyle: PropTypes.shape({}),
     // didMountChange: PropTypes.bool,
     /** 统一控制每个 item 的宽度 */
     itemWidth: PropTypes.oneOfType([
@@ -40,11 +42,14 @@ export default class Radio extends SelectorBasic {
       PropTypes.number,
     ]),
   };
+  static defaultProps = {
+    column: false
+  }
   selectItem(value, idx) {
     this.changeValue(value, idx);
   }
   render() {
-    const { itemWidth, isMultiple, checkAllBtn = true, itemStyle = {}, n } = this.props;
+    const { itemWidth, isMultiple, checkAllBtn = true, itemStyle = {}, n, column } = this.props;
     const selectedValue = this.getValue();
     const isSelectedAll = isMultiple && selectedValue && selectedValue.length === this.values.length;
     const gm = this.gm;
@@ -63,7 +68,7 @@ export default class Radio extends SelectorBasic {
 
       return (
         <div
-          className={"item" + (isActive ? ' active' : '')}
+          className={`item ${isActive ? 'active' : ''}`}
           style={{
             width: itemWidth, ...itemStyle
           }}
@@ -86,8 +91,8 @@ export default class Radio extends SelectorBasic {
     });
     return (
       <div className={"uke-radio-container" + (isMultiple ? ' multiple' : '')}>
-        <div className="group">
-          {selectAllBtn}
+        {selectAllBtn}
+        <div className={`layout ${column ? 'col' : ''} group`}>
           {radioGroup}
         </div>
       </div>

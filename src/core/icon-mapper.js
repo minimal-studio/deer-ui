@@ -12,6 +12,7 @@ const defaultIconMapper = {
   max: 'expand',
   restore: 'compress',
   min: 'minus',
+  filter: 'filter',
   'circle-up': 'arrow-circle-up',
   'circle-down': 'arrow-circle-down',
 };

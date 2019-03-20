@@ -1,5 +1,7 @@
 // @import "../var.scss";
 
+$tdPadding: 10px;
+
 @mixin highlightTD($color) {
   td,
   th {
@@ -20,18 +22,56 @@
   table-layout: fixed;
   thead {
     th {
+      position: relative;
       &._order {
-        background: linear-gradient(180deg, darken(#FFF, 3%), darken(#FFF, 6%));
-        position: relative;
+        &:hover {
+          background: #EEE;
+        }
+        // background: linear-gradient(180deg, darken(#FFF, 3%), darken(#FFF, 6%));
+        // position: relative;
         // color: $themeColor;
+        // .caret {
+        //   position: absolute;
+        //   top: 45%;
+        //   right: 10px;
+        // }
+      }
+      .sort-caret-group, .selector-group {
+        position: absolute;
+        right: 5px;
+        top: 50%;
+        transform: translateY(-50%);
+        display: flex;
+        flex-direction: column;
+        color: #CCC;
         .caret {
-          position: absolute;
-          top: 45%;
-          right: 10px;
+          border-width: 5px;
+        }
+        .up {
+          margin-bottom: 3px;
         }
       }
       .icon {
         margin: 0 5px;
+      }
+      &._asc {
+        .up {
+          color: $themeColor;
+        }
+      }
+      &._desc {
+        .down {
+          color: $themeColor;
+        }
+      }
+      .icon {
+        font-size: 14px;
+        color: #999;
+      }
+      .selector-group {
+        .active {
+          color: $themeColor;
+        }
       }
     }
   }
@@ -89,7 +129,7 @@
 }
 .table {
   border-spacing: 0;
-  * {
+  th, td {
     user-select: auto;
   }
   .statistics {
@@ -103,17 +143,14 @@
       border-bottom: 1px solid #ddd;
       font-weight: normal;
       color: $tableHeaderTextColor;
-      padding: 8px 0;
+      padding: 8px $tdPadding;
       vertical-align: middle;
       // border-bottom: 2px solid #ddd;
-      text-align: center;
+      // text-align: center;
       text-overflow: ellipsis;
       white-space: nowrap;
       overflow: hidden;
       background: linear-gradient(180deg, #fefefe, #f6f6f6);
-      // &:hover {
-      //   background-color: darken($tableHeaderBgColor, 2%);
-      // }
     }
   }
 
@@ -141,8 +178,8 @@
       td {
         border-bottom: 1px solid #f0f0f0;
         // border-right: 1px solid #EEE;
-        padding: 8px 2px;
-        text-align: center;
+        padding: 8px $tdPadding;
+        // text-align: center;
         border-top: 0;
         // word-break: break-all;
         // white-space: inherit;
@@ -167,11 +204,11 @@
       }
     }
   }
-  tfoot {
-    tr td {
-      text-align: center;
-    }
-  }
+  // tfoot {
+  //   tr td {
+  //     text-align: center;
+  //   }
+  // }
 
   // &.fixed {
   //   table-layout: fixed;

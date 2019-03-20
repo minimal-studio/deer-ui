@@ -30,6 +30,7 @@ import KeyMapper from './key-mapper.mdx';
             '可以是数组2',
             '可以是数组3',
           ],
+          fixed: 'left',
           title: () => {
             return (
               <span>使用 func title 返回表头</span>
@@ -62,40 +63,45 @@ import KeyMapper from './key-mapper.mdx';
             console.log(val);
           }
         }},
-        {key: 'action', filter: (str, item) => {
-          return (
-            <div>
-              <span
-                onClick={e => ShowModal({
-                  children: <DescHelper keyMapper={keyMapper} record={item} />
-                })}
-                className="link-btn">详情</span>
-              <span
-                onClick={e => ShowModal({
-                  width: 1000,
-                  children: (
-                    <Table
-                      keyMapper={keyMapper}
-                      ref={e => table = e}
-                      whenCheckAction={(
-                        <span className="btn theme mu10" onClick={e => table.clearCheckeds()}>
-                          清除所有的以选中项
-                        </span>
-                      )}
-                      needCheck
-                      needCount
-                      records={records} />
-                  )
-                })}
-                className="link-btn t_red">弹出表格</span>
-            </div>
-          )
-        }}
+        {
+          key: 'action',
+          fixed: 'right',
+          filter: (str, item) => {
+            return (
+              <div>
+                <span
+                  onClick={e => ShowModal({
+                    children: <DescHelper keyMapper={keyMapper} record={item} />
+                  })}
+                  className="link-btn">详情</span>
+                <span
+                  onClick={e => ShowModal({
+                    width: 1000,
+                    children: (
+                      <Table
+                        keyMapper={keyMapper}
+                        ref={e => table = e}
+                        whenCheckAction={(
+                          <span className="btn theme mu10" onClick={e => table.clearCheckeds()}>
+                            清除所有的以选中项
+                          </span>
+                        )}
+                        needCheck
+                        needCount
+                        records={records} />
+                    )
+                  })}
+                  className="link-btn t_red">弹出表格</span>
+              </div>
+            )
+          }
+        }
       ];
       const records = [
         {
           username: 'alex',
           age: '100',
+          w: 100,
           property: '100,000',
           add: 'cn',
           obj: {

@@ -1,11 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { HasValue } from 'basic-helper';
+import { HasValue, Call } from 'basic-helper';
 import classnames from 'classnames';
 
 import SelectorBasic, { selectorValuesType } from './selector';
 import DropdownWrapper from './dropdown-wrapper';
 import { MenuItem } from '../menu';
+// import Radio from './radio';
 
 const itemActiveFilter = (val, targetVal) => {
   let has = HasValue(val);
@@ -71,18 +72,14 @@ export default class DropdownMenu extends SelectorBasic {
     withInput: true,
     needAction: true,
     outside: false,
-    defaultTitle: '无',
+    defaultTitle: '请选择',
     invalidTip: '无效值',
     cancelTitle: '取消',
     position: 'bottom,left',
   };
-  state = {
-    ...this.state,
-    isShow: false,
-  }
   handleClick(dataItem, idx, callback) {
     const { onClickItem, isMultiple } = this.props;
-    onClickItem && onClickItem(dataItem);
+    Call(onClickItem, dataItem);
     this.changeValue(dataItem.value, idx);
     if(!isMultiple) {
       callback();
@@ -91,12 +88,13 @@ export default class DropdownMenu extends SelectorBasic {
   getActiveTitle() {
     const { isMultiple, defaultTitle, invalidTip } = this.props;
     const value = this.getValue();
+    const hasVal = Array.isArray(value) ? value.length > 0 : value;
 
     let resTitle = '';
     this._error = false;
 
     switch (true) {
-    case !HasValue(value):
+    case !hasVal:
       resTitle = defaultTitle;
       break;
     case !!isMultiple:
@@ -130,6 +128,7 @@ export default class DropdownMenu extends SelectorBasic {
       isMultiple, needAction, cancelTitle, withInput
     } = this.props;
     const _selectedValue = this.getValue();
+    const hasVal = Array.isArray(_selectedValue) ? _selectedValue.length > 0 : !!_selectedValue;
     
     const isSelectedAll = this.checkIsSelectedAll();
     const canSelectAll = isMultiple && !isSelectedAll;
@@ -142,6 +141,7 @@ export default class DropdownMenu extends SelectorBasic {
         className={classnames({
           "multiple": isMultiple,
           "single": !isMultiple,
+          "has-val": hasVal
         })}>
         {
           ({ hide, searchValue }) => {
@@ -151,12 +151,19 @@ export default class DropdownMenu extends SelectorBasic {
                   needAction && (
                     <div className="action-btn" onClick={e => {
                       canSelectAll ? this.selectAll() : this.clearAll();
+                      hide();
                     }}>
                       {this.gm(canSelectAll ? '全选' : cancelTitle)}
                     </div>
                   )
                 }
                 <div className="items-group">
+                  {/* <Radio values={this.values}
+                    value={this.value}
+                    isMultiple={isMultiple} onChange={(val, ...other) => {
+                      const emitVal = isMultiple ? val : [val];
+                      this.changeEvent(emitVal, ...other);
+                    }} /> */}
                   {
                     this.values.map((dataItem, idx) => {
                       const { text, value, icon, img } = dataItem;

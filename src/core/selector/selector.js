@@ -74,7 +74,7 @@ export default class SelectorBasic extends FormControlBasic {
     if(!HasValue(target)) return target;
     return Array.isArray(target) ? target : [target];
   }
-  changeValue(value, idx) {
+  changeValue = (value, idx) => {
     const { isNum, isMultiple } = this.props;
     if(isNum) value = +value;
     if(HasValue(value)) {
@@ -132,7 +132,7 @@ export default class SelectorBasic extends FormControlBasic {
    * @param {*} nextValue 下一个 value
    * @param  {...any} other 
    */
-  changeEvent(nextValue, ...other) {
+  changeEvent = (nextValue, ...other) => {
     const { isNum, isMultiple } = this.props;
     if(isNum) {
       nextValue.forEach((_, idx) => {
@@ -151,7 +151,7 @@ export default class SelectorBasic extends FormControlBasic {
       this.value = nextValue;
     }
   }
-  emitChange(...args) {
+  emitChange = (...args) => {
     Call(this.props.onChange, ...args);
   }
   selectAll() {

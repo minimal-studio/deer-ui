@@ -5,6 +5,9 @@ $normalColor: #CCC;
     @include layout();
     align-items: center;
     // padding-left: $frameScale;
+    &.col {
+      flex-direction: column;
+    }
     .selectAllBtn {
       margin-right: 10px;
     }
@@ -33,6 +36,9 @@ $normalColor: #CCC;
       }
       &:hover {
         color: $themeColor;
+      }
+      img {
+        max-width: 100%;
       }
       .frame {
         position: absolute;

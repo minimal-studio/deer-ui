@@ -28,7 +28,7 @@ import { Radio } from './';
           <h1>标题</h1>
         ),
         value2: (
-          <img src="http://www.ray-joy.com/UploadFiles/clubfiles/2013-07/201307281047259067.jpg"/>
+          <img src="http://m.360buyimg.com/pop/jfs/t22765/41/1722519893/139051/da2d7354/5b6948b5Nb66bd80d.png"/>
         ),
         value3: '显示的值3',
       }
@@ -54,6 +54,7 @@ import { Radio } from './';
                     value={valueMul}
                     values={values1}
                   />
+                  <hr />
                   <span className="mr10">实际的值 {value}</span>
                   <Radio
                     ref={e => radio1 = e}
@@ -66,6 +67,21 @@ import { Radio } from './';
                     value={value}
                     values={values1}
                   />
+                  <hr />
+                  <span className="mr10">竖向排列</span>
+                  <Radio
+                    column
+                    ref={e => radio1 = e}
+                    onChange={val => {
+                      console.log(val)
+                      setState({
+                        value: val
+                      })
+                    }}
+                    value={value}
+                    values={values1}
+                  />
+                  <hr />
                   <div>
                     <div className="mu10">可以通过 ref 来改变 Radio 的值</div>
                     <div className="btn theme" onClick={e => radio1.changeValue('value3')}>点击改变为 value3</div>
