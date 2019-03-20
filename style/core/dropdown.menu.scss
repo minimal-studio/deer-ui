@@ -87,7 +87,7 @@ $itemPadding: 6px 12px;
   }
   .display-menu {
     transition: color ease 0.2s, border-color ease 0.2s;
-    // line-height: $itemH;
+    line-height: $itemH;
   }
   .menu-wrapper {
     display: inline-block;
@@ -152,7 +152,7 @@ $itemPadding: 6px 12px;
   }
   .display-title,.search-input {
     // border: 1px solid #e7e7e7;
-    padding: 3px 30px 3px 10px;
+    padding: 0 30px 0 10px;
     // border-radius: 3px;
   }
   .search-input {
