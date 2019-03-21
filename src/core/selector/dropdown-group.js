@@ -81,7 +81,7 @@ export default class DropdownGroup extends SelectorBasic {
       };
     });
   }
-  changeValue(groupKey, value) {
+  changeValue = (groupKey, value) => {
     this.setState(({ selectedValue }) => {
       let nextValues = {...selectedValue};
       let operatorGroup = nextValues[groupKey] ? [...nextValues[groupKey]] : [];

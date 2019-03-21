@@ -427,7 +427,7 @@ export default class FormFilterHelper extends UkeComponent {
     );
   }
   radioFactory = (Comp) => (config) => {
-    const { ref, ...other } = config;
+    const { ref, refs, ...other } = config;
     return (
       <Comp
         {...other}

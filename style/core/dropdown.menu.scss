@@ -26,7 +26,7 @@ $itemPadding: 6px 12px;
     }
   }
   &.has-val {
-    .menu-wrapper {
+    >.menu-wrapper {
       color: $themeColor;
     }
   }
