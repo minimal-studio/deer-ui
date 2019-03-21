@@ -403,7 +403,6 @@ export default class Table extends MapperFilter {
                   let title = '';
                   if(key !== 'checkbox') {
                     title = this.titleFilter(item, idx);
-                    // currHeaderWidth = 
                   } else {
                     title = (
                       <input type="checkbox" checked={isAllCheck}
@@ -429,7 +428,7 @@ export default class Table extends MapperFilter {
                   return (
                     <th 
                       className={`${isOrdering ? (isDesc ? '_desc' : '_asc') : ''} ${canOrder ? '_order _btn' : ''}`}
-                      key={key} 
+                      key={key}
                       {...clickHandlerForTh}
                       style={{
                         width: currHeaderWidth

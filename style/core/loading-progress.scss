@@ -5,6 +5,7 @@
   right: 0;
   left: 0;
   overflow: hidden;
+  z-index: 1;
   background-color: rgba($themeColor, 0.3);
 
   .progress {
