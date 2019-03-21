@@ -87,7 +87,6 @@ $itemPadding: 6px 12px;
   }
   .display-menu {
     transition: color ease 0.2s, border-color ease 0.2s;
-    line-height: $itemH;
   }
   .menu-wrapper {
     display: inline-block;
@@ -140,6 +139,9 @@ $itemPadding: 6px 12px;
     }
     .menu-wrapper {
       color: #888;
+    }
+    .display-menu {
+      line-height: $itemH;
     }
   }
   .display-title {
