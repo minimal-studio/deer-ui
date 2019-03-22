@@ -96,8 +96,8 @@ export default class Table extends MapperFilter {
   sortIgnores = ['action', 'checkbox'];
   firstTDDOMs = {};
   sameSortTime = 0;
-  fixedLeftGroup = {};
-  fixedRightGroup = {};
+  fixedLeftGroup = [];
+  fixedRightGroup = [];
   constructor(props) {
     super(props);
 
@@ -188,24 +188,26 @@ export default class Table extends MapperFilter {
       result = [checkExtend, ...keyMapper];
     }
 
-    // this.getFixedGroup(result);
+    this.saveFixedGroup(result);
 
     return result;
   }
 
-  // getFixedGroup = (keyMapper) => {
-  //   keyMapper.forEach(item => {
-  //     const { key, fixed } = item;
-  //     switch (fixed) {
-  //     case 'left':
-  //       this.fixedLeftGroup[key] = true;
-  //       break;
-  //     case 'right':
-  //       this.fixedRightGroup[key] = true;
-  //       break;
-  //     }
-  //   });
-  // }
+  saveFixedGroup = (keyMapper) => {
+    if(this.hadSaved) return;
+    this.hadSaved = true;
+    keyMapper.forEach(item => {
+      const { fixed } = item;
+      switch (fixed) {
+      case 'left':
+        this.fixedLeftGroup.push(item);
+        break;
+      case 'right':
+        this.fixedRightGroup.push(item);
+        break;
+      }
+    });
+  }
 
   calcSize() {
     if(!this.tableRenderDOM) return;
@@ -255,11 +257,11 @@ export default class Table extends MapperFilter {
 
   renderCell(options) {
     const {
-      record, parentIdx, needCount, rowKey,
+      record, parentIdx, needCount, rowKey, keyMapper,
       needAction = true, filter, statistics
     } = options;
     if(!record) return;
-    const keyMapper = this.getKeyMapper();
+    // const keyMapper = this.getKeyMapper();
     const keyMapperLen = keyMapper.length;
 
     let result = [];
@@ -420,11 +422,12 @@ export default class Table extends MapperFilter {
   renderTableHeader = (options) => {
     const { needSort } = this.props;
     const { containerWidth, headerWidthMapper, sortField, isDesc } = this.state;
-    const { keyMapper, isAllCheck } = options;
+    const { keyMapper, isAllCheck, className } = options;
     return (
       <div
         key="tableHead"
-        className="uke-table-scroll" style={{width: containerWidth}}>
+        className={`uke-table-scroll ${className || ''}`}
+        style={{width: containerWidth}}>
         <table className="table nomargin table-header">
           <thead>
             <tr>
@@ -485,7 +488,7 @@ export default class Table extends MapperFilter {
   renderTableBody = (options) => {
     const { height, needCount } = this.props;
     const { containerWidth } = this.state;
-    const { hasRecord, records } = options;
+    const { hasRecord, records, className, ...other } = options;
 
     /** 统计字段，每一次统计都是一个新对象 */
     let statistics = {
@@ -496,11 +499,13 @@ export default class Table extends MapperFilter {
     return hasRecord ? (
       <div
         key="tableBody"
-        className="uke-table-scroll" style={{height, width: containerWidth}}>
+        className={`uke-table-scroll ${className || ''}`}
+        style={{height, width: containerWidth}}>
         <table className="table nomargin table-body">
           <tbody>
             {
               this.renderRow({
+                ...other,
                 records, needCount,
                 /** 在渲染 body 的时候会做数据统计，以 statistics 对象做记录 */
                 statistics
@@ -510,6 +515,7 @@ export default class Table extends MapperFilter {
           <tfoot>
             {
               needCount && this.renderRow({
+                ...other,
                 records: [statistics],
                 needAction: false,
                 filter: moneyFormat
@@ -526,11 +532,31 @@ export default class Table extends MapperFilter {
     );
   }
 
-  renderTable = (options) => {
+  renderTable = (options, key) => {
     const tableHeader = this.renderTableHeader(options);
     const tableBody = this.renderTableBody(options);
+    return (
+      <div key={key} className="uke-table-scroll-container">
+        {tableHeader}
+        {tableBody}
+      </div>
+    );
+  }
+
+  renderFixedGroup = (options) => {
+    const leftFixedTable = this.renderTable({
+      ...options,
+      className: 'table-fixed-left',
+      keyMapper: this.fixedLeftGroup,
+    }, 'table-fixed-left');
+    const rightFixedTable = this.renderTable({
+      ...options,
+      className: 'table-fixed-right',
+      keyMapper: this.fixedRightGroup,
+    }, 'table-fixed-right');
+
     return [
-      tableHeader, tableBody
+      leftFixedTable, rightFixedTable
     ];
   }
 
@@ -549,12 +575,15 @@ export default class Table extends MapperFilter {
     const hasChecked = checkedItemLen > 0;
     const isAllCheck = hasRecord && (checkedItemLen == records.length);
 
-    const table = this.renderTable({
+    const renderTableConfig = {
       hasRecord,
       keyMapper,
       records,
       isAllCheck
-    });
+    };
+
+    const table = this.renderTable(renderTableConfig, 'mainTable');
+    // const fixedGroup = this.renderFixedGroup(renderTableConfig);
 
     const extendDOM = needCheck && whenCheckAction && (
       <div className={"checked-actions" + (hasChecked ? ' show' : '')}>
@@ -571,6 +600,7 @@ export default class Table extends MapperFilter {
         ref={this.saveTable}>
         {extendDOM}
         {table}
+        {/* {fixedGroup} */}
         {/* {tableHeader}
         {tableBody} */}
       </div>
