@@ -1,6 +1,6 @@
 import React, {Component, PureComponent} from 'react';
 import PropTypes from 'prop-types';
-import { Call, IsFunc, MoneyFormat } from 'basic-helper';
+import { Call, IsFunc, MoneyFormat, HasValue } from 'basic-helper';
 import classnames from 'classnames';
 
 import MapperFilter from './mapper-filter';
@@ -13,6 +13,10 @@ const tdSpecClassMapper = {
 };
 
 const tdMaxWidth = 400;
+
+const moneyFormat = text => {
+  return HasValue(text) ? text.toLocaleString('en-US') : '-';
+};
 
 // const excludeKey = (target, keys) => {
 //   let res = Object.assign({}, target);
@@ -33,30 +37,30 @@ const tdMaxWidth = 400;
  */
 export default class Table extends MapperFilter {
   static propTypes = {
-    /** 表格渲染的核心配置，RecordRender 的机制是根据 keyMapper 配置遍历 records 中的每一个具体字段，找到对应的过滤器，实现通用的表格处理 */
+    /** 对应表格中的每一列（column）的 record 的 key 的映射的集合。表格渲染的核心配置，RecordRender 的机制是根据 keyMapper 配置遍历 records 中的每一个具体字段，找到对应的过滤器，实现通用的表格处理 */
     keyMapper: PropTypes.arrayOf(PropTypes.shape({
-      /** 字段的 key */
+      /** column 对应的 key */
       key: PropTypes.string.isRequired,
-      /** 该字段的过滤器函数，可以返回任意类型 */
+      /** 处理数据源对应的字段的过滤器函数，可以返回任意类型 */
       filter: PropTypes.func,
-      /** 是否日期+时分秒 */
+      /** 内置 filter，是否日期+时分秒 */
       datetime: PropTypes.any,
-      /** 是否日期 */
+      /** 内置 filter，是否日期 */
       date: PropTypes.any,
-      /** 是否格式化成金钱 */
+      /** 内置 filter，是否格式化成金钱 */
       money: PropTypes.any,
       /** 单个格子的宽度 */
-      w: PropTypes.any,
-      /** 是否以绝对值格式化成金钱 */
+      // w: PropTypes.any,
+      /** 内置 filter，是否以绝对值格式化成金钱 */
       abvMoney: PropTypes.any,
-      /** 是否以绝对值格式化成金钱 */
+      /** 内置 filter，是否以绝对值格式化成金钱 */
       count: PropTypes.any,
-      /** 该字段的值的映射 mapper */
+      /** 内置 filter，字段映射 mapper */
       namesMapper: PropTypes.shape({
         key: PropTypes.string
       }),
     })).isRequired,
-    /** 需要渲染的目标记录 */
+    /** 表格的数据源，用于每一行（row）的数据填充 */
     records: PropTypes.arrayOf(PropTypes.object).isRequired,
     /** 用于获取 row key */
     rowKey: PropTypes.oneOfType([
@@ -88,7 +92,7 @@ export default class Table extends MapperFilter {
     checkWidth: 30,
     needCount: false,
   };
-  excludeField = ['action', 'checkbox'];
+  excludeFilterField = ['action', 'checkbox'];
   sortIgnores = ['action', 'checkbox'];
   firstTDDOMs = {};
   sameSortTime = 0;
@@ -184,17 +188,24 @@ export default class Table extends MapperFilter {
       result = [checkExtend, ...keyMapper];
     }
 
-    this.getFixedGroup(result);
+    // this.getFixedGroup(result);
 
     return result;
   }
 
-  getFixedGroup = (keyMapper) => {
-    let result = {};
-    keyMapper.forEach(item => {
-      
-    });
-  }
+  // getFixedGroup = (keyMapper) => {
+  //   keyMapper.forEach(item => {
+  //     const { key, fixed } = item;
+  //     switch (fixed) {
+  //     case 'left':
+  //       this.fixedLeftGroup[key] = true;
+  //       break;
+  //     case 'right':
+  //       this.fixedRightGroup[key] = true;
+  //       break;
+  //     }
+  //   });
+  // }
 
   calcSize() {
     if(!this.tableRenderDOM) return;
@@ -242,7 +253,11 @@ export default class Table extends MapperFilter {
     if(tdDOM && tdDOM.offsetWidth >= tdMaxWidth) tdDOM.classList.add('break-word');
   }
 
-  getMapperItemsDOM(record, parentIdx, needCount, needAction = true) {
+  renderCell(options) {
+    const {
+      record, parentIdx, needCount, rowKey,
+      needAction = true, filter, statistics
+    } = options;
     if(!record) return;
     const keyMapper = this.getKeyMapper();
     const keyMapperLen = keyMapper.length;
@@ -255,52 +270,69 @@ export default class Table extends MapperFilter {
 
       const { key, className, count = true } = mapperItem;
       const currText = record[key];
-      const actionRes = (!needAction && this.excludeField.indexOf(key) !== -1) ? '-' : this.mapperFilter(mapperItem, record, parentIdx);
+
+      const needFilter = needAction || this.excludeFilterField.indexOf(key) === -1;
+      /** 优先使用 options 传入的 filter 作为过滤器，其次为 this.mapperFilter */
+      let filterRes = '-';
+      if(IsFunc(filter)) {
+        filterRes = filter(currText);
+      } else if(needFilter) {
+        filterRes = this.mapperFilter(mapperItem, record, parentIdx);
+      }
+      // filterRes = needFilter ? IsFunc(filter) ? filter(currText) : this.mapperFilter(mapperItem, record, parentIdx) : '-';
 
       if(needCount) {
+        /** 
+         * 进入统计流程
+         * 1. 判断原始值 currText 是否为数字
+         * 2. 判断当前记录是否需要纳入统计 count
+         */
         const isNum = !isNaN(+currText) || isStringNumRegex.test(currText);
         if(count && isNum) {
           // 这里是处理累加的逻辑，如果为字符串的字段，则先把逗号去除
           const isNumbTxt = +((currText + '').replace(',', ''));
           if(!isNaN(isNumbTxt) && typeof isNumbTxt === 'number') {
-            this.statistics[key] = (this.statistics[key] || 0) + isNumbTxt;
+            statistics[key] = (statistics[key] || 0) + isNumbTxt;
           }
         }
       }
 
-      const tdKey = key + '_' + currText;
+      const tdKey = `${rowKey}_${key}`;
       // let style = {};
-      let _className = className;
-      
-      result.push(
+      const _className = `${tdSpecClassMapper[key] || ''} ${className ? className : ''}`;
+      const tdDOM = (
         <td
           ref={this.tdRefSaver(_idx, parentIdx)}
           // style={mapperItem.w ? {width: mapperItem.w, whiteSpace: 'pre-wrap'} : style}
-          className={`${tdSpecClassMapper[key] || ''} ${_className ? _className : ''}`}
+          className={_className}
           key={tdKey}>
-          {actionRes}
+          {filterRes}
         </td>
       );
+      
+      result.push(tdDOM);
     }
 
     return result;
   }
 
-  getStatisticDOM(record) {
-    if(Object.keys(record).length > 0) return this.getMapperItemsDOM(record, 'statistics', false, false);
-  }
+  // getStatisticDOM(record) {
+  //   if(Object.keys(record).length > 0) return this.renderCell({
+  //     record, parentIdx: 'statistics', needCount: false, needAction: false
+  //   });
+  // }
 
-  getHeaderWidth() {
-    const { headerWidthMapper } = this.state;
-    let result = 0;
-    const keyMapper = this.getKeyMapper();
-    keyMapper.forEach((item, idx) => {
-      if(item) result += headerWidthMapper[idx];
-    });
-    return result;
-  }
+  // getHeaderWidth() {
+  //   const { headerWidthMapper } = this.state;
+  //   let result = 0;
+  //   const keyMapper = this.getKeyMapper();
+  //   keyMapper.forEach((item, idx) => {
+  //     if(item) result += headerWidthMapper[idx];
+  //   });
+  //   return result;
+  // }
 
-  recordDescFilter() {
+  recordsOrderFilter() {
     const { sortField, isDesc } = this.state;
     const { records } = this.props;
     if(!sortField) return records;
@@ -357,48 +389,52 @@ export default class Table extends MapperFilter {
     const { rowKey } = this.props;
     let key;
     if(rowKey) {
-      key = IsFunc(rowKey) ? rowKey(record) : record[rowKey];
+      key = IsFunc(rowKey) ? rowKey(record) : record[rowKey] || idx;
     } else {
       key = idx;
+      console.warn('需要设置 rowKey，为每一行设置唯一 key');
     }
     return key;
   }
 
-  render() {
-    const {
-      needCount, height, whenCheckAction, needCheck, needSort, fixHead, rowKey
-    } = this.props;
-    const {
-      headerWidthMapper, containerWidth, sortField, isDesc,
-      checkedItems
-    } = this.state;
-    const records = this.recordDescFilter();
-    const hasRecord = records.length > 0;
-    const keyMapper = this.getKeyMapper();
+  renderRow = (options) => {
+    const { records, ...other } = options;
+    return records.map((record, idx) => {
+      if(!record) return;
+      const { _highlight } = record;
+      let key = this.getRowKey(record, idx);
+      return (
+        <tr
+          key={key}
+          className={_highlight}>
+          {
+            this.renderCell({
+              rowKey: key, record, parentIdx: idx, ...other
+            })
+          }
+        </tr>
+      );
+    });
+  }
 
-    const checkedItemLen = Object.keys(checkedItems).length;
-    const isAllCheck = hasRecord && (checkedItemLen == records.length);
-
-    if(!Array.isArray(records)) {
-      console.error('records 必须为 []');
-      return <span/>;
-    }
-
-    /** 统计字段，每一次统计都是一个新对象 */
-    this.statistics = {};
-
-    const hasChecked = Object.keys(checkedItems).length != 0;
-
-    const tableHeader = (
-      <div className="table-body-scroll" style={{width: containerWidth}}>
+  renderTableHeader = (options) => {
+    const { needSort } = this.props;
+    const { containerWidth, headerWidthMapper, sortField, isDesc } = this.state;
+    const { keyMapper, isAllCheck } = options;
+    return (
+      <div
+        key="tableHead"
+        className="uke-table-scroll" style={{width: containerWidth}}>
         <table className="table nomargin table-header">
           <thead>
             <tr>
               {
                 keyMapper.map((item, idx) => {
                   if(!item) return;
-                  const { key, w } = item;
-                  const currHeaderWidth = w || headerWidthMapper[idx];
+                  // const { key, w } = item;
+                  // const currHeaderWidth = w || headerWidthMapper[idx];
+                  const { key } = item;
+                  const currHeaderWidth = headerWidthMapper[idx];
                   
                   let title = '';
                   if(key !== 'checkbox') {
@@ -444,44 +480,40 @@ export default class Table extends MapperFilter {
         </table>
       </div>
     );
+  }
 
-    const tableBody = hasRecord ? (
-      <div className="table-body-scroll" style={{height, width: containerWidth}}>
+  renderTableBody = (options) => {
+    const { height, needCount } = this.props;
+    const { containerWidth } = this.state;
+    const { hasRecord, records } = options;
+
+    /** 统计字段，每一次统计都是一个新对象 */
+    let statistics = {
+      _highlight: 'theme',
+      id: 'statistics'
+    };
+    
+    return hasRecord ? (
+      <div
+        key="tableBody"
+        className="uke-table-scroll" style={{height, width: containerWidth}}>
         <table className="table nomargin table-body">
           <tbody>
             {
-              records.map((record, idx) => {
-                if(!record) return;
-                const { _highlight } = record;
-                let key = this.getRowKey(record, idx);
-                return (
-                  <tr
-                    key={key}
-                    className={_highlight}>
-                    {this.getMapperItemsDOM(record, idx, needCount)}
-                  </tr>
-                );
+              this.renderRow({
+                records, needCount,
+                /** 在渲染 body 的时候会做数据统计，以 statistics 对象做记录 */
+                statistics
               })
             }
           </tbody>
           <tfoot>
             {
-              needCount && (
-                <tr className="theme statistics">
-                  {/* {this.getStatisticDOM(this.statistics)} */}
-                  {
-                    keyMapper.map((keyMap, idx) => {
-                      const { key } = keyMap;
-                      const currItem = this.statistics[key];
-                      return (
-                        <td key={key}>
-                          {currItem ? currItem.toLocaleString('en-US') : '-'}
-                        </td>
-                      );
-                    })
-                  }
-                </tr>
-              )
+              needCount && this.renderRow({
+                records: [statistics],
+                needAction: false,
+                filter: moneyFormat
+              })
             }
           </tfoot>
         </table>
@@ -489,26 +521,58 @@ export default class Table extends MapperFilter {
     ) : (
       <span className="no-record-tip">
         <Icon n="noData"/>
-        <span className="text">暂无记录</span>
+        <span className="text">{this.gm('暂无记录')}</span>
       </span>
+    );
+  }
+
+  renderTable = (options) => {
+    const tableHeader = this.renderTableHeader(options);
+    const tableBody = this.renderTableBody(options);
+    return [
+      tableHeader, tableBody
+    ];
+  }
+
+  render() {
+    const {
+      whenCheckAction, needCheck
+    } = this.props;
+    const {
+      checkedItems
+    } = this.state;
+    const records = this.recordsOrderFilter();
+    const hasRecord = records.length > 0;
+    const keyMapper = this.getKeyMapper();
+
+    const checkedItemLen = Object.keys(checkedItems).length;
+    const hasChecked = checkedItemLen > 0;
+    const isAllCheck = hasRecord && (checkedItemLen == records.length);
+
+    const table = this.renderTable({
+      hasRecord,
+      keyMapper,
+      records,
+      isAllCheck
+    });
+
+    const extendDOM = needCheck && whenCheckAction && (
+      <div className={"checked-actions" + (hasChecked ? ' show' : '')}>
+        <span className="mr10">
+          <span className="mr10">{this.gm('已选')} <span className="t_theme">{checkedItemLen}</span> {this.gm('项')}</span>
+          <span className="link" onClick={this.clearCheckeds}>{this.gm('清除')}</span>
+        </span>
+        {whenCheckAction}
+      </div>
     );
 
     return (
       <div className={"table-render" + (hasChecked ? ' has-checked' : '')}
         ref={this.saveTable}>
-        {
-          needCheck && whenCheckAction && (
-            <div className={"checked-actions" + (hasChecked ? ' show' : '')}>
-              <span className="mr10">
-                <span className="mr10">已选 <span className="t_green">{checkedItemLen}</span> 项</span>
-                <span className="link" onClick={this.clearCheckeds}>清除</span>
-              </span>
-              {whenCheckAction}
-            </div>
-          )
-        }
-        {tableHeader}
-        {tableBody}
+        {extendDOM}
+        {table}
+        {/* {tableHeader}
+        {tableBody} */}
       </div>
     );
   }

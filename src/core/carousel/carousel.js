@@ -33,6 +33,8 @@ export default class Carousel extends Component {
     transitionName: PropTypes.string,
     /** 是否移动版，如果是，则渲染左右切换按钮 */
     isMobile: PropTypes.bool,
+    /** 自动轮播的频率，单位为秒 */
+    freq: PropTypes.number,
     /** 过场动画的持续时间 */
     transitionTimer: PropTypes.number,
     thumbType: PropTypes.oneOf([
@@ -47,6 +49,7 @@ export default class Carousel extends Component {
     transitionName: 'banner',
     thumbType: 'dot',
     transitionTimer: 400,
+    freq: 5,
     thumbRate: 15,
     isMobile: false
   };
@@ -61,7 +64,6 @@ export default class Carousel extends Component {
       activeItem: carouselItems[defaultIdx],
     };
     this.timer = null;
-    this.freq = 5000;
     this.isStarted = false;
     this.itemWidth = styleConfig.width;
 
@@ -84,15 +86,15 @@ export default class Carousel extends Component {
     this.stopLoop();
   }
   startLoop() {
-    var self = this;
+    const { freq } = this.props;
     if(this.timer) this.stopLoop();
     this.timer = setInterval(() => {
-      const {carouselItems} = self.props;
-      let {activeIdx} = self.state;
+      const {carouselItems} = this.props;
+      let {activeIdx} = this.state;
       activeIdx += 1;
-      if(activeIdx >= carouselItems.length - 1) activeIdx = 0;
-      if(!document.hidden) self.setActiveIdx(activeIdx);
-    }, this.freq);
+      if(activeIdx > carouselItems.length - 1) activeIdx = 0;
+      if(!document.hidden) this.setActiveIdx(activeIdx);
+    }, freq * 1000);
   }
   stopLoop() {
     clearInterval(this.timer);
