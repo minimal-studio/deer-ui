@@ -115,6 +115,7 @@ export default class Table extends MapperFilter {
       tableWidth: 'auto',
       sortField: '',
       isDesc: false,
+      hoveringRow: null,
       checkedItems: {},
     };
   }
@@ -409,17 +410,25 @@ export default class Table extends MapperFilter {
     return result;
   }
 
+  handleHoverRow = (idx) => {
+    this.setState({
+      hoveringRow: idx
+    });
+  }
+
   renderRow = (options) => {
     const { records, ...other } = options;
+    const { hoveringRow } = this.state;
 
     return records.map((record, idx) => {
       if(!record) return;
-      const { _highlight } = record;
+      const { _highlight = '' } = record;
       let key = this.getRowKey(record, idx);
       return (
         <tr
           key={key}
-          className={_highlight}>
+          onMouseEnter={e => this.handleHoverRow(idx)}
+          className={`${_highlight} ${hoveringRow === idx ? 'hovering' : ''}`}>
           {
             this.renderCell({
               rowKey: key, record, parentIdx: idx, ...other
@@ -599,26 +608,6 @@ export default class Table extends MapperFilter {
     this[ref] = e;
   }
 
-  // renderFixedGroup = (mainTable) => {
-  //   const leftFixedTableWidth = this.calcTableWidth(this.fixedLeftGroup);
-  //   const rightFixedTableWidth = this.calcTableWidth(this.fixedRightGroup);
-  //   const rightFixedTable = React.cloneElement(mainTable, {
-  //     className: 'uke-table-scroll-container table-fixed right',
-  //     key: 'table-fixed-right',
-  //     style: {width: rightFixedTableWidth},
-  //     ref: this.saveDOM('rightFixedTable'),
-  //   });
-  //   const leftFixedTable = React.cloneElement(mainTable, {
-  //     className: 'uke-table-scroll-container table-fixed left',
-  //     key: 'table-fixed-left',
-  //     style: {width: leftFixedTableWidth},
-  //     ref: this.saveDOM('leftFixedTable'),
-  //   });
-
-  //   return [
-  //     leftFixedTable, rightFixedTable
-  //   ];
-  // }
   renderFixedGroup = (options) => {
     const leftFixedTable = this.renderTable({
       ...options,

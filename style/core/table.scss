@@ -195,8 +195,8 @@ $tdPadding: 10px;
   tbody {
     // background-color: $tableBodyBgColor;
     tr {
-      &:hover {
-        background-color: rgba($themeColor, 0.06) !important;
+      &.hovering {
+        background-color: rgba($themeColor, 0.08) !important;
       }
       td {
         border-bottom: 1px solid #f0f0f0;
