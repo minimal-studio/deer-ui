@@ -79,14 +79,21 @@ export default class Table extends MapperFilter {
     needCheck: PropTypes.bool,
     /** checkbox 的宽度 */
     checkWidth: PropTypes.number,
+    /** 表格的高度，用于固定表头 */
+    height: PropTypes.oneOfType([
+      PropTypes.number, PropTypes.string
+    ]),
     /** 无视的排序字段 */
     sortIgnores: PropTypes.arrayOf(PropTypes.string),
     /** 当选中时往表格顶部嵌入的内容 */
-    whenCheckAction: PropTypes.any,
+    whenCheckAction: PropTypes.oneOfType([
+      PropTypes.func, PropTypes.any
+    ]),
   };
   static defaultProps = {
     sortIgnores: [],
     needCheck: false,
+    height: 'auto',
     needSort: true,
     fixHead: true,
     checkWidth: 30,
@@ -95,15 +102,17 @@ export default class Table extends MapperFilter {
   excludeFilterField = ['action', 'checkbox'];
   sortIgnores = ['action', 'checkbox'];
   firstTDDOMs = {};
+  firstRowNodes = {};
   sameSortTime = 0;
   fixedLeftGroup = [];
   fixedRightGroup = [];
+  columnHeightInfo = {};
   constructor(props) {
     super(props);
 
     this.state = {
       headerWidthMapper: [],
-      containerWidth: 'auto',
+      tableWidth: 'auto',
       sortField: '',
       isDesc: false,
       checkedItems: {},
@@ -112,16 +121,16 @@ export default class Table extends MapperFilter {
 
   componentDidMount() {
     window.addEventListener('resize', this.resizeCalcSize);
-    this.calcSize();
+    // this.calcSize();
   }
 
   componentWillUnmount() {
     window.removeEventListener('resize', this.resizeCalcSize);
   }
 
-  componentDidUpdate() {
-    this.calcSize();
-  }
+  // componentDidUpdate() {
+  //   this.calcSize();
+  // }
 
   /**
    * 清除所有已选择的内容
@@ -196,143 +205,70 @@ export default class Table extends MapperFilter {
   saveFixedGroup = (keyMapper) => {
     if(this.hadSaved) return;
     this.hadSaved = true;
-    keyMapper.forEach(item => {
+    keyMapper.forEach((item, idx) => {
       const { fixed } = item;
+      const nextItem = {...item, idx};
       switch (fixed) {
       case 'left':
-        this.fixedLeftGroup.push(item);
+        this.fixedLeftGroup.push(nextItem);
         break;
       case 'right':
-        this.fixedRightGroup.push(item);
+        this.fixedRightGroup.push(nextItem);
         break;
       }
     });
   }
 
-  calcSize() {
-    if(!this.tableRenderDOM) return;
+  calcSize(firstRowNodes) {
+    if(!this.tableContainer || !firstRowNodes) return;
+    // if(Object.keys(this.firstTDDOMs).length === 0) return;
+    const cellsLen = firstRowNodes.length;
+    const { headerWidthMapper } = this.state;
+    
     let nextHeaderWidthMapper = [];
     let nextContainerWidth = 0;
-    const { headerWidthMapper } = this.state;
-    const keyMapper = this.getKeyMapper();
-    if(Object.keys(this.firstTDDOMs).length === 0) return;
-    keyMapper.forEach((_, tdIdx) => {
-      let currTDDOM = this.firstTDDOMs[tdIdx];
-      let currWidth = currTDDOM.offsetWidth || headerWidthMapper[tdIdx];
-      nextHeaderWidthMapper[tdIdx] = currWidth;
-      nextContainerWidth += nextHeaderWidthMapper[tdIdx];
-    });
+
+    for (let i = 0; i < cellsLen; i++) {
+      const currCell = firstRowNodes[i];
+      const currCellWidth = currCell.offsetWidth || headerWidthMapper[i];
+      nextHeaderWidthMapper[i] = currCellWidth;
+      nextContainerWidth += nextHeaderWidthMapper[i];
+    }
+    // const keyMapper = this.getKeyMapper();
+    // keyMapper.forEach((_, tdIdx) => {
+    //   let currTDDOM = this.firstTDDOMs[tdIdx];
+    //   let currWidth = currTDDOM.offsetWidth || headerWidthMapper[tdIdx];
+    //   nextHeaderWidthMapper[tdIdx] = currWidth;
+    //   nextContainerWidth += nextHeaderWidthMapper[tdIdx];
+    // });
     if(
       nextHeaderWidthMapper.join(',') !== headerWidthMapper.join(',')
     ) {
-      const tableRenderWidth = this.tableRenderDOM.offsetWidth;
+      const tableContainerWidth = this.tableContainer.offsetWidth;
+      const isTableMoreContainer = nextContainerWidth > tableContainerWidth;
       this.setState({
         headerWidthMapper: nextHeaderWidthMapper,
-        containerWidth: nextContainerWidth > tableRenderWidth ? nextContainerWidth : 'auto'
+        // tableWidth: nextContainerWidth
+        tableWidth: isTableMoreContainer ? nextContainerWidth : 'auto'
       });
     }
   }
 
   resizeCalcSize = () => {
-    if(!this.tableRenderDOM) return;
-    const { containerWidth } = this.state;
-    if(containerWidth != 'auto' && containerWidth < this.tableRenderDOM.offsetWidth) {
+    if(!this.tableContainer) return;
+    const { tableWidth } = this.state;
+    if(tableWidth != 'auto' && tableWidth < this.tableContainer.offsetWidth) {
       this.setState({
-        containerWidth: 'auto'
+        tableWidth: 'auto'
       });
+    } else {
+      this.calcSize(this.firstRowNodes);
     }
-    this.calcSize();
   }
 
   ignoreFilter(str) {
     return [...this.sortIgnores, ...this.props.sortIgnores].indexOf(str) !== -1;
   }
-
-  tdRefSaver = (idx, parentIdx) => tdDOM => {
-    if(parentIdx == 0 && tdDOM) {
-      this.firstTDDOMs[idx] = tdDOM;
-    }
-    if(tdDOM && tdDOM.offsetWidth >= tdMaxWidth) tdDOM.classList.add('break-word');
-  }
-
-  renderCell(options) {
-    const {
-      record, parentIdx, needCount, rowKey, keyMapper,
-      needAction = true, filter, statistics
-    } = options;
-    if(!record) return;
-    // const keyMapper = this.getKeyMapper();
-    const keyMapperLen = keyMapper.length;
-
-    let result = [];
-
-    for (let _idx = 0; _idx < keyMapperLen; _idx++) {
-      const mapperItem = keyMapper[_idx];
-      if(!mapperItem) continue;
-
-      const { key, className, count = true } = mapperItem;
-      const currText = record[key];
-
-      const needFilter = needAction || this.excludeFilterField.indexOf(key) === -1;
-      /** 优先使用 options 传入的 filter 作为过滤器，其次为 this.mapperFilter */
-      let filterRes = '-';
-      if(IsFunc(filter)) {
-        filterRes = filter(currText);
-      } else if(needFilter) {
-        filterRes = this.mapperFilter(mapperItem, record, parentIdx);
-      }
-      // filterRes = needFilter ? IsFunc(filter) ? filter(currText) : this.mapperFilter(mapperItem, record, parentIdx) : '-';
-
-      if(needCount) {
-        /** 
-         * 进入统计流程
-         * 1. 判断原始值 currText 是否为数字
-         * 2. 判断当前记录是否需要纳入统计 count
-         */
-        const isNum = !isNaN(+currText) || isStringNumRegex.test(currText);
-        if(count && isNum) {
-          // 这里是处理累加的逻辑，如果为字符串的字段，则先把逗号去除
-          const isNumbTxt = +((currText + '').replace(',', ''));
-          if(!isNaN(isNumbTxt) && typeof isNumbTxt === 'number') {
-            statistics[key] = (statistics[key] || 0) + isNumbTxt;
-          }
-        }
-      }
-
-      const tdKey = `${rowKey}_${key}`;
-      // let style = {};
-      const _className = `${tdSpecClassMapper[key] || ''} ${className ? className : ''}`;
-      const tdDOM = (
-        <td
-          ref={this.tdRefSaver(_idx, parentIdx)}
-          // style={mapperItem.w ? {width: mapperItem.w, whiteSpace: 'pre-wrap'} : style}
-          className={_className}
-          key={tdKey}>
-          {filterRes}
-        </td>
-      );
-      
-      result.push(tdDOM);
-    }
-
-    return result;
-  }
-
-  // getStatisticDOM(record) {
-  //   if(Object.keys(record).length > 0) return this.renderCell({
-  //     record, parentIdx: 'statistics', needCount: false, needAction: false
-  //   });
-  // }
-
-  // getHeaderWidth() {
-  //   const { headerWidthMapper } = this.state;
-  //   let result = 0;
-  //   const keyMapper = this.getKeyMapper();
-  //   keyMapper.forEach((item, idx) => {
-  //     if(item) result += headerWidthMapper[idx];
-  //   });
-  //   return result;
-  // }
 
   recordsOrderFilter() {
     const { sortField, isDesc } = this.state;
@@ -383,8 +319,9 @@ export default class Table extends MapperFilter {
     });
   }
 
-  saveTable = e => {
-    this.tableRenderDOM = e;
+  saveContainer = e => {
+    this.tableContainer = e;
+    this.calcSize(this.firstRowNodes);
   }
 
   getRowKey = (record, idx) => {
@@ -399,8 +336,82 @@ export default class Table extends MapperFilter {
     return key;
   }
 
+  saveCell = (idx, isMain, rowKey) => tdDOM => {
+    if(tdDOM && isMain && tdDOM.offsetWidth >= tdMaxWidth) tdDOM.classList.add('break-word');
+    if(tdDOM && isMain && idx === 0) {
+      this.columnHeightInfo[rowKey] = tdDOM.offsetHeight;
+    }
+    if(tdDOM && !isMain) {
+      tdDOM.style.height = this.columnHeightInfo[rowKey] + 'px';
+    }
+  }
+
+  renderCell(options) {
+    const {
+      record, parentIdx, needCount, rowKey, keyMapper,
+      needAction = true, filter, statistics, main
+    } = options;
+    if(!record) return;
+    // const keyMapper = this.getKeyMapper();
+    const keyMapperLen = keyMapper.length;
+
+    let result = [];
+
+    for (let _idx = 0; _idx < keyMapperLen; _idx++) {
+      const mapperItem = keyMapper[_idx];
+      if(!mapperItem) continue;
+
+      const { key, className, count = true } = mapperItem;
+      const currText = record[key];
+
+      const needFilter = needAction || this.excludeFilterField.indexOf(key) === -1;
+      /** 优先使用 options 传入的 filter 作为过滤器，其次为 this.mapperFilter */
+      let filterRes = '-';
+      if(IsFunc(filter)) {
+        filterRes = filter(currText);
+      } else if(needFilter) {
+        filterRes = this.mapperFilter(mapperItem, record, parentIdx);
+      }
+      // filterRes = needFilter ? IsFunc(filter) ? filter(currText) : this.mapperFilter(mapperItem, record, parentIdx) : '-';
+
+      if(needCount) {
+        /** 
+         * 进入统计流程
+         * 1. 判断原始值 currText 是否为数字
+         * 2. 判断当前记录是否需要纳入统计 count
+         */
+        const isNum = !isNaN(+currText) || isStringNumRegex.test(currText);
+        if(count && isNum) {
+          // 这里是处理累加的逻辑，如果为字符串的字段，则先把逗号去除
+          const isNumbTxt = +((currText + '').replace(',', ''));
+          if(!isNaN(isNumbTxt) && typeof isNumbTxt === 'number') {
+            statistics[key] = (statistics[key] || 0) + isNumbTxt;
+          }
+        }
+      }
+
+      const tdKey = `${rowKey}_${key}`;
+      // let style = {};
+      const _className = `${tdSpecClassMapper[key] || ''} ${className ||  ''}`;
+      const tdDOM = (
+        <td
+          ref={this.saveCell(_idx, main, rowKey)}
+          // style={mapperItem.w ? {width: mapperItem.w, whiteSpace: 'pre-wrap'} : style}
+          className={_className}
+          key={tdKey}>
+          {filterRes}
+        </td>
+      );
+      
+      result.push(tdDOM);
+    }
+
+    return result;
+  }
+
   renderRow = (options) => {
     const { records, ...other } = options;
+
     return records.map((record, idx) => {
       if(!record) return;
       const { _highlight } = record;
@@ -419,15 +430,37 @@ export default class Table extends MapperFilter {
     });
   }
 
+  calcTableWidth = (keyMapper) => {
+    const { headerWidthMapper } = this.state;
+    if(headerWidthMapper.length === 0) return;
+    let res = 0;
+
+    keyMapper.forEach((mapper, _idx) => {
+      const { fixed, idx } = mapper;
+      const __idx = idx || _idx;
+      // if(fixed == 'right') {
+      //   console.log([[...headerWidthMapper].reverse()], idx)
+      //   res += [[...headerWidthMapper].reverse()][idx];
+      // } else {
+      res += headerWidthMapper[__idx];
+      // }
+    });
+
+    return res;
+  }
+
   renderTableHeader = (options) => {
     const { needSort } = this.props;
-    const { containerWidth, headerWidthMapper, sortField, isDesc } = this.state;
-    const { keyMapper, isAllCheck, className } = options;
+    const { tableWidth, headerWidthMapper, sortField, isDesc } = this.state;
+    const { keyMapper, isAllCheck } = options;
+    const style = {
+      width: this.calcTableWidth(keyMapper)
+    };
     return (
       <div
         key="tableHead"
-        className={`uke-table-scroll ${className || ''}`}
-        style={{width: containerWidth}}>
+        className="uke-table-scroll"
+        style={style}>
         <table className="table nomargin table-header">
           <thead>
             <tr>
@@ -435,9 +468,9 @@ export default class Table extends MapperFilter {
                 keyMapper.map((item, idx) => {
                   if(!item) return;
                   // const { key, w } = item;
-                  // const currHeaderWidth = w || headerWidthMapper[idx];
+                  // const cellWidth = w || headerWidthMapper[idx];
                   const { key } = item;
-                  const currHeaderWidth = headerWidthMapper[idx];
+                  const cellWidth = headerWidthMapper[idx];
                   
                   let title = '';
                   if(key !== 'checkbox') {
@@ -470,7 +503,7 @@ export default class Table extends MapperFilter {
                       key={key}
                       {...clickHandlerForTh}
                       style={{
-                        width: currHeaderWidth
+                        width: cellWidth
                       }}>
                       {title}
                       {sortTip}
@@ -485,28 +518,44 @@ export default class Table extends MapperFilter {
     );
   }
 
+  saveTableBody = t => {
+    this.firstRowNodes = t ? t.querySelectorAll('tbody tr:first-child td') : null;
+    t && this.calcSize(this.firstRowNodes);
+  }
+
+  checkIsHasFixedGroup = () => {
+    return this.leftFixedTable || this.rightFixedTable;
+  }
+
   renderTableBody = (options) => {
     const { height, needCount } = this.props;
-    const { containerWidth } = this.state;
-    const { hasRecord, records, className, ...other } = options;
+    const { tableWidth } = this.state;
+    const { hasRecord, isSetWidth, keyMapper, ref, onScroll } = options;
+    const hasFixedTable = this.checkIsHasFixedGroup();
 
     /** 统计字段，每一次统计都是一个新对象 */
     let statistics = {
       _highlight: 'theme',
       id: 'statistics'
     };
+    const style = Object.assign({}, {
+      height,
+      width: this.calcTableWidth(keyMapper)
+    });
     
     return hasRecord ? (
       <div
         key="tableBody"
-        className={`uke-table-scroll ${className || ''}`}
-        style={{height, width: containerWidth}}>
-        <table className="table nomargin table-body">
+        onScroll={hasFixedTable ? this.handleTableScroll : null}
+        ref={ref}
+        className="uke-table-scroll"
+        style={style}>
+        <table className="table nomargin table-body"
+          ref={isSetWidth ? this.saveTableBody : null}>
           <tbody>
             {
               this.renderRow({
-                ...other,
-                records, needCount,
+                ...options, needCount,
                 /** 在渲染 body 的时候会做数据统计，以 statistics 对象做记录 */
                 statistics
               })
@@ -515,7 +564,7 @@ export default class Table extends MapperFilter {
           <tfoot>
             {
               needCount && this.renderRow({
-                ...other,
+                ...options,
                 records: [statistics],
                 needAction: false,
                 filter: moneyFormat
@@ -533,31 +582,86 @@ export default class Table extends MapperFilter {
   }
 
   renderTable = (options, key) => {
+    const { className, style } = options;
     const tableHeader = this.renderTableHeader(options);
     const tableBody = this.renderTableBody(options);
     return (
-      <div key={key} className="uke-table-scroll-container">
+      <div key={key}
+        style={style}
+        className={`uke-table-scroll-container ${className || ''}`}>
         {tableHeader}
         {tableBody}
       </div>
     );
   }
 
+  saveDOM = ref => e => {
+    this[ref] = e;
+  }
+
+  // renderFixedGroup = (mainTable) => {
+  //   const leftFixedTableWidth = this.calcTableWidth(this.fixedLeftGroup);
+  //   const rightFixedTableWidth = this.calcTableWidth(this.fixedRightGroup);
+  //   const rightFixedTable = React.cloneElement(mainTable, {
+  //     className: 'uke-table-scroll-container table-fixed right',
+  //     key: 'table-fixed-right',
+  //     style: {width: rightFixedTableWidth},
+  //     ref: this.saveDOM('rightFixedTable'),
+  //   });
+  //   const leftFixedTable = React.cloneElement(mainTable, {
+  //     className: 'uke-table-scroll-container table-fixed left',
+  //     key: 'table-fixed-left',
+  //     style: {width: leftFixedTableWidth},
+  //     ref: this.saveDOM('leftFixedTable'),
+  //   });
+
+  //   return [
+  //     leftFixedTable, rightFixedTable
+  //   ];
+  // }
   renderFixedGroup = (options) => {
     const leftFixedTable = this.renderTable({
       ...options,
-      className: 'table-fixed-left',
+      className: 'table-fixed left',
       keyMapper: this.fixedLeftGroup,
+      ref: this.saveDOM('leftFixedTable'),
     }, 'table-fixed-left');
     const rightFixedTable = this.renderTable({
       ...options,
-      className: 'table-fixed-right',
+      className: 'table-fixed right',
+      ref: this.saveDOM('rightFixedTable'),
       keyMapper: this.fixedRightGroup,
     }, 'table-fixed-right');
 
     return [
       leftFixedTable, rightFixedTable
     ];
+  }
+
+  renderMainTable = (options) => {
+    return this.renderTable({
+      ...options,
+      main: true,
+      ref: this.saveDOM('mainTable'),
+      isSetWidth: true
+    }, 'mainTable');
+  }
+
+  handleTableScroll = e => {
+    const target = e.target;
+    if (e.currentTarget !== target) return;
+
+    const { rightFixedTable, leftFixedTable, mainTable } = this;
+    const currScrollTop = target.scrollTop;
+    if(target !== leftFixedTable && leftFixedTable) {
+      this.leftFixedTable.scrollTop = currScrollTop;
+    }
+    if(target !== rightFixedTable && rightFixedTable) {
+      this.rightFixedTable.scrollTop = currScrollTop;
+    }
+    if(target !== mainTable && mainTable) {
+      this.mainTable.scrollTop = currScrollTop;
+    }
   }
 
   render() {
@@ -582,8 +686,9 @@ export default class Table extends MapperFilter {
       isAllCheck
     };
 
-    const table = this.renderTable(renderTableConfig, 'mainTable');
-    // const fixedGroup = this.renderFixedGroup(renderTableConfig);
+    const mainTable = this.renderMainTable(renderTableConfig);
+    // const fixedGroup = this.renderFixedGroup(mainTable);
+    const fixedGroup = this.renderFixedGroup(renderTableConfig);
 
     const extendDOM = needCheck && whenCheckAction && (
       <div className={"checked-actions" + (hasChecked ? ' show' : '')}>
@@ -591,18 +696,24 @@ export default class Table extends MapperFilter {
           <span className="mr10">{this.gm('已选')} <span className="t_theme">{checkedItemLen}</span> {this.gm('项')}</span>
           <span className="link" onClick={this.clearCheckeds}>{this.gm('清除')}</span>
         </span>
-        {whenCheckAction}
+        {IsFunc(whenCheckAction) ? whenCheckAction({
+          checkedItems, clearCheckeds: this.clearCheckeds
+        }) : whenCheckAction}
       </div>
     );
 
     return (
-      <div className={"table-render" + (hasChecked ? ' has-checked' : '')}
-        ref={this.saveTable}>
+      <div className="uke-table">
         {extendDOM}
-        {table}
-        {/* {fixedGroup} */}
-        {/* {tableHeader}
-        {tableBody} */}
+        <div
+          className="table-render"
+          // className={"table-render" + (hasChecked ? ' has-checked' : '')}
+          ref={this.saveContainer}>
+          {mainTable}
+          {fixedGroup}
+          {/* {tableHeader}
+          {tableBody} */}
+        </div>
       </div>
     );
   }

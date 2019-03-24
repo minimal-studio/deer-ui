@@ -10,167 +10,153 @@ import { ShowModal } from '../modal';
 import { Table, DescHelper } from './';
 import { DropdownMenu } from '../selector';
 import KeyMapper from './key-mapper.mdx';
+import { records, keyMapper, keyMapperFixed } from './table-mock-data';
 
 # Table
 
 ## 通用表格渲染
 
+完美表格很难，但 uke-table 拥有以下特点
+
+- 声明式逻辑处理
+- 自动计算 cell 的宽度
+- 固定头部
+- 固定指定的列
+- 可对已有元素进行排列
+- 表头嵌入选择器和过滤器
+
 <PropsTable of={Table} />
 
 ## 一般用法
 
+- keyMapper 需要显示的数据的字段映射集合
+- records   数据源
+
+对应关系
+
+```js
+// key 对应 records 的所有项的 [key], 以下例子对应 username
+const keyMapper = [
+  {
+    key: 'username'
+  }
+]
+const records = [
+  {
+    username: 'alex',
+  }
+  {
+    username: 'blex',
+  }
+  {
+    username: 'clex',
+  }
+]
+```
+
+> 可以使用自定义的 filter 或者内置 filter，下面章节有详细描述。
+
 <Playground>
   {
     () => {
-      let keyMapper = [
-        {
-          key: 'username',
-          tips: [
-            '可以是数组1',
-            '可以是数组2',
-            '可以是数组3',
-          ],
-          fixed: 'left',
-          title: () => {
-            return (
-              <span>使用 func title 返回表头</span>
-            )
-          },
-          namesMapper: {
-            alex: '埃里克斯',
-            chili: '吃梨',
-            dove: '德芙',
-          }
-        },
-        {key: 'age', selectable: false, count: false},
-        {key: 'property', selectable: false},
-        {key: 'add', labels: {
-          cn: 'red'
-        }, namesMapper: {
-          cn: '中国', uk: '英国'
-        }},
-        {key: 'birth1', date: 1},
-        {key: 'birth2', date: 1},
-        {key: 'birth3', date: 1},
-        {key: 'birth4', date: 1},
-        {key: 'obj', filter: (_, item) => {
-          return _.account
-        }},
-        {key: 'status', title: {
-          type: 'selector',
-          values: {
-            normal: '正常',
-            abnormal: '异常',
-          },
-          onChange: (val) => {
-            console.log(val);
-          }
-        }},
-        {
-          key: 'action',
-          fixed: 'right',
-          filter: (str, item) => {
-            return (
-              <div>
-                <span
-                  onClick={e => ShowModal({
-                    children: <DescHelper keyMapper={keyMapper} record={item} />
-                  })}
-                  className="link-btn">详情</span>
-                <span
-                  onClick={e => ShowModal({
-                    width: 1000,
-                    children: (
-                      <Table
-                        keyMapper={keyMapper}
-                        ref={e => table = e}
-                        whenCheckAction={(
-                          <span className="btn theme mu10" onClick={e => table.clearCheckeds()}>
-                            清除所有的以选中项
-                          </span>
-                        )}
-                        needCheck
-                        needCount
-                        records={records} />
-                    )
-                  })}
-                  className="link-btn t_red">弹出表格</span>
-              </div>
-            )
-          }
-        }
-      ];
-      const records = [
-        {
-          id: 1,
-          username: 'alex',
-          age: '100',
-          property: '100,000',
-          add: 'cn',
-          obj: {
-            account: 123,
-          },
-          birth: new Date('1999-01-01'),
-        },
-        {
-          id: 2,
-          username: 'chili',
-          age: '102',
-          property: '200,000',
-          add: 'cn',
-          obj: {
-            account: 123,
-          },
-          birth: new Date('1999-01-01'),
-        },
-        {
-          id: 3,
-          username: 'dove',
-          property: '300,000',
-          age: '50',
-          add: 'cn1241241241257172590812903890128590127095712905709125u012',
-          obj: {
-            account: 123,
-          },
-          birth: new Date('1999-01-01'),
-        },
-        {
-          id: 4,
-          username: 'susam',
-          property: '400,000',
-          age: '20',
-          add: 'uk',
-          obj: {
-            account: 123,
-          },
-          birth: new Date('1999-01-01'),
-        },
-        {
-          id: 5,
-          username: 'susam',
-          property: '400,000',
-          age: '20',
-          add: 'uk',
-          obj: {
-            account: 123,
-          },
-          birth: new Date('1999-01-01'),
-        },
-        {
-          id: 6,
-          username: 'susam',
-          property: '400,000',
-          age: '20',
-          add: 'uk',
-          obj: {
-            account: 123,
-          },
-          birth: new Date('1999-01-01'),
-        },
-      ]
       return (
         <State initial={{
-          keyMapper: keyMapper,
+          keyMapper: [...keyMapper],
+          records: [...records]
+        }}>
+          {
+            ({ state, setState }) => {
+              let table;
+
+              return (
+                <div>
+                  <Table
+                    keyMapper={state.keyMapper}
+                    ref={e => table = e}
+                    rowKey={record => record.id}
+                    needCount
+                    onChange={(emitVal, config) => {
+                      console.log(emitVal, config)
+                    }}
+                    records={state.records} />
+                </div>
+              )
+            }
+          }
+        </State>
+      )
+    }
+  }
+</Playground>
+
+## 可选的 row
+
+- whenCheckAction 为选中后出现的元素
+
+<Playground>
+  {
+    () => {
+      return (
+        <State initial={{
+          keyMapper: [...keyMapper],
+          records: [...records]
+        }}>
+          {
+            ({ state, setState }) => {
+              let table;
+
+              return (
+                <div>
+                  <Table
+                    keyMapper={state.keyMapper}
+                    ref={e => table = e}
+                    whenCheckAction={checkedItems => (
+                      <span className="btn theme mu10" onClick={e => table.clearCheckeds()}>
+                        清除所有的以选中项
+                      </span>
+                    )}
+                    rowKey={record => record.id}
+                    needCheck
+                    needCount
+                    onChange={(emitVal, config) => {
+                      console.log(emitVal, config)
+                    }}
+                    records={state.records} />
+                </div>
+              )
+            }
+          }
+        </State>
+      )
+    }
+  }
+</Playground>
+
+## 固定表头 && 固定左右列
+
+- 固定表头，只需要添加 height
+- 固定列，为 keyMapper 添加 fixed: 'left'[, 'right'] 配置，并且要注意，从最左边开始添加 left，或者最右开始添加 right
+
+```js
+const keyMapper = [
+  {
+    ...config,
+    fixed: 'left'
+  },
+  ...mappers,
+  {
+    ...config,
+    fixed: 'right'
+  }
+]
+```
+
+<Playground>
+  {
+    () => {
+      return (
+        <State initial={{
+          keyMapper: [...keyMapperFixed],
           records: [...records]
         }}>
           {
