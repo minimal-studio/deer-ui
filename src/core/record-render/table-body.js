@@ -258,6 +258,10 @@ export default class Table extends MapperFilter {
     }
   }
 
+  resetTableDOMInfo = () => {
+    this.tableContainerWidth = this.tableContainer.offsetWidth;
+  }
+
   resizeCalcSize = () => {
     if(!this.tableContainer) return;
     const { tableWidth } = this.state;
@@ -269,6 +273,9 @@ export default class Table extends MapperFilter {
     } else {
       this.calcSize(this.firstRowNodes);
     }
+    setTimeout(() => {
+      this.resetTableDOMInfo();
+    }, 100);
   }
 
   ignoreFilter(str) {
@@ -565,7 +572,7 @@ export default class Table extends MapperFilter {
     return hasRecord ? (
       <div
         key="tableBody"
-        onScroll={hasFixedTable ? this.handleTableScroll : null}
+        onScroll={!isAutoWidth && hasFixedTable ? this.handleTableScroll : null}
         ref={ref}
         className="uke-table-scroll"
         style={style}>
@@ -618,11 +625,16 @@ export default class Table extends MapperFilter {
     this[ref] = e;
   }
 
-  // saveLeftFixed = 
+  saveLeftFixed = e => {
+    this.leftFixedTable = e;
+  }
 
   saveRightFixed = e => {
     this.rightFixedTable = e;
-    if(e) e.scrollTop = this.lastScrollTop;
+  }
+
+  saveMainTable = e => {
+    this.mainTable = e;
   }
 
   renderFixedGroup = (options) => {
@@ -632,10 +644,7 @@ export default class Table extends MapperFilter {
       ...options,
       className: 'table-fixed left',
       keyMapper: this.fixedLeftGroup,
-      ref: e => {
-        this.leftFixedTable = e;
-        if(e) e.scrollTop = this.lastScrollTop;
-      },
+      ref: this.saveLeftFixed,
     }, 'table-fixed-left');
     const rightFixedTable = hasRight && this.renderTable({
       ...options,
@@ -653,7 +662,7 @@ export default class Table extends MapperFilter {
     return this.renderTable({
       ...options,
       main: true,
-      ref: this.saveDOM('mainTable'),
+      ref: this.saveMainTable,
       isSetWidth: true
     }, 'mainTable');
   }
@@ -742,7 +751,7 @@ export default class Table extends MapperFilter {
         {extendDOM}
         <div
           className={"table-render" + (isAutoWidth ? ' auto-width' : '')}
-          onScroll={fixedGroup ? this.handleScrollHor : undefined}
+          onScroll={!isAutoWidth && fixedGroup ? this.handleScrollHor : undefined}
           // className={"table-render" + (hasChecked ? ' has-checked' : '')}
           ref={this.saveContainer}>
           {mainTable}
