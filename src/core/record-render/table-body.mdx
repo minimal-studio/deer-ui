@@ -157,7 +157,7 @@ const keyMapper = [
       return (
         <State initial={{
           keyMapper: [...keyMapperFixed],
-          records: [...records],
+          records: [],
           show: false
         }}>
           {
@@ -196,8 +196,10 @@ const keyMapper = [
                     }}>增加一条记录</span>
                     <span className="btn green mr10" onClick={e => {
                       setState(({ show }) => {
+                        const nextShow = !show;
                         return {
-                          show: !show
+                          show: nextShow,
+                          records: nextShow ? [...records] : []
                         }
                       })
                     }}>{state.show ? '隐藏' : '显示'}表格</span>

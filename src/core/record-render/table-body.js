@@ -356,7 +356,9 @@ export default class Table extends MapperFilter {
     /** 检测表格元素是否被隐藏了，如果被隐藏了，则设置监听器监听显示变化 */
     this.clearWatch();
     const isHide = this.isHidden(e);
-    if(isHide) {
+    const { records } = this.props;
+    const hasRecord = records.length > 0;
+    if(!hasRecord || isHide) {
       this.watchDisplayInterval = setTimeout(() => {
         this.saveContainer(e);
       }, 1000);
