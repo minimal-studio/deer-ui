@@ -81,6 +81,8 @@ export default class Table extends MapperFilter {
     needCheck: PropTypes.bool,
     /** checkbox 的宽度 */
     checkWidth: PropTypes.number,
+    /** 监听器的 timer */
+    watcherTimer: PropTypes.number,
     /** 表格的高度，用于固定表头 */
     height: PropTypes.oneOfType([
       PropTypes.number, PropTypes.string
@@ -97,6 +99,7 @@ export default class Table extends MapperFilter {
     needCheck: false,
     height: 'auto',
     needSort: true,
+    watcherTimer: 1000,
     fixHead: true,
     checkWidth: 30,
     needCount: false,
@@ -339,7 +342,10 @@ export default class Table extends MapperFilter {
 
   initTableContainer = (e) => {
     this.tableContainer = e;
-    if(e) this.tableContainerWidth = e.offsetWidth;
+    if(e) {
+      this.tableContainerWidth = e.offsetWidth;
+      e.classList.add('ready');
+    }
     setTimeout(() => {
       if(e && this.state.tableWidth == 'auto') {
         e.classList.add(scrollRightClass);
@@ -356,12 +362,12 @@ export default class Table extends MapperFilter {
     /** 检测表格元素是否被隐藏了，如果被隐藏了，则设置监听器监听显示变化 */
     this.clearWatch();
     const isHide = this.isHidden(e);
-    const { records } = this.props;
+    const { records, watcherTimer } = this.props;
     const hasRecord = records.length > 0;
     if(!hasRecord || isHide) {
       this.watchDisplayInterval = setTimeout(() => {
         this.saveContainer(e);
-      }, 1000);
+      }, watcherTimer);
     } else {
       this.initTableContainer(e);
       this.watchDisplayInterval = null;
