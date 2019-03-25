@@ -66,10 +66,10 @@ const keyMapper = [
   }, namesMapper: {
     cn: '中国', uk: '英国'
   }},
-  {key: 'birth1', date: 1},
-  {key: 'birth2', date: 1},
-  {key: 'birth3', date: 1},
-  {key: 'birth4', date: 1},
+  // {key: 'birth1', date: 1},
+  // {key: 'birth2', date: 1},
+  // {key: 'birth3', date: 1},
+  // {key: 'birth4', date: 1},
   {key: 'obj', filter: (_, item) => {
     return _.account;
   }},

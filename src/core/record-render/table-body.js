@@ -11,7 +11,8 @@ const isStringNumRegex = /\d+,?/;
 const tdSpecClassMapper = {
   checkbox: 'check-td'
 };
-const scrollEvent = ['scrollTop', 'scrollLeft'];
+const scrollLeftClass = 'scroll-to-left';
+const scrollRightClass = 'scroll-at-right';
 
 const tdMaxWidth = 400;
 
@@ -324,6 +325,11 @@ export default class Table extends MapperFilter {
   saveContainer = e => {
     this.tableContainer = e;
     if(e) this.tableContainerWidth = e.offsetWidth;
+    setTimeout(() => {
+      if(e && this.state.tableWidth == 'auto') {
+        e.classList.add(scrollRightClass);
+      }
+    }, 100);
     this.calcSize(this.firstRowNodes);
   }
 
@@ -541,8 +547,9 @@ export default class Table extends MapperFilter {
   renderTableBody = (options) => {
     const { height, needCount } = this.props;
     const { tableWidth } = this.state;
-    const { hasRecord, isSetWidth, keyMapper, ref, onScroll } = options;
+    const { hasRecord, isSetWidth, keyMapper, ref, main } = options;
     const hasFixedTable = this.hasFixedGroup();
+    const isAutoWidth = tableWidth === 'auto';
 
     /** 统计字段，每一次统计都是一个新对象 */
     let statistics = {
@@ -551,7 +558,7 @@ export default class Table extends MapperFilter {
     };
     const style = Object.assign({}, {
       height,
-      width: this.calcTableWidth(keyMapper)
+      width: isAutoWidth ? tableWidth : this.calcTableWidth(keyMapper)
     });
     
     return hasRecord ? (
@@ -610,6 +617,13 @@ export default class Table extends MapperFilter {
     this[ref] = e;
   }
 
+  // saveLeftFixed = 
+
+  saveRightFixed = e => {
+    this.rightFixedTable = e;
+    if(e) e.scrollTop = this.lastScrollTop;
+  }
+
   renderFixedGroup = (options) => {
     const hasLeft = this.fixedLeftGroup.length > 0;
     const hasRight = this.fixedRightGroup.length > 0;
@@ -617,12 +631,15 @@ export default class Table extends MapperFilter {
       ...options,
       className: 'table-fixed left',
       keyMapper: this.fixedLeftGroup,
-      ref: this.saveDOM('leftFixedTable'),
+      ref: e => {
+        this.leftFixedTable = e;
+        if(e) e.scrollTop = this.lastScrollTop;
+      },
     }, 'table-fixed-left');
     const rightFixedTable = hasRight && this.renderTable({
       ...options,
       className: 'table-fixed right',
-      ref: this.saveDOM('rightFixedTable'),
+      ref: this.saveRightFixed,
       keyMapper: this.fixedRightGroup,
     }, 'table-fixed-right');
 
@@ -640,47 +657,45 @@ export default class Table extends MapperFilter {
     }, 'mainTable');
   }
 
-  calcScroll = (e, direction) => {
+  handleTableScroll = e => {
     const target = e.target;
     if (e.currentTarget !== target) return;
-    if(scrollEvent.indexOf(direction) === -1) {
-      return console.warn('监听的事件不正确');
-    }
+    const currScrollOffset = target.scrollTop;
+    if(currScrollOffset === this.lastScrollTop) return;
 
     const { rightFixedTable, leftFixedTable, mainTable } = this;
-    const currScrollOffset = target[direction];
     if(target !== leftFixedTable && leftFixedTable) {
-      this.leftFixedTable[direction] = currScrollOffset;
+      leftFixedTable.scrollTop = currScrollOffset;
     }
     if(target !== rightFixedTable && rightFixedTable) {
-      this.rightFixedTable[direction] = currScrollOffset;
+      rightFixedTable.scrollTop = currScrollOffset;
     }
     if(target !== mainTable && mainTable) {
-      this.mainTable[direction] = currScrollOffset;
+      mainTable.scrollTop = currScrollOffset;
     }
-  }
-
-  handleTableScroll = e => {
-    this.calcScroll(e, 'scrollTop');
+    this.lastScrollTop = currScrollOffset;
   }
 
   handleScrollHor = (e) => {
-    this.calcScroll(e, 'scrollLeft');
+    // this.calcScroll(e, 'scrollLeft');
     const target = e.target;
     if (e.currentTarget !== target) return;
+    const scrollLeft = target.scrollLeft;
+    if(scrollLeft === this.lastScrollTop) return;
+
     const { tableWidth } = this.state;
-    const offsetLeft = target.scrollLeft;
     const scrollLeftEndPoint = tableWidth - this.tableContainerWidth;
-    if(offsetLeft > 0) {
-      e.target.classList.add('scroll-to-left');
-      if(offsetLeft === scrollLeftEndPoint) {
-        e.target.classList.add('scroll-at-right');
-      } else {
-        e.target.classList.remove('scroll-at-right');
-      }
-    } else if(offsetLeft == 0) {
-      e.target.classList.remove('scroll-to-left');
+    if(scrollLeft > 0) {
+      target.classList.add(scrollLeftClass);
+    } else {
+      target.classList.remove(scrollLeftClass);
     }
+    if(scrollLeft === scrollLeftEndPoint) {
+      target.classList.add(scrollRightClass);
+    } else {
+      target.classList.remove(scrollRightClass);
+    }
+    this.lastScrollLeft = scrollLeft;
   }
 
   render() {
@@ -722,7 +737,7 @@ export default class Table extends MapperFilter {
     );
 
     return (
-      <div className="uke-table">
+      <div className="uke-table" onMouseLeave={e => this.handleHoverRow(null)}>
         {extendDOM}
         <div
           className="table-render"

@@ -22,21 +22,25 @@ $tableHeaderTextColor: #444;
 $tableBodyBgColor: #FFF;
 $tableBodyTextColor: #777;
 
+$lightThemeScrollThumb: rgba(#777, 0.5);
+$lightThemeScrollThumbHover: #666;
+$lightThemeScrollThumbActive: #444;
+
 @mixin mainContainer($m: 0) {
   width: $mainContainerWidth;
   margin: $m auto;
 }
 
-@mixin scrollBar($width, $height) {
-  ::-webkit-scrollbar {
+@mixin scrollBar($width, $height, $class) {
+  #{$class}::-webkit-scrollbar {
     width: $width;
     height: $height;
   }
-  ::-webkit-scrollbar-track {
+  #{$class}::-webkit-scrollbar-track {
     background-color: transparent; // background-color: $lightThemeScrollBg;
   }
-  ::-webkit-scrollbar-thumb {
-    border-radius: 2px;
+  #{$class}::-webkit-scrollbar-thumb {
+    border-radius: 5px;
     background-color: $lightThemeScrollThumb;
     &:hover {
       background-color: $lightThemeScrollThumbHover;
