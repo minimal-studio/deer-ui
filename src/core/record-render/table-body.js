@@ -129,10 +129,11 @@ export default class Table extends MapperFilter {
 
   componentWillUnmount() {
     window.removeEventListener('resize', this.resizeCalcSize);
+    this.clearWatch();
   }
 
   // componentDidUpdate() {
-  //   this.calcSize();
+  //   // this.calcSize();
   // }
 
   /**
@@ -234,6 +235,7 @@ export default class Table extends MapperFilter {
     for (let i = 0; i < cellsLen; i++) {
       const currCell = firstRowNodes[i];
       const currCellWidth = currCell.offsetWidth || headerWidthMapper[i];
+      if(!currCellWidth) continue;
       nextHeaderWidthMapper[i] = currCellWidth;
       nextContainerWidth += nextHeaderWidthMapper[i];
     }
@@ -331,7 +333,11 @@ export default class Table extends MapperFilter {
     });
   }
 
-  saveContainer = e => {
+  isHidden(el) {
+    return (el.offsetParent === null);
+  }
+
+  initTableContainer = (e) => {
     this.tableContainer = e;
     if(e) this.tableContainerWidth = e.offsetWidth;
     setTimeout(() => {
@@ -340,6 +346,24 @@ export default class Table extends MapperFilter {
       }
     }, 100);
     this.calcSize(this.firstRowNodes);
+  }
+
+  clearWatch = () => {
+    this.watchDisplayInterval && clearTimeout(this.watchDisplayInterval);
+  }
+
+  saveContainer = e => {
+    /** 检测表格元素是否被隐藏了，如果被隐藏了，则设置监听器监听显示变化 */
+    this.clearWatch();
+    const isHide = this.isHidden(e);
+    if(isHide) {
+      this.watchDisplayInterval = setTimeout(() => {
+        this.saveContainer(e);
+      }, 1000);
+    } else {
+      this.initTableContainer(e);
+      this.watchDisplayInterval = null;
+    }
   }
 
   getRowKey = (record, idx) => {

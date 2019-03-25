@@ -157,7 +157,8 @@ const keyMapper = [
       return (
         <State initial={{
           keyMapper: [...keyMapperFixed],
-          records: [...records]
+          records: [...records],
+          show: false
         }}>
           {
             ({ state, setState }) => {
@@ -193,23 +194,32 @@ const keyMapper = [
                         }
                       })
                     }}>增加一条记录</span>
+                    <span className="btn green mr10" onClick={e => {
+                      setState(({ show }) => {
+                        return {
+                          show: !show
+                        }
+                      })
+                    }}>{state.show ? '隐藏' : '显示'}表格</span>
                   </div>
-                  <Table
-                    keyMapper={state.keyMapper}
-                    ref={e => table = e}
-                    whenCheckAction={(
-                      <span className="btn theme mu10" onClick={e => table.clearCheckeds()}>
-                        清除所有的以选中项
-                      </span>
-                    )}
-                    rowKey={record => record.id}
-                    height={200}
-                    needCheck
-                    needCount
-                    onChange={(emitVal, config) => {
-                      console.log(emitVal, config)
-                    }}
-                    records={state.records} />
+                  <div style={!state.show ? {display: 'none'} : null}>
+                    <Table
+                      keyMapper={state.keyMapper}
+                      ref={e => table = e}
+                      whenCheckAction={(
+                        <span className="btn theme mu10" onClick={e => table.clearCheckeds()}>
+                          清除所有的以选中项
+                        </span>
+                      )}
+                      rowKey={record => record.id}
+                      height={200}
+                      needCheck
+                      needCount
+                      onChange={(emitVal, config) => {
+                        console.log(emitVal, config)
+                      }}
+                      records={state.records} />
+                  </div>
                 </div>
               )
             }
