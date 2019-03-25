@@ -85,7 +85,7 @@ export default class SelectorBasic extends FormControlBasic {
       let addVal;
 
       if(isMultiple) {
-        nextValue = selectedValue ? [...selectedValue] : [];
+        nextValue = Array.isArray(selectedValue) ? [...selectedValue] : [];
         const valueIdx = nextValue.indexOf(value);
         if(valueIdx > -1) {
           removeItem = nextValue.splice(valueIdx, 1);
