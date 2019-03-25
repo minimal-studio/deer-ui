@@ -27,7 +27,7 @@ import { records, keyMapper, keyMapperFixed } from './table-mock-data';
 
 <PropsTable of={Table} />
 
-## 一般用法
+## 常规使用
 
 - keyMapper 需要显示的数据的字段映射集合
 - records   数据源
@@ -194,6 +194,50 @@ const keyMapper = [
                         }
                       })
                     }}>增加一条记录</span>
+                  <Table
+                    keyMapper={state.keyMapper}
+                    ref={e => table = e}
+                    whenCheckAction={(
+                      <span className="btn theme mu10" onClick={e => table.clearCheckeds()}>
+                        清除所有的以选中项
+                      </span>
+                    )}
+                    rowKey={record => record.id}
+                    height={200}
+                    needCheck
+                    needCount
+                    onChange={(emitVal, config) => {
+                      console.log(emitVal, config)
+                    }}
+                    records={state.records} />
+                </div>
+              )
+            }
+          }
+        </State>
+      )
+    }
+  }
+</Playground>
+
+## Toggle 表格的显示，以及重新渲染
+
+<Playground>
+  {
+    () => {
+      return (
+        <State initial={{
+          keyMapper: [...keyMapperFixed],
+          records: [],
+          show: false
+        }}>
+          {
+            ({ state, setState }) => {
+              let table;
+
+              return (
+                <div>
+                  <div className="mb10">
                     <span className="btn green mr10" onClick={e => {
                       setState(({ show }) => {
                         const nextShow = !show;
