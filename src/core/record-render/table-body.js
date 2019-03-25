@@ -334,7 +334,7 @@ export default class Table extends MapperFilter {
   }
 
   isHidden(el) {
-    return (el.offsetParent === null);
+    return el && el.offsetParent === null;
   }
 
   initTableContainer = (e) => {
