@@ -252,7 +252,8 @@ export default class Table extends MapperFilter {
       this.setState({
         headerWidthMapper: nextHeaderWidthMapper,
         // tableWidth: nextContainerWidth
-        tableWidth: isTableMoreContainer ? nextContainerWidth : 'auto'
+        tableWidth: isTableMoreContainer ? nextContainerWidth : 'auto',
+        isAutoWidth: !isTableMoreContainer
       });
     }
   }
@@ -262,8 +263,9 @@ export default class Table extends MapperFilter {
     const { tableWidth } = this.state;
     if(tableWidth != 'auto' && tableWidth < this.tableContainer.offsetWidth) {
       this.setState({
-        tableWidth: 'auto'
-      });
+        tableWidth: 'auto',
+        isAutoWidth: true
+      }, () => this.calcSize(this.firstRowNodes));
     } else {
       this.calcSize(this.firstRowNodes);
     }
@@ -546,10 +548,9 @@ export default class Table extends MapperFilter {
 
   renderTableBody = (options) => {
     const { height, needCount } = this.props;
-    const { tableWidth } = this.state;
+    const { tableWidth, isAutoWidth } = this.state;
     const { hasRecord, isSetWidth, keyMapper, ref, main } = options;
     const hasFixedTable = this.hasFixedGroup();
-    const isAutoWidth = tableWidth === 'auto';
 
     /** 统计字段，每一次统计都是一个新对象 */
     let statistics = {
@@ -703,7 +704,7 @@ export default class Table extends MapperFilter {
       whenCheckAction, needCheck
     } = this.props;
     const {
-      checkedItems
+      checkedItems, tableWidth, isAutoWidth
     } = this.state;
     const records = this.recordsOrderFilter();
     const hasRecord = records.length > 0;
@@ -740,7 +741,7 @@ export default class Table extends MapperFilter {
       <div className="uke-table" onMouseLeave={e => this.handleHoverRow(null)}>
         {extendDOM}
         <div
-          className="table-render"
+          className={"table-render" + (isAutoWidth ? ' auto-width' : '')}
           onScroll={fixedGroup ? this.handleScrollHor : undefined}
           // className={"table-render" + (hasChecked ? ' has-checked' : '')}
           ref={this.saveContainer}>

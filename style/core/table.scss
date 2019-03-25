@@ -138,7 +138,7 @@ $tdPadding: 10px;
       border-right: 2px solid #DDD;
     }
   }
-  &.scroll-at-right {
+  &.auto-width,&.scroll-at-right {
     .table-fixed.right {
       // box-shadow: 1px 0 1px rgba(#000, 0.1);
       // display: none;
