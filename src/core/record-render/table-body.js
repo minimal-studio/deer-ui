@@ -344,13 +344,13 @@ export default class Table extends MapperFilter {
     this.tableContainer = e;
     if(e) {
       this.tableContainerWidth = e.offsetWidth;
+      setTimeout(() => {
+        e.classList.add('ready');
+        if(e && this.state.tableWidth == 'auto') {
+          e.classList.add(scrollRightClass);
+        }
+      }, 100);
     }
-    setTimeout(() => {
-      e.classList.add('ready');
-      if(e && this.state.tableWidth == 'auto') {
-        e.classList.add(scrollRightClass);
-      }
-    }, 100);
     this.calcSize(this.firstRowNodes);
   }
 
