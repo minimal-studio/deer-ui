@@ -85,7 +85,7 @@ const keyMapper = [
   }},
   // action,
 ];
-const keyMapperMiddle = [...keyMapper].slice(1, keyMapper.length - 1);
+const keyMapperMiddle = [...keyMapper].slice(1, keyMapper.length);
 const keyMapperFixed = [
   {
     key: 'username',

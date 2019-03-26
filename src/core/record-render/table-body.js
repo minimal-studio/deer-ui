@@ -13,6 +13,7 @@ const tdSpecClassMapper = {
 };
 const scrollLeftClass = 'scroll-to-left';
 const scrollRightClass = 'scroll-at-right';
+const breakWordClass = 'break-word';
 
 const tdMaxWidth = 400;
 
@@ -79,6 +80,10 @@ export default class Table extends MapperFilter {
     needSort: PropTypes.bool,
     /** 是否多选 */
     needCheck: PropTypes.bool,
+    /** 右边固定表格的列的集合 */
+    fixedRightKeys: PropTypes.arrayOf(PropTypes.string),
+    /** 左边固定表格的列的集合 */
+    fixedLeftKeys: PropTypes.arrayOf(PropTypes.string),
     /** checkbox 的宽度 */
     checkWidth: PropTypes.number,
     /** 监听器的 timer */
@@ -96,6 +101,8 @@ export default class Table extends MapperFilter {
   };
   static defaultProps = {
     sortIgnores: [],
+    fixedLeftKeys: [],
+    fixedRightKeys: [],
     needCheck: false,
     height: 'auto',
     needSort: true,
@@ -212,14 +219,17 @@ export default class Table extends MapperFilter {
   saveFixedGroup = (keyMapper) => {
     if(this.hadSaved) return;
     this.hadSaved = true;
+    const { fixedRightKeys, fixedLeftKeys } = this.props;
     keyMapper.forEach((item, idx) => {
-      const { fixed } = item;
+      const { key, fixed } = item;
       const nextItem = {...item, idx};
-      switch (fixed) {
-      case 'left':
+      switch (true) {
+      case fixedLeftKeys.indexOf(key) !== -1:
+      case fixed === 'left':
         this.fixedLeftGroup.push(nextItem);
         break;
-      case 'right':
+      case fixedRightKeys.indexOf(key) !== -1:
+      case fixed === 'right':
         this.fixedRightGroup.push(nextItem);
         break;
       }
@@ -387,7 +397,7 @@ export default class Table extends MapperFilter {
   }
 
   saveCell = (idx, isMain, rowKey) => tdDOM => {
-    if(tdDOM && isMain && tdDOM.offsetWidth >= tdMaxWidth) tdDOM.classList.add('break-word');
+    if(tdDOM && tdDOM.offsetWidth >= tdMaxWidth) tdDOM.classList.add(breakWordClass);
     if(tdDOM && isMain && idx === 0) {
       this.columnHeightInfo[rowKey] = tdDOM.offsetHeight;
     }
@@ -510,7 +520,7 @@ export default class Table extends MapperFilter {
   renderTableHeader = (options) => {
     const { needSort } = this.props;
     const { tableWidth, headerWidthMapper, sortField, isDesc } = this.state;
-    const { keyMapper, isAllCheck } = options;
+    const { keyMapper, isAllCheck, main } = options;
     const style = {
       width: this.calcTableWidth(keyMapper)
     };
@@ -523,16 +533,17 @@ export default class Table extends MapperFilter {
           <thead>
             <tr>
               {
-                keyMapper.map((item, idx) => {
+                keyMapper.map((item, _idx) => {
                   if(!item) return;
                   // const { key, w } = item;
                   // const cellWidth = w || headerWidthMapper[idx];
-                  const { key } = item;
-                  const cellWidth = headerWidthMapper[idx];
+                  const { key, idx } = item;
+                  const __idx = idx || _idx;
+                  const cellWidth = headerWidthMapper[__idx];
                   
                   let title = '';
                   if(key !== 'checkbox') {
-                    title = this.titleFilter(item, idx);
+                    title = this.titleFilter(item, __idx);
                   } else {
                     title = (
                       <input type="checkbox" checked={isAllCheck}

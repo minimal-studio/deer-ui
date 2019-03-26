@@ -2,6 +2,11 @@
 
 -----------------
 
+## 2.15.13
+
+- 修复 FixedTableHeader 的宽度计算错位问题
+- 新增 fixedRightKeys && fixedLeftKeys 接口，拓展固定表格的方法
+
 ## 2.15.12
 
 - 修复 Table 表头有时候渲染失效的问题
