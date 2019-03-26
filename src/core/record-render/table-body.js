@@ -14,6 +14,7 @@ const tdSpecClassMapper = {
 const scrollLeftClass = 'scroll-to-left';
 const scrollRightClass = 'scroll-at-right';
 const breakWordClass = 'break-word';
+const autoWidthClass = 'auto-width';
 
 const tdMaxWidth = 400;
 
@@ -236,6 +237,10 @@ export default class Table extends MapperFilter {
     });
   }
 
+  setTableContainerClass = (isAutoWidth) => {
+    if(this.tableContainer) this.tableContainer.classList.toggle(autoWidthClass, isAutoWidth);
+  }
+
   calcSize(firstRowNodes) {
     if(!this.tableContainer || !firstRowNodes) return;
     // if(Object.keys(this.firstTDDOMs).length === 0) return;
@@ -264,6 +269,8 @@ export default class Table extends MapperFilter {
     ) {
       const tableContainerWidth = this.tableContainer.offsetWidth;
       const isTableMoreContainer = nextContainerWidth > tableContainerWidth;
+      const isAutoWidth = !isTableMoreContainer;
+      this.setTableContainerClass(isAutoWidth);
       this.setState({
         headerWidthMapper: nextHeaderWidthMapper,
         // tableWidth: nextContainerWidth
@@ -281,6 +288,7 @@ export default class Table extends MapperFilter {
     if(!this.tableContainer) return;
     const { tableWidth } = this.state;
     if(tableWidth != 'auto' && tableWidth < this.tableContainer.offsetWidth) {
+      this.setTableContainerClass(true);
       this.setState({
         tableWidth: 'auto',
         isAutoWidth: true
@@ -793,7 +801,8 @@ export default class Table extends MapperFilter {
       <div className="uke-table" onMouseLeave={e => this.handleHoverRow(null)}>
         {extendDOM}
         <div
-          className={"table-render" + (isAutoWidth ? ' auto-width' : '')}
+          // className={"table-render" + (isAutoWidth ? ' auto-width' : '')}
+          className="table-render"
           onScroll={!isAutoWidth && fixedGroup ? this.handleScrollHor : undefined}
           // className={"table-render" + (hasChecked ? ' has-checked' : '')}
           ref={this.saveContainer}>
