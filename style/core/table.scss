@@ -124,13 +124,13 @@ $tdPadding: 10px;
 // @include scrollBar(5px, 5px, '.uke-table-scroll');
 .table-render {
   overflow-x: auto;
-  .table-fixed {
+  .table-fixed,.table-header {
     // display: block;
     opacity: 0;
     transition: opacity 0.2s ease;
   }
   &.ready {
-    .table-fixed {
+    .table-header,.table-fixed {
       // display: block;
       opacity: 1;
     }
