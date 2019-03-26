@@ -12,20 +12,24 @@ import MapperFilter from './mapper-filter';
  */
 export default class DescHelper extends MapperFilter {
   static propTypes = {
+    /** keyMapper */
     keyMapper: PropTypes.arrayOf(PropTypes.shape({
       /** 用于标记 key */
       key: PropTypes.string.isRequired,
       /** 用于占用一行, 如果超过 100 个字符，则自动转化成占一行的模式 */
       block: PropTypes.bool,
     })).isRequired,
-    record: PropTypes.shape({}).isRequired
+    /** 是否使用竖列显示 */
+    col: PropTypes.shape({}).isRequired,
+    /** 单项记录 */
+    record: PropTypes.shape({}).isRequired,
   };
   render() {
-    const { keyMapper = [], record = {} } = this.props;
+    const { keyMapper = [], record = {}, className = '', col } = this.props;
     let row = 0;
 
     return (
-      <div className="desc-container detail-desc">
+      <div className={`desc-container detail-desc ${className} ${col ? 'col' : ''}`}>
         {
           keyMapper.map((mapper, idx) => {
             if(!mapper) return;
