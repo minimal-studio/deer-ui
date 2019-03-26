@@ -344,9 +344,9 @@ export default class Table extends MapperFilter {
     this.tableContainer = e;
     if(e) {
       this.tableContainerWidth = e.offsetWidth;
-      e.classList.add('ready');
     }
     setTimeout(() => {
+      e.classList.add('ready');
       if(e && this.state.tableWidth == 'auto') {
         e.classList.add(scrollRightClass);
       }
@@ -355,7 +355,7 @@ export default class Table extends MapperFilter {
   }
 
   clearWatch = () => {
-    this.watchDisplayInterval && clearTimeout(this.watchDisplayInterval);
+    this.desplayWatcher && clearTimeout(this.desplayWatcher);
   }
 
   saveContainer = e => {
@@ -365,12 +365,12 @@ export default class Table extends MapperFilter {
     const { records, watcherTimer } = this.props;
     const hasRecord = records.length > 0;
     if(!hasRecord || isHide) {
-      this.watchDisplayInterval = setTimeout(() => {
+      this.desplayWatcher = setTimeout(() => {
         this.saveContainer(e);
       }, watcherTimer);
     } else {
       this.initTableContainer(e);
-      this.watchDisplayInterval = null;
+      this.desplayWatcher = null;
     }
   }
 
