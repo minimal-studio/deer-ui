@@ -88,7 +88,9 @@ $windowActiveShadow: 0 12px 36px rgba(#000, 0.3);
   &.normal-mode {
     z-index: 999;
     .uke-modal-layout {
-      margin: 2% auto 0;
+      // margin: 2% auto 0;
+      margin-left: auto;
+      margin-right: auto;
     }
   }
   &.fixed, &.side-modal {

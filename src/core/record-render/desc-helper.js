@@ -20,7 +20,7 @@ export default class DescHelper extends MapperFilter {
       block: PropTypes.bool,
     })).isRequired,
     /** 是否使用竖列显示 */
-    col: PropTypes.shape({}).isRequired,
+    col: PropTypes.bool,
     /** 单项记录 */
     record: PropTypes.shape({}).isRequired,
   };

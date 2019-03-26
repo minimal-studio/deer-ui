@@ -118,11 +118,13 @@ const getModalDefaultWidth = (modalType) => {
 
 const getDefaultOptions = (options) => {
   const { width, type } = options;
+  const { isMobile } = window.$UKE;
   return {
     className: 'fixed',
     topClassName: 'top-modal-opend',
     showFuncBtn: false,
-    width: width ? width : window.$UKE.isMobile ? '90%' : getModalDefaultWidth(type)
+    marginTop: isMobile ? '0' : undefined,
+    width: width ? width : isMobile ? '90%' : getModalDefaultWidth(type)
   };
 };
 

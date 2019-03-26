@@ -72,6 +72,7 @@ export default class Modal extends DragPanelClass {
     clickBgToClose: false,
     draggable: false,
     duration: 300,
+    marginTop: '2%',
     animateType: 'modal',
     title: 'Title',
     className: '',
@@ -155,7 +156,7 @@ export default class Modal extends DragPanelClass {
   render() {
     const {
       children, title, isOpen, animateType, selectWindow, sectionId, idx,
-      width, style, className, modalLayoutDOM, duration, id, template,
+      width, marginTop, style, className, modalLayoutDOM, duration, id, template,
       clickBgToClose, showCloseBtn, Header, needMask, draggable, animation,
       onCloseModal, maxHeightable, needHeader, needMaxBtn, needMinBtn,
       minimizeWindow, position,
@@ -197,6 +198,7 @@ export default class Modal extends DragPanelClass {
 
     const _style = Object.assign({}, style, {
       width,
+      marginTop,
       outline: 'none'
     });
 
