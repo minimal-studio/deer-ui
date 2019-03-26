@@ -94,8 +94,8 @@ export default class Modal extends DragPanelClass {
   }
   
   componentWillUnmount() {
-    let { topClassName, isOpen } = this.props;
-    document.body.classList.remove(topClassName);
+    let { isOpen } = this.props;
+    this.toggleTopClass(false);
     this.__mount = false;
 
     /**
@@ -105,11 +105,21 @@ export default class Modal extends DragPanelClass {
   }
   
   componentDidUpdate(preProps) {
-    let { topClassName, draggable } = this.props;
-    !draggable && document.body.classList.add(topClassName);
+    let { draggable, isMinimize } = this.props;
+    const isAdd = !isMinimize && !draggable;
+    this.toggleTopClass(isAdd);
+    // if(isMinimize) {
+    // } 
+    // if(!draggable) {
+    //   this.toggleTopClass(true);
+    // }
     if(this.props.isOpen !== preProps.isOpen) {
       this.setContentFocus();
     }
+  }
+
+  toggleTopClass = (isAdd) => {
+    document.body.classList.toggle(this.props.topClassName, isAdd);
   }
 
   setContentFocus = () => {
