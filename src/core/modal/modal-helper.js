@@ -13,14 +13,26 @@ export default class ModalHelper extends Component {
       }
     };
   }
-  setModal(modalSetting) {
-    this.setState({
-      modalSetting: Object.assign({}, modalSetting, {
-        isOpen: typeof modalSetting.isOpen == 'undefined' ? true : modalSetting.isOpen
-      })
+  showModal = () => {
+    this.setState(({ modalSetting }) => {
+      return {
+        modalSetting: {
+          ...modalSetting,
+          isOpen: true
+        }
+      };
     });
   }
-  closeModal() {
+  setModal = (mextSetting) => {
+    this.setState(({ modalSetting }) => {
+      return {
+        modalSetting: Object.assign({}, modalSetting, mextSetting, {
+          isOpen: typeof modalSetting.isOpen == 'undefined' ? true : modalSetting.isOpen
+        })
+      };
+    });
+  }
+  closeModal = () => {
     this.setState({
       modalSetting: {
         isOpen: false

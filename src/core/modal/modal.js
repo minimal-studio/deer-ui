@@ -11,7 +11,7 @@ import { Icon } from '../icon';
 const ESC_KEY = 27;
 const classNameMap = {
   side: 'side-modal',
-  normal: ''
+  normal: 'normal-modal'
 };
 const animateTypeFilter = (props) => {
   const { animateType, position, modalType } = props;
