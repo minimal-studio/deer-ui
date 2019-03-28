@@ -53,6 +53,8 @@ export default class Table extends MapperFilter {
       date: PropTypes.any,
       /** 内置 filter，是否格式化成金钱 */
       money: PropTypes.any,
+      /** 响应该字段的 sort 事件, 如果返回 true，则为正序，false 为倒叙 */
+      onSort: PropTypes.func,
       /** 单个格子的宽度 */
       // w: PropTypes.any,
       /** 内置 filter，是否以绝对值格式化成金钱 */
@@ -77,8 +79,8 @@ export default class Table extends MapperFilter {
     fixHead: PropTypes.bool,
     /** 一些表头的选择器 onChange 的回调, 回调参数 [emitVal, selectorConfig] */
     onChange: PropTypes.func,
-    /** 是否需要排序 */
-    needSort: PropTypes.bool,
+    /** 是否需要内部排序 */
+    needInnerSort: PropTypes.bool,
     /** 是否多选 */
     needCheck: PropTypes.bool,
     /** 右边固定表格的列的集合 */
@@ -106,7 +108,7 @@ export default class Table extends MapperFilter {
     fixedRightKeys: [],
     needCheck: false,
     height: 'auto',
-    needSort: true,
+    needInnerSort: false,
     watcherTimer: 1000,
     fixHead: true,
     checkWidth: 30,
@@ -127,7 +129,8 @@ export default class Table extends MapperFilter {
       headerWidthMapper: [],
       tableWidth: 'auto',
       sortField: '',
-      isDesc: false,
+      isDescInner: false,
+      isDescOutside: undefined,
       hoveringRow: null,
       checkedItems: {},
     };
@@ -306,7 +309,7 @@ export default class Table extends MapperFilter {
   }
 
   recordsOrderFilter() {
-    const { sortField, isDesc } = this.state;
+    const { sortField, isDescInner } = this.state;
     const { records } = this.props;
     if(!sortField) return records;
     let result = [...records];
@@ -325,15 +328,15 @@ export default class Table extends MapperFilter {
         break;
       }
 
-      return isDesc ? res : res * -1;
+      return isDescInner ? res : res * -1;
     });
     return result;
   }
 
   orderRecord(orderKey) {
     if(this.ignoreFilter(orderKey)) return;
-    this.setState(({isDesc, sortField}) => {
-      let _isDesc = isDesc;
+    this.setState(({isDescInner, sortField}) => {
+      let _isDesc = isDescInner;
       if(sortField == orderKey) {
         this.sameSortTime += 1;
         if(this.sameSortTime === 2) {
@@ -349,7 +352,7 @@ export default class Table extends MapperFilter {
       }
       return {
         sortField: orderKey,
-        isDesc: _isDesc
+        isDescInner: _isDesc
       };
     });
   }
@@ -526,12 +529,13 @@ export default class Table extends MapperFilter {
   }
 
   renderTableHeader = (options) => {
-    const { needSort } = this.props;
-    const { tableWidth, headerWidthMapper, sortField, isDesc } = this.state;
+    const { needInnerSort } = this.props;
+    const { tableWidth, headerWidthMapper, sortField, isDescInner, isDescOutside } = this.state;
     const { keyMapper, isAllCheck, main } = options;
     const style = {
       width: this.calcTableWidth(keyMapper)
     };
+    const isDesc = typeof isDescOutside == 'undefined' ? isDescInner : isDescOutside;
     return (
       <div
         key="tableHead"
@@ -545,9 +549,10 @@ export default class Table extends MapperFilter {
                   if(!item) return;
                   // const { key, w } = item;
                   // const cellWidth = w || headerWidthMapper[idx];
-                  const { key, idx } = item;
+                  const { key, idx, onSort } = item;
                   const __idx = idx || _idx;
                   const cellWidth = headerWidthMapper[__idx];
+                  const needSort = needInnerSort || onSort;
                   
                   let title = '';
                   if(key !== 'checkbox') {
@@ -559,7 +564,7 @@ export default class Table extends MapperFilter {
                     );
                   }
 
-                  const isOrdering = sortField == key;
+                  const isOrdering = !!onSort || sortField == key;
                   const canOrder = needSort && !this.ignoreFilter(key);
                   const sortTip = canOrder && (
                     <span className={`sort-caret-group ${isDesc ? 'desc' : 'asc'}`}>
@@ -571,7 +576,16 @@ export default class Table extends MapperFilter {
                   );
 
                   const clickHandlerForTh = needSort ? {
-                    onClick: () => this.orderRecord(key)
+                    onClick: () => {
+                      if(IsFunc(onSort)) {
+                        const _isDesc = onSort(item, isDescOutside);
+                        this.setState({
+                          isDescOutside: !!_isDesc
+                        });
+                      } else {
+                        this.orderRecord(key);
+                      }
+                    }
                   } : {};
 
                   return (

@@ -198,7 +198,6 @@ $tdPadding: 10px;
   thead {
     // background-color: $tableHeaderBgColor;
     tr th {
-      border-bottom: 1px solid #ddd;
       font-weight: normal;
       color: $tableHeaderTextColor;
       padding: 8px $tdPadding;
@@ -209,6 +208,9 @@ $tdPadding: 10px;
       text-overflow: ellipsis;
       white-space: nowrap;
       overflow: hidden;
+      // border-right: 1px solid #DDD;
+      // border-top: 1px solid #EEE;
+      border-bottom: 1px solid #ddd;
     }
   }
 
@@ -235,10 +237,10 @@ $tdPadding: 10px;
       }
       td {
         border-bottom: 1px solid #f0f0f0;
+        border-top: 0;
         // border-right: 1px solid #EEE;
         padding: 8px $tdPadding;
         // text-align: center;
-        border-top: 0;
         // word-break: break-all;
         // white-space: inherit;
         /** 为了让表格形成一行 */
