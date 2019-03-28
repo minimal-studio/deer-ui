@@ -140,7 +140,7 @@ const records = [
     username: 'dove',
     property: '300,000',
     age: '50',
-    add: 'cn1241241241257172590812903890128590127095712905709125u012',
+    add: 'cn',
     obj: {
       account: 123,
     },
@@ -173,7 +173,18 @@ const records = [
     username: 'susam',
     property: '400,000',
     age: '20',
-    add: 'uk',
+    add: 'cn1241241241257172590812903890128590127095712905709125u012',
+    obj: {
+      account: 123,
+    },
+    birth: new Date('1999-01-01'),
+  },
+  {
+    id: 7,
+    username: 'susam',
+    property: '400,000',
+    age: '20',
+    add: 'cn124124124125717259081290389',
     obj: {
       account: 123,
     },

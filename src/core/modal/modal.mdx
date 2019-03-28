@@ -33,6 +33,15 @@ import { Modal } from './';
                 children: '内容'
               }
             })}>打开 Modal</span>
+          <span className="btn red flat ml10"
+            onClick={e => setState({
+              modalSetting: {
+                isOpen: true,
+                modalType: 'side',
+                position: 'right',
+                children: '内容'
+              }
+            })}>左边打开 Modal</span>
           <Modal {...state.modalSetting} onCloseModal={e => {
             setState({
               modalSetting: {

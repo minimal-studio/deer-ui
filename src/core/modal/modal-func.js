@@ -7,7 +7,7 @@ import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
 import { Icon } from '../icon';
 import ModalHelper from './modal-helper';
-import Modal from './modal';
+import Modal, { animateTypeFilter } from './modal';
 import setDOMById from '../set-dom';
 import {
   windowManagerActions,
@@ -47,7 +47,8 @@ const ModalsManager = connect(selector, windowManagerActions)((props) => {
   const sections = Array.isArray(sectionsQueue) && sectionsQueue.map(key => {
     const currItem = sectionsList[key];
     if(!currItem) return;
-    const { id, animateType = 'modal' } = currItem;
+    const { id } = currItem;
+    const animateType = animateTypeFilter(currItem);
     const sectionId = id;
     const currSectionIdx = sectionsQueue.indexOf(sectionId);
     return (
@@ -182,8 +183,7 @@ function ShowModal(options) {
     break;
   case 'side':
     options = Object.assign({}, {
-      animateType: `${position}-side-modal`,
-      className: 'side-modal',
+      modalType: 'side',
       clickBgToClose: true
     }, options);
     modalTMPL = (

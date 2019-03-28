@@ -129,6 +129,7 @@ export default class Table extends MapperFilter {
       headerWidthMapper: [],
       tableWidth: 'auto',
       sortField: '',
+      sortOutsideField: '',
       isDescInner: false,
       isDescOutside: undefined,
       hoveringRow: null,
@@ -304,6 +305,13 @@ export default class Table extends MapperFilter {
     }, 100);
   }
 
+  onChangeRecords = () => {
+    setTimeout(() => {
+      this.reSaveFirstRow();
+      this.resizeCalcSize();
+    }, 10);
+  }
+
   ignoreFilter(str) {
     return [...this.sortIgnores, ...this.props.sortIgnores].indexOf(str) !== -1;
   }
@@ -408,7 +416,7 @@ export default class Table extends MapperFilter {
   }
 
   saveCell = (idx, isMain, rowKey) => tdDOM => {
-    if(tdDOM && tdDOM.offsetWidth >= tdMaxWidth) tdDOM.classList.add(breakWordClass);
+    if(tdDOM && tdDOM.offsetWidth > tdMaxWidth) tdDOM.classList.add(breakWordClass);
     if(tdDOM && isMain && idx === 0) {
       this.columnHeightInfo[rowKey] = tdDOM.offsetHeight;
     }
@@ -466,7 +474,7 @@ export default class Table extends MapperFilter {
       const _className = `${tdSpecClassMapper[key] || ''} ${className ||  ''}`;
       const tdDOM = (
         <td
-          ref={this.saveCell(_idx, main, rowKey)}
+          ref={e => this.saveCell(_idx, main, rowKey)(e)}
           // style={mapperItem.w ? {width: mapperItem.w, whiteSpace: 'pre-wrap'} : style}
           className={_className}
           key={tdKey}>
@@ -530,7 +538,7 @@ export default class Table extends MapperFilter {
 
   renderTableHeader = (options) => {
     const { needInnerSort } = this.props;
-    const { tableWidth, headerWidthMapper, sortField, isDescInner, isDescOutside } = this.state;
+    const { tableWidth, headerWidthMapper, sortField, sortOutsideField, isDescInner, isDescOutside } = this.state;
     const { keyMapper, isAllCheck, main } = options;
     const style = {
       width: this.calcTableWidth(keyMapper)
@@ -564,7 +572,7 @@ export default class Table extends MapperFilter {
                     );
                   }
 
-                  const isOrdering = !!onSort || sortField == key;
+                  const isOrdering = onSort ? sortOutsideField == key : sortField == key;
                   const canOrder = needSort && !this.ignoreFilter(key);
                   const sortTip = canOrder && (
                     <span className={`sort-caret-group ${isDesc ? 'desc' : 'asc'}`}>
@@ -580,7 +588,8 @@ export default class Table extends MapperFilter {
                       if(IsFunc(onSort)) {
                         const _isDesc = onSort(item, isDescOutside);
                         this.setState({
-                          isDescOutside: !!_isDesc
+                          isDescOutside: !!_isDesc,
+                          sortOutsideField: key
                         });
                       } else {
                         this.orderRecord(key);
@@ -609,7 +618,12 @@ export default class Table extends MapperFilter {
     );
   }
 
+  reSaveFirstRow = () => {
+    this.firstRowNodes = this.mainTableBody ? this.mainTableBody.querySelectorAll('tbody tr:first-child td') : null;
+  }
+
   saveTableBody = t => {
+    this.mainTableBody = t;
     this.firstRowNodes = t ? t.querySelectorAll('tbody tr:first-child td') : null;
     t && this.calcSize(this.firstRowNodes);
   }
@@ -642,7 +656,7 @@ export default class Table extends MapperFilter {
         className="uke-table-scroll"
         style={style}>
         <table className="table nomargin table-body"
-          ref={isSetWidth ? this.saveTableBody : null}>
+          ref={main ? this.saveTableBody : null}>
           <tbody>
             {
               this.renderRow({
@@ -664,7 +678,7 @@ export default class Table extends MapperFilter {
           </tfoot>
         </table>
       </div>
-    ) : (
+    ) : main && (
       <span className="no-record-tip">
         <Icon n="noData"/>
         <span className="text">{this.gm('暂无记录')}</span>

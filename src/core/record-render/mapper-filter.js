@@ -29,6 +29,9 @@ export default class MapperFilter extends UkeComponent {
     const isKeyMapperChange = this.props.keyMapper != nextProps.keyMapper;
     const isRecordsChange = this.props.records != nextProps.records;
     // const isCheckedItemsChange = this.state.checkedItems != nextState.checkedItems;
+    if(isRecordsChange && this.onChangeRecords) {
+      this.onChangeRecords();
+    }
     return isStateChange || isPropsChange || isKeyMapperChange || isRecordsChange;
   }
   titleFilter(item, idx) {

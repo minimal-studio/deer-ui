@@ -254,6 +254,14 @@ const keyMapper = [
                         }
                       })
                     }}>增加一条记录</span>
+                    <span className="btn gold mr10" onClick={e => {
+                      setState(({ records }) => {
+                        let nextKeyMapper = [...records].slice(0, records.length - 1);
+                        return {
+                          records: nextKeyMapper
+                        }
+                      })
+                    }}>减少一条记录</span>
                     <Table
                       keyMapper={state.keyMapper}
                       ref={e => table = e}

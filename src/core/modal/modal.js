@@ -9,8 +9,24 @@ import { DragPanelClass } from './drag-pabel-helper';
 import { Icon } from '../icon';
 
 const ESC_KEY = 27;
+const classNameMap = {
+  side: 'side-modal',
+  normal: ''
+};
+const animateTypeFilter = (props) => {
+  const { animateType, position, modalType } = props;
+  if(animateType) return animateType;
+  let res = 'modal';
+  switch (modalType) {
+  case 'side':
+    res = `${position}-side-modal`;
+    break;
+  }
+  return res;
+};
 
 export default class Modal extends DragPanelClass {
+  static animateTypeFilter = animateTypeFilter
   static propTypes = {
     /** title */
     title: PropTypes.string,
@@ -58,6 +74,13 @@ export default class Modal extends DragPanelClass {
     onClose: PropTypes.func,
     /** 是否使用 esc 按键关闭 modal */
     shouldCloseOnEsc: PropTypes.bool,
+    /** 是否使用 esc 按键关闭 modal */
+    modalType: PropTypes.oneOf([
+      'normal', 'side'
+    ]),
+    position: PropTypes.oneOf([
+      'left', 'right', 'top', 'bottom'
+    ]),
     /** 是否关闭 modal content 的最大高度 80vh */
     maxHeightable: PropTypes.bool,
   };
@@ -69,11 +92,10 @@ export default class Modal extends DragPanelClass {
     needHeader: true,
     animation: true,
     needMask: true,
-    clickBgToClose: false,
     draggable: false,
     duration: 300,
     marginTop: '2%',
-    animateType: 'modal',
+    modalType: 'normal',
     title: 'Title',
     className: '',
     children: null,
@@ -155,14 +177,16 @@ export default class Modal extends DragPanelClass {
 
   render() {
     const {
-      children, title, isOpen, animateType, selectWindow, sectionId, idx,
+      children, title, isOpen, selectWindow, sectionId, idx,
       width, marginTop, style, className, modalLayoutDOM, duration, id, template,
-      clickBgToClose, showCloseBtn, Header, needMask, draggable, animation,
+      showCloseBtn, Header, needMask, draggable, animation,
       onCloseModal, maxHeightable, needHeader, needMaxBtn, needMinBtn,
-      minimizeWindow, position,
+      minimizeWindow, position, modalType,
       isMinimize,
       // isMaximize
     } = this.props;
+    const { clickBgToClose = modalType === 'normal' ? false : true } = this.props;
+    const animateType = animateTypeFilter(this.props);
     const { isMaximize } = this.state;
 
     let modalIdx = this.props.idx || 0;
@@ -171,6 +195,7 @@ export default class Modal extends DragPanelClass {
     const classNames = classnames({
       [className]: !!className,
       [position]: !!position,
+      [classNameMap[modalType]]: !!modalType,
       'drag-mode': draggable,
       'normal-mode': !draggable,
       maximinze: isMaximize,
@@ -273,3 +298,7 @@ export default class Modal extends DragPanelClass {
     ) : sections;
   }
 }
+
+export {
+  animateTypeFilter
+};
