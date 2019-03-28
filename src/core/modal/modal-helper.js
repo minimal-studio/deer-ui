@@ -23,19 +23,21 @@ export default class ModalHelper extends Component {
       };
     });
   }
-  setModal = (mextSetting) => {
+  setModal = (nextSetting) => {
     this.setState(({ modalSetting }) => {
-      const { isOpen = true } = mextSetting;
+      const { isOpen = true } = nextSetting;
       return {
-        modalSetting: Object.assign({}, modalSetting, mextSetting, {
+        modalSetting: Object.assign({}, modalSetting, nextSetting, {
           isOpen
         })
       };
     });
   }
   closeModal = () => {
+    const { modalSetting } = this.state;
     this.setState({
       modalSetting: {
+        ...modalSetting,
         isOpen: false
       }
     });
