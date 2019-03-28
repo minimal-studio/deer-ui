@@ -25,9 +25,10 @@ export default class ModalHelper extends Component {
   }
   setModal = (mextSetting) => {
     this.setState(({ modalSetting }) => {
+      const { isOpen = true } = mextSetting;
       return {
         modalSetting: Object.assign({}, modalSetting, mextSetting, {
-          isOpen: typeof modalSetting.isOpen == 'undefined' ? true : modalSetting.isOpen
+          isOpen
         })
       };
     });
