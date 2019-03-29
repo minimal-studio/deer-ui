@@ -119,7 +119,7 @@ export default class Notification extends UkePureComponent {
     const notifyItemsKeys = Object.keys(notifyItems);
     const notifyItemsKeysLen = notifyItemsKeys.length;
     const hasMsg = notifyItemsKeysLen > 0;
-    const needClearAllBtn = hasMsg;
+    const needClearAllBtn = notifyItemsKeysLen > 3;
     const gm = this.gm;
 
     const container = (

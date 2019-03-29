@@ -4,6 +4,7 @@ route: /ToolTip
 menu: Components / 组件
 ---
 
+import { useState } from 'react';
 import { Playground, PropsTable } from 'docz'
 import { State, Toggle } from 'react-powerplug'
 import { ToolTip } from './';
@@ -52,6 +53,30 @@ import { ToolTip } from './';
             }
           }
         </State>
+      )
+    }
+  }
+</Playground>
+
+<Playground>
+  {
+    () => {
+      const [isShow, setShow] = useState(true);
+      return (
+        <div>
+          {
+            isShow ? (
+              <ToolTip
+                onClick={e => setShow(!isShow)}
+                clickToClose
+                title="就是这么爽"
+                n="angry">
+              </ToolTip>
+            ) : (
+              <span onClick={e => setShow(true)}>显示</span>
+            )
+          }
+        </div>
       )
     }
   }

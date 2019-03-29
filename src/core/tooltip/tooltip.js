@@ -61,6 +61,9 @@ export default class ToolTip extends PureComponent {
     position: 'bottom',
     classNames: []
   }
+  componentWillUnmount() {
+    Popover.close();
+  }
   render() {
     const {
       title, clickToClose, onClick, position, component,
