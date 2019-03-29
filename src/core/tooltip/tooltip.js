@@ -62,7 +62,7 @@ export default class ToolTip extends PureComponent {
     classNames: []
   }
   componentWillUnmount() {
-    Popover.close();
+    setTimeout(() => Popover.close(), 10);
   }
   render() {
     const {
