@@ -37,8 +37,8 @@
   &.bottom {
     .caret {
       top: -8px;
-      left: 48%;
-      transform: rotate(-180deg) translateX(100%);
+      // left: 48%;
+      transform: rotate(-180deg) translateX(-100%);
     }
   }
   &.left {
