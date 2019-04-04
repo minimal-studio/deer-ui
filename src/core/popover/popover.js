@@ -71,6 +71,7 @@ export default class Popover extends Component {
     }
     return null;
   }
+  readPosition = '';
   constructor(props) {
     super(props);
 
@@ -79,6 +80,7 @@ export default class Popover extends Component {
       //   width: 0,
       //   height: 0
       // },
+      positionStyle: {},
       prevProps: props,
       childrenChange: false
     };
@@ -164,32 +166,45 @@ export default class Popover extends Component {
       width: elem.offsetWidth,
       height: elem.offsetHeight,
     };
-    const positionStyle = this.calaStyle(position, popoverScale);
-    elem.style.top = positionStyle.top + 'px';
-    elem.style.left = positionStyle.left + 'px';
+    const nextPositionStyle = this.calaStyle(position, popoverScale);
+    const { positionStyle } = this.state;
+    if(JSON.stringify(nextPositionStyle) !== JSON.stringify(positionStyle)) {
+      this.setState({
+        positionStyle: nextPositionStyle
+      });
+    }
+    // elem.style.top = positionStyle.top + 'px';
+    // elem.style.left = positionStyle.left + 'px';
+    // this.readPosition = positionStyle.position;
   }
   render() {
     const {
-      open, children, relativeElem, position,
+      open, children, relativeElem,
       className = '', onClose, fixed, type, style,
       showCloseBtn, enableTabIndex
     } = this.props;
     if(!relativeElem) return <span />;
+    const { positionStyle } = this.state;
+    const { top, left, position } = positionStyle;
+    const _style = Object.assign({}, style, {
+      top: top,
+      left: left,
+    });
 
     let container = (<span />);
     const transitionKey = open ? 'popover' : 'popover-close';
     if(open) {
-      const closeBtn = showCloseBtn ? (
+      const closeBtn = showCloseBtn && (
         <div className="close-btn" onClick={e => onClose()}>x</div>
-      ) : null;
+      );
       let obj = enableTabIndex ? {tabIndex: '-1', onKeyDown: this.handleKeyDown} : {};
       container = (
         <div {...obj}
           className={`uke-popover ${fixed ? 'fixed' : ''} ${position} ${className} ${type}`}
-          style={style}
+          style={_style}
           ref={e => this.setSelfPosition(e)}>
           {closeBtn}
-          {/* <span className="caret"></span> */}
+          <span className="caret" />
           {children}
         </div>
       );

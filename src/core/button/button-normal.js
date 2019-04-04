@@ -41,8 +41,7 @@ const Button = (props) => {
       }}>
       <span className="layout a-i-c">
         {iconDOM}
-        {text}
-        {children}
+        {children || text}
         {loadingTip}
       </span>
     </button>

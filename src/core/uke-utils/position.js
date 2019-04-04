@@ -1,7 +1,6 @@
 
 import { getScreenWidth, getScreenHeight, getScrollTop } from '../utils';
 
-let sideOffsetTop = -10;
 let ScreenWidth = getScreenWidth();
 let ScreenHeight = getScreenHeight();
 
@@ -13,40 +12,44 @@ window.onresize = () => {
 /**
  * 计算最终的 top 和 left，并且根据浏览器可视边界判断最终结果
  */
-export function getLeft(offsetTop, offsetLeft, offsetWidth, offsetHeight, width, height, fromRight = false) {
-  let left = offsetLeft - width - 12;
-  if(left - width <= 0 && !fromRight) return getRight(...arguments);
-  // if(left + width > ScreenWidth) left = ScreenWidth - width;
+export function getLeft(offsetTop, offsetLeft, offsetWidth, offsetHeight, elemWidth, elemHeight, fromRight = false) {
+  let left = offsetLeft - elemWidth - 12;
+  if(left - elemWidth <= 0 && !fromRight) return getRight(...arguments);
+  // if(left + elemWidth > ScreenWidth) left = ScreenWidth - elemWidth;
   return {
-    top: offsetTop + sideOffsetTop,
+    top: offsetTop,
+    position: 'left',
     left
   };
 }
 
-export function getRight(offsetTop, offsetLeft, offsetWidth, offsetHeight, width, height) {
+export function getRight(offsetTop, offsetLeft, offsetWidth, offsetHeight, elemWidth, elemHeight) {
   let left = offsetLeft + offsetWidth + 15;
-  if(left + width >= ScreenWidth) return getLeft(...arguments, true);
-  // if(left - width <= 0) left = ScreenWidth - width;
+  if(left + elemWidth >= ScreenWidth) return getLeft(...arguments, true);
+  // if(left - elemWidth <= 0) left = ScreenWidth - elemWidth;
   return {
-    top: offsetTop + sideOffsetTop,
+    top: offsetTop,
+    position: 'right',
     left
   };
 }
 
-export function getTop(offsetTop, offsetLeft, offsetWidth, offsetHeight, width, height) {
-  let top = offsetTop - height - offsetHeight / 2;
-  if(top - height <= 0) return getBottom(...arguments);
+export function getTop(offsetTop, offsetLeft, offsetWidth, offsetHeight, elemWidth, elemHeight) {
+  let top = offsetTop - elemHeight - offsetHeight / 2;
+  if(top - elemHeight <= 0) return getBottom(...arguments);
   return {
     top,
+    position: 'top',
     left: offsetLeft
   };
 }
 
-export function getBottom(offsetTop, offsetLeft, offsetWidth, offsetHeight, width, height) {
+export function getBottom(offsetTop, offsetLeft, offsetWidth, offsetHeight, elemWidth, elemHeight) {
   let top = offsetTop + offsetHeight + offsetHeight / 2;
-  if(top + height >= ScreenHeight) return getTop(...arguments);
+  if(top + elemHeight >= ScreenHeight) return getTop(...arguments);
   return {
     top,
+    position: 'bottom',
     left: offsetLeft
   };
 }

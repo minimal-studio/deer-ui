@@ -1,16 +1,17 @@
 .tip-panel {
   border: 1px solid transparent;
   border-radius: 3px;
-  padding: 5px 10px;
+  padding: 10px 15px;
   margin: 10px;
   position: relative;
 
   .icon {
-    position: absolute;
-    top: -5px;
-    left: -5px;
-    font-size: 16px;
-    color: inherit;
+    margin-left: 10px;
+    // position: absolute;
+    // top: -5px;
+    // left: -5px;
+    // font-size: 16px;
+    // color: inherit;
   }
 
   .item {
@@ -22,8 +23,8 @@
   }
 
   &.warm {
-    background-color: #fffffe;
-    border-color: #eae7ab;
+    background-color: #fffbe6;
+    border-color: #d0cb61;
     color: #887210;
 
     .item {
@@ -31,7 +32,7 @@
     }
 
     .title {
-      color: #188368;
+      color: #574b17;
     }
   }
 

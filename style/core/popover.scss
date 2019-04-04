@@ -11,44 +11,48 @@
   transition: opacity 0.2s ease;
   outline: none;
   border-radius: 3px;
+  // @include bgColor;
+  @include popbg();
   &.white {
-    @include popbg();
+    background-color: #FFF;
+    color: inherit;
   }
-  @include bgColor;
   &.fixed {
     position: fixed;
   }
   &.top {
     .caret {
-      top: -8px;
-      left: 48%;
-      transform: rotate(-180deg);
+      bottom: -8px;
+      // left: ;
+      transform: translateX(100%);
     }
   }
   &.right {
     .caret {
-      right: -12px;
-      top: 15px;
-      transform: rotate(-90deg);
+      left: -14px;
+      top: 10px;
+      transform: rotate(90deg);
     }
   }
   &.bottom {
     .caret {
-      bottom: -8px;
+      top: -8px;
       left: 48%;
+      transform: rotate(-180deg) translateX(100%);
     }
   }
   &.left {
     .caret {
-      left: -14px;
-      top: 15px;
-      transform: rotate(90deg);
+      right: -12px;
+      top: 10px;
+      transform: rotate(-90deg);
     }
   }
   .caret {
     position: absolute;
     color: #FFF;
     border-width: 8px;
+    transition: none;
   }
   .close-btn {
     position: absolute;

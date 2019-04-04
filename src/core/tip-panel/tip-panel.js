@@ -1,7 +1,8 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
-import { ToolTip } from '../tooltip';
+// import { ToolTip } from '../tooltip';
+import { Icon } from '../icon';
 
 export default class TipPanel extends PureComponent {
   static propTypes = {
@@ -22,11 +23,14 @@ export default class TipPanel extends PureComponent {
     texts: PropTypes.arrayOf(PropTypes.any),
     /** 是否需要内容收起展开的开关 */
     needToolTip: PropTypes.bool,
+    /** 是否可收缩内容 */
+    collapse: PropTypes.bool,
   };
   static defaultProps = {
     type: 'warm',
     needToolTip: false,
     defaultShow: true,
+    collapse: true,
     title: '',
     text: '',
   }
@@ -42,32 +46,32 @@ export default class TipPanel extends PureComponent {
   //     showContent: defaultShow
   //   };
   // }
-  toggleContent() {
+  toggleContent = () => {
     this.setState(({showContent}) => ({
       showContent: !showContent
     }));
   }
   render() {
-    const {title, text, texts = [], type, needToolTip, defaultShow, ...other} = this.props;
-    const {showContent} = this.state;
+    const { title, text, texts = [], type, needToolTip, defaultShow, collapse, ...other} = this.props;
+    const { showContent } = this.state;
 
-    const titleDOM = title ? (
+    const titleDOM = title && (
       <h4 className="title">
-        {title}
-        {
-          needToolTip ? (
-            <ToolTip
-              title={showContent ? '缩起': '展开'}
-              n={showContent ? "circle-up" : "circle-down"}
-              onClick={e => this.toggleContent()}/>
-          ) : null
-        }
+        <div onClick={collapse ? this.toggleContent : null}>
+          {title}
+          {
+            collapse && (
+              <Icon
+                n={showContent ? "arrow-up" : "arrow-down"} />
+            )
+          }
+        </div>
       </h4>
-    ) : null;
+    );
   
-    const textDOM = text ? (
+    const textDOM = text && (
       <div className="item">{text}</div>
-    ) : null;
+    );
   
     const textsDOM = [];
   

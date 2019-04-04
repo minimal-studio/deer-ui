@@ -1,6 +1,8 @@
 const defaultIconMapper = {
   'arrow-left': 'angle-left',
   'arrow-right': 'angle-right',
+  'arrow-up': 'angle-up',
+  'arrow-down': 'angle-down',
   date: 'calendar-alt',
   more: 'equals',
   close: 'times',

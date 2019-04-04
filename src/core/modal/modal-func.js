@@ -184,7 +184,9 @@ function ShowModal(options) {
   case 'side':
     options = Object.assign({}, {
       modalType: 'side',
-      clickBgToClose: true
+      clickBgToClose: true,
+      needMaxBtn: false,
+      needMinBtn: false,
     }, options);
     modalTMPL = (
       <div className="global-modal-container">

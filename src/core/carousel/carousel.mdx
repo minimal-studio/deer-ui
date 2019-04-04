@@ -16,21 +16,21 @@ import { Carousel } from './';
 <Playground>
   <Carousel
     styleConfig={{
-      width: 500,
-      height: 200
+      width: '100%',
+      height: 500
     }}
     carouselItems={[
       {
-        imgUrl: 'https://tse1.mm.bing.net/th?id=OIP.2r73X7SmOy1zmFh_2YhbTwHaHa&pid=Api',
+        imgUrl: 'http://t1.hxzdhn.com/uploads/tu/201704/9999/29c7d063d8.jpg',
         action: () => alert('点击了 img')
       },
       {
-        imgUrl: 'https://tse1.mm.bing.net/th?id=OIP.2r73X7SmOy1zmFh_2YhbTwHaHa&pid=Api',
+        imgUrl: 'http://t1.hxzdhn.com/uploads/tu/201704/9999/71abe83a7a.jpg',
         action: () => alert('点击了 img')
       },
       {
         element: (
-          <div>测试用例</div>
+          <div className="p20 t_white">使用自定义的 React Components</div>
         )
       }
     ]}/>
