@@ -2,6 +2,10 @@
 
 -----------------
 
+## 2.15.29
+
+- 优化 FormGerenator 的 Title 的样式
+
 ## 2.15.28
 
 - FormGerenator 新增 Title 的配置
