@@ -74,7 +74,7 @@ export default class FormGenerator extends FormFilterHelper {
                 );
               } else {
                 return (
-                  <h3 className="form-group-title">
+                  <h3 className="form-group-title" key={idx}>
                     <span className="inner-text">{option}</span>
                   </h3>
                 );

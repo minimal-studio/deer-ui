@@ -40,7 +40,7 @@ import FormOptionsDesc from './form-options-demo.md';
             }}
             formOptions={formOptions}/>
           <span className="btn theme flat mr10" onClick={e => {
-              console.log(formRef.value);
+              console.log(formRef, formRef.value);
           }}>提交</span>
           <span className="btn red flat" onClick={e => {
               formRef.clearValue();
