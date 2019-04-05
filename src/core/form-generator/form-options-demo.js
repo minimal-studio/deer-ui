@@ -8,6 +8,7 @@ const CustomerCom = ({ onChange }) => {
 };
 
 const formOptions = [
+  '日期',
   {
     refs: ['startDate', 'endDate'],
     type: 'datetimeRange',
@@ -23,6 +24,7 @@ const formOptions = [
     tips: '123',
     defaultValue: []
   },
+  '选择器',
   {
     ref: 'ref1',
     type: 'radio',
@@ -65,40 +67,29 @@ const formOptions = [
     }
   },
   {
+    ref: 'switch',
+    type: 'switch',
+    title: '开关',
+    defaultValue: true
+  },
+  '输入控制',
+  {
+    ref: 'textarea',
+    type: 'textarea',
+    title: '文本',
+  },
+  {
+    ref: 'captchCode',
+    type: 'captcha',
+    keyRef: 'captchKey',
+    title: '验证码',
+  },
+  {
     ref: 'ref3',
     type: 'input',
     inputType: 'number',
     required: true,
     title: '选择控件',
-    values: {
-      value1: 'value1',
-      value2: 'value2',
-      value3: 'value3',
-    }
-  },
-  {
-    ref: 'customer1',
-    type: 'customForm',
-    getCustomFormControl: () => {
-      return {
-        component: CustomerCom,
-        props: {
-
-        }
-      };
-    },
-    title: '自定义的表单组件1',
-    values: {
-      value1: 'value1',
-      value2: 'value2',
-      value3: 'value3',
-    }
-  },
-  {
-    ref: 'customer2',
-    type: 'customForm',
-    getCustomFormControl: () => CustomerCom,
-    title: '自定义的表单组件2',
     values: {
       value1: 'value1',
       value2: 'value2',
@@ -134,22 +125,35 @@ const formOptions = [
     },
     title: '输入选择器, 分开输入和选择器两个标记',
   },
+  '自定义组件',
   {
-    ref: 'switch',
-    type: 'switch',
-    title: '开关',
-    defaultValue: true
+    ref: 'customer1',
+    type: 'customForm',
+    getCustomFormControl: () => {
+      return {
+        component: CustomerCom,
+        props: {
+
+        }
+      };
+    },
+    title: '自定义的表单组件1',
+    values: {
+      value1: 'value1',
+      value2: 'value2',
+      value3: 'value3',
+    }
   },
   {
-    ref: 'textarea',
-    type: 'textarea',
-    title: '文本',
-  },
-  {
-    ref: 'captchCode',
-    type: 'captcha',
-    keyRef: 'captchKey',
-    title: '验证码',
+    ref: 'customer2',
+    type: 'customForm',
+    getCustomFormControl: () => CustomerCom,
+    title: '自定义的表单组件2',
+    values: {
+      value1: 'value1',
+      value2: 'value2',
+      value3: 'value3',
+    }
   },
 ];
 

@@ -3,17 +3,25 @@ import PropTypes from 'prop-types';
 
 import FormFilterHelper from './form-filter';
 
+const hrDivide = ['-', 'hr'];
+
 export default class FormGenerator extends FormFilterHelper {
   static propTypes = {
     /** 表单配置 */
     formOptions: PropTypes.arrayOf(
-      PropTypes.shape({
-        type: PropTypes.string,
-        tips: PropTypes.oneOfType([
-          PropTypes.string,
-          PropTypes.array,
+      PropTypes.oneOfType([
+        PropTypes.shape({
+          type: PropTypes.string,
+          tips: PropTypes.oneOfType([
+            PropTypes.string,
+            PropTypes.array,
+          ]),
+        }),
+        PropTypes.oneOf([
+          '-', 'hr'
         ]),
-      })
+        PropTypes.string
+      ])
     ).isRequired,
     /** 是否移动端，开启移动端渲染 */
     isMobile: PropTypes.bool,
@@ -57,11 +65,24 @@ export default class FormGenerator extends FormFilterHelper {
         }}
         className={(isMobile ? 'vertical-form' : 'horizontal-form') + ' form-container ' + className}>
         {
-          formOptions.map((condition, idx) => {
-            if(!condition) return;
-            let needTitle = _showInputTitle ? true : !/input|password/.test(condition.type);
-            let _con = this.wrapConditionTitle(condition);
-            let { className = '' } = condition;
+          formOptions.map((option, idx) => {
+            if(!option) return;
+            if(typeof option === 'string') {
+              if(hrDivide.indexOf(option) !== -1) {
+                return (
+                  <hr />
+                );
+              } else {
+                return (
+                  <h3 className="form-group-title">
+                    <span className="inner-text">{option}</span>
+                  </h3>
+                );
+              }
+            }
+            let needTitle = _showInputTitle ? true : !/input|password/.test(option.type);
+            let _con = this.wrapConditionTitle(option);
+            let { className = '' } = option;
             let itemRef = _con.ref || (_con.refs ? _con.refs[0] : 'q');
             const isRequired = _con.required;
 

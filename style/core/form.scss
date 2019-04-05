@@ -77,6 +77,17 @@ textarea.form-control {
       display: inline !important;
     }
   }
+  .form-group-title {
+    margin-top: 40px;
+    // border-bottom: 1px solid rgba(#000, 0.05);
+    padding-left: 10px;
+    // padding-bottom: 10px;
+    // border-top: 1px solid rgba(#000, 0.05);
+    // padding-top: 20px;
+    .inner-text {
+      border-bottom: 2px solid $themeColor;
+    }
+  }
 }
 
 .form-group {

@@ -22,7 +22,50 @@ menu: FormGenerator / 表单生成
 
 > 通用于 FormLayout | FormGenerator | ConditionGenerator
 
-## 配置预览
+## 配置说明
+
+每一项的配置可分为 Object 和 String 两大类型
+
+1. Object: 通用配置项，用于渲染制定的 UI 组件
+2. String: 标题配置项，用于渲染标题
+
+```js
+const formOptions = [
+  // 每一项的配置可分为 Object 和 String
+  {
+    type: '', // 配置的类型
+    ref: '', // 该字段配置的唯一引用 ID
+    defaultValue: '' // 默认值
+    required: boolean, // 是否必填
+    values: [], // 选择器的可选项
+    ...other, // 其他字段
+  },
+  '标题配置', // 如果某项为 string，则就当作 title 渲染，只有 Form 相关的组件会生效
+];
+
+// 如果 formOptions
+```
+
+## 最终输出
+
+1. 根据配置组件的 type 渲染对应的组件
+2. 根据用户在对应组件的交互输出的 value
+3. 包装成以下数据结构
+
+```js
+const value = {
+  [ref1]: [value1],
+  [ref2]: [value2],
+  [ref3]: [value3],
+  [ref4]: [value4],
+  [re5f]: [value5],
+  ...
+}
+```
+
+## 配置字段说明
+
+### 目录
 
 1. ref
 2. type
@@ -31,13 +74,17 @@ menu: FormGenerator / 表单生成
 5. values
 6. 其他字段
 
-不需要传入 value， FormGenerator 会维护内部的 value
+<!-- > 不需要传入 value， FormGenerator 会维护内部的 value -->
 
--------------
+### 1. ref
 
-### 1. ref 介绍
+与 React 的 ref 概念类似，对应内部渲染的组件的引用，分为 3 中不同类型的 ref 类型，作为总体 value 输出的 key
 
-> ref 是与远端接口对接的重要字段，根据不同控件可以分为 ref, refu, refs，下面介绍三种不同的应用场景
+- ref
+- refu
+- refs
+
+> ref 是与远端接口对接的重要字段，下面介绍三种不同的应用场景
 
 ref@string: 单一的 ref，适用于 type 除了下面介绍的组件
 
@@ -128,7 +175,7 @@ typeMapper = {
 
 -------------
 
-## 内部数据结构
+## 自动维护的内部数据结构
 
 > FormGenerator 维护着一分内部完整数据结构，方便统一数据管理和数据交互，以及 UI 交互
 
@@ -166,4 +213,28 @@ this.formRef.value = {
 }
 
 // 如果使用 FormLayout 表单模版，则会自动验证 required: true 的字段是否通过
+```
+
+## 通过接口改变内部数据
+
+适用于所有 FormGenerator, 通过 ref 保存组件并且引用其中接口
+
+接口
+
+```js
+class Customer extends React.Component {
+  componentDidMount() {
+    /** 方式1 */
+    this.formRef.changeValues({
+      [ref]: [nextValue]
+    })
+    /** 方式2 */
+    this.formRef.changeValue(nextValue, componentRefID);
+  }
+  render() {
+    return (
+      <FormGenerator ref={e => this.formRef = e} />
+    )
+  }
+}
 ```

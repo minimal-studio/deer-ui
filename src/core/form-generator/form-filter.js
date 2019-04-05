@@ -527,6 +527,7 @@ export default class FormFilterHelper extends UkeComponent {
     'datetime': this.getDatetime,
     'datetimeRange': this.getDatetimeRange,
     'switch': this.getSwitch,
+    'hr': this.getHr,
   }
   greneratFormDOM(config) {
     const { type } = config;
