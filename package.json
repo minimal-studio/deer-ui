@@ -1,6 +1,6 @@
 {
   "name": "ukelli-ui",
-  "version": "2.15.28",
+  "version": "2.15.29",
   "main": "./index.js",
   "files": [
     "*"
