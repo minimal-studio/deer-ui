@@ -1,7 +1,7 @@
 import React, {Component, PureComponent} from 'react';
 import PropTypes from 'prop-types';
 
-import { Call, DateFormat, GenerteID } from 'basic-helper';
+import { Call, DateFormat, UUID } from 'basic-helper';
 import Flatpickr from '../../libs/flatpickr';
 import '../../libs/flatpickr-zh';
 
@@ -58,7 +58,7 @@ export default class DatetimePicker extends DateBasic {
     let defaultVal = value || defaultValue;
     this.value = defaultVal;
     this.datepicker = null;
-    this._id = GenerteID();
+    this._id = UUID();
   }
   componentDidMount() {
     // setTimeout(this.initPicker.bind(this), 50);

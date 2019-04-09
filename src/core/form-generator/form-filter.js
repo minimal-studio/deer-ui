@@ -473,7 +473,7 @@ export default class FormFilterHelper extends UkeComponent {
       this.changeValues({
         [refS]: vals[0],
         [refE]: vals[1],
-        [datetimeRangeRef]: vals
+        // [datetimeRangeRef]: [...vals]
       });
     };
 

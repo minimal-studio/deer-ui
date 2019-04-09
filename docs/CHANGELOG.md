@@ -2,6 +2,10 @@
 
 -----------------
 
+## 2.15.32
+
+- 修复 FormGenerator 时间范围的问题
+
 ## 2.15.31
 
 - 添加 ConditionGenerator 的配置判断
