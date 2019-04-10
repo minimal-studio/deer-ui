@@ -4,6 +4,9 @@ import { getScreenWidth, getScreenHeight, getScrollTop } from '../utils';
 let ScreenWidth = getScreenWidth();
 let ScreenHeight = getScreenHeight();
 
+const verticalOffset = 14;
+const horizontalOffset = 4;
+
 window.onresize = () => {
   ScreenWidth = getScreenWidth();
   ScreenHeight = getScreenHeight();
@@ -17,7 +20,7 @@ export function getLeft(offsetTop, offsetLeft, offsetWidth, offsetHeight, elemWi
   if(left - elemWidth <= 0 && !fromRight) return getRight(...arguments);
   // if(left + elemWidth > ScreenWidth) left = ScreenWidth - elemWidth;
   return {
-    top: offsetTop,
+    top: offsetTop - horizontalOffset,
     position: 'left',
     left
   };
@@ -28,7 +31,7 @@ export function getRight(offsetTop, offsetLeft, offsetWidth, offsetHeight, elemW
   if(left + elemWidth >= ScreenWidth) return getLeft(...arguments, true);
   // if(left - elemWidth <= 0) left = ScreenWidth - elemWidth;
   return {
-    top: offsetTop,
+    top: offsetTop - horizontalOffset,
     position: 'right',
     left
   };
@@ -40,7 +43,7 @@ export function getTop(offsetTop, offsetLeft, offsetWidth, offsetHeight, elemWid
   return {
     top,
     position: 'top',
-    left: offsetLeft
+    left: offsetLeft - verticalOffset
   };
 }
 
@@ -50,6 +53,6 @@ export function getBottom(offsetTop, offsetLeft, offsetWidth, offsetHeight, elem
   return {
     top,
     position: 'bottom',
-    left: offsetLeft
+    left: offsetLeft - verticalOffset
   };
 }

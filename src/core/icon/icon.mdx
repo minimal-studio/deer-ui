@@ -17,17 +17,20 @@ import { Icon, PureIcon } from './';
   <Icon n="balance-scale" />
 </Playground>
 
+图标，默认使用 fontawesome 图标，所以默认添加了 fa fa- 前缀，只需要填写对应的图标命即可
+
+- 如果需要切换图表库，可以通过 setUkelliConfig 设置 icon 的前缀
+- 同时支持 icon 的名字映射，通过 setUkelliConfig 设置 iconMapper
+
 ## PureIcon
+
+把 icon name 直接应用于元素，不添加前缀
 
 <Playground>
   <PureIcon n="fas fa-balance-scale" />
 </Playground>
 
-
-图标，默认使用 fontawesome 图标，所以默认添加了 fa fa- 前缀，只需要填写对应的图标命即可
-
-- 如果需要切换图表库，可以通过 setUkelliConfig 设置 icon 的前缀
-- 同时支持 icon 的名字映射，通过 setUkelliConfig 设置 iconMapper
+## Icon 设置
 
 ```js static
 import { setUkelliConfig } from 'ukelli-ui';

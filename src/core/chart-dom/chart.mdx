@@ -14,6 +14,12 @@ import { Grid } from '../grid';
 
 > 需要设置 chart js 的三方库链接
 
+```jsx static
+import { ChartCom } from 'ukelli-ui';
+
+ChartCom.setChartJSPath('https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.min.js');
+```
+
 <PropsTable of={ChartCom} />
 
 <Playground style={{height: '100%'}}>
@@ -138,9 +144,3 @@ import { Grid } from '../grid';
     }
   }
 </Playground>
-
-```jsx static
-import { ChartCom } from 'ukelli-ui';
-
-ChartCom.setChartJSPath('chart.js url');
-```

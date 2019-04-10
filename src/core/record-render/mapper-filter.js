@@ -106,43 +106,42 @@ export default class MapperFilter extends UkeComponent {
    * 3. filter
    */
   mapperFilter(mapper, record, rowIdx) {
-    let originContent = record[mapper.key];
+    const originContent = record[mapper.key];
     let currContent = originContent;
     if(!HasValue(currContent)) {
       currContent = currContent || '-';
     }
 
+    const { date, datetime, money, abvMoney, namesMapper, labels, filter } = mapper;
+
     let contentResult = currContent;
 
     /** 互相冲突的字段，即不可能同时为 datetime 也是 money 的 */
     switch (true) {
-    case !!mapper.date:
-    case !!mapper.datetime:
-      var format = 'YYYY-MM-DD' + (mapper.date ? '' : ' hh:mm:ss');
+    case !!date:
+    case !!datetime:
+      var format = 'YYYY-MM-DD' + (date ? '' : ' hh:mm:ss');
       contentResult = /0001/.test(currContent) ? '-' : DateFormat(currContent, format);
       break;
-    case !!mapper.money:
-    case !!mapper.abvMoney:
+    case !!money:
+    case !!abvMoney:
       contentResult = MoneyFormat(contentResult);
-      if(mapper.abvMoney) contentResult = contentResult.replace('-', '');
+      if(abvMoney) contentResult = contentResult.replace('-', '');
       break;
-    // case !!mapper.namesMapper:
-    //   currContent = mapper.namesMapper[currContent] || currContent || '';
-    //   break;
     }
     /** 并不冲突的，需要流式处理，swtich case 只能互相冲突的情况 */
-    if(mapper.namesMapper) {
-      currContent = mapper.namesMapper[currContent] || currContent || '';
+    if(namesMapper) {
+      currContent = namesMapper[currContent] || currContent || '';
       contentResult = currContent;
     }
-    if(mapper.labels) {
-      const labelColor = mapper.labels[originContent];
+    if(labels) {
+      const labelColor = labels[originContent];
       contentResult = labelColor ? (
         <Label color={labelColor} text={currContent} />
       ) : currContent;
     }
-    if(IsFunc(mapper.filter)) {
-      contentResult = mapper.filter(contentResult, record, mapper, rowIdx);
+    if(IsFunc(filter)) {
+      contentResult = filter(contentResult, record, mapper, rowIdx);
     }
 
     return contentResult;

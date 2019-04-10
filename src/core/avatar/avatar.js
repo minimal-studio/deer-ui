@@ -150,6 +150,10 @@ export default class Avatar extends UkePureComponent {
     changeAvatarable: PropTypes.bool,
     /** ID */
     faceId: PropTypes.any,
+    /** 图片地址 */
+    src: PropTypes.string,
+    /** icon 名称，参考 Icon */
+    icon: PropTypes.string,
     /** 换头像后的回调 */
     onChangeAvatar: PropTypes.func
   };
@@ -205,20 +209,25 @@ export default class Avatar extends UkePureComponent {
     const {
       text,
       faceId,
+      src,
+      alt,
       size,
       faceOptions,
-      changeAvatarable
+      changeAvatarable,
+      children
     } = this.props;
     const { isShow } = this.state;
     const hasFaceConfig = faceOptions.length > 0 && changeAvatarable;
     const gm = window.$UKE.getUkeKeyMap;
 
-    const {avatarImgMap, getImage} = window.$UKE;
+    const { avatarImgMap, getImage } = window.$UKE;
 
-    const changeAvatarDOM = hasFaceConfig ? (
+    const changeAvatarDOM = hasFaceConfig && (
       <div>
         <div className={"hide-panel" + (isShow ? " show" : "")}>
-          <div className="text-center" style={{width: 100}}><span className="link-btn" onClick={e => this.togglePanel(!isShow)}>{gm('更换头像')}</span></div>
+          <div className="text-center" style={{width: 100}}>
+            <span className="link-btn" onClick={e => this.togglePanel(!isShow)}>{gm('更换头像')}</span>
+          </div>
           {
             faceOptions.map((name, idx) => {
               return (
@@ -237,7 +246,7 @@ export default class Avatar extends UkePureComponent {
           </div>
         </div>
       </div>
-    ) : null;
+    );
 
     const isBase64Img = (faceId + '').indexOf('data') > -1;
     const hasImg = isBase64Img || !!avatarImgMap;
@@ -247,14 +256,21 @@ export default class Avatar extends UkePureComponent {
     const bgStyle = hasImg ? {
       backgroundImage: `url(${isBase64Img ? faceId : `${getImage(avatarImgMap, faceId)}.jpg`})`
     } : {};
+    const _img = src && (
+      <div style={{
+        backgroundImage: `url(${src})`
+      }} alt={alt} className="img fixbg fill" />
+    );
+
+    const child = children || text || _img;
 
     return (
-      <span className="avatar-helper">
+      <span className="uke-avatar">
         <span
           className="avatar fixbg"
           style={Object.assign({}, sizeStyle, bgStyle)}
           onClick={e => this.togglePanel(!isShow)}>
-          {text}
+          {child}
         </span>
         {changeAvatarDOM}
       </span>

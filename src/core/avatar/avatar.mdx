@@ -12,15 +12,33 @@ import { Avatar } from './';
 <PropsTable of={Avatar} />
 
 ```js
-Avatar.setCroppieUrl('Croppie url');
+Avatar.setCroppieUrl('https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.3/croppie.min.js');
 ```
 
 <Playground>
-  <Avatar
-    size={100}
-    onClick={e => {
-      alert('你好')
-    }}
-    changeAvatarable={true}
-    text="A" />
+  {
+    () => {
+      Avatar.setCroppieUrl('https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.3/croppie.min.js');
+      return (
+        <div>
+          <Avatar
+            size={100}
+            onChangeAvatar={e => {
+              {/* alert('你好') */}
+              console.log(e);
+            }}
+            changeAvatarable
+            text="A" />
+          <hr />
+          <Avatar
+            size={100}
+            onChangeAvatar={e => {
+              console.log(e);
+            }}
+            changeAvatarable
+            src="https://www.jiuwa.net/uploads/image/20170506/20170506084900_43824.jpg" />
+        </div>
+      )
+    }
+  }
 </Playground>

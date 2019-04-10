@@ -28,9 +28,7 @@ import FormGenerator from './form-generator';
 export default class FormLayout extends UkeComponent {
   static propTypes = {
     /** FormGenerator 的配置 */
-    formOptions: PropTypes.arrayOf(
-      PropTypes.object
-    ).isRequired,
+    formOptions: FormGenerator.propTypes.formOptions,
   
     /** 只有一个操作按钮的 sumbit 回调 */
     onSubmit: PropTypes.func,

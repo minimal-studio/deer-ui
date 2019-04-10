@@ -6,6 +6,7 @@ menu: Components / 组件
 
 import { Playground, PropsTable } from 'docz'
 import { Carousel } from './';
+import { Button } from '../button';
 
 # Carousel
 
@@ -30,7 +31,10 @@ import { Carousel } from './';
       },
       {
         element: (
-          <div className="p20 t_white">使用自定义的 React Components</div>
+          <div className="p20 t_white">
+            使用自定义的 React Components
+            <Button text="任意的" onClick={e => alert('点击了按钮')} />
+          </div>
         )
       }
     ]}/>

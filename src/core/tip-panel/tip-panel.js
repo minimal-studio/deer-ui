@@ -30,7 +30,7 @@ export default class TipPanel extends PureComponent {
     type: 'warm',
     needToolTip: false,
     defaultShow: true,
-    collapse: true,
+    collapse: false,
     title: '',
     text: '',
   }

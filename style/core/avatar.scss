@@ -2,7 +2,7 @@ $avatarScale: 100px;
 $avatarSmScale: 50px;
 $avatarMiniScale: 24px;
 
-.avatar-helper {
+.uke-avatar {
   $imgScale: 40px;
   position: relative;
   // z-index: 1;
@@ -24,10 +24,14 @@ $avatarMiniScale: 24px;
       display: block;
     }
   }
+  .img {
+    // z-index: 1;
+  }
 }
 
 .avatar {
   display: inline-block;
+  position: relative;
   width: $avatarScale;
   height: $avatarScale;
   // background-color: #f86270;

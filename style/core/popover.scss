@@ -1,5 +1,8 @@
 @import '../color/color-mixin.scss';
 
+$verticalOffset: 12px;
+$horizontalOffset: 12px;
+
 .uke-popover {
   position: fixed;
   z-index: 1122;
@@ -24,13 +27,13 @@
     .caret {
       bottom: -8px;
       // left: ;
-      transform: translateX(100%);
+      transform: translateX($verticalOffset);
     }
   }
   &.right {
     .caret {
       left: -14px;
-      top: 10px;
+      top: $horizontalOffset;
       transform: rotate(90deg);
     }
   }
@@ -38,13 +41,13 @@
     .caret {
       top: -8px;
       // left: 48%;
-      transform: rotate(-180deg) translateX(-100%);
+      transform: rotate(-180deg) translateX(-$verticalOffset);
     }
   }
   &.left {
     .caret {
       right: -12px;
-      top: 10px;
+      top: $horizontalOffset;
       transform: rotate(-90deg);
     }
   }

@@ -195,24 +195,24 @@ $notifyTransDuration   : 300ms;
 // popover
 .popover-enter {
   opacity: 0.01;
-  transform: translateX(20px);
+  transform: rotateX(45deg);
 }
 
 .popover-enter.popover-enter-active {
   opacity: 1;
-  transform: translateX(0);
-  transition: all $popoverTransDuration ease;
+  transform: rotateX(0);
+  transition: all $popoverTransDuration cubic-bezier(.03,.72,.38,.98);
 }
 
 .popover-exit {
   opacity: 1;
-  transform: translateX(0);
+  transform: rotateX(0);
 }
 
 .popover-exit.popover-exit-active {
   opacity: 0.01;
-  transform: translateX(20px);
-  transition: all $popoverTransDuration ease;
+  transform: rotateX(45deg);
+  transition: all $popoverTransDuration cubic-bezier(.03,.72,.38,.98);
 }
 
 // loading
