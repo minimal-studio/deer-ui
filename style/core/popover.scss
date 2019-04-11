@@ -59,8 +59,9 @@ $horizontalOffset: 12px;
   }
   .close-btn {
     position: absolute;
+    border-radius: 0;
     z-index: 1;
-    top: -6px;
-    right: -6px;
+    top: 0;
+    right: -20px;
   }
 }

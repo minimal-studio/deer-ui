@@ -44,6 +44,12 @@ textarea.form-control {
   &[type="range"] {
     width: auto;
   }
+  &.error {
+    border-color: $colorRed;
+  }
+  &.success {
+    border-color: $colorGreen;
+  }
 }
 .control-label {
   color: #777;

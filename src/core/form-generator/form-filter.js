@@ -467,13 +467,13 @@ export default class FormFilterHelper extends UkeComponent {
   changeDateValues = (vals, refs) => {
     const [refS, refE] = refs;
     const datetimeRangeRef = this.getRefsID(refs);
+    this[datetimeRangeRef] = vals;
     const nextValue = {
       [refS]: vals[0],
       [refE]: vals[1],
       // [datetimeRangeRef]: [...vals]
     };
     this.changeValues(nextValue);
-    this[datetimeRangeRef] = vals;
   }
   getDatetimeRange = (config) => {
     const { ref, range, refs, ...other } = config;
@@ -495,6 +495,7 @@ export default class FormFilterHelper extends UkeComponent {
           !config.noHelper && (
             <DateShortcut
               {...other}
+              position="left"
               onChange={val => {
                 this.changeDateValues(val, refs);
               }}/>

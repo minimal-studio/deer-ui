@@ -203,9 +203,9 @@ export default class Popover extends Component {
           className={`uke-popover ${fixed ? 'fixed' : ''} ${position} ${className} ${type}`}
           style={_style}
           ref={e => this.setSelfPosition(e)}>
-          {closeBtn}
           <span className="caret" />
           {children}
+          {closeBtn}
         </div>
       );
     }

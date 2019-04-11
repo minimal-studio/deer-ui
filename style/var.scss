@@ -56,9 +56,9 @@ $lightThemeScrollThumbActive: #444;
   height: $scale;
   text-align: center;
   line-height: $scale;
-  background-color: red;
-  color: #FFF;
-  border-radius: 50%;
+  background-color: #FFF;
+  color: $colorRed;
+  // border-radius: 50%;
   display: inline-block;
 }
 

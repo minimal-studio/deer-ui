@@ -64,6 +64,10 @@ export default class DateShortcut extends DateBasic {
     ),
     /** 是否输出字符串格式，默认为原生 Date 对象 */
     outputAsString: PropTypes.bool,
+    /** subContent 的位置 */
+    position: PropTypes.oneOf([
+      'right', 'left'
+    ]),
     /** DateShortcut 的 style */
     style: PropTypes.shape({}),
     /** 是否返回时间 */
@@ -72,6 +76,7 @@ export default class DateShortcut extends DateBasic {
   static defaultProps = {
     needTime: true,
     toUTC: true,
+    position: 'right',
     outputAsString: false,
     defaultTimes: ['00:00:00', '23:59:59'],
   };
@@ -135,14 +140,14 @@ export default class DateShortcut extends DateBasic {
     });
   }
   render() {
-    const {activeIdx} = this.state;
-    const { dateHelperInfo, style } = this.props;
+    const { activeIdx } = this.state;
+    const { dateHelperInfo, style, position } = this.props;
     const _dateHelperInfo = !!dateHelperInfo && dateHelperInfo.length > 0 ? dateHelperInfo : this.defaultDateHelperInfo;
     const gm = this.gm;
 
     return (
       <div className="date-helper-group" style={style}>
-        <SubContent displayElem={gm('快捷')}>
+        <SubContent displayElem={gm('快捷')} position={position}>
           <div className="date-helper">
             {
               _dateHelperInfo.map((item, idx) => {
