@@ -42,7 +42,9 @@ function getHalfMouthDate(type, format, timeDefaultStr) {
 export default class DateShortcut extends DateBasic {
   static propTypes = {
     /** 点击快捷方式的回调 */
-    onClick: PropTypes.func.isRequired,
+    onClick: PropTypes.func,
+    /** onChange */
+    onChange: PropTypes.func.isRequired,
     /** 默认的时分秒的值 */
     defaultTimes: PropTypes.arrayOf(PropTypes.string),
     /** 是否转换成标准 UTC 时间 */

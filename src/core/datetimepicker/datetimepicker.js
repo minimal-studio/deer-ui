@@ -78,8 +78,11 @@ export default class DatetimePicker extends DateBasic {
     instance.minuteElement.value = '59';
     instance.secondElement.value = '59';
   }
-  initPicker() {
-    const { mode, needTime, enableTime, lang, defaultTimes, onChange, ...others } = this.props;
+  initPicker = () => {
+    const {
+      mode, needTime, enableTime, lang,
+      defaultTimes, onChange, ...others
+    } = this.props;
 
     this.datepicker = new Flatpickr(this._refs[this._id], {
       ...others,
@@ -135,7 +138,7 @@ export default class DatetimePicker extends DateBasic {
           ref={e => this._refs[this._id] = e}/>
         <Icon n="date"
           onClick={e => {
-            (this.datepicker ? this.datepicker.toggle : function(){})();
+            this.datepicker ? this.datepicker.toggle() : null;
           }}/>
       </div>
     );

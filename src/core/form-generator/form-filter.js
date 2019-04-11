@@ -464,18 +464,21 @@ export default class FormFilterHelper extends UkeComponent {
         }}/>
     );
   }
-  getDatetimeRange = (config) => {
-    let { ref, range, refs, ...other } = config;
-    let [refS, refE] = refs;
-    let datetimeRangeRef = this.getRefsID(refs);
-
-    const changeDateValues = (vals) => {
-      this.changeValues({
-        [refS]: vals[0],
-        [refE]: vals[1],
-        // [datetimeRangeRef]: [...vals]
-      });
+  changeDateValues = (vals, refs) => {
+    const [refS, refE] = refs;
+    const datetimeRangeRef = this.getRefsID(refs);
+    const nextValue = {
+      [refS]: vals[0],
+      [refE]: vals[1],
+      // [datetimeRangeRef]: [...vals]
     };
+    this.changeValues(nextValue);
+    this[datetimeRangeRef] = vals;
+  }
+  getDatetimeRange = (config) => {
+    const { ref, range, refs, ...other } = config;
+    // let [refS, refE] = refs;
+    const datetimeRangeRef = this.getRefsID(refs);
 
     return (
       <div className="datepicker-ranger-content">
@@ -486,15 +489,16 @@ export default class FormFilterHelper extends UkeComponent {
           // ref={e => this._refs[datetimeRangeRef] = e}
           ref={this.saveRef(datetimeRangeRef)}
           id={datetimeRangeRef}
-          value={this.value[datetimeRangeRef] || range}
-          onChange={(val) => changeDateValues(val)}/>
+          value={this[datetimeRangeRef] || range}
+          onChange={(val) => this.changeDateValues(val, refs)}/>
         {
-          !config.noHelper ? (
+          !config.noHelper && (
             <DateShortcut
               {...other}
-              value={this.getValue(ref)}
-              onClick={val => changeDateValues(val)}/>
-          ) : null
+              onChange={val => {
+                this.changeDateValues(val, refs);
+              }}/>
+          )
         }
       </div>
     );
