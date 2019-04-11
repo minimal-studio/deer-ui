@@ -35,22 +35,13 @@
 }
 .flatpickr {
   // position: relative;
-  display: flex;
-  align-items: center;
-  &.time {
-    width: 300px;
-  }
+  // display: flex;
+  // align-items: center;
   .form-control {
+    min-width: 240px;
     width: 240px;
     // width: 100% !important;
     // min-width: 100% !important;
-  }
-  .input-btn {
-    border: 1px solid #EEE;
-    display: inline-block;
-    padding: 1.5px 10px;
-    border-left: none;
-    background-color: #f9f9f9;
   }
   .icon {
     // position: absolute;

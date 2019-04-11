@@ -13,6 +13,18 @@
   }
 }
 
+.input-group {
+  display: table;
+  .input-addon {
+    border: 1px solid #EEE;
+    display: table-cell;
+    padding: 1.5px 10px;
+    border-left: none;
+    vertical-align: middle;
+    background-color: #f9f9f9;
+  }
+}
+
 .form-layout {
   position: relative;
   padding: 0.1px;

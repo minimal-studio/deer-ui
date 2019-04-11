@@ -172,13 +172,13 @@ export default class DatetimePicker extends DateBasic {
   }
   render() {
     return (
-      <div className="flatpickr">
+      <div className="flatpickr input-group">
         <input
           type="text"
           className="form-control input-sm"
           id={this._id}
           ref={e => this._refs[this._id] = e}/>
-        <span className="input-btn"
+        <span className="input-addon"
           onClick={e => {
             this.datepicker ? this.datepicker.toggle() : null;
           }}>
