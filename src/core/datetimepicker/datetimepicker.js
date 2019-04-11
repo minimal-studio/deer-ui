@@ -172,7 +172,7 @@ export default class DatetimePicker extends DateBasic {
   }
   render() {
     return (
-      <div className="flatpickr input-group">
+      <div className="flatpickr uke-input-group">
         <input
           type="text"
           className="form-control input-sm"
