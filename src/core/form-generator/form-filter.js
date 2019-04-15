@@ -401,11 +401,11 @@ export default class FormFilterHelper extends UkeComponent {
     const { ref } = config;
     return (
       <textarea
-        defaultValue={this.getValue(ref)}
+        value={this.getValue(ref)}
         className="form-control"
         ref={this.saveRef(ref)}
         id={ref}
-        onBlur={e => this.changeValue(e.target.value, ref)} />
+        onChange={e => this.changeValue(e.target.value, ref)} />
     );
   }
   getRange = (config) => {

@@ -76,6 +76,7 @@ const formOptions = [
   {
     ref: 'textarea',
     type: 'textarea',
+    defaultValue: '123',
     title: '文本',
   },
   {
