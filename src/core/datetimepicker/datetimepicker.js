@@ -99,23 +99,24 @@ export default class DatetimePicker extends DateBasic {
     }) : this.popTipEntity.close();
   }
   getDateRangeFromInput = () => {
-    const expectDateLen = this.props.mode === 'range' ? 2 : 1;
     const rangeSeparator = this.datepicker.l10n.rangeSeparator;
     const inputElem = this._refs[this._id];
     const inputVal = inputElem.value;
 
     const valueRange = inputVal.split(rangeSeparator).filter(i => !!i);
-    if(valueRange.length === 0) return null;
+    const valueRangeLen = valueRange.length;
+    if(valueRangeLen === 0) return null;
     const dateRange = (() => {
-      let res = [], isValid = false;
-      for (let i = 0; i < expectDateLen; i++) {
+      let res = [], isValid = true;
+      for (let i = 0; i < valueRangeLen; i++) {
         const targetDate = new Date(valueRange[i]);
         const isValidDate = !isNaN(targetDate.getTime());
         if(isValidDate) {
           res.push(targetDate);
+        } else {
+          isValid = false;
         }
       }
-      isValid = res.length === expectDateLen;
       this.handleInputError(inputElem, !isValid);
       return res;
     })();
