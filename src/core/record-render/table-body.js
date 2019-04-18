@@ -407,7 +407,7 @@ export default class Table extends MapperFilter {
     const { rowKey } = this.props;
     let key;
     if(rowKey) {
-      key = IsFunc(rowKey) ? rowKey(record) : record[rowKey] || idx;
+      key = IsFunc(rowKey) ? rowKey(record, idx) : record[rowKey] || idx;
     } else {
       key = idx;
       console.warn('需要设置 rowKey，为每一行设置唯一 key');
