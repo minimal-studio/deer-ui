@@ -4,72 +4,117 @@ route: /DatetimePicker
 menu: Form / 表单
 ---
 
+import { useState } from 'react';
 import { Playground, PropsTable } from 'docz'
 import { State, Toggle } from 'react-powerplug'
 import { DatetimePicker } from './';
 
 # DatetimePicker
 
-## Usage
+## 时间单选
+
+### 默认 UTC 格式的时间对象
 
 <Playground>
-  <State initial={{
-    date1: '',
-    date2: '',
-    date3: '',
-    date4: '',
-  }}>
-    {
-      ({ state, setState }) => {
-        const { date1, date2, date3, date4 } = state;
-        return (
-          <div>
-            默认，输出 UTC 标准时间字符串 {date1.toString()}
-            <DatetimePicker
-              toUTC
-              enableTime
-              onChange={e => {
-                console.log(e)
-                setState({
-                  date1: e
-                })
-              }} />
-            <hr/>
-            输出字符串对象 {date2.toString()}
-            <DatetimePicker
-              outputAsString={true}
-              onChange={e => {
-                setState({
-                  date2: e
-                })
-              }} />
-            <hr/>
-            输出字符串对象, 不带时分秒 {date3.toString()}
-            <DatetimePicker
-              outputAsString={true}
-              needTime={false}
-              onChange={e => {
-                setState({
-                  date3: e
-                })
-              }} />
-            <hr/>
-            时间范围 + 选择时分秒 {date4.toString()}
-            <DatetimePicker
-              needTime={true}
-              enableTime={true}
-              mode="range"
-              onChange={e => {
-                console.log(e)
-                setState({
-                  date4: e
-                })
-              }} />
-          </div>
-        )
-      }
+  {
+    () => {
+      const [date, setDate] = useState('');
+      return (
+        <div className="layout">
+          <DatetimePicker
+            onChange={val => {
+              setDate(val)
+            }} />
+          {date.toString()}
+        </div>
+      )
     }
-  </State>
+  }
+</Playground>
+
+### 带时分秒的字符串
+
+<Playground>
+  {
+    () => {
+      const [date, setDate] = useState('');
+      return (
+        <div className="layout">
+          <DatetimePicker
+            outputAsString={true}
+            onChange={val => {
+              setDate(val)
+            }} />
+          {date.toString()}
+        </div>
+      )
+    }
+  }
+</Playground>
+
+### 不带时分秒的字符串
+
+<Playground>
+  {
+    () => {
+      const [date, setDate] = useState('');
+      return (
+        <div className="layout">
+          <DatetimePicker
+            outputAsString={true}
+            needTime={false}
+            onChange={val => {
+              setDate(val)
+            }} />
+          {date.toString()}
+        </div>
+      )
+    }
+  }
+</Playground>
+
+## 时间范围
+
+### 带选择时分秒时间范围的时间对象
+
+<Playground>
+  {
+    () => {
+      const [date, setDate] = useState('');
+      return (
+        <div className="layout">
+          <DatetimePicker
+            mode="range"
+            onChange={val => {
+              setDate(val)
+            }} />
+          {date.toString()}
+        </div>
+      )
+    }
+  }
+</Playground>
+
+### 不带选择时分秒时间范围的字符串
+
+<Playground>
+  {
+    () => {
+      const [date, setDate] = useState('');
+      return (
+        <div className="layout">
+          <DatetimePicker
+            needTime={false}
+            outputAsString={true}
+            mode="range"
+            onChange={val => {
+              setDate(val)
+            }} />
+          {date.toString()}
+        </div>
+      )
+    }
+  }
 </Playground>
 
 <PropsTable of={DatetimePicker} />

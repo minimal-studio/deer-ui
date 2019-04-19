@@ -2,6 +2,11 @@
 
 -----------------
 
+## 2.15.43
+
+- 废弃 DatetimePicker 的 enableTime 属性
+- 完善时间输出的机制
+
 ## 2.15.42
 
 - ConditionGenerator 新增是否 submit 表单的判定

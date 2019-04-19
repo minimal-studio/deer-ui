@@ -31,12 +31,13 @@ export default class DateBaisc extends UkePureComponent {
     let resVal = [];
     emitVal.forEach((_val, idx) => {
       if(!_val) return;
-      let resDate;
-      if(enableTime) {
-        resDate = DateFormat(_val, `${this.dateFormat} ${this.timeFormat}`);
-      } else {
-        resDate = DateFormat(_val, this.dateFormat) + (needTime ? ' ' + defaultTimes[idx] : '');
-      }
+      // let resDate = DateFormat(_val, this.dateFormat) + (needTime ? ' ' + defaultTimes[idx] : '');;
+      let resDate = DateFormat(_val, needTime ? this.dateFormat + ' ' + this.timeFormat : this.dateFormat);
+      // if(enableTime) {
+      //   resDate = DateFormat(_val, `${this.dateFormat} ${this.timeFormat}`);
+      // } else {
+      // }
+      // resDate = DateFormat(_val, this.dateFormat) + (needTime ? ' ' + defaultTimes[idx] : '');
       if(!outputAsString) {
         if(toUTC) {
           resDate = ToUTC(resDate);

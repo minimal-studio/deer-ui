@@ -27,7 +27,7 @@ export default class DatetimePicker extends DateBasic {
     /** 是否转换成标准 UTC 时间 */
     toUTC: PropTypes.bool,
     /** 是否可以选择时分秒 */
-    enableTime: PropTypes.bool,
+    // enableTime: PropTypes.bool,
     /** 类型 */
     mode: PropTypes.string,
     /** 是否输出字符串格式，默认为原生 Date 对象 */
@@ -46,7 +46,7 @@ export default class DatetimePicker extends DateBasic {
     toUTC: true,
     allowInput: true,
     // clickToClose: true,
-    enableTime: false,
+    // enableTime: false,
     outputAsString: false,
     mode: 'single',
     lang: 'zh',
@@ -106,7 +106,9 @@ export default class DatetimePicker extends DateBasic {
     });
   }
   getDateRangeFromInput = () => {
-    // const expectLen = this.props.mode === 'range' ? 2 : 1;
+    const { defaultTimes, needTime, mode } = this.props;
+    const isRange = mode === 'range';
+    // const expectLen = isRange ? 2 : 1;
     const rangeSeparator = this.datepicker.l10n.rangeSeparator;
     const inputElem = this._refs[this._id];
     const inputVal = inputElem.value;
@@ -115,9 +117,12 @@ export default class DatetimePicker extends DateBasic {
   
     let valueRange = inputVal.split(rangeSeparator).filter(i => !!i);
     let valueRangeLen = valueRange.length;
-    if(valueRangeLen === 1) {
-      /** 只选了一天的特殊处理, 把后面的日期加上，并且改变输入框显示的值 */
-      valueRange[1] = DateFormat(valueRange[0], 'YYYY-MM-DD') + ' ' + this.props.defaultTimes[1];
+    if(isRange && needTime && valueRangeLen === 1) {
+      /** 
+       * 只选了一天的特殊处理, 给需要时间的添加后缀
+       * 把后面的日期加上，
+       * 并且改变输入框显示的值 */
+      valueRange[1] = DateFormat(valueRange[0], 'YYYY-MM-DD') + (needTime ? ' ' + defaultTimes[1] : '');
       this.datepicker.setDate(valueRange, false);
       valueRangeLen = valueRange.length;
     }
@@ -140,9 +145,10 @@ export default class DatetimePicker extends DateBasic {
   }
   handleChange = async (rangeValues, dateStr, instance) => {
     const {
-      mode, enableTime
+      mode, 
+      // enableTime
     } = this.props;
-    if(!enableTime && instance.isOpen) return;
+    // if(!enableTime && instance.isOpen) return;
 
     /** 用定时器确保值的准确性 */
     const dateRange = await this.getInputValAsync();
@@ -154,22 +160,24 @@ export default class DatetimePicker extends DateBasic {
       emitVal = dateRange[0];
       this.changeDate(emitVal);
     } else if(mode === 'range') {
-      if(valueLen === 2) {
-        this.changeDate(emitVal);
-      }
+      // if(valueLen === 2) {
+      // }
+      this.changeDate(emitVal);
     }
   }
   initPicker = () => {
     const {
-      mode, needTime, enableTime, lang, allowInput,
+      mode, needTime, lang, allowInput, 
+      // enableTime,
       defaultTimes, onChange, ...others
     } = this.props;
 
     this.datepicker = new Flatpickr(this._refs[this._id], {
       ...others,
+      /** 自带的时分秒选择不符合实际要求 */
       enableTime: false,
       time_24hr: true,
-      dateFormat: 'Y-m-d' + (enableTime ? ' H:i:S' : ''),
+      dateFormat: 'Y-m-d' + (needTime ? ' H:i:S' : ''),
       disableMobile: true,
       defaultDate: this.value,
       defaultHour: 0,
