@@ -16,6 +16,12 @@
   margin-left: 3px;
   margin-right: 3px;
   border-radius: 4px;
+  &.bg_white.t_white {
+    color: #666;
+  }
+  &.bg_default.t_white {
+    color: #666;
+  }
   // @each $name, $value in $themeMapper {
   //   &.#{$name} {
   //     background-color: $value;
