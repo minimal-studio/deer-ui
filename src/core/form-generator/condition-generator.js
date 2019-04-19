@@ -1,6 +1,7 @@
 import React, {Component, PureComponent} from 'react';
 import PropTypes from 'prop-types';
 
+import { UUID, Call } from 'basic-helper/basic';
 import FormFilterHelper from './form-filter';
 import FormTypes from './form-filter-types';
 
@@ -33,29 +34,37 @@ export default class ConditionGenerator extends FormFilterHelper {
     /** className */
     className: PropTypes.string
   };
+  static defaultProps = {
+    className: "condition-group"
+  }
   titleDisplayFilter(config) {
     const { type, title } = config;
     return ('input,password'.split(',').indexOf(type) == -1) && title;
   }
   render() {
-    const {conditionConfig, className = "condition-group", children = ''} = this.props;
+    const { conditionConfig, className, children, onSubmit } = this.props;
 
     return (
-      <div className={className}>
+      <form
+        className={className} 
+        onSubmit={(e) => {
+          e.preventDefault();
+          Call(onSubmit, this.value);
+        }}>
         {
           conditionConfig.map((condition, idx) => {
             if(!condition || typeof condition === 'string') return;
             let _con = this.wrapConditionTitle(condition);
-            const {ref, refs = [], refu = []} = _con;
+            const { ref, refs = [], refu = [] } = _con;
             let itemKey = ref || refs[0] || JSON.stringify(refu);
             let showTitle = this.titleDisplayFilter(_con);
             
-            let titleDOM = showTitle ? (
+            let titleDOM = showTitle && (
               <span className="title">
                 {_con.tipsDOM}
                 {_con.title}
               </span>
-            ) : null;
+            );
 
             return (
               <span key={itemKey} className={"item " + _con.type + (_con.className ? ' ' + _con.className : '')}>
@@ -66,7 +75,7 @@ export default class ConditionGenerator extends FormFilterHelper {
           })
         }
         {children}
-      </div>
+      </form>
     );
   }
 }

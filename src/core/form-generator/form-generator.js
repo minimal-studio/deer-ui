@@ -1,6 +1,7 @@
 import React, {Component, PureComponent} from 'react';
 import PropTypes from 'prop-types';
 
+import { UUID, Call } from 'basic-helper/basic';
 import FormFilterHelper from './form-filter';
 
 const hrDivide = ['-', 'hr'];
@@ -35,9 +36,16 @@ export default class FormGenerator extends FormFilterHelper {
     onChange: PropTypes.func,
   };
   static defaultProps = {
-    onSubmit: () => {}
+    onSubmit: () => {},
+    className: 'animate-input-title',
+    isMobile: false
   }
   formItemRefs = {};
+  constructor(props) {
+    super(props);
+
+    this.ID = props.id || UUID();
+  }
   showDesc = (checkRes) => {
     const {ref, isPass} = checkRes;
     for (const itemRef in this.formItemRefs) {
@@ -52,8 +60,8 @@ export default class FormGenerator extends FormFilterHelper {
   }
   render() {
     const {
-      formOptions, children = '', isMobile = false, id = '',
-      showInputTitle, className = "animate-input-title", onSubmit
+      formOptions, children, isMobile,
+      showInputTitle, className, onSubmit
     } = this.props;
     const _showInputTitle = typeof showInputTitle == 'undefined' ? !isMobile : showInputTitle;
 
@@ -61,7 +69,7 @@ export default class FormGenerator extends FormFilterHelper {
       <form
         onSubmit={(e) => {
           e.preventDefault();
-          onSubmit && onSubmit();
+          Call(onSubmit, this.value);
         }}
         className={(isMobile ? 'vertical-form' : 'horizontal-form') + ' form-container ' + className}>
         {
@@ -86,18 +94,18 @@ export default class FormGenerator extends FormFilterHelper {
             let itemRef = _con.ref || (_con.refs ? _con.refs[0] : 'q');
             const isRequired = _con.required;
 
-            let highlightDOM = isRequired ? (
+            let highlightDOM = isRequired && (
               <span className="form-desc">
                 <span className="highlight">*</span>
               </span>
-            ) : null;
+            );
 
-            let formDescDOM = _con.desc ? (
+            let formDescDOM = _con.desc && (
               <span className="form-desc">{_con.desc}</span>
-            ) : null;
+            );
 
             return (
-              <div key={itemRef + '_' + id} 
+              <div key={itemRef + '_' + this.ID}
                 ref={e => {
                   if(e) this.formItemRefs[itemRef] = e;
                 }}

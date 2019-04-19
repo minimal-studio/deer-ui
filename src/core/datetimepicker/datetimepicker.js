@@ -98,14 +98,30 @@ export default class DatetimePicker extends DateBasic {
       )
     }) : this.popTipEntity.close();
   }
+  getInputValAsync = () => {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve(this.getDateRangeFromInput());
+      }, 50);
+    });
+  }
   getDateRangeFromInput = () => {
+    // const expectLen = this.props.mode === 'range' ? 2 : 1;
     const rangeSeparator = this.datepicker.l10n.rangeSeparator;
     const inputElem = this._refs[this._id];
     const inputVal = inputElem.value;
-
-    const valueRange = inputVal.split(rangeSeparator).filter(i => !!i);
-    const valueRangeLen = valueRange.length;
-    if(valueRangeLen === 0) return null;
+    /** 如果没有任何值，则没有下一步 */
+    if(!inputVal) return;
+  
+    let valueRange = inputVal.split(rangeSeparator).filter(i => !!i);
+    let valueRangeLen = valueRange.length;
+    if(valueRangeLen === 1) {
+      /** 只选了一天的特殊处理, 把后面的日期加上，并且改变输入框显示的值 */
+      valueRange[1] = DateFormat(valueRange[0], 'YYYY-MM-DD') + ' ' + this.props.defaultTimes[1];
+      this.datepicker.setDate(valueRange, false);
+      valueRangeLen = valueRange.length;
+    }
+    // if(valueRange !== expectLen) return null;
     const dateRange = (() => {
       let res = [], isValid = true;
       for (let i = 0; i < valueRangeLen; i++) {
@@ -122,12 +138,14 @@ export default class DatetimePicker extends DateBasic {
     })();
     return dateRange;
   }
-  handleChange = (rangeValues, dateStr, instance) => {
+  handleChange = async (rangeValues, dateStr, instance) => {
     const {
       mode, enableTime
     } = this.props;
     if(!enableTime && instance.isOpen) return;
-    const dateRange = this.getDateRangeFromInput();
+
+    /** 用定时器确保值的准确性 */
+    const dateRange = await this.getInputValAsync();
     if(!dateRange) return;
 
     const valueLen = dateRange.length;
