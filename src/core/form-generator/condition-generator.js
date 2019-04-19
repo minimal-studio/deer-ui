@@ -41,11 +41,16 @@ export default class ConditionGenerator extends FormFilterHelper {
     const { type, title } = config;
     return ('input,password'.split(',').indexOf(type) == -1) && title;
   }
+  renderWrapper = () => {
+    const { conditionConfig, className, children, onSubmit } = this.props;
+    const Wrapper = onSubmit ? 'form' : 'div';
+  }
   render() {
     const { conditionConfig, className, children, onSubmit } = this.props;
+    const Wrapper = onSubmit ? 'form' : 'div';
 
     return (
-      <form
+      <Wrapper
         className={className} 
         onSubmit={(e) => {
           e.preventDefault();
@@ -75,7 +80,7 @@ export default class ConditionGenerator extends FormFilterHelper {
           })
         }
         {children}
-      </form>
+      </Wrapper>
     );
   }
 }
