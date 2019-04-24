@@ -88,7 +88,10 @@ const formOptions = [
   {
     ref: 'ref3',
     type: 'input',
-    inputType: 'number',
+    outputType: 'number',
+    props: {
+      type: 'number'
+    },
     required: true,
     title: '选择控件',
     values: {
