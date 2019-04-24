@@ -200,9 +200,9 @@ export default class Input extends Component {
           <span className="input-group">
             {titleDOM}
             <input
+              type={controlTypeMapper[type] || type}
               {...propsForInput}
               placeholder=""
-              type={controlTypeMapper[type] || type}
               className={className}
               value={value}
               onFocus={e => {
