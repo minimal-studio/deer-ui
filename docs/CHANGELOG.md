@@ -2,6 +2,11 @@
 
 -----------------
 
+## 2.15.46
+
+- 优化 Input 接受的 props
+- Input 的 inputType 改为 outputType
+
 ## 2.15.45
 
 - 调整 formFilter 的 input 参数传递

@@ -44,7 +44,9 @@ export default class Input extends Component {
     /** 期望输出的值的类型 */
     inputType: PropTypes.string,
     /** 期望输出的值的类型 */
-    outType: PropTypes.string,
+    outputType: PropTypes.oneOf([
+      'string', 'number'
+    ]),
     /** 作为自定义的 placeholder */
     placeholder: PropTypes.any,
     /** 作为自定义的 placeholder */
@@ -77,7 +79,7 @@ export default class Input extends Component {
     forceToSelect: false,
     className: 'form-control',
     type: 'input',
-    inputType: 'string',
+    outputType: 'string',
   }
   /**
    * 设置 input 控件的默认行为
@@ -125,9 +127,11 @@ export default class Input extends Component {
    * 用于过滤是 number 类型的值
    */
   numberValFilter(val) {
-    const { inputType } = this.props;
+    const { inputType, outputType } = this.props;
+    let _outputType = inputType || outputType;
+    if(inputType) console.warn('inputType 已废弃，请使用 outputType');
     val = HasValue(val) ? val : this.getValue();
-    switch (inputType) {
+    switch (_outputType) {
     case 'number':
       val = HasValue(val) ? +val : undefined;
       break;
@@ -148,6 +152,7 @@ export default class Input extends Component {
       n, s, icon, placeholder, title, inputBtnConfig, type, showTitle = defaultShowInputTitle,
       className, children, required, filter,
       onFocus, onBlur,
+      ...other
     } = this.props;
     const { viewClass = '' } = this.state;
     const value = this.getValue();
@@ -192,6 +197,7 @@ export default class Input extends Component {
           <span className="input-group">
             {titleDOM}
             <input
+              {...other}
               placeholder=""
               type={controlTypeMapper[type] || type}
               className={className}

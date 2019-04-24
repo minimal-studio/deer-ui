@@ -64,7 +64,7 @@ export default class InputSelector extends FormControlBasic {
     onChange && onChange(inputVal, this.state.selectRef);
   }
   render() {
-    const { inputProps, values, onChange, inputType, ...other } = this.props;
+    const { inputProps, values, onChange, inputType, outputType, ...other } = this.props;
     const { selectRef } = this.state;
     const inputVal = this.getValue();
     return (
@@ -79,6 +79,7 @@ export default class InputSelector extends FormControlBasic {
           {...inputProps}
           ref={e => this._input = e}
           inputType={inputType}
+          outputType={outputType}
           onChange={this.changeInput} 
           value={inputVal}
           onBlur={this.emitChange}/>

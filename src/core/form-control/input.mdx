@@ -14,7 +14,7 @@ import { Input } from './';
 ## Usage
 
 <Playground>
-  <Input title="输出 number 类型" inputType="number" onChange={e => console.log(e)}/>
+  <Input title="输出 number 类型" outputType="number" onChange={e => console.log(e)}/>
   <hr/>
   <Input title="输出字符串类型" onChange={e => console.log(e)}/>
   <hr/>
@@ -24,7 +24,7 @@ import { Input } from './';
   <hr/>
   <Input
     title="带有按钮的输入框"
-    inputType="number"
+    outputType="number"
     inputBtnConfig={{
       action: (e) => console.log(e),
       text: '按钮'

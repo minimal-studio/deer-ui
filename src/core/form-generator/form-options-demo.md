@@ -71,7 +71,7 @@ const formOptions = [
   {
     ref: 'ref3',
     type: 'input',
-    inputType: 'number',
+    outputType: 'number',
     required: true,
     title: '选择控件',
     values: {

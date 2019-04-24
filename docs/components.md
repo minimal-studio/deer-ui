@@ -106,7 +106,7 @@ class Com extends Component {
         type: 'input',
         ref: 'TransAmount',
         title: '转换金额',
-        inputType: 'number',
+        outputType: 'number',
         desc: `可以转到游戏或者平台`
       },
     ];
