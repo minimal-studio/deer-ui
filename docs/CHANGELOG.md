@@ -4,7 +4,7 @@
 
 ## 2.15.48
 
-- 调整 Input 的 type 和 propsForInput 的顺序
+- 调整 Input 的 type 和 propsForInput 的优先级
 
 ## 2.15.47
 
