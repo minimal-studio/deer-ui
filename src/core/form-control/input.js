@@ -43,6 +43,8 @@ export default class Input extends Component {
     ]),
     /** 期望输出的值的类型 */
     inputType: PropTypes.string,
+    /** 期望输出的值的类型 */
+    outType: PropTypes.string,
     /** 作为自定义的 placeholder */
     placeholder: PropTypes.any,
     /** 作为自定义的 placeholder */
