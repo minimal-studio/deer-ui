@@ -2,6 +2,10 @@
 
 -----------------
 
+## 2.15.49
+
+- 修复 FormFilter 中 Input 的问题
+
 ## 2.15.48
 
 - 调整 Input 的 type 和 propsForInput 的优先级

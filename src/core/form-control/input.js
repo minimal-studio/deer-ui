@@ -148,7 +148,7 @@ export default class Input extends Component {
         stateVal: val
       });
     }
-    Call(this.props.onChange, this.value, elem);
+    Call(this.props.onChange, val, elem);
   }
   render() {
     const {

@@ -395,7 +395,9 @@ export default class FormFilterHelper extends UkeComponent {
           this.changeValue(val, ref);
           Call(config.onBlur, val);
         }}
-        onChange={val => this.changeValue(val == '' ? undefined : val, ref)}/>
+        onChange={val => {
+          this.changeValue(val == '' ? undefined : val, ref);
+        }}/>
     );
   }
   getTextArea = (config) => {
