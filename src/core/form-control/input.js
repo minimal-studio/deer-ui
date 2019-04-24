@@ -42,7 +42,7 @@ export default class Input extends Component {
       'number',
     ]),
     /** 期望输出的值的类型 */
-    inputType: PropTypes.string,
+    // inputType: PropTypes.string,
     /** 期望输出的值的类型 */
     outputType: PropTypes.oneOf([
       'string', 'number'
@@ -70,6 +70,8 @@ export default class Input extends Component {
       color: PropTypes.string,
       className: PropTypes.string,
     }),
+    /** 传入 input element 的属性 */
+    propsForInput: PropTypes.shape({}),
     onChange: PropTypes.func,
     onFocus: PropTypes.func,
     onBlur: PropTypes.func,
@@ -80,6 +82,7 @@ export default class Input extends Component {
     className: 'form-control',
     type: 'input',
     outputType: 'string',
+    propsForInput: {},
   }
   /**
    * 设置 input 控件的默认行为
@@ -145,14 +148,14 @@ export default class Input extends Component {
         stateVal: val
       });
     }
-    Call(this.props.onChange, val, elem);
+    Call(this.props.onChange, this.value, elem);
   }
   render() {
     const {
       n, s, icon, placeholder, title, inputBtnConfig, type, showTitle = defaultShowInputTitle,
       className, children, required, filter,
       onFocus, onBlur,
-      ...other
+      propsForInput
     } = this.props;
     const { viewClass = '' } = this.state;
     const value = this.getValue();
@@ -197,7 +200,7 @@ export default class Input extends Component {
           <span className="input-group">
             {titleDOM}
             <input
-              {...other}
+              {...propsForInput}
               placeholder=""
               type={controlTypeMapper[type] || type}
               className={className}

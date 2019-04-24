@@ -386,7 +386,7 @@ export default class FormFilterHelper extends UkeComponent {
     return (
       <Input
         {...other}
-        {...props}
+        propsForInput={props}
         ref={this.saveRef(ref)}
         className={formClass}
         value={this.zeroFilter(this.getValue(ref), '')}
