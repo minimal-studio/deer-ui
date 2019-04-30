@@ -151,14 +151,14 @@ export default class Notification extends UkePureComponent {
                       }}
                       onMouseEnter={e => this.clearTargetTimer(msgID)}
                       onMouseLeave={e => this.startTargetTimer(item)}>
-                      <div className="notify-type-tip">
-                        {
-                          tipIcons[type] && (
+                      {
+                        tipIcons[type] && (
+                          <div className="notify-type-tip">
                             <Icon n={tipIcons[type]} />
-                          )
-                        }
-                      </div>
-                      <div className="content flex">
+                          </div>
+                        )
+                      }
+                      <div className="content">
                         <div className="title">{title ? title : gm('新消息')}</div>
                         <div className="text">{text || ''}</div>
                         {

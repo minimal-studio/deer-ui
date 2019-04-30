@@ -61,6 +61,7 @@ $itemW: 360px;
 
     .notify-type-tip {
       font-size: 30px;
+      margin-right: 15px;
     }
 
     .notify-item {
@@ -71,43 +72,51 @@ $itemW: 360px;
       display: flex;
       // border-bottom: 1px dashed #CCC;
       margin-bottom: 10px;
-      padding: 10px;
+      padding: 10px 20px;
       width: $itemW;
       border-radius: 4px 0 0 4px;
       // transition: all ease 0.2s;
       background-color: #FFF;
       pointer-events: auto;
+      // transition: box-shadow ease 0.3s;
 
       &:hover {
         // transform: scale(1.02);
-        box-shadow: 0 12px 48px rgba(#000, 0.4);
+        box-shadow: 0 12px 36px rgba(#000, 0.5);
       }
 
       .title {
-        padding: 8px 10px;
+        padding: 8px 0;
         font-size: 16px;
+        font-weight: bold;
       }
 
       ._close-btn {
         position: absolute;
         top: 0;
         right: 0;
-        padding: 4px 14px;
+        padding: 8px 24px;
         display: inline-block;
         &:hover {
-          background-color: $themeColor;
-          color: #FFF;
+          color: $themeColor;
+          // color: #FFF;
         }
       }
 
       .text {
-        padding: 5px 10px;
+        padding: 10px 0;
+      }
+
+      .content {
+        flex: 1;
       }
 
       .action {
-        margin-top: 10px;
+        // margin-top: 10px;
         text-align: right;
         padding: 5px 10px;
+        display: flex;
+        // width: 100%;
         .action-btn {
           display: inline-block;
           padding: 5px 10px;
