@@ -22,6 +22,7 @@ $loaderColor: #3ca9d1;
   // position: relative;
   z-index: 1;
   transition: all ease 0.2s;
+  pointer-events: none;
 }
 // .loader1 {
 //   $scale: 50px;

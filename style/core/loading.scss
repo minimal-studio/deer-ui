@@ -19,6 +19,7 @@ $loaderColor: #3ca9d1;
   width: 100%;
   // position: absolute;
   top: 0;
+  pointer-events: none;
 }
 .loader:before,
 .loader:after,

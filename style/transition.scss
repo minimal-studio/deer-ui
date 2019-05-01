@@ -220,6 +220,7 @@ $notifyTransDuration   : 300ms;
   opacity: 0.01;
   .loading-container {
     position: absolute !important;
+    top: 0;
   }
 }
 
@@ -228,6 +229,7 @@ $notifyTransDuration   : 300ms;
   transition: opacity $loadingTransDuration ease;
   .loading-container {
     position: absolute !important;
+    top: 0;
   }
 }
 
@@ -235,6 +237,7 @@ $notifyTransDuration   : 300ms;
   opacity: 1;
   .loading-container {
     position: absolute !important;
+    top: 0;
   }
 }
 
@@ -243,6 +246,7 @@ $notifyTransDuration   : 300ms;
   transition: opacity $loadingTransDuration ease;
   .loading-container {
     position: absolute !important;
+    top: 0;
   }
 }
 // loading
