@@ -462,7 +462,7 @@ export default class Table extends MapperFilter {
         const isNum = !isNaN(+currText) || isStringNumRegex.test(currText);
         if(count && isNum) {
           // 这里是处理累加的逻辑，如果为字符串的字段，则先把逗号去除
-          const isNumbTxt = +((currText + '').replace(',', ''));
+          const isNumbTxt = +((filterRes + '').replace(',', ''));
           if(!isNaN(isNumbTxt) && typeof isNumbTxt === 'number') {
             statistics[key] = (statistics[key] || 0) + isNumbTxt;
           }
@@ -666,16 +666,20 @@ export default class Table extends MapperFilter {
               })
             }
           </tbody>
-          <tfoot>
-            {
-              needCount && this.renderRow({
-                ...options,
-                records: [statistics],
-                needAction: false,
-                filter: moneyFormat
-              })
-            }
-          </tfoot>
+          {
+            needCount && (
+              <tfoot>
+                {
+                  this.renderRow({
+                    ...options,
+                    records: [statistics],
+                    needAction: false,
+                    filter: moneyFormat
+                  })
+                }
+              </tfoot>
+            )
+          }
         </table>
       </div>
     ) : main && (

@@ -60,7 +60,7 @@ const keyMapper = [
     }
   },
   {key: 'age', selectable: false, count: false},
-  {key: 'property', selectable: false},
+  {key: 'property', selectable: false, money: true},
   {key: 'add', labels: {
     cn: 'red'
   }, namesMapper: {
@@ -117,7 +117,7 @@ const records = [
     id: 1,
     username: 'alex',
     age: '100',
-    property: '100,000',
+    property: '100000',
     add: 'cn',
     obj: {
       account: 123,
@@ -128,7 +128,7 @@ const records = [
     id: 2,
     username: 'chili',
     age: '102',
-    property: '200,000',
+    property: '200000',
     add: 'cn',
     obj: {
       account: 123,
@@ -138,7 +138,7 @@ const records = [
   {
     id: 3,
     username: 'dove',
-    property: '300,000',
+    property: '300000',
     age: '50',
     add: 'cn',
     obj: {
@@ -149,7 +149,7 @@ const records = [
   {
     id: 4,
     username: 'susam',
-    property: '400,000',
+    property: '400000',
     age: '20',
     add: 'uk',
     obj: {
@@ -160,7 +160,7 @@ const records = [
   {
     id: 5,
     username: 'susam',
-    property: '400,000',
+    property: '400000',
     age: '20',
     add: 'uk',
     obj: {
@@ -171,7 +171,7 @@ const records = [
   {
     id: 6,
     username: 'susam',
-    property: '400,000',
+    property: '400000',
     age: '20',
     add: 'cn1241241241257172590812903890128590127095712905709125u012',
     obj: {
@@ -182,7 +182,7 @@ const records = [
   {
     id: 7,
     username: 'susam',
-    property: '400,000',
+    property: '400000',
     age: '20',
     add: 'cn124124124125717259081290389',
     obj: {
