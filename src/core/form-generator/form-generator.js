@@ -1,7 +1,7 @@
 import React, {Component, PureComponent} from 'react';
 import PropTypes from 'prop-types';
 
-import { UUID, Call } from 'basic-helper/basic';
+import { UUID, Call } from 'basic-helper';
 import FormFilterHelper from './form-filter';
 
 const hrDivide = ['-', 'hr'];
