@@ -1,4 +1,5 @@
-import { defineGlobalScope, IsFunc, Call } from 'basic-helper';
+import { defineGlobalScope } from 'basic-helper/registe-global-funcs';
+import { IsFunc, Call } from 'basic-helper';
 import chKeyMapper from '../i18n/zh-CN';
 import enKeyMapper from '../i18n/en-US';
 import defaultIconMapper from './icon-mapper';
