@@ -11,7 +11,6 @@ $caretHeight: 6px;
   // }
   @include fill;
   z-index: 1111;
-  position: static;
   pointer-events: none;
   .dropdown-items {
     position: fixed;
