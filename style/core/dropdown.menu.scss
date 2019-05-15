@@ -2,16 +2,37 @@
 $itemH: 30px;
 $iconW: 20px;
 $itemPadding: 6px 12px;
+$caretHeight: 6px;
+
+/** 外层的 dropdown menu 的层级需要提升 */
 #DropdownContainer {
   // .dropdown-items {
   //   width: 200px;
   // }
+  @include fill;
   z-index: 1111;
+  position: static;
+  pointer-events: none;
+  .dropdown-items {
+    position: fixed;
+    opacity: 0;
+    pointer-events: none;
+    transition: transform 200ms ease, opacity 200ms ease;
+    transform: translateY(5px);
+    &.show {
+      opacity: 1;
+      pointer-events: all;
+      transform: translateY(0);
+    }
+  }
 }
 .dropdown-group {
   max-height: 400px;
   width: 400px;
   overflow-y: auto;
+}
+.dropdown-items {
+  // transition: all 0.2s ease;
 }
 .uke-dropdown-menu {
   position: relative;
@@ -35,42 +56,61 @@ $itemPadding: 6px 12px;
       position: fixed;
     }
   }
+  &.top {
+    .dropdown-items {
+      bottom: 130%;
+    }
+  }
+  &.bottom {
+    .dropdown-items {
+      top: 130%;
+    }
+  }
+  &.left {
+    .dropdown-items {
+      left: 0;
+    }
+  }
+  &.right {
+    .dropdown-items {
+      right: 0;
+    }
+  }
   .dropdown-items {
     position: absolute;
-    transition: all ease 0.2s;
+    // transition: all ease 0.2s;
+    pointer-events: all;
   
     z-index: 112;
     background-color: #FFF;
     border-radius: 3px;
-    transition: all 0.2s ease;
+    // transition: all 0.2s ease;
     box-shadow: 0 2px 36px rgba(#333, 0.3);
-    $caretHeight: 6px;
     .caret {
       position: absolute;
       border-width: $caretHeight;
       color: #FFF;
     }
+    // &.done {
+    //   transform: translateY(0);
+    // }
     &.top {
-      bottom: 130%;
       .caret {
         bottom: -$caretHeight;
       }
     }
     &.bottom {
-      top: 130%;
       .caret {
         transform: rotate(180deg);
         top: -$caretHeight;
       }
     }
     &.left {
-      left: 0;
       .caret {
         left: 20px;
       }
     }
     &.right {
-      right: 0;
       .caret {
         right: 20px;
       }
@@ -165,9 +205,11 @@ $itemPadding: 6px 12px;
     opacity: 0;
     z-index: 0;
     outline: none;
+    pointer-events: none;
     &:focus {
       box-shadow: 0 0 5px rgba($themeColor, 0.6);
       border-color: $themeColor;
+      pointer-events: all;
     }
   }
   .action-group {

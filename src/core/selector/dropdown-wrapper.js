@@ -8,10 +8,43 @@ import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import { Icon } from '../icon';
 import ClickAway from '../uke-utils/click-away';
 import positionFilter from '../position-filter';
-import setDOMById, { getElementOffset } from '../set-dom';
+import setDOMById, { getElementOffset, getElementOffsetInfo } from '../set-dom';
 
 const dropdownContainerID = 'DropdownContainer';
-const dropdownContainerDOM = setDOMById(dropdownContainerID, 'uke-dropdown-menu');
+const dropdownContainerDOM = setDOMById(dropdownContainerID, 'uke-dropdown-menu outside');
+
+// function easeOut (t, b, c, d) {
+//   return -c *(t/=d)*(t-2) + b;
+// }
+// const topAnimation = (elem, final) => {
+//   let offset = 50;
+//   let b = final, d = 20, t = 0, c = offset / d;
+//   let top = Math.ceil(easeOut(t,b,c,d));
+//   elem.style.top = `${top}px`;
+//   if(t < d) { t++; setTimeout(() => topAnimation(elem), 10); }
+// };
+const offset = 10;
+const calculateOutsidePosition = (options) => {
+  const { target, position, children } = options;
+  const { offsetTop, offsetLeft, offsetWidth, offsetHeight } = getElementOffsetInfo(target);
+  const childrenWidth = children.offsetWidth;
+  const childrenHeight = children.offsetHeight;
+  let top, left = offsetLeft;
+  if(position.indexOf('top') !== -1) {
+    top = offsetTop - offsetHeight - childrenHeight + offset;
+  } else if(position.indexOf('bottom') !== -1) {
+    top = offsetTop + offsetHeight + offset;
+  }
+  if(position.indexOf('right') !== -1) {
+    left = offsetLeft + offsetWidth - childrenWidth;
+  }
+  // res = { top, left };
+  // topAnimation(children, top);
+  children.style.left = `${left}px`;
+  children.style.top = `${top}px`;
+  // setTimeout(() => children.classList.add('done'), 50);
+  return { top, left };
+};
 
 export default class DropdownWrapper extends React.PureComponent {
   static propTypes = {
@@ -57,19 +90,12 @@ export default class DropdownWrapper extends React.PureComponent {
   handleClickAway = () => {
     if(this.state.isShow) this.hide();
   }
+  
   handleClickMenu = e => {
     const { outside } = this.props;
     if(outside) {
-      e.preventDefault();
-      // console.log(e.pageX)
-      const { clientX, clientY } = e;
-      const { offsetTop, offsetLeft } = getElementOffset(e.target);
-      this.containerOffset = {
-        offsetTop: offsetTop + e.target.offsetHeight + 10,
-        offsetLeft: clientX - 30
-        // offsetTop: clientX + 10,
-        // offsetLeft: clientY
-      };
+      // e.preventDefault();
+      // const { clientX, clientY } = e;
       if(!this.addScrollListener) document.addEventListener('scroll', this.hide);
       this.addScrollListener = true;
     }
@@ -85,14 +111,14 @@ export default class DropdownWrapper extends React.PureComponent {
     });
   }
   hide = () => {
-    this.setState({
-      isShow: false,
-      searchValue: ''
-    });
     if(this.addScrollListener) {
       document.removeEventListener('scroll', this.hide);
       this.addScrollListener = false;
     }
+    this.setState({
+      isShow: false,
+      searchValue: ''
+    });
   }
   saveInput = _i => {
     if(_i) this._input = _i;
@@ -111,38 +137,58 @@ export default class DropdownWrapper extends React.PureComponent {
       focusInput: this.focusInput,
     };
   }
+  saveItems = e => {
+    this.wrapperChildren = e;
+    if(!e) return;
+    calculateOutsidePosition({
+      children: this.wrapperChildren,
+      target: this.displayTitleDOM,
+      position: this._position
+    });
+  }
   childrenFilter = () => {
     const { children, outside, position } = this.props;
     const { isShow } = this.state;
     const isLeft = position.indexOf('left') !== -1;
     const caretOffset = this.displayTitleDOM ? this.displayTitleDOM.offsetWidth / 2 : 10;
+    // const dropdownCom = (
+    //   <TransitionGroup component={null}>
+    //     <CSSTransition
+    //       key="opened"
+    //       classNames="drop-menu"
+    //       timeout={200}>
+    //       <div
+    //         ref={outside ? e => this.saveItems(e) : null}
+    //         className={classnames({
+    //           "dropdown-items": true,
+    //           [this._position]: !!this._position,
+    //           "show": isShow,
+    //         })}>
+    //         <span className="caret" style={isLeft ? {
+    //           left: caretOffset
+    //         } : {
+    //           right: caretOffset
+    //         }} />
+    //         {children(this.getPropsForChild())}
+    //       </div>
+    //     </CSSTransition>
+    //   </TransitionGroup>
+    // );
     const dropdownCom = (
-      <TransitionGroup component={null}>
-        <CSSTransition
-          key={isShow ? 'opened' : 'none'}
-          classNames="drop-menu"
-          timeout={200}>
-          {
-            isShow ? (
-              <div className={
-                "dropdown-items " + 
-                this._position
-              } style={outside ? {
-                top: this.containerOffset.offsetTop,
-                left: this.containerOffset.offsetLeft,
-                position: 'fixed'
-              } : {}}>
-                <span className="caret" style={isLeft ? {
-                  left: caretOffset
-                } : {
-                  right: caretOffset
-                }} />
-                {children(this.getPropsForChild())}
-              </div>
-            ) : <span />
-          }
-        </CSSTransition>
-      </TransitionGroup>
+      <div
+        ref={outside ? e => this.saveItems(e) : null}
+        className={classnames({
+          "dropdown-items": true,
+          [this._position]: !!this._position,
+          "show": isShow,
+        })}>
+        <span className="caret" style={isLeft ? {
+          left: caretOffset
+        } : {
+          right: caretOffset
+        }} />
+        {children(this.getPropsForChild())}
+      </div>
     );
 
     return outside ? ReactDOM.createPortal(
@@ -159,7 +205,7 @@ export default class DropdownWrapper extends React.PureComponent {
   render() {
     const { isShow, searchValue } = this.state;
     const {
-      className, withInput, style, menuTitle, error, menuWrapper
+      className, withInput, style, menuTitle, error, menuWrapper, outside
     } = this.props;
 
     return (
@@ -183,14 +229,14 @@ export default class DropdownWrapper extends React.PureComponent {
                     {menuTitle}
                   </div>
                   {
-                    withInput ? (
+                    withInput && (
                       <input type="text"
                         ref={this.saveInput}
                         placeholder={typeof menuTitle === 'string' ? menuTitle : ''}
                         value={searchValue}
                         className="search-input"
                         onChange={this.onSearch}/>
-                    ) : null
+                    )
                   }
                   <div className="icon-wrap">
                     <Icon n="angle-down" /> 

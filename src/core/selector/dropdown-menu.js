@@ -71,7 +71,7 @@ export default class DropdownMenu extends SelectorBasic {
   static defaultProps = {
     withInput: true,
     needAction: true,
-    outside: false,
+    outside: true,
     defaultTitle: '请选择',
     invalidTip: '无效值',
     cancelTitle: '取消',
@@ -81,9 +81,7 @@ export default class DropdownMenu extends SelectorBasic {
     const { onClickItem, isMultiple } = this.props;
     Call(onClickItem, dataItem);
     this.changeValue(dataItem.value, idx);
-    if(!isMultiple) {
-      callback();
-    }
+    Call(callback);
   }
   getActiveTitle() {
     const { isMultiple, defaultTitle, invalidTip } = this.props;
@@ -177,7 +175,8 @@ export default class DropdownMenu extends SelectorBasic {
                           key={value}
                           isActive={isActive}
                           onClick={e => {
-                            this.handleClick(dataItem, idx, hide);
+                            if(isMultiple) e.preventDefault();
+                            this.handleClick(dataItem, idx, isMultiple ? null : hide);
                           }}
                           {...dataItem}/>
                       ) : null;

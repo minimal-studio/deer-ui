@@ -22,9 +22,9 @@ export function getElementTop(element) {
 
 export function getElementOffset(element) {
   if(!element) return;
-  var actualTop = element.offsetTop;
-  var actualLeft = element.offsetLeft;
-  var current = element.offsetParent;
+  let actualTop = element.offsetTop;
+  let actualLeft = element.offsetLeft;
+  let current = element.offsetParent;
   while (current !== null) {
     actualLeft += (current.offsetLeft + current.clientLeft - current.scrollLeft);
     actualTop += (current.offsetTop + current.clientTop - current.scrollTop);
@@ -35,5 +35,13 @@ export function getElementOffset(element) {
   return {
     offsetLeft: actualLeft,
     offsetTop: actualTop
+  };
+}
+
+export function getElementOffsetInfo(element) {
+  const { offsetHeight, offsetWidth } = element;
+  return {
+    ...getElementOffset(element),
+    offsetHeight, offsetWidth
   };
 }

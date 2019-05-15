@@ -12,6 +12,7 @@ const action = {
       <div>
         <span
           onClick={e => ShowModal({
+            title: '详情',
             children: <DescHelper keyMapper={keyMapper} record={item} />
           })}
           className="link-btn">详情
@@ -19,6 +20,7 @@ const action = {
         <span
           onClick={e => ShowModal({
             width: 1000,
+            title: '详情',
             children: (
               <Table
                 keyMapper={keyMapper}

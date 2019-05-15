@@ -1,12 +1,13 @@
 import React, {Component, PureComponent} from 'react';
 import PropTypes from 'prop-types';
-import { Call, IsFunc, MoneyFormat, HasValue } from 'basic-helper';
+import { Call, IsFunc, MoneyFormat, HasValue, DebounceClass } from 'basic-helper';
 import classnames from 'classnames';
 
 import MapperFilter from './mapper-filter';
 import { Icon } from '../icon';
 
 const isStringNumRegex = /\d+,?/;
+const { exec } = new DebounceClass();
 
 const tdSpecClassMapper = {
   checkbox: 'check-td'
@@ -410,7 +411,7 @@ export default class Table extends MapperFilter {
       key = IsFunc(rowKey) ? rowKey(record, idx) : record[rowKey] || idx;
     } else {
       key = idx;
-      console.warn('需要设置 rowKey，为每一行设置唯一 key');
+      exec(() => console.warn('需要设置 rowKey，为每一行设置唯一 key'), 1000);
     }
     return key;
   }

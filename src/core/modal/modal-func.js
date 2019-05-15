@@ -145,9 +145,8 @@ function ShowModal(options) {
   let gm = window.$UKE.getUkeKeyMap;
 
   let {
-    type, confirmText = gm('确定') + '?', title, showFuncBtn,
-    // width = window.$UKE.isMobile ? '90%' : 600, 
-    id, children, position = 'right',
+    type, confirmText = gm('确定') + '?', showFuncBtn,
+    id, children,
     onConfirm, needHeader
   } = options;
   const _showFuncBtn = type == 'confirm' || showFuncBtn;

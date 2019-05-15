@@ -30,8 +30,6 @@ export default class Popover extends Component {
       'left',
       'bottom',
     ]),
-    /** 内容 */
-    children: PropTypes.any,
     /** class name */
     className: PropTypes.string,
     /** 弹出框的颜色类型 */
@@ -136,7 +134,7 @@ export default class Popover extends Component {
     };
   }
   calaStyle(position, popoverScale) {
-    const { offsetWidth, offsetHeight, offsetTop, offsetLeft } = this.getRelativeElemOffset();
+    const { offsetTop, offsetLeft, offsetWidth, offsetHeight } = this.getRelativeElemOffset();
     const { height, width } = popoverScale;
 
     let positionStyle = {};
