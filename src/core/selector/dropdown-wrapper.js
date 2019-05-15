@@ -151,29 +151,6 @@ export default class DropdownWrapper extends React.PureComponent {
     const { isShow } = this.state;
     const isLeft = position.indexOf('left') !== -1;
     const caretOffset = this.displayTitleDOM ? this.displayTitleDOM.offsetWidth / 2 : 10;
-    // const dropdownCom = (
-    //   <TransitionGroup component={null}>
-    //     <CSSTransition
-    //       key="opened"
-    //       classNames="drop-menu"
-    //       timeout={200}>
-    //       <div
-    //         ref={outside ? e => this.saveItems(e) : null}
-    //         className={classnames({
-    //           "dropdown-items": true,
-    //           [this._position]: !!this._position,
-    //           "show": isShow,
-    //         })}>
-    //         <span className="caret" style={isLeft ? {
-    //           left: caretOffset
-    //         } : {
-    //           right: caretOffset
-    //         }} />
-    //         {children(this.getPropsForChild())}
-    //       </div>
-    //     </CSSTransition>
-    //   </TransitionGroup>
-    // );
     const dropdownCom = (
       <div
         ref={outside ? e => this.saveItems(e) : null}
@@ -245,7 +222,17 @@ export default class DropdownWrapper extends React.PureComponent {
               )
             }
           </span>
-          {this.childrenFilter()}
+          {
+            outside ? this.childrenFilter() : (
+              <TransitionGroup component={null}>
+                <CSSTransition
+                  key={isShow ? "opened" : "closed"}
+                  classNames="drop-menu"
+                  timeout={200}>
+                  {isShow ? this.childrenFilter() : <span />}
+                </CSSTransition>
+              </TransitionGroup>
+            )}
         </div>
       </ClickAway>
     );
