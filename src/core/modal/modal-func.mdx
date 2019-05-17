@@ -6,6 +6,8 @@ menu: Utils
 
 import { Playground, PropsTable } from 'docz'
 import { ShowModal, CloseModal, ShowGlobalModal, CloseGlobalModal, CloseAllModal } from './';
+import { DropdownMenu } from '../selector';
+import { Pop } from '../popover';
 
 # ShowModal
 
@@ -30,7 +32,35 @@ import { ShowModal, CloseModal, ShowGlobalModal, CloseGlobalModal, CloseAllModal
         onClose: () => {
           console.log('asd')
         },
-        children: <div className="p10">任意的内容</div>
+        children: <div
+          style={{height: 200, overflow: 'auto'}} className="p10 relative">
+          内容
+          <div style={{height: 300}}>
+          </div>
+          <DropdownMenu
+            values={{
+              a: '123',
+              b: '456',
+            }} />
+          <div onClick={e => {
+            Pop.show({
+              elem: e.target,
+              props: {
+                showCloseBtn: false,
+                position: 'top',
+                type: 'red'
+              },
+              children: (
+                <div className="p10">
+                  任意内容任意内容任意内容任意内容<br />
+                  任意内容任意内容任意内容任意内容<br />
+                  任意内容任意内容任意内容任意内容<br />
+                  任意内容任意内容任意内容任意内容<br />
+                </div>
+              )
+            })
+          }}>浮动</div>
+        </div>
       })}>
       默认的 Modal
     </span>

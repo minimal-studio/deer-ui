@@ -238,6 +238,8 @@ $windowActiveShadow: 0 12px 36px rgba(#000, 0.3);
       
       &.max-height {
         max-height: 80vh;
+        /** 为了让 dropdown 和 popover 做滚动定位 */
+        position: relative;
       }
     }
   }
