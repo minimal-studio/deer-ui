@@ -45,6 +45,8 @@ export default class DropdownMenu extends SelectorBasic {
     className: PropTypes.string,
     /** 一旦设置，便成为受控控件，详情请参考 react 受控控件 https://reactjs.org/docs/forms.html */
     value: PropTypes.any,
+    /** 监听滚动时隐藏的外层元素 */
+    scrollElem: PropTypes.func,
     /** 是否渲染在 react root 之外 */
     outside: PropTypes.bool,
     /** 是否返回 number 类型的值 */

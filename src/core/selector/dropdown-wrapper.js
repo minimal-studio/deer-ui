@@ -67,6 +67,8 @@ export default class DropdownWrapper extends React.PureComponent {
     ]),
     /** 接受函数 children，只在 show 的时候渲染 */
     children: PropTypes.func,
+    /** 监听滚动时隐藏的外层元素 */
+    scrollElem: PropTypes.func,
     /** 用于渲染最外层的内容 */
     menuWrapper: PropTypes.func,
     /** style */
@@ -77,6 +79,7 @@ export default class DropdownWrapper extends React.PureComponent {
     menuTitle: 'Title',
     outside: false,
     position: 'bottom,left',
+    scrollElem: () => document
   };
   state = {
     isShow: false,
@@ -92,11 +95,14 @@ export default class DropdownWrapper extends React.PureComponent {
   }
   
   handleClickMenu = e => {
-    const { outside } = this.props;
+    const { outside, scrollElem } = this.props;
     if(outside) {
       // e.preventDefault();
       // const { clientX, clientY } = e;
-      if(!this.addScrollListener) document.addEventListener('scroll', this.hide);
+      if(!this.addScrollListener) {
+        const _scrollElem = scrollElem();
+        _scrollElem.addEventListener('scroll', this.hide);
+      }
       this.addScrollListener = true;
     }
     this.showSubMenu();
@@ -112,7 +118,8 @@ export default class DropdownWrapper extends React.PureComponent {
   }
   hide = () => {
     if(this.addScrollListener) {
-      document.removeEventListener('scroll', this.hide);
+      const { scrollElem } = this.props;
+      scrollElem().removeEventListener('scroll', this.hide);
       this.addScrollListener = false;
     }
     this.setState({

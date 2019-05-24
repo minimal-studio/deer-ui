@@ -28,7 +28,6 @@ export function getElementOffset(element) {
   while (current !== null) {
     actualLeft += (current.offsetLeft + current.clientLeft - current.scrollLeft);
     actualTop += (current.offsetTop + current.clientTop - current.scrollTop);
-    console.log(current, current.scrollTop)
     current = current.offsetParent;
   }
   /** 需要把 body 的滚动加上 */

@@ -2,6 +2,10 @@
 
 -----------------
 
+## 2.15.60
+
+- DropdownWapper 新增 scrollElem 接口，用于监听滚动隐藏的容器元素
+
 ## 2.15.59
 
 - 修复 Modal 下的 Dropdown 和 Popover 的定位问题
