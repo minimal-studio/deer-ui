@@ -33,7 +33,7 @@ export default class MapperFilter extends UkePureComponent {
         <DropdownWrapper
           outside
           className="selector-group"
-          menuWrapper={() => {
+          overlay={() => {
             return (
               <Icon n="filter" />
             );

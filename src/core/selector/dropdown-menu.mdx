@@ -40,7 +40,7 @@ import { DropdownMenu } from './';
               const { value, valueMul, valueMul2 } = state;
               let containerRef;
               return (
-                <div>
+                <div ref={e => containerRef = e}>
                   <div className="mu10">
                     <DropdownMenu
                       ref={e => dropdown = e}

@@ -170,7 +170,7 @@ export default class DropdownMenu extends SelectorBasic {
 
                       const isActive = itemActiveFilter(_selectedValue, value);
                       // HasValue(_selectedValue) && (_selectedValue + '').indexOf(value) > -1;
-                      let renderable = !searchValue ? true : (text.indexOf(searchValue) != -1 || value.toLowerCase().indexOf(searchValue) != -1);
+                      let renderable = !searchValue ? true : (text.toString().indexOf(searchValue) != -1 || value.toString().toLowerCase().indexOf(searchValue) != -1);
       
                       return renderable ? (
                         <MenuItem

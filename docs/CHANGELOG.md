@@ -2,6 +2,11 @@
 
 -----------------
 
+## 2.15.61
+
+- 修复下拉菜单的搜索值的问题
+- DropdownWrapper 的 menuWrapper 改为 overlay
+
 ## 2.15.60
 
 - DropdownWapper 新增 scrollElem 接口，用于监听滚动隐藏的容器元素

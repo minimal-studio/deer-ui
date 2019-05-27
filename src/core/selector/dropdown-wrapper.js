@@ -69,8 +69,10 @@ export default class DropdownWrapper extends React.PureComponent {
     children: PropTypes.func,
     /** 监听滚动时隐藏的外层元素 */
     scrollElem: PropTypes.func,
-    /** 用于渲染最外层的内容 */
+    /** 用于渲染最外层的内容, 将要废弃，请使用 overlay */
     menuWrapper: PropTypes.func,
+    /** 用于渲染最外层的内容 */
+    overlay: PropTypes.func,
     /** style */
     style: PropTypes.shape({}),
   }
@@ -189,8 +191,9 @@ export default class DropdownWrapper extends React.PureComponent {
   render() {
     const { isShow, searchValue } = this.state;
     const {
-      className, withInput, style, menuTitle, error, menuWrapper, outside
+      className, withInput, style, menuTitle, error, menuWrapper, overlay, outside
     } = this.props;
+    const _overlay = overlay || menuWrapper;
 
     return (
       <ClickAway ref={this.saveClickAway} onClickAway={this.handleClickAway}>
@@ -207,7 +210,7 @@ export default class DropdownWrapper extends React.PureComponent {
           <span className="menu-wrapper" ref={e => this.displayTitleDOM = e}
             onClick={this.handleClickMenu}>
             {
-              IsFunc(menuWrapper) ? menuWrapper(this.getPropsForChild()) : (
+              IsFunc(_overlay) ? _overlay(this.getPropsForChild()) : (
                 <div className="display-menu">
                   <div className="display-title">
                     {menuTitle}
