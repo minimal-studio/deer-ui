@@ -12,6 +12,7 @@ const defaultProps = {
   disabled: false,
   type: 'button',
   color: 'theme',
+  textLayout: 'a-i-c j-c-c',
   className: '',
   icon: '',
 };
@@ -20,7 +21,7 @@ const Button = (props) => {
   let gm = window.$UKE.getUkeKeyMap;
   const {
     loading, disabled, text = gm('提交'), icon, s, type, children,
-    color, className, loadingHint, loadingDisable, onClick
+    color, className, loadingHint, loadingDisable, textLayout, onClick
   } = props;
 
   const clickable = !disabled && (!loading || !loadingDisable);
@@ -39,7 +40,7 @@ const Button = (props) => {
       onClick={e => {
         if(clickable) onClick(e);
       }}>
-      <span className="layout a-i-c">
+      <span className={`layout ${textLayout}`}>
         {iconDOM}
         {children || text}
         {loadingTip}
@@ -62,6 +63,8 @@ Button.propTypes = {
   icon: PropTypes.string,
   /** btn 的字 */
   text: PropTypes.string,
+  /** btn 内的布局 */
+  textLayout: PropTypes.string,
   /** children */
   children: PropTypes.any,
   /** btn 的类型 */
