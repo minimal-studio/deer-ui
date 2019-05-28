@@ -76,6 +76,8 @@ export default class Table extends MapperFilter {
     ]),
     /** 是否需要统计 */
     needCount: PropTypes.bool,
+    /** 是否需要统计 */
+    alignRightTypes: PropTypes.arrayOf(PropTypes.string),
     /** 是否固定头部 */
     fixHead: PropTypes.bool,
     /** 一些表头的选择器 onChange 的回调, 回调参数 [emitVal, selectorConfig] */
@@ -107,6 +109,7 @@ export default class Table extends MapperFilter {
     sortIgnores: [],
     fixedLeftKeys: [],
     fixedRightKeys: [],
+    alignRightTypes: ['money'],
     needCheck: false,
     height: 'auto',
     needInnerSort: false,
@@ -426,6 +429,15 @@ export default class Table extends MapperFilter {
     }
   }
 
+  checkRightAlign = (mapperItem) => {
+    const { alignRightTypes } = this.props;
+    for (const rightAlignItem of alignRightTypes) {
+      if(mapperItem.hasOwnProperty(rightAlignItem)) {
+        return true;
+      } else continue;
+    }
+  }
+
   renderCell(options) {
     const {
       record, parentIdx, needCount, rowKey, keyMapper,
@@ -442,6 +454,7 @@ export default class Table extends MapperFilter {
       if(!mapperItem) continue;
 
       const { key, className, count = true } = mapperItem;
+      const isRightAlign = this.checkRightAlign(mapperItem);
       const currText = record[key];
 
       const needFilter = needAction || this.excludeFilterField.indexOf(key) === -1;
@@ -472,7 +485,7 @@ export default class Table extends MapperFilter {
 
       const tdKey = `${rowKey}_${key}`;
       // let style = {};
-      const _className = `${tdSpecClassMapper[key] || ''} ${className ||  ''}`;
+      const _className = `${tdSpecClassMapper[key] || ''} ${className ||  ''} ${isRightAlign ? 'right' : ''}`;
       const tdDOM = (
         <td
           ref={e => this.saveCell(_idx, main, rowKey)(e)}
@@ -562,6 +575,7 @@ export default class Table extends MapperFilter {
                   const __idx = idx || _idx;
                   const cellWidth = headerWidthMapper[__idx];
                   const needSort = needInnerSort || onSort;
+                  const isRightAlign = this.checkRightAlign(item);
                   
                   let title = '';
                   if(key !== 'checkbox') {
@@ -598,9 +612,15 @@ export default class Table extends MapperFilter {
                     }
                   } : {};
 
+                  const _className = classnames(
+                    isOrdering && (isDesc ? '_desc' : '_asc'), 
+                    canOrder && '_order _btn', 
+                    isRightAlign && 'right'
+                  );
+
                   return (
                     <th 
-                      className={`${isOrdering ? (isDesc ? '_desc' : '_asc') : ''} ${canOrder ? '_order _btn' : ''}`}
+                      className={_className}
                       key={key}
                       {...clickHandlerForTh}
                       style={{
@@ -636,8 +656,8 @@ export default class Table extends MapperFilter {
   renderTableBody = (options) => {
     const { height, needCount } = this.props;
     const { tableWidth, isAutoWidth } = this.state;
-    const { hasRecord, isSetWidth, keyMapper, ref, main } = options;
-    const hasFixedTable = this.hasFixedGroup();
+    const { hasRecord, keyMapper, ref, main } = options;
+    // const hasFixedTable = this.hasFixedGroup();
 
     /** 统计字段，每一次统计都是一个新对象 */
     let statistics = {
@@ -652,7 +672,7 @@ export default class Table extends MapperFilter {
     return hasRecord ? (
       <div
         key="tableBody"
-        onScroll={!isAutoWidth && hasFixedTable ? this.handleTableScroll : null}
+        onScroll={this.handleTableScroll}
         ref={ref}
         className="uke-table-scroll"
         style={style}>
@@ -747,7 +767,6 @@ export default class Table extends MapperFilter {
       ...options,
       main: true,
       ref: this.saveMainTable,
-      isSetWidth: true
     }, 'mainTable');
   }
 
@@ -768,6 +787,7 @@ export default class Table extends MapperFilter {
       mainTable.scrollTop = currScrollOffset;
     }
     this.lastScrollTop = currScrollOffset;
+    this.scrollY = currScrollOffset;
   }
 
   handleScrollHor = (e) => {
@@ -790,6 +810,7 @@ export default class Table extends MapperFilter {
       target.classList.remove(scrollRightClass);
     }
     this.lastScrollLeft = scrollLeft;
+    this.scrollX = scrollLeft;
   }
 
   render() {
@@ -836,7 +857,7 @@ export default class Table extends MapperFilter {
         <div
           // className={"table-render" + (isAutoWidth ? ' auto-width' : '')}
           className="table-render"
-          onScroll={!isAutoWidth && fixedGroup ? this.handleScrollHor : undefined}
+          onScroll={this.handleScrollHor}
           // className={"table-render" + (hasChecked ? ' has-checked' : '')}
           ref={this.saveContainer}>
           {mainTable}

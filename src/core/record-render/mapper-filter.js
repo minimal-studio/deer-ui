@@ -19,6 +19,8 @@ export default class MapperFilter extends UkeComponent {
   excludeKeys = ['records', 'keyMapper', 'whenCheckAction'];
   sortIgnores = [];
   selectorCache = {};
+  scrollX = 0;
+  scrollY = 0;
   shouldComponentUpdate(nextProps, nextState, nextContext) {
     /** 渲染前做自定义的数据对比，提升表格渲染的效率 */
     let _thisProps = excludeKey(this.props, this.excludeKeys);
@@ -77,6 +79,8 @@ export default class MapperFilter extends UkeComponent {
             Call(onChange, emitVal);
             Call(this.props.onChange, emitVal, title);
           }}
+          scrollX={this.scrollX}
+          scrollY={this.scrollY}
           outside={outside}
           defaultTitle={defaultTitle}
           invalidTip={invalidTip}

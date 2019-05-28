@@ -187,6 +187,9 @@ $tdPadding: 10px;
 }
 .table {
   border-spacing: 0;
+  .right {
+    text-align: right;
+  }
   th, td {
     user-select: auto;
   }

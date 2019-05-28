@@ -25,7 +25,7 @@ const dropdownContainerDOM = setDOMById(dropdownContainerID, 'uke-dropdown-menu 
 // };
 const offset = 10;
 const calculateOverlayPosition = (options) => {
-  const { target, position, overlayElem } = options;
+  const { target, position, overlayElem, scrollX, scrollY } = options;
   const { offsetTop, offsetLeft, offsetWidth, offsetHeight } = getElementOffsetInfo(target);
   const overlayElemWidth = overlayElem.offsetWidth;
   const overlayElemHeight = overlayElem.offsetHeight;
@@ -40,8 +40,8 @@ const calculateOverlayPosition = (options) => {
   }
   // res = { top, left };
   // topAnimation(overlayElem, top);
-  overlayElem.style.left = `${left}px`;
-  overlayElem.style.top = `${top}px`;
+  overlayElem.style.left = `${left - scrollX}px`;
+  overlayElem.style.top = `${top - scrollY}px`;
   // setTimeout(() => overlayElem.classList.add('done'), 50);
   return { top, left };
 };
@@ -72,6 +72,10 @@ export default class DropdownWrapper extends React.PureComponent {
     ]),
     /** 监听滚动时隐藏的外层元素 */
     scrollElem: PropTypes.func,
+    /** 父容器的 scrollX 偏移值 */
+    scrollX: PropTypes.number,
+    /** 父容器的 scrollY 偏移值 */
+    scrollY: PropTypes.number,
     /** 监听滚动时隐藏的外层元素 */
     trigger: PropTypes.oneOf([
       'click', 'hover'
@@ -88,6 +92,8 @@ export default class DropdownWrapper extends React.PureComponent {
     menuTitle: 'Title',
     trigger: 'click',
     outside: false,
+    scrollX: 0,
+    scrollY: 0,
     position: 'bottom,left',
     scrollElem: () => document
   };
@@ -157,10 +163,12 @@ export default class DropdownWrapper extends React.PureComponent {
   saveItems = e => {
     this.overlayElem = e;
     if(!e) return;
+    const { scrollX, scrollY } = this.props;
     calculateOverlayPosition({
       overlayElem: this.overlayElem,
       target: this.displayTitleDOM,
-      position: this._position
+      position: this._position,
+      scrollX, scrollY
     });
   }
   overlayRender = () => {
