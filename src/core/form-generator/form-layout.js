@@ -169,7 +169,7 @@ export default class FormLayout extends UkeComponent {
         text: btnText,
         color: 'theme',
         type: 'button',
-        className: 'theme'
+        className: ''
       }
     ];
 
@@ -199,7 +199,8 @@ export default class FormLayout extends UkeComponent {
             text={isBtnLoading ? text + this.gm('中') + '...' : text}
             loading={isBtnLoading}
             type={type}
-            className={color || className || ''}
+            color={color}
+            className={className || ''}
             onClick={e => !isSubmit && this._handleClickBtn(btn)}/>
         </span>
       );

@@ -2,6 +2,10 @@
 
 -----------------
 
+## 2.16.2
+
+- 修复 FormLayout 的按钮的参数重复的问题
+
 ## 2.16.1
 
 - DropdownWrapper 新增触发方式接口 trigger, 用于触发 click || hover
