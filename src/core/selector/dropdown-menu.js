@@ -135,61 +135,59 @@ export default class DropdownMenu extends SelectorBasic {
     const menuTitle = this.getActiveTitle();
 
     return (
-      <DropdownWrapper {...this.props} menuTitle={menuTitle}
+      <DropdownWrapper {...this.props}
+        menuTitle={menuTitle}
+        overlay={({ hide, searchValue }) => {
+          return (
+            <div className="action-group">
+              {
+                needAction && (
+                  <div className="action-btn" onClick={e => {
+                    canSelectAll ? this.selectAll() : this.clearAll();
+                    hide();
+                  }}>
+                    {this.gm(canSelectAll ? '全选' : cancelTitle)}
+                  </div>
+                )
+              }
+              <div className="items-group">
+                {/* <Radio values={this.values}
+                value={this.value}
+                isMultiple={isMultiple} onChange={(val, ...other) => {
+                  const emitVal = isMultiple ? val : [val];
+                  this.changeEvent(emitVal, ...other);
+                }} /> */}
+                {
+                  this.values.map((dataItem, idx) => {
+                    const { text, value, icon, img } = dataItem;
+
+                    const isActive = itemActiveFilter(_selectedValue, value);
+                    // HasValue(_selectedValue) && (_selectedValue + '').indexOf(value) > -1;
+                    let renderable = !searchValue ? true : (text.toString().indexOf(searchValue) != -1 || value.toString().toLowerCase().indexOf(searchValue) != -1);
+  
+                    return renderable ? (
+                      <MenuItem
+                        key={value}
+                        isActive={isActive}
+                        onClick={e => {
+                          if(isMultiple) e.preventDefault();
+                          this.handleClick(dataItem, idx, isMultiple ? null : hide);
+                        }}
+                        {...dataItem}/>
+                    ) : null;
+                  })
+                }
+              </div>
+            </div>
+          );
+        }}
         withInput={!withInput ? withInput : !isMultiple}
         error={this._error}
         className={classnames({
           "multiple": isMultiple,
           "single": !isMultiple,
           "has-val": hasVal
-        })}>
-        {
-          ({ hide, searchValue }) => {
-            return (
-              <div className="action-group">
-                {
-                  needAction && (
-                    <div className="action-btn" onClick={e => {
-                      canSelectAll ? this.selectAll() : this.clearAll();
-                      hide();
-                    }}>
-                      {this.gm(canSelectAll ? '全选' : cancelTitle)}
-                    </div>
-                  )
-                }
-                <div className="items-group">
-                  {/* <Radio values={this.values}
-                    value={this.value}
-                    isMultiple={isMultiple} onChange={(val, ...other) => {
-                      const emitVal = isMultiple ? val : [val];
-                      this.changeEvent(emitVal, ...other);
-                    }} /> */}
-                  {
-                    this.values.map((dataItem, idx) => {
-                      const { text, value, icon, img } = dataItem;
-
-                      const isActive = itemActiveFilter(_selectedValue, value);
-                      // HasValue(_selectedValue) && (_selectedValue + '').indexOf(value) > -1;
-                      let renderable = !searchValue ? true : (text.toString().indexOf(searchValue) != -1 || value.toString().toLowerCase().indexOf(searchValue) != -1);
-      
-                      return renderable ? (
-                        <MenuItem
-                          key={value}
-                          isActive={isActive}
-                          onClick={e => {
-                            if(isMultiple) e.preventDefault();
-                            this.handleClick(dataItem, idx, isMultiple ? null : hide);
-                          }}
-                          {...dataItem}/>
-                      ) : null;
-                    })
-                  }
-                </div>
-              </div>
-            );
-          }
-        }
-      </DropdownWrapper>
+        })} />
     );
   }
 }

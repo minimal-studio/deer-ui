@@ -35,36 +35,30 @@ export default class MapperFilter extends UkePureComponent {
           className="selector-group"
           overlay={() => {
             return (
-              <Icon n="filter" />
-            );
-          }}>
-          {
-            () => {
-              return (
-                <div className="layout col p10">
-                  <span className="mb10" onClick={e => {
-                    // selectorCache[ref] = null;
+              <div className="layout col p10">
+                <span className="mb10" onClick={e => {
+                  // selectorCache[ref] = null;
+                  const emitVal = {
+                    [ref]: undefined
+                  };
+                  this.changeVal(emitVal);
+                }}>
+                  {this.gm('清除')}
+                </span>
+                <Radio
+                  {...other}
+                  column
+                  defaultValue={valFromCache}
+                  onChange={val => {
                     const emitVal = {
-                      [ref]: undefined
+                      [ref]: val
                     };
                     this.changeVal(emitVal);
-                  }}>
-                    {this.gm('清除')}
-                  </span>
-                  <Radio
-                    {...other}
-                    column
-                    defaultValue={valFromCache}
-                    onChange={val => {
-                      const emitVal = {
-                        [ref]: val
-                      };
-                      this.changeVal(emitVal);
-                    }} />
-                </div>
-              );
-            }
-          }
+                  }} />
+              </div>
+            );
+          }}>
+          <Icon n="filter" />
         </DropdownWrapper>
       </div>
     );

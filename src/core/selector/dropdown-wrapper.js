@@ -24,25 +24,25 @@ const dropdownContainerDOM = setDOMById(dropdownContainerID, 'uke-dropdown-menu 
 //   if(t < d) { t++; setTimeout(() => topAnimation(elem), 10); }
 // };
 const offset = 10;
-const calculateOutsidePosition = (options) => {
-  const { target, position, children } = options;
+const calculateOverlayPosition = (options) => {
+  const { target, position, overlayElem } = options;
   const { offsetTop, offsetLeft, offsetWidth, offsetHeight } = getElementOffsetInfo(target);
-  const childrenWidth = children.offsetWidth;
-  const childrenHeight = children.offsetHeight;
+  const overlayElemWidth = overlayElem.offsetWidth;
+  const overlayElemHeight = overlayElem.offsetHeight;
   let top, left = offsetLeft;
   if(position.indexOf('top') !== -1) {
-    top = offsetTop - offsetHeight - childrenHeight + offset;
+    top = offsetTop - offsetHeight - overlayElemHeight + offset;
   } else if(position.indexOf('bottom') !== -1) {
     top = offsetTop + offsetHeight + offset;
   }
   if(position.indexOf('right') !== -1) {
-    left = offsetLeft + offsetWidth - childrenWidth;
+    left = offsetLeft + offsetWidth - overlayElemWidth;
   }
   // res = { top, left };
-  // topAnimation(children, top);
-  children.style.left = `${left}px`;
-  children.style.top = `${top}px`;
-  // setTimeout(() => children.classList.add('done'), 50);
+  // topAnimation(overlayElem, top);
+  overlayElem.style.left = `${left}px`;
+  overlayElem.style.top = `${top}px`;
+  // setTimeout(() => overlayElem.classList.add('done'), 50);
   return { top, left };
 };
 
@@ -66,7 +66,10 @@ export default class DropdownWrapper extends React.PureComponent {
       PropTypes.node,
     ]),
     /** 接受函数 children，只在 show 的时候渲染 */
-    children: PropTypes.func,
+    children: PropTypes.oneOfType([
+      PropTypes.func, PropTypes.node, PropTypes.element,
+      PropTypes.string, PropTypes.number, PropTypes.bool
+    ]),
     /** 监听滚动时隐藏的外层元素 */
     scrollElem: PropTypes.func,
     /** 用于渲染最外层的内容, 将要废弃，请使用 overlay */
@@ -138,7 +141,7 @@ export default class DropdownWrapper extends React.PureComponent {
       searchValue: val
     });
   }
-  getPropsForChild = () => {
+  getPropsForOverlay = () => {
     return {
       ...this.state,
       hide: this.hide,
@@ -147,16 +150,16 @@ export default class DropdownWrapper extends React.PureComponent {
     };
   }
   saveItems = e => {
-    this.wrapperChildren = e;
+    this.overlayElem = e;
     if(!e) return;
-    calculateOutsidePosition({
-      children: this.wrapperChildren,
+    calculateOverlayPosition({
+      overlayElem: this.overlayElem,
       target: this.displayTitleDOM,
       position: this._position
     });
   }
-  childrenFilter = () => {
-    const { children, outside, position } = this.props;
+  overlayRender = () => {
+    const { overlay, outside, position } = this.props;
     const { isShow } = this.state;
     const isLeft = position.indexOf('left') !== -1;
     const caretOffset = this.displayTitleDOM ? this.displayTitleDOM.offsetWidth / 2 : 10;
@@ -173,7 +176,7 @@ export default class DropdownWrapper extends React.PureComponent {
         } : {
           right: caretOffset
         }} />
-        {children(this.getPropsForChild())}
+        {overlay(this.getPropsForOverlay())}
       </div>
     );
 
@@ -188,12 +191,55 @@ export default class DropdownWrapper extends React.PureComponent {
       this.updateNodeRef = e.updateNodeRef;
     }
   }
+  getDfaultChild = (menuTitle) => {
+    const {withInput } = this.props;
+    const { searchValue } = this.state;
+    return (
+      <div className="display-menu">
+        <div className="display-title">
+          {menuTitle}
+        </div>
+        {
+          withInput && (
+            <input type="text"
+              ref={this.saveInput}
+              placeholder={typeof menuTitle === 'string' ? menuTitle : ''}
+              value={searchValue}
+              className="search-input"
+              onChange={this.onSearch}/>
+          )
+        }
+        <div className="icon-wrap">
+          <Icon n="angle-down" /> 
+        </div>
+      </div>
+    );
+  }
+  childrenRender = () => {
+    const { children, menuTitle } = this.props;
+    let child, _title = menuTitle;
+    switch (true) {
+    case IsFunc(children):
+      child = children(this.getPropsForOverlay());
+      break;
+    case React.isValidElement(children):
+      child = children;
+      break;
+    default:
+      if(typeof children === 'string') {
+        _title = children;
+      }
+      child = this.getDfaultChild(_title);
+      break;
+    }
+    
+    return child;
+  }
   render() {
-    const { isShow, searchValue } = this.state;
+    const { isShow } = this.state;
     const {
-      className, withInput, style, menuTitle, error, menuWrapper, overlay, outside
+      className, withInput, style, error, outside
     } = this.props;
-    const _overlay = overlay || menuWrapper;
 
     return (
       <ClickAway ref={this.saveClickAway} onClickAway={this.handleClickAway}>
@@ -210,39 +256,21 @@ export default class DropdownWrapper extends React.PureComponent {
           <span className="menu-wrapper" ref={e => this.displayTitleDOM = e}
             onClick={this.handleClickMenu}>
             {
-              IsFunc(_overlay) ? _overlay(this.getPropsForChild()) : (
-                <div className="display-menu">
-                  <div className="display-title">
-                    {menuTitle}
-                  </div>
-                  {
-                    withInput && (
-                      <input type="text"
-                        ref={this.saveInput}
-                        placeholder={typeof menuTitle === 'string' ? menuTitle : ''}
-                        value={searchValue}
-                        className="search-input"
-                        onChange={this.onSearch}/>
-                    )
-                  }
-                  <div className="icon-wrap">
-                    <Icon n="angle-down" /> 
-                  </div>
-                </div>
-              )
+              this.childrenRender()
             }
           </span>
           {
-            outside ? this.childrenFilter() : (
+            outside ? this.overlayRender() : (
               <TransitionGroup component={null}>
                 <CSSTransition
                   key={isShow ? "opened" : "closed"}
                   classNames="drop-menu"
                   timeout={200}>
-                  {isShow ? this.childrenFilter() : <span />}
+                  {isShow ? this.overlayRender() : <span />}
                 </CSSTransition>
               </TransitionGroup>
-            )}
+            )
+          }
         </div>
       </ClickAway>
     );

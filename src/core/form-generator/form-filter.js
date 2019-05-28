@@ -502,7 +502,7 @@ export default class FormFilterHelper extends UkeComponent {
           !config.noHelper && (
             <DateShortcut
               {...other}
-              position="left"
+              position="right"
               onChange={val => {
                 this.changeDateValues(val, refs);
               }}/>

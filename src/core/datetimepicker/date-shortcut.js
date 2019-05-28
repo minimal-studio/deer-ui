@@ -1,9 +1,9 @@
 import React, {Component, PureComponent} from 'react';
 import PropTypes from 'prop-types';
-import { Call, DateFormat, GetDefaultDateInfo } from 'basic-helper';
+import { Call, DateFormat } from 'basic-helper';
 import { DateRange, ToUTC } from 'basic-helper/datetime-helper';
 
-import { SubContent } from '../sub-content';
+import { DropdownWrapper } from '../selector';
 import DateBasic from './date-basic';
 
 function getHalfMouthDate(type, format, timeDefaultStr) {
@@ -76,7 +76,7 @@ export default class DateShortcut extends DateBasic {
   static defaultProps = {
     needTime: true,
     toUTC: true,
-    position: 'right',
+    position: 'left',
     outputAsString: false,
     defaultTimes: ['00:00:00', '23:59:59'],
   };
@@ -147,21 +147,29 @@ export default class DateShortcut extends DateBasic {
 
     return (
       <div className="date-helper-group" style={style}>
-        <SubContent displayElem={gm('快捷')} position={position}>
-          <div className="date-helper">
-            {
-              _dateHelperInfo.map((item, idx) => {
-                const text = item.t;
-                return (
-                  <span className={(idx == activeIdx ? 'active ' : '') + "date-helper-btn"}
-                    onClick={e => this.generateDate(item, idx)} key={text}>
-                    {text}
-                  </span>
-                );
-              })
-            }
-          </div>
-        </SubContent>
+        <DropdownWrapper
+          overlay={({ hide }) => (
+            <div className="date-helper">
+              {
+                _dateHelperInfo.map((item, idx) => {
+                  const text = item.t;
+                  return (
+                    <span className={(idx == activeIdx ? 'active ' : '') + "date-helper-btn"}
+                      onClick={e => {
+                        hide();
+                        this.generateDate(item, idx);
+                      }} key={text}>
+                      {text}
+                    </span>
+                  );
+                })
+              }
+            </div>
+          )} position={position}>
+          {
+            () => gm('快捷')
+          }
+        </DropdownWrapper>
         {/* <div className="hide-container">
           <span>快捷</span>
           <div className="hide-content">

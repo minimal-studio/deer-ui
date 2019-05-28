@@ -117,48 +117,48 @@ export default class DropdownGroup extends SelectorBasic {
     const groupDataArr = Object.keys(groupData);
 
     return (
-      <DropdownWrapper menuTitle={this.getTitle()} {...other}>
-        {
-          (helper) => {
-            const selectedValue = this.getValue();
-            return (
-              <div className="dropdown-group p10" style={style}>
-                {
-                  groupDataArr.map((groupKey, idx) => {
-                    const currItem = groupData[groupKey];
-                    const { title, values, isNum } = this.itemFilter(currItem);
-                    const subValues = values;
-                    const subValuesGroup = Object.keys(subValues);
-                    const valueActive = selectedValue[groupKey];
-                    const isActiveGroup = valueActive && valueActive.length === subValuesGroup.length;
-                    const isLastGroup = idx === groupDataArr.length - 1;
+      <DropdownWrapper {...other} overlay={(helper) => {
+        const selectedValue = this.getValue();
+        return (
+          <div className="dropdown-group p10" style={style}>
+            {
+              groupDataArr.map((groupKey, idx) => {
+                const currItem = groupData[groupKey];
+                const { title, values, isNum } = this.itemFilter(currItem);
+                const subValues = values;
+                const subValuesGroup = Object.keys(subValues);
+                const valueActive = selectedValue[groupKey];
+                const isActiveGroup = valueActive && valueActive.length === subValuesGroup.length;
+                const isLastGroup = idx === groupDataArr.length - 1;
 
-                    return (
-                      <div key={groupKey} 
-                        className={"item-group" + (isActiveGroup ? ' active' : '')}>
-                        <Checkbox
-                          values={{
-                            1: title,
-                          }}
-                          value={isActiveGroup}
-                          isMultiple={false}
-                          onChange={() => this.changeGroup(groupKey, !isActiveGroup, subValuesGroup)} />
-                        <Checkbox
-                          onChange={(val, options) => {
-                            const { targetVal } = options;
-                            this.changeValue(groupKey, targetVal);
-                          }}
-                          isNum={isNum}
-                          value={valueActive}
-                          values={subValues} />
-                        {!isLastGroup && <hr />}
-                      </div>
-                    );
-                  })
-                }
-              </div>
-            );
-          }
+                return (
+                  <div key={groupKey} 
+                    className={"item-group" + (isActiveGroup ? ' active' : '')}>
+                    <Checkbox
+                      values={{
+                        1: title,
+                      }}
+                      value={isActiveGroup}
+                      isMultiple={false}
+                      onChange={() => this.changeGroup(groupKey, !isActiveGroup, subValuesGroup)} />
+                    <Checkbox
+                      onChange={(val, options) => {
+                        const { targetVal } = options;
+                        this.changeValue(groupKey, targetVal);
+                      }}
+                      isNum={isNum}
+                      value={valueActive}
+                      values={subValues} />
+                    {!isLastGroup && <hr />}
+                  </div>
+                );
+              })
+            }
+          </div>
+        );
+      }}>
+        {
+          this.getTitle()
         }
       </DropdownWrapper>
     );

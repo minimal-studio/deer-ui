@@ -2,6 +2,13 @@
 
 -----------------
 
+## 2.16.0
+
+### 重做组件
+
+- 优化 DropdownWrapper 的参数传递方式，更加明确传递的功能，children 为显示内容，overlay 为弹出遮罩
+- 重做 DateShortcut，使用 DropdownWrapper 的方式实现
+
 ## 2.15.61
 
 - 修复下拉菜单的搜索值的问题

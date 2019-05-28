@@ -147,7 +147,7 @@ export default class LinkSelector extends UkeComponent {
   getSelectedTitle = () => {
     let res = this.gm('请选择');
     const { selectedItems } = this.state;
-    console.log(selectedItems)
+    console.log(selectedItems);
     if(selectedItems.length > 0) {
       res = (
         <div>
@@ -175,32 +175,32 @@ export default class LinkSelector extends UkeComponent {
     const selectedTitle = this.getSelectedTitle();
 
     return (
-      <DropdownWrapper ref={this.saveDropWrapper} {...propsForDropWrapper} menuTitle={selectedTitle}>
-        {
-          (helper) => {
-            return (
-              <div className="uke-link-selector" style={{width: 400}}>
-                <div className="items">
-                  <div className="wrapper">
-                    {
-                      this.getAllSet(data)
-                    }
-                  </div>
+      <DropdownWrapper
+        ref={this.saveDropWrapper}
+        {...propsForDropWrapper}
+        menuTitle={selectedTitle}
+        overlay={(helper) => {
+          return (
+            <div className="uke-link-selector" style={{width: 400}}>
+              <div className="items">
+                <div className="wrapper">
                   {
-                    [...this.extendsDOM].map((item, idx) => {
-                      return (
-                        <div className="wrapper" key={idx}>
-                          {item}
-                        </div>
-                      );
-                    })
+                    this.getAllSet(data)
                   }
                 </div>
+                {
+                  [...this.extendsDOM].map((item, idx) => {
+                    return (
+                      <div className="wrapper" key={idx}>
+                        {item}
+                      </div>
+                    );
+                  })
+                }
               </div>
-            );
-          }
-        }
-      </DropdownWrapper>
+            </div>
+          );
+        }} />
     );
   }
 }
