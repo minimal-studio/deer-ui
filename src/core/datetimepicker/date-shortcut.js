@@ -146,9 +146,11 @@ export default class DateShortcut extends DateBasic {
     const gm = this.gm;
 
     return (
-      <div className="date-helper-group" style={style}>
-        <DropdownWrapper
-          overlay={({ hide }) => (
+      <DropdownWrapper
+        outside
+        trigger="hover"
+        overlay={({ hide }) => (
+          <div className="date-helper-group" style={style}>
             <div className="date-helper">
               {
                 _dateHelperInfo.map((item, idx) => {
@@ -165,18 +167,12 @@ export default class DateShortcut extends DateBasic {
                 })
               }
             </div>
-          )} position={position}>
-          {
-            () => gm('快捷')
-          }
-        </DropdownWrapper>
-        {/* <div className="hide-container">
-          <span>快捷</span>
-          <div className="hide-content">
-            
           </div>
-        </div> */}
-      </div>
+        )} position={position}>
+        {
+          () => gm('快捷')
+        }
+      </DropdownWrapper>
     );
   }
 }

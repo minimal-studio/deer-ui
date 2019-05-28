@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from "prop-types";
 import classnames from 'classnames';
-import { IsFunc } from 'basic-helper';
+import { IsFunc, DebounceClass } from 'basic-helper';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
 import { Icon } from '../icon';
@@ -72,8 +72,12 @@ export default class DropdownWrapper extends React.PureComponent {
     ]),
     /** 监听滚动时隐藏的外层元素 */
     scrollElem: PropTypes.func,
+    /** 监听滚动时隐藏的外层元素 */
+    trigger: PropTypes.oneOf([
+      'click', 'hover'
+    ]),
     /** 用于渲染最外层的内容, 将要废弃，请使用 overlay */
-    menuWrapper: PropTypes.func,
+    // menuWrapper: PropTypes.func,
     /** 用于渲染最外层的内容 */
     overlay: PropTypes.func,
     /** style */
@@ -82,6 +86,7 @@ export default class DropdownWrapper extends React.PureComponent {
   static defaultProps = {
     withInput: true,
     menuTitle: 'Title',
+    trigger: 'click',
     outside: false,
     position: 'bottom,left',
     scrollElem: () => document
@@ -166,6 +171,7 @@ export default class DropdownWrapper extends React.PureComponent {
     const dropdownCom = (
       <div
         ref={outside ? e => this.saveItems(e) : null}
+        {...this.bindTrigger(true)}
         className={classnames({
           "dropdown-items": true,
           [this._position]: !!this._position,
@@ -235,6 +241,29 @@ export default class DropdownWrapper extends React.PureComponent {
     
     return child;
   }
+  bindTrigger = (isHide = false) => {
+    const { trigger } = this.props;
+    switch (trigger) {
+    case 'click':
+      return !isHide ? {
+        onClick: this.handleClickMenu
+      } : {};
+    case 'hover':
+      return !isHide ? {
+        onMouseEnter: this.handleClickMenu,
+        onMouseLeave: () => {
+          if(!this.delayExec) this.delayExec = new DebounceClass();
+          this.delayExec.exec(this.handleClickAway, 200);
+        }
+      } : {
+        onMouseEnter: () => {
+          if(this.delayExec) this.delayExec.cancel();
+          this.handleClickMenu();
+        },
+        onMouseLeave: this.handleClickAway
+      };
+    }
+  }
   render() {
     const { isShow } = this.state;
     const {
@@ -254,7 +283,7 @@ export default class DropdownWrapper extends React.PureComponent {
           })}
           style={style}>
           <span className="menu-wrapper" ref={e => this.displayTitleDOM = e}
-            onClick={this.handleClickMenu}>
+            {...this.bindTrigger()}>
             {
               this.childrenRender()
             }

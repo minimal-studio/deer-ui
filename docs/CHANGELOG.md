@@ -2,6 +2,10 @@
 
 -----------------
 
+## 2.16.1
+
+- DropdownWrapper 新增触发方式接口 trigger, 用于触发 click || hover
+
 ## 2.16.0
 
 ### 重做组件
