@@ -179,7 +179,7 @@ export default class FormLayout extends UkeComponent {
 
     const btnGroup = _btnConfig.map((btn, idx) => {
       const {
-        action, text, className, color, actingRef = 'loading', type = 'button',
+        action, text, className = 'mr5', color, actingRef = 'loading', type = 'button',
       } = btn;
       const isBtnLoading = this.props[actingRef];
       const isActive = !!action && !isBtnLoading;
@@ -193,16 +193,15 @@ export default class FormLayout extends UkeComponent {
         };
       }
       return (
-        <span className="mr5" key={key}>
-          <Button
-            disabled={!isActive}
-            text={isBtnLoading ? text + this.gm('中') + '...' : text}
-            loading={isBtnLoading}
-            type={type}
-            color={color}
-            className={className || ''}
-            onClick={e => !isSubmit && this._handleClickBtn(btn)}/>
-        </span>
+        <Button
+          key={key}
+          disabled={!isActive}
+          text={isBtnLoading ? text + this.gm('中') + '...' : text}
+          loading={isBtnLoading}
+          type={type}
+          color={color}
+          className={className}
+          onClick={e => !isSubmit && this._handleClickBtn(btn)}/>
       );
     });
 
