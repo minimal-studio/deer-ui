@@ -76,7 +76,7 @@ export default class Table extends MapperFilter {
     ]),
     /** 是否需要统计 */
     needCount: PropTypes.bool,
-    /** 是否需要统计 */
+    /** 需要右对齐的 mapper 的类型 */
     alignRightTypes: PropTypes.arrayOf(PropTypes.string),
     /** 是否固定头部 */
     fixHead: PropTypes.bool,
