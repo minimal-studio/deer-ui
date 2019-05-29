@@ -6,16 +6,16 @@ export class QRCode extends PureComponent {
     super(props);
     this.state = {
       qrbase64: ''
-    }
+    };
   }
   /**
    * 接口说明
    * 引用时需要定义对于的接口，详情请参考对于的调用方法
    */
   queryData() {
-    const {origin} = this.props;
-    if($UKE.queryQRCodeData) {
-      $UKE.queryQRCodeData(base64Res => {
+    const { origin } = this.props;
+    if(window.$UKE.queryQRCodeData) {
+      window.$UKE.queryQRCodeData(base64Res => {
         this.setState({
           qrbase64: base64Res
         });
@@ -28,7 +28,6 @@ export class QRCode extends PureComponent {
   }
   getCacha() {
     const {origin} = this.props;
-    let result;
     let cacha = localStorage.getItem(origin);
     if(!cacha) return this.queryData();
     this.setState({
@@ -37,12 +36,12 @@ export class QRCode extends PureComponent {
   }
   render () {
     const {qrbase64} = this.state;
-    if(!qrbase64) return <div></div>;
+    if(!qrbase64) return <div />;
     return (
       <div className="qrcode">
-        <img src={qrbase64}/>
+        <img src={qrbase64} alt="" />
       </div>
-    )
+    );
   }
 }
 

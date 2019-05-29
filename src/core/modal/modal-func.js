@@ -5,6 +5,7 @@ import { Call, GenerteID } from 'basic-helper';
 import { Provider, connect } from 'unistore/react';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
+import { $T_UKE } from '../config';
 import { Icon } from '../icon';
 import ModalHelper from './modal-helper';
 import Modal, { animateTypeFilter } from './modal';
@@ -142,10 +143,8 @@ const getDefaultOptions = (options) => {
 
 function ShowModal(options) {
 
-  let gm = window.$UKE.getUkeKeyMap;
-
   let {
-    type, confirmText = gm('确定') + '?', showFuncBtn,
+    type, confirmText = $T_UKE('确定') + '?', showFuncBtn,
     id, children,
     onConfirm, needHeader
   } = options;
@@ -159,8 +158,8 @@ function ShowModal(options) {
 
   let btnGroupDOM = _showFuncBtn ? (
     <div className="btn-group">
-      <span className="btn flat default" onClick={e => onClickBtn(false)}>{gm('取消')}</span>
-      <span className="btn flat theme" onClick={e => onClickBtn(true)}>{gm('确定')}</span>
+      <span className="btn flat default" onClick={e => onClickBtn(false)}>{$T_UKE('取消')}</span>
+      <span className="btn flat theme" onClick={e => onClickBtn(true)}>{$T_UKE('确定')}</span>
     </div>
   ) : null;
 

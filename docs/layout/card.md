@@ -1,8 +1,8 @@
 ---
 name: Cards
 route: /Cards
-menu: Layout
-# menu: Layout / 布局
+menu: Layout / 布局
+# menu: Layout / 布局 / 布局
 ---
 
 import { Playground, PropsTable } from 'docz'

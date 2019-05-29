@@ -578,13 +578,13 @@ export default class Table extends MapperFilter {
                   const isRightAlign = this.checkRightAlign(item);
                   
                   let title = '';
-                  if(key !== 'checkbox') {
-                    title = this.titleFilter(item, __idx);
-                  } else {
+                  if(key === 'checkbox') {
                     title = (
                       <input type="checkbox" checked={isAllCheck}
                         onChange={e => this.toggleAllItems(e.target.checked)}/>
                     );
+                  } else {
+                    title = this.titleFilter(item, __idx);
                   }
 
                   const isOrdering = onSort ? sortOutsideField == key : sortField == key;
@@ -706,7 +706,7 @@ export default class Table extends MapperFilter {
     ) : main && (
       <span className="no-record-tip">
         <Icon n="noData"/>
-        <span className="text">{this.gm('暂无记录')}</span>
+        <span className="text">{this.$T_UKE('暂无记录')}</span>
       </span>
     );
   }
@@ -842,8 +842,8 @@ export default class Table extends MapperFilter {
     const extendDOM = needCheck && whenCheckAction && (
       <div className={"checked-actions" + (hasChecked ? ' show' : '')}>
         <span className="mr10">
-          <span className="mr10">{this.gm('已选')} <span className="t_theme">{checkedItemLen}</span> {this.gm('项')}</span>
-          <span className="link" onClick={this.clearCheckeds}>{this.gm('清除')}</span>
+          <span className="mr10">{this.$T_UKE('已选')} <span className="t_theme">{checkedItemLen}</span> {this.$T_UKE('项')}</span>
+          <span className="link" onClick={this.clearCheckeds}>{this.$T_UKE('清除')}</span>
         </span>
         {IsFunc(whenCheckAction) ? whenCheckAction({
           checkedItems, clearCheckeds: this.clearCheckeds

@@ -6,6 +6,7 @@ import classnames from 'classnames';
 import SelectorBasic, { selectorValuesType } from './selector';
 import DropdownWrapper from './dropdown-wrapper';
 import { MenuItem } from '../menu';
+import { $T, $T_UKE } from '../config';
 // import Radio from './radio';
 
 const itemActiveFilter = (val, targetVal) => {
@@ -98,7 +99,7 @@ export default class DropdownMenu extends SelectorBasic {
       resTitle = defaultTitle;
       break;
     case !!isMultiple:
-      resTitle = value.length + this.gm('项已选择');
+      resTitle = value.length + $T_UKE('项已选');
       break;
     case !this.valuesObj.hasOwnProperty(value):
       resTitle = invalidTip;
@@ -136,7 +137,7 @@ export default class DropdownMenu extends SelectorBasic {
 
     return (
       <DropdownWrapper {...this.props}
-        menuTitle={menuTitle}
+        menuTitle={$T(menuTitle)}
         overlay={({ hide, searchValue }) => {
           return (
             <div className="action-group">
@@ -146,7 +147,7 @@ export default class DropdownMenu extends SelectorBasic {
                     canSelectAll ? this.selectAll() : this.clearAll();
                     hide();
                   }}>
-                    {this.gm(canSelectAll ? '全选' : cancelTitle)}
+                    {$T_UKE(canSelectAll ? '全选' : cancelTitle)}
                   </div>
                 )
               }

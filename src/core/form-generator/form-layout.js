@@ -127,7 +127,7 @@ export default class FormLayout extends UkeComponent {
     const { isPass, desc, ref } = this.formHelper.checkForm();
     if(!isPass) {
       this.showResDesc({
-        resDesc: desc + this.gm('必填|选'),
+        resDesc: desc + this.$T_UKE('必填|选'),
         hasErr: true
       });
     }
@@ -156,7 +156,7 @@ export default class FormLayout extends UkeComponent {
       tipInfo, btnConfig, className = '', isVertical, isMobile,
       showInputTitle,
       childrenBeforeForm, childrenAfterForm, childrenBeforeBtn,
-      formOptions = [], btnText = this.gm('确定提交'),
+      formOptions = [], btnText = this.$T_UKE('确定提交'),
       onSubmit, onChange, ...other
     } = this.props;
 
@@ -196,7 +196,7 @@ export default class FormLayout extends UkeComponent {
         <Button
           key={key}
           disabled={!isActive}
-          text={isBtnLoading ? text + this.gm('中') + '...' : text}
+          text={isBtnLoading ? text + this.$T_UKE('中') + '...' : text}
           loading={isBtnLoading}
           type={type}
           color={color}

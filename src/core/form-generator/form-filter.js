@@ -185,7 +185,7 @@ export default class FormFilterHelper extends UkeComponent {
   }
   wrapConditionTitle(config) {
     const { title, tips, ref } = config;
-    config.title = title || this.gm(ref) || ref || '';
+    config.title = title || this.$T(ref) || ref || '';
     if(tips) config.tipsDOM = ( 
       <ToolTip classNames={['mr5']} title={tips} n="question" s="r"/>
     );
@@ -374,9 +374,9 @@ export default class FormFilterHelper extends UkeComponent {
     const [refS, refE] = refs;
     return (
       <div className="input-range">
-        {this.getInput({ ref: refS, title: this.gm('起'), ...other})}
+        {this.getInput({ ref: refS, title: this.$T_UKE('起'), ...other})}
         <span> - </span>
-        {this.getInput({ ref: refE, title: this.gm('止'), ...other})}
+        {this.getInput({ ref: refE, title: this.$T_UKE('止'), ...other})}
       </div>
     );
   }
@@ -489,7 +489,7 @@ export default class FormFilterHelper extends UkeComponent {
 
     return (
       <div className="datepicker-ranger-content">
-        {/* <span className="title">{this.gm('范围')}</span> */}
+        {/* <span className="title">{this.$T_UKE('范围')}</span> */}
         <DatetimePicker
           mode="range"
           {...other}

@@ -46,30 +46,14 @@ export default class MapperFilter extends UkeComponent {
     case IsObj(title) && title.type == 'selector':
       let {
         outside = true,
-        invalidTip = this.gm('默认'),
-        defaultTitle = this.gm(key),
-        cancelTitle = this.gm('默认'),
+        defaultTitle = this.$T(key),
+        invalidTip = this.$T_UKE('默认'),
+        cancelTitle = this.$T_UKE('默认'),
         ref = key,
         onChange,
         ...other
       } = title;
-      // const propsForSelector = {
-      //   outside,
-      //   invalidTip,
-      //   defaultTitle,
-      //   cancelTitle,
-      //   ref,
-      //   onChange,
-      //   ...other
-      // };
       titleDOM = (
-        // <Selector config={propsForSelector} onChange={val => {
-        //   const emitVal = {
-        //     [ref]: val
-        //   };
-        //   Call(onChange, emitVal);
-        //   Call(this.props.onChange, emitVal, title);
-        // }} />
         <Dropdown {...other}
           withInput={false}
           onChange={val => {
@@ -89,7 +73,7 @@ export default class MapperFilter extends UkeComponent {
       if(this.sortIgnores.indexOf(key) === -1) this.sortIgnores.push(key);
       break;
     default:
-      titleDOM = title || this.gm(key);
+      titleDOM = this.$T(title || key);
       break;
     }
     const tipsDOM = tips ? (

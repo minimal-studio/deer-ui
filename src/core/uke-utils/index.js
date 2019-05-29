@@ -1,12 +1,5 @@
 import React, { Component, PureComponent } from 'react';
-import { getUkelliConfig, setUkelliConfig } from '../config';
-
-// class Basic {
-//   gm = window.$UKE.getKeyMap;
-//   gmUke = window.$UKE.getUkeKeyMap;
-//   getConfig = getUkelliConfig;
-//   setConfig = setUkelliConfig;
-// }
+import { getUkelliConfig, setUkelliConfig, $T, $T_UKE } from '../config';
 
 /**
  * 用于提供所有 uke 组件的通用函数
@@ -14,10 +7,12 @@ import { getUkelliConfig, setUkelliConfig } from '../config';
  */
 
 const UkeComponentFac = (Com) => class C extends Com {
-  /** 外部国际化键值对 getKeyMap() */
-  gm = window.$UKE.getKeyMap;
-  /** uke 内部国际化键值对 getUkeKeyMap() */
-  gmUke = window.$UKE.getUkeKeyMap;
+  /** 外部国际化键值对 $T() */
+  gm = $T;
+  $T = $T;
+  /** uke 内部国际化键值对 $T_UKE() */
+  gmUke = $T_UKE;
+  $T_UKE = $T_UKE;
   /** 获取 uke 内部配置 */
   getConfig = getUkelliConfig;
   /** 设置 uke 内部配置 */

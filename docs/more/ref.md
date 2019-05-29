@@ -12,10 +12,10 @@ import { UkeComponent, UkePureComponent } from './uke-utils';
 
 class SomeUkeCom extends UkeComponent {
   /** 继承自 UkeComponent */
-  /** 外部国际化键值对 getKeyMap() */
-  gm = window.$UKE.getKeyMap;
-  /** uke 内部国际化键值对 getUkeKeyMap() */
-  gmUke = window.$UKE.getUkeKeyMap;
+  /** 外部国际化键值对 $T() */
+  $T = $T;
+  /** uke 内部国际化键值对 $T_UKE() */
+  $T_UKE = $T_UKE;
   /** 获取 uke 内部配置 */
   getConfig = getUkelliConfig;
   /** 设置 uke 内部配置 */

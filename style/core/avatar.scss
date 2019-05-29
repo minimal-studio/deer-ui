@@ -1,31 +1,18 @@
 $avatarScale: 100px;
 $avatarSmScale: 50px;
 $avatarMiniScale: 24px;
+$imgScale: 80px;
 
 .uke-avatar {
-  $imgScale: 40px;
   position: relative;
-  // z-index: 1;
-  .hide-panel {
-    display: none;
-    position: absolute;
-    top: 105%;
-    width: $imgScale * 3 + 20;
-    // height: 200px;
-    overflow-y: auto;
+}
+.avatar-options {
+  width: 200px;
+  img {
     padding: 10px;
-    background-color: #FFF;
-    box-shadow: 0 0 36px rgba(0,0,0,0.3);
-    img {
-      width: $imgScale;
-      height: $imgScale;
-    }
-    &.show {
-      display: block;
-    }
-  }
-  .img {
-    // z-index: 1;
+    display: inline-block;
+    width: $imgScale;
+    height: $imgScale;
   }
 }
 

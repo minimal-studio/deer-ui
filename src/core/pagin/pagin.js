@@ -102,7 +102,7 @@ export default class Pagination extends UkeComponent {
       <span className="nopaging" />
     );
 
-    const gm = this.gm;
+    const $T_UKE = this.$T_UKE;
 
     const paginBtnCount = Math.ceil(total / pSize);
 
@@ -112,13 +112,13 @@ export default class Pagination extends UkeComponent {
 
     const jumpInputDOM = (
       <div className="jump-input">
-        {/* <span>{gm('共')} {paginBtnCount || 1} {gm('页')}, {gm('跳至')}</span> */}
-        <span>{gm('跳至')}</span>
+        {/* <span>{$T_UKE('共')} {paginBtnCount || 1} {$T_UKE('页')}, {$T_UKE('跳至')}</span> */}
+        <span>{$T_UKE('跳至')}</span>
         <input
           type="text"
           className="form-control input-sm ms10 input"
           onBlur={e => this.changePagin(e.target.value - 1)}/>
-        <span>{gm('页')}</span>
+        <span>{$T_UKE('页')}</span>
       </div>
     );
     const pageCountInputDOM = (
@@ -130,11 +130,11 @@ export default class Pagination extends UkeComponent {
           position={this.dropdownPosition}
           onChange={nextVal => this.changePagin(pIdx, nextVal)}
           values={pageListMap} />
-        {/* <span>{gm('每页')}</span>
+        {/* <span>{$T_UKE('每页')}</span>
         <input type="text" className="form-control input-sm ms10 input"
           defaultValue={pSize}
           onBlur={e => this.changePagin(pIdx, e.target.value)}/>
-        <span>{gm('条')}</span> */}
+        <span>{$T_UKE('条')}</span> */}
       </div>
     );
     const btnGroup = (
@@ -176,7 +176,7 @@ export default class Pagination extends UkeComponent {
           {lastCon}
         </div>
         {
-          displayTotal && <span> {gm('共')} {total} {gm('项')}</span>
+          displayTotal && <span> {$T_UKE('共')} {total} {$T_UKE('项')}</span>
         }
         <span className="flex" />
         {pageCountInputDOM}

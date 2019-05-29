@@ -52,13 +52,12 @@ export default class Radio extends SelectorBasic {
     const { itemWidth, isMultiple, checkAllBtn = true, itemStyle = {}, n, column } = this.props;
     const selectedValue = this.getValue();
     const isSelectedAll = isMultiple && selectedValue && selectedValue.length === this.values.length;
-    const gm = this.gm;
 
     const selectAllBtn = isMultiple && checkAllBtn ? (
       <span
         className={"btn flat selectAllBtn " + (isSelectedAll ? 'red' : 'theme')}
         onClick={e => isSelectedAll ? this.clearAll() : this.selectAll()}>
-        {gm(isSelectedAll ? '清除' : '全选')}
+        {this.$T_UKE(isSelectedAll ? '清除' : '全选')}
       </span>
     ) : null;
 

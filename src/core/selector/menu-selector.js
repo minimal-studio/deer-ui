@@ -63,7 +63,7 @@ export default class MenuGroup extends SelectorBasic {
     const canSelectAll = isMultiple && !isSelectedAll;
 
     const _style = Object.assign({}, this.offset, style);
-    const gm = this.gm;
+    const $T_UKE = this.$T_UKE;
 
     return (
       <div className="menu-list"
@@ -71,7 +71,7 @@ export default class MenuGroup extends SelectorBasic {
         style={_style}>
         <div className="search-bar">
           <input
-            placeholder={gm("搜索试试")}
+            placeholder={$T_UKE("搜索")}
             className="form-control input-sm"
             type="text"
             ref={c => {this._input = c;}}
@@ -81,7 +81,7 @@ export default class MenuGroup extends SelectorBasic {
           <div className="action-btn-group">
             <div className="action-btn" onClick={e => {
               canSelectAll ? this.selectAll() : this.changeEvent(isMultiple ? [] : '');
-            }}>{gm(canSelectAll ? '全选' : '取消已选项')}
+            }}>{$T_UKE(canSelectAll ? '全选' : '取消已选项')}
             </div>
           </div>
           {

@@ -1,7 +1,7 @@
 ---
 name: ShowModal
 route: /ShowModal
-menu: Utils
+menu: Utils / 效率
 ---
 
 import { Playground, PropsTable } from 'docz'
@@ -194,7 +194,7 @@ import { Pop } from '../popover';
 const ModalId = ShowModal({
   className = 'fixed',
   topClassName = 'top-modal-opend',
-  type, confirmText = gm('确定') + '?', title, showFuncBtn = true,
+  type, confirmText = $T_UKE('确定') + '?', title, showFuncBtn = true,
   width = window.$UKE.isMobile ? '90%' : 600, id, children, draggable,
   onConfirm, onClose, onCloseModal
   ...forModalProps

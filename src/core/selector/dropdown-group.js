@@ -109,7 +109,7 @@ export default class DropdownGroup extends SelectorBasic {
     };
   }
   getTitle = () => {
-    return `${this.state.selectedCount}${this.gm('项已选')}`;
+    return `${this.state.selectedCount}${this.$T_UKE('项已选')}`;
   }
   handleChange() {}
   render() {

@@ -134,7 +134,6 @@ export default class Captcha extends UkeComponent {
     this.captchaInput.focus();
   }
   render() {
-    const gm = this.gm;
     const {captchaImg, captchaValue, loading} = this.state;
     const {value, icon} = this.props;
     const _captchaValue = this.isControl ? value : captchaValue;
@@ -148,10 +147,10 @@ export default class Captcha extends UkeComponent {
         className="cover-image"/>
     ) : null;
     if(!hasCap) {
-      loadingTip = gm('验证码');
+      loadingTip = this.$T_UKE('验证码');
     }
     if(loading) {
-      loadingTip = gm('刷新中');
+      loadingTip = this.$T_UKE('刷新中');
     }
 
     return (
@@ -164,7 +163,7 @@ export default class Captcha extends UkeComponent {
           value={_captchaValue}
           onFocus={e => this.shouldRefreshCaptcha()}
           onChange={val => this.changeCaptcha(val)}
-          placeholder={gm("验证码")}>
+          placeholder={this.$T_UKE("验证码")}>
           <div className="captcha"
             onClick={e => {
               this.getCaptcha();

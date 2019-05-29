@@ -1,0 +1,62 @@
+---
+name: i18n 国际化
+route: /I18n
+menu: Config / 配置
+# menu: Document
+---
+
+# 国际化
+
+ukelli ui 使用了中文 mapper 的方案，可自定义国际化配置。
+
+## 接口
+
+```js
+import { $T, $T_UKE } from 'ukelli-ui/core/config'
+
+$T_UKE('按钮') // 内部翻译接口
+$T('内容')     // 外部翻译接口
+```
+
+## 设置 UI 外部国际化配置
+
+> 作用于 record-render, form-render
+
+```js
+import { setLangTranslate, setUkeLang } from 'ukelli-ui'
+
+const TranslateMapper = {
+  'zh-CH': {
+    '翻译': '翻译'
+  },
+  'en-US': {
+    '翻译': 'Translate'
+  },
+}
+
+setLangTranslate(TranslateMapper)
+setUkeLang('zh-CH');
+```
+
+## 设置 UI 内部组件国际化
+
+```js
+import { setUkeLang, setUkeLangConfig } from 'ukelli-ui'
+
+// 设置 en-US 的翻译 mapper
+setUkeLangConfig({
+  'en-US': {
+    "跳转到第": "Jump to",
+    "共": "Total",
+    "页": "Page",
+    "每页": "Each Page",
+    "条记录": "Records",
+    ...
+  }
+})
+
+// 把 ukelli ui 的语言设置为 en-US
+setUkeLang('en-US');
+```
+
+详细配置参考 `ukelli-ui/i18n/zh-CN.js`

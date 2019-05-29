@@ -1,5 +1,7 @@
 import React, {Component, PureComponent} from 'react';
 import PropTypes from 'prop-types';
+
+import { $T } from '../config';
 import { Icon, PureIcon } from '../icon';
 
 const menuDividGroup = ['-', 'hr'];
@@ -11,7 +13,7 @@ const MenuItem = ({ isActive, text, icon, s, pureIcon, ...other }) => {
       className={"menu-item" + (isActive ? ' active' : '')}
       {...other}>
       {I}
-      {text}
+      {$T(text)}
     </div>
   );
 }; 

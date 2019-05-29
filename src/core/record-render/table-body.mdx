@@ -6,11 +6,13 @@ menu: Table / 表格渲染
 
 import { Playground, PropsTable } from 'docz'
 import { State, Toggle } from 'react-powerplug'
+import { useState } from 'react'
 import { ShowModal } from '../modal';
 import { Table, DescHelper } from './';
 import { DropdownMenu } from '../selector';
 import KeyMapper from './key-mapper.mdx';
 import { records, keyMapper, keyMapperFixed } from './table-mock-data';
+import { setLangTranslate, setUkeLang } from '../config'
 
 # Table
 
@@ -59,31 +61,38 @@ const records = [
 <Playground>
   {
     () => {
+      const _keyMapper = [...keyMapper];
+      const _records = [...records];
+      const [lang, setLang] = useState('zh-CN')
+      const langMapper = {
+        'zh-CN': {
+          property: '财产',
+          cn: '中国', uk: '英国',
+          '正常': '正常'
+        },
+        'en-US': {
+          property: 'property',
+          '正常': 'Normal'
+        },
+      }
+      setLangTranslate(langMapper);
       return (
-        <State initial={{
-          keyMapper: [...keyMapper],
-          records: [...records]
-        }}>
-          {
-            ({ state, setState }) => {
-              let table;
-
-              return (
-                <div>
-                  <Table
-                    keyMapper={state.keyMapper}
-                    ref={e => table = e}
-                    rowKey={record => record.id}
-                    needCount
-                    onChange={(emitVal, config) => {
-                      console.log(emitVal, config)
-                    }}
-                    records={state.records} />
-                </div>
-              )
-            }
-          }
-        </State>
+        <div>
+          <span className="btn theme" onClick={e => {
+            const nextLang = lang == 'zh-CN' ? 'en-US' : 'zh-CN';
+            setUkeLang(nextLang);
+            setLang(nextLang)
+          }}>{lang}</span>
+          <Table
+            keyMapper={_keyMapper}
+            ref={e => table = e}
+            rowKey={record => record.id}
+            needCount
+            onChange={(emitVal, config) => {
+              console.log(emitVal, config)
+            }}
+            records={_records} />
+        </div>
       )
     }
   }

@@ -3,6 +3,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import { $T_UKE } from '../config';
 import { Icon } from '../icon';
 
 const defaultProps = {
@@ -18,9 +19,8 @@ const defaultProps = {
 };
 
 const Button = (props) => {
-  let gm = window.$UKE.getUkeKeyMap;
   const {
-    loading, disabled, text = gm('提交'), icon, s, type, children,
+    loading, disabled, text = $T_UKE('提交'), icon, s, type, children,
     color, className, loadingHint, loadingDisable, textLayout, onClick
   } = props;
 

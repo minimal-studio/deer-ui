@@ -1,5 +1,4 @@
 import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
 import { DescHelper, Table } from '.';
 import { ShowModal } from '../modal';
 
@@ -65,8 +64,6 @@ const keyMapper = [
   {key: 'property', selectable: false, money: true},
   {key: 'add', labels: {
     cn: 'red'
-  }, namesMapper: {
-    cn: '中国', uk: '英国'
   }},
   // {key: 'birth1', date: 1},
   // {key: 'birth2', date: 1},

@@ -24,5 +24,13 @@ module.exports = {
   "确定提交": "Submit",
   "中": "ing",
   "点击查看详情": "Show detail",
-  "新消息": "Incoming msg"
+  "新消息": "Incoming msg",
+  "默认": "Default",
+  "项": "Item",
+  "搜索": "Search",
+  "清除": "Clear",
+  "已选": "Selected",
+  "项已选": "Selected-items",
+  "暂无记录": "No more",
+  "请选择": "Select",
 };

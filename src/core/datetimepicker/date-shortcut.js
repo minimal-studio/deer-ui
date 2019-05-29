@@ -93,7 +93,7 @@ export default class DateShortcut extends DateBasic {
     // const timeFormat = 'hh:ss:mm';
     const timeDefaultStr = needTime ? [' 00:00:00', ' 23:59:59'] : [];
     // const format = basicFormat + (needTime ? (' ' + timeFormat) : '');
-    const gm = this.gm;
+    const $T_UKE = this.$T_UKE;
     const dateRangeOptions = {extendFormat: timeDefaultStr};
 
     this.defaultDateHelperInfo = [
@@ -101,28 +101,28 @@ export default class DateShortcut extends DateBasic {
         filter() {
           return [];
         },
-        t: gm('清空')
+        t: $T_UKE('清空')
       },
       {
         filter() {
           return DateRange(0, 0, dateRangeOptions);
         },
-        t: gm('今天')
+        t: $T_UKE('今天')
       }, {
         filter() {
           return DateRange(1, -1, dateRangeOptions);
         },
-        t: gm('昨天')
+        t: $T_UKE('昨天')
       }, {
         filter() {
           return getHalfMouthDate('up', basicFormat, timeDefaultStr);
         },
-        t: gm('前半月')
+        t: $T_UKE('前半月')
       }, {
         filter() {
           return getHalfMouthDate('down', basicFormat, timeDefaultStr);
         },
-        t: gm('后半月')
+        t: $T_UKE('后半月')
       }
     ];
   }
@@ -143,7 +143,6 @@ export default class DateShortcut extends DateBasic {
     const { activeIdx } = this.state;
     const { dateHelperInfo, style, position } = this.props;
     const _dateHelperInfo = !!dateHelperInfo && dateHelperInfo.length > 0 ? dateHelperInfo : this.defaultDateHelperInfo;
-    const gm = this.gm;
 
     return (
       <DropdownWrapper
@@ -170,7 +169,7 @@ export default class DateShortcut extends DateBasic {
           </div>
         )} position={position}>
         {
-          () => gm('快捷')
+          () => this.$T_UKE('快捷')
         }
       </DropdownWrapper>
     );

@@ -1,40 +1,34 @@
 import { defineGlobalScope } from 'basic-helper/registe-global-funcs';
-import { IsFunc, Call } from 'basic-helper';
+import { IsFunc } from 'basic-helper';
 import chKeyMapper from '../i18n/zh-CN';
 import enKeyMapper from '../i18n/en-US';
 import defaultIconMapper from './icon-mapper';
 
-const langConfig = {
+const defaultLanguage = 'zh-CN';
+
+let ukeLangConfig = {
   'zh-CN': chKeyMapper,
   'en-US': enKeyMapper,
 };
-const defaultLanguage = 'zh-CN';
+let translateMapper = {
+  'zh-CN': {},
+  'en-US': {},
+};
 
 let language = defaultLanguage;
 
 const ukelliui = {
-  getImage(...args) {
-    return args.join('/');
-  },
-  getKeyMap(key) {
-    return key;
-  },
-  getUkeKeyMap(key) {
-    const keyMapper = langConfig[language] || langConfig[defaultLanguage];
-    return keyMapper[key] || key;
-  },
   queryCAPTCHAData: null,
   queryQRCodeData() {},
-  avatarImgMap: '',
   iconMapper: {},
   iconPrefix: (s) => `fa${s} fa-`,
 };
 
-export function getIconMapper() {
+function getIconMapper() {
   return Object.assign({}, defaultIconMapper, ukelliui.iconMapper);
 }
 
-export function getIcon(iconName, iconStyle, moreClassName, useIconConfig) {
+function getIcon(iconName, iconStyle, moreClassName, useIconConfig) {
   const iconMapper = getIconMapper();
   const iconPrefix = getUkelliConfig('iconPrefix');
   if(!iconName) return iconMapper;
@@ -43,81 +37,61 @@ export function getIcon(iconName, iconStyle, moreClassName, useIconConfig) {
   return resultStr;
 }
 
-export function LoadStuff({src, onload, type}) {
-  return new Promise((resolve, reject) => {
-    let times = 0;
-
-    let loadUrl = src;
-  
-    function load(element) {
-      if (times > 2) return 0;
-      times++;
-      element.onload = function() {
-        Call(onload, ...arguments);
-        resolve(...arguments);
-      };
-      element.onerror = load;
-      document.body.appendChild(element);
-    }
-  
-    switch (type) {
-    case 'css':
-      let link = document.createElement('link');
-      link.rel = 'stylesheet';
-      link.href = loadUrl;
-      load(link);
-      break;
-    case 'script':
-      let script = document.createElement('script');
-      script.type = 'text/javascript';
-      script.src = loadUrl;
-      load(script);
-      break;
-    }
-  });
+function _translate(langConfig) {
+  return (key) => {
+    const keyMapper = langConfig[language] || langConfig[defaultLanguage];
+    return keyMapper[key] || key;
+  };
 }
 
 /**
- * 加载 link
- *
- * @export
- * @param {object} options { src: string, onload: func }
- * @returns
+ * 内部翻译接口
+ * @param {string} key 需要翻译的内容
  */
-export function LoadLink(options) {
-  options.type = 'css';
-  return LoadStuff(options);
-}
+const $T_UKE = _translate(ukeLangConfig);
 
 /**
- * 加载 script
- *
- * @export
- * @param {object} options { src: string, onload: func }
- * @returns
+ * 外部内容翻译接口
+ * @param {string} key 需要翻译的内容
  */
-export function LoadScript(options) {
-  options.type = 'script';
-  return LoadStuff(options);
-}
+const $T = _translate(translateMapper);
 
-export function setUkeLang(lang) {
+function setUkeLang(lang) {
   language = lang;
 }
 
-export function setUkeLangConfig(config) {
-  Object.assign(langConfig, config);
+function setUkeLangConfig(config) {
+  Object.assign(ukeLangConfig, config);
 }
 
-export function setUkelliConfig(config) {
+/** 
+ * 设置外部翻译数据
+ * @param {object} nextTranslate 翻译的内容
+ */
+function setLangTranslate(nextTranslate) {
+  Object.assign(translateMapper, nextTranslate);
+}
+
+function setUkelliConfig(config) {
   Object.assign(ukelliui, config);
   window.$UKE && window.$UKE.registe(config);
   return ukelliui;
 }
 
-export function getUkelliConfig(name) {
+function getUkelliConfig(name) {
   let _ukelliui = Object.assign({}, ukelliui);
   return name ? (_ukelliui[name] || false) : _ukelliui;
 }
+
+export {
+  $T,
+  $T_UKE,
+  getUkelliConfig,
+  setUkelliConfig,
+  getIcon,
+  setUkeLang,
+  setUkeLangConfig,
+  setLangTranslate,
+};
 
 defineGlobalScope('$UKE', ukelliui);

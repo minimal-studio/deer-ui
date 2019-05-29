@@ -43,7 +43,7 @@ export default class MapperFilter extends UkePureComponent {
                   };
                   this.changeVal(emitVal);
                 }}>
-                  {this.gm('清除')}
+                  {this.$T_UKE('清除')}
                 </span>
                 <Radio
                   {...other}

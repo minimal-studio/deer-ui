@@ -120,7 +120,7 @@ export default class Notification extends UkePureComponent {
     const notifyItemsKeysLen = notifyItemsKeys.length;
     const hasMsg = notifyItemsKeysLen > 0;
     const needClearAllBtn = notifyItemsKeysLen > 3;
-    const gm = this.gm;
+    const $T_UKE = this.$T_UKE;
 
     const container = (
       <div className={`notify-group ${positionFilter(position)} ${hasMsg ? 'has-msg' : 'no-msg'}`}>
@@ -136,7 +136,7 @@ export default class Notification extends UkePureComponent {
             {
               notifyItemsKeys.map(msgID => {
                 const item = notifyItems[msgID];
-                const { type = 'normal', title, text, onClickTip, actionText = gm('点击查看详情') } = item;
+                const { type = 'normal', title, text, onClickTip, actionText = $T_UKE('点击查看详情') } = item;
                 return (
                   <CSSTransition
                     key={msgID}
@@ -159,7 +159,7 @@ export default class Notification extends UkePureComponent {
                         )
                       }
                       <div className="content">
-                        <div className="title">{title ? title : gm('新消息')}</div>
+                        <div className="title">{title ? title : $T_UKE('新消息')}</div>
                         <div className="text">{text || ''}</div>
                         {
                           (onClickTip || handleClick) ? (

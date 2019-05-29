@@ -60,7 +60,6 @@ export default class LinkSelector extends UkeComponent {
   }
   getMenuLinkerDOM = (options) => {
     const { code, key, to, onClick, menuText, icon } = options;
-    const { gm } = this;
     return (
       <div
         key={key}
@@ -73,7 +72,7 @@ export default class LinkSelector extends UkeComponent {
             <Icon n={icon} classNames={['mr10']}/>
           )
         }
-        {gm(menuText)}
+        {this.$T(menuText)}
       </div>
     );
   };
@@ -145,7 +144,7 @@ export default class LinkSelector extends UkeComponent {
     return recursive.call(this, 0, initDataList);
   }
   getSelectedTitle = () => {
-    let res = this.gm('请选择');
+    let res = this.$T_UKE('请选择');
     const { selectedItems } = this.state;
     console.log(selectedItems);
     if(selectedItems.length > 0) {

@@ -6,15 +6,8 @@
 
 ```js
 const DefaultUkeConfig = {
-  getImage(...args) {
-    return args.join('/');
-  },
-  getKeyMap(key) {
+  $T(key) {
     return key;
-  },
-  getUkeKeyMap(key) {
-    const keyMapper = langConfig[language] || langConfig[defaultLanguage];
-    return keyMapper[key] || key;
   },
   queryCAPTCHAData() {},
   queryQRCodeData() {},

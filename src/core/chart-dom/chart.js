@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Call } from 'basic-helper';
 
 import { Loading } from '../loading';
-import { LoadScript } from '../config';
+import { LoadScript } from '../utils';
 
 let chartjsURL = '';
 
