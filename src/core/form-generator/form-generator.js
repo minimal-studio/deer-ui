@@ -58,6 +58,9 @@ export default class FormGenerator extends FormFilterHelper {
       }
     }
   }
+  needTitleFilter = (type) => {
+    return ['input', 'password'].indexOf(type) === -1;
+  }
   render() {
     const {
       formOptions, children, isMobile,
@@ -88,7 +91,7 @@ export default class FormGenerator extends FormFilterHelper {
                 );
               }
             }
-            let needTitle = _showInputTitle ? true : !/input|password/.test(option.type);
+            let needTitle = _showInputTitle ? true : this.needTitleFilter(option.type);
             let _con = this.wrapConditionTitle(option);
             let { className = '' } = option;
             let itemRef = _con.ref || (_con.refs ? _con.refs[0] : 'q');
