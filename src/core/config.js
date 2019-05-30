@@ -70,6 +70,9 @@ function setUkeLangConfig(config) {
  */
 function setLangTranslate(nextTranslate) {
   Object.assign(translateMapper, nextTranslate);
+  window.$UKE && window.$UKE.registe({
+    $T, $T_UKE, translateMapper
+  });
 }
 
 function setUkelliConfig(config) {

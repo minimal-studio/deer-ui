@@ -5,7 +5,9 @@ menu: FormGenerator / 表单生成
 ---
 
 import { Playground, PropsTable } from 'docz'
+import { useState } from 'react'
 import { ConditionGenerator } from './';
+import { setLangTranslate, setUkeLang } from '../config'
 
 # ConditionGenerator
 
@@ -15,8 +17,20 @@ import { ConditionGenerator } from './';
   {
     () => {
       let domRef;
+      const [lang, setLang] = useState('zh-CN')
+      const langMapper = {
+        'en-US': {
+          '时间': 'Date',
+        },
+      }
+      setLangTranslate(langMapper);
       return (
         <div>
+          <span className="btn theme" onClick={e => {
+            const nextLang = lang == 'zh-CN' ? 'en-US' : 'zh-CN';
+            setUkeLang(nextLang);
+            setLang(nextLang)
+          }}>{lang}</span>
           <ConditionGenerator
             ref={e => domRef = e}
             onChange={(values, ref, val) => {

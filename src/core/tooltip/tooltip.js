@@ -94,7 +94,7 @@ export default class ToolTip extends PureComponent {
           if(clickToClose) return Popover.close();
           debounce.exec(() => {
             Popover.show({
-              children: <TitleDOM title={this.props.title}/>,
+              children: <TitleDOM title={title}/>,
             });
           }, 15);
         }}

@@ -2,6 +2,10 @@
 
 -----------------
 
+## 2.17.5
+
+- 完善 FormGenerator 的 title 的国际化
+
 ## 2.17.4
 
 - 完善 FormGenerator 的 title 的国际化
