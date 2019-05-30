@@ -118,7 +118,7 @@ export default class FormGenerator extends FormFilterHelper {
                     <span className="control-label">
                       {highlightDOM}
                       {_con.tipsDOM}
-                      {_con.title}
+                      {_con._title}
                     </span>
                   ) : null
                 }

@@ -185,7 +185,7 @@ export default class FormFilterHelper extends UkeComponent {
   }
   wrapConditionTitle(config) {
     const { title, tips, ref } = config;
-    config.title = this.$T(title) || this.$T(ref) || '';
+    config._title = this.$T(title) || this.$T(ref) || '';
     if(tips) config.tipsDOM = (
       <ToolTip classNames={['mr5']} title={tips} n="question" s="r"/>
     );
