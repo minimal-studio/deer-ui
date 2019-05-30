@@ -4,19 +4,19 @@
 
 ## 2.17.5
 
-- 完善 FormGenerator 的 title 的国际化
+- 修复一些问题
 
 ## 2.17.4
 
-- 完善 FormGenerator 的 title 的国际化
+- 修复一些问题
 
 ## 2.17.3
 
-- 完善 FormGenerator 的 title 的国际化
+- 修复一些问题
 
 ## 2.17.2
 
-- 完善 FormGenerator 的 title 的国际化
+- 修复一些问题
 
 ## 2.17.1
 
