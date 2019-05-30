@@ -67,7 +67,7 @@ export default class ConditionGenerator extends FormFilterHelper {
             let titleDOM = showTitle && (
               <span className="title">
                 {_con.tipsDOM}
-                {_con.title}
+                {this.$T(_con.title)}
               </span>
             );
 
