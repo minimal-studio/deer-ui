@@ -96,13 +96,13 @@ export default class DropdownMenu extends SelectorBasic {
 
     switch (true) {
     case !hasVal:
-      resTitle = defaultTitle;
+      resTitle = $T_UKE(defaultTitle);
       break;
     case !!isMultiple:
       resTitle = value.length + $T_UKE('项已选');
       break;
     case !this.valuesObj.hasOwnProperty(value):
-      resTitle = invalidTip;
+      resTitle = $T_UKE(invalidTip);
       this._error = true;
       break;
     default:
@@ -110,9 +110,9 @@ export default class DropdownMenu extends SelectorBasic {
       if(HasValue(title)) {
         resTitle = title;
       } else if(typeof title == 'undefined') {
-        resTitle = defaultTitle;
+        resTitle = $T_UKE(defaultTitle);
       } else {
-        resTitle = invalidTip;
+        resTitle = $T_UKE(invalidTip);
         this._error = true;
       }
       break;

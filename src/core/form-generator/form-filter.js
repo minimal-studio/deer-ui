@@ -381,11 +381,12 @@ export default class FormFilterHelper extends UkeComponent {
     );
   }
   getInput = (config) => {
-    const { ref, className, props, ...other } = config;
+    const { ref, className, _title, props, ...other } = config;
     let formClass = 'form-control ' + (className || '');
     return (
       <Input
         {...other}
+        title={_title}
         propsForInput={props}
         ref={this.saveRef(ref)}
         className={formClass}

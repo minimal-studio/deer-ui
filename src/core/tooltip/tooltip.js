@@ -4,6 +4,7 @@ import { Call, DebounceClass } from 'basic-helper';
 
 import { PopoverEntity } from '../popover';
 import { Icon } from '../icon';
+import { $T } from '../config';
 
 const debounce = new DebounceClass();
 
@@ -16,9 +17,9 @@ const TitleDOM = ({ title }) => {
   const isArr = Array.isArray(title);
   const titleDOM = isArr ? title.map((text, idx) => {
     return (
-      <p key={text}>{idx + 1}. {text}</p>
+      <p key={text}>{idx + 1}. {$T(text)}</p>
     );
-  }) : title;
+  }) : $T(title);
   return (
     <div style={{padding: '5px 10px'}}>{titleDOM}</div>
   );

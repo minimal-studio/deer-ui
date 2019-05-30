@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import { Icon } from '../icon';
 import SelectorBasic, { selectorValuesType } from './selector';
+import { $T } from '../config';
 
 export default class Radio extends SelectorBasic {
   static getDefaultValue(values) {
@@ -78,7 +79,7 @@ export default class Radio extends SelectorBasic {
               <img src={img} alt="" />
             ) : null
           }
-          <div className="text">{text}</div>
+          <div className="text">{$T(text)}</div>
           {/* <div className="caret"></div> */}
           <div className={"frame" + (n ? ' icon-mode' : '')}>
             {

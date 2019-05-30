@@ -30,7 +30,7 @@ module.exports = {
   "搜索": "Search",
   "清除": "Clear",
   "已选": "Selected",
-  "项已选": "Selected-items",
+  "项已选": "-items-selected",
   "暂无记录": "No more",
   "请选择": "Select",
 };

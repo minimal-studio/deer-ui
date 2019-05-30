@@ -4,6 +4,7 @@ import { Call, DateFormat } from 'basic-helper';
 import { DateRange, ToUTC } from 'basic-helper/datetime-helper';
 
 import { DropdownWrapper } from '../selector';
+import { $T_UKE } from '../config';
 import DateBasic from './date-basic';
 
 function getHalfMouthDate(type, format, timeDefaultStr) {
@@ -93,7 +94,6 @@ export default class DateShortcut extends DateBasic {
     // const timeFormat = 'hh:ss:mm';
     const timeDefaultStr = needTime ? [' 00:00:00', ' 23:59:59'] : [];
     // const format = basicFormat + (needTime ? (' ' + timeFormat) : '');
-    const $T_UKE = this.$T_UKE;
     const dateRangeOptions = {extendFormat: timeDefaultStr};
 
     this.defaultDateHelperInfo = [
@@ -101,28 +101,28 @@ export default class DateShortcut extends DateBasic {
         filter() {
           return [];
         },
-        t: $T_UKE('清空')
+        t: '清空'
       },
       {
         filter() {
           return DateRange(0, 0, dateRangeOptions);
         },
-        t: $T_UKE('今天')
+        t: '今天'
       }, {
         filter() {
           return DateRange(1, -1, dateRangeOptions);
         },
-        t: $T_UKE('昨天')
+        t: '昨天'
       }, {
         filter() {
           return getHalfMouthDate('up', basicFormat, timeDefaultStr);
         },
-        t: $T_UKE('前半月')
+        t: '前半月'
       }, {
         filter() {
           return getHalfMouthDate('down', basicFormat, timeDefaultStr);
         },
-        t: $T_UKE('后半月')
+        t: '后半月'
       }
     ];
   }
@@ -160,7 +160,7 @@ export default class DateShortcut extends DateBasic {
                         hide();
                         this.generateDate(item, idx);
                       }} key={text}>
-                      {text}
+                      {$T_UKE(text)}
                     </span>
                   );
                 })
