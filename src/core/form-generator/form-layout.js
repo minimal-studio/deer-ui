@@ -179,7 +179,9 @@ export default class FormLayout extends UkeComponent {
 
     const btnGroup = _btnConfig.map((btn, idx) => {
       const {
-        action, text, className = 'mr5', color, actingRef = 'loading', type = 'button',
+        action, text, className = 'mr5', color,
+        actingRef = 'loading', type = 'button',
+        ...otherForBtn
       } = btn;
       const isBtnLoading = this.props[actingRef];
       const isActive = !!action && !isBtnLoading;
@@ -194,6 +196,7 @@ export default class FormLayout extends UkeComponent {
       }
       return (
         <Button
+          {...otherForBtn}
           key={key}
           disabled={!isActive}
           text={isBtnLoading ? text + this.$T_UKE('中') + '...' : text}
