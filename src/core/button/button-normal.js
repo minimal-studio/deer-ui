@@ -21,7 +21,8 @@ const defaultProps = {
 const Button = (props) => {
   const {
     loading, disabled, text = $T_UKE('提交'), icon, s, type, children,
-    color, className, loadingHint, loadingDisable, textLayout, onClick
+    color, className, loadingHint, loadingDisable, textLayout, onClick,
+    ...other
   } = props;
 
   const clickable = !disabled && (!loading || !loadingDisable);
@@ -34,6 +35,7 @@ const Button = (props) => {
 
   return (
     <button
+      {...other}
       disabled={!clickable}
       type={type}
       className={`btn flat ${color} ${className}`}
