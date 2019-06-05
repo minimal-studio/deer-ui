@@ -228,11 +228,13 @@ export default class Avatar extends UkePureComponent {
       alt,
       size,
       position,
+      changeAvatarable,
+      faceOptions,
       children
     } = this.props;
 
     const sizeStyle = {
-      width: size, height: size, fontSize: size / 1.5, lineHeight: size + 'px'
+      width: size, height: size, fontSize: size / 1.5
     };
     const _img = src && (
       <div style={{
@@ -241,20 +243,27 @@ export default class Avatar extends UkePureComponent {
     );
 
     let child = children || text;
+    const _changeAvatarable = changeAvatarable && faceOptions.length > 0;
 
-    return (
+    const avatarDOM = (
+      <span className="uke-avatar">
+        <span
+          className="avatar fixbg"
+          style={sizeStyle}>
+          <span className="c">
+            {child}
+          </span>
+          {_img}
+        </span>
+        {/* {changeAvatarDOM} */}
+      </span>
+    );
+
+    return _changeAvatarable ? (
       <DropdownWrapper position={position}
         overlay={this.renderMoreOptions}>
-        <span className="uke-avatar">
-          <span
-            className="avatar fixbg"
-            style={sizeStyle}>
-            {child}
-            {_img}
-          </span>
-          {/* {changeAvatarDOM} */}
-        </span>
+        {avatarDOM}
       </DropdownWrapper>
-    );
+    ) : avatarDOM;
   }
 }

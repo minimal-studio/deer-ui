@@ -29,4 +29,10 @@ $imgScale: 80px;
   line-height: $avatarScale;
   text-align: center;
   text-transform: uppercase;
+  .c {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+  }
 }
