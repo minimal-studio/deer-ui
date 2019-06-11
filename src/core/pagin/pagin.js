@@ -6,10 +6,6 @@ import Selector from '../selector/dropdown-menu';
 import { getElementOffset } from '../set-dom';
 import { getScreenWidth, getScreenHeight, getScrollTop } from '../utils';
 
-const pageListData = [10, 20, 30, 40, 50, 100];
-let pageListMap = {};
-pageListData.forEach(item => pageListMap[item] = `${item} 条/页`);
-
 export default class Pagination extends UkeComponent {
   static propTypes = {
     /** 分页的存储数据，可以为不确定的结构，通过 infoMapper 做映射 */
@@ -48,6 +44,12 @@ export default class Pagination extends UkeComponent {
     displayTotal: true,
     prevBtnCount: 3,
     lastBtnCount: 3,
+  }
+  getSelectorOptions = () => {
+    const pageListData = [10, 20, 30, 40, 50, 100];
+    let pageListMap = {};
+    pageListData.forEach(item => pageListMap[item] = `${item} ${this.$T_UKE('条/页')}`);
+    return pageListMap;
   }
   componentDidMount() {
     this.node = ReactDOM.findDOMNode(this);
@@ -129,7 +131,7 @@ export default class Pagination extends UkeComponent {
           needAction={false}
           position={this.dropdownPosition}
           onChange={nextVal => this.changePagin(pIdx, nextVal)}
-          values={pageListMap} />
+          values={this.getSelectorOptions()} />
         {/* <span>{$T_UKE('每页')}</span>
         <input type="text" className="form-control input-sm ms10 input"
           defaultValue={pSize}
