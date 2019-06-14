@@ -29,7 +29,7 @@
   "author": "Alex",
   "license": "MIT",
   "peerDependencies": {
-    "basic-helper": "^2.0.0",
+    "basic-helper": "^3.0.3",
     "prop-types": "^15.5.10",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
@@ -46,7 +46,7 @@
     "babel-core": "^7.0.0-bridge.0",
     "babel-eslint": "^10.0.1",
     "babel-jest": "^24.5.0",
-    "basic-helper": "^2.0.0",
+    "basic-helper": "^3.0.3",
     "codemirror": "^5.42.2",
     "css-loader": "^2.1.1",
     "docz": "^0.13.7",
@@ -74,8 +74,5 @@
   "dependencies": {
     "classnames": "^2.2.5",
     "flatpickr": "^4.5.7"
-  },
-  "engines": {
-    "node": ">=10.0.0 <11.0.0"
   }
 }
