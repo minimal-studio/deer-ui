@@ -32,6 +32,9 @@
   @include layout();
   align-items: center;
   // width: 100%;
+  .uke-input-group {
+    margin-right: 10px;
+  }
 }
 .flatpickr {
   // position: relative;

@@ -481,6 +481,7 @@ export default class FormFilterHelper extends UkeComponent {
       [refE]: vals[1],
       // [datetimeRangeRef]: [...vals]
     };
+    this.value[datetimeRangeRef] = vals;
     this.changeValues(nextValue);
   }
   getDatetimeRange = (config) => {

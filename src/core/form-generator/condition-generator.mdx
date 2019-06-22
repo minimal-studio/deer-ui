@@ -53,7 +53,19 @@ import { setLangTranslate, setUkeLang } from '../config'
                 type: 'datetimeRange',
                 needTime: true,
                 enableTime: true,
+                title: '带默认时间',
+                range: [
+                  '2019-05-05 00:00:00',
+                  '2019-05-06 00:00:00',
+                ],
+              },
+              {
+                refs: ['startDate2', 'endDate2'],
+                type: 'datetimeRange',
+                needTime: true,
+                enableTime: true,
                 title: '时间',
+                range: [],
               },
               {
                 ref: 'ref1',
