@@ -4,7 +4,15 @@
   position: absolute;
   top: 0;
   right: 0;
-  display: inline;
+  display: inline-block;
+  text-align: center;
+  .c {
+    position: relative;
+    z-index: 1;
+    color: #FFF;
+    font-size: 12px;
+    top: -20%;
+  }
   .tip {
     @include fill;
     // background-color: $themeColor;

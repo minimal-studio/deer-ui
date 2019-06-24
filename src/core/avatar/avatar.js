@@ -5,6 +5,7 @@ import PropTypes from "prop-types";
 import { Call } from 'basic-helper';
 
 import { DropdownWrapper } from '../selector';
+import { Tip } from '../tip';
 // import { LoadScript, LoadLink } from '../utils';
 // import { Loading } from '../loading';
 // import { ShowModal, CloseModal } from '../modal';
@@ -158,12 +159,19 @@ export default class Avatar extends UkePureComponent {
     src: PropTypes.string,
     /** icon 名称，参考 Icon */
     icon: PropTypes.string,
+    /** 显示在右上角的提示 */
+    tip: PropTypes.oneOfType([
+      PropTypes.bool,
+      PropTypes.string,
+      PropTypes.number,
+    ]),
     /** 换头像后的回调 */
     onChangeAvatar: PropTypes.func
   };
   static defaultProps = {
     size: 50,
     text: '',
+    tip: false,
     changeAvatarable: false,
     faceOptions: []
   }
@@ -230,6 +238,7 @@ export default class Avatar extends UkePureComponent {
       position,
       changeAvatarable,
       faceOptions,
+      tip,
       children
     } = this.props;
 
@@ -255,6 +264,11 @@ export default class Avatar extends UkePureComponent {
           </span>
           {_img}
         </span>
+        {
+          !!tip && (
+            <Tip animate={false} scale={22} color="red">{tip}</Tip>
+          )
+        }
         {/* {changeAvatarDOM} */}
       </span>
     );

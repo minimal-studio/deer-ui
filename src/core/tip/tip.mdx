@@ -9,9 +9,9 @@ import { Tip } from './';
 
 # Tip
 
-> 小提示
-
 <PropsTable of={Tip} />
+
+## Usage
 
 <Playground>
   <span className="relative p10">
@@ -27,5 +27,14 @@ import { Tip } from './';
   <span className="relative p10">
     说好的呢
     <Tip color="green"/>
+  </span>
+</Playground>
+
+## 子内容
+
+<Playground>
+  <span className="relative p10">
+    显示内容
+    <Tip color="red" scale={20}>12</Tip>
   </span>
 </Playground>

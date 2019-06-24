@@ -1,7 +1,7 @@
 import React, {Component, PureComponent} from 'react';
 import PropTypes from 'prop-types';
 
-const Tip = ({scale = 10, color = 'theme'}) => {
+const Tip = ({ scale = 10, color = 'theme', children, animate = true }) => {
   const tipStyle = {
     height: scale,
     width: scale
@@ -9,12 +9,18 @@ const Tip = ({scale = 10, color = 'theme'}) => {
   return (
     <div className="uke-tip-item" style={tipStyle}>
       <span className={"tip " + color} />
-      <span className={"tip animate " + color} />
+      {
+        animate && (
+          <span className={"tip animate " + color} />
+        )
+      }
+      <span className="c">{children}</span>
     </div>
   );
 };
 Tip.propTypes = {
   scale: PropTypes.number,
+  animate: PropTypes.bool,
   color: PropTypes.oneOf([
     'black',
     'theme',
