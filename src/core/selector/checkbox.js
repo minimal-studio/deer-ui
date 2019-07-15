@@ -1,4 +1,4 @@
-import React, {Component, PureComponent} from 'react';
+import React, { forwardRef } from 'react';
 import PropTypes from 'prop-types';
 
 import Radio from './radio';
@@ -9,11 +9,11 @@ const defaultProps = {
   n: 'check'
 };
 
-const Checkbox = (props) => {
+const Checkbox = forwardRef((props, ref) => {
   return (
-    <Radio {...props} />
+    <Radio {...props} ref={ref} />
   );
-};
+});
 
 Checkbox.defaultProps = defaultProps;
 
