@@ -13,6 +13,7 @@ export default {
   // theme: 'docz/theme/index.tsx',
   codeSandbox: false,
   hashRouter: true,
+  typescript: true,
   // propsParser: false,
   htmlContext: {
     head: {

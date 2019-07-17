@@ -43,6 +43,8 @@
     "@babel/plugin-proposal-class-properties": "^7.1.0",
     "@babel/preset-env": "^7.1.5",
     "@babel/preset-react": "^7.0.0",
+    "@typescript-eslint/eslint-plugin": "^1.9.0",
+    "@typescript-eslint/parser": "^1.9.0",
     "babel-core": "^7.0.0-bridge.0",
     "babel-eslint": "^10.0.1",
     "babel-jest": "^24.5.0",
@@ -69,6 +71,8 @@
     "react-transition-group": "^4.0.1",
     "regenerator-runtime": "^0.12.1",
     "unistore": "^3.1.0",
+    "typescript": "3.4.5",
+    "ts-jest": "^24.0.2",
     "webpack": "4.28.4"
   },
   "dependencies": {
