@@ -158,7 +158,7 @@ const keyMapper = [
   }
 </Playground>
 
-## 可选的 row
+## 可选的 row && 点击 row 高亮
 
 - whenCheckAction 为选中后出现的元素
 
@@ -178,6 +178,7 @@ const keyMapper = [
                 <div>
                   <Table
                     keyMapper={state.keyMapper}
+                    clickToHighlight
                     ref={e => table = e}
                     whenCheckAction={checkedItems => (
                       <span className="btn theme mu10" onClick={e => table.clearCheckeds()}>
