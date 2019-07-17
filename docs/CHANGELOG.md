@@ -2,6 +2,10 @@
 
 -----------------
 
+## 2.17.16
+
+- Table 新增 clickToHighlight 接口
+
 ## 2.17.15
 
 - Checkbox 添加 forwardRef

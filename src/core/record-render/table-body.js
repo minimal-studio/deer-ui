@@ -69,6 +69,8 @@ export default class Table extends MapperFilter {
     })).isRequired,
     /** 表格的数据源，用于每一行（row）的数据填充 */
     records: PropTypes.arrayOf(PropTypes.object).isRequired,
+    /** 表格的数据源，用于每一行（row）的数据填充 */
+    clickToHighlight: PropTypes.bool,
     /** 用于获取 row key */
     rowKey: PropTypes.oneOfType([
       PropTypes.func,
@@ -111,6 +113,7 @@ export default class Table extends MapperFilter {
     fixedRightKeys: [],
     alignRightTypes: ['money'],
     needCheck: false,
+    clickToHighlight: false,
     height: 'auto',
     needInnerSort: false,
     watcherTimer: 1000,
@@ -137,6 +140,7 @@ export default class Table extends MapperFilter {
       isDescInner: false,
       isDescOutside: undefined,
       hoveringRow: null,
+      highlightRow: {},
       checkedItems: {},
     };
   }
@@ -163,6 +167,16 @@ export default class Table extends MapperFilter {
    */
   clearCheckeds = () => {
     this.toggleAllItems(false);
+  }
+
+  handleClickToHighlight = (rowIdx) => {
+    this.setState(({ highlightRow }) => { 
+      const nextState = {...highlightRow};
+      nextState[rowIdx] = !nextState[rowIdx];
+      return { 
+        highlightRow: nextState
+      };
+    });
   }
 
   toggleSelectItem = (item, idx) => {
@@ -509,18 +523,22 @@ export default class Table extends MapperFilter {
   }
 
   renderRow = (options) => {
+    const { clickToHighlight } = this.props;
     const { records, ...other } = options;
-    const { hoveringRow } = this.state;
+    const { hoveringRow, highlightRow } = this.state;
 
     return records.map((record, idx) => {
       if(!record) return;
       const { _highlight = '' } = record;
       let key = this.getRowKey(record, idx);
+      const isHighlight = !!highlightRow[idx];
+      const isHoving = hoveringRow === idx;
       return (
         <tr
           key={key}
           onMouseEnter={e => this.handleHoverRow(idx)}
-          className={`${_highlight} ${hoveringRow === idx ? 'hovering' : ''}`}>
+          onClick={clickToHighlight ? e => this.handleClickToHighlight(idx) : null}
+          className={`${_highlight}${isHoving ? ' hovering' : ''}${isHighlight ? ' highlight' : ''}`}>
           {
             this.renderCell({
               rowKey: key, record, parentIdx: idx, ...other

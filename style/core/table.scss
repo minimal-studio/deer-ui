@@ -238,6 +238,12 @@ $tdPadding: 10px;
       &.hovering {
         background-color: rgba($themeColor, 0.08) !important;
       }
+      &.highlight {
+        background-color: rgba($themeColor, 0.2) !important;
+        td {
+          border-color: rgba($themeColor, 0.25) !important;
+        }
+      }
       td {
         border-bottom: 1px solid #f0f0f0;
         border-top: 0;
