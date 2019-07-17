@@ -1,0 +1,23 @@
+{
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    { "language": "typescript", "autoFix": true },
+    { "language": "typescriptreact", "autoFix": true }
+  ],
+  "files.watcherExclude": {
+      "**/build": true,
+      "**/dist": true,
+      "docs": true
+  },
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/build": true,
+    "**/dist": true
+  },
+  "editor.insertSpaces": true,
+  "editor.tabSize": 2,
+  "[scss]": {
+      "editor.tabSize": 2
+  }
+}
