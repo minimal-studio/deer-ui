@@ -2,7 +2,48 @@ import React, { Component, PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
 import { Call, HasValue, IsFunc } from 'basic-helper';
+import { tuple } from 'basic-helper/utils/type';
 import { Icon } from '../icon';
+
+
+export interface InputProps {
+  /** 是否必填项 */
+  required?: boolean;
+  /** 是否显示 title */
+  showTitle?: boolean;
+  /** 是否获取焦点后选中文字 */
+  forceToSelect?: boolean;
+  /** 输入框的 icon */
+  icon?: string;
+  /** icon 的名字 */
+  n?: string;
+  /** 输入框类型 */
+  type?: 'input' | 'pw' | 'password' | 'text' | 'number';
+  /** 期望输出的值的类型 */
+  outputType?: 'string' | 'number';
+  /** 作为自定义的 placeholder */
+  placeholder?: any;
+  /** 作为自定义的 placeholder */
+  title?: any;
+  className?: string;
+  /** onChange 前执行的过滤器 */
+  filter?: Function;
+  defaultValue?: number | string;
+  value: number | string;
+  /** 输入框右侧的按钮配置 */
+  inputBtnConfig?: {
+    /** 传入 input 的 target */
+    action: Function;
+    text: string;
+    color: string;
+    className: string;
+  };
+  /** 传入 input element 的属性 */
+  propsForInput?: {};
+  onChange: Function;
+  onFocus?: Function;
+  onBlur?: Function;
+}
 
 const controlTypeMapper = {
   input: 'text',
@@ -18,64 +59,7 @@ let defaultShowInputTitle = true;
  * @class Input
  * @extends {Component}
  */
-export default class Input extends Component {
-  static propTypes = {
-    /** 是否必填项 */
-    required: PropTypes.bool,
-    /** 是否显示 title */
-    showTitle: PropTypes.bool,
-    /** 是否获取焦点后选中文字 */
-    forceToSelect: PropTypes.bool,
-    /** 输入框的 icon */
-    icon: PropTypes.string,
-    /** icon 的名字 */
-    n: PropTypes.string,
-    /** 输入框类型 */
-    type: PropTypes.oneOf([
-      /** 等于 text */
-      'input',
-      /** 等于 password */
-      'pw',
-      'password',
-      'text',
-      /** 有浏览器兼容问题，请使用 inputTpe="number" 代替 */
-      'number',
-    ]),
-    /** 期望输出的值的类型 */
-    // inputType: PropTypes.string,
-    /** 期望输出的值的类型 */
-    outputType: PropTypes.oneOf([
-      'string', 'number'
-    ]),
-    /** 作为自定义的 placeholder */
-    placeholder: PropTypes.any,
-    /** 作为自定义的 placeholder */
-    title: PropTypes.any,
-    className: PropTypes.string,
-    /** onChange 前执行的过滤器 */
-    filter: PropTypes.func,
-    defaultValue: PropTypes.oneOfType([
-      PropTypes.number,
-      PropTypes.string,
-    ]),
-    value: PropTypes.oneOfType([
-      PropTypes.number,
-      PropTypes.string,
-    ]),
-    /** 输入框右侧的按钮配置 */
-    inputBtnConfig: PropTypes.shape({
-      /** 传入 input 的 target */
-      action: PropTypes.func,
-      text: PropTypes.string,
-      color: PropTypes.string,
-      className: PropTypes.string,
-    }),
-    /** 传入 input element 的属性 */
-    propsForInput: PropTypes.shape({}),
-    onChange: PropTypes.func,
-    onFocus: PropTypes.func,
-    onBlur: PropTypes.func,
-  };
+export default class Input extends Component<InputProps> {
   static defaultProps = {
     required: false,
     forceToSelect: false,
@@ -84,6 +68,7 @@ export default class Input extends Component {
     outputType: 'string',
     propsForInput: {},
   }
+
   /**
    * 设置 input 控件的默认行为
    * @public
@@ -91,6 +76,7 @@ export default class Input extends Component {
   static setConfig = ({ showTitle }) => {
     defaultShowInputTitle = showTitle;
   };
+
   constructor(props) {
     super(props);
 
@@ -104,52 +90,61 @@ export default class Input extends Component {
       stateVal: this.value
     };
   }
+
   changeText(val) {
 
   }
+
   addForceClass() {
     this.setState({
       viewClass: 'forcing'
     });
   }
+
   delForceClass() {
     this.setState({
       viewClass: HasValue(this.getValue()) ? 'has-val' : 'normal'
     });
   }
+
   focus() {
     this.iconInput.focus();
   }
+
   select() {
     this.iconInput.select();
   }
+
   getValue() {
     return this.isControl ? this.props.value : this.state.stateVal;
   }
+
   /**
    * 用于过滤是 number 类型的值
    */
   numberValFilter(val) {
     const { inputType, outputType } = this.props;
-    let _outputType = inputType || outputType;
-    if(inputType) console.warn('inputType 已废弃，请使用 outputType');
+    const _outputType = inputType || outputType;
+    if (inputType) console.warn('inputType 已废弃，请使用 outputType');
     val = HasValue(val) ? val : this.getValue();
     switch (_outputType) {
-    case 'number':
-      val = HasValue(val) ? +val : undefined;
-      break;
+      case 'number':
+        val = HasValue(val) ? +val : undefined;
+        break;
     }
     return val;
   }
+
   changeVal(val, elem) {
     this.value = this.numberValFilter(val);
-    if(!this.isControl) {
+    if (!this.isControl) {
       this.setState({
         stateVal: val
       });
     }
     Call(this.props.onChange, val, elem);
   }
+
   render() {
     const {
       n, s, icon, placeholder, title, inputBtnConfig, type, showTitle = defaultShowInputTitle,
@@ -167,7 +162,7 @@ export default class Input extends Component {
       <Icon n={_icon} s={s} />
     ) : null;
 
-    let highlightDOM = required ? (
+    const highlightDOM = required ? (
       <span className="form-desc">
         <span className="highlight">*</span>
       </span>
@@ -205,17 +200,17 @@ export default class Input extends Component {
               placeholder=""
               className={className}
               value={value}
-              onFocus={e => {
+              onFocus={(e) => {
                 this.addForceClass();
                 Call(onFocus, e);
               }}
-              onBlur={e => {
+              onBlur={(e) => {
                 this.delForceClass();
                 let val = this.numberValFilter();
                 val = IsFunc(filter) ? filter(val) : val;
-                if(typeof val != 'undefined') Call(onBlur, val, e);
+                if (typeof val !== 'undefined') Call(onBlur, val, e);
               }}
-              onChange={e => {
+              onChange={(e) => {
                 let val = e.target.value;
                 val = IsFunc(filter) ? filter(val) : val;
                 this.changeVal(val, e.target);

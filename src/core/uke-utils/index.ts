@@ -6,7 +6,7 @@ import { getUkelliConfig, setUkelliConfig, $T, $T_UKE } from '../config';
  * 通过继承 UkeComponent 或者 UkePureComponent 获取通用函数
  */
 
-const UkeComponentFac = (Com) => class C extends Com {
+const UkeComponentFac = (Com) => class C<P = {}, S = {}> extends Com<P, S> {
   /** 外部国际化键值对 $T() */
   gm = $T;
   $T = $T;

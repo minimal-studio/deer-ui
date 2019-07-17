@@ -10,7 +10,7 @@ import { Ranger } from '../range-selector';
 import { Captcha } from '../captcha';
 import { ToolTip } from '../tooltip';
 import InputSelector from '../form-control/input-selector';
-import Switch from '../switch-button/switch';
+import Switch from '../switch-button/switch-c';
 
 const wrapInputSelectorMarkForRefu = (activeRef) => {
   return `__isActive${activeRef}`;
