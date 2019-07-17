@@ -51,7 +51,7 @@ complexGameplayTitle.txt
 complexLotsTitle.txt
 complexCode.txt
 package-lock.json
-yarn.lock
+# yarn.lock
 
 dist
 .docz
