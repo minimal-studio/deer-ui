@@ -6,6 +6,33 @@ import PropTypes from 'prop-types';
 import { $T_UKE } from '../config';
 import { Icon } from '../icon';
 
+export interface ButtonProps {
+  /** 是否加载中 */
+  loading?: boolean;
+  /** 是否需要加载中的提示 */
+  loadingHint?: boolean;
+  /** 加载中是否禁用 */
+  loadingDisable?: boolean;
+  /** 设置 btn 的 class */
+  className?: string;
+  /** 设置 btn 的 icon, 可以使用 iconMapper 来引用 */
+  icon?: string;
+  /** btn 的字 */
+  text?: string;
+  /** btn 内的布局 */
+  textLayout?: string;
+  /** children */
+  children?: any;
+  /** btn 的类型 */
+  type?: string;
+  /** btn 的颜色 [theme, red, gold...] */
+  color?: string;
+  /** 是否禁用 */
+  disabled?: boolean;
+  /** 点击处理 */
+  onClick?: Function;
+}
+
 const defaultProps = {
   loading: false,
   loadingHint: true,
@@ -18,7 +45,7 @@ const defaultProps = {
   icon: '',
 };
 
-const Button = (props) => {
+const Button: React.SFC<ButtonProps> = (props) => {
   const {
     loading, disabled, text = $T_UKE('提交'), icon, s, type, children,
     color, className, loadingHint, loadingDisable, textLayout, onClick,
@@ -52,31 +79,5 @@ const Button = (props) => {
 };
 
 Button.defaultProps = defaultProps;
-Button.propTypes = {
-  /** 是否加载中 */
-  loading: PropTypes.bool,
-  /** 是否需要加载中的提示 */
-  loadingHint: PropTypes.bool,
-  /** 加载中是否禁用 */
-  loadingDisable: PropTypes.bool,
-  /** 设置 btn 的 class */
-  className: PropTypes.string,
-  /** 设置 btn 的 icon, 可以使用 iconMapper 来引用 */
-  icon: PropTypes.string,
-  /** btn 的字 */
-  text: PropTypes.string,
-  /** btn 内的布局 */
-  textLayout: PropTypes.string,
-  /** children */
-  children: PropTypes.any,
-  /** btn 的类型 */
-  type: PropTypes.string,
-  /** btn 的颜色 [theme, red, gold...] */
-  color: PropTypes.string,
-  /** 是否禁用 */
-  disabled: PropTypes.bool,
-  /** 点击处理 */
-  onClick: PropTypes.func.isRequired
-};
 
 export default Button;

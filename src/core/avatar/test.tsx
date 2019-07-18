@@ -1,4 +1,5 @@
 import React, { Component, PureComponent } from "react";
+import PropTypes from 'prop-types';
 
 interface TestProps {
   /** sdsa */
@@ -15,9 +16,9 @@ interface TestProps {
 class Test extends Component<TestProps> {
   render() {
     return (
-      <div></div>
+      <div>qwewqrqwr</div>
     )
   }
 }
 
-export {Test}
+export default Test

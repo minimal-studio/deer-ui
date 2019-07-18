@@ -10,8 +10,22 @@ import { Tip } from '../tip';
 import { UkePureComponent } from '../uke-utils';
 
 interface AvatarProps {
-  /** sdsa */
-  a: string;
+  /** 头像的大小 */
+  size?: string | number;
+  /** Avatar 中显示的字 */
+  text?: string;
+  /** 头像的数组, ['A', 'B', 'face.jpg'] */
+  faceOptions?: string[];
+  /** 是否可换头像 */
+  changeAvatarable?: boolean;
+  /** 图片地址, 可以为网络图片、base64 和相对路径图片 */
+  src?: string;
+  /** icon 名称，参考 Icon */
+  icon?: string;
+  /** 显示在右上角的提示 */
+  tip?: boolean|string|number;
+  /** 换头像后的回调 */
+  onChangeAvatar?: Function;
 }
 
 /**
@@ -22,31 +36,6 @@ interface AvatarProps {
  * @extends {PureComponent}
  */
 export default class Avatar extends UkePureComponent<AvatarProps> {
-  static propTypes = {
-    /** 头像的大小 */
-    size: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.number,
-    ]),
-    /** 头像显示的第一个字 */
-    text: PropTypes.string,
-    /** 头像的数组, ['A', 'B', 'face.jpg'] */
-    faceOptions: PropTypes.arrayOf(PropTypes.string),
-    /** 是否可换头像 */
-    changeAvatarable: PropTypes.bool,
-    /** 图片地址, 可以为网络图片、base64 和相对路径图片 */
-    src: PropTypes.string,
-    /** icon 名称，参考 Icon */
-    icon: PropTypes.string,
-    /** 显示在右上角的提示 */
-    tip: PropTypes.oneOfType([
-      PropTypes.bool,
-      PropTypes.string,
-      PropTypes.number,
-    ]),
-    /** 换头像后的回调 */
-    onChangeAvatar: PropTypes.func
-  };
   static defaultProps = {
     size: 50,
     text: '',
@@ -144,29 +133,3 @@ export default class Avatar extends UkePureComponent<AvatarProps> {
     ) : avatarDOM;
   }
 }
-
-Avatar.propTypes = {
-  /** 头像的大小 */
-  size: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.number,
-  ]),
-  /** 头像显示的第一个字 */
-  text: PropTypes.string,
-  /** 头像的数组, ['A', 'B', 'face.jpg'] */
-  faceOptions: PropTypes.arrayOf(PropTypes.string),
-  /** 是否可换头像 */
-  changeAvatarable: PropTypes.bool,
-  /** 图片地址, 可以为网络图片、base64 和相对路径图片 */
-  src: PropTypes.string,
-  /** icon 名称，参考 Icon */
-  icon: PropTypes.string,
-  /** 显示在右上角的提示 */
-  tip: PropTypes.oneOfType([
-    PropTypes.bool,
-    PropTypes.string,
-    PropTypes.number,
-  ]),
-  /** 换头像后的回调 */
-  onChangeAvatar: PropTypes.func
-};

@@ -498,7 +498,8 @@ export default class FormFilterHelper extends UkeComponent {
           // ref={e => this._refs[datetimeRangeRef] = e}
           ref={this.saveRef(datetimeRangeRef)}
           id={datetimeRangeRef}
-          value={this.value[datetimeRangeRef] || range}
+          defaultValue={range}
+          value={this.value[datetimeRangeRef]}
           onChange={(val) => this.changeDateValues(val, refs)}/>
         {
           !config.noHelper && (

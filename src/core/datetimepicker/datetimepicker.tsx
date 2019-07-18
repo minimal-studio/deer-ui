@@ -5,7 +5,7 @@ import { Call, DateFormat, UUID } from 'basic-helper';
 import Flatpickr from 'flatpickr';
 
 // import Flatpickr from '../../libs/flatpickr';
-import '../../libs/flatpickr-zh';
+import 'flatpickr/dist/l10n/zh';
 import DateBasic from './date-basic';
 import { Icon } from '../icon';
 import { PopoverEntity } from '../popover';
@@ -36,6 +36,8 @@ export default class DatetimePicker extends DateBasic {
     allowInput: PropTypes.bool,
     /** 语言 */
     lang: PropTypes.string,
+    /** didMount */
+    didMount: PropTypes.func,
     /** 默认值 */
     defaultValue: PropTypes.any,
     /** 受控控件的值 */
@@ -71,6 +73,7 @@ export default class DatetimePicker extends DateBasic {
   componentDidMount() {
     // setTimeout(this.initPicker.bind(this), 50);
     this.initPicker();
+    Call(this.props.didMount, this.value);
   }
   componentDidUpdate(prevProps) {
     if(JSON.stringify(this.props.value) !== JSON.stringify(prevProps.value)) {
