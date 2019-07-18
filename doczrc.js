@@ -11,6 +11,7 @@ export default {
     files.filter(filepath => /[w-]*.(js|jsx|ts|tsx)$/.test(filepath)),
   indexHtml: 'docz/index.html',
   wrapper: 'docz/wrapper',
+  // theme: 'docz-theme-ztopia',
   codeSandbox: false,
   hashRouter: true,
   typescript: true,

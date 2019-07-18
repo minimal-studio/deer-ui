@@ -1,8 +1,42 @@
-import React, {Component, PureComponent} from 'react';
-import PropTypes from 'prop-types';
+import React, { Component, PureComponent } from 'react';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import { Call } from 'basic-helper';
 import { Icon } from '../icon';
+
+interface CarouselItem {
+  /** 如果同时设置了 imgUrl 和 element */
+  imgUrl: string;
+  /** 优先渲染 element */
+  element: React.ElementType;
+  action: Function;
+}
+
+interface CarouselProps {
+  /** 轮播的具体内容，格式如下 */
+  carouselItems: CarouselItem[];
+  /** 可设置的 style */
+  styleConfig?: {
+    width: string | number;
+    height: string | number;
+    margin: string | number;
+  };
+  /** 预留的操作 class */
+  actionClass?: string;
+  /** 动画的 css name，可以自由设置 */
+  transitionName?: string;
+  /** 是否移动版，如果是，则渲染左右切换按钮 */
+  isMobile?: boolean;
+  /** 自动轮播的频率，单位为秒 */
+  freq?: number;
+  /** 过场动画的持续时间 */
+  transitionTimer?: number;
+  /** 指示器的类型， 兼容旧版本，将要废弃 */
+  thumbType?: 'thumb' | 'dot';
+  /** 指示器的类型 */
+  indicator?: 'thumb' | 'dot';
+  /** 缩略图和大图的缩小比例 */
+  thumbRate: number;
+}
 
 /**
  * 轮播控件
@@ -11,52 +45,43 @@ import { Icon } from '../icon';
  * @class Carousel
  * @extends {Component}
  */
-export default class Carousel extends Component {
-  static propTypes = {
-    /** 轮播的具体内容，格式如下 */
-    carouselItems: PropTypes.arrayOf(PropTypes.shape({
-      /** 如果同时设置了 imgUrl 和 element */
-      imgUrl: PropTypes.string,
-      /** 优先渲染 element */
-      element: PropTypes.element,
-      action: PropTypes.func
-    })).isRequired,
-    /** 可设置的 style */
-    styleConfig: PropTypes.shape({
-      width: PropTypes.any,
-      height: PropTypes.any,
-      margin: PropTypes.any
-    }).isRequired,
-    /** 预留的操作 class */
-    actionClass: PropTypes.string,
-    /** 动画的 css name，可以自由设置 */
-    transitionName: PropTypes.string,
-    /** 是否移动版，如果是，则渲染左右切换按钮 */
-    isMobile: PropTypes.bool,
-    /** 自动轮播的频率，单位为秒 */
-    freq: PropTypes.number,
-    /** 过场动画的持续时间 */
-    transitionTimer: PropTypes.number,
-    thumbType: PropTypes.oneOf([
-      'thumb',
-      'dot',
-    ]),
-    /** 缩略图和大图的缩小比例 */
-    thumbRate: PropTypes.number,
-  };
+export default class Carousel extends Component<CarouselProps, {
+  activeIdx: number;
+  toNext: boolean;
+  activeItem: {};
+}> {
   static defaultProps = {
     actionClass: 'action-area',
     transitionName: 'banner',
     thumbType: 'dot',
+    indicator: 'dot',
     transitionTimer: 400,
     freq: 5,
     thumbRate: 15,
     isMobile: false
   };
+
+  timer;
+
+  isStarted = false;
+
+  itemWidth: number | string;
+
+  startPageX!: number;
+
+  endPageX!: number;
+
+  mobileEvents: {
+    onMouseDown: Function;
+    onMouseUp: Function;
+    onTouchStart: Function;
+    onTouchEnd: Function;
+  }
+
   constructor(props) {
     super(props);
 
-    const {carouselItems = [], styleConfig, isMobile} = props;
+    const { carouselItems = [], styleConfig, isMobile } = props;
     const defaultIdx = 0;
     this.state = {
       activeIdx: defaultIdx,
@@ -64,7 +89,6 @@ export default class Carousel extends Component {
       activeItem: carouselItems[defaultIdx],
     };
     this.timer = null;
-    this.isStarted = false;
     this.itemWidth = styleConfig.width;
 
     this.mobileEvents = {
@@ -74,40 +98,46 @@ export default class Carousel extends Component {
       onTouchEnd: this.handleTouchEnd,
     };
   }
+
   componentDidUpdate(prevProps) {
-    if(this.props.carouselItems.length == 0 && prevProps.carouselItems.length > 0) {
+    if (this.props.carouselItems.length == 0 && prevProps.carouselItems.length > 0) {
       this.startLoop();
     }
   }
+
   componentDidMount() {
     this.startLoop();
   }
+
   componentWillUnmount() {
     this.stopLoop();
   }
+
   startLoop() {
     const { freq } = this.props;
-    if(this.timer) this.stopLoop();
+    if (this.timer) this.stopLoop();
     this.timer = setInterval(() => {
-      const {carouselItems} = this.props;
-      let {activeIdx} = this.state;
+      const { carouselItems } = this.props;
+      let { activeIdx } = this.state;
       activeIdx += 1;
-      if(activeIdx > carouselItems.length - 1) activeIdx = 0;
-      if(!document.hidden) this.setActiveIdx(activeIdx);
+      if (activeIdx > carouselItems.length - 1) activeIdx = 0;
+      if (!document.hidden) this.setActiveIdx(activeIdx);
     }, freq * 1000);
   }
+
   stopLoop() {
     clearInterval(this.timer);
     this.timer = null;
   }
+
   setActiveIdx(idx) {
-    const {carouselItems} = this.props;
+    const { carouselItems } = this.props;
     const maxIdx = carouselItems.length - 1;
-    if(idx > maxIdx) idx = 0;
-    if(idx < 0) idx = maxIdx;
+    if (idx > maxIdx) idx = 0;
+    if (idx < 0) idx = maxIdx;
     this.setState((preState) => {
-      let prevActiveIdx = preState.activeIdx;
-      let toNext = prevActiveIdx < idx;
+      const prevActiveIdx = preState.activeIdx;
+      const toNext = prevActiveIdx < idx;
       return {
         activeIdx: idx,
         toNext,
@@ -116,16 +146,17 @@ export default class Carousel extends Component {
     });
     this.startLoop();
   }
+
   genCarouselDOM(currItem, idx, imgStyle) {
     const { styleConfig, actionClass } = this.props;
     const { width, height } = imgStyle || styleConfig;
     const { imgUrl, element } = currItem;
     const objStyle = { width, height };
-    objStyle['backgroundImage'] = `url(${imgUrl})`;
+    objStyle.backgroundImage = `url(${imgUrl})`;
     return (
       <div className={actionClass} key={idx}>
         {
-          element ? element : (
+          element || (
             <div
               className="img"
               style={objStyle} />
@@ -134,66 +165,70 @@ export default class Carousel extends Component {
       </div>
     );
   }
+
   handleTouchStart = (e) => {
     const touches = e.changedTouches || e;
     this.startPageX = touches[0] ? touches[0].pageX : touches.pageX;
   }
+
   handleTouchEnd = (e) => {
     e.preventDefault();
     e.stopPropagation();
-    const {activeIdx} = this.state;
+    const { activeIdx } = this.state;
     const touches = e.changedTouches || e;
     this.endPageX = touches[0] ? touches[0].pageX : touches.pageX;
     const touchOffset = this.endPageX - this.startPageX;
-    if(Math.abs(touchOffset) < 50) {
+    if (Math.abs(touchOffset) < 50) {
       return this.showDetail(activeIdx);
     }
     const toNext = touchOffset > 0;
-    this.setActiveIdx(activeIdx + (toNext ? - 1 : 1));
+    this.setActiveIdx(activeIdx + (toNext ? -1 : 1));
   }
+
   showDetail(activeIdx) {
-    const {activeItem} = this.state;
+    const { activeItem } = this.state;
     Call(activeItem.action, activeItem, activeIdx);
   }
 
   getThumb() {
-    const { isMobile, carouselItems, styleConfig, thumbRate, thumbType } = this.props;
+    const {
+      isMobile, carouselItems, styleConfig, thumbRate, thumbType, indicator
+    } = this.props;
     const { activeIdx } = this.state;
 
     let thumbGenerator;
+    const _indicator = indicator || thumbType;
 
-    switch (thumbType) {
-    case 'thumb':
-      const { width, height } = styleConfig;
-      const imgWHRate = width / height;
-      const thumbImgStyle = {
-        width: width / thumbRate,
-        height: width / imgWHRate / thumbRate
-      };
-      thumbGenerator = (item, idx) => this.genCarouselDOM(item, idx, thumbImgStyle);
-      break;
-    case 'dot':
-    default:
-      thumbGenerator = (item, idx) => {
-        return (
+    switch (_indicator) {
+      case 'thumb':
+        const { width, height } = styleConfig;
+        const imgWHRate = width / height;
+        const thumbImgStyle = {
+          width: width / thumbRate,
+          height: width / imgWHRate / thumbRate
+        };
+        thumbGenerator = (item, idx) => this.genCarouselDOM(item, idx, thumbImgStyle);
+        break;
+      case 'dot':
+      default:
+        thumbGenerator = (item, idx) => (
           <span className="dot-item" />
         );
-      };
-      break;
+        break;
     }
 
-    let thumbDOM = !isMobile && (
+    const thumbDOM = !isMobile && (
       <div className="thumb-contaner">
         {
           carouselItems.map((item, idx) => {
-            let isActive = idx == activeIdx;
+            const isActive = idx == activeIdx;
             return (
               <div
-                className={"thumb-item" + (isActive ? ' active' : '') + ' ' + thumbType}
+                className={`thumb-item${isActive ? ' active' : ''} ${thumbType}`}
                 key={idx}>
                 <div
                   className="_mark"
-                  onClick={e => {
+                  onClick={(e) => {
                     this.setActiveIdx(idx);
                   }}>
                   {thumbGenerator(item, idx)}
@@ -209,12 +244,12 @@ export default class Carousel extends Component {
 
   render() {
     const {
-      carouselItems, styleConfig, 
-      isMobile, transitionTimer, 
+      carouselItems, styleConfig,
+      isMobile, transitionTimer,
       transitionName, thumbType,
       thumbRate,
     } = this.props;
-    if(!carouselItems || carouselItems.length == 0) {
+    if (!carouselItems || carouselItems.length == 0) {
       return (
         <span className="no-banner" />
       );
@@ -225,11 +260,11 @@ export default class Carousel extends Component {
     return (
       <div
         className="carousel"
-        style={{width, height, margin}}>
+        style={{ width, height, margin }}>
         <TransitionGroup>
           <CSSTransition
             key={activeIdx}
-            classNames={transitionName + '-to-' + (toNext ? 'next' : 'prev')}
+            classNames={`${transitionName}-to-${toNext ? 'next' : 'prev'}`}
             timeout={transitionTimer}>
             <div className="carousel-item" {...this.mobileEvents}>
               {this.genCarouselDOM(activeItem, activeIdx)}

@@ -1,10 +1,15 @@
 /* eslint-disable react/button-has-type */
 
 import React from 'react';
-import PropTypes from 'prop-types';
 
+import { Call } from 'basic-helper';
+import { tuple } from 'basic-helper/utils/type';
 import { $T_UKE } from '../config';
 import { Icon } from '../icon';
+
+const ButtonHTMLTypes = tuple("button", "submit", "reset");
+export type ButtonHTMLType = (typeof ButtonHTMLTypes)[number];
+
 
 export interface ButtonProps {
   /** 是否加载中 */
@@ -24,7 +29,7 @@ export interface ButtonProps {
   /** children */
   children?: any;
   /** btn 的类型 */
-  type?: string;
+  type?: ButtonHTMLType;
   /** btn 的颜色 [theme, red, gold...] */
   color?: string;
   /** 是否禁用 */
@@ -66,8 +71,8 @@ const Button: React.SFC<ButtonProps> = (props) => {
       disabled={!clickable}
       type={type}
       className={`btn flat ${color} ${className}`}
-      onClick={e => {
-        if(clickable) onClick(e);
+      onClick={(e) => {
+        if (clickable) Call(onClick, e);
       }}>
       <span className={`layout ${textLayout}`}>
         {iconDOM}

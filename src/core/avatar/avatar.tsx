@@ -1,7 +1,6 @@
 /* eslint-disable react/no-multi-comp */
 
 import React, { Component, PureComponent } from "react";
-import PropTypes from "prop-types";
 import { Call } from 'basic-helper';
 
 import { DropdownWrapper } from '../selector';
@@ -9,9 +8,9 @@ import { Tip } from '../tip';
 
 import { UkePureComponent } from '../uke-utils';
 
-interface AvatarProps {
+export interface AvatarProps {
   /** 头像的大小 */
-  size?: string | number;
+  size?: number;
   /** Avatar 中显示的字 */
   text?: string;
   /** 头像的数组, ['A', 'B', 'face.jpg'] */
@@ -20,6 +19,8 @@ interface AvatarProps {
   changeAvatarable?: boolean;
   /** 图片地址, 可以为网络图片、base64 和相对路径图片 */
   src?: string;
+  /** 弹出的位置 */
+  position?: string;
   /** icon 名称，参考 Icon */
   icon?: string;
   /** 显示在右上角的提示 */
@@ -29,7 +30,7 @@ interface AvatarProps {
 }
 
 /**
- * Avatar Component，依赖 Croppie 三方库作为自定义图片，需要设置 Croppie 的地址 
+ * Avatar Component，依赖 Croppie 三方库作为自定义图片，需要设置 Croppie 的地址
  *
  * @export
  * @class Avatar
@@ -43,6 +44,7 @@ export default class Avatar extends UkePureComponent<AvatarProps> {
     changeAvatarable: false,
     faceOptions: []
   }
+
   constructor(props) {
     super(props);
     this.state = {
@@ -57,25 +59,23 @@ export default class Avatar extends UkePureComponent<AvatarProps> {
   }
 
   renderMoreOptions = ({ hide }) => {
-    const { faceOptions } = this.props;
+    const { faceOptions = [] } = this.props;
     return (
       <div className="avatar-options">
         {
-          faceOptions.map((src, idx) => {
-            return (
-              <span
-                key={idx}
-                className="img"
-                onClick={e => {
-                  this.changeAvatar(src);
-                  hide();
-                }}>
-                <img
-                  alt=""
-                  src={src}/>
-              </span>
-            );
-          })
+          faceOptions.map((src, idx) => (
+            <span
+              key={idx}
+              className="img"
+              onClick={(e) => {
+                this.changeAvatar(src);
+                hide();
+              }}>
+              <img
+                alt=""
+                src={src}/>
+            </span>
+          ))
         }
       </div>
     );
@@ -85,7 +85,6 @@ export default class Avatar extends UkePureComponent<AvatarProps> {
     const {
       text,
       src,
-      alt,
       size,
       position,
       changeAvatarable,
@@ -94,17 +93,17 @@ export default class Avatar extends UkePureComponent<AvatarProps> {
       children
     } = this.props;
 
-    const sizeStyle = {
+    const sizeStyle = size ? {
       width: size, height: size, fontSize: size / 1.5
-    };
+    } : {};
     const _img = src && (
       <div style={{
         backgroundImage: `url(${src})`
-      }} alt={alt} className="img fixbg fill" />
+      }} className="img fixbg fill" />
     );
 
-    let child = children || text;
-    const _changeAvatarable = changeAvatarable && faceOptions.length > 0;
+    const child = children || text;
+    const _changeAvatarable = changeAvatarable && faceOptions && faceOptions.length > 0;
 
     const avatarDOM = (
       <span className="uke-avatar">

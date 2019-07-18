@@ -1,7 +1,15 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
-const Card = ({ children, className, style, p = 0.1 }) => {
+interface CardProps {
+  /** padding */
+  p?: number;
+  /** 顾名思义 */
+  className?: string;
+  /** style */
+  style?: {};
+}
+
+const Card: React.SFC<CardProps> = ({ children, className, style, p = 0.1 }) => {
   return (
     <div 
       style={{
@@ -14,34 +22,4 @@ const Card = ({ children, className, style, p = 0.1 }) => {
   );
 };
 
-Card.propTypes = {
-  /** padding */
-  p: PropTypes.number,
-  /** 顾名思义 */
-  className: PropTypes.string,
-  /** 顾名思义 */
-  style: PropTypes.shape({}),
-};
-
-const CardContainer = ({ children, className, style }) => {
-  return (
-    <div
-      style={style}
-      className={"card-container " + (className ? className : '')}>
-      {children}
-    </div>
-  );
-};
-
-CardContainer.propTypes = {
-  /** 顾名思义 */
-  className: PropTypes.string,
-  /** 顾名思义 */
-  style: PropTypes.shape({}),
-  /** 是否树立排版 */
-  isCol: PropTypes.bool
-};
-
-export {
-  Card, CardContainer
-};
+export default Card;

@@ -1,5 +1,5 @@
-import React from 'react';
-import { CardContainer, Card } from './card';
+import Card from './card';
+import CardContainer from './card-container';
 
 export {
   CardContainer, Card
