@@ -131,7 +131,7 @@ export default class FormFilterHelper extends UkeComponent {
   }
   setDefaultValue(config) {
     const {
-      defaultValue, ref, refs, range, refu, refForS, defaultValueForS,
+      defaultValue, ref, refs, range, refu, refForS, defaultValueForS, type
     } = config;
 
     if(HasValue(defaultValue)) {
@@ -154,6 +154,10 @@ export default class FormFilterHelper extends UkeComponent {
       refs.forEach((_ref, idx) => {
         this.value[_ref] = range[idx];
       });
+    }
+
+    if(type === 'datetimeRange') {
+      this.value[this.getRefsID(refs)] = range;
     }
   }
   checkForm() {
