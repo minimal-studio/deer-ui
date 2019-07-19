@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import { Call, CallFunc, IsFunc, HasValue, IsObj } from 'basic-helper';
+import {
+  Call, CallFunc, IsFunc, HasValue, IsObj
+} from 'basic-helper';
 
 import { UkeComponent } from '../uke-utils';
 
@@ -12,9 +14,7 @@ import { ToolTip } from '../tooltip';
 import InputSelector from '../form-control/input-selector';
 import Switch from '../switch-button/switch-c';
 
-const wrapInputSelectorMarkForRefu = (activeRef) => {
-  return `__isActive${activeRef}`;
-};
+const wrapInputSelectorMarkForRefu = activeRef => `__isActive${activeRef}`;
 
 /**
  * 表单生成器
@@ -22,7 +22,9 @@ const wrapInputSelectorMarkForRefu = (activeRef) => {
  */
 export default class FormFilterHelper extends UkeComponent {
   _refs = {};
+
   state = {};
+
   constructor(props) {
     super(props);
     this.state = {
@@ -33,47 +35,54 @@ export default class FormFilterHelper extends UkeComponent {
 
     this.initValues(props);
   }
+
   componentWillUnmount() {
     this.value = {};
     this.requiredRefMapper = {};
   }
+
   componentDidUpdate(prevProps, prevState) {
     this.checkFormOptions(prevProps);
   }
+
   initValues(props) {
     const formOptions = this.getFormOptions(props);
     this.setDefaultValues(formOptions);
   }
+
   resetValues(props = this.props) {
     const formOptions = this.getFormOptions(props);
-    let nextValue = {};
+    const nextValue = {};
     for (const options of formOptions) {
       // const val = this.value[valKey];
       const { ref, refs } = options;
-      if(this.value[ref]) nextValue[ref] = this.value[ref];
-      if(Array.isArray(refs)) {
+      if (this.value[ref]) nextValue[ref] = this.value[ref];
+      if (Array.isArray(refs)) {
         const refsID = this.getRefsID(refs);
-        if(this.value[refsID]) nextValue[refsID] = this.value[refsID];
+        if (this.value[refsID]) nextValue[refsID] = this.value[refsID];
         for (const itemRef of refs) {
-          if(this.value[itemRef]) nextValue[itemRef] = this.value[itemRef];
+          if (this.value[itemRef]) nextValue[itemRef] = this.value[itemRef];
         }
       }
     }
     this.value = nextValue;
     this.initValues(props);
   }
+
   getFormOptions(props = this.props) {
-    if(!props) return [];
+    if (!props) return [];
     return props.formOptions || props.conditionConfig;
   }
+
   checkFormOptions(prevProps) {
     const thisFormOptions = this.getFormOptions(this.props);
     const prevFormOptions = this.getFormOptions(prevProps);
-    if(thisFormOptions != prevFormOptions) {
+    if (thisFormOptions != prevFormOptions) {
       this.resetValues();
       this.resetRequireRefMapper(this.props);
     }
   }
+
   resetRequireRefMapper(nextProps = this.props) {
     this.requiredRefMapper = {};
     const formOptions = this.getFormOptions(nextProps);
@@ -84,28 +93,32 @@ export default class FormFilterHelper extends UkeComponent {
     }
     // configArr.forEach(config => this.setRequiredRefMapper(config));
   }
-  setRequiredRefMapper(config) {
-    if(!config || !config.required) return;
 
-    const { title = '', ref, refs, refu } = this.wrapConditionTitle(config);
+  setRequiredRefMapper(config) {
+    if (!config || !config.required) return;
+
+    const {
+      title = '', ref, refs, refu
+    } = this.wrapConditionTitle(config);
     switch (true) {
-    case !!ref:
-      this._requiredMapperSetter(ref, title);
-      break;
-    case !!refs:
-      for (const _ref of refs) {
-        this._requiredMapperSetter(_ref, title);
-      }
-      break;
-    case !!refu:
-      for (const _ref in refu) {
-        if(refu.hasOwnProperty(_ref)) {
+      case !!ref:
+        this._requiredMapperSetter(ref, title);
+        break;
+      case !!refs:
+        for (const _ref of refs) {
           this._requiredMapperSetter(_ref, title);
         }
-      }
-      break;
+        break;
+      case !!refu:
+        for (const _ref in refu) {
+          if (refu.hasOwnProperty(_ref)) {
+            this._requiredMapperSetter(_ref, title);
+          }
+        }
+        break;
     }
   }
+
   clearValue = () => {
     this.setState(() => {
       this.value = {};
@@ -115,33 +128,36 @@ export default class FormFilterHelper extends UkeComponent {
       };
     });
   }
+
   _requiredMapperSetter = (ref, title) => {
     this.requiredRefMapper = Object.assign({}, this.requiredRefMapper, {
       [ref]: title
     });
   }
+
   setDefaultValues(options = []) {
     for (let i = 0; i < options.length; i++) {
       const config = options[i];
-      if(config) {
+      if (config) {
         this.setDefaultValue(config);
         this.setRequiredRefMapper(config);
       }
     }
   }
+
   setDefaultValue(config) {
     const {
-      defaultValue, ref, refs, range, refu, refForS, defaultValueForS, type
+      defaultValue, ref, refs, range, refu, refForS, defaultValueForS, type,
     } = config;
 
-    if(HasValue(defaultValue)) {
+    if (HasValue(defaultValue)) {
       /** 观察这个地方，可能引起的内容不更新的问题 */
-      if(ref) this.value[ref] = this.value[ref] || defaultValue;
-      if(refForS) this.value[refForS] = this.value[refForS] || defaultValueForS;
-      if(IsObj(refu)) {
+      if (ref) this.value[ref] = this.value[ref] || defaultValue;
+      if (refForS) this.value[refForS] = this.value[refForS] || defaultValueForS;
+      if (IsObj(refu)) {
         /** 判断是否有 defaultValueForS，如果有则直接使用，否则区 refu 第一个作为默认值 */
         let targetKey;
-        if(HasValue(defaultValueForS)) {
+        if (HasValue(defaultValueForS)) {
           targetKey = defaultValueForS;
         } else {
           targetKey = Object.keys(refu)[0];
@@ -150,27 +166,28 @@ export default class FormFilterHelper extends UkeComponent {
       }
     }
 
-    if(Array.isArray(range) && Array.isArray(refs)) {
+    if (Array.isArray(range) && Array.isArray(refs)) {
       refs.forEach((_ref, idx) => {
         this.value[_ref] = range[idx];
       });
     }
 
-    if(type === 'datetimeRange') {
+    if (type === 'datetimeRange') {
       this.value[this.getRefsID(refs)] = range;
     }
   }
+
   checkForm() {
-    let { requiredRefMapper } = this;
+    const { requiredRefMapper } = this;
     let isPass = Object.keys(requiredRefMapper).length == 0;
     let desc = '';
     let ref = '';
     const requiredRefs = Object.keys(requiredRefMapper);
     const len = requiredRefs.length;
-    for(let i = 0; i < len; i++) {
-      let itemRef = requiredRefs[i];
-      let currVal = this.value[itemRef];
-      if(!HasValue(currVal)) {
+    for (let i = 0; i < len; i++) {
+      const itemRef = requiredRefs[i];
+      const currVal = this.value[itemRef];
+      if (!HasValue(currVal)) {
         isPass = false;
         desc = requiredRefMapper[itemRef];
         ref = itemRef;
@@ -179,7 +196,7 @@ export default class FormFilterHelper extends UkeComponent {
       }
       isPass = true;
     }
-    let checkRes = {
+    const checkRes = {
       isPass,
       desc,
       ref
@@ -187,18 +204,23 @@ export default class FormFilterHelper extends UkeComponent {
     CallFunc(this.showDesc)(checkRes);
     return checkRes;
   }
+
   wrapConditionTitle(config) {
     const { title, tips, ref } = config;
     config._title = this.$T(title) || this.$T(ref);
-    if(tips) config.tipsDOM = (
-      <ToolTip classNames={['mr5']} title={tips} n="question" s="r"/>
-    );
+    if (tips) {
+      config.tipsDOM = (
+        <ToolTip classNames={['mr5']} title={tips} n="question" s="r"/>
+      );
+    }
     return config;
   }
+
   focusRef(ref) {
     const targetDOM = this._refs[ref];
-    if(!!targetDOM && !!targetDOM.focus) targetDOM.focus();
+    if (!!targetDOM && !!targetDOM.focus) targetDOM.focus();
   }
+
   /**
    * 改变单个值
    * @public
@@ -207,13 +229,16 @@ export default class FormFilterHelper extends UkeComponent {
    * @param {boolean} update 是否更新视图
    */
   changeValue(value, ref, update = true) {
-    if(this.value[ref] === value) return;
+    if (this.value[ref] === value) return;
     this.value[ref] = value;
-    if(update) this.setState({
-      value: this.value
-    });
+    if (update) {
+      this.setState({
+        value: this.value
+      });
+    }
     Call(this.props.onChange, this.value, ref, value);
   }
+
   /**
    * 改变多个值
    * @public
@@ -222,24 +247,27 @@ export default class FormFilterHelper extends UkeComponent {
    */
   changeValues(valRefMapper, update = true) {
     const refs = Object.keys(valRefMapper);
-    refs.forEach(ref => {
+    refs.forEach((ref) => {
       const val = valRefMapper[ref];
       this.changeValue(val, ref, update);
     });
   }
+
   refreshCaptcha(ref) {
     this._refs[ref].refreshCaptcha();
   }
+
   zeroFilter(target, compare) {
     return target === 0 ? 0 : (target || compare);
   }
+
   getValue(ref, other) {
-    let targetVal = this.value[ref];
+    const targetVal = this.value[ref];
     return HasValue(targetVal) ? targetVal : other;
   }
-  saveRef = (ref) => {
-    return elem => this._refs[ref] = elem;
-  }
+
+  saveRef = ref => elem => this._refs[ref] = elem
+
   loadPlugin = (Plugin, props) => {
     let P = IsFunc(Plugin) ? <Plugin /> : Plugin;
 
@@ -247,10 +275,10 @@ export default class FormFilterHelper extends UkeComponent {
 
     return P;
   }
+
   /** 获取 refs 的 ID */
-  getRefsID = (refs) => {
-    return Array.isArray(refs) ? refs.join('-') : '';
-  }
+  getRefsID = refs => (Array.isArray(refs) ? refs.join('-') : '')
+
   /**
    * 表单插件接口
    *
@@ -259,18 +287,21 @@ export default class FormFilterHelper extends UkeComponent {
    */
   getCustomForm = (config) => {
     const { ref, getCustomFormControl, ...other } = config;
-    let customeComponent = IsFunc(getCustomFormControl) ? getCustomFormControl() : null;
+    const customeComponent = IsFunc(getCustomFormControl) ? getCustomFormControl() : null;
 
-    if(!customeComponent) return;
+    if (!customeComponent) return;
 
     const component = customeComponent.component || customeComponent;
     const cusProps = customeComponent.props || {};
 
     return this.loadPlugin(component, {
-      ...other, ...cusProps, onChange: val => this.changeValue(val, ref),
+      ...other,
+      ...cusProps,
+      onChange: val => this.changeValue(val, ref),
       ref: this.saveRef(ref)
     });
   }
+
   getCaptcha = (config) => {
     const { ref, keyRef = 'CaptchaKey', ...other } = config;
     return (
@@ -279,50 +310,53 @@ export default class FormFilterHelper extends UkeComponent {
         value={this.getValue(ref) || ''}
         ref={this.saveRef('CaptchaCode')}
         onCaptchaLoad={captchKey => this.changeValue(captchKey, keyRef)}
-        onChange={captchaConfig => {
+        onChange={(captchaConfig) => {
           this.changeValue(captchaConfig.value, ref);
         }}/>
     );
   }
+
   getSelectNative = (config) => {
-    let { values, ref } = config;
+    const { values, ref } = config;
     return (
-      <select 
+      <select
         className="form-control"
         ref={this.saveRef(ref)}
-        value={this.getValue(ref)} onChange={e => {
+        value={this.getValue(ref)} onChange={(e) => {
           this.changeValue(e.target.value, ref);
         }}>
         {
-          Object.keys(values).map((val, idx) => {
-            return (
-              <option 
-                key={val}
-                value={val}>
-                {values[val]}
-              </option>
-            );
-          })
+          Object.keys(values).map((val, idx) => (
+            <option
+              key={val}
+              value={val}>
+              {values[val]}
+            </option>
+          ))
         }
       </select>
     );
   }
+
   getSelect = (config) => {
-    const { ref, ...other} = config;
+    const { ref, ...other } = config;
     return (
       <DropdownMenu
         {...other}
         ref={this.saveRef(ref)}
         value={this.getValue(ref)}
-        onChange={val => {
+        onChange={(val) => {
           this.changeValue(val, ref);
         }}/>
     );
   }
+
   getInputSelectorS = (config) => {
-    const { inputProps = {}, defaultValueForS, refForS, values, required, ref, ...other } = config;
+    const {
+      inputProps = {}, defaultValueForS, refForS, values, required, ref, ...other
+    } = config;
     return (
-      <InputSelector 
+      <InputSelector
         {...other}
         ref={this.saveRef(ref)}
         defaultSelectorIdx={defaultValueForS}
@@ -338,14 +372,17 @@ export default class FormFilterHelper extends UkeComponent {
         }}/>
     );
   }
+
   getInputSelector = (config) => {
-    const { inputProps = {}, defaultValueForS, refu, required, ...other } = config;
+    const {
+      inputProps = {}, defaultValueForS, refu, required, ...other
+    } = config;
     return (
-      <InputSelector 
+      <InputSelector
         {...other}
-        ref={e => {
+        ref={(e) => {
           for (const _ref in refu) {
-            if(refu.hasOwnProperty(_ref)) {
+            if (refu.hasOwnProperty(_ref)) {
               this.saveRef(_ref)(e);
             }
           }
@@ -355,15 +392,15 @@ export default class FormFilterHelper extends UkeComponent {
         inputProps={inputProps}
         // value={this.zeroFilter(this.getValue(this[activeMark]), '')}
         onChange={(val, activeRef) => {
-          if(!this.value.hasOwnProperty(activeRef)) {
+          if (!this.value.hasOwnProperty(activeRef)) {
             Object.keys(refu).map((itemRef) => {
               const activeMark = wrapInputSelectorMarkForRefu(activeRef);
               /** selector 改变时，需要把其余的清空，确保输出只有一个 */
               this[activeMark] = activeRef === itemRef;
-              if(!this[activeMark]) {
+              if (!this[activeMark]) {
                 delete this.value[itemRef];
                 delete this.requiredRefMapper[itemRef];
-              } else if(required) {
+              } else if (required) {
                 this.requiredRefMapper[activeRef] = config.title;
               }
             });
@@ -372,21 +409,27 @@ export default class FormFilterHelper extends UkeComponent {
         }}/>
     );
   }
+
   getInputRange = (config) => {
     /** 中间无用的是用于过滤 other */
-    const { refs, formClass, type, title, ...other } = config;
+    const {
+      refs, formClass, type, title, ...other
+    } = config;
     const [refS, refE] = refs;
     return (
       <div className="input-range">
-        {this.getInput({ ref: refS, title: this.$T_UKE('起'), ...other})}
+        {this.getInput({ ref: refS, title: this.$T_UKE('起'), ...other })}
         <span> - </span>
-        {this.getInput({ ref: refE, title: this.$T_UKE('止'), ...other})}
+        {this.getInput({ ref: refE, title: this.$T_UKE('止'), ...other })}
       </div>
     );
   }
+
   getInput = (config) => {
-    const { ref, className, _title, props, ...other } = config;
-    let formClass = 'form-control ' + (className || '');
+    const {
+      ref, className, _title, props, ...other
+    } = config;
+    const formClass = `form-control ${className || ''}`;
     return (
       <Input
         {...other}
@@ -400,11 +443,12 @@ export default class FormFilterHelper extends UkeComponent {
           this.changeValue(val, ref);
           Call(config.onBlur, val);
         }}
-        onChange={val => {
+        onChange={(val) => {
           this.changeValue(val == '' ? undefined : val, ref);
         }}/>
     );
   }
+
   getTextArea = (config) => {
     const { ref } = config;
     return (
@@ -416,6 +460,7 @@ export default class FormFilterHelper extends UkeComponent {
         onChange={e => this.changeValue(e.target.value, ref)} />
     );
   }
+
   getRange = (config) => {
     const { ref, ...other } = config;
     return (
@@ -426,56 +471,67 @@ export default class FormFilterHelper extends UkeComponent {
         onChange={val => this.changeValue(val, ref)}/>
     );
   }
+
   getText = (config) => {
-    const { ref, highlight, value, text } = config;
+    const {
+      ref, highlight, value, text
+    } = config;
     return (
       <span className={highlight ? 'highlight' : ''}>
         {this.getValue(ref, value || text)}
       </span>
     );
   }
-  radioFactory = (Comp) => (config) => {
+
+  radioFactory = Comp => (config) => {
     const { ref, refs, ...other } = config;
     return (
       <Comp
         {...other}
         ref={this.saveRef(ref)}
         value={this.zeroFilter(this.value[ref])}
-        onChange={val => {
+        onChange={(val) => {
           this.changeValue(val, ref);
         }}/>
     );
   }
+
   getRadio = this.radioFactory(Radio)
+
   getCheckbox = this.radioFactory(Checkbox)
+
   getButton = (config) => {
-    const { ref, className, text, onClick } = config;
+    const {
+      ref, className, text, onClick
+    } = config;
     return (
       <span
-        className={'btn flat ' + className}
+        className={`btn flat ${className}`}
         ref={this.saveRef(ref)}
         onClick={e => Call(onClick, e, ref)}>
         {text}
       </span>
     );
   }
+
   getDatetime = (config) => {
-    let { ref, needTime = true, ...other } = config;
+    const { ref, needTime = true, ...other } = config;
     return (
       <DatetimePicker
         {...other}
         needTime={needTime}
         id={ref}
         value={this.getValue(ref)}
-        onChange={val => {
+        onChange={(val) => {
           this.changeValue(val, ref);
         }}/>
     );
   }
+
   changeDateValues = (vals, refs) => {
     const [refS, refE] = refs;
     const datetimeRangeRef = this.getRefsID(refs);
-    if(vals.length === 0) {
+    if (vals.length === 0) {
       this.value[datetimeRangeRef] = null;
     } else {
       this.value[datetimeRangeRef] = vals;
@@ -488,8 +544,11 @@ export default class FormFilterHelper extends UkeComponent {
     this.value[datetimeRangeRef] = vals;
     this.changeValues(nextValue);
   }
+
   getDatetimeRange = (config) => {
-    const { ref, range, refs, ...other } = config;
+    const {
+      ref, range, refs, ...other
+    } = config;
     // let [refS, refE] = refs;
     const datetimeRangeRef = this.getRefsID(refs);
 
@@ -504,13 +563,13 @@ export default class FormFilterHelper extends UkeComponent {
           id={datetimeRangeRef}
           defaultValue={range}
           value={this.value[datetimeRangeRef]}
-          onChange={(val) => this.changeDateValues(val, refs)}/>
+          onChange={val => this.changeDateValues(val, refs)}/>
         {
           !config.noHelper && (
             <DateShortcut
               {...other}
               position="right"
-              onChange={val => {
+              onChange={(val) => {
                 this.changeDateValues(val, refs);
               }}/>
           )
@@ -518,6 +577,7 @@ export default class FormFilterHelper extends UkeComponent {
       </div>
     );
   }
+
   getSwitch = (config) => {
     const { ref, defaultValue, ...other } = config;
     return (
@@ -527,27 +587,29 @@ export default class FormFilterHelper extends UkeComponent {
         onChange={val => this.changeValue(val, ref)} />
     );
   }
+
   typeMapper = {
-    'customForm': this.getCustomForm,
-    'captcha': this.getCaptcha,
+    customForm: this.getCustomForm,
+    captcha: this.getCaptcha,
     'select-n': this.getSelectNative,
-    'select': this.getSelect,
+    select: this.getSelect,
     'input-selector-s': this.getInputSelectorS,
     'input-selector': this.getInputSelector,
     'input-range': this.getInputRange,
-    'input': this.getInput,
-    'password': this.getInput,
-    'textarea': this.getTextArea,
-    'ranger': this.getRange,
-    'text': this.getText,
-    'radio': this.getRadio,
-    'checkbox': this.getCheckbox,
-    'button': this.getButton,
-    'datetime': this.getDatetime,
-    'datetimeRange': this.getDatetimeRange,
-    'switch': this.getSwitch,
-    'hr': this.getHr,
+    input: this.getInput,
+    password: this.getInput,
+    textarea: this.getTextArea,
+    ranger: this.getRange,
+    text: this.getText,
+    radio: this.getRadio,
+    checkbox: this.getCheckbox,
+    button: this.getButton,
+    datetime: this.getDatetime,
+    datetimeRange: this.getDatetimeRange,
+    switch: this.getSwitch,
+    hr: this.getHr,
   }
+
   greneratFormDOM(config) {
     const { type } = config;
     const generator = this.typeMapper[type];
