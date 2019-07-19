@@ -1,15 +1,34 @@
-import React, {Component, PureComponent} from 'react';
+import React, { Component, PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { Call } from 'basic-helper';
 
 import { Loading } from '../loading';
 import { LoadScript } from '../utils';
 
+export interface ChartComProps {
+  /** data */
+  data: {};
+  /** 选项 */
+  options: {};
+  /** ID */
+  id: string;
+  /** type */
+  type?: string;
+  /** height */
+  height?: string | number;
+  /** width */
+  width?: string | number;
+}
+
+interface ChartComState {
+  loading: boolean;
+}
+
 let chartjsURL = '';
 
 let isLoading = false;
 
-export default class ChartCom extends PureComponent {
+export default class ChartCom extends PureComponent<ChartComProps, ChartComState> {
   /**
    * 设置 Chart js 库的获取地址
    *
@@ -20,32 +39,41 @@ export default class ChartCom extends PureComponent {
   static setChartJSPath = (path) => {
     chartjsURL = path.replace(/\/$/, "/");
   };
-  static propTypes = {
-    /** data */
-    data: PropTypes.objectOf(PropTypes.any).isRequired,
-    /** 选项 */
-    options: PropTypes.objectOf(PropTypes.any),
-    /** ID */
-    id: PropTypes.string,
-    /** type */
-    type: PropTypes.string,
-    /** type */
-    height: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.number,
-    ]),
-    /** type */
-    width: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.number,
-    ])
-  };
+
+  // static propTypes = {
+  //   /** data */
+  //   data: PropTypes.objectOf(PropTypes.any).isRequired,
+  //   /** 选项 */
+  //   options: PropTypes.objectOf(PropTypes.any),
+  //   /** ID */
+  //   id: PropTypes.string,
+  //   /** type */
+  //   type: PropTypes.string,
+  //   /** type */
+  //   height: PropTypes.oneOfType([
+  //     PropTypes.string,
+  //     PropTypes.number,
+  //   ]),
+  //   /** type */
+  //   width: PropTypes.oneOfType([
+  //     PropTypes.string,
+  //     PropTypes.number,
+  //   ])
+  // }
+
   static defaultProps = {
     type: 'line',
     id: 'ukeChart',
     height: '100%',
     width: '100%',
   };
+
+  Chart
+
+  timer
+
+  lineChart
+
   constructor(props) {
     super(props);
 
@@ -53,9 +81,11 @@ export default class ChartCom extends PureComponent {
       loading: !window.Chart,
     };
   }
+
   componentWillUnmount = () => {
     this.Chart && this.Chart.destroy && this.Chart.destroy();
   }
+
   loadChart = async (callback) => {
     isLoading = true;
 
@@ -69,10 +99,11 @@ export default class ChartCom extends PureComponent {
     Call(callback);
     isLoading = false;
   }
+
   renderChart = () => {
-    if(!window.Chart) {
-      if(this.timer) clearTimeout(this.timer);
-      if(isLoading || !this.lineChart) {
+    if (!window.Chart) {
+      if (this.timer) clearTimeout(this.timer);
+      if (isLoading || !this.lineChart) {
         /** 确保 chartjs 加载成功，以及 canvas 准备妥当 */
         this.timer = setTimeout(() => {
           this.setState({
@@ -87,11 +118,14 @@ export default class ChartCom extends PureComponent {
       this._renderChart();
     }
   }
+
   _renderChart = () => {
-    const { data, type, options = {}, id } = this.props;
+    const {
+      data, type, options = {}, id
+    } = this.props;
     // const ctx = document.querySelector(`#${id}`);
     const ctx = this.lineChart;
-    if(this.Chart) {
+    if (this.Chart) {
       Object.assign(this.Chart, {
         data, type, options
       });
@@ -104,6 +138,7 @@ export default class ChartCom extends PureComponent {
       });
     }
   }
+
   render() {
     const { loading } = this.state;
     const { id, height, width } = this.props;
@@ -113,10 +148,10 @@ export default class ChartCom extends PureComponent {
         <canvas
           className="lineChart"
           id={id}
-          ref={e => {
+          ref={(e) => {
             this.lineChart = e;
           }}
-          style={{width, height}}/>
+          style={{ width, height }}/>
       </Loading>
     );
   }

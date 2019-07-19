@@ -1,4 +1,4 @@
-import React, {Component, PureComponent} from 'react';
+import React, { Component, PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
 import { Call, DateFormat, UUID } from 'basic-helper';
@@ -6,9 +6,27 @@ import Flatpickr from 'flatpickr';
 
 // import Flatpickr from '../../libs/flatpickr';
 import 'flatpickr/dist/l10n/zh';
-import DateBasic from './date-basic';
+import DateBasic, { DateBaiscProps } from './date-basic';
 import { Icon } from '../icon';
 import { PopoverEntity } from '../popover';
+
+export interface DatetimePickerProps extends DateBaiscProps {
+  onChange: (changeVal) => void;
+  /** 默认的时分秒的值 */
+  defaultTimes: string[];
+  /** 类型 */
+  mode?: string;
+  /** 是否允许用户输入 */
+  allowInput?: boolean;
+  /** 语言 */
+  lang?: string;
+  /** didMount */
+  didMount: () => void;
+  /** 默认值 */
+  defaultValue: string[];
+  /** 受控控件的值 */
+  value: string[];
+}
 
 /**
  * 基于 Flatpickr 的时间控件，样式可以根据喜好选择
@@ -17,32 +35,33 @@ import { PopoverEntity } from '../popover';
  * @class DatetimePicker
  * @extends {DateBasic}
  */
-export default class DatetimePicker extends DateBasic {
-  static propTypes = {
-    onChange: PropTypes.func,
-    /** 是否需要时分秒 */
-    needTime: PropTypes.bool,
-    /** 默认的时分秒的值 */
-    defaultTimes: PropTypes.arrayOf(PropTypes.string),
-    /** 是否转换成标准 UTC 时间 */
-    toUTC: PropTypes.bool,
-    /** 是否可以选择时分秒 */
-    // enableTime: PropTypes.bool,
-    /** 类型 */
-    mode: PropTypes.string,
-    /** 是否输出字符串格式，默认为原生 Date 对象 */
-    outputAsString: PropTypes.bool,
-    /** 是否允许用户输入 */
-    allowInput: PropTypes.bool,
-    /** 语言 */
-    lang: PropTypes.string,
-    /** didMount */
-    didMount: PropTypes.func,
-    /** 默认值 */
-    defaultValue: PropTypes.any,
-    /** 受控控件的值 */
-    value: PropTypes.any
-  };
+export default class DatetimePicker extends DateBasic<DatetimePickerProps> {
+  // static propTypes = {
+  //   onChange: PropTypes.func,
+  //   /** 是否需要时分秒 */
+  //   needTime: PropTypes.bool,
+  //   /** 默认的时分秒的值 */
+  //   defaultTimes: PropTypes.arrayOf(PropTypes.string),
+  //   /** 是否转换成标准 UTC 时间 */
+  //   toUTC: PropTypes.bool,
+  //   /** 是否可以选择时分秒 */
+  //   // enableTime: PropTypes.bool,
+  //   /** 类型 */
+  //   mode: PropTypes.string,
+  //   /** 是否输出字符串格式，默认为原生 Date 对象 */
+  //   outputAsString: PropTypes.bool,
+  //   /** 是否允许用户输入 */
+  //   allowInput: PropTypes.bool,
+  //   /** 语言 */
+  //   lang: PropTypes.string,
+  //   /** didMount */
+  //   didMount: PropTypes.func,
+  //   /** 默认值 */
+  //   defaultValue: PropTypes.any,
+  //   /** 受控控件的值 */
+  //   value: PropTypes.any
+  // };
+
   static defaultProps = {
     needTime: true,
     toUTC: true,
@@ -54,37 +73,53 @@ export default class DatetimePicker extends DateBasic {
     lang: 'zh',
     defaultTimes: ['00:00:00', '23:59:59'],
   };
+
   _refs = {};
+
   datepicker = null;
+
+  isControl = false;
+
+  datepicker;
+
+  value;
+
+  popTipEntity
+
+  _id: string | null = UUID();
+
   constructor(props) {
     super(props);
     const { value, defaultValue } = this.props;
 
-    this.isControl = props.hasOwnProperty('value');
+    this.isControl = typeof props.value != 'undefined';
 
-    let defaultVal = value || defaultValue;
+    const defaultVal = value || defaultValue;
     this.value = defaultVal;
-    this._id = UUID();
 
     this.popTipEntity = new PopoverEntity({
       id: this._id,
     });
   }
+
   componentDidMount() {
     // setTimeout(this.initPicker.bind(this), 50);
     this.initPicker();
     Call(this.props.didMount, this.value);
   }
+
   componentDidUpdate(prevProps) {
-    if(JSON.stringify(this.props.value) !== JSON.stringify(prevProps.value)) {
+    if (JSON.stringify(this.props.value) !== JSON.stringify(prevProps.value)) {
       this.datepicker.setDate(this.props.value, false);
     }
   }
+
   componentWillUnmount() {
-    if(this.datepicker) this.datepicker.destroy();
+    if (this.datepicker) this.datepicker.destroy();
     this.popTipEntity.close();
     this.popTipEntity = this._id = null;
   }
+
   handleInputError = (inputElem, isError) => {
     inputElem.classList.toggle('error', isError);
     isError ? this.popTipEntity.show({
@@ -101,41 +136,42 @@ export default class DatetimePicker extends DateBasic {
       )
     }) : this.popTipEntity.close();
   }
-  getInputValAsync = () => {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve(this.getDateRangeFromInput());
-      }, 50);
-    });
-  }
+
+  getInputValAsync = () => new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(this.getDateRangeFromInput());
+    }, 50);
+  })
+
   getDateRangeFromInput = () => {
     const { defaultTimes, needTime, mode } = this.props;
     const isRange = mode === 'range';
     // const expectLen = isRange ? 2 : 1;
-    const rangeSeparator = this.datepicker.l10n.rangeSeparator;
+    const { rangeSeparator } = this.datepicker.l10n;
     const inputElem = this._refs[this._id];
     const inputVal = inputElem.value;
     /** 如果没有任何值，则没有下一步 */
-    if(!inputVal) return;
-  
-    let valueRange = inputVal.split(rangeSeparator).filter(i => !!i);
+    if (!inputVal) return;
+
+    const valueRange = inputVal.split(rangeSeparator).filter(i => !!i);
     let valueRangeLen = valueRange.length;
-    if(isRange && needTime && valueRangeLen === 1) {
-      /** 
+    if (isRange && needTime && valueRangeLen === 1) {
+      /**
        * 只选了一天的特殊处理, 给需要时间的添加后缀
        * 把后面的日期加上，
        * 并且改变输入框显示的值 */
-      valueRange[1] = DateFormat(valueRange[0], 'YYYY-MM-DD') + (needTime ? ' ' + defaultTimes[1] : '');
+      valueRange[1] = DateFormat(valueRange[0], 'YYYY-MM-DD') + (needTime ? ` ${defaultTimes[1]}` : '');
       this.datepicker.setDate(valueRange, false);
       valueRangeLen = valueRange.length;
     }
     // if(valueRange !== expectLen) return null;
     const dateRange = (() => {
-      let res = [], isValid = true;
+      const res = []; let
+        isValid = true;
       for (let i = 0; i < valueRangeLen; i++) {
         const targetDate = new Date(valueRange[i]);
         const isValidDate = !isNaN(targetDate.getTime());
-        if(isValidDate) {
+        if (isValidDate) {
           res.push(targetDate);
         } else {
           isValid = false;
@@ -146,31 +182,33 @@ export default class DatetimePicker extends DateBasic {
     })();
     return dateRange;
   }
+
   handleChange = async (rangeValues, dateStr, instance) => {
     const {
-      mode, 
+      mode,
       // enableTime
     } = this.props;
     // if(!enableTime && instance.isOpen) return;
 
     /** 用定时器确保值的准确性 */
     const dateRange = await this.getInputValAsync();
-    if(!dateRange) return;
+    if (!dateRange) return;
 
     const valueLen = dateRange.length;
     let emitVal = [...dateRange];
-    if(mode === 'single' && Array.isArray(emitVal)) {
+    if (mode === 'single' && Array.isArray(emitVal)) {
       emitVal = dateRange[0];
       this.changeDate(emitVal);
-    } else if(mode === 'range') {
+    } else if (mode === 'range') {
       // if(valueLen === 2) {
       // }
       this.changeDate(emitVal);
     }
   }
+
   initPicker = () => {
     const {
-      mode, needTime, lang, allowInput, 
+      mode, needTime, lang, allowInput,
       // enableTime,
       defaultTimes, onChange, ...others
     } = this.props;
@@ -180,7 +218,7 @@ export default class DatetimePicker extends DateBasic {
       /** 自带的时分秒选择不符合实际要求 */
       enableTime: false,
       time_24hr: true,
-      dateFormat: 'Y-m-d' + (needTime ? ' H:i:S' : ''),
+      dateFormat: `Y-m-d${needTime ? ' H:i:S' : ''}`,
       disableMobile: true,
       defaultDate: this.value,
       defaultHour: 0,
@@ -194,6 +232,7 @@ export default class DatetimePicker extends DateBasic {
       // onChange: this.handleChange
     });
   }
+
   changeDate = (val) => {
     const id = this._id;
     /** 继承 DateBasic 获取的 emitChangeValue 统一处理过滤并广播的 value 接口 */
@@ -201,6 +240,7 @@ export default class DatetimePicker extends DateBasic {
     this.value = emitVal;
     this._refs[id].blur && this._refs[id].blur();
   }
+
   render() {
     return (
       <div className="flatpickr uke-input-group">
@@ -210,7 +250,7 @@ export default class DatetimePicker extends DateBasic {
           id={this._id}
           ref={e => this._refs[this._id] = e}/>
         <span className="input-addon"
-          onClick={e => {
+          onClick={(e) => {
             this.datepicker ? this.datepicker.toggle() : null;
           }}>
           <Icon n="date"/>
