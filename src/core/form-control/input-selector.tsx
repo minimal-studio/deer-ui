@@ -1,10 +1,25 @@
-import React, { Component, PureComponent } from 'react';
-import PropTypes from 'prop-types';
+import React from 'react';
+// import PropTypes from 'prop-types';
 
-import Input from './input';
+import Input, { InputProps } from './input';
 import Selector from '../selector/dropdown-menu';
-import { selectorValuesType } from '../selector/selector';
-import FormControlBasic from './form-control-basic'; 
+import { SelectorBasicProps } from '../selector/selector';
+import FormControlBasic from './form-control-basic';
+
+export interface InputSelectorProps extends SelectorBasicProps {
+  /** 传入 input 控件的 props */
+  inputProps?: InputProps;
+  outputType?: InputProps['outputType'];
+  /** onChange */
+  onChange: (inputVal, selectorVal) => void;
+}
+
+interface InputSelectorState {
+  /** 选择器的值 */
+  selectRef: any;
+  /** 输入控件的值 */
+  inputVal: any;
+}
 
 /**
  * 选择器 + 输入控件
@@ -13,58 +28,63 @@ import FormControlBasic from './form-control-basic';
  * @class InputSelector
  * @extends {Component}
  */
-export default class InputSelector extends FormControlBasic {
-  static propTypes = {
-    /** 给 input 的 value */
-    value: PropTypes.any,
-    /** 通用 selector 的 values 配置参数 */
-    values: selectorValuesType,
-    /** 值改变时触发的回调 */
-    onChange: PropTypes.func, 
-    /** 传入 input 控件的 props */
-    inputProps: PropTypes.object,
-  };
+export default class InputSelector extends FormControlBasic<InputSelectorProps, InputSelectorState> {
   static defaultProps = {
     inputProps: {},
   }
+
+  _input
+
   constructor(props) {
     super(props);
 
-    const { defaultSelectorIdx, value, defaultValue, values } = props;
+    const {
+      defaultSelectorIdx, value, defaultValue, values
+    } = props;
     this.state = {
       selectRef: defaultSelectorIdx || Object.keys(values)[0],
       inputVal: this.isControl ? value : defaultValue || ''
     };
     this.stateValueMark = 'inputVal';
   }
-  changeRef = (val) => {
-    if(!val) return;
+
+  changeRef = (selectorVal) => {
+    if (!selectorVal) return;
     // console.log(...args)
     const inputVal = this.getValue();
     this.setState({
-      selectRef: val
+      selectRef: selectorVal
     });
-    this.props.onChange(inputVal, val);
+    this.props.onChange(inputVal, selectorVal);
   }
+
   focus() {
     this._input.focus();
   }
+
   changeInput = (val) => {
-    if(!this.isControl) {
+    const { selectRef } = this.state;
+    if (!this.isControl) {
       this.setState({
         inputVal: val
       });
-      this.emitChange(this._input.value, this.state.selectRef);
+      this.emitChange(this._input.value, selectRef);
     } else {
-      this.emitChange(val, this.state.selectRef);
+      this.emitChange(val, selectRef);
     }
   }
-  emitChange = (inputVal) => {
+
+  emitChange = (inputVal, selectRef = this.state.selectRef) => {
     const { onChange } = this.props;
-    onChange && onChange(inputVal, this.state.selectRef);
+    onChange && onChange(inputVal, selectRef);
   }
+
+  saveInput = (e) => { this._input = e; }
+
   render() {
-    const { inputProps, values, onChange, inputType, outputType, ...other } = this.props;
+    const {
+      inputProps, values, onChange, outputType, ...other
+    } = this.props;
     const { selectRef } = this.state;
     const inputVal = this.getValue();
     return (
@@ -77,10 +97,9 @@ export default class InputSelector extends FormControlBasic {
           value={selectRef}/>
         <Input
           {...inputProps}
-          ref={e => this._input = e}
-          inputType={inputType}
+          ref={this.saveInput}
           outputType={outputType}
-          onChange={this.changeInput} 
+          onChange={this.changeInput}
           value={inputVal}
           onBlur={this.emitChange}/>
       </div>

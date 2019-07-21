@@ -8,6 +8,7 @@ export default class FormLayoutDemo extends React.Component {
     hasErr: false,
     resDesc: ''
   };
+
   btnConfig = [
     {
       action: (formRef, actingRef) => {
@@ -19,7 +20,9 @@ export default class FormLayoutDemo extends React.Component {
       actingRef: 'forTest'
     },
   ];
+
   formOptions = formOptions;
+
   submit(formData, actingRef) {
     // 模拟获取数据
     setTimeout(() => {
@@ -29,6 +32,7 @@ export default class FormLayoutDemo extends React.Component {
       });
     }, 800);
   }
+
   render() {
     return (
       <FormLayout

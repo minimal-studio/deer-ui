@@ -1,4 +1,4 @@
-import React, {Component, PureComponent} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
 import { CallFunc, Call } from 'basic-helper';
@@ -24,6 +24,7 @@ export default class LinkSelector extends UkeComponent {
     ).isRequired,
     onChange: PropTypes.func
   };
+
   static defaultProps = {
     mappers: {
       child: 'child',
@@ -32,6 +33,7 @@ export default class LinkSelector extends UkeComponent {
       icon: 'icon',
     }
   }
+
   constructor(props) {
     super(props);
     this.state = {
@@ -44,12 +46,15 @@ export default class LinkSelector extends UkeComponent {
     this.extendsDOM = [];
     this.activeItems = [];
   }
+
   // componentDidUpdate() {
   //   this.dropWrapper && this.dropWrapper.updateNodeRef();
   // }
   itemMapFilter = (item) => {
     const { mappers } = this.props;
-    const { child, code, title, icon } = mappers;
+    const {
+      child, code, title, icon
+    } = mappers;
     return {
       ...item,
       child: item[child],
@@ -58,8 +63,11 @@ export default class LinkSelector extends UkeComponent {
       icon: item[icon],
     };
   }
+
   getMenuLinkerDOM = (options) => {
-    const { code, key, to, onClick, menuText, icon } = options;
+    const {
+      code, key, to, onClick, menuText, icon
+    } = options;
     return (
       <div
         key={key}
@@ -76,22 +84,23 @@ export default class LinkSelector extends UkeComponent {
       </div>
     );
   };
+
   selectItem = (foldIdx, activeIdx) => {
     this.setState(({ selectedIndexMap }) => {
       const { data } = this.props;
-      let nextIndexMap = [...selectedIndexMap];
-      let nextActiveGroup = [];
+      const nextIndexMap = [...selectedIndexMap];
+      const nextActiveGroup = [];
       nextIndexMap.splice(foldIdx + 1);
       nextIndexMap[foldIdx] = activeIdx;
 
       const recursive = (currDataGroup, level) => {
         const idx = nextIndexMap[level];
         const currData = currDataGroup[idx];
-        if(!currData) return;
-        let item = this.itemMapFilter(currData);
-        let { child } = item;
+        if (!currData) return;
+        const item = this.itemMapFilter(currData);
+        const { child } = item;
         nextActiveGroup.push(item);
-        if(child && level < nextIndexMap.length) recursive(child, level + 1);
+        if (child && level < nextIndexMap.length) recursive(child, level + 1);
       };
       recursive(data, 0);
 
@@ -101,30 +110,33 @@ export default class LinkSelector extends UkeComponent {
       };
     });
   }
+
   getAllSet = (initDataList) => {
     this.extendsDOM = [];
     this.activeItems = [];
     if (!initDataList || !Array.isArray(initDataList)) return;
     const { selectedIndexMap } = this.state;
     const recursive = (currSelectedIdx, currDataList) => {
-      let currDOMSets = [];
+      const currDOMSets = [];
       const nextSelectedIdx = currSelectedIdx + 1;
       const activeItemIdx = selectedIndexMap[currSelectedIdx];
       currDataList.forEach((item, currDataIdx) => {
-        if(!item) return;
+        if (!item) return;
         const isActive = activeItemIdx === currDataIdx;
-        let _item = this.itemMapFilter(item);
-        let { child, title, code, icon } = _item;
-        let hasChildren = child && child.length > 0;
+        const _item = this.itemMapFilter(item);
+        const {
+          child, title, code, icon
+        } = _item;
+        const hasChildren = child && child.length > 0;
 
         let dom = null;
-        if(isActive) this.activeItems.push(_item);
+        if (isActive) this.activeItems.push(_item);
         if (hasChildren && isActive) {
-          let childDOM = recursive.call(this, nextSelectedIdx, currDataList[activeItemIdx].child);
+          const childDOM = recursive.call(this, nextSelectedIdx, currDataList[activeItemIdx].child);
           this.extendsDOM.unshift(childDOM);
         }
         dom = (
-          <div key={currDataIdx} className={"folder" + (isActive ? ' active' : '')}>
+          <div key={currDataIdx} className={`folder${isActive ? ' active' : ''}`}>
             <div
               className="fold-title"
               onClick={e => this.selectItem(currSelectedIdx, currDataIdx)}>
@@ -143,11 +155,12 @@ export default class LinkSelector extends UkeComponent {
     };
     return recursive.call(this, 0, initDataList);
   }
+
   getSelectedTitle = () => {
     let res = this.$T_UKE('请选择');
     const { selectedItems } = this.state;
     console.log(selectedItems);
-    if(selectedItems.length > 0) {
+    if (selectedItems.length > 0) {
       res = (
         <div>
           {
@@ -166,9 +179,11 @@ export default class LinkSelector extends UkeComponent {
     }
     return res;
   }
-  saveDropWrapper = e => {
+
+  saveDropWrapper = (e) => {
     this.dropWrapper = e;
   }
+
   render() {
     const { data, ...propsForDropWrapper } = this.props;
     const selectedTitle = this.getSelectedTitle();
@@ -178,28 +193,24 @@ export default class LinkSelector extends UkeComponent {
         ref={this.saveDropWrapper}
         {...propsForDropWrapper}
         menuTitle={selectedTitle}
-        overlay={(helper) => {
-          return (
-            <div className="uke-link-selector" style={{width: 400}}>
-              <div className="items">
-                <div className="wrapper">
-                  {
-                    this.getAllSet(data)
-                  }
-                </div>
+        overlay={helper => (
+          <div className="uke-link-selector" style={{ width: 400 }}>
+            <div className="items">
+              <div className="wrapper">
                 {
-                  [...this.extendsDOM].map((item, idx) => {
-                    return (
-                      <div className="wrapper" key={idx}>
-                        {item}
-                      </div>
-                    );
-                  })
+                  this.getAllSet(data)
                 }
               </div>
+              {
+                [...this.extendsDOM].map((item, idx) => (
+                  <div className="wrapper" key={idx}>
+                    {item}
+                  </div>
+                ))
+              }
             </div>
-          );
-        }} />
+          </div>
+        )} />
     );
   }
 }

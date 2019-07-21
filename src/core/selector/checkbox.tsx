@@ -1,7 +1,6 @@
 import React, { forwardRef } from 'react';
-import PropTypes from 'prop-types';
 
-import Radio from './radio';
+import Radio, { RadioProps } from './radio';
 
 const defaultProps = {
   isMultiple: true,
@@ -9,11 +8,9 @@ const defaultProps = {
   n: 'check'
 };
 
-const Checkbox = forwardRef((props, ref) => {
-  return (
-    <Radio {...props} ref={ref} />
-  );
-});
+const Checkbox = forwardRef<RadioProps>((props, ref) => (
+  <Radio {...props} ref={ref} />
+));
 
 Checkbox.defaultProps = defaultProps;
 

@@ -1,7 +1,7 @@
 ---
 name: DatetimePicker
 route: /DatetimePicker
-menu: Form / 表单
+menu: Form
 ---
 
 import { useState } from 'react';
@@ -11,7 +11,11 @@ import { DatetimePicker } from './';
 
 # DatetimePicker
 
-## 样式选择
+基于 `Flatpickr` 的封装
+
+## Setup
+
+### 样式引入
 
 > 参考 https://flatpickr.js.org/themes/
 
@@ -25,7 +29,7 @@ import { DatetimePicker } from './';
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/themes/flatpickr.css" />
 ```
 
-## 时间单选
+## 单个时间选择
 
 ### 默认 UTC 格式的时间对象
 
@@ -34,7 +38,7 @@ import { DatetimePicker } from './';
     () => {
       const [date, setDate] = useState('');
       return (
-        <div className="layout">
+        <div className="layout a-i-c">
           <DatetimePicker
             onChange={val => {
               setDate(val)
@@ -53,7 +57,7 @@ import { DatetimePicker } from './';
     () => {
       const [date, setDate] = useState('');
       return (
-        <div className="layout">
+        <div className="layout a-i-c">
           <DatetimePicker
             outputAsString={true}
             onChange={val => {
@@ -73,7 +77,7 @@ import { DatetimePicker } from './';
     () => {
       const [date, setDate] = useState('');
       return (
-        <div className="layout">
+        <div className="layout a-i-c">
           <DatetimePicker
             outputAsString={true}
             needTime={false}
@@ -87,7 +91,9 @@ import { DatetimePicker } from './';
   }
 </Playground>
 
-## 时间范围
+------------
+
+## 时间范围选择
 
 ### 带选择时分秒时间范围的时间对象
 
@@ -96,7 +102,7 @@ import { DatetimePicker } from './';
     () => {
       const [date, setDate] = useState('');
       return (
-        <div className="layout">
+        <div className="layout a-i-c">
           <DatetimePicker
             mode="range"
             onChange={val => {
@@ -116,7 +122,7 @@ import { DatetimePicker } from './';
     () => {
       const [date, setDate] = useState('');
       return (
-        <div className="layout">
+        <div className="layout a-i-c">
           <DatetimePicker
             needTime={false}
             outputAsString={true}
@@ -130,5 +136,7 @@ import { DatetimePicker } from './';
     }
   }
 </Playground>
+
+## Props
 
 <Props of={DatetimePicker} />

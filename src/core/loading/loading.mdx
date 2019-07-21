@@ -1,7 +1,7 @@
 ---
 name: Loading
 route: /Loading
-menu: Components / 组件
+menu: Components
 ---
 
 import { Playground, Props } from 'docz'
@@ -11,11 +11,9 @@ import { Loading, LoadingProgress, LoadingPlaceholder } from './';
 
 # Loading
 
-## Usage
-
 > 注意，由于 React 的机制，在 render 中，无论是否使用 Loading 包裹，如果不希望子组件在 loading 状态下被渲染出来，可以有两种方式
 
-### 1. function children
+## function children
 
 ```js
 <Loading loading={true}>
@@ -29,7 +27,7 @@ import { Loading, LoadingProgress, LoadingPlaceholder } from './';
 </Loading>
 ```
 
-### 2. 判定
+## children 返回控制
 
 ```js
 const { loading } = this.state;
@@ -42,7 +40,7 @@ const { loading } = this.state;
 </Loading>
 ```
 
-## Usage
+## 通用
 
 <Playground style={{height: 500}}>
   {
@@ -105,5 +103,7 @@ const { loading } = this.state;
   <h3>Placeholder</h3>
   <LoadingPlaceholder />
 </Playground>
+
+## Props
 
 <Props of={Loading} />

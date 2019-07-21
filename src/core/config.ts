@@ -4,38 +4,50 @@ import chKeyMapper from '../i18n/zh-CN';
 import enKeyMapper from '../i18n/en-US';
 import defaultIconMapper from './icon-mapper';
 
+export interface UkeLangStruct {
+  [lang: string]: {
+    [translateKey: string]: string;
+  };
+}
+
+export interface UkelliUIConfig {
+  iconMapper: {};
+  iconPrefix: (str: string) => string;
+}
+
 const defaultLanguage = 'zh-CN';
 
-let ukeLangConfig = {
+const ukeLangConfig: UkeLangStruct = {
   'zh-CN': chKeyMapper,
   'en-US': enKeyMapper,
 };
-let translateMapper = {
+const translateMapper: UkeLangStruct = {
   'zh-CN': {},
   'en-US': {},
 };
 
 let language = defaultLanguage;
 
-const ukelliui = {
-  queryCAPTCHAData: null,
-  queryQRCodeData() {},
+const ukelliui: UkelliUIConfig = {
   iconMapper: {},
-  iconPrefix: (s) => `fa${s} fa-`,
+  iconPrefix: s => `fa${s} fa-`,
 };
 
-function getIconMapper() {
-  return Object.assign({}, defaultIconMapper, ukelliui.iconMapper);
-}
-
-function getIcon(iconName, iconStyle, moreClassName, useIconConfig) {
-  const iconMapper = getIconMapper();
-  const iconPrefix = getUkelliConfig('iconPrefix');
-  if(!iconName) return iconMapper;
-  let moreClassNameArr = Array.isArray(moreClassName) ? moreClassName : [moreClassName];
-  let resultStr = (useIconConfig ? (IsFunc(iconPrefix) ? iconPrefix(iconStyle) : iconPrefix) : '') + (iconMapper[iconName] || iconName) + ' ' + moreClassNameArr.join(' ');
-  return resultStr;
-}
+/**
+ * 兼容旧版本的设置
+ */
+Object.defineProperties(ukelliui, {
+  queryCAPTCHAData: {
+    set() {
+      console.warn('queryCAPTCHAData 已废弃，请使用 Captcha.setQueryCAPTCHAData');
+    }
+  },
+  queryQRCodeData: {
+    set() {
+      console.warn('queryQRCodeData 已废弃，请使用 QRCode.setAPI');
+    }
+  },
+});
 
 function _translate(langConfig) {
   return (key) => {
@@ -56,15 +68,19 @@ const $T_UKE = _translate(ukeLangConfig);
  */
 const $T = _translate(translateMapper);
 
-function setUkeLang(lang) {
+function setUkeLang(lang: string) {
   language = lang;
 }
 
-function setUkeLangConfig(config) {
+/**
+ * 设置 uke 内部语言配置
+ * @param {UkeLangStruct} config
+ */
+function setUkeLangConfig(config: UkeLangStruct) {
   Object.assign(ukeLangConfig, config);
 }
 
-/** 
+/**
  * 设置外部翻译数据
  * @param {object} nextTranslate 翻译的内容
  */
@@ -75,15 +91,48 @@ function setLangTranslate(nextTranslate) {
   });
 }
 
-function setUkelliConfig(config) {
+/**
+ * 设置 ukelli ui 配置
+ * @param {ukelliui} config ukelli ui 的配置
+ */
+function setUkelliConfig(config: typeof ukelliui) {
   Object.assign(ukelliui, config);
   window.$UKE && window.$UKE.registe(config);
   return ukelliui;
 }
 
-function getUkelliConfig(name) {
-  let _ukelliui = Object.assign({}, ukelliui);
-  return name ? (_ukelliui[name] || false) : _ukelliui;
+/**
+ * 获取 ukelli ui 配置
+ * @param {string} configKey 配置的 key
+ */
+function getUkelliConfig(configKey: string) {
+  const _ukelliui = Object.assign({}, ukelliui);
+  return configKey ? (_ukelliui[configKey] || false) : _ukelliui;
+}
+
+function getIconMapper() {
+  return Object.assign({}, defaultIconMapper, ukelliui.iconMapper);
+}
+
+/**
+ * 合并参数，返回 icon 的 className
+ * @param {string} iconName icon 对应的名字
+ * @param {string}  iconStyle 对应的 style
+ * @param {string[] | string} mergeClassNames 需要合并的 classNames
+ * @param {boolean} useIconConfig 是否使用内置的配置
+ */
+function getIcon(iconName, iconStyle, mergeClassNames, useIconConfig = true) {
+  const iconMapper = getIconMapper();
+  const iconPrefix = getUkelliConfig('iconPrefix');
+  if (!iconName) return iconMapper;
+  const moreClassNameArr = Array.isArray(mergeClassNames) ? mergeClassNames : [mergeClassNames];
+  let resultStr = '';
+  // let resultStr = (useIconConfig ? (IsFunc(iconPrefix) ? iconPrefix(iconStyle) : iconPrefix) : '') + (iconMapper[iconName] || iconName) + ' ' + moreClassNameArr.join(' ');
+  if (useIconConfig) {
+    resultStr = (IsFunc(iconPrefix) ? iconPrefix(iconStyle) : iconPrefix);
+  }
+  resultStr = `${resultStr + (iconMapper[iconName] || iconName)} ${moreClassNameArr.join(' ')}`;
+  return resultStr;
 }
 
 export {

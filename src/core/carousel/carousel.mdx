@@ -1,7 +1,7 @@
 ---
 name: Carousel
 route: /Carousel
-menu: Components / 组件
+menu: Components
 ---
 
 import { Playground, Props } from 'docz'
@@ -12,7 +12,7 @@ import { Button } from '../button';
 
 > 可以参考默认的动画，设置自己的动画
 
-<Props of={Carousel} />
+## Basic Usage
 
 <Playground>
   <Carousel
@@ -22,11 +22,11 @@ import { Button } from '../button';
     }}
     carouselItems={[
       {
-        imgUrl: 'http://t1.hxzdhn.com/uploads/tu/201704/9999/29c7d063d8.jpg',
+        imgUrl: '/public/images/c1.jpg',
         action: () => alert('点击了 img')
       },
       {
-        imgUrl: 'http://t1.hxzdhn.com/uploads/tu/201704/9999/71abe83a7a.jpg',
+        imgUrl: '/public/images/c1.jpg',
         action: () => alert('点击了 img')
       },
       {
@@ -39,3 +39,7 @@ import { Button } from '../button';
       }
     ]}/>
 </Playground>
+
+## Props
+
+<Props of={Carousel} />

@@ -1,20 +1,24 @@
 ---
 name: Notify
 route: /Notify
-menu: Utils / 效率
+menu: Utils
 ---
 
 import { Playground, Props } from 'docz'
 import { EventEmitter } from 'basic-helper';
 import { Notify, CancelNotify } from './';
+import NotifyConfigC from './doc-api/notify-config'
+import NotifyParamsC from './doc-api/notify-params'
 
 # Notify
 
 > 全局通知
 
-## 一般通知
+## Basic Usage
 
 <Playground>
+  <NotifyParamsC />
+  <NotifyConfigC />
   <span className="btn theme flat mr10"
     onClick={e => {
       Notify({
@@ -68,7 +72,7 @@ import { Notify, CancelNotify } from './';
   </span>
 </Playground>
 
-## 通过 EventEmitter
+## 通过 EventEmitter 广播
 
 <Playground>
   <span className="btn theme flat mr10"
@@ -82,6 +86,14 @@ import { Notify, CancelNotify } from './';
         actionText: '有 action 时显示的文字',
       })
     }}>
-    通过 EventEmitter 发送通知
+    通过 EventEmitter 广播通知
   </span>
 </Playground>
+
+## API of Notify
+
+<Props of={NotifyParamsC} />
+
+## API of NotifyConfig
+
+<Props of={NotifyConfigC} />

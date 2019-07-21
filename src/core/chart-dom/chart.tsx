@@ -40,27 +40,6 @@ export default class ChartCom extends PureComponent<ChartComProps, ChartComState
     chartjsURL = path.replace(/\/$/, "/");
   };
 
-  // static propTypes = {
-  //   /** data */
-  //   data: PropTypes.objectOf(PropTypes.any).isRequired,
-  //   /** 选项 */
-  //   options: PropTypes.objectOf(PropTypes.any),
-  //   /** ID */
-  //   id: PropTypes.string,
-  //   /** type */
-  //   type: PropTypes.string,
-  //   /** type */
-  //   height: PropTypes.oneOfType([
-  //     PropTypes.string,
-  //     PropTypes.number,
-  //   ]),
-  //   /** type */
-  //   width: PropTypes.oneOfType([
-  //     PropTypes.string,
-  //     PropTypes.number,
-  //   ])
-  // }
-
   static defaultProps = {
     type: 'line',
     id: 'ukeChart',

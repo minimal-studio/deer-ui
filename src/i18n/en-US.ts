@@ -1,4 +1,6 @@
-module.exports = {
+/* eslint-disable quote-props */
+
+export default {
   "跳转到第": "Jump to",
   "共": "Total",
   "页": "Page",

@@ -1,4 +1,4 @@
-import React, {Component, PureComponent} from 'react';
+import React from 'react';
 
 export default function LoadingDOMSnip() {
   return (

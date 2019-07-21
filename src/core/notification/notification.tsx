@@ -1,34 +1,53 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import { EventEmitter, Call, HasValue } from 'basic-helper';
 import { Icon } from '../icon';
 import positionFilter from '../position-filter';
-import { UkeComponent, UkePureComponent } from '../uke-utils';
+import { UkePureComponent } from '../uke-utils';
 import { tipIcons } from '../uke-utils/icon-mapper';
+
+export interface NotificationProps {
+  handleClick?: (params: {}) => void;
+}
+interface State {
+  notifyItems: {};
+  position: string;
+}
+export interface NotifyConfig {
+  /** 通知的标题 */
+  title: string;
+  /** id */
+  id: string;
+  /** 通知的内容 */
+  text?: any;
+  /** id */
+  type?: 'success' | 'error' | 'normal' | 'warn' | 'black' | 'white';
+  /** 通知持续时间，如果 < 0, 则一直存在，除非用户主动关闭 */
+  timer?: number;
+  /** 点击此次通知的回调 */
+  onClickTip?: (notifyConfig: NotifyConfig) => void;
+  /** 操作按钮显示的文字 */
+  actionText?: string;
+}
 
 const TRANSFORM_TIMER = 300;
 const defaultTimeToClose = 7;
 
-export default class Notification extends UkePureComponent {
-  static propTypes = {
-    handleClick: PropTypes.func,
-    iconMapper: PropTypes.shape({})
-  };
-  static defaultProps = {
-    // iconMapper: 'top,right',
-  };
+export default class Notification extends UkePureComponent<NotificationProps, State> {
   timers = {};
+
   IDIncrement = 0;
+
   constructor(props) {
     super(props);
-    
+
     this.state = {
       notifyItems: {},
       position: 'top,right'
     };
     EventEmitter.on('NOTIFY', this.receiveNotify);
   }
+
   /**
    * receiveNotify 参数说明
    * notifyConfig = {
@@ -50,27 +69,29 @@ export default class Notification extends UkePureComponent {
   componentWillUnmount() {
     EventEmitter.rm('NOTIFY', this.receiveNotify);
   }
-  notifyConfigFilter(notifyConfig) {
+
+  notifyConfigFilter(notifyConfig: NotifyConfig) {
     ++this.IDIncrement;
-    const { id } = notifyConfig;
-    const _id = id ? id : this.IDIncrement + '';
-    notifyConfig.id = _id;
-    return notifyConfig;
+    const nextConfig = Object.assign({}, notifyConfig);
+    if (!nextConfig.id) {
+      nextConfig.id = `${this.IDIncrement}`;
+    }
+    return nextConfig;
   }
-  receiveNotify = (notifyConfig, _position) => {
-    notifyConfig = this.notifyConfigFilter(notifyConfig);
-    const { id } = notifyConfig;
-    this.setState(({ notifyItems, position }) => {
-      return {
-        notifyItems: {
-          ...notifyItems,
-          [id]: notifyConfig
-        },
-        position: _position || position
-      };
-    });
-    this.startTargetTimer(notifyConfig);
+
+  receiveNotify = (notifyConfig: NotifyConfig, _position) => {
+    const nextNotifyConfig = this.notifyConfigFilter(notifyConfig);
+    const { id } = nextNotifyConfig;
+    this.setState(({ notifyItems, position }) => ({
+      notifyItems: {
+        ...notifyItems,
+        [id]: nextNotifyConfig
+      },
+      position: _position || position
+    }));
+    this.startTargetTimer(nextNotifyConfig);
   }
+
   clickTip(clickTarget, msgID) {
     const { handleClick } = this.props;
     const { navigateConfig, onClickTip } = clickTarget;
@@ -80,39 +101,45 @@ export default class Notification extends UkePureComponent {
     Call(handleClick, navigateConfig);
     Call(onClickTip, clickTarget);
   }
+
   closeTip(msgID) {
     this.setState(({ notifyItems }) => {
-      let nextState = Object.assign({}, notifyItems);
+      const nextState = Object.assign({}, notifyItems);
       delete nextState[msgID];
       return {
         notifyItems: nextState
       };
     });
   }
+
   clearAllNotify = () => {
     Object.keys(this.timers).forEach(timerID => clearTimeout(timerID));
     this.setState({
       notifyItems: {}
     });
   }
+
   clearTargetTimer(msgID) {
-    if(this.timers[msgID]) clearTimeout(this.timers[msgID]);
+    if (this.timers[msgID]) clearTimeout(this.timers[msgID]);
   }
+
   startTargetTimer(msgObj) {
-    if(this.timers[msgObj.id]) this.clearTargetTimer(msgObj.id);
+    if (this.timers[msgObj.id]) this.clearTargetTimer(msgObj.id);
     this.setTipHideTimer(msgObj);
   }
+
   setTipHideTimer(msgObj) {
     const { id, timer = defaultTimeToClose, lifecycle = defaultTimeToClose } = msgObj;
     let _timer;
-    if(HasValue(lifecycle)) _timer = lifecycle;
-    if(HasValue(timer)) _timer = timer;
-    if(!id || _timer <= 0) return;
+    if (HasValue(lifecycle)) _timer = lifecycle;
+    if (HasValue(timer)) _timer = timer;
+    if (!id || _timer <= 0) return;
 
     this.timers[id] = setTimeout(() => {
       this.closeTip(id);
     }, _timer * 1000);
   }
+
   render() {
     const { handleClick } = this.props;
     const { position, notifyItems } = this.state;
@@ -120,7 +147,7 @@ export default class Notification extends UkePureComponent {
     const notifyItemsKeysLen = notifyItemsKeys.length;
     const hasMsg = notifyItemsKeysLen > 0;
     const needClearAllBtn = notifyItemsKeysLen > 3;
-    const $T_UKE = this.$T_UKE;
+    const { $T_UKE } = this;
 
     const container = (
       <div className={`notify-group ${positionFilter(position)} ${hasMsg ? 'has-msg' : 'no-msg'}`}>
@@ -134,9 +161,11 @@ export default class Notification extends UkePureComponent {
           }
           <TransitionGroup component={null}>
             {
-              notifyItemsKeys.map(msgID => {
+              notifyItemsKeys.map((msgID) => {
                 const item = notifyItems[msgID];
-                const { type = 'normal', title, text, onClickTip, actionText = $T_UKE('点击查看详情') } = item;
+                const {
+                  type = 'normal', title, text, onClickTip, actionText = $T_UKE('点击查看详情')
+                } = item;
                 return (
                   <CSSTransition
                     key={msgID}
@@ -144,9 +173,9 @@ export default class Notification extends UkePureComponent {
                     classNames="notify">
                     <div
                       className={`notify-item ${type}`}
-                      ref={e => {
-                        if(e) {
-                          e.style.height = e.offsetHeight + 'px';
+                      ref={(e) => {
+                        if (e) {
+                          e.style.height = `${e.offsetHeight}px`;
                         }
                       }}
                       onMouseEnter={e => this.clearTargetTimer(msgID)}
@@ -159,7 +188,7 @@ export default class Notification extends UkePureComponent {
                         )
                       }
                       <div className="content">
-                        <div className="title">{title ? title : $T_UKE('新消息')}</div>
+                        <div className="title">{title || $T_UKE('新消息')}</div>
                         <div className="text">{text || ''}</div>
                         {
                           (onClickTip || handleClick) ? (

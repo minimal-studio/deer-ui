@@ -28,6 +28,7 @@ export default class Switch extends PureComponent {
     /** 值改变的回调 */
     onChange: PropTypes.func.isRequired
   };
+
   static defaultProps = {
     tips: ['', ''],
     // checked: true,
@@ -35,6 +36,7 @@ export default class Switch extends PureComponent {
     outputs: [true, false],
     defaultChecked: false,
   }
+
   constructor(props) {
     super(props);
     this.isControl = HasValue(props.checked);
@@ -42,17 +44,18 @@ export default class Switch extends PureComponent {
       checked: this.isControl ? props.checked : props.defaultChecked
     };
   }
-  getValue = () => {
-    return this.isControl ? this.props.checked : this.state.checked;
-  }
+
+  getValue = () => (this.isControl ? this.props.checked : this.state.checked)
+
   onChange = (nextValue) => {
-    if(!this.isControl) {
+    if (!this.isControl) {
       this.setState({
         checked: nextValue
       });
     }
     this.props.onChange(nextValue);
   }
+
   render() {
     const {
       disabled, tips, outputs
@@ -61,11 +64,11 @@ export default class Switch extends PureComponent {
     const text = tips[checked ? 0 : 1];
 
     const switchBtnGroup = (
-      <span className={"uke-switch" + (checked ? ' checked' : '') + (disabled ? ' disabled' : '')}
-        onClick={e => {
+      <span className={`uke-switch${checked ? ' checked' : ''}${disabled ? ' disabled' : ''}`}
+        onClick={(e) => {
           const nextChecked = !checked;
-          let emitVal = outputs[nextChecked ? 0 : 1];
-          if(!disabled) {
+          const emitVal = outputs[nextChecked ? 0 : 1];
+          if (!disabled) {
             this.onChange(emitVal);
           }
         }}>

@@ -1,7 +1,7 @@
 ---
 name: DateShortcut
 route: /DateShortcut
-menu: Form / 表单
+menu: Form
 ---
 
 import { Playground, Props } from 'docz'
@@ -10,7 +10,7 @@ import { DateShortcut } from './';
 
 # DateShortcut
 
-## Usage
+## Basic Usage
 
 <Playground style={{height: 450}}>
   <h4>输出字符串结果, 自带时间</h4>
@@ -18,12 +18,13 @@ import { DateShortcut } from './';
     {
       ({ state, setState }) => (
         <div>
-          返回值: {state.res.join(' - ')}
           <DateShortcut style={{width: 300}}
             outputAsString={true}
             onClick={e => setState({
               res: e
             })}/>
+          <br/>
+          返回值: {state.res.join(' - ')}
         </div>
       )
     }
@@ -34,13 +35,14 @@ import { DateShortcut } from './';
     {
       ({ state, setState }) => (
         <div>
-          返回值: {state.res.join(' - ')}
           <DateShortcut style={{width: 300}}
             outputAsString={true}
             needTime={false}
             onClick={e => setState({
               res: e
             })}/>
+          <br/>
+          返回值: {state.res.join(' - ')}
         </div>
       )
     }
@@ -51,11 +53,12 @@ import { DateShortcut } from './';
     {
       ({ state, setState }) => (
         <div>
-          返回值: {state.res.join(' - ')}
           <DateShortcut style={{width: 300}}
             onClick={e => setState({
               res: e
             })}/>
+          <br/>
+          返回值: {state.res.join(' - ')}
         </div>
       )
     }

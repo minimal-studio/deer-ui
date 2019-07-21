@@ -1,32 +1,32 @@
-import React, {Component, PureComponent} from 'react';
-import PropTypes from 'prop-types';
+import React from 'react';
 
 import { getIcon } from '../config';
 
-const Icon = (props) => {
-  const { n, s, useIconConfig, type, classNames, className, ...other } = props;
+export interface IconProps {
+  /** 是否使用默认的 icon 配置 */
+  useIconConfig?: boolean;
+  /** icon name */
+  n?: string;
+  /** icon style, 具体查看 https://fontawesome.com/ 的描述 */
+  s?: 's' | 'r' | 'l' | 'b';
+  /** icon name */
+  type?: string;
+  /** className for icon */
+  className?: string;
+  /** multiple class names, 例如 ['class1', 'class2'] */
+  classNames?: string[];
+}
+
+const Icon: React.SFC<IconProps> = (props) => {
+  const {
+    n, s, useIconConfig, type, classNames = [], className, ...other
+  } = props;
+  const iconClassName = getIcon((n || type), s, ['icon', (className || ''), ...classNames], useIconConfig);
   return (
     <i
       {...other}
-      className={getIcon(n || type, s, ['icon', (className ? className : ''), ...classNames], useIconConfig)} />
+      className={iconClassName} />
   );
-};
-Icon.propTypes = {
-  /** 是否使用默认的 icon 配置 */
-  useIconConfig: PropTypes.bool,
-  /** icon name */
-  n: PropTypes.string,
-  /** icon style, 具体查看 https://fontawesome.com/ 的描述 */
-  s: PropTypes.oneOf([
-    's',
-    'r',
-    'l',
-    'b',
-  ]),
-  /** icon name */
-  type: PropTypes.string,
-  /** multiple class names */
-  classNames: PropTypes.arrayOf(PropTypes.string),
 };
 Icon.defaultProps = {
   n: 'none',
@@ -35,11 +35,9 @@ Icon.defaultProps = {
   classNames: [],
 };
 
-const PureIcon = (props) => {
-  return (
-    <Icon {...props} useIconConfig={false} />
-  );
-};
+const PureIcon: React.SFC<IconProps> = props => (
+  <Icon {...props} useIconConfig={false} />
+);
 
 export {
   PureIcon

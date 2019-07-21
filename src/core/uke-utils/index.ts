@@ -1,5 +1,7 @@
 import React, { Component, PureComponent } from 'react';
-import { getUkelliConfig, setUkelliConfig, $T, $T_UKE } from '../config';
+import {
+  getUkelliConfig, setUkelliConfig, $T, $T_UKE
+} from '../config';
 
 /**
  * 用于提供所有 uke 组件的通用函数
@@ -7,26 +9,40 @@ import { getUkelliConfig, setUkelliConfig, $T, $T_UKE } from '../config';
  */
 
 export class UkeComponent<P = {}, S = {}, SS = any> extends PureComponent<P, S, SS> {
-  /** 外部国际化键值对 $T() */
+  /** gm 将要弃用 */
   gm = $T;
+
+  /** 外部国际化键值对 $T() */
   $T = $T;
-  /** uke 内部国际化键值对 $T_UKE() */
+
+  /** gmUke 将要弃用 */
   gmUke = $T_UKE;
+
+  /** uke 内部国际化键值对 $T_UKE() */
   $T_UKE = $T_UKE;
+
   /** 获取 uke 内部配置 */
   getConfig = getUkelliConfig;
+
   /** 设置 uke 内部配置 */
   setConfig = setUkelliConfig;
 }
 export class UkePureComponent<P = {}, S = {}, SS = any> extends PureComponent<P, S, SS> {
-  /** 外部国际化键值对 $T() */
+  /** gm 将要弃用 */
   gm = $T;
+
+  /** 外部国际化键值对 $T() */
   $T = $T;
-  /** uke 内部国际化键值对 $T_UKE() */
+
+  /** gmUke 将要弃用 */
   gmUke = $T_UKE;
+
+  /** uke 内部国际化键值对 $T_UKE() */
   $T_UKE = $T_UKE;
+
   /** 获取 uke 内部配置 */
   getConfig = getUkelliConfig;
+
   /** 设置 uke 内部配置 */
   setConfig = setUkelliConfig;
 }

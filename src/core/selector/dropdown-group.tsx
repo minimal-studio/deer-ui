@@ -2,27 +2,36 @@ import React from 'react';
 import PropTypes from "prop-types";
 import { RemoveArrayItem } from 'basic-helper';
 
-import SelectorBasic from './selector';
+import SelectorBasic, { SelectorValuesDescription, SelectorBasicProps } from './selector';
 import Checkbox from './checkbox';
 import DropdownWrapper from './dropdown-wrapper';
 
-export default class DropdownGroup extends SelectorBasic {
-  static propTypes = {
-    /** group data */
-    groupData: PropTypes.shape({
-      title: PropTypes.string,
-      values: PropTypes.object
-    }),
-    /** 用于匹配对应字段 */
-    fieldMapper: PropTypes.shape({
-      title: PropTypes.string,
-      values: PropTypes.string,
-    }),
-    /** style */
-    style: PropTypes.object,
-    /** defaultValue */
-    defaultValue: PropTypes.object,
-  }
+export interface DropdownGroupProps extends SelectorBasicProps {
+  /** group data */
+  groupData: {
+    [groupID: string]: {
+      /** 该 Group 的标题 */
+      title: string;
+      /** 是否输出 number 类型的值 */
+      isNum: boolean;
+      values: SelectorValuesDescription;
+    };
+  };
+  /** 用于匹配对应字段 */
+  fieldMapper: {
+    title: string;
+    values: string;
+  };
+  /** style of DropdownGroup */
+  style: {};
+}
+
+interface State {
+  selectedCount: number;
+  selectedValue: any;
+}
+
+export default class DropdownGroup extends SelectorBasic<DropdownGroupProps, State> {
   static defaultProps = {
     isMultiple: true,
     defaultValue: {},
@@ -31,45 +40,49 @@ export default class DropdownGroup extends SelectorBasic {
       values: 'values',
     },
   }
+
   constructor(props) {
     super(props);
 
     const { defaultValue } = props;
-    let selectedCount = this.calculateCount(defaultValue);
+    const selectedCount = this.calculateCount(defaultValue);
 
     this.state = {
       selectedValue: defaultValue || {},
       selectedCount
     };
   }
+
   // getValue = () => {
   //   return this.state.selectedValue;
   // }
   numberValFilter(numberValues, groupKey) {
     const { groupData } = this.props;
-    if(!groupData[groupKey].isNum) return numberValues;
-    let res = [];
+    if (!groupData[groupKey].isNum) return numberValues;
+    const res: number[] = [];
     for (let i = 0; i < numberValues.length; i++) {
       const item = numberValues[i];
       res[i] = +item;
     }
     return res;
   }
-  calculateCount(group) {
+
+  calculateCount = (group) => {
     let selectedCount = 0;
-    if(!group) return selectedCount;
+    if (!group) return selectedCount;
     for (const key in group) {
-      if (group.hasOwnProperty(key)) {
+      if (typeof group.key != 'undefined') {
         const item = group[key];
-        if(Array.isArray(item)) selectedCount += item.length;
+        if (Array.isArray(item)) selectedCount += item.length;
       }
     }
     return selectedCount;
   }
+
   changeGroup(groupKey, isNextGroupActive, groupValues) {
     this.setState(({ selectedValue }) => {
-      let nextValues = {...selectedValue};
-      if(isNextGroupActive) {
+      const nextValues = { ...selectedValue };
+      if (isNextGroupActive) {
         nextValues[groupKey] = this.numberValFilter([...groupValues], groupKey);
       } else {
         nextValues[groupKey] = [];
@@ -81,11 +94,12 @@ export default class DropdownGroup extends SelectorBasic {
       };
     });
   }
+
   changeValue = (groupKey, value) => {
     this.setState(({ selectedValue }) => {
-      let nextValues = {...selectedValue};
+      const nextValues = { ...selectedValue };
       let operatorGroup = nextValues[groupKey] ? [...nextValues[groupKey]] : [];
-      if(operatorGroup.indexOf(value) != -1) {
+      if (operatorGroup.indexOf(value) !== -1) {
         operatorGroup = RemoveArrayItem(operatorGroup, value);
       } else {
         operatorGroup.push(value);
@@ -98,8 +112,9 @@ export default class DropdownGroup extends SelectorBasic {
       };
     });
   }
+
   itemFilter = (item) => {
-    if(!item) return;
+    if (!item) return item;
     const { fieldMapper } = this.props;
     const { title, values } = fieldMapper;
     return {
@@ -108,10 +123,9 @@ export default class DropdownGroup extends SelectorBasic {
       values: item[values],
     };
   }
-  getTitle = () => {
-    return `${this.state.selectedCount}${this.$T_UKE('项已选')}`;
-  }
-  handleChange() {}
+
+  getTitle = () => `${this.state.selectedCount}${this.$T_UKE('项已选')}`
+
   render() {
     const { groupData, style, ...other } = this.props;
     const groupDataArr = Object.keys(groupData);
@@ -132,8 +146,8 @@ export default class DropdownGroup extends SelectorBasic {
                 const isLastGroup = idx === groupDataArr.length - 1;
 
                 return (
-                  <div key={groupKey} 
-                    className={"item-group" + (isActiveGroup ? ' active' : '')}>
+                  <div key={groupKey}
+                    className={`item-group${isActiveGroup ? ' active' : ''}`}>
                     <Checkbox
                       values={{
                         1: title,

@@ -1,7 +1,7 @@
 ---
 name: Label
 route: /Label
-menu: Components / 组件
+menu: Components
 ---
 
 import { Playground, Props } from 'docz'
@@ -10,8 +10,17 @@ import Color from '../../../docs/style/color.mdx'
 
 # Label
 
-> 没有交互的 Label
+## Basic Usage
+
+<Playground>
+  <Label text="红色" color="red" />
+</Playground>
+
+## Props
 
 <Props of={Label} />
 
+## Style
+
 <Color />
+

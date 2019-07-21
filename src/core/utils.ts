@@ -1,53 +1,89 @@
+/* eslint-disable no-param-reassign */
 
 import { Call } from 'basic-helper';
 
+/**
+ * 获取 Screen 宽度
+ */
 export function getScreenWidth() {
   return document.documentElement.clientWidth;
 }
+
+/**
+ * 获取 Screen 高度
+ */
 export function getScreenHeight() {
   return document.documentElement.clientHeight;
 }
 
-/** 如果 body 为 overflow: hidden, 则忽略 scrollTop */
-export function getScrollTop(elem) {
-  if(!elem && getComputedStyle(document.body).overflow === 'hidden') {
+/**
+ * 获取目标元素的 scrollTop
+ * 如果 body 为 overflow: hidden, 则忽略 scrollTop
+ */
+export function getScrollTop(elem?) {
+  if (!elem && getComputedStyle(document.body).overflow === 'hidden') {
     return 0;
   }
   const _elem = elem || document.documentElement;
   return _elem.scrollTop;
 }
 
+/**
+ * 获取目标元素的 scrollLeft
+ * 如果 body 为 overflow: hidden, 则忽略 scrollLeft
+ */
+export function getScrollLeft(elem?) {
+  if (!elem && getComputedStyle(document.body).overflow === 'hidden') {
+    return 0;
+  }
+  const _elem = elem || document.documentElement;
+  return _elem.scrollLeft;
+}
 
-export function LoadStuff({src, onload, type}) {
+interface LoadParams {
+  src: string;
+  onload?: Function;
+}
+
+interface LoadStuffParams extends LoadParams {
+  type: string;
+}
+
+/**
+ * 加载外部资源
+ */
+export function LoadStuff(params: LoadStuffParams) {
+  const { src, onload, type } = params;
   return new Promise((resolve, reject) => {
-    let times = 0;
+    let reloadTimes = 0;
 
-    let loadUrl = src;
-  
-    function load(element) {
-      if (times > 2) return 0;
-      times++;
-      element.onload = function() {
-        Call(onload, ...arguments);
-        resolve(...arguments);
+    const loadUrl = src;
+
+    function load(element: HTMLLinkElement | HTMLScriptElement) {
+      if (reloadTimes > 2) return;
+      reloadTimes++;
+      element.onload = (...arg) => {
+        Call(onload, ...arg);
+        resolve(...arg);
       };
-      element.onerror = load;
+      /** 如果加载失败，尝试继续加载 */
+      element.onerror = () => load(element);
       document.body.appendChild(element);
     }
-  
+
     switch (type) {
-    case 'css':
-      let link = document.createElement('link');
-      link.rel = 'stylesheet';
-      link.href = loadUrl;
-      load(link);
-      break;
-    case 'script':
-      let script = document.createElement('script');
-      script.type = 'text/javascript';
-      script.src = loadUrl;
-      load(script);
-      break;
+      case 'css':
+        const link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.href = loadUrl;
+        load(link);
+        break;
+      case 'script':
+        const script = document.createElement('script');
+        script.type = 'text/javascript';
+        script.src = loadUrl;
+        load(script);
+        break;
     }
   });
 }
@@ -55,23 +91,23 @@ export function LoadStuff({src, onload, type}) {
 /**
  * 加载 link
  *
- * @export
  * @param {object} options { src: string, onload: func }
- * @returns
  */
-export function LoadLink(options) {
-  options.type = 'css';
-  return LoadStuff(options);
+export function LoadLink(options: LoadParams) {
+  const _options = Object.assign({}, options, {
+    type: 'css'
+  });
+  return LoadStuff(_options);
 }
 
 /**
  * 加载 script
  *
- * @export
  * @param {object} options { src: string, onload: func }
- * @returns
  */
-export function LoadScript(options) {
-  options.type = 'script';
-  return LoadStuff(options);
+export function LoadScript(options: LoadParams) {
+  const _options = Object.assign({}, options, {
+    type: 'script'
+  });
+  return LoadStuff(_options);
 }

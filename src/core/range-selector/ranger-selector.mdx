@@ -1,7 +1,7 @@
 ---
 name: Ranger
 route: /Ranger
-menu: Form / 表单
+menu: Form
 ---
 
 import { Playground, Props } from 'docz'
@@ -11,10 +11,9 @@ import { Ranger } from './';
 
 > 滑动选择器
 
-<Props of={Ranger} />
+## Basic Usage
 
 <Playground>
-  <h4>拖动试试</h4>
   <Ranger
     range={[0, 99]}
     precent={true}
@@ -23,3 +22,7 @@ import { Ranger } from './';
     }
   } />
 </Playground>
+
+## Props
+
+<Props of={Ranger} />

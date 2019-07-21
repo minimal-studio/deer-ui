@@ -1,5 +1,4 @@
 import React, { Component, PureComponent } from 'react';
-import PropTypes from 'prop-types';
 
 import { Call, HasValue, IsFunc } from 'basic-helper';
 import { tuple } from 'basic-helper/utils/type';
@@ -45,6 +44,11 @@ export interface InputProps {
   onBlur?: Function;
 }
 
+interface State {
+  viewClass: string;
+  stateVal: any;
+}
+
 const controlTypeMapper = {
   input: 'text',
   pw: 'password',
@@ -59,7 +63,7 @@ let defaultShowInputTitle = true;
  * @class Input
  * @extends {Component}
  */
-export default class Input extends Component<InputProps> {
+export default class Input extends Component<InputProps, State> {
   static defaultProps = {
     required: false,
     forceToSelect: false,
@@ -77,22 +81,24 @@ export default class Input extends Component<InputProps> {
     defaultShowInputTitle = showTitle;
   };
 
+  isControl
+
+  value
+
+  iconInput
+
   constructor(props) {
     super(props);
 
     const { defaultValue = '', value } = props;
 
-    this.isControl = props.hasOwnProperty('value');
+    this.isControl = typeof props.value != 'undefined';
     this.value = this.isControl ? value : defaultValue;
 
     this.state = {
       viewClass: HasValue(this.value) ? 'has-val' : 'normal',
       stateVal: this.value
     };
-  }
-
-  changeText(val) {
-
   }
 
   addForceClass() {
@@ -122,17 +128,17 @@ export default class Input extends Component<InputProps> {
   /**
    * 用于过滤是 number 类型的值
    */
-  numberValFilter(val) {
+  numberValFilter(val?) {
     const { inputType, outputType } = this.props;
     const _outputType = inputType || outputType;
     if (inputType) console.warn('inputType 已废弃，请使用 outputType');
-    val = HasValue(val) ? val : this.getValue();
+    let _val = HasValue(val) ? val : this.getValue();
     switch (_outputType) {
       case 'number':
-        val = HasValue(val) ? +val : undefined;
+        _val = HasValue(_val) ? +_val : undefined;
         break;
     }
-    return val;
+    return _val;
   }
 
   changeVal(val, elem) {
@@ -215,7 +221,7 @@ export default class Input extends Component<InputProps> {
                 val = IsFunc(filter) ? filter(val) : val;
                 this.changeVal(val, e.target);
               }}
-              ref={e => this.iconInput = e}/>
+              ref={(e) => { this.iconInput = e; }}/>
           </span>
           {inputBtnDOM}
         </div>

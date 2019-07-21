@@ -1,7 +1,17 @@
-import React, {Component, PureComponent} from 'react';
-import PropTypes from 'prop-types';
+import React, { Component, PureComponent } from 'react';
+import { ModalProps } from './modal';
 
-export default class ModalHelper extends Component {
+export interface ModalConfig {
+  title?: string;
+  isOpen: boolean;
+  children: any;
+  id: string;
+}
+export interface ModalHelperState {
+  modalSetting: ModalConfig;
+}
+
+export default class ModalHelper<P extends ModalProps = ModalProps> extends Component<P, ModalHelperState> {
   constructor(props) {
     super(props);
     this.state = {
@@ -13,16 +23,16 @@ export default class ModalHelper extends Component {
       }
     };
   }
+
   showModal = () => {
-    this.setState(({ modalSetting }) => {
-      return {
-        modalSetting: {
-          ...modalSetting,
-          isOpen: true
-        }
-      };
-    });
+    this.setState(({ modalSetting }) => ({
+      modalSetting: {
+        ...modalSetting,
+        isOpen: true
+      }
+    }));
   }
+
   setModal = (nextSetting) => {
     this.setState(({ modalSetting }) => {
       const { isOpen = true } = nextSetting;
@@ -33,6 +43,7 @@ export default class ModalHelper extends Component {
       };
     });
   }
+
   closeModal = () => {
     const { modalSetting } = this.state;
     this.setState({

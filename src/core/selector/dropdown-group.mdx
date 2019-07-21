@@ -1,7 +1,7 @@
 ---
 name: DropdownGroup
 route: /DropdownGroup
-menu: Selector / 选择器
+menu: Selector
 ---
 
 import { Playground, Props } from 'docz'
@@ -10,11 +10,13 @@ import DropdownGroup from './dropdown-group';
 
 # DropdownGroup
 
+## Basic Usage
+
+### Import
+
 ```js
 import 'ukelli-ui/core/selector/dropdown-group';
 ```
-
-<Props of={DropdownGroup} />
 
 <Playground>
   {
@@ -63,7 +65,7 @@ import 'ukelli-ui/core/selector/dropdown-group';
                 defaultValue={{
                   group1: ["value11"]
                 }}
-                position="top"
+                outside
                 fieldMapper={{
                   title: 'title',
                   values: 'values'
@@ -123,3 +125,7 @@ state = {
   group3: [],
 }
 ```
+
+## Props
+
+<Props of={DropdownGroup} />

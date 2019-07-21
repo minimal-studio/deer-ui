@@ -1,4 +1,5 @@
-import React, {Component, PureComponent} from 'react';
+/* eslint-disable prefer-const */
+import React from 'react';
 import ReactDOM from 'react-dom';
 
 import { Call, GenerteID } from 'basic-helper';
@@ -8,7 +9,7 @@ import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import { $T_UKE } from '../config';
 import { Icon } from '../icon';
 import ModalHelper from './modal-helper';
-import Modal, { animateTypeFilter } from './modal';
+import Modal, { ModalProps } from './modal';
 import setDOMById from '../set-dom';
 import {
   windowManagerActions,
@@ -26,6 +27,7 @@ class ModalEntity extends ModalHelper {
       isOpen: true,
     });
   }
+
   render() {
     const { children, onCloseModal } = this.props;
     return (
@@ -45,11 +47,11 @@ const ModalsManager = connect(selector, windowManagerActions)((props) => {
     sectionsList, closeWindow, selectWindow, sectionsQueue,
     minimizeWindow, minSecQueue
   } = props;
-  const sections = Array.isArray(sectionsQueue) && sectionsQueue.map(key => {
+  const sections = Array.isArray(sectionsQueue) && sectionsQueue.map((key) => {
     const currItem = sectionsList[key];
-    if(!currItem) return;
+    if (!currItem) return null;
     const { id } = currItem;
-    const animateType = animateTypeFilter(currItem);
+    const animateType = Modal.animateTypeFilter(currItem);
     const sectionId = id;
     const currSectionIdx = sectionsQueue.indexOf(sectionId);
     return (
@@ -77,7 +79,7 @@ const ModalsManager = connect(selector, windowManagerActions)((props) => {
       </TransitionGroup>
       <div className="min-container">
         {
-          minSecQueue.map(minSectionId => {
+          minSecQueue.map((minSectionId) => {
             const currItem = sectionsList[minSectionId];
             return (
               <div key={minSectionId}
@@ -93,14 +95,14 @@ const ModalsManager = connect(selector, windowManagerActions)((props) => {
   );
 });
 
-let Entity = {};
+const Entity = {};
 function getEntityIdLen() {
   return Object.keys(Entity).length;
 }
 
-function CloseModal(entityId) {
-  if(!entityId) return;
-  connectedStore.closeWindow(entityId);
+function CloseModal(modalID: ModalID) {
+  if (!modalID) return;
+  connectedStore.closeWindow(modalID);
 }
 function CloseAllModal() {
   connectedStore.closeAllWindow();
@@ -113,7 +115,7 @@ function CloseAllModal() {
 const getModalDefaultWidth = (modalType) => {
   const widthConfig = {
     confirm: 300,
-    'side': 400
+    side: 400
   };
   return widthConfig[modalType] || 600;
 };
@@ -126,7 +128,7 @@ const getDefaultOptions = (options) => {
     topClassName: 'top-modal-opend',
     showFuncBtn: false,
     marginTop: isMobile ? '0' : undefined,
-    width: width ? width : isMobile ? '90%' : getModalDefaultWidth(type)
+    width: width || (isMobile ? '90%' : getModalDefaultWidth(type))
   };
 };
 
@@ -140,70 +142,87 @@ const getDefaultOptions = (options) => {
 //   }
 //   return btoa(unescape(encodeURIComponent(keyStr)));
 // };
+export type ModalID = string | number;
+export interface ShowModalParams extends ModalProps {
+  /** modalType */
+  type?: ModalProps['modalType'] | 'confirm';
+  /** 当 type === confirm 时渲染的内容 */
+  confirmText?: any;
+  /** 当 type === confirm 时，点击确认按钮的回调 */
+  onConfirm?;
+  /** 是否显示「确定、取消」按钮 */
+  showFuncBtn?: boolean;
+  /** 是否需要 header */
+  needHeader?: boolean;
+}
 
-function ShowModal(options) {
-
+/**
+ * @param {ShowModalParams} params
+ */
+function ShowModal(params: ShowModalParams): ModalID {
+  /** @type {ShowModalParams} */
+  let options = Object.assign({}, params);
   let {
-    type, confirmText = $T_UKE('确定') + '?', showFuncBtn,
+    type, confirmText = `${$T_UKE('确定')}?`, showFuncBtn,
     id, children,
     onConfirm, needHeader
   } = options;
-  const _showFuncBtn = type == 'confirm' || showFuncBtn;
+  const _showFuncBtn = type === 'confirm' || showFuncBtn;
 
-  // let entityId = id || generteID(children);
-  let entityId = id || GenerteID();
+  const entityId: ModalID = id || GenerteID();
   options.id = entityId;
 
-  let modalTMPL = null;
+  let modalTMPL;
 
-  let btnGroupDOM = _showFuncBtn ? (
+  function onClickBtn(confirm) {
+    confirm && Call(onConfirm, confirm);
+    CloseModal(entityId);
+  }
+
+  const btnGroupDOM = _showFuncBtn && (
     <div className="btn-group">
       <span className="btn flat default" onClick={e => onClickBtn(false)}>{$T_UKE('取消')}</span>
       <span className="btn flat theme" onClick={e => onClickBtn(true)}>{$T_UKE('确定')}</span>
     </div>
-  ) : null;
+  );
 
   switch (type) {
-  case 'confirm':
-    needHeader = false;
-    modalTMPL = (
-      <div className="confirm-container">
-        <div className="content">
-          {
-            React.isValidElement(confirmText) ? confirmText : (
-              <h2 className="text-center">{confirmText}</h2>
-            )
-          }
+    case 'confirm':
+      needHeader = false;
+      modalTMPL = (
+        <div className="confirm-container">
+          <div className="content">
+            {
+              React.isValidElement(confirmText) ? confirmText : (
+                <h2 className="text-center">{confirmText}</h2>
+              )
+            }
+          </div>
+          {btnGroupDOM}
         </div>
-        {btnGroupDOM}
-      </div>
-    );
-    break;
-  case 'side':
-    options = Object.assign({}, {
-      modalType: 'side',
-      clickBgToClose: true,
-      needMaxBtn: false,
-      needMinBtn: false,
-    }, options);
-    modalTMPL = (
-      <div className="global-modal-container">
-        <div className="content">{children}</div>
-        {btnGroupDOM}
-      </div>
-    );
-    break;
-  default:
-    modalTMPL = (
-      <div className="global-modal-container">
-        <div className="content">{children}</div>
-        {btnGroupDOM}
-      </div>
-    );
-  }
-  function onClickBtn(confirm) {
-    confirm && Call(onConfirm, confirm);
-    CloseModal(entityId);
+      );
+      break;
+    case 'side':
+      options = Object.assign({}, {
+        modalType: 'side',
+        clickBgToClose: true,
+        needMaxBtn: false,
+        needMinBtn: false,
+      }, options);
+      modalTMPL = (
+        <div className="global-modal-container">
+          <div className="content">{children}</div>
+          {btnGroupDOM}
+        </div>
+      );
+      break;
+    default:
+      modalTMPL = (
+        <div className="global-modal-container">
+          <div className="content">{children}</div>
+          {btnGroupDOM}
+        </div>
+      );
   }
 
   options.children = modalTMPL;
@@ -213,10 +232,11 @@ function ShowModal(options) {
     needHeader,
   };
   connectedStore.openWindow(options);
+
   return entityId;
 }
 
-let modalsManagerContainer = setDOMById('ModalsManager', 'modals-manager');
+const modalsManagerContainer = setDOMById('ModalsManager', 'modals-manager');
 ReactDOM.render(
   <Provider store={windowManagerStore}>
     <ModalsManager/>
@@ -226,6 +246,13 @@ ReactDOM.render(
 
 const ShowGlobalModal = ShowModal;
 const CloseGlobalModal = CloseModal;
+
+
+const ShowModalAPI: React.SFC<ShowModalParams> = props => (
+  <div></div>
+);
+
+export { ShowModalAPI };
 
 export {
   ShowModal, CloseModal,

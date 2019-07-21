@@ -1,5 +1,4 @@
-import React, { Component, PureComponent } from 'react';
-import PropTypes from 'prop-types';
+import React from 'react';
 import { Call, DateFormat } from 'basic-helper';
 import { DateRange, ToUTC } from 'basic-helper/datetime-helper';
 
@@ -59,40 +58,6 @@ function getHalfMouthDate(type, format, timeDefaultStr) {
  * @extends {DateBasic}
  */
 export default class DateShortcut extends DateBasic<DateShortcutProps> {
-  // static propTypes = {
-  //   /** 点击快捷方式的回调 */
-  //   onClick: PropTypes.func,
-  //   /** onChange */
-  //   onChange: PropTypes.func.isRequired,
-  //   /** 默认的时分秒的值 */
-  //   defaultTimes: PropTypes.arrayOf(PropTypes.string),
-  //   /** 是否转换成标准 UTC 时间 */
-  //   toUTC: PropTypes.bool,
-  //   /** 自定义的时间快捷选项 */
-  //   dateHelperInfo: PropTypes.arrayOf(
-  //     PropTypes.shape({
-  //       /** 快捷的名字 */
-  //       t: PropTypes.string,
-  //       /**
-  //        * 获取返回值的函数，期望返回已格式化的日期数组
-  //        *
-  //        * @returns {array[]} 例如 ['2018-10-10 10:00:00', '2018-10-11 10:00:00']
-  //        */
-  //       filter: PropTypes.func
-  //     })
-  //   ),
-  //   /** 是否输出字符串格式，默认为原生 Date 对象 */
-  //   outputAsString: PropTypes.bool,
-  //   /** subContent 的位置 */
-  //   position: PropTypes.oneOf([
-  //     'right', 'left'
-  //   ]),
-  //   /** DateShortcut 的 style */
-  //   style: PropTypes.shape({}),
-  //   /** 是否返回时间 */
-  //   needTime: PropTypes.bool
-  // };
-
   static defaultProps = {
     needTime: true,
     toUTC: true,
@@ -181,7 +146,7 @@ export default class DateShortcut extends DateBasic<DateShortcutProps> {
                 _dateHelperInfo.map((item, idx) => {
                   const text = item.t;
                   return (
-                    <span className={`${idx == activeIdx ? 'active ' : ''}date-helper-btn`}
+                    <span className={`${idx === activeIdx ? 'active ' : ''}date-helper-btn`}
                       onClick={(e) => {
                         hide();
                         this.generateDate(item, idx);

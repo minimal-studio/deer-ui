@@ -1,7 +1,22 @@
 import createStore from 'unistore';
 import { RemoveArrayItem } from 'basic-helper';
 
-const DefaultWindowManagerState = {
+export interface WindowItemConfig {
+  title: string;
+  isOpen: boolean;
+  children: any;
+  id: string;
+}
+
+export interface WindowMultipleState {
+  minSecQueue: string[];
+  sectionsQueue: string[];
+  sectionsList: {
+    [sectionID: string]: WindowItemConfig;
+  };
+}
+
+const DefaultWindowManagerState: WindowMultipleState = {
   minSecQueue: [],
   sectionsQueue: [],
   sectionsList: {},
@@ -15,10 +30,10 @@ const windowManagerActions = store => ({
       ...DefaultWindowManagerState
     });
   },
-  closeWindow: ({sectionsList, sectionsQueue, minSecQueue}, sectionId) => {
-    if(!sectionId) return;
-    let nextSectionList = sectionsList;
-    let nextSectionQueue = RemoveArrayItem(sectionsQueue, sectionId);
+  closeWindow: ({ sectionsList, sectionsQueue, minSecQueue }, sectionId) => {
+    if (!sectionId) return;
+    const nextSectionList = sectionsList;
+    const nextSectionQueue = RemoveArrayItem(sectionsQueue, sectionId);
 
     delete nextSectionList[sectionId];
 
@@ -28,12 +43,12 @@ const windowManagerActions = store => ({
       minSecQueue: RemoveArrayItem(minSecQueue, sectionId)
     });
   },
-  openWindow: ({sectionsList, sectionsQueue, minSecQueue}, modalConfig) => {
-    let sectionId = modalConfig.id;
-    let nextListState = Object.assign({}, sectionsList);
+  openWindow: ({ sectionsList, sectionsQueue, minSecQueue }, modalConfig) => {
+    const sectionId = modalConfig.id;
+    const nextListState = Object.assign({}, sectionsList);
 
     const hasCurrSection = !!nextListState[sectionId];
-    
+
     nextListState[sectionId] = Object.assign({}, nextListState[sectionId], modalConfig, {
       isMinimize: false
     });
@@ -44,15 +59,15 @@ const windowManagerActions = store => ({
       minSecQueue: RemoveArrayItem(minSecQueue, sectionId)
     });
   },
-  selectWindow: ({sectionsQueue, sectionsList, minSecQueue}, sectionId) => {
-    if(!sectionId) return;
+  selectWindow: ({ sectionsQueue, sectionsList, minSecQueue }, sectionId) => {
+    if (!sectionId) return;
 
     let nextSectionQueue = [...sectionsQueue];
-    let nextSectionList = sectionsList;
-    let selectedCodeIdx = nextSectionQueue.indexOf(sectionId);
-    let nextMinSecQueue = RemoveArrayItem(minSecQueue, sectionId);
+    const nextSectionList = sectionsList;
+    const selectedCodeIdx = nextSectionQueue.indexOf(sectionId);
+    const nextMinSecQueue = RemoveArrayItem(minSecQueue, sectionId);
 
-    if(!nextSectionList[sectionId]) return;
+    if (!nextSectionList[sectionId]) return;
 
     nextSectionList[sectionId] = Object.assign({}, nextSectionList[sectionId], {
       isMinimize: false
@@ -67,13 +82,13 @@ const windowManagerActions = store => ({
       minSecQueue: nextMinSecQueue
     });
   },
-  minimizeWindow: ({minSecQueue, sectionsQueue, sectionsList}, sectionId) => {
-    if(!sectionId) return;
+  minimizeWindow: ({ minSecQueue, sectionsQueue, sectionsList }, sectionId) => {
+    if (!sectionId) return;
     let nextSectionQueue = [...sectionsQueue];
-    let nextMinSecQueue = [...minSecQueue];
-    let nextSectionList = Object.assign({}, sectionsList);
+    const nextMinSecQueue = [...minSecQueue];
+    const nextSectionList = Object.assign({}, sectionsList);
 
-    let displayingQueue = [...nextSectionQueue];
+    const displayingQueue = [...nextSectionQueue];
     let miniArr = [sectionId].concat(nextMinSecQueue);
     miniArr = miniArr.deduplication();
 
@@ -81,16 +96,16 @@ const windowManagerActions = store => ({
       isMinimize: true,
     });
 
-    miniArr.forEach(minItem => {
-      let currIdx = displayingQueue.indexOf(minItem);
-      if(currIdx !== -1) displayingQueue.splice(currIdx, 1);
+    miniArr.forEach((minItem) => {
+      const currIdx = displayingQueue.indexOf(minItem);
+      if (currIdx !== -1) displayingQueue.splice(currIdx, 1);
     });
 
     // nextSectionQueue = displayingQueue;
 
-    if(displayingQueue.length !== 0) {
+    if (displayingQueue.length !== 0) {
       // this.selectWindow(displayingQueue[0]);
-      // nextSectionList = 
+      // nextSectionList =
     }
     nextSectionQueue = RemoveArrayItem(nextSectionQueue, sectionId).concat(sectionId);
 

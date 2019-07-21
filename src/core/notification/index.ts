@@ -1,4 +1,4 @@
-import Notify, {CancelNotify} from './notify-func';
+import Notify, { CancelNotify } from './notify-func';
 import Notification from './notification';
 
 export {

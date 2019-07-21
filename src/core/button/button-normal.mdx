@@ -1,9 +1,10 @@
 ---
 name: Button
 route: /Button
-menu: Components / 组件
+menu: Components
 ---
 
+import { useState } from 'react';
 import { Playground, Props } from 'docz'
 import { State, Toggle } from 'react-powerplug'
 import { ShowModal } from '../modal';
@@ -11,7 +12,7 @@ import { Button } from './';
 
 # Button
 
-## Usage
+## Basic Usage
 
 <Playground>
   {

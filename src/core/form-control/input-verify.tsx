@@ -1,9 +1,19 @@
-import React, {Component, PureComponent} from 'react';
-import PropTypes from 'prop-types';
+import React, { Component, PureComponent } from 'react';
 
-import { NumTransformToCN, ToFixed } from 'basic-helper';
+import { ToFixed } from 'basic-helper';
+import NumTransformToCN from 'basic-helper/num-to-cn';
+import InputVerifyClass, { InputVerifyClassProps } from './input-verify-class';
 
-import InputVerifyClass from './input-verify-class';
+export interface InputVerifyProps extends InputVerifyClassProps {
+  /** 是否开启数字转中文 */
+  needCN?: boolean;
+  /** 是否开启百分比模式 */
+  precent?: boolean;
+  /** 是否可输入 */
+  inputable?: boolean;
+  /** 辅助按钮每一次的增减单位 */
+  unit?: number;
+}
 
 function precentFilter(val, isPrecent) {
   return isPrecent ? ToFixed(val / 10, 1) : val;
@@ -16,34 +26,11 @@ function precentFilter(val, isPrecent) {
  * @class InputVerify
  * @extends {InputVerifyClass}
  */
-export default class InputVerify extends InputVerifyClass {
-  static propTypes = {
-    onChange: PropTypes.func,
-    onFocus: PropTypes.func,
-    onBlur: PropTypes.func,
-    onClear: PropTypes.func,
-    className: PropTypes.string,
-    defaultValue: PropTypes.any,
-    value: PropTypes.any,
-    /** 控件类型 */
-    type: PropTypes.oneOf(['text', 'password']),
-    /** 是否开启数字转中文 */
-    needCN: PropTypes.bool,
-    /** 是否开启百分比模式 */
-    precent: PropTypes.bool,
-    /** 是否可输入 */
-    inputable: PropTypes.bool,
-    /** 限制输入数字的范围 */
-    numRange: PropTypes.arrayOf(PropTypes.number),
-    /** 辅助按钮每一次的增减单位 */
-    unit: PropTypes.number,
-    /** 限制输入的字符串长度范围 */
-    lenRange: PropTypes.arrayOf(PropTypes.number)
-  };
+export default class InputVerify extends InputVerifyClass<InputVerifyProps> {
   render() {
-    const {matchLen, matchRange} = this.state;
+    const { matchLen, matchRange } = this.state;
     const {
-      className = '', type = 'text', needCN = false, 
+      className = '', type = 'text', needCN = false,
       unit = 1, inputable = true, precent = false
     } = this.props;
 
@@ -53,16 +40,16 @@ export default class InputVerify extends InputVerifyClass {
     const CNNumDOM = needCN ? (
       <span className="form-tip">{NumTransformToCN(value)}</span>
     ) : null;
-    
+
     return (
-      <div className={"input-verify" + ((!matchLen || !matchRange) ? ' error' : '')}>
+      <div className={`input-verify${(!matchLen || !matchRange) ? ' error' : ''}`}>
         <input type={type}
           value={displayValue}
           readOnly={!inputable}
-          className={"form-control " + className}
+          className={`form-control ${className}`}
           onBlur={e => this._onBlur(e)}
           onChange={e => this._onChange(e.target.value)}
-          onFocus={e => this._onFocus(e.target.value)}/>
+          onFocus={e => this._onFocus(e.target.value, e)}/>
         <div className="option-btns">
           <div className="minu _btn" onClick={e => this._onChange((+value - unit))}>
             <span>-</span>

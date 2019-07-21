@@ -1,9 +1,19 @@
-import React, {Component, PureComponent} from 'react';
-import PropTypes from 'prop-types';
+import React from 'react';
 
-import { UkeComponent, UkePureComponent } from '../uke-utils';
+import { UkeComponent } from '../uke-utils';
 
-export default class FormControlBasic extends UkeComponent {
+export interface FormControlBasicProps {
+  value?: any;
+  defaultValue?: any;
+}
+
+export default class FormControlBasic<P extends FormControlBasicProps, S = {}, SS = any> extends UkeComponent<P, S, SS> {
+  isControl: boolean;
+
+  value;
+
+  stateValueMark = 'selectedValue';
+
   constructor(props) {
     super(props);
 
@@ -11,12 +21,9 @@ export default class FormControlBasic extends UkeComponent {
 
     // 如果是多选模式，value, defaultValue 必须为array，否则value, defaultValue必须为string
 
-    this.isControl = props.hasOwnProperty('value');
-
+    this.isControl = typeof props.value != 'undefined';
     this.value = value || defaultValue;
-    this.stateValueMark = 'selectedValue';
   }
-  getValue = (stateValueMark = this.stateValueMark) => {
-    return this.isControl ? this.props.value : this.state[stateValueMark];
-  }
+
+  getValue = (stateValueMark = this.stateValueMark) => (this.isControl ? this.props.value : this.state[stateValueMark])
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Modal, ModalHelper } from '.';
+import { Modal, ModalHelper } from '..';
 
 export default class ModalDemo extends ModalHelper {
   state = {
@@ -10,12 +10,13 @@ export default class ModalDemo extends ModalHelper {
       title: '标题'
     }
   }
+
   render() {
     const { modalSetting } = this.state;
     return (
-      <div className="relative" style={{height: 300}}>
+      <div className="relative" style={{ height: 300 }}>
         <span className="btn theme"
-          onClick={e => {
+          onClick={(e) => {
             this.setModal({
               children: '内容2'
             });

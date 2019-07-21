@@ -14,25 +14,56 @@ import { ToolTip } from '../tooltip';
 import InputSelector from '../form-control/input-selector';
 import Switch from '../switch-button/switch-c';
 
+export type FormGeneratorTypes = 'customForm'|'captcha'|'select-n'|'select'|'input-selector-s'|'input-selector'|'input-range'|'input'|'password'|'textarea'|'ranger'|'text'|'radio'|'checkbox'|'button'|'datetime'|'datetimeRange'|'switch'|'hr';
+
+export interface FormOptionsItem {
+  /** UI 类型 */
+  type: FormGeneratorTypes;
+  /** 显示标题 */
+  title?: string;
+  /** className */
+  className?: string;
+  /** 是否必填|选 */
+  required?: boolean;
+  /** UI 的引用 key */
+  ref?: string;
+  /** UI 的引用 key, 作用于 datetime */
+  refs?: string[];
+  /** UI 的引用 key, 暂时弃用 */
+  refu?: {
+    [ref: string]: string;
+  };
+}
+
+export interface FormFilterProps<FormOptions = FormOptionsItem[]> {
+  formOptions?: FormOptions;
+  conditionConfig?: FormOptions;
+  onChange?: Function;
+}
+
 const wrapInputSelectorMarkForRefu = activeRef => `__isActive${activeRef}`;
 
 /**
  * 表单生成器
  * 统一的聚合表单
  */
-export default class FormFilterHelper extends UkeComponent {
+export default class FormFilterHelper<P extends FormFilterProps> extends UkeComponent<P> {
   _refs = {};
 
   state = {};
+
+  value = {};
+
+  // 用于检测是否通过表单强制要求验证的mapper
+  requiredRefMapper = {};
+
+  showDesc;
 
   constructor(props) {
     super(props);
     this.state = {
       value: {}
     };
-    this.value = {};
-    this.requiredRefMapper = {}; // 用于检测是否通过表单强制要求验证的mapper
-
     this.initValues(props);
   }
 
@@ -111,9 +142,7 @@ export default class FormFilterHelper extends UkeComponent {
         break;
       case !!refu:
         for (const _ref in refu) {
-          if (refu.hasOwnProperty(_ref)) {
-            this._requiredMapperSetter(_ref, title);
-          }
+          this._requiredMapperSetter(_ref, title);
         }
         break;
     }
@@ -257,16 +286,14 @@ export default class FormFilterHelper extends UkeComponent {
     this._refs[ref].refreshCaptcha();
   }
 
-  zeroFilter(target, compare) {
-    return target === 0 ? 0 : (target || compare);
-  }
+  zeroFilter = (target, otherwise?) => (target === 0 ? 0 : (target || otherwise))
 
-  getValue(ref, other) {
+  getValue(ref, otherwise?) {
     const targetVal = this.value[ref];
-    return HasValue(targetVal) ? targetVal : other;
+    return HasValue(targetVal) ? targetVal : otherwise;
   }
 
-  saveRef = ref => elem => this._refs[ref] = elem
+  saveRef = ref => (elem) => { this._refs[ref] = elem; }
 
   loadPlugin = (Plugin, props) => {
     let P = IsFunc(Plugin) ? <Plugin /> : Plugin;
@@ -289,7 +316,7 @@ export default class FormFilterHelper extends UkeComponent {
     const { ref, getCustomFormControl, ...other } = config;
     const customeComponent = IsFunc(getCustomFormControl) ? getCustomFormControl() : null;
 
-    if (!customeComponent) return;
+    if (!customeComponent) return null;
 
     const component = customeComponent.component || customeComponent;
     const cusProps = customeComponent.props || {};
@@ -307,7 +334,7 @@ export default class FormFilterHelper extends UkeComponent {
     return (
       <Captcha
         {...other}
-        value={this.getValue(ref) || ''}
+        value={this.getValue(ref, '')}
         ref={this.saveRef('CaptchaCode')}
         onCaptchaLoad={captchKey => this.changeValue(captchKey, keyRef)}
         onChange={(captchaConfig) => {
@@ -322,7 +349,8 @@ export default class FormFilterHelper extends UkeComponent {
       <select
         className="form-control"
         ref={this.saveRef(ref)}
-        value={this.getValue(ref)} onChange={(e) => {
+        value={this.getValue(ref)}
+        onChange={(e) => {
           this.changeValue(e.target.value, ref);
         }}>
         {
@@ -581,12 +609,14 @@ export default class FormFilterHelper extends UkeComponent {
   getSwitch = (config) => {
     const { ref, defaultValue, ...other } = config;
     return (
-      <Switch ref={e => this.ref = e} {...other}
+      <Switch ref={(e) => { this.ref = e; }} {...other}
         checked={this.getValue(ref)}
         defaultChecked={defaultValue}
         onChange={val => this.changeValue(val, ref)} />
     );
   }
+
+  getHr = () => <hr />
 
   typeMapper = {
     customForm: this.getCustomForm,

@@ -1,7 +1,7 @@
 ---
 name: ChartCom
 route: /ChartCom
-menu: Components / 组件
+menu: Components
 ---
 
 import { Playground, Props } from 'docz'
@@ -22,7 +22,7 @@ import { ChartCom } from 'ukelli-ui';
 ChartCom.setChartJSPath('https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.min.js');
 ```
 
-## Usage
+## Basic Usage
 
 <Playground style={{height: '100%'}}>
   {
@@ -81,18 +81,6 @@ ChartCom.setChartJSPath('https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/C
         }, 15)
       }
       renderChart();
-      {/* setTimeout(() => {
-        chartDOM1.renderChart();
-      }, 15)
-      setTimeout(() => {
-        chartDOM2.renderChart();
-      }, 15)
-      setTimeout(() => {
-        chartDOM3.renderChart();
-      }, 15)
-      setTimeout(() => {
-        chartDOM4.renderChart();
-      }, 15) */}
       return (
         <State initial={{
           mockData: getMockData(),

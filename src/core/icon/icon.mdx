@@ -1,7 +1,7 @@
 ---
 name: Icon
 route: /Icon
-menu: Components / 组件
+menu: Components
 ---
 
 import { Playground, Props } from 'docz'
@@ -9,12 +9,15 @@ import { Icon, PureIcon } from './';
 
 # Icon
 
-<Props of={Icon} />
+## Icon Basic Usage
 
-## 使用默认配置的 Font Awesome Icon
+### 默认使用 FontAwesomeIcon
 
 <Playground>
-  <Icon n="balance-scale" />
+  <Icon n="balance-scale" classNames={['ms10']} style={{fontSize: 20}} />
+  <Icon n="allergies" classNames={['ms10']} style={{fontSize: 20}} />
+  <Icon n="address-book" classNames={['ms10']} style={{fontSize: 20}} />
+  <Icon n="address-card" classNames={['ms10']} style={{fontSize: 20}} />
 </Playground>
 
 图标，默认使用 fontawesome 图标，所以默认添加了 fa fa- 前缀，只需要填写对应的图标命即可
@@ -27,12 +30,18 @@ import { Icon, PureIcon } from './';
 把 icon name 直接应用于元素，不添加前缀
 
 <Playground>
-  <PureIcon n="fas fa-balance-scale" />
+  <PureIcon n="fas fa-balance-scale" classNames={['ms10']} />
 </Playground>
 
-## Icon 设置
+## Props
 
-```js static
+<Props of={Icon} />
+
+-----------
+
+## 设置 IconMapper
+
+```js
 import { setUkelliConfig } from 'ukelli-ui';
 
 // 以下为默认设置，可以覆盖

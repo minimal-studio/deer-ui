@@ -1,11 +1,12 @@
 ---
 name: ShowModal
 route: /ShowModal
-menu: Utils / 效率
+menu: Utils
 ---
 
 import { Playground, Props } from 'docz'
 import { ShowModal, CloseModal, ShowGlobalModal, CloseGlobalModal, CloseAllModal } from './';
+import ShowModalAPI from './modal-func-api'
 import { DropdownMenu } from '../selector';
 import { Pop } from '../popover';
 
@@ -19,7 +20,7 @@ import { Pop } from '../popover';
 - type: 用于标记弹出层的类型，默认为 modal，主要有 side, modal, confirm
 - draggable: 是否可拖动模式，只有在 type = modal 时有效，默认为 false
 
-## 一般用法
+## Basic Usage
 
 <Playground>
   <div>
@@ -90,9 +91,9 @@ import { Pop } from '../popover';
   </div>
 </Playground>
 
-## 多个弹窗并存
+## 多窗口模式
 
-> 可以弹出多个窗口，并且可拖动
+> 同时共存多个 Modal 事例，并且可以拖动
 
 <Playground>
   <span
@@ -113,9 +114,9 @@ import { Pop } from '../popover';
   </span>
 </Playground>
 
-## 不同方向弹出
+## 在侧边弹出
 
-> 在不同的方向弹出
+> 可在不同的方向弹出
 
 <Playground>
   <span
@@ -158,11 +159,12 @@ import { Pop } from '../popover';
     })}>
     下边弹出
   </span>
+  <ShowModalAPI />
 </Playground>
 
 ## 自定义弹出模版
 
-> Modal 提供接口，可以弹出任意自定义内容
+> 替换 Modal 提供的默认模版
 
 <Playground>
   <span
@@ -186,19 +188,6 @@ import { Pop } from '../popover';
   </span>
 </Playground>
 
-```js
-/**
- * 以下是默认配置，剩余的都传入 Modal
- * @return {number} 返回该 Modal 的 id，可以用于 CloseModal
- */
-const ModalId = ShowModal({
-  className = 'fixed',
-  topClassName = 'top-modal-opend',
-  type, confirmText = $T_UKE('确定') + '?', title, showFuncBtn = true,
-  width = window.$UKE.isMobile ? '90%' : 600, id, children, draggable,
-  onConfirm, onClose, onCloseModal
-  ...forModalProps
-});
+## API of ShowModal
 
-CloseModal(ModalId);
-```
+<Props of={ShowModalAPI} />

@@ -1,87 +1,46 @@
 /**
  * 组件名    form 通用布局文件
  * 作者      Alex
- * 开始日期  2017-03-30
- * 完成日期  2017-03-30
- * 修改日期  2017-09-21
+ * 创建日期  2017-03-30
  */
 
 import React from 'react';
-import PropTypes from 'prop-types';
 
-import { UkeComponent, UkePureComponent } from '../uke-utils';
+import { UkeComponent } from '../uke-utils';
 import Button from '../button/button-normal';
-import TipPanel from '../tip-panel/tip-panel';
+import TipPanel, { TipPanelProps } from '../tip-panel/tip-panel';
 import Toast from '../toast/toast';
-import FormGenerator from './form-generator';
+import FormGenerator, { FormGeneratorProps } from './form-generator';
+import { BtnItemConfig } from '../uke-utils/props';
 
-/**
- * 默认一个按钮，可以配置多个按钮，
- * btnConfig: [{
- *   action: func,
- *   text: string,
- *   className: string
- * }]
- * 一旦设定 btnConfig, onSubmit btnText className 将会失效
- */
+export interface FormLayoutProps extends FormGeneratorProps {
+  /** 只有一个按钮时传入的按钮 text */
+  btnText?: string;
+  /** FormLayout 的 className */
+  className?: string;
+  /** 是否已准备好渲染 */
+  ready?: boolean;
+  /** 传入 TipPanel 控件的参数 */
+  tipInfo: TipPanelProps;
+  /** 可以配置一个或多个操作按钮 */
+  btnConfig: BtnItemConfig[];
+  /** 是否竖立显示 */
+  isVertical: boolean;
+  /** 是否移动端 */
+  isMobile: boolean;
+  /** 操作的返回是否有错误 */
+  hasErr: boolean;
+  /** 操作返回的消息 */
+  resDesc: string;
+  /** 在 form 之前插入的 children */
+  childrenBeforeForm: any;
+  /** 在 form 之后插入的 children */
+  childrenAfterForm: any;
+  /** 在 form 的 children 前插入按钮 */
+  childrenBeforeBtn: any;
+}
 
-export default class FormLayout extends UkeComponent {
-  static propTypes = {
-    /** FormGenerator 的配置 */
-    formOptions: FormGenerator.propTypes.formOptions,
-  
-    /** 只有一个操作按钮的 sumbit 回调 */
-    onSubmit: PropTypes.func,
-    /** FormGenerator 的变化回调 */
-    onChange: PropTypes.func,
-    /** 只有一个按钮时传入的按钮 text */
-    btnText: PropTypes.string,
-    /** FormLayout 的 className */
-    className: PropTypes.string,
-  
-    /** 是否已准备好渲染 */
-    ready: PropTypes.bool,
-    /** 传入 TipPanel 控件的参数 */
-    tipInfo: PropTypes.shape({
-      text: PropTypes.any,
-      texts: PropTypes.array,
-      title: PropTypes.any,
-    }),
-    /** 可以配置一个或多个操作按钮 */
-    btnConfig: PropTypes.arrayOf(
-      PropTypes.shape({
-        /** 该按钮的操作 */
-        action: PropTypes.func,
-        /** 该按钮的类型 */
-        type: PropTypes.oneOf([
-          'submit', 'button'
-        ]),
-        /** 该按钮的字 */
-        text: PropTypes.string,
-        /** 记录该按钮的状态 */
-        actingRef: PropTypes.string,
-        /** 按钮颜色 */
-        color: PropTypes.string,
-        /** 该按钮是否需要预检查 */
-        preCheck: PropTypes.bool,
-      })
-    ),
-  
-    /** 是否竖立显示 */
-    isVertical: PropTypes.bool,
-    /** 是否移动端 */
-    isMobile: PropTypes.bool,
-  
-    /** 操作的返回是否有错误 */
-    hasErr: PropTypes.bool,
-    /** 操作返回的消息 */
-    resDesc: PropTypes.string,
-  
-    /** 在 form 之前插入的 children */
-    childrenBeforeForm: PropTypes.any,
-    /** 在 form 之后插入的 children */
-    childrenAfterForm: PropTypes.any,
-  };
+export default class FormLayout extends UkeComponent<FormLayoutProps> {
   // static getDerivedStateFromProps(nextProps, prevState) {
   //   const { resDesc } = nextProps;
   //   if(prevState.prevResDesc !== resDesc) {
@@ -95,37 +54,35 @@ export default class FormLayout extends UkeComponent {
   //     };
   //   }
   // }
-  // componentDidUpdate() {
-  //   const { changeDescFromProps } = this.state;
-  //   if(changeDescFromProps) {
-  //     this.showResDesc(this.props);
-  //   }
-  // }
-  // TODO: 废除这个方法，并且不影响之前的效果
-  // componentWillReceiveProps(nextProps) {
-  //   const { resDesc } = nextProps;
-  //   if(resDesc && this.props.resDesc !== resDesc) {
-  //     this.showResDesc(nextProps);
-  //   }
-  // }
+  private __changedDesc
+
+  toast
+
+  formHelper
+
+  clearValue
+
   shouldComponentUpdate(nextProps, nextState, nextContext) {
     const { resDesc } = nextProps;
-    if(!this.__changeedDesc && resDesc && this.props.resDesc !== resDesc) {
-      this.__changeedDesc = true;
+    if (!this.__changedDesc && resDesc && this.props.resDesc !== resDesc) {
+      this.__changedDesc = true;
       this.showResDesc(nextProps);
     }
     return true;
   }
+
   showResDesc(resInfo) {
     !!resInfo.resDesc && this.toast && this.toast.show(resInfo.resDesc, resInfo.hasErr ? 'error' : 'success');
   }
-  showDesc() {
-    this.showResDesc(...arguments);
+
+  showDesc(resInfo) {
+    this.showResDesc(resInfo);
   }
+
   preCheck() {
-    if(!this.formHelper) return;
-    const { isPass, desc, ref } = this.formHelper.checkForm();
-    if(!isPass) {
+    if (!this.formHelper) return false;
+    const { isPass, desc } = this.formHelper.checkForm();
+    if (!isPass) {
       this.showResDesc({
         resDesc: desc + this.$T_UKE('必填|选'),
         hasErr: true
@@ -133,37 +90,43 @@ export default class FormLayout extends UkeComponent {
     }
     return isPass;
   }
-  _handleClickBtn = ({ actingRef, preCheck = true, action, type }) => {
-    this.__changeedDesc = false;
+
+  _handleClickBtn = ({
+    actingRef, preCheck = true, action
+  }) => {
+    this.__changedDesc = false;
     const _action = () => {
       action(this.formHelper, actingRef);
     };
-    if(preCheck) {
-      if(this.preCheck()) {
+    if (preCheck) {
+      if (this.preCheck()) {
         _action();
       }
     } else {
       _action();
     }
   }
+
   saveFormRef = (e) => {
-    if(!e) return;
+    if (!e) return;
     this.formHelper = e;
     this.clearValue = e.clearValue;
   }
+
   render() {
     const {
-      tipInfo, btnConfig, className = '', isVertical, isMobile,
+      tipInfo, btnConfig, isVertical, isMobile,
       showInputTitle,
       childrenBeforeForm, childrenAfterForm, childrenBeforeBtn,
       formOptions = [], btnText = this.$T_UKE('确定提交'),
       onSubmit, onChange, ...other
     } = this.props;
+    const formClassName = this.props.className;
 
     let formType = '';
-    let onSubmitForGen = null;
+    let onSubmitForGen;
 
-    const _btnConfig = btnConfig ? btnConfig : [
+    const _btnConfig = btnConfig || [
       {
         action: onSubmit,
         text: btnText,
@@ -183,12 +146,13 @@ export default class FormLayout extends UkeComponent {
         actingRef = 'loading', type = 'button', preCheck,
         ...otherForBtn
       } = btn;
+
       const isBtnLoading = this.props[actingRef];
       const isActive = !!action && !isBtnLoading;
       const key = text + actingRef;
       const isSubmit = type === 'submit';
-      if(isSubmit) {
-        if(formType === 'submit') console.warn('定义了多个 type 为 submit 的按钮');
+      if (isSubmit) {
+        if (formType === 'submit') console.warn('定义了多个 type 为 submit 的按钮');
         formType = 'submit';
         onSubmitForGen = (e) => {
           this._handleClickBtn(btn);
@@ -199,7 +163,7 @@ export default class FormLayout extends UkeComponent {
           {...otherForBtn}
           key={key}
           disabled={!isActive}
-          text={isBtnLoading ? text + this.$T_UKE('中') + '...' : text}
+          text={isBtnLoading ? `${text + this.$T_UKE('中')}...` : text}
           loading={isBtnLoading}
           type={type}
           color={color}
@@ -209,16 +173,15 @@ export default class FormLayout extends UkeComponent {
     });
 
     return (
-      <div className={"form-layout" + (className ? ' ' + className : '')}>
-        <Toast ref={toast => this.toast = toast}/>
+      <div className={`form-layout${formClassName ? ` ${formClassName}` : ''}`}>
+        <Toast ref={(e) => { this.toast = e; }}/>
         {tipDOM}
         {childrenBeforeForm}
         <FormGenerator
           {...other}
-          type={formType}
+          // type={formType}
           onChange={onChange}
           onSubmit={onSubmitForGen}
-          isVertical={isVertical}
           isMobile={isMobile}
           showInputTitle={showInputTitle}
           formOptions={formOptions}

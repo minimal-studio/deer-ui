@@ -1,7 +1,7 @@
 ---
 name: ConditionGenerator
 route: /ConditionGenerator
-menu: FormGenerator / 表单生成
+menu: FormGenerator
 ---
 
 import { Playground, Props } from 'docz'
@@ -11,7 +11,7 @@ import { setLangTranslate, setUkeLang } from '../config'
 
 # ConditionGenerator
 
-<Props of={ConditionGenerator} />
+## Basic Usage
 
 <Playground>
   {
@@ -138,7 +138,7 @@ import { setLangTranslate, setUkeLang } from '../config'
   }
 </Playground>
 
-查询条件生成器，组合内置的 UI 控件，生成查询条件组合，内置以下控件，通过 type 属性控制
+## type list
 
 - customForm
 - captcha
@@ -155,3 +155,7 @@ import { setLangTranslate, setUkeLang } from '../config'
 - button
 - datetime
 - datetimeRange
+
+## Props
+
+<Props of={ConditionGenerator} />

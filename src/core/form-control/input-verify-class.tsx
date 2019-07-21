@@ -1,7 +1,29 @@
-import React, {Component, PureComponent} from 'react';
+import React, { Component, PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
 import { Call } from 'basic-helper';
+
+export interface InputVerifyClassProps {
+  onChange?: Function;
+  onFocus?: Function;
+  onBlur?: Function;
+  onClear?: Function;
+  className?: string;
+  defaultValue?: any;
+  value?: any;
+  /** 控件类型 */
+  type?: 'text' | 'password';
+  /** 限制输入数字的范围 */
+  numRange?: number[];
+  /** 限制输入的字符串长度范围 */
+  lenRange?: number[];
+}
+
+interface State {
+  value: any;
+  matchLen: boolean;
+  matchRange: boolean;
+}
 
 /**
  * 基础的输入框验证 class
@@ -10,34 +32,21 @@ import { Call } from 'basic-helper';
  * @class InputVerifyClass
  * @extends {Component}
  */
-export default class InputVerifyClass extends Component {
-  static propTypes = {
-    onChange: PropTypes.func,
-    onFocus: PropTypes.func,
-    onBlur: PropTypes.func,
-    onClear: PropTypes.func,
-    className: PropTypes.string,
-    defaultValue: PropTypes.any,
-    value: PropTypes.any,
-    /** 控件类型 */
-    type: PropTypes.oneOf(['text', 'password']),
-    /** 是否开启数字转中文 */
-    needCN: PropTypes.bool,
-    /** 是否开启百分比模式 */
-    precent: PropTypes.bool,
-    /** 是否可输入 */
-    inputable: PropTypes.bool,
-    /** 限制输入数字的范围 */
-    numRange: PropTypes.arrayOf(PropTypes.number),
-    /** 辅助按钮每一次的增减单位 */
-    unit: PropTypes.number,
-    /** 限制输入的字符串长度范围 */
-    lenRange: PropTypes.arrayOf(PropTypes.number)
-  };
+export default class InputVerifyClass<P extends InputVerifyClassProps> extends Component<P, State> {
+  isControl;
+
+  isMatchLen;
+
+  isPass;
+
+  value;
+
+  isMatchNumbRangeMode;
+
   constructor(props) {
     super(props);
 
-    let {defaultValue, value} = props;
+    const { defaultValue, value } = props;
 
     this.isControl = this.checkProps('value');
     this.isMatchLen = this.checkProps('lenRange');
@@ -51,14 +60,19 @@ export default class InputVerifyClass extends Component {
       matchRange: true,
     };
   }
+
   checkProps(field) {
-    return !!this.props.hasOwnProperty(field);
+    return typeof this.props[field] != 'undefined';
   }
+
   getValue() {
     return this.isControl ? this.props.value : this.state.value;
   }
-  _onChange(val, props) {
-    const {onChange, lenRange, numRange, precent} = props || this.props;
+
+  _onChange(val, props = this.props) {
+    const {
+      onChange, lenRange, numRange
+    } = props;
     let _val = val;
 
     _val = this.checkLen(_val, lenRange);
@@ -72,36 +86,41 @@ export default class InputVerifyClass extends Component {
 
     Call(onChange, _val);
   }
-  _onFocus() {
-    const {onFocus} = this.props;
-    Call(onFocus);
+
+  _onFocus(val, event) {
+    const { onFocus } = this.props;
+    Call(onFocus, val, event);
   }
-  _onBlur() {
-    Call(this.props.onBlur);
+
+  _onBlur(e) {
+    Call(this.props.onBlur, e);
   }
+
   onClear() {
     this._onChange('');
   }
-  checkLen(val, lenRange) {
+
+  checkLen = (val, lenRange) => {
     let _val = val;
-    if(lenRange) {
-      let [s, e, isSlice] = lenRange;
-      if(_val.length > e) {
-        if(isSlice) {
+    if (lenRange) {
+      const [s, e, isSlice] = lenRange;
+      if (_val.length > e) {
+        if (isSlice) {
           _val = _val.slice(0, e);
         }
       }
     }
     return _val;
   }
+
   checkNum(val, numRange) {
     let _val = +(val);
-    let {matchRange} = this.state;
-    if(this.isMatchNumbRangeMode) {
+    const { matchRange } = this.state;
+    if (this.isMatchNumbRangeMode) {
       let isMatch = false;
-      let [s, e] = numRange;
-      if(_val > e) _val = e;
-      if(_val < s) {
+      const [s, e] = numRange;
+      if (_val > e) _val = e;
+      if (_val < s) {
         isMatch = false;
       } else {
         isMatch = true;

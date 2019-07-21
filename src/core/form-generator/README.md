@@ -1,7 +1,7 @@
 ---
-name: 生成器说明
+name: FormGenerator 详述
 route: /G-Desc
-menu: FormGenerator / 表单生成
+menu: FormGenerator
 ---
 
 # FormGenerator 方案
