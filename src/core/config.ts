@@ -50,7 +50,7 @@ Object.defineProperties(ukelliui, {
 });
 
 function _translate(langConfig) {
-  return (key) => {
+  return (key): string => {
     const keyMapper = langConfig[language] || langConfig[defaultLanguage];
     return keyMapper[key] || key;
   };

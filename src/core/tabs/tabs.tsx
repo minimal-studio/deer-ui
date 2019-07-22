@@ -4,7 +4,40 @@ import { IsFunc, CallFunc } from 'basic-helper';
 
 import Tab from './tab';
 import { ToolTip } from '../tooltip';
-import { Icon } from '../icon';
+import { Children, FuncChildren } from '../uke-utils/props';
+
+export interface TabsProps {
+  /** children */
+  children: Children;
+  /** tab 内容与 tab 标签是否在同一行 */
+  inRow?: boolean;
+  /** 是否只渲染 content */
+  onlyContent?: boolean;
+  /** tab 内容与 tab 标签是否共存 */
+  withContent?: boolean;
+  /** tab 可否关闭 */
+  closeable?: boolean;
+  /** 是否启用 step 分步模式 */
+  stepMode?: boolean;
+  /** 关闭组件的提示 */
+  closeTip?: Children;
+  /** tab 内容的高度 */
+  height?: number | string;
+  /** 当前激活的 idx，如果设置了，则为受控组件 */
+  activeTabIdx?: number;
+  /** 初始化是的默认 tab 位置 */
+  defaultTab?: number;
+  /** className */
+  className?: string;
+  /** tab 改变时的回调 */
+  onChangeTab?: (idx?: number) => void;
+  /** tab 关闭时的回调 */
+  onClose?: () => void;
+}
+
+interface State {
+  activeTabIdx: number;
+}
 
 /**
  * 提供多种不同 Tab 切换方式与模版
@@ -13,7 +46,7 @@ import { Icon } from '../icon';
  * @class Tabs
  * @extends {PureComponent}
  */
-export default class Tabs extends Component {
+export default class Tabs extends Component<TabsProps, State> {
   /**
    * Tab 的引用
    *
@@ -22,51 +55,29 @@ export default class Tabs extends Component {
    * @public
    */
   static Tab = Tab;
-  static propTypes = {
-    /** tab 内容与 tab 标签是否在同一行 */
-    inRow: PropTypes.bool,
-    /** 是否只渲染 content */
-    onlyContent: PropTypes.bool,
-    /** tab 内容与 tab 标签是否共存 */
-    withContent: PropTypes.bool,
-    /** tab 可否关闭 */
-    closeable: PropTypes.bool,
-    /** 关闭组件的提示 */
-    closeTip: PropTypes.any,
-    /** 是否启用 step 分步模式 */
-    stepMode: PropTypes.bool,
-    /** children */
-    children: PropTypes.any,
-    /** tab 内容的高度 */
-    height: PropTypes.string,
-    /** 当前激活的 idx，如果设置了，则为受控组件 */
-    activeTabIdx: PropTypes.number,
-    /** 初始化是的默认 tab 位置 */
-    defaultTab: PropTypes.number,
-    /** className */
-    className: PropTypes.string,
-    /** tab 改变时的回调 */
-    onChangeTab: PropTypes.func,
-    /** tab 关闭时的回调 */
-    onClose: PropTypes.func
-  };
+
   static defaultProps = {
     inRow: false,
     withContent: false,
     onlyContent: false,
     closeable: false,
   }
+
+  isControl
+
   constructor(props) {
     super(props);
     this.state = {
       activeTabIdx: props.activeTabIdx || props.defaultTab || 0
     };
 
-    this.isControlled = props.hasOwnProperty('activeTabIdx');
+    this.isControl = typeof props.activeTabIdx != 'undefined';
   }
+
   getActiveIdx() {
-    return this.isControlled ? this.props.activeTabIdx : this.state.activeTabIdx;
+    return this.isControl ? this.props.activeTabIdx : this.state.activeTabIdx;
   }
+
   // componentDidMount() {
   //   this.setDefaultTabIdx(this.props);
   // }
@@ -78,48 +89,52 @@ export default class Tabs extends Component {
   // }
   _onChangeTab(tabIdx) {
     const activeTabIdx = this.getActiveIdx();
-    if(activeTabIdx === tabIdx) return;
+    if (activeTabIdx === tabIdx) return;
     this.setState({
       activeTabIdx: tabIdx
     });
   }
+
   onTapTab(tapIdx) {
-    if(!this.isControlled) this._onChangeTab(tapIdx);
+    if (!this.isControl) this._onChangeTab(tapIdx);
     const { onChangeTab } = this.props;
     CallFunc(onChangeTab)(tapIdx);
     // if(IsFunc(onChangeTab)) onChangeTab(tapIdx);
   }
+
   getTabContents() {
     const {
-      children, height, 
+      children, height,
       inRow, withContent, closeable, closeTip,
       onClose
     } = this.props;
     const activeTabIdx = this.getActiveIdx();
 
-    let tabs = [];
-    let tabContents = [];
+    const tabs = [];
+    const tabContents = [];
 
     React.Children.map(children, (tabChild, idx) => {
-      if(!tabChild || typeof tabChild.type !== 'function') return;
+      if (!tabChild || typeof tabChild.type !== 'function') return;
       const isActive = (idx === activeTabIdx);
       const tabKey = tabChild.key;
-      let { contentClass = '', labelClass = '', atRight, label } = tabChild.props;
-      let _labelClass = 'tab ' + labelClass + (isActive ? ' active' : '');
+      const {
+        contentClass = '', labelClass = '', atRight, label
+      } = tabChild.props;
+      let _labelClass = `tab ${labelClass}${isActive ? ' active' : ''}`;
       _labelClass += atRight ? ' right' : '';
 
       const _tabContent = withContent || (!withContent && isActive) ? (
         <div
-          className={"tab-content " + (contentClass) + (isActive ? '' : ' hide')}
-          key={tabKey || "tab-con-" + idx}
-          style={height ? {height} : {}}>
+          className={`tab-content ${contentClass}${isActive ? '' : ' hide'}`}
+          key={tabKey || `tab-con-${idx}`}
+          style={height ? { height } : {}}>
           {
             tabChild.props.children
           }
         </div>
       ) : null;
 
-      if(!inRow || withContent) tabContents.push(_tabContent);
+      if (!inRow || withContent) tabContents.push(_tabContent);
 
       const _con = inRow ? _tabContent : null;
 
@@ -146,13 +161,11 @@ export default class Tabs extends Component {
       tabs.push(_tab);
     });
 
-    this.tabs = tabs;
-    this.tabContents = tabContents;
-
     return {
       tabs, tabContents
     };
   }
+
   render() {
     const {
       className = 'tabs-container',
@@ -162,14 +175,10 @@ export default class Tabs extends Component {
     const { tabs, tabContents } = this.getTabContents();
 
     return (
-      <div className={className + (inRow ? ' in-row' : '' + (withContent ? ' common-mode' : ''))}>
+      <div className={className + (inRow ? ' in-row' : `${withContent ? ' common-mode' : ''}`)}>
         {
           !onlyContent && (
-            <div className="tab-group"
-              droppable="true"
-              onDragEnd={e => {
-                console.log(e)
-              }}>
+            <div className="tab-group">
               {tabs}
             </div>
           )

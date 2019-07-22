@@ -1,5 +1,21 @@
-import React, {Component, PureComponent} from 'react';
-import PropTypes from 'prop-types';
+import React, { PureComponent } from 'react';
+
+export interface SwitchButtonProps {
+  /** 按钮的配置 */
+  btns: {
+    [btnKey: string]: string;
+  };
+  /** 当前激活的 index */
+  activeIdx: string | number;
+  /** 值改变的回调 */
+  onSwitch: (val) => void;
+  /** 是否只有唯一值 */
+  unique?: boolean;
+  /** 是否输出数字 */
+  isNum?: boolean;
+  /** 是否禁用 */
+  disabled?: boolean;
+}
 
 /**
  * 单选集合的模版
@@ -8,35 +24,27 @@ import PropTypes from 'prop-types';
  * @class SwitchButton
  * @extends {PureComponent}
  */
-export default class SwitchButton extends PureComponent {
-  static propTypes = {
-    /** 按钮的配置 */
-    btns: PropTypes.object.isRequired,
-    /** 是否只有唯一值 */
-    unique: PropTypes.bool,
-    /** 是否输出数字 */
-    isNum: PropTypes.bool,
-    /** 是否禁用 */
-    disabled: PropTypes.bool,
-    /** 当前激活的 index */
-    activeIdx: PropTypes.any.isRequired,
-    /** 值改变的回调 */
-    onSwitch: PropTypes.func.isRequired
-  };
+export default class SwitchButton extends PureComponent<SwitchButtonProps> {
   static defaultProps = {
     unique: true,
     disabled: false,
     isNum: false,
   }
+
+  value
+
   _refs = {};
+
   constructor(props) {
     super(props);
     this.value = props.activeIdx;
   }
+
   componentDidMount() {
     /** 为了让指示器初始化显示宽度 */
     this.forceUpdate();
   }
+
   render() {
     const {
       btns, activeIdx, disabled, unique, isNum,
@@ -47,20 +55,21 @@ export default class SwitchButton extends PureComponent {
 
     const btnGroup = btnsArr.map((btnKey, idx) => {
       const btnText = btns[btnKey].text || btns[btnKey];
-      const isActive = btnKey == activeIdx;
+      const isActive = btnKey === activeIdx;
       return (
         <span
           disabled={disabled}
           key={btnText}
-          ref={e => this._refs[btnKey] = e}
-          className={'switch-btn' + (isActive ? ' active' : '')}
-          onClick={e => {
-            if((!unique || activeIdx != btnKey) && !disabled) {
+          ref={(e) => { this._refs[btnKey] = e; }}
+          className={`switch-btn${isActive ? ' active' : ''}`}
+          onClick={(e) => {
+            if ((!unique || activeIdx != btnKey) && !disabled) {
+              const _btnKey = isNum ? +btnKey : btnKey;
               this.value = btnKey;
-              isNum ? btnKey = +btnKey : btnKey;
-              onSwitch(btnKey, isActive);
+              onSwitch(_btnKey, isActive);
             }
-          }}>{btnText}
+          }}>
+          {btnText}
         </span>
       );
     });

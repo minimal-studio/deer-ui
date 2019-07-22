@@ -188,12 +188,12 @@ export default class Popover extends Component<PopoverProps, State> {
     const transitionKey = open ? 'popover' : 'popover-close';
     if (open) {
       const closeBtn = showCloseBtn && (
-        <div className="close-btn" onClick={e => onClose()}>x</div>
+        <div className="_close-btn" onClick={e => onClose()}>x</div>
       );
       const obj = enableTabIndex ? { tabIndex: '-1', onKeyDown: this.handleKeyDown } : {};
       container = (
         <div {...obj}
-          className={`uke-popover ${fixed ? 'fixed' : ''} ${position} ${className} ${type}`}
+          className={`uke-popover${fixed ? ' fixed' : ''}${showCloseBtn ? ' has-close' : ''} ${position} ${className} ${type}`}
           style={_style}
           ref={e => this.setSelfPosition(e)}>
           <span className="caret" />

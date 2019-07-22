@@ -6,21 +6,21 @@
  * @returns {"verticalPosition horizontalPosition"}
  */
 export default function positionFilter(position) {
-  let horizontal = ['left', 'right'];
-  let vertical = ['bottom', 'top'];
-  let all = [...horizontal, ...vertical];
-  let result = [];
-  let positionArr = position.split(/,|\./);
-  all.forEach(pos => {
-    let posIdx = positionArr.indexOf(pos);
-    if(posIdx != -1) {
+  const horizontal = ['left', 'right'];
+  const vertical = ['bottom', 'top'];
+  const all = [...horizontal, ...vertical];
+  const result: string[] = [];
+  const positionArr = position.split(/,|\./);
+  all.forEach((pos) => {
+    const posIdx = positionArr.indexOf(pos);
+    if (posIdx !== -1) {
       result.push(pos);
     }
   });
-  if(result.length < 2) {
-    let hasPos = result[0];
-    horizontal.indexOf(hasPos) == -1 && result.push(horizontal[0]);
-    vertical.indexOf(hasPos) == -1 && result.push(vertical[0]);
+  if (result.length < 2) {
+    const hasPos = result[0];
+    horizontal.indexOf(hasPos) === -1 && result.push(horizontal[0]);
+    vertical.indexOf(hasPos) === -1 && result.push(vertical[0]);
   }
   return result.join(' ');
 }

@@ -18,7 +18,9 @@ export interface TipPanelProps {
   collapse?: boolean;
 }
 
-export default class TipPanel extends PureComponent<TipPanelProps> {
+export default class TipPanel extends PureComponent<TipPanelProps, {
+  showContent: boolean;
+}> {
   static defaultProps = {
     type: 'warm',
     needToolTip: false,
@@ -29,7 +31,7 @@ export default class TipPanel extends PureComponent<TipPanelProps> {
   }
 
   state = {
-    showContent: this.props.defaultShow
+    showContent: !!this.props.defaultShow
   };
 
   toggleContent = () => {
@@ -46,7 +48,7 @@ export default class TipPanel extends PureComponent<TipPanelProps> {
 
     const titleDOM = title && (
       <h4 className="title">
-        <div onClick={collapse ? this.toggleContent : null}>
+        <div onClick={collapse ? this.toggleContent : undefined}>
           {title}
           {
             collapse && (
@@ -62,7 +64,7 @@ export default class TipPanel extends PureComponent<TipPanelProps> {
       <div className="item">{text}</div>
     );
 
-    const textsDOM = [];
+    const textsDOM: any[] = [];
 
     for (let i = 0; i < texts.length; i++) {
       const currT = texts[i];

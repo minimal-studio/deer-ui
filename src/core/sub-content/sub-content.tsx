@@ -1,26 +1,23 @@
-import React, { Component, PureComponent } from 'react';
-import PropTypes from 'prop-types';
+import React from 'react';
 
-const SubContent = ({ displayElem, children, position }) => {
-  return (
-    <div className={`uke-hide-container ${position}`}>
-      <span className="display-elem">{displayElem}</span>
-      <div className="hide-content">
-        <span className="caret" />
-        {children}
-      </div>
-    </div>
-  );
-};
-SubContent.propTypes = {
+export interface SubContentProps {
+
   /** 显示的元素 */
-  displayElem: PropTypes.any,
+  displayElem?: any;
   /** subContent 的位置 */
-  position: PropTypes.oneOf([
-    'right', 'left'
-  ]),
+  position?: 'right' | 'left';
   /** 隐藏的元素，当鼠标移动到显示的元素时出现 */
-  children: PropTypes.any,
-};
+  children?: any;
+}
+
+const SubContent: React.SFC<SubContentProps> = ({ displayElem, children, position = 'left' }) => (
+  <div className={`uke-hide-container ${position}`}>
+    <span className="display-elem">{displayElem}</span>
+    <div className="hide-content">
+      <span className="caret" />
+      {children}
+    </div>
+  </div>
+);
 
 export default SubContent;

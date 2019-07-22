@@ -1,34 +1,34 @@
-import React, {Component, PureComponent} from 'react';
-import PropTypes from 'prop-types';
+import React from 'react';
 
-const Tip = ({ scale = 10, color = 'theme', children, animate = true }) => {
+import { Color } from '../uke-utils/props';
+
+export interface TipProps {
+  /** 大小 */
+  scale: number;
+  /** 是否需要动画 */
+  animate: boolean;
+  /** color */
+  color: Color;
+}
+
+const Tip: React.SFC<TipProps> = ({
+  scale = 10, color = 'theme', children, animate = true
+}) => {
   const tipStyle = {
     height: scale,
     width: scale
   };
   return (
     <div className="uke-tip-item" style={tipStyle}>
-      <span className={"tip " + color} />
+      <span className={`tip ${color}`} />
       {
         animate && (
-          <span className={"tip animate " + color} />
+          <span className={`tip animate ${color}`} />
         )
       }
       <span className="c">{children}</span>
     </div>
   );
-};
-Tip.propTypes = {
-  scale: PropTypes.number,
-  animate: PropTypes.bool,
-  color: PropTypes.oneOf([
-    'black',
-    'theme',
-    'blue',
-    'red',
-    'green',
-    'gold',
-  ]),
 };
 
 export default Tip;
