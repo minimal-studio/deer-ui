@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 import React from 'react';
 import PropTypes from 'prop-types';
 
@@ -9,22 +10,37 @@ import {
 
 import { UkeComponent } from '../uke-utils';
 
-export default class LinkSelector extends UkeComponent {
-  static propTypes = {
-    /** data 的具体 key 的 mapper */
-    mappers: PropTypes.shape({
-      child: PropTypes.string.isRequired,
-      code: PropTypes.string.isRequired,
-      title: PropTypes.string.isRequired,
-      icon: PropTypes.string,
-    }),
-    /** 总数据，可以通过 child 无限递归 */
-    data: PropTypes.arrayOf(
-      PropTypes.shape({})
-    ).isRequired,
-    onChange: PropTypes.func
-  };
+export interface LinkDataStruct {
+  /** ID */
+  id: string;
+  /** title */
+  title: string;
+  /** value */
+  code: any;
+  /** 用于存储子内容 */
+  child?: LinkDataStruct[];
+}
 
+export interface LinkSelectorProps {
+  /** 总数据，可以通过 child 无限递归 */
+  data: LinkDataStruct[];
+  /** onChange */
+  onChange: (changeVal: {}) => void;
+  /** data 的具体 key 的 mapper */
+  mappers?: {
+    child: string;
+    code: string;
+    title: string;
+    icon?: string;
+  };
+}
+
+interface State {
+  selectedIndexMap: number[];
+  selectedItems: any[];
+}
+
+export default class LinkSelector extends UkeComponent<LinkSelectorProps, State> {
   static defaultProps = {
     mappers: {
       child: 'child',
@@ -33,6 +49,12 @@ export default class LinkSelector extends UkeComponent {
       icon: 'icon',
     }
   }
+
+  extendsDOM = []
+
+  activeItems = []
+
+  dropWrapper
 
   constructor(props) {
     super(props);
@@ -43,8 +65,6 @@ export default class LinkSelector extends UkeComponent {
       ],
       selectedItems: []
     };
-    this.extendsDOM = [];
-    this.activeItems = [];
   }
 
   // componentDidUpdate() {
@@ -52,21 +72,23 @@ export default class LinkSelector extends UkeComponent {
   // }
   itemMapFilter = (item) => {
     const { mappers } = this.props;
-    const {
-      child, code, title, icon
-    } = mappers;
-    return {
-      ...item,
-      child: item[child],
-      code: item[code],
-      title: item[title],
-      icon: item[icon],
-    };
+    if (mappers) {
+      const {
+        child, code, title, icon
+      } = mappers;
+      return {
+        ...item,
+        child: item[child],
+        code: item[code],
+        title: item[title],
+        icon: item[icon],
+      };
+    }
   }
 
   getMenuLinkerDOM = (options) => {
     const {
-      code, key, to, onClick, menuText, icon
+      key, onClick, menuText, icon
     } = options;
     return (
       <div
@@ -129,7 +151,7 @@ export default class LinkSelector extends UkeComponent {
         } = _item;
         const hasChildren = child && child.length > 0;
 
-        let dom = null;
+        let dom;
         if (isActive) this.activeItems.push(_item);
         if (hasChildren && isActive) {
           const childDOM = recursive.call(this, nextSelectedIdx, currDataList[activeItemIdx].child);
@@ -166,7 +188,7 @@ export default class LinkSelector extends UkeComponent {
           {
             selectedItems.map((item, idx) => {
               const { code, title } = item;
-              const isLastest = idx == selectedItems.length - 1;
+              const isLastest = idx === selectedItems.length - 1;
               return (
                 <span key={code + title}>
                   {title}{!isLastest && ' > '}

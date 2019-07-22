@@ -12,17 +12,19 @@ import LinkSelector from './link-selector';
 
 > 联动组件
 
+## Setup
+
 ```js
 import LinkSelector from 'ukelli-ui/core/selector/link-selector'
 ```
 
-<Props of={LinkSelector} />
+## Basic Usage
 
 <Playground>
   {
     () => {
       return (
-        <LinkSelector data={[
+        <LinkSelector outside data={[
           {
             title: '联动1',
             code: 'value1',
@@ -73,3 +75,7 @@ import LinkSelector from 'ukelli-ui/core/selector/link-selector'
     }
   }
 </Playground>
+
+## Props
+
+<Props of={LinkSelector} />

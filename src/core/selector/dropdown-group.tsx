@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from "prop-types";
 import { RemoveArrayItem } from 'basic-helper';
 
 import SelectorBasic, { SelectorValuesDescription, SelectorBasicProps } from './selector';
