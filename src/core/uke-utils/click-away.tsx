@@ -1,8 +1,7 @@
 /* eslint-disable react/no-find-dom-node */
 
-import React, { Component, PureComponent } from 'react';
+import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import PropTypes from 'prop-types';
 // import { UUID } from 'basic-helper';
 
 export interface ClickAwayProps {

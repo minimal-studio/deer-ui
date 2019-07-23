@@ -1,5 +1,4 @@
-import React, { Component, PureComponent } from 'react';
-import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 
 import { Call } from 'basic-helper';
 

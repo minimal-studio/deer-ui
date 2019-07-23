@@ -1,6 +1,6 @@
 /* eslint-disable react/no-multi-comp */
 
-import React, {Component, PureComponent} from 'react';
+import React, { Component, PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { Call, ToFixed, TimeFormat } from 'basic-helper';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
@@ -12,21 +12,19 @@ const timeTitleMapper = {
   sec: '秒'
 };
 
-const AnimatedCard = ({ position, animation, digit, style }) => {
-  return(
-    <div className={`flip-card ${position} ${animation}`} style={style}>
-      <span className="count">{digit}</span>
-    </div>
-  );
-};
+const AnimatedCard = ({
+  position, animation, digit, style
+}) => (
+  <div className={`flip-card ${position} ${animation}`} style={style}>
+    <span className="count">{digit}</span>
+  </div>
+);
 
-const StaticCard = ({ position, digit, style }) => {
-  return(
-    <div className={position} style={style}>
-      <span className="count">{digit}</span>
-    </div>
-  );
-};
+const StaticCard = ({ position, digit, style }) => (
+  <div className={position} style={style}>
+    <span className="count">{digit}</span>
+  </div>
+);
 
 class FlipUnitContainer extends React.Component {
   static propTypes = {
@@ -39,23 +37,29 @@ class FlipUnitContainer extends React.Component {
     flipItemStyle: PropTypes.shape({}),
     unit: PropTypes.oneOf(['hour', 'min', 'sec']),
   }
+
   static defaultProps = {
     width: 140,
     height: 120,
   }
+
   preDigit = 0;
+
   shuffle = true;
+
   state = {
     preDigit: 0,
     shuffle: true
   }
+
   shouldComponentUpdate(nextProps) {
-    if(this.props.digit !== nextProps.digit) {
+    if (this.props.digit !== nextProps.digit) {
       this.preDigit = this.props.digit;
       this.shuffle = !this.shuffle;
     }
     return true;
   }
+
   // componentDidUpdate(prevProps) {
   //   if(this.props.digit !== prevProps.digit) {
   //     this.setState(({ preDigit, shuffle }) => {
@@ -76,27 +80,27 @@ class FlipUnitContainer extends React.Component {
     let previousDigit = +preDigit || 0;
     let currentDigit = +digit;
     // let previousDigit = +FlipDigitCache[unit] || 0;
-  
-    if ( unit !== 'hour') {
+
+    if (unit !== 'hour') {
       previousDigit = previousDigit === -1 ? 59 : previousDigit;
       previousDigit = previousDigit === 60 ? '00' : previousDigit;
     } else {
       previousDigit = previousDigit === -1 ? 23 : previousDigit;
     }
-  
-    if ( currentDigit !== '00' && currentDigit < 10 ) {
+
+    if (currentDigit !== '00' && currentDigit < 10) {
       currentDigit = `0${currentDigit}`;
-    } 
-    if ( previousDigit !== '00' && previousDigit < 10 ) {
+    }
+    if (previousDigit !== '00' && previousDigit < 10) {
       previousDigit = `0${previousDigit}`;
     }
-  
+
     const digit1 = shuffle ? previousDigit : currentDigit;
     const digit2 = !shuffle ? previousDigit : currentDigit;
-  
+
     const animation1 = shuffle ? 'fold' : 'unfold';
     const animation2 = !shuffle ? 'fold' : 'unfold';
-  
+
     const scaleStyle = {
       height, width, fontSize: height / 1.3
     };
@@ -105,23 +109,23 @@ class FlipUnitContainer extends React.Component {
       height: height / 2,
       width,
     };
-  
+
     return (
       <div className="flip-unit-container" style={scaleStyle}>
-        <StaticCard 
-          position="before" 
+        <StaticCard
+          position="before"
           style={flipItemStyle}
           digit={currentDigit}/>
-        <StaticCard 
-          position="now" 
+        <StaticCard
+          position="now"
           style={flipItemStyle}
           digit={previousDigit}/>
-        <AnimatedCard 
+        <AnimatedCard
           style={styleForAnimate}
           position="first"
           digit={digit1}
           animation={animation1}/>
-        <AnimatedCard 
+        <AnimatedCard
           style={styleForAnimate}
           position="second"
           digit={digit2}
@@ -129,7 +133,7 @@ class FlipUnitContainer extends React.Component {
       </div>
     );
   }
-} 
+}
 
 export default class Countdown extends Component {
   static propTypes = {
@@ -148,10 +152,12 @@ export default class Countdown extends Component {
     /** 时间到 0 的时候触发的回调 */
     onTimeout: PropTypes.func.isRequired
   };
+
   static defaultProps = {
     width: 140,
     height: 120,
   };
+
   // isTimerStart = false;
   constructor(props) {
     super(props);
@@ -160,6 +166,7 @@ export default class Countdown extends Component {
       countdown: 0
     };
   }
+
   shouldComponentUpdate(nextProps, nextState) {
     const isReceiveNewProps = this.props !== nextProps;
     const isNewCount = this.state.countdown !== nextState.countdown;
@@ -169,26 +176,31 @@ export default class Countdown extends Component {
     // }
     return isNewCount || isReceiveNewProps || isChangeTimerStatus;
   }
+
   componentDidMount() {
     this.startCountdown();
   }
+
   componentDidUpdate(prevProps, prevState) {
-    if(this.props.start != prevProps.start || !this.state.isTimerStart) {
+    if (this.props.start != prevProps.start || !this.state.isTimerStart) {
       this.clearTimer();
       this.startCountdown();
     }
   }
+
   componentWillUnmount() {
     this.clearTimer();
   }
+
   startCountdown() {
     const { start } = this.props;
     if (this.state.isTimerStart || start === 0) return;
     this.clearTimer();
     this.startTimer();
   }
+
   setJumpElemCount(timeObj) {
-    if(!this.jumpElem) return;
+    if (!this.jumpElem) return;
 
     this.jumpElem.innerHTML = `${timeObj.hour}:${timeObj.min}:${timeObj.sec}` || 0;
   }
@@ -201,6 +213,7 @@ export default class Countdown extends Component {
       isTimerStart: false
     });
   }
+
   startTimer() {
     if (this.state.isTimerStart) return;
     const {
@@ -212,15 +225,15 @@ export default class Countdown extends Component {
     // this.isTimerStart = true;
     this.setState({
       isTimerStart: true,
-      countdown: countdown
+      countdown
     });
     this.interval = setInterval(() => {
       countdown--;
       this.setState({
         countdown: (countdown < 0) ? 0 : countdown
       });
-      if(countdown == +countdownNotifyTimer) Call(onCountdownNotify, countdown);
-      if(countdown === -1) {
+      if (countdown == +countdownNotifyTimer) Call(onCountdownNotify, countdown);
+      if (countdown === -1) {
         onTimeout();
         this.clearTimer();
         // clearInterval(oneRound);
@@ -231,8 +244,11 @@ export default class Countdown extends Component {
       }
     }, 1000);
   }
-  render () {
-    const { width, height, countdownNotifyTimer, onCountdownNotify, onTimeout, flipItemStyle, className, ...other } = this.props;
+
+  render() {
+    const {
+      width, height, countdownNotifyTimer, onCountdownNotify, onTimeout, flipItemStyle, className, ...other
+    } = this.props;
     const { countdown } = this.state;
     const timeObj = TimeFormat(countdown);
 
@@ -240,11 +256,11 @@ export default class Countdown extends Component {
     // const hasCountdown = countdown != -1;
 
     const container = (
-      <section className={"flip-clock " + (className ? className : '')}>
+      <section className={`flip-clock ${className || ''}`}>
         <Grid container>
           {
             Object.keys(timeObj).map((unit, idx) => {
-              let currTime = timeObj[unit];
+              const currTime = timeObj[unit];
               return (
                 <Grid key={unit} {...other}>
                   <FlipUnitContainer

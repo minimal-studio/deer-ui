@@ -1,10 +1,9 @@
-import React, { Component, PureComponent } from 'react';
-import PropTypes from 'prop-types';
-import { IsFunc, CallFunc } from 'basic-helper';
+import React, { Component } from 'react';
+import { CallFunc } from 'basic-helper';
 
 import Tab from './tab';
 import { ToolTip } from '../tooltip';
-import { Children, FuncChildren } from '../uke-utils/props';
+import { Children } from '../uke-utils/props';
 
 export interface TabsProps {
   /** children */

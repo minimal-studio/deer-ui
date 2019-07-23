@@ -1,5 +1,4 @@
 import React, { Component, PureComponent } from 'react';
-import PropTypes from 'prop-types';
 import { Call } from 'basic-helper';
 
 import { Loading } from '../loading';

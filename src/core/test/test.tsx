@@ -1,5 +1,4 @@
 import React, { Component, PureComponent } from "react";
-import PropTypes from 'prop-types';
 
 interface TestProps {
   /** sdsa */

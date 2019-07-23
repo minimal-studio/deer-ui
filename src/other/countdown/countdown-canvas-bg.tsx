@@ -2,20 +2,20 @@
  * 目前暂时废弃的组件
  */
 
-import React, {Component, PureComponent} from 'react';
+import React, { Component, PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
 export default class CountdownBg extends PureComponent {
   componentDidMount() {
-    const {id} = this.props;
-    var canvas = document.querySelector('#countDown' + id);
-    var ctx = canvas.getContext('2d');
+    const { id } = this.props;
+    const canvas = document.querySelector(`#countDown${id}`);
+    const ctx = canvas.getContext('2d');
 
-    let lineWidth = 3;
-    let canvasW = canvas.width;
-    let circleX = canvasW / 2;
-    let circleY = circleX;
-    let radius = (canvasW - lineWidth) / 2;
+    const lineWidth = 3;
+    const canvasW = canvas.width;
+    const circleX = canvasW / 2;
+    const circleY = circleX;
+    const radius = (canvasW - lineWidth) / 2;
     this.animationTime = 200; // ms
 
     this.canvasInfo = {
@@ -44,7 +44,9 @@ export default class CountdownBg extends PureComponent {
   //   }
   // }
   circle(cx, cy, r) {
-    const {ctx, circleX, circleY, radius, lineWidth} = this.canvasInfo;
+    const {
+      ctx, circleX, circleY, radius, lineWidth
+    } = this.canvasInfo;
 
     ctx.beginPath();
     ctx.moveTo(cx + r, cy);
@@ -54,15 +56,18 @@ export default class CountdownBg extends PureComponent {
     ctx.closePath();
     ctx.stroke();
   }
+
   sector(cx, cy, r, startAngle, endAngle, anti) {
-    const {ctx, circleX, circleY, radius, lineWidth} = this.canvasInfo;
+    const {
+      ctx, circleX, circleY, radius, lineWidth
+    } = this.canvasInfo;
 
     ctx.beginPath();
     ctx.moveTo(cx, cy + r); // 从圆形底部开始画
     ctx.lineWidth = lineWidth;
 
     // 渐变色 - 可自定义
-    var linGrad = ctx.createLinearGradient(
+    const linGrad = ctx.createLinearGradient(
       circleX, circleY - radius - lineWidth, circleX, circleY + radius + lineWidth
     );
     linGrad.addColorStop(0.0, '#fe0362');
@@ -81,9 +86,12 @@ export default class CountdownBg extends PureComponent {
     );
     ctx.stroke();
   }
+
   draw(nextPercent) {
-    const {ctx, circleX, circleY, radius, lineWidth, fontSize} = this.canvasInfo;
-    const {percent, text} = this.props;
+    const {
+      ctx, circleX, circleY, radius, lineWidth, fontSize
+    } = this.canvasInfo;
+    const { percent, text } = this.props;
     const self = this;
 
     // 清除canvas内容
@@ -113,10 +121,11 @@ export default class CountdownBg extends PureComponent {
     //     process += 1.0;
     // }
   }
+
   render() {
-    const {id} = this.props;
+    const { id } = this.props;
     return (
-      <canvas id={"countDown" + id} className="countdown-bg" width="60" height="60" />
+      <canvas id={`countDown${id}`} className="countdown-bg" width="60" height="60" />
     );
   }
 }

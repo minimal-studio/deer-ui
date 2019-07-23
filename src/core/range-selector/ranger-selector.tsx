@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import { ToFixed, HasValue } from 'basic-helper';
 
 import InputVerify from '../form-control/input-verify';

@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Call } from 'basic-helper';
 
 import { UkeComponent } from '../uke-utils';

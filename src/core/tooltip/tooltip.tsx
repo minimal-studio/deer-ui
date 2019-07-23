@@ -1,5 +1,4 @@
-import React, { Component, PureComponent } from 'react';
-import PropTypes from 'prop-types';
+import React, { PureComponent } from 'react';
 import { Call, DebounceClass } from 'basic-helper';
 
 import { PopoverEntity } from '../popover';

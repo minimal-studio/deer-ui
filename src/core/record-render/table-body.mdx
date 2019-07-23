@@ -26,10 +26,9 @@ import { setLangTranslate, setUkeLang } from '../config'
 - 固定指定的列
 - 可对已有元素进行排列
 - 表头嵌入选择器和过滤器
+- 内置多种 data filter，数据展示更便捷
 
-<Props of={Table} />
-
-## 常规使用
+## Basic Usage
 
 - keyMapper 需要显示的数据的字段映射集合
 - records   数据源
@@ -55,8 +54,6 @@ const records = [
   }
 ]
 ```
-
-> 可以使用自定义的 filter 或者内置 filter，下面章节有详细描述。
 
 <Playground>
   {
@@ -357,3 +354,7 @@ const keyMapper = [
 </Playground>
 
 <KeyMapper />
+
+## Props
+
+<Props of={Table} />

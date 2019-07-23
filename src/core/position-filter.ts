@@ -2,8 +2,8 @@
  * 用于过滤控件的定位标识, 确保位置准确性
  * 检查缺失项，并且补全
  * 过滤重复位置标识
- * @param {"verticalPosition,horizontalPosition"} position
- * @returns {"verticalPosition horizontalPosition"}
+ * @param {"{verticalPosition},{horizontalPosition}"} position
+ * @returns {"{verticalPosition} {horizontalPosition}"}
  */
 export default function positionFilter(position) {
   const horizontal = ['left', 'right'];

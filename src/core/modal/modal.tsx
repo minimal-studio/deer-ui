@@ -1,5 +1,4 @@
-import React, { Component, PureComponent } from 'react';
-import PropTypes from 'prop-types';
+import React from 'react';
 
 import { Call, IsFunc } from 'basic-helper';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
@@ -7,7 +6,7 @@ import classnames from 'classnames';
 
 import { DragPanelClass, DragPanelClassProps } from './drag-pabel-helper';
 import { Icon } from '../icon';
-import { FuncChildren, Children } from '../uke-utils/props';
+import { Children } from '../uke-utils/props';
 
 export interface ModalRequiredProps {
   /** 当前 modal 是否打开 */

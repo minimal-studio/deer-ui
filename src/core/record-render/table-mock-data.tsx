@@ -4,43 +4,6 @@ import { ShowModal } from '../modal';
 
 let table;
 
-const action = {
-  key: 'action',
-  filter: (str, item) => {
-    return (
-      <div>
-        <span
-          onClick={e => ShowModal({
-            title: '详情',
-            children: <DescHelper keyMapper={keyMapper} record={item} />
-          })}
-          className="link-btn">详情
-        </span>
-        <span
-          onClick={e => ShowModal({
-            width: 1000,
-            title: '详情',
-            children: (
-              <Table
-                keyMapper={keyMapper}
-                ref={e => table = e}
-                whenCheckAction={(
-                  <span className="btn theme mu10" onClick={e => table.clearCheckeds()}>
-                    清除所有的以选中项
-                  </span>
-                )}
-                needCheck
-                needCount
-                records={records} />
-            )
-          })}
-          className="link-btn t_red">弹出表格
-        </span>
-      </div>
-    );
-  }
-};
-
 const keyMapper = [
   {
     key: 'username',
@@ -49,41 +12,82 @@ const keyMapper = [
       '可以是数组2',
       '可以是数组3',
     ],
-    title: () => {
-      return (
-        <span>使用 func title 返回表头</span>
-      );
-    },
+    title: () => (
+      <span>使用 func title 返回表头</span>
+    ),
     namesMapper: {
       alex: '埃里克斯',
       chili: '吃梨',
       dove: '德芙',
     }
   },
-  {key: 'age', selectable: false, count: false},
-  {key: 'property', selectable: false, money: true},
-  {key: 'add', labels: {
-    cn: 'red'
-  }},
+  { key: 'age', selectable: false, count: false },
+  { key: 'property', selectable: false, money: true },
+  {
+    key: 'add',
+    labels: {
+      cn: 'red'
+    }
+  },
   // {key: 'birth1', date: 1},
   // {key: 'birth2', date: 1},
   // {key: 'birth3', date: 1},
   // {key: 'birth4', date: 1},
-  {key: 'obj', filter: (_, item) => {
-    return _.account;
-  }},
-  {key: 'status', title: {
-    type: 'selector',
-    values: {
-      normal: '正常',
-      abnormal: '异常',
-    },
-    onChange: (val) => {
-      console.log(val);
+  {
+    key: 'obj',
+    filter: (_, item) => _.account
+  },
+  {
+    key: 'status',
+    title: {
+      type: 'selector',
+      values: {
+        normal: '正常',
+        abnormal: '异常',
+      },
+      onChange: (val) => {
+        console.log(val);
+      }
     }
-  }},
+  },
   // action,
 ];
+
+const action = {
+  key: 'action',
+  filter: (str, item) => (
+    <div>
+      <span
+        onClick={e => ShowModal({
+          title: '详情',
+          children: <DescHelper keyMapper={keyMapper} record={item} />
+        })}
+        className="link-btn">详情
+      </span>
+      <span
+        onClick={e => ShowModal({
+          width: 1000,
+          title: '详情',
+          children: (
+            <Table
+              keyMapper={keyMapper}
+              ref={e => table = e}
+              whenCheckAction={(
+                <span className="btn theme mu10" onClick={e => table.clearCheckeds()}>
+                    清除所有的以选中项
+                </span>
+              )}
+              needCheck
+              needCount
+              records={records} />
+          )
+        })}
+        className="link-btn t_red">弹出表格
+      </span>
+    </div>
+  )
+};
+
 const keyMapperMiddle = [...keyMapper].slice(1, keyMapper.length);
 const keyMapperFixed = [
   {
@@ -94,11 +98,9 @@ const keyMapperFixed = [
       '可以是数组2',
       '可以是数组3',
     ],
-    title: () => {
-      return (
-        <span>使用 func title 返回表头</span>
-      );
-    },
+    title: () => (
+      <span>使用 func title 返回表头</span>
+    ),
     namesMapper: {
       alex: '埃里克斯',
       chili: '吃梨',

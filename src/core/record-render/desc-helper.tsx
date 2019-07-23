@@ -1,11 +1,10 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 import MapperFilter, { MapperFilterProps, KeyMapperItem } from './mapper-filter';
 
 interface DescHelperKeyMapper extends KeyMapperItem {
   /** 是否独占一行 */
-  block: boolean;
+  block?: boolean;
 }
 
 export interface DescHelperProps {

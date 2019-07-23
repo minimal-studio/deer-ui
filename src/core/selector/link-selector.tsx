@@ -1,12 +1,8 @@
 /* eslint-disable consistent-return */
 import React from 'react';
-import PropTypes from 'prop-types';
-
 import { CallFunc, Call } from 'basic-helper';
 import DropdownWrapper from './dropdown-wrapper';
-import {
-  Icon,
-} from '..';
+import { Icon } from '../icon';
 
 import { UkeComponent } from '../uke-utils';
 

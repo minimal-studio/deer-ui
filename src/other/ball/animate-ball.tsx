@@ -1,26 +1,27 @@
-import React, {Component, PureComponent} from 'react';
+import React, { Component, PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import {GenerateNumberRange} from 'basic-helper';
+import { GenerateNumberRange } from 'basic-helper';
 
-let hasSetKeyAnimateMapper = {};
-let headDOM = document.getElementsByTagName('head')[0];
+const hasSetKeyAnimateMapper = {};
+const headDOM = document.getElementsByTagName('head')[0];
 const prefixMap = {
   '-webkit-': 'Webkit',
   '-ms-': 'Ms',
   '-moz-': 'Moz',
 };
-const prefix = Object.keys(prefixMap).filter(prefix => prefix + 'transform' in headDOM.style)[0] || '';
+const prefix = Object.keys(prefixMap).filter(prefix => `${prefix}transform` in headDOM.style)[0] || '';
 // const prefix = '-ms-'
-let transform = 'transform', animation = 'animation-name';
+let transform = 'transform';
+let animation = 'animation-name';
 if (prefixMap[prefix]) {
-  transform = prefixMap[prefix]+'Transform';
-  animation = prefixMap[prefix]+'AnimationName';
+  transform = `${prefixMap[prefix]}Transform`;
+  animation = `${prefixMap[prefix]}AnimationName`;
 }
 
 function createDynamicAnimate(options) {
-  const {startVal, endVal, animateName} = options;
-  if(hasSetKeyAnimateMapper[animateName]) return;
-  let keyCSS = `
+  const { startVal, endVal, animateName } = options;
+  if (hasSetKeyAnimateMapper[animateName]) return;
+  const keyCSS = `
     @${prefix}keyframes ${animateName} {
       0% {
         ${prefix}transform: translateY(${startVal});
@@ -30,7 +31,7 @@ function createDynamicAnimate(options) {
       }
     }
   `;
-  let style = document.createElement('style');
+  const style = document.createElement('style');
   style.type = 'text/css';
   style.innerHTML = keyCSS;
   headDOM.appendChild(style);
@@ -44,41 +45,47 @@ export default class AnimateBall extends Component {
     numberRange: PropTypes.array,
     activeNumb: PropTypes.any,
   };
+
   constructor(props) {
     super(props);
     this.numberRangeArr = [];
   }
+
   shouldComponentUpdate(nextProps, nextState) {
-    return this.props.animating !== nextProps.animating ||
-           this.props.activeNumb !== nextProps.activeNumb;
+    return this.props.animating !== nextProps.animating
+           || this.props.activeNumb !== nextProps.activeNumb;
   }
+
   componentDidMount() {
     this.genRandomArr();
   }
+
   genRandomArr() {
-    const {numberRange} = this.props;
+    const { numberRange } = this.props;
     this.numberRangeArr = this.shuffle(GenerateNumberRange(numberRange));
     this.eachItemRotate = 360 / this.numberRangeArr.length;
     // this.eachItemHeight = 360 / this.numberRangeArr.length;
   }
+
   shuffle(arrInput) {
-    let arr = [...arrInput];
-    for (var i = arr.length - 1; i >= 0; i--) {
-      var randomIdx = Math.floor(Math.random() * (i + 1));
-      var itemAtIdx = arr[randomIdx];
+    const arr = [...arrInput];
+    for (let i = arr.length - 1; i >= 0; i--) {
+      const randomIdx = Math.floor(Math.random() * (i + 1));
+      const itemAtIdx = arr[randomIdx];
 
       arr[randomIdx] = arr[i];
       arr[i] = itemAtIdx;
     }
     return arr;
   }
+
   setKeyCss(ballItem) {
-    if(this.eachItemHeight) return;
-    const {numberRange} = this.props;
+    if (this.eachItemHeight) return;
+    const { numberRange } = this.props;
     const count = numberRange[1] - numberRange[0];
     this.eachItemHeight = ballItem.offsetHeight;
     const totalHeight = count * this.eachItemHeight;
-    this.animateName = 'loop-' + this.eachItemHeight + '' + totalHeight;
+    this.animateName = `loop-${this.eachItemHeight}${totalHeight}`;
     createDynamicAnimate({
       startVal: 0,
       endVal: `-${totalHeight}px`,
@@ -86,10 +93,11 @@ export default class AnimateBall extends Component {
     });
     this.forceUpdate();
   }
+
   render() {
-    const {animating, numberRange, activeNumb} = this.props;
+    const { animating, numberRange, activeNumb } = this.props;
     const hasActiveNumb = activeNumb != '?';
-    const activeIdxRotate = (!animating && (+activeNumb || activeNumb == 0)) ? - (this.eachItemHeight * this.numberRangeArr.indexOf(activeNumb) || 0) : 0;
+    const activeIdxRotate = (!animating && (+activeNumb || activeNumb == 0)) ? -(this.eachItemHeight * this.numberRangeArr.indexOf(activeNumb) || 0) : 0;
     // const activeIdxRotate = !animating && +activeNumb ? - this.eachItemRotate * this.numberRangeArr.indexOf(activeNumb) : 0;
     const carouselStyle = {};
     const animationStyle = {};
@@ -107,17 +115,16 @@ export default class AnimateBall extends Component {
             style={carouselStyle}
             className="carousel2">
             {
-              this.numberRangeArr.map((ballNumb, idx) => {
-                return (
-                  <span
-                    key={ballNumb}
-                    ref={ballItem => {
-                      if(!this.eachItemHeight && !!ballItem) this.setKeyCss(ballItem);
-                    }}
-                    className="item">
-                    {hasActiveNumb ? ballNumb : '?'}
-                  </span>
-                );
+              this.numberRangeArr.map((ballNumb, idx) => (
+                <span
+                  key={ballNumb}
+                  ref={(ballItem) => {
+                    if (!this.eachItemHeight && !!ballItem) this.setKeyCss(ballItem);
+                  }}
+                  className="item">
+                  {hasActiveNumb ? ballNumb : '?'}
+                </span>
+              )
               // return (
               //   <span
               //     key={ballNumb}
@@ -131,7 +138,7 @@ export default class AnimateBall extends Component {
               //     {ballNumb}
               //   </span>
               // )
-              })
+              )
             }
           </div>
         </span>

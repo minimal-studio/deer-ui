@@ -2,7 +2,6 @@
 
 import React, { Component, PureComponent } from 'react';
 import { HasValue } from 'basic-helper';
-import PropTypes from 'prop-types';
 
 export interface SwitchProps {
   /** 值改变的回调 */

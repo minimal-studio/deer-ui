@@ -153,7 +153,7 @@ export default class Carousel3D extends Component {
     this.roll(activeIdx + (toLeft ? -1 : 1));
   }
 
-  showDetail() {
+  showDetail = () => {
     const activeArea = document.querySelector('.card-render-group .card-item.active .action-area');
     if (activeArea) activeArea.click();
   }

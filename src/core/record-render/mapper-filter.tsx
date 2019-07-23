@@ -9,7 +9,6 @@ import { ToolTip } from '../tooltip';
 import { Label } from '../label';
 import Dropdown, { DropdownMenuProps } from '../selector/dropdown-menu';
 import { Color } from '../uke-utils/props';
-// import Selector from './select-filter';
 
 interface TitleFormSelector extends DropdownMenuProps {
   /** 如果为 type === selector，则渲染 DropdownMenu，其余属性传入 DropdownMenu 组件 */
@@ -33,6 +32,8 @@ export interface KeyMapperItem {
   abvMoney?: boolean;
   /** 是否统计该 Row */
   count?: boolean;
+  /** 是否统计该 Row */
+  tips?: string | string[];
   /** 渲染让对应 dataSrc 的数据嵌入 Label */
   labels?: {
     [dataSrc: string]: Color;
@@ -61,7 +62,7 @@ const excludeKey = (target, keys) => {
   return res;
 };
 
-export default class MapperFilter<P = MapperFilterProps> extends UkeComponent<P> {
+export default class MapperFilter<P = MapperFilterProps, S = {}> extends UkeComponent<P, S> {
   /** 可以覆盖的 excludeKeys */
   excludeKeys = ['records', 'keyMapper', 'whenCheckAction'];
 
