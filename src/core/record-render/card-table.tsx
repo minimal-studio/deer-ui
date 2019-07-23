@@ -1,11 +1,6 @@
-import React, { Component, PureComponent } from 'react';
-import PropTypes from 'prop-types';
+import React from 'react';
 
-import MapperFilter, { MapperFilterProps } from './mapper-filter';
-
-export interface CardTableProps extends MapperFilterProps {
-
-}
+import MapperFilter from './mapper-filter';
 
 /**
  * 卡片式表格渲染模版
@@ -14,10 +9,13 @@ export interface CardTableProps extends MapperFilterProps {
  * @class CardTable
  * @extends {MapperFilter}
  */
-export default class CardTable extends MapperFilter<CardTableProps> {
+export default class CardTable extends MapperFilter {
   render() {
     const { keyMapper, records } = this.props;
-    if (!Array.isArray(records)) return console.error('records 必须为 []');
+    if (!Array.isArray(records)) {
+      console.error('records 必须为 []');
+      return null;
+    }
 
     return (
       <div className="record-items">

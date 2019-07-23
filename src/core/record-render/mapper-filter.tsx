@@ -7,24 +7,50 @@ import {
 import { UkeComponent } from '../uke-utils';
 import { ToolTip } from '../tooltip';
 import { Label } from '../label';
-import Dropdown from '../selector/dropdown-menu';
+import Dropdown, { DropdownMenuProps } from '../selector/dropdown-menu';
+import { Color } from '../uke-utils/props';
 // import Selector from './select-filter';
 
+interface TitleFormSelector extends DropdownMenuProps {
+  /** 如果为 type === selector，则渲染 DropdownMenu，其余属性传入 DropdownMenu 组件 */
+  type?: 'selector' | string;
+}
+
 export interface KeyMapperItem {
-  /** 数据的 Row */
+  /** 对应 record 数据的 [key] */
   key: string;
   /** 处理对应 Row 的 filter */
-  filter: (contentResult, record, mapper, rowIdx) => any;
+  filter?: (contentResult, record, mapper, rowIdx) => any;
   /** */
-  title?: string | ((item, idx) => any) | {
-    /** 如果为 type === selector，则渲染 DropdownMenu，其余属性传入 DropdownMenu 组件 */
-    type?: 'selector' | string;
+  title?: string | ((item, idx) => any) | TitleFormSelector;
+  /** 是否渲染为 date 格式 - YYYY-MM-DD */
+  date?: boolean;
+  /** 是否渲染为 datetime 格式 - YYYY-MM-DD hh:mm:ss */
+  datetime?: boolean;
+  /** 是否做金额格式化 */
+  money?: boolean;
+  /** 是否格式为绝对值的金额 */
+  abvMoney?: boolean;
+  /** 是否统计该 Row */
+  count?: boolean;
+  /** 渲染让对应 dataSrc 的数据嵌入 Label */
+  labels?: {
+    [dataSrc: string]: Color;
+  };
+  /** 内置的 字段映射 过滤器 */
+  namesMapper?: {
+    [dataSrc: string]: string;
   };
 }
 
 export interface MapperFilterProps {
+  /** 用于生命过滤 */
   keyMapper: KeyMapperItem[];
-  records: [];
+  /** 服务端返回的数据 */
+  records: {
+    [key: string]: string;
+  }[];
+  onChange?: (val, title) => void;
 }
 
 const excludeKey = (target, keys) => {
@@ -35,7 +61,7 @@ const excludeKey = (target, keys) => {
   return res;
 };
 
-export default class MapperFilter<P extends MapperFilterProps> extends UkeComponent<P> {
+export default class MapperFilter<P = MapperFilterProps> extends UkeComponent<P> {
   /** 可以覆盖的 excludeKeys */
   excludeKeys = ['records', 'keyMapper', 'whenCheckAction'];
 
@@ -123,7 +149,7 @@ export default class MapperFilter<P extends MapperFilterProps> extends UkeCompon
    * 2. labels && namesMapper
    * 3. filter
    */
-  mapperFilter = (mapper, record, rowIdx) => {
+  mapperFilter = (mapper, record, rowIdx?) => {
     const originContent = record[mapper.key];
     let currContent = originContent;
     if (!HasValue(currContent)) {
