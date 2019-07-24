@@ -11,6 +11,21 @@ import { Children, FuncChildren } from '../uke-utils/props';
 import positionFilter from '../position-filter';
 import setDOMById, { getElementOffset, getElementOffsetInfo } from '../set-dom';
 
+
+interface State {
+  isShow: boolean;
+  searchValue: string;
+}
+
+interface FuncChildrenParams extends State {
+  /** 关闭 Dropdown */
+  hide: () => void;
+  /** showSubMenu */
+  showSubMenu: () => void;
+  /** focusInput */
+  focusInput: () => void;
+}
+
 export interface DropdownWrapperProps {
   /** 是否带搜索输入 */
   withInput?: boolean;
@@ -25,7 +40,7 @@ export interface DropdownWrapperProps {
   /** 外层的 title */
   menuTitle?: string | number | Children;
   /** 接受函数 children，只在 show 的时候渲染 */
-  children?: Children | FuncChildren;
+  children?: Children | any;
   /** 监听滚动时隐藏的外层元素 */
   scrollElem?: () => HTMLElement;
   /** 父容器的 scrollX 偏移值 */
@@ -37,29 +52,14 @@ export interface DropdownWrapperProps {
   /** 用于渲染最外层的内容, 将要废弃，请使用 overlay */
   // menuWrapper?: Function,
   /** 用于渲染最外层的内容 */
-  overlay?: (helper: {}) => Children;
+  overlay?: (helper: FuncChildrenParams) => Children;
   /** style */
   style?: {};
-}
-
-interface State {
-  isShow: boolean;
-  searchValue: string;
 }
 
 const dropdownContainerID = 'DropdownContainer';
 const dropdownContainerDOM = setDOMById(dropdownContainerID, 'uke-dropdown-menu outside');
 
-// function easeOut (t, b, c, d) {
-//   return -c *(t/=d)*(t-2) + b;
-// }
-// const topAnimation = (elem, final) => {
-//   let offset = 50;
-//   let b = final, d = 20, t = 0, c = offset / d;
-//   let top = Math.ceil(easeOut(t,b,c,d));
-//   elem.style.top = `${top}px`;
-//   if(t < d) { t++; setTimeout(() => topAnimation(elem), 10); }
-// };
 const offset = 10;
 const calculateOverlayPosition = (options) => {
   const {
@@ -117,6 +117,10 @@ export default class DropdownWrapper extends React.PureComponent<DropdownWrapper
 
   addScrollListener
 
+  clickAwayRef: any;
+
+  updateNodeRef: any;
+
   constructor(props) {
     super(props);
 
@@ -153,9 +157,10 @@ export default class DropdownWrapper extends React.PureComponent<DropdownWrapper
   }
 
   hide = () => {
-    if (this.addScrollListener) {
-      const { scrollElem } = this.props;
-      scrollElem().removeEventListener('scroll', this.hide);
+    const { scrollElem } = this.props;
+    if (this.addScrollListener && scrollElem) {
+      const elem = scrollElem();
+      elem.removeEventListener('scroll', this.hide);
       this.addScrollListener = false;
     }
     this.setState({
@@ -196,7 +201,7 @@ export default class DropdownWrapper extends React.PureComponent<DropdownWrapper
   }
 
   overlayRender = () => {
-    const { overlay, outside, position } = this.props;
+    const { overlay, outside, position = '' } = this.props;
     const { isShow } = this.state;
     const isLeft = position.indexOf('left') !== -1;
     const caretOffset = this.displayTitleDOM ? this.displayTitleDOM.offsetWidth / 2 : 10;
@@ -214,7 +219,7 @@ export default class DropdownWrapper extends React.PureComponent<DropdownWrapper
         } : {
           right: caretOffset
         }} />
-        {overlay(this.getPropsForOverlay())}
+        {overlay && overlay(this.getPropsForOverlay())}
       </div>
     );
 
@@ -258,8 +263,8 @@ export default class DropdownWrapper extends React.PureComponent<DropdownWrapper
 
   childrenRender = () => {
     const { children, menuTitle } = this.props;
-    let child; let
-      _title = menuTitle;
+    let child;
+    let _title = menuTitle;
     switch (true) {
       case IsFunc(children):
         child = children(this.getPropsForOverlay());
@@ -317,7 +322,7 @@ export default class DropdownWrapper extends React.PureComponent<DropdownWrapper
         <div
           className={classnames({
             "uke-dropdown-menu": true,
-            [className]: !!className,
+            [`${className}`]: !!className,
             error,
             "input-mode": withInput,
             show: isShow,

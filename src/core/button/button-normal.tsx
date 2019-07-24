@@ -3,21 +3,20 @@
 import React from 'react';
 
 import { Call } from 'basic-helper';
-import { tuple } from 'basic-helper/utils/type';
 import { $T_UKE } from '../config';
 import { Icon } from '../icon';
+import { IconProps } from '../icon/icon';
+import { Color } from '../uke-utils/props';
 
-const ButtonHTMLTypes = tuple("button", "submit", "reset");
-export type ButtonHTMLType = (typeof ButtonHTMLTypes)[number];
-
-
-export interface ButtonProps {
+export interface ButtonProps extends IconProps {
   /** 是否加载中 */
   loading?: boolean;
   /** 是否需要加载中的提示 */
   loadingHint?: boolean;
   /** 加载中是否禁用 */
   loadingDisable?: boolean;
+  /** 是否禁用 */
+  disabled?: boolean;
   /** 设置 btn 的 class */
   className?: string;
   /** 设置 btn 的 icon, 可以使用 iconMapper 来引用 */
@@ -26,16 +25,14 @@ export interface ButtonProps {
   text?: string;
   /** btn 内的布局 */
   textLayout?: string;
+  /** btn 的颜色 [theme, red, gold...] */
+  color?: Color;
   /** children */
   children?: any;
   /** btn 的类型 */
-  type?: ButtonHTMLType;
-  /** btn 的颜色 [theme, red, gold...] */
-  color?: string;
-  /** 是否禁用 */
-  disabled?: boolean;
+  type?: React.ButtonHTMLAttributes<HTMLButtonElement>['type'];
   /** 点击处理 */
-  onClick?: Function;
+  onClick?: () => void;
 }
 
 const defaultProps = {
@@ -43,8 +40,6 @@ const defaultProps = {
   loadingHint: true,
   loadingDisable: true,
   disabled: false,
-  type: 'button',
-  color: 'theme',
   textLayout: 'a-i-c j-c-c',
   className: '',
   icon: '',
@@ -52,8 +47,8 @@ const defaultProps = {
 
 const Button: React.SFC<ButtonProps> = (props) => {
   const {
-    loading, disabled, text = $T_UKE('提交'), icon, s, type, children,
-    color, className, loadingHint, loadingDisable, textLayout, onClick,
+    loading, disabled, text = $T_UKE('提交'), icon, s, type = 'button', children,
+    color = 'theme', className, loadingHint, loadingDisable, textLayout, onClick,
     ...other
   } = props;
 

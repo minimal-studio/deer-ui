@@ -1,3 +1,7 @@
+/* eslint-disable no-prototype-builtins */
+/* eslint-disable no-param-reassign */
+/* eslint-disable prefer-destructuring */
+/* eslint-disable guard-for-in */
 import React, { Component } from 'react';
 import {
   Call, CallFunc, IsFunc, HasValue, IsObj
@@ -83,10 +87,12 @@ export default class FormFilterHelper<P extends FormFilterProps> extends UkeComp
 
   resetValues(props = this.props) {
     const formOptions = this.getFormOptions(props);
+    if (!formOptions) return;
     const nextValue = {};
-    for (const options of formOptions) {
+    for (let i = 0; i < formOptions.length; i++) {
+      const options = formOptions[i];
       // const val = this.value[valKey];
-      const { ref, refs } = options;
+      const { ref = '', refs } = options;
       if (this.value[ref]) nextValue[ref] = this.value[ref];
       if (Array.isArray(refs)) {
         const refsID = this.getRefsID(refs);
@@ -101,8 +107,7 @@ export default class FormFilterHelper<P extends FormFilterProps> extends UkeComp
   }
 
   getFormOptions(props = this.props) {
-    if (!props) return [];
-    return props.formOptions || props.conditionConfig;
+    return props.formOptions || props.conditionConfig || [];
   }
 
   checkFormOptions(prevProps) {
@@ -117,9 +122,9 @@ export default class FormFilterHelper<P extends FormFilterProps> extends UkeComp
   resetRequireRefMapper(nextProps = this.props) {
     this.requiredRefMapper = {};
     const formOptions = this.getFormOptions(nextProps);
-    const configArr = formOptions;
-    for (let i = 0; i < configArr.length; i++) {
-      const config = configArr[i];
+    if (!formOptions) return;
+    for (let i = 0; i < formOptions.length; i++) {
+      const config = formOptions[i];
       this.setRequiredRefMapper(config);
     }
     // configArr.forEach(config => this.setRequiredRefMapper(config));
@@ -164,7 +169,7 @@ export default class FormFilterHelper<P extends FormFilterProps> extends UkeComp
     });
   }
 
-  setDefaultValues(options = []) {
+  setDefaultValues(options) {
     for (let i = 0; i < options.length; i++) {
       const config = options[i];
       if (config) {
@@ -472,7 +477,7 @@ export default class FormFilterHelper<P extends FormFilterProps> extends UkeComp
           Call(config.onBlur, val);
         }}
         onChange={(val) => {
-          this.changeValue(val == '' ? undefined : val, ref);
+          this.changeValue(val === '' ? undefined : val, ref);
         }}/>
     );
   }
@@ -609,7 +614,7 @@ export default class FormFilterHelper<P extends FormFilterProps> extends UkeComp
   getSwitch = (config) => {
     const { ref, defaultValue, ...other } = config;
     return (
-      <Switch ref={(e) => { this.ref = e; }} {...other}
+      <Switch ref={this.saveRef(ref)} {...other}
         checked={this.getValue(ref)}
         defaultChecked={defaultValue}
         onChange={val => this.changeValue(val, ref)} />

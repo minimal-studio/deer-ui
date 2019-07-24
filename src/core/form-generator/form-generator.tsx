@@ -1,3 +1,4 @@
+/* eslint-disable no-prototype-builtins */
 /* eslint-disable consistent-return */
 
 import React from 'react';
@@ -64,7 +65,7 @@ export default class FormGenerator extends FormFilterHelper<FormGeneratorProps> 
     } = this.props;
     const _showInputTitle = typeof showInputTitle == 'undefined' ? !isMobile : showInputTitle;
 
-    return formOptions.length > 0 ? (
+    return formOptions && formOptions.length > 0 ? (
       <form
         onSubmit={(e) => {
           e.preventDefault();

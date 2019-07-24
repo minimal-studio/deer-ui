@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { FormLayout } from '.';
+import { FormLayout } from '..';
 import formOptions from './form-options-demo';
 
 export default class FormLayoutDemo extends React.Component {
