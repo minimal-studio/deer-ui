@@ -10,13 +10,66 @@ import Avatar from './avatar';
 
 # Avatar
 
+> 通用头像
+
 ## Basic Usage
 
 <Playground>
   {
     () => {
-      const defaultAvatarSrc = "https://www.jiuwa.net/uploads/image/20170506/20170506084900_43824.jpg";
-      const [avatarSrc, setAvatarSrc] = useState(defaultAvatarSrc);
+      return (
+        <div>
+          <Avatar
+            className="mr10"
+            text="A" />
+          <Avatar
+            color="red"
+            className="mr10"
+            text="B" />
+          <Avatar
+            color="green"
+            className="mr10">
+            C
+          </Avatar>       
+        </div>
+      )
+    }
+  }
+</Playground>
+
+## Size 控制
+
+<Playground>
+  {
+    () => {
+      return (
+        <div>
+          <Avatar
+            className="mr10"
+            size={30}
+            text="A" />
+          <Avatar
+            color="red"
+            size={50}
+            className="mr10"
+            text="B" />
+          <Avatar
+            color="green"
+            size={70}
+            className="mr10">
+            C
+          </Avatar>       
+        </div>
+      )
+    }
+  }
+</Playground>
+
+## 头像上的小提示
+
+<Playground>
+  {
+    () => {
       return (
         <div>
           <Avatar
@@ -28,11 +81,21 @@ import Avatar from './avatar';
             tip={10}
             changeAvatarable
             text="A" />
-          <hr />
-          <Avatar
-            size={30}
-            text="A" />
-          <hr />
+        </div>
+      )
+    }
+  }
+</Playground>
+
+## 可换头像
+
+<Playground>
+  {
+    () => {
+      const defaultAvatarSrc = "https://www.jiuwa.net/uploads/image/20170506/20170506084900_43824.jpg";
+      const [avatarSrc, setAvatarSrc] = useState(defaultAvatarSrc);
+      return (
+        <div>
           <Avatar
             size={100}
             onChangeAvatar={res => {

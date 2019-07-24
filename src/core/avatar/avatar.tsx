@@ -1,14 +1,15 @@
-/* eslint-disable react/no-multi-comp */
-
-import React, { Component, PureComponent } from "react";
+import React from "react";
 import { Call } from 'basic-helper';
 
 import { DropdownWrapper } from '../selector';
 import { Tip } from '../tip';
 
 import { UkePureComponent } from '../uke-utils';
+import { Color } from '../uke-utils/props';
 
 export interface AvatarProps {
+  /** 头像的大小 */
+  color?: Color;
   /** 头像的大小 */
   size?: number;
   /** Avatar 中显示的字 */
@@ -23,6 +24,8 @@ export interface AvatarProps {
   position?: string;
   /** icon 名称，参考 Icon */
   icon?: string;
+  /** className */
+  className?: string;
   /** 显示在右上角的提示 */
   tip?: boolean|string|number;
   /** 换头像后的回调 */
@@ -41,6 +44,8 @@ export default class Avatar extends UkePureComponent<AvatarProps> {
     size: 50,
     text: '',
     tip: false,
+    color: 'theme',
+    className: '',
     changeAvatarable: false,
     faceOptions: []
   }
@@ -90,6 +95,8 @@ export default class Avatar extends UkePureComponent<AvatarProps> {
       changeAvatarable,
       faceOptions,
       tip,
+      className,
+      color,
       children
     } = this.props;
 
@@ -106,9 +113,9 @@ export default class Avatar extends UkePureComponent<AvatarProps> {
     const _changeAvatarable = changeAvatarable && faceOptions && faceOptions.length > 0;
 
     const avatarDOM = (
-      <span className="uke-avatar">
+      <span className={`uke-avatar ${className}`}>
         <span
-          className="avatar fixbg"
+          className={`avatar fixbg ${color}`}
           style={sizeStyle}>
           <span className="c">
             {child}
@@ -120,7 +127,6 @@ export default class Avatar extends UkePureComponent<AvatarProps> {
             <Tip animate={false} scale={22} color="red">{tip}</Tip>
           )
         }
-        {/* {changeAvatarDOM} */}
       </span>
     );
 
