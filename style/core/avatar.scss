@@ -1,3 +1,5 @@
+@import '../mixin/index.scss';
+
 $avatarScale: 100px;
 $avatarSmScale: 50px;
 $avatarMiniScale: 24px;
@@ -30,6 +32,7 @@ $imgScale: 80px;
   line-height: $avatarScale;
   text-align: center;
   text-transform: uppercase;
+  @include bgColorAndTextColor;
   .c {
     display: flex;
     flex-direction: column;
