@@ -1,5 +1,4 @@
 import React, { Component, PureComponent } from 'react';
-import PropTypes from 'prop-types';
 import { GenerateNumberRange } from 'basic-helper';
 
 const hasSetKeyAnimateMapper = {};
@@ -9,7 +8,7 @@ const prefixMap = {
   '-ms-': 'Ms',
   '-moz-': 'Moz',
 };
-const prefix = Object.keys(prefixMap).filter(prefix => `${prefix}transform` in headDOM.style)[0] || '';
+const prefix = Object.keys(prefixMap).filter(prefixParam => `${prefixParam}transform` in headDOM.style)[0] || '';
 // const prefix = '-ms-'
 let transform = 'transform';
 let animation = 'animation-name';
@@ -38,18 +37,21 @@ function createDynamicAnimate(options) {
   hasSetKeyAnimateMapper[animateName] = true;
 }
 
-export default class AnimateBall extends Component {
-  static propTypes = {
-    // index: PropTypes.any,
-    animating: PropTypes.bool,
-    numberRange: PropTypes.array,
-    activeNumb: PropTypes.any,
-  };
+export interface AnimateBallProps {
+  // index: PropTypes.any,
+  animating: boolean;
+  numberRange: number[];
+  activeNumb: number | string;
+}
 
-  constructor(props) {
-    super(props);
-    this.numberRangeArr = [];
-  }
+export default class AnimateBall extends Component<AnimateBallProps> {
+  numberRangeArr: number[] = []
+
+  eachItemRotate
+
+  eachItemHeight
+
+  animateName
 
   shouldComponentUpdate(nextProps, nextState) {
     return this.props.animating !== nextProps.animating
@@ -62,12 +64,13 @@ export default class AnimateBall extends Component {
 
   genRandomArr() {
     const { numberRange } = this.props;
+    if (!numberRange) return;
     this.numberRangeArr = this.shuffle(GenerateNumberRange(numberRange));
     this.eachItemRotate = 360 / this.numberRangeArr.length;
     // this.eachItemHeight = 360 / this.numberRangeArr.length;
   }
 
-  shuffle(arrInput) {
+  shuffle = (arrInput) => {
     const arr = [...arrInput];
     for (let i = arr.length - 1; i >= 0; i--) {
       const randomIdx = Math.floor(Math.random() * (i + 1));
@@ -82,6 +85,7 @@ export default class AnimateBall extends Component {
   setKeyCss(ballItem) {
     if (this.eachItemHeight) return;
     const { numberRange } = this.props;
+    if (!numberRange) return;
     const count = numberRange[1] - numberRange[0];
     this.eachItemHeight = ballItem.offsetHeight;
     const totalHeight = count * this.eachItemHeight;
@@ -96,9 +100,10 @@ export default class AnimateBall extends Component {
 
   render() {
     const { animating, numberRange, activeNumb } = this.props;
-    const hasActiveNumb = activeNumb != '?';
-    const activeIdxRotate = (!animating && (+activeNumb || activeNumb == 0)) ? -(this.eachItemHeight * this.numberRangeArr.indexOf(activeNumb) || 0) : 0;
-    // const activeIdxRotate = !animating && +activeNumb ? - this.eachItemRotate * this.numberRangeArr.indexOf(activeNumb) : 0;
+    const hasActiveNumb = activeNumb !== '?';
+    const activeIdxRotate = (!animating && (+activeNumb || activeNumb == 0))
+      ? -(this.eachItemHeight * this.numberRangeArr.indexOf(+activeNumb) || 0)
+      : 0;
     const carouselStyle = {};
     const animationStyle = {};
     if (!animating) {
@@ -124,21 +129,7 @@ export default class AnimateBall extends Component {
                   className="item">
                   {hasActiveNumb ? ballNumb : '?'}
                 </span>
-              )
-              // return (
-              //   <span
-              //     key={ballNumb}
-              //     ref={ballItem => {
-              //       if(!this.eachItemHeight && !!ballItem) this.eachItemHeight = ballItem.offsetHeight;
-              //     }}
-              //     style={{
-              //       transform: `rotateX(${this.eachItemRotate * idx}deg) translateZ(70px)`
-              //     }}
-              //     className="item">
-              //     {ballNumb}
-              //   </span>
-              // )
-              )
+              ))
             }
           </div>
         </span>

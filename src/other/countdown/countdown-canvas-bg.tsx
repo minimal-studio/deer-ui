@@ -3,12 +3,22 @@
  */
 
 import React, { Component, PureComponent } from 'react';
-import PropTypes from 'prop-types';
 
-export default class CountdownBg extends PureComponent {
+interface CountdownBgProps {
+  id: any;
+  percent: any;
+  text: any;
+}
+
+export default class CountdownBg extends PureComponent<CountdownBgProps> {
+  animationTime
+
+  canvasInfo
+
   componentDidMount() {
     const { id } = this.props;
-    const canvas = document.querySelector(`#countDown${id}`);
+    const canvas = document.querySelector(`#countDown${id}`) as HTMLCanvasElement;
+    if (!canvas) return;
     const ctx = canvas.getContext('2d');
 
     const lineWidth = 3;
@@ -28,21 +38,7 @@ export default class CountdownBg extends PureComponent {
 
     this.draw();
   }
-  // TODO: 通过不同的 key 来刷新，不需要这个
-  // componentWillReceiveProps(nextProps) {
-  //   let currPercent = this.props.percent;
-  //   if(this.props.text !== nextProps.text) {
-  //     if(this.timer) clearInterval(this.timer);
-  //     this.timer = setInterval(() => {
-  //       let nextPercent = nextProps.percent;
-  //       let unit = (nextPercent - currPercent) / 20;
 
-  //       if(!nextPercent || currPercent >= nextPercent) return clearInterval(this.timer);
-  //       currPercent += unit < 1 ? 1: unit;
-  //       this.draw(currPercent || 0);
-  //     }, 20);
-  //   }
-  // }
   circle(cx, cy, r) {
     const {
       ctx, circleX, circleY, radius, lineWidth
@@ -57,7 +53,7 @@ export default class CountdownBg extends PureComponent {
     ctx.stroke();
   }
 
-  sector(cx, cy, r, startAngle, endAngle, anti) {
+  sector(cx, cy, r, startAngle, endAngle, anti = false) {
     const {
       ctx, circleX, circleY, radius, lineWidth
     } = this.canvasInfo;
@@ -87,39 +83,16 @@ export default class CountdownBg extends PureComponent {
     ctx.stroke();
   }
 
-  draw(nextPercent) {
+  draw(nextPercent = 0) {
     const {
       ctx, circleX, circleY, radius, lineWidth, fontSize
     } = this.canvasInfo;
-    const { percent, text } = this.props;
-    const self = this;
 
     // 清除canvas内容
     ctx.clearRect(0, 0, circleX * 2, circleY * 2);
     this.circle(circleX, circleY, radius);
-
-    // 中间的字
-    // ctx.font = fontSize + 'px Arial, "Microsoft YaHei", "微软雅黑"';
-    // ctx.textAlign = 'center';
-    // ctx.textBaseline = 'middle';
-    // ctx.fillStyle = '#999';
-    // ctx.fillText(text, circleX, circleY);
-
-    // 圆形
-
     // 圆弧
     this.sector(circleX, circleY, radius, 0, nextPercent / 100 * 360);
-
-    // 控制结束时动画的速度
-    // if (process / percent > 0.90) {
-    //     process += 0.30;
-    // } else if (process / percent > 0.80) {
-    //     process += 0.55;
-    // } else if (process / percent > 0.70) {
-    //     process += 0.75;
-    // } else {
-    //     process += 1.0;
-    // }
   }
 
   render() {
@@ -129,8 +102,3 @@ export default class CountdownBg extends PureComponent {
     );
   }
 }
-CountdownBg.propTypes = {
-  id: PropTypes.any.isRequired,
-  percent: PropTypes.any.isRequired,
-  text: PropTypes.any.isRequired,
-};

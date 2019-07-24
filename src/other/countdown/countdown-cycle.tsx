@@ -1,5 +1,4 @@
 import React, { Component, PureComponent } from 'react';
-import PropTypes from 'prop-types';
 import { Call, ToFixed, TimeFormat } from 'basic-helper';
 
 import CountdownBg from './countdown-svg-bg';
@@ -10,24 +9,31 @@ const timeTitleMapper = {
   sec: '秒'
 };
 
-export default class Countdown extends Component {
-  static propTypes = {
-    start: PropTypes.number.isRequired,
-    freq: PropTypes.number.isRequired,
-    needBg: PropTypes.bool,
-    needProgress: PropTypes.bool,
-    jumpClass: PropTypes.string,
-    firstStopColor: PropTypes.string,
-    secondStopColor: PropTypes.string,
-    countdownNotifyTimer: PropTypes.any,
-    onCountdownNotify: PropTypes.func,
-    onTimeout: PropTypes.func.isRequired
-  };
+interface CountdownProps {
+  start: number;
+  freq: number;
+  onTimeout: () => void;
+  needBg?: boolean;
+  needProgress?: boolean;
+  jumpClass?: string;
+  firstStopColor?: string;
+  secondStopColor?: string;
+  countdownNotifyTimer?: any;
+  onCountdownNotify?: () => void;
+}
 
+export default class Countdown extends Component<CountdownProps, {
+  isTimerStart: boolean;
+  countdown: number;
+}> {
   static defaultProps = {
     firstStopColor: '#fe0362',
     secondStopColor: '#7473e3'
   };
+
+  interval
+
+  jumpElem
 
   constructor(props) {
     super(props);
@@ -44,22 +50,12 @@ export default class Countdown extends Component {
     this.interval = this.startTimer();
   }
 
-  // getSameJumpElem() {
-  //   const {jumpClass = ''} = this.props;
-  //   if(!jumpClass) return;
-  //   this.jumpElem = document.querySelector('.' + jumpClass) || null;
-  // }
   setJumpElemCount(timeObj) {
     if (!this.jumpElem) return;
 
     this.jumpElem.innerHTML = `${timeObj.hour}:${timeObj.min}:${timeObj.sec}` || 0;
   }
 
-  // componentWillReceiveProps(nextProps) {
-  //   if(nextProps.start !== this.props.start) {
-  //     this.clearTimer();
-  //   }
-  // }
   shouldComponentUpdate(nextProps, nextState) {
     const isReceiveNewStart = this.props.start !== nextProps.start;
     const isNewCount = this.state.countdown !== nextState.countdown;
@@ -103,39 +99,26 @@ export default class Countdown extends Component {
       countdownNotifyTimer,
       onCountdownNotify, onTimeout
     } = this.props;
-    const self = this;
     let countdown = start - 1;
-    self.setState({
+    this.setState({
       isTimerStart: true,
       // isTimeout: false,
       countdown
     });
     const oneRound = setInterval(() => {
       countdown--;
-      self.setState({
+      this.setState({
         countdown: (countdown < 0) ? 0 : countdown
       });
       if (countdown == +countdownNotifyTimer) Call(onCountdownNotify, countdown);
       if (countdown === -1) {
         countdown = freq - 1;
         onTimeout();
-        // clearInterval(oneRound);
-        // self.setState({
-        //   isTimerStart: false,
-        //   isTimeout: true
-        // });
       }
     }, 1000);
     return oneRound;
   }
 
-  // getPercentage(time) {
-  //   const {freq} = this.props;
-  //   let _freq = freq > 60 ? 60 : freq;
-  //   let result = 0;
-  //   result = time == 0 ? 0 : (_freq - time) / _freq * 100;
-  //   return result;
-  // }
   getBgDOM(timeObj, time, idx) {
     const {
       needBg = true, freq, firstStopColor, secondStopColor
@@ -160,14 +143,13 @@ export default class Countdown extends Component {
     return (
       <CountdownBg
         percent={percent}
-        text={currTime}
         firstStopColor={firstStopColor}
-        secondStopColor={secondStopColor}/>
+        secondStopColor={secondStopColor} />
     );
   }
 
   render() {
-    const { needBg = true, freq, needProgress = false } = this.props;
+    const { freq, needProgress = false } = this.props;
     const { countdown } = this.state;
     const timeObj = TimeFormat(countdown);
     const percent = +(countdown / freq * 100);

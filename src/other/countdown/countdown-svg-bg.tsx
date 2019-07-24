@@ -1,41 +1,28 @@
 import React, { Component, PureComponent } from 'react';
-import PropTypes from 'prop-types';
 
 let _firstStopColor = '#fe0362';
 let _secondStopColor = '#7473e3';
 
-export default class CountdownBg extends PureComponent {
-  static propTypes = {
-    // id: PropTypes.any.isRequired,
-    percent: PropTypes.number,
-    // text: PropTypes.any.isRequired,
-  };
+interface CountdownBgProps {
+  percent: any;
+  firstStopColor: any;
+  secondStopColor: any;
+}
 
+export default class CountdownBg extends PureComponent<CountdownBgProps> {
   static defaultProps = {
-    percent: 0
+    percent: 0,
+    firstStopColor: '#fe0362',
+    secondStopColor: '#7473e3',
   };
 
-  static setBgColor = function (firstStopColor, secondStopColor) {
+  static setBgColor = (firstStopColor, secondStopColor) => {
     _firstStopColor = firstStopColor;
     _secondStopColor = secondStopColor;
   };
 
-  // static getDerivedStateFromProps(nextProps, prevState) {
-  //   const { resDesc } = nextProps;
-  //   if(prevState.prevResDesc !== resDesc) {
-  //     return {
-  //       prevResDesc: resDesc,
-  //       changeDescFromProps: true
-  //     };
-  //   } else {
-  //     return {
-  //       changeDescFromProps: false
-  //     };
-  //   }
-  // }
-  // state = {};
   render() {
-    const { percent } = this.props;
+    const { percent, firstStopColor, secondStopColor } = this.props;
     const dashLength = Math.PI * 2 * 30;
     const strokeDashoffset = percent > 0 ? dashLength - dashLength * percent / 100 : dashLength;
     return (
@@ -45,8 +32,8 @@ export default class CountdownBg extends PureComponent {
             <svg width="150" height="150">
               <defs>
                 <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="0%">
-                  <stop offset="0%" style={{ stopColor: _firstStopColor, stopOpacity: 1 }} />
-                  <stop offset="100%" style={{ stopColor: _secondStopColor, stopOpacity: 1 }} />
+                  <stop offset="0%" style={{ stopColor: firstStopColor, stopOpacity: 1 }} />
+                  <stop offset="100%" style={{ stopColor: secondStopColor, stopOpacity: 1 }} />
                 </linearGradient>
               </defs>
               <path className="progress-circle-trail" fillOpacity="0" stroke="rgba(0,0,0,0.1)"
@@ -62,9 +49,5 @@ export default class CountdownBg extends PureComponent {
         </div>
       </div>
     );
-    // {
-    //   var circle = document.getElementById('circle');
-    //   circle.style.strokeDashoffset = progress > 0 ? dashLength - dashLength * progress / 100: dashLength;
-    // }
   }
 }

@@ -1,27 +1,33 @@
 import React, { Component, PureComponent } from 'react';
-import PropTypes from 'prop-types';
 
 import RandomDisplayNember from './animate-ball';
 
 const splitStr = ',';
 
-export class Ball extends Component {
-  static propTypes = {
-    openCode: PropTypes.string,
-    animate: PropTypes.bool,
-    numberRange: PropTypes.arrayOf(PropTypes.number),
-    animateTimer: PropTypes.number,
-    activeFilter: PropTypes.string,
-    extendTxt: PropTypes.string,
-    isOpening: PropTypes.bool,
-    size: PropTypes.string
-  };
+export interface BallProps {
+  openCode?: string;
+  animate?: boolean;
+  numberRange?: number[];
+  animateTimer?: number;
+  activeFilter?: string;
+  extendTxt?: string;
+  isOpening?: boolean;
+  size?: string;
+}
 
+export class Ball extends Component<BallProps, {
+  openedInfo: {};
+  openCodeLen: number;
+}> {
   static defaultProps = {
     openCode: '?????',
     animateTimer: 300,
     numberRange: [0, 9],
   }
+
+  animateBallRefs
+
+  timer
 
   constructor(props) {
     super(props);
@@ -34,22 +40,14 @@ export class Ball extends Component {
     this.animateBallRefs = {};
   }
 
-  hasSplit(str) {
-    return str.indexOf(splitStr) !== -1;
-  }
+  hasSplit = str => str.indexOf(splitStr) !== -1
 
   getOpenCodeArr(openCode) {
     return this.hasSplit(openCode) ? openCode.split(splitStr) : openCode.split('');
   }
 
-  // TODO:
-  // componentWillReceiveProps(nextProps) {
-  //   if(this.props.isOpening != nextProps.isOpening || (!/\?+/.test(nextProps.openCode) && nextProps.openCode !== this.props.openCode)) {
-  //     this.openCodeAnimate(!nextProps.isOpening, nextProps);
-  //   }
-  // }
   shouldComponentUpdate(nextProps) {
-    if (this.props.isOpening != nextProps.isOpening || (!/\?+/.test(nextProps.openCode) && nextProps.openCode !== this.props.openCode)) {
+    if (this.props.isOpening !== nextProps.isOpening || (!/\?+/.test(nextProps.openCode) && nextProps.openCode !== this.props.openCode)) {
       this.openCodeAnimate(!nextProps.isOpening, nextProps);
     }
     return true;
@@ -118,8 +116,7 @@ export class Ball extends Component {
             className={`${ballClass}${isActive ? ' s' : ''}`}>
             <RandomDisplayNember
               activeNumb={openCodeArr[_idx]}
-              index={_idx}
-              numberRange={numberRange}
+              numberRange={numberRange || []}
               animating={isOpening}/>
             {extendTxtDOM}
           </div>

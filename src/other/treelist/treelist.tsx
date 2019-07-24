@@ -1,24 +1,41 @@
+/* eslint-disable no-nested-ternary */
+/* eslint-disable no-prototype-builtins */
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Call } from "basic-helper";
 import { Icon } from '../../core/icon';
 
-const Tree = (({ level, treeData, parentNode, activeLevel, selectedItems, itemFilter, onCheck, onToggle }) => {
+interface TreeProps {
+  level;
+  treeData;
+  parentNode?;
+  activeLevel;
+  selectedItems;
+  itemFilter;
+  onCheck;
+  onToggle;
+}
+
+const Tree: React.SFC<TreeProps> = (props) => {
+  const {
+    level, treeData, parentNode, activeLevel,
+    selectedItems, itemFilter, onCheck, onToggle
+  } = props;
   return (
     <div className="node-item">
       <div>
         {
-          treeData.map(item => {
+          treeData.map((item) => {
             const { title, id, child } = itemFilter(item);
             const hasChild = Array.isArray(child) && child.length > 0;
             const levelId = id;
             let isLevelActive = activeLevel[levelId];
-            if(typeof isLevelActive == 'undefined') isLevelActive = true;
+            if (typeof isLevelActive == 'undefined') isLevelActive = true;
             return (
               <div key={id}
-                className={"list-item" + (isLevelActive ? ' active' : '') + (!hasChild ? ' no-child' : '')}>
-                <span className={"func-btn" + (!hasChild ? ' disabled' : '')}
-                  onClick={e => {
+                className={`list-item${isLevelActive ? ' active' : ''}${!hasChild ? ' no-child' : ''}`}>
+                <span className={`func-btn${!hasChild ? ' disabled' : ''}`}
+                  onClick={(e) => {
                     hasChild && onToggle(levelId, !isLevelActive);
                   }}>
                   <Icon
@@ -41,11 +58,11 @@ const Tree = (({ level, treeData, parentNode, activeLevel, selectedItems, itemFi
                       <Tree
                         treeData={child}
                         parentNode={item}
-                        selectedItems={selectedItems} 
-                        activeLevel={activeLevel} 
-                        onToggle={onToggle} 
-                        itemFilter={itemFilter} 
-                        onCheck={onCheck} 
+                        selectedItems={selectedItems}
+                        activeLevel={activeLevel}
+                        onToggle={onToggle}
+                        itemFilter={itemFilter}
+                        onCheck={onCheck}
                         level={level + 1}/>
                     )
                   }
@@ -57,31 +74,35 @@ const Tree = (({ level, treeData, parentNode, activeLevel, selectedItems, itemFi
       </div>
     </div>
   );
-});
+};
 
-export default class TreeList extends Component {
-  static propTypes = {
-    /** 树结构数据 */
-    treeData: PropTypes.arrayOf(
-      PropTypes.shape({
-        child: PropTypes.array,
-        title: PropTypes.string.isRequired,
-        value: PropTypes.any,
-        active: PropTypes.any,
-        id: PropTypes.any,
-      })
-    ),
-    /** 用于匹配对应字段 */
-    fieldMapper: PropTypes.shape({
-      child: PropTypes.string,
-      title: PropTypes.string,
-      active: PropTypes.string,
-      value: PropTypes.any,
-      id: PropTypes.string,
-    }),
-    defaultValue: PropTypes.shape({}),
-    onChange: PropTypes.func
-  }
+interface DataItem {
+  child?: DataItem[];
+  active?: any;
+  title: string;
+  value: any;
+  id: string;
+}
+
+interface TreeListProps {
+  /** 树结构数据 */
+  treeData: DataItem[];
+  onChange: (val) => void;
+  /** 用于匹配对应字段 */
+  fieldMapper?: {
+    child: string;
+    title: string;
+    active: string;
+    value: any;
+    id: string;
+  };
+  defaultValue?: {};
+}
+
+export default class TreeList extends Component<TreeListProps, {
+  activeLevel: {};
+  selectedItems: any;
+}> {
   static defaultProps = {
     fieldMapper: {
       child: 'child',
@@ -92,6 +113,9 @@ export default class TreeList extends Component {
     },
     defaultValue: {}
   }
+
+  selectedItems
+
   constructor(props) {
     super(props);
 
@@ -100,29 +124,34 @@ export default class TreeList extends Component {
       selectedItems: props.defaultValue
     };
   }
+
   componentDidMount() {
     this.getDefaultActiveItems();
   }
+
   getDefaultActiveItems = () => {
-    let res = {};
+    const res = {};
     const recuresive = (item) => {
-      if(item) {
+      if (item) {
         for (let i = 0; i < item.length; i++) {
           const _item = item[i];
           const { child, active } = this.itemFilter(_item);
-          if(active) {
+          if (active) {
             this.onCheck(_item);
-          } else if(Array.isArray(child)) recuresive(child);
+          } else if (Array.isArray(child)) recuresive(child);
         }
       }
     };
     recuresive(this.props.treeData);
     return res;
   }
+
   itemFilter = (item) => {
-    if(!item) return;
     const { fieldMapper } = this.props;
-    const { child, value, title, id, active } = fieldMapper;
+    if (!item || !fieldMapper) return null;
+    const {
+      child, value, title, id, active
+    } = fieldMapper;
     return {
       ...item,
       child: item[child],
@@ -132,29 +161,31 @@ export default class TreeList extends Component {
       id: item[id],
     };
   }
+
   getChildIDs = (targetNode) => {
-    let res = {};
+    const res = {};
     const recuresive = (item) => {
-      if(item) {
+      if (item) {
         for (let i = 0; i < item.length; i++) {
           const _item = item[i];
           const { child, id, value } = this.itemFilter(_item);
           res[id] = value;
-          if(Array.isArray(child)) recuresive(child);
+          if (Array.isArray(child)) recuresive(child);
         }
       }
     };
     recuresive(targetNode);
     return res;
   }
-  onCheck = (targetNode, parentNode) => {
+
+  onCheck = (targetNode, parentNode?) => {
     const { onChange } = this.props;
     const { child, id, value } = this.itemFilter(targetNode);
     this.setState(({ selectedItems }) => {
-      let nextState = {...selectedItems};
-      let IDs = this.getChildIDs(child);
+      const nextState = { ...selectedItems };
+      const IDs = this.getChildIDs(child);
       const isNextNeedCheck = !nextState.hasOwnProperty(id);
-      if(!isNextNeedCheck) {
+      if (!isNextNeedCheck) {
         delete nextState[id];
         for (const key in IDs) {
           if (IDs.hasOwnProperty(key)) {
@@ -167,22 +198,22 @@ export default class TreeList extends Component {
       }
 
       /** 检查父节点的所有 child 是否都选中了 */
-      if(parentNode) {
-        parentNode = this.itemFilter(parentNode);
-        const parentChildren = parentNode.child || [];
+      if (parentNode) {
+        const nextParentNode = this.itemFilter(parentNode);
+        const parentChildren = nextParentNode.child || [];
         const parentChildrenLen = parentChildren.length;
         let activeChildCount = 0;
         for (let i = 0; i < parentChildrenLen; i++) {
           const childItem = this.itemFilter(parentChildren[i]);
-          if(nextState.hasOwnProperty(childItem.id)) activeChildCount ++;
+          if (nextState.hasOwnProperty(childItem.id)) activeChildCount++;
         }
-        if(activeChildCount === parentChildrenLen) {
-          nextState[parentNode.id] = parentNode.value;
+        if (activeChildCount === parentChildrenLen) {
+          nextState[nextParentNode.id] = nextParentNode.value;
         } else {
-          delete nextState[parentNode.id];
+          delete nextState[nextParentNode.id];
         }
       }
-      
+
       Object.assign(nextState, IDs);
       Call(onChange, nextState);
       this.selectedItems = nextState;
@@ -191,15 +222,17 @@ export default class TreeList extends Component {
       };
     });
   }
+
   onToggle = (levelId, nextActiveState) => {
     this.setState(({ activeLevel }) => {
-      const nextState = {...activeLevel};
+      const nextState = { ...activeLevel };
       nextState[levelId] = nextActiveState;
       return {
         activeLevel: nextState
       };
     });
   }
+
   render() {
     const { treeData } = this.props;
     const { selectedItems, activeLevel } = this.state;
