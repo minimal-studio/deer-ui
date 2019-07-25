@@ -7,6 +7,7 @@ menu: Components
 import { Playground, Props } from 'docz'
 import { useState } from 'react';
 import Avatar from './avatar';
+import { ColorGroup, ForEachColor } from '../uke-utils/color';
 
 # Avatar
 
@@ -18,19 +19,19 @@ import Avatar from './avatar';
   {
     () => {
       return (
-        <div>
-          <Avatar
-            className="mr10"
-            text="A" />
-          <Avatar
-            color="red"
-            className="mr10"
-            text="B" />
-          <Avatar
-            color="green"
-            className="mr10">
-            C
-          </Avatar>       
+        <div className="layout">
+          {
+            ForEachColor((color) => (
+              <div className="mb10 mr10">
+                <Avatar
+                  color={color}
+                  className="mr10">
+                  {color[0]}
+                </Avatar>  
+                {color}
+              </div>            
+            ))
+          }
         </div>
       )
     }

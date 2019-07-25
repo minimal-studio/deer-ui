@@ -40,7 +40,7 @@ export interface AvatarProps {
  * @extends {PureComponent}
  */
 export default class Avatar extends UkePureComponent<AvatarProps> {
-  static defaultProps = {
+  static defaultProps: AvatarProps = {
     size: 50,
     text: '',
     tip: false,
