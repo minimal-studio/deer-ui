@@ -15,14 +15,14 @@ import { ColorGroup, ForEachColor } from '../uke-utils/color';
 
 ## Basic Usage
 
-<Playground>
+<Playground className="bg_default p10">
   {
     () => {
       return (
         <div className="layout">
           {
             ForEachColor((color) => (
-              <div className="mb10 mr10">
+              <div className="mb10 mr10" style={{width: '18%'}}>
                 <Avatar
                   color={color}
                   className="mr10">
