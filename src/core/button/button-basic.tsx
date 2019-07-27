@@ -10,7 +10,7 @@ import { StatusColorTypes, NatureColorTypes } from '../utils/props';
 
 type ButtonSize = 'lg' | 'md' | 'sm';
 
-export interface ButtonProps extends IconProps {
+export interface ButtonProps {
   /** 是否加载中 */
   loading?: boolean;
   /** 是否需要加载中的提示 */
@@ -41,8 +41,10 @@ export interface ButtonProps extends IconProps {
   children?: any;
   /** btn 的类型 */
   type?: React.ButtonHTMLAttributes<HTMLButtonElement>['type'];
-  /** 点击处理 */
+  /** onClick */
   onClick?: () => void;
+  /** pass to icon */
+  s?: IconProps['s'];
 }
 
 const defaultProps = {
