@@ -55,7 +55,7 @@ export interface GridProps {
   children?: any;
   /** 用于包装的外层组件 */
   component?: React.ElementType | 'div' | 'span';
-  /** 顾名思义 */
+  /** className */
   className?: string;
   /** 边框的宽度 */
   space?: LayoutSpaces;
@@ -89,10 +89,10 @@ export interface GridProps {
 
 const Grid: React.SFC<GridProps> = (props) => {
   const {
-    children, className, style, component,
+    children, className = '', style, component = 'div',
     space, container, item,
-    direction, wrap,
-    justify, alignContent, alignItem,
+    direction = '', wrap = '',
+    justify = '', alignContent = '', alignItem = '',
     xs, sm, lg, xl
   } = props;
   const C = component;
