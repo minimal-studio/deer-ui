@@ -219,16 +219,16 @@ $tdPadding: 10px;
 
   tr {
     &.theme {
-      @include highlightTD($colorRed);
+      @include highlightTD($red);
     }
     &.blue {
-      @include highlightTD($colorBlue);
+      @include highlightTD($blue);
     }
     &.red {
-      @include highlightTD($colorRed);
+      @include highlightTD($red);
     }
     &.orange {
-      @include highlightTD($colorOrange);
+      @include highlightTD($orange);
     }
   }
 

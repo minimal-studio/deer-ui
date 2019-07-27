@@ -57,10 +57,10 @@ textarea.form-control {
     width: auto;
   }
   &.error {
-    border-color: $colorRed;
+    border-color: $red;
   }
   &.success {
-    border-color: $colorGreen;
+    border-color: $green;
   }
 }
 .control-label {
@@ -79,10 +79,10 @@ textarea.form-control {
     color: $themeColor;
   }
   &.success {
-    color: $colorGreen;
+    color: $green;
   }
   &.error {
-    color: $colorRed;
+    color: $red;
   }
 }
 
@@ -120,7 +120,7 @@ textarea.form-control {
   // }
   &.error {
     .control-label {
-      color: $colorRed;
+      color: $red;
     }
   }
   .uke-radio-container {

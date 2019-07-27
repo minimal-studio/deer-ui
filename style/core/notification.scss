@@ -132,16 +132,16 @@ $itemW: 360px;
         @include nitifyItem(#FFF, #444);
       }
       &.success {
-        @include nitifyItem($colorGreen, #FFF);
+        @include nitifyItem($green, #FFF);
       }
       &.error {
-        @include nitifyItem($colorRed, #FFF);
+        @include nitifyItem($red, #FFF);
       }
       &.warn {
-        @include nitifyItem($colorOrange, #FFF);
+        @include nitifyItem($orange, #FFF);
       }
       &.black {
-        @include nitifyItem($colorBlack, #FFF);
+        @include nitifyItem($black, #FFF);
       }
       &.white {
         @include nitifyItem(#FFF, #333);

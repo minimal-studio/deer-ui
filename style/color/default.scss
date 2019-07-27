@@ -2,35 +2,60 @@
  * color config
  */
  
-$colorRed: #f86270;
-$colorRedDark: #b1147a;
-$colorGreen: rgba(90, 185, 155, 1);
-$colorGrey: rgba(40, 44, 52, 0.95);
-$colorCyan: #03b7aa;
-$colorYellow: #ffa200;
-$colorBlue: #449bea;
-$colorBlueLight: #23b1ed;
-$colorPurple: #7474e4;
-$colorPurpleLight: #a974e4;
-$colorOrange: #ff9800;
-$colorBlackPrue: #01040d;
-$colorBlack: #2e2e2f;
-$colorGold: #fcd477;
-$colorWhite: #FFF;
-$whiteColor: #FFF;
-$defaultColor: #fafafa;
-$importantColor: #027bf5;
-$warmColor: #ff9800;
-$greyColor: #6f6f7e;
-$wineColor: #c42c94;
+// blue
+$blue: #376BFB;
 
+// red
+$red: #FC4173;
+$red-2: #c42c94;
+
+// green
+$green: #24DF98;
+
+// purple
+$purple: #5050eb;
+
+// cyan
+$cyan: #21e7da;
+
+// yellow
+$yellow: #ffec3d;
+
+// gold
+$gold: #ffc53d;
+
+// orange
+$orange: #FDA929;
+
+// white
+$white: #FFF;
+
+// gray
+$gray: #d9d9d9;
+$gray-2: #EEE;
+
+// black
+$black: #000;
+
+// set theme color
+$themeColor: $blue;
+
+// status color
+$importantColor: $blue;
+$infoColor: $blue;
+$warmColor: $orange;
+$errorColor: $red;
+$successColor: $green;
+
+// Table
 $tableHeaderBgColor: #FFF;
 $tableHeaderTextColor: #444;
 $tableBodyBgColor: #FFF;
 $tableBodyTextColor: #777;
 
+// Scroll bar
 $lightThemeScrollThumb: rgba(#777, 0.5);
 $lightThemeScrollThumbHover: #666;
 $lightThemeScrollThumbActive: #444;
 
-$themeColor: $colorBlue;
+// $themeColor: $blue;

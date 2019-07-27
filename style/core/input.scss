@@ -24,8 +24,8 @@ $iconViewBgColor: $themeColor;
   display: flex;
   &.error {
     .form-control {
-      border-color: $colorRed;
-      background-color: $colorRed;
+      border-color: $red;
+      background-color: $red;
     }
   }
   .form-control {

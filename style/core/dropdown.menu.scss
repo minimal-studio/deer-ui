@@ -39,9 +39,9 @@ $caretHeight: 6px;
   display: inline-block;
   &.error {
     .menu-wrapper {
-      color: $colorRed !important;
+      color: $red !important;
       .display-title {
-        border-color: rgba($colorRed, 0.6) !important;
+        border-color: rgba($red, 0.6) !important;
       }
     }
   }

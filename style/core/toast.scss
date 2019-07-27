@@ -28,11 +28,11 @@
     justify-content: space-between;
     padding: 5px 10px;
     &.success {
-      background-color: $colorGreen;
+      background-color: $green;
       color: #FFF;
     }
     &.error {
-      background-color: $colorRed;
+      background-color: $red;
       color: #FFF;
     }
     @include bgColor;

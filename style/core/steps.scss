@@ -51,13 +51,13 @@ $tipIdxScale: 30px;
         @include tipIdxColor($themeColor);
       }
       &.success {
-        @include tipIdxColor($colorGreen);
+        @include tipIdxColor($green);
       }
       &.error {
-        @include tipIdxColor($colorRed);
+        @include tipIdxColor($red);
       }
       &.wran {
-        @include tipIdxColor($colorGold);
+        @include tipIdxColor($gold);
         .tip-idx {
           color: rgb(99, 89, 31);
         }
@@ -65,18 +65,18 @@ $tipIdxScale: 30px;
     }
     &.checked {
       .tip-idx {
-        background-color: $colorGreen;
-        border-color: $colorGreen;
+        background-color: $green;
+        border-color: $green;
         color: #FFF;
       }
       &.success {
-        @include tipIdxBg($colorGreen);
+        @include tipIdxBg($green);
       }
       &.error {
-        @include tipIdxBg($colorRed);
+        @include tipIdxBg($red);
       }
       &.wran {
-        @include tipIdxBg($colorGold);
+        @include tipIdxBg($gold);
         .tip-idx {
           color: rgb(99, 89, 31);
         }

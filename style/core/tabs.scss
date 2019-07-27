@@ -66,8 +66,8 @@ $tabTextColor: #999;
         transform: translateY(-50%);
         transition: opacity ease 0.2s;
         &:hover {
-          color: $colorRed;
-          // background-color: $colorRed;
+          color: $red;
+          // background-color: $red;
         }
       }
       &.right {
