@@ -6,11 +6,11 @@ import { IsFunc, DebounceClass } from 'basic-helper';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
 import { Icon } from '../icon';
-import ClickAway from '../uke-utils/click-away';
-import { Children, FuncChildren } from '../uke-utils/props';
+import { ClickAway } from '../click-away';
+import { Children } from '../utils/props';
+import { getElementOffsetInfo } from '../utils/get-elem-offset';
 import positionFilter from '../position-filter';
-import setDOMById, { getElementOffset, getElementOffsetInfo } from '../set-dom';
-
+import setDOMById from '../set-dom';
 
 interface State {
   isShow: boolean;

@@ -5,7 +5,7 @@ import { IsFunc } from 'basic-helper';
 // import LoadingDOMSnip from './snip';
 import LoadingProgress from './progress';
 import LoadingDOMPlaceholder from './placeholder';
-import { Children, FuncChildren } from '../uke-utils/props';
+import { Children, FuncChildren } from '../utils/props';
 
 export interface LoadingProps {
   /** animation timeout */

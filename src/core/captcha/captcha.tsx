@@ -1,7 +1,7 @@
 import React from 'react';
 import { Call } from 'basic-helper';
 
-import { UkeComponent } from '../uke-utils';
+import { UkeComponent } from '../utils/uke-component';
 import Input from '../form-control/input';
 
 interface GetDataRes {

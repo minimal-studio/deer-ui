@@ -1,7 +1,7 @@
 import React from 'react';
 import { HasValue, Call } from 'basic-helper';
 import classnames from 'classnames';
-import {tuple} from 'basic-helper/utils/type';
+import { tuple } from 'basic-helper/utils/type';
 
 import SelectorBasic, { SelectorValuesDescription, SelectorBasicProps } from './selector';
 import DropdownWrapper from './dropdown-wrapper';
@@ -9,7 +9,7 @@ import { MenuItem } from '../menu';
 import { $T, $T_UKE } from '../config';
 // import Radio from './radio';
 
-const positionList = tuple('button', 'top', 'left', 'right', 'button,left', 'button,right', 'top,left', 'top,right')
+const positionList = tuple('button', 'top', 'left', 'right', 'button,left', 'button,right', 'top,left', 'top,right');
 export type DropdownPosition = (typeof positionList)[number];
 
 export interface DropdownMenuProps extends SelectorBasicProps {

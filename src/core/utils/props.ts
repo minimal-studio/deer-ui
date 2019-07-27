@@ -6,7 +6,7 @@ export type Color =
   |'gold'
   |'blue'
   |'green'
-  |'light-p'
+  |'purple'
   |'primary'
   |'default'
   |'white'

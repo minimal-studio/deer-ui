@@ -1,7 +1,6 @@
 import React, { Component, PureComponent } from 'react';
 
 import { Call, HasValue, IsFunc } from 'basic-helper';
-import { tuple } from 'basic-helper/utils/type';
 import { Icon } from '../icon';
 
 

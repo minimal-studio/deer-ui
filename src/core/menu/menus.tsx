@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Menu, { MenuProps } from './menu';
-import { DivideType } from '../uke-utils/props';
+import { DivideType } from '../utils/props';
 
 export interface MenuItemData extends MenuProps {
   /** 点击 Menu 的回调 */

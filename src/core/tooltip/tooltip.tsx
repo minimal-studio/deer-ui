@@ -4,7 +4,7 @@ import { Call, DebounceClass } from 'basic-helper';
 import { PopoverEntity } from '../popover';
 import { Icon } from '../icon';
 import { $T } from '../config';
-import { Color } from '../uke-utils/props';
+import { Color } from '../utils/props';
 
 import { IconProps } from '../icon/icon';
 

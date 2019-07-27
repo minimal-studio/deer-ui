@@ -1,5 +1,5 @@
 
-import { getScreenWidth, getScreenHeight, getScrollTop } from '../utils';
+import { getScreenWidth, getScreenHeight } from './screen';
 
 export type PopoverPosition = 'top' | 'right' | 'left' | 'bottom';
 export interface PositionReturn {

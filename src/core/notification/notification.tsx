@@ -3,8 +3,8 @@ import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import { EventEmitter, Call, HasValue } from 'basic-helper';
 import { Icon } from '../icon';
 import positionFilter from '../position-filter';
-import { UkePureComponent } from '../uke-utils';
-import { tipIcons } from '../uke-utils/icon-mapper';
+import { UkePureComponent } from '../utils/uke-component';
+import { tipIcons } from '../utils/icon-mapper';
 
 export interface NotificationProps {
   handleClick?: (params: {}) => void;

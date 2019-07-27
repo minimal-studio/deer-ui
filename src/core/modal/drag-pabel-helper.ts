@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { UkeComponent } from '../uke-utils';
-import { getScreenWidth } from '../utils';
+import { UkeComponent } from '../utils/uke-component';
+import { getScreenWidth } from '../utils/screen';
 
 export interface DragPanelClassProps {
   topLimit?: number;

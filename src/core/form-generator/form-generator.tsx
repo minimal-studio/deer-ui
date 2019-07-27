@@ -5,7 +5,7 @@ import React from 'react';
 
 import { UUID, Call } from 'basic-helper';
 import FormFilterHelper, { FormFilterProps, FormOptionsItem } from './form-filter';
-import { DivideType } from '../uke-utils/props';
+import { DivideType } from '../utils/props';
 
 export interface FormGeneratorProps extends FormFilterProps<(FormOptionsItem & DivideType)[]> {
   // /** 表单配置 */

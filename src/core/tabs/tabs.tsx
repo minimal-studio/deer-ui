@@ -3,7 +3,7 @@ import { CallFunc } from 'basic-helper';
 
 import Tab from './tab';
 import { ToolTip } from '../tooltip';
-import { Children } from '../uke-utils/props';
+import { Children } from '../utils/props';
 
 export interface TabsProps {
   /** children */

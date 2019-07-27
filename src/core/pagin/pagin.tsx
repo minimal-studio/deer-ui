@@ -1,9 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { UkeComponent } from '../uke-utils';
 import Selector from '../selector/dropdown-menu';
-import { getElementOffset } from '../set-dom';
-import { getScreenHeight, getScrollTop } from '../utils';
+import { UkeComponent } from '../utils/uke-component';
+import { getScreenHeight } from '../utils/screen';
+import { getScrollTop } from '../utils/scroll';
+import { getElementOffset } from '../utils/get-elem-offset';
 
 export type PaginInfo = {
   [key: string]: number | boolean;

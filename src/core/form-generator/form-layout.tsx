@@ -6,12 +6,12 @@
 
 import React from 'react';
 
-import { UkeComponent } from '../uke-utils';
 import Button from '../button/button-normal';
 import TipPanel, { TipPanelProps } from '../tip-panel/tip-panel';
 import Toast from '../toast/toast';
 import FormGenerator, { FormGeneratorProps } from './form-generator';
-import { BtnItemConfig } from '../uke-utils/props';
+import { UkeComponent } from '../utils/uke-component';
+import { BtnItemConfig } from '../utils/props';
 
 export interface FormLayoutProps extends FormGeneratorProps {
   /** 只有一个按钮时传入的按钮 text */

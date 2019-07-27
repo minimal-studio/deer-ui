@@ -4,11 +4,11 @@ import React from 'react';
 import {
   HasValue, DateFormat, MoneyFormat, IsFunc, IsObj, Call
 } from 'basic-helper';
-import { UkeComponent } from '../uke-utils';
 import { ToolTip } from '../tooltip';
 import { Label } from '../label';
 import Dropdown, { DropdownMenuProps } from '../selector/dropdown-menu';
-import { Color } from '../uke-utils/props';
+import { UkeComponent } from '../utils/uke-component';
+import { Color } from '../utils/props';
 
 interface TitleFormSelector extends DropdownMenuProps {
   /** 如果为 type === selector，则渲染 DropdownMenu，其余属性传入 DropdownMenu 组件 */

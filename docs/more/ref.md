@@ -8,7 +8,7 @@
 Uke 组件继承自 UkeComponent 或 UkePureComponent
 
 ```jsx static
-import { UkeComponent, UkePureComponent } from './uke-utils';
+import { UkeComponent, UkePureComponent } from './utils';
 
 class SomeUkeCom extends UkeComponent {
   /** 继承自 UkeComponent */

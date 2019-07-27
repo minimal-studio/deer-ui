@@ -7,7 +7,7 @@ import {
   Call, CallFunc, IsFunc, HasValue, IsObj
 } from 'basic-helper';
 
-import { UkeComponent } from '../uke-utils';
+import { UkeComponent } from '../utils/uke-component';
 
 import { DatetimePicker, DateShortcut } from '../datetimepicker';
 import { Radio, DropdownMenu, Checkbox } from '../selector';

@@ -4,8 +4,8 @@ import { Call } from 'basic-helper';
 import { DropdownWrapper } from '../selector';
 import { Tip } from '../tip';
 
-import { UkePureComponent } from '../uke-utils';
-import { Color } from '../uke-utils/props';
+import { UkePureComponent } from '../utils/uke-component';
+import { Color } from '../utils/props';
 
 export interface AvatarProps {
   /** 头像的大小 */
@@ -27,7 +27,7 @@ export interface AvatarProps {
   /** className */
   className?: string;
   /** 显示在右上角的提示 */
-  tip?: boolean|string|number;
+  tip?: boolean | string | number;
   /** 换头像后的回调 */
   onChangeAvatar?: Function;
 }

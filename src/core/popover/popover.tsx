@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
-import { getElementOffset } from '../set-dom';
+import { getElementOffset } from '../utils/get-elem-offset';
 import {
   getLeft, getRight, getTop, getBottom,
   PositionReturn, PopoverPosition
-} from '../uke-utils/position';
+} from '../utils/position';
 
 export interface PopoverProps {
   /** 是否激活 */

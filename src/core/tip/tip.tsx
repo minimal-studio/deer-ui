@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Color } from '../uke-utils/props';
+import { Color } from '../utils/props';
 
 export interface TipProps {
   /** 大小 */
@@ -16,6 +16,7 @@ const Tip: React.SFC<TipProps> = ({
 }) => {
   const tipStyle = {
     height: scale,
+    lineHeight: `${scale - 1}px`,
     width: scale
   };
   return (

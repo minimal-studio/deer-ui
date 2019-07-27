@@ -4,7 +4,7 @@ import { CallFunc, Call } from 'basic-helper';
 import DropdownWrapper from './dropdown-wrapper';
 import { Icon } from '../icon';
 
-import { UkeComponent } from '../uke-utils';
+import { UkeComponent } from '../utils/uke-component';
 
 export interface LinkDataStruct {
   /** ID */

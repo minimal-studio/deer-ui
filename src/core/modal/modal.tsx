@@ -6,7 +6,7 @@ import classnames from 'classnames';
 
 import { DragPanelClass, DragPanelClassProps } from './drag-pabel-helper';
 import { Icon } from '../icon';
-import { Children } from '../uke-utils/props';
+import { Children } from '../utils/props';
 
 export interface ModalRequiredProps {
   /** 当前 modal 是否打开 */

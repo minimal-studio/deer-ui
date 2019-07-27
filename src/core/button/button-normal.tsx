@@ -6,7 +6,7 @@ import { Call } from 'basic-helper';
 import { $T_UKE } from '../config';
 import { Icon } from '../icon';
 import { IconProps } from '../icon/icon';
-import { Color } from '../uke-utils/props';
+import { Color } from '../utils/props';
 
 export interface ButtonProps extends IconProps {
   /** 是否加载中 */

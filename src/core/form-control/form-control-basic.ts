@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { UkeComponent } from '../uke-utils';
+import { UkeComponent } from '../utils/uke-component';
 
 export interface FormControlBasicProps {
   value?: any;

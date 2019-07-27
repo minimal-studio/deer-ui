@@ -2,7 +2,7 @@ import React, { Component, PureComponent } from 'react';
 import { Call } from 'basic-helper';
 
 import { Loading } from '../loading';
-import { LoadScript } from '../utils';
+import { LoadScript } from '../utils/load-stuff';
 
 export interface ChartComProps {
   /** data */
