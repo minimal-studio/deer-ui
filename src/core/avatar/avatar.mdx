@@ -7,7 +7,7 @@ menu: Components
 import { Playground, Props } from 'docz'
 import { useState } from 'react';
 import Avatar from './avatar';
-import { NatureColors, ForEachColor } from '../utils/color';
+import { ExampleColor, ForEachColor } from '../utils/color';
 import { List, ListItem } from '../list';
 
 # Avatar
@@ -25,17 +25,22 @@ import { List, ListItem } from '../list';
           <List style={{
             height: 300,
             overflow: 'auto'
-          }} className="bg_default">
+          }}>
             {
-              ForEachColor(NatureColors)((color) => (
-                <ListItem className="b" key={color}>
+              ForEachColor(ExampleColor)((color) => (
+                <ListItem className="b layout a-i-c" key={color}>
                   <Avatar
                     color={color}
                     size={40}
                     className="mr10">
                     {color[0]}
-                  </Avatar>  
-                  {color}
+                  </Avatar>
+                  <div>
+                    <div>
+                    {color.toUpperCase()}
+                    </div>
+                    <div className="t_gray">{color}</div>
+                  </div>
                 </ListItem>
               ))
             }
@@ -55,22 +60,22 @@ import { List, ListItem } from '../list';
         <div>
           <Avatar
             className="mr10"
-            size={40}
+            size={70}
             text="A" />
           <Avatar
             color="green"
-            size={50}
+            size={60}
             className="mr10">
             C
           </Avatar>  
           <Avatar
             color="yellow"
-            size={60}
+            size={50}
             className="mr10"
             text="B" />     
           <Avatar
             color="red"
-            size={70}
+            size={40}
             className="mr10"
             text="B" />     
         </div>
@@ -79,7 +84,7 @@ import { List, ListItem } from '../list';
   }
 </Playground>
 
-## 头像上的小提示
+## Avatar 的小提示
 
 <Playground>
   {
@@ -87,7 +92,6 @@ import { List, ListItem } from '../list';
       return (
         <div>
           <Avatar
-            size={100}
             onChangeAvatar={e => {
               {/* alert('你好') */}
               console.log(e);
@@ -101,7 +105,7 @@ import { List, ListItem } from '../list';
   }
 </Playground>
 
-## 可换头像
+## 可换 Avatar
 
 <Playground>
   {
