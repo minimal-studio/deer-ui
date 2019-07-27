@@ -14,6 +14,8 @@ export interface ClickAwayProps {
 export default class ClickAway extends Component<ClickAwayProps> {
   __mounted = false;
 
+  node
+
   componentDidMount() {
     // this.node = ReactDOM.findDOMNode(this);
     this.updateNodeRef();
