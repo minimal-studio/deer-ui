@@ -9,10 +9,14 @@
 - 全面使用 Typescript 重构项目
 - 所有组件提供代码提示，Props 和 API 的参数检查
 - 整理并精简项目结构和代码
+- 调整 /core/utils 目录的结构，按照功能更细致划分代码，旧的 /core/uke-utils 的功能也合并到其中
+- 调整 ClickAway 的目录位置，可以通过 /core/click-away 引用
 
 ### 新特性
 
 - 全新的 Color 系统
+  - 全新的 scss 架构和主题定制
+  - 全新的配色方案
 - Avatar 支持 Color 系统
 
 ### 废弃组件
