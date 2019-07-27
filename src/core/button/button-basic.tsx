@@ -6,7 +6,9 @@ import { Call } from 'basic-helper';
 import { $T_UKE } from '../config';
 import { Icon } from '../icon';
 import { IconProps } from '../icon/icon';
-import { Color } from '../utils/props';
+import { StatusColorTypes, NatureColorTypes } from '../utils/props';
+
+type ButtonSize = 'lg' | 'md' | 'sm';
 
 export interface ButtonProps extends IconProps {
   /** 是否加载中 */
@@ -17,6 +19,10 @@ export interface ButtonProps extends IconProps {
   loadingDisable?: boolean;
   /** 是否禁用 */
   disabled?: boolean;
+  /** 按钮样式是否中空 */
+  hola?: boolean;
+  /** 是否占据一行 */
+  block?: boolean;
   /** 设置 btn 的 class */
   className?: string;
   /** 设置 btn 的 icon, 可以使用 iconMapper 来引用 */
@@ -25,8 +31,12 @@ export interface ButtonProps extends IconProps {
   text?: string;
   /** btn 内的布局 */
   textLayout?: string;
-  /** btn 的颜色 [theme, red, gold...] */
-  color?: Color;
+  /** btn 的状态 */
+  status?: StatusColorTypes | 'link';
+  /** btn 的颜色 */
+  color?: NatureColorTypes;
+  /** size */
+  size?: ButtonSize;
   /** children */
   children?: any;
   /** btn 的类型 */
@@ -48,7 +58,8 @@ const defaultProps = {
 const Button: React.SFC<ButtonProps> = (props) => {
   const {
     loading, disabled, text = $T_UKE('提交'), icon, s, type = 'button', children,
-    color = 'theme', className, loadingHint, loadingDisable, textLayout, onClick,
+    status, color = 'theme', size = 'md', block = false, className, hola = false,
+    loadingHint, loadingDisable, textLayout, onClick,
     ...other
   } = props;
 
@@ -65,7 +76,7 @@ const Button: React.SFC<ButtonProps> = (props) => {
       {...other}
       disabled={!clickable}
       type={type}
-      className={`btn flat ${color} ${className}`}
+      className={`btn ${status || color} ${size} ${className}${hola ? ' hola' : ''}${block ? ' block' : ''}`}
       onClick={(e) => {
         if (clickable) Call(onClick, e);
       }}>

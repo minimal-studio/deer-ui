@@ -6,7 +6,7 @@
 
 import React from 'react';
 
-import Button from '../button/button-normal';
+import { Button } from '../button';
 import TipPanel, { TipPanelProps } from '../tip-panel/tip-panel';
 import Toast from '../toast/toast';
 import FormGenerator, { FormGeneratorProps } from './form-generator';

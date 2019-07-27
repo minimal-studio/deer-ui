@@ -1,0 +1,177 @@
+---
+name: Button
+route: /Button
+menu: Components
+---
+
+import { useState } from 'react';
+import { Playground, Props } from 'docz'
+import { ExampleColors, ForEachColor } from '../utils/color';
+import { ShowModal } from '../modal';
+import { Button } from './';
+
+# Button
+
+## Status Button
+
+根据不同的 status 决定按钮颜色
+
+<Playground>
+  <Button
+    status="primary"
+    className="mr10">
+    Primary
+  </Button>
+  <Button
+    color="default"
+    className="mr10">
+    Default
+  </Button>
+  <Button
+    color="danger"
+    className="mr10">
+    Danger
+  </Button>
+  <Button
+    disabled
+    status="warn"
+    className="mr10">
+    Disabled
+  </Button>
+  <Button
+    loading
+    color="green"
+    className="mr10">
+    Loading
+  </Button>
+  <Button
+    status="link"
+    className="mr10">
+    Link
+  </Button>
+</Playground>
+
+-----------
+
+## 实心 Button
+
+<Playground>
+  {
+    () => {
+      return (
+        <div>
+          {
+            ForEachColor(ExampleColors)((color) => (
+              <Button key={color}
+                color={color}
+                className="mr10 mb10">
+                {color.toUpperCase()}
+              </Button>
+            ))
+          }
+        </div>
+      )
+    }
+  }
+</Playground>
+
+## 中空 Button
+
+<Playground>
+  {
+    () => {
+      return (
+        <div>
+          {
+            ForEachColor(ExampleColors)((color) => (
+              <Button key={color}
+                color={color}
+                hola
+                className="mr10 mb10">
+                {color.toUpperCase()}
+              </Button>
+            ))
+          }
+        </div>
+      )
+    }
+  }
+</Playground>
+
+## 链接按钮 link
+
+<Playground>
+  <Button
+    status="link"
+    className="mr10">
+    Link
+  </Button>
+</Playground>
+
+## Size
+
+<Playground>
+  <Button
+    size="lg"
+    className="mr10">
+    Large
+  </Button>
+  <Button
+    size="md"
+    color="green"
+    className="mr10">
+    Middle
+  </Button>
+  <Button
+    size="sm"
+    color="orange"
+    className="mr10">
+    Small
+  </Button>
+</Playground>
+
+## Block
+
+> 占一行
+
+<Playground>
+  <Button block>Block Button</Button>
+</Playground>
+
+## With Icon
+
+<Playground>
+  {
+    () => {
+      const icons = [
+        {icon: 'envelope-open', s: 'r'},
+        {icon: 'paper-plane', s: 'r'},
+        {icon: 'align-right'},
+        {icon: 'bell', s: 'r'},
+        {icon: 'check-circle', s: 'r'},
+      ];
+      return (
+        <div>
+          {
+            ForEachColor(ExampleColors)((color, idx) => {
+              return (
+                <Button key={color}
+                  color={color}
+                  hola
+                  icon={icons[idx].icon}
+                  s={icons[idx].s}
+                  className="mr10 mb10">
+                  {color.toUpperCase()}
+                </Button>
+              )
+            })
+          }
+        </div>
+      )
+    }
+  }
+</Playground>
+
+## Props
+
+<Props of={Button} />

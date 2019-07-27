@@ -1,20 +1,25 @@
-export type Color =
+export type NatureColorTypes =
   'theme'
+  |'white'
   |'red'
   |'orange'
   |'yellow'
   |'gold'
   |'blue'
   |'green'
-  |'purple'
+  |'purple';
+export type GrayColorTypes =
+  |'white'
+  |'black'
+  |'grey';
+export type StatusColorTypes =
   |'primary'
   |'default'
-  |'white'
   |'important'
-  |'warn'
-  |'black'
-  |'grey'
-  |'wine';
+  |'danger'
+  |'warn';
+
+export type Color = NatureColorTypes & GrayColorTypes & StatusColorTypes;
 
 export interface BtnItemConfig {
   /** 该按钮的操作 */

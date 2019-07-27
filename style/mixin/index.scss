@@ -141,11 +141,11 @@
 @mixin btnHola($btnBgColor) {
   color: $btnBgColor;
   border-color: $btnBgColor;
+  background-color: rgba($btnBgColor, 0.05);
   &:hover {
     box-shadow: 0 0 6px rgba($btnBgColor, 0.5);
   }
   &:active {
-    // background-color: darken($btnBgColor, 20%);
     box-shadow: 0 0 3px rgba($btnBgColor, 0.8);
   }
 }

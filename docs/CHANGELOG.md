@@ -11,6 +11,7 @@
 - 整理并精简项目结构和代码
 - 调整 /core/utils 目录的结构，按照功能更细致划分代码，旧的 /core/uke-utils 的功能也合并到其中
 - 调整 ClickAway 的目录位置，可以通过 /core/click-away 引用
+- 调整并统一 Button 的样式，去除 `className: flat`
 
 ### 新特性
 

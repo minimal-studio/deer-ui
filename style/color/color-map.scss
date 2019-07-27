@@ -21,8 +21,9 @@ $colorsMap: (
   (name: 'primary', color: $blue),
   (name: 'error', color: $errorColor),
   (name: 'success', color: $successColor),
-  (name: 'warn', color: $warmColor),
+  (name: 'warn', color: $warnColor),
   (name: 'warm', color: $warmColor),
+  (name: 'danger', color: $dangerColor),
 );
 
 // 背景颜色配字体颜色
@@ -48,6 +49,6 @@ $bgColorsWithTextColor: (
   (name: 'primary', color: $blue, text: #FFF),
   (name: 'error', color: $errorColor, text: #FFF),
   (name: 'success', color: $successColor, text: #FFF),
-  (name: 'warn', color: $warmColor, text: #FFF),
-  (name: 'warm', color: $warmColor, text: #FFF),
+  (name: 'warn', color: $warnColor, text: #FFF),
+  (name: 'danger', color: $dangerColor, text: #FFF),
 );
