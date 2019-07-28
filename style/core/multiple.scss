@@ -10,14 +10,14 @@
   margin: 0 10px;
   $eachTipH: 20px;
   .toggle-tip-btn {
-    transform: rotate(90deg);
+    // transform: rotate(90deg);
     transition: transform 0.2s ease;
-    font-size: 10px;
+    // font-size: 10px;
   }
   &.show {
     border-radius: $borderRadius $borderRadius 0 0;
     .toggle-tip-btn {
-      transform: rotate(0);
+      transform: rotate(-90deg);
     }
     &,.idea-tip {
       border-color: $themeColor;
@@ -64,6 +64,7 @@
     line-height: 16px;
     display: inline-block;
     padding: 2px 8px;
+    user-select: none;
     // &:first-child {
     //   border-radius: 3px 0 0 3px;
     // }

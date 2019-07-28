@@ -4,21 +4,21 @@ import { Icon } from '../icon';
 
 export interface MultipleProps {
   /** onChange */
-  onChange: Function;
+  onChange: (val) => void;
   /** 是否可输入 */
-  inputable: boolean;
+  inputable?: boolean;
   /** 每一次输入的单位 */
-  basicUnit: number;
+  basicUnit?: number;
   /** 最小输入 */
-  min: number;
+  min?: number;
   /** 最大输入 */
-  max: number;
+  max?: number;
   /** 默认值 */
-  defaultValue: any;
+  defaultValue?: any;
   /** 后缀 */
-  suffix: string;
+  suffix?: string;
   /** 下拉提示的组合 */
-  range: number[];
+  range?: number[];
 }
 
 interface State {
@@ -74,7 +74,7 @@ export default class Multiple extends PureComponent<MultipleProps, State> {
   }
 
   checkValue() {
-    const { min, max } = this.props;
+    const { min = -1000, max = 10000 } = this.props;
     let { value } = this.state;
     if (value < min || value === 0) {
       value = min;
@@ -90,9 +90,6 @@ export default class Multiple extends PureComponent<MultipleProps, State> {
     });
   }
 
-  // shouldComponentUpdate(nextProps, nextState) {
-  //   return this.props.defaultValue !== nextProps.defaultValue || this.state.isShowIdea !== nextState.isShowIdea;
-  // }
   render() {
     const { suffix, range, inputable } = this.props;
     const { isShowIdea, value } = this.state;
@@ -100,7 +97,6 @@ export default class Multiple extends PureComponent<MultipleProps, State> {
     return (
       <div className={`multiple-helper${isShowIdea ? ' show' : ''}`}>
         <div className="layout a-i-str j-c-b">
-          <span className="multiple-action-btn" onClick={e => this.multipleOperation('less')}>-</span>
           <input type="text" name="multiple" className="multiple-input-control"
             onFocus={(e) => {
               e.target.select();
@@ -120,17 +116,20 @@ export default class Multiple extends PureComponent<MultipleProps, State> {
               this.changeValue(e.target.value);
             }}/>
           <span className="multiple-tip">{suffix}</span>
-          <span className="multiple-action-btn" onClick={e => this.multipleOperation('plus')}>+</span>
+          <span className="multiple-action-btn"
+            onClick={e => this.multipleOperation('less')}>-</span>
+          <span className="multiple-action-btn"
+            onClick={e => this.multipleOperation('plus')}>+</span>
           <span className="ps5 toggle-tip-btn" onClick={(e) => {
             this.multipleHelper.focus();
             this.setIdea(true);
           }}>
-            <Icon n="more"/>
+            <Icon n="arrow-down"/>
           </span>
         </div>
         <div className="idea-tip">
           {
-            range.map(item => (
+            range && range.map(item => (
               <div key={item} className="item" onClick={(e) => {
                 this.setIdea(false);
                 this.changeValue(item);
