@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { Call, DebounceClass } from 'basic-helper';
+import { Call, DebounceClass, UUID } from 'basic-helper';
 
 import { PopoverEntity } from '../popover';
 import { Icon } from '../icon';
@@ -18,19 +18,12 @@ export interface ToolTipProps extends IconProps {
   /** 点击即关闭弹出曾 */
   clickToClose?: boolean;
   /** 包裹的组件 */
-  component?: Children;
+  component?: React.ElementType;
   /** 弹出的位置 */
   position?: 'bottom'|'top'|'right'|'left';
-  /** 点击的回调 */
-  onClick?: Function;
 }
 
 const debounce = new DebounceClass();
-
-const Popover = new PopoverEntity({
-  id: 'iconPopover',
-  fixed: true
-});
 
 const TitleDOM = ({ title }) => {
   const isArr = Array.isArray(title);
@@ -42,8 +35,13 @@ const TitleDOM = ({ title }) => {
   );
 };
 
-const Div = ({ classNames, ...props }) => (
-  <span {...props} />
+const Div = ({
+  classNames, children, n, ...props
+}) => (
+  <span {...props}>
+    <Icon n={n} />
+    {children}
+  </span>
 );
 
 /**
@@ -59,44 +57,68 @@ export default class ToolTip extends PureComponent<ToolTipProps> {
     classNames: []
   }
 
+  Popover = new PopoverEntity({
+    id: UUID(),
+    fixed: true
+  });
+
   componentWillUnmount = () => {
-    setTimeout(() => Popover.close(), 10);
+    setTimeout(() => {
+      this.Popover.destroy();
+    }, 10);
+  }
+
+  handleMouseEnter = (e) => {
+    const {
+      title, position, color = 'black'
+    } = this.props;
+    this.Popover.show({
+      elem: e.target,
+      props: {
+        position,
+        showCloseBtn: false,
+        enableTabIndex: false,
+        className: 'icon-tip',
+        type: color
+      },
+      children: <TitleDOM title={title}/>,
+    });
+  }
+
+  handleMouseLeave = (e) => {
+    this.Popover.close();
+  }
+
+  handleClick = (e) => {
+    const {
+      clickToClose, onClick
+    } = this.props;
+    Call(onClick, e);
+    if (clickToClose) {
+      this.Popover.close();
+    } else {
+      debounce.exec(() => {
+        const { title } = this.props;
+        this.Popover.show({
+          children: <TitleDOM title={title}/>,
+        });
+      }, 15);
+    }
   }
 
   render() {
     const {
       title, clickToClose, onClick, position, component,
-      children, color = 'black', classNames = [], ...other
+      children, classNames = [], ...other
     } = this.props;
+    // const Com = component;
     const Com = children ? Div : component || Icon;
     return (
       <Com
         {...other}
-        onMouseEnter={(e) => {
-          Popover.show({
-            elem: e.target,
-            props: {
-              position,
-              showCloseBtn: false,
-              enableTabIndex: false,
-              className: 'icon-tip',
-              type: color
-            },
-            children: <TitleDOM title={title}/>,
-          });
-        }}
-        onMouseLeave={(e) => {
-          Popover.close();
-        }}
-        onClick={(e) => {
-          Call(onClick, e);
-          if (clickToClose) return Popover.close();
-          debounce.exec(() => {
-            Popover.show({
-              children: <TitleDOM title={title}/>,
-            });
-          }, 15);
-        }}
+        onMouseEnter={this.handleMouseEnter}
+        onMouseLeave={this.handleMouseLeave}
+        onClick={this.handleClick}
         classNames={[...classNames, 'relative']}>
         {children}
       </Com>

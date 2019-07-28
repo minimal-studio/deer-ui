@@ -17,46 +17,66 @@ import { ToolTip } from './';
   {
     () => {
       return (
-        <State initial={{
-          isOpen: 'isOpen',
-          position: 'left'
-        }}>
-          {
-            ({ setState, state }) => {
-              const { isOpen, position } = state;
-              return (
-                <div>
-                  <span className="ms10 link" onClick={e => setState({
-                    position: 'left'
-                  })}>左边</span>
-                  <span className="ms10 link" onClick={e => setState({
-                    position: 'right'
-                  })}>右边</span>
-                  <span className="ms10 link" onClick={e => setState({
-                    position: 'top'
-                  })}>上</span>
-                  <span className="ms10 link" onClick={e => setState({
-                    position: 'bottom'
-                  })}>下</span>
-                  <hr />
-                  <ToolTip
-                    onClick={e => setState({
-                      isOpen: !isOpen
-                    })}
-                    position={position}
-                    title={!isOpen ? "打开书" : "关闭书"}
-                    n={isOpen ? "book-open" : "book"}>
-                    打开位置 {position}
-                  </ToolTip>
-                </div>
-              )
-            }
-          }
-        </State>
+        <div>
+          <ToolTip
+            position="top"
+            className="bg_default p10 ms10"
+            title="Top">
+            Top
+          </ToolTip>
+          <ToolTip
+            position="left"
+            className="bg_default p10 ms10"
+            title="Left">
+            Left
+          </ToolTip>
+          <ToolTip
+            position="right"
+            className="bg_default p10 ms10"
+            title="Righe">
+            Righe
+          </ToolTip>
+          <ToolTip
+            position="bottom"
+            className="bg_default p10 ms10"
+            title="Bottom">
+            Bottom
+          </ToolTip>
+        </div>
       )
     }
   }
 </Playground>
+
+## With Icon
+
+<Playground>
+  {
+    () => {
+      const [isOpen, setOpen] = useState(false)
+      const [position, setPos] = useState('left')
+      return (
+        <div>
+          <span className="ms10 link" onClick={e => setPos('left')}>左</span>
+          <span className="ms10 link" onClick={e => setPos('right')}>右</span>
+          <span className="ms10 link" onClick={e => setPos('top')}>上</span>
+          <span className="ms10 link" onClick={e => setPos('bottom')}>下</span>
+          <hr />
+          <ToolTip
+            onClick={e => setOpen(!isOpen)}
+            position={position}
+            title={!isOpen ? "打开书" : "关闭书"}
+            className="bg_default p10"
+            n={isOpen ? "book-open" : "book"}>
+            打开位置 {position}
+          </ToolTip>
+        </div>
+      )
+    }
+  }
+</Playground>
+
+## 状态切换
 
 <Playground>
   {
@@ -70,8 +90,7 @@ import { ToolTip } from './';
                 onClick={e => setShow(!isShow)}
                 clickToClose
                 title="就是这么爽"
-                n="angry">
-              </ToolTip>
+                n="angry" />
             ) : (
               <span onClick={e => setShow(true)}>显示</span>
             )
