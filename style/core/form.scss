@@ -1,18 +1,3 @@
-.input-selector {
-  display: flex;
-  align-items: center;
-  .menu-wrapper {
-    min-width: 80px !important;
-    background-color: #f3f3f3;
-  }
-  .input-control {
-    border-radius: 0 3px 3px 0;
-    margin-bottom: 0;
-    padding: 0 10px;
-    // margin-left: 5px;
-  }
-}
-
 .uke-input-group {
   display: table;
   .input-addon {
@@ -33,10 +18,18 @@ textarea.form-control {
   width: 400px;
   height: 100px;
 }
+input, textarea {
+  &:focus {
+    // box-shadow: none;
+    box-shadow: 0 0 1px rgba($themeColor, 0.6);
+    border-color: $themeColor;
+  }
+}
 .form-control {
   &select {
     padding: 0;
   }
+  color: $black;
   display: inline-block;
   width: auto;
   background-color: #FFF;
@@ -49,7 +42,7 @@ textarea.form-control {
   transition: border-color 0.1s, background-color 0.1s;
   &:focus {
     // box-shadow: none;
-    box-shadow: 0 0 5px rgba($themeColor, 0.6);
+    box-shadow: 0 0 1px rgba($themeColor, 0.6);
     background-color: #FFF;
     border-color: $themeColor;
   }
@@ -87,9 +80,9 @@ textarea.form-control {
 }
 
 .form-container {
-  .form-control {
-    min-width: 240px;
-  }
+  // .form-control {
+  //   min-width: 240px;
+  // }
   &.inlineTitle {
     .title {
       display: inline !important;
@@ -113,11 +106,6 @@ textarea.form-control {
 
 .form-group {
   margin: 20px 0;
-  // &.required {
-  //   .control-label {
-  //     color: darken($themeColor, 40%);
-  //   }
-  // }
   &.error {
     .control-label {
       color: $red;

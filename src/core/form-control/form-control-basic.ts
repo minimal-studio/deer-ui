@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { UkeComponent } from '../utils/uke-component';
 
 export interface FormControlBasicProps {
@@ -7,7 +5,9 @@ export interface FormControlBasicProps {
   defaultValue?: any;
 }
 
-export default class FormControlBasic<P extends FormControlBasicProps, S = {}, SS = any> extends UkeComponent<P, S, SS> {
+export default class FormControlBasic<
+  P extends FormControlBasicProps, S = {}, SS = any
+> extends UkeComponent<P, S, SS> {
   isControl: boolean;
 
   value;
@@ -25,5 +25,7 @@ export default class FormControlBasic<P extends FormControlBasicProps, S = {}, S
     this.value = value || defaultValue;
   }
 
-  getValue = (stateValueMark = this.stateValueMark) => (this.isControl ? this.props.value : this.state[stateValueMark])
+  getValue = (
+    stateValueMark = this.stateValueMark
+  ) => (this.isControl ? this.props.value : this.state[stateValueMark])
 }

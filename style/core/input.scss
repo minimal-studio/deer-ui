@@ -2,23 +2,23 @@
 
 $iconViewBgColor: $themeColor;
 
-.animate-input-title {
-  .input-group {
-    width: 100%;
-  }
-  .input-control {
-    &.has-val,&.forcing {
-      .title {
-        font-size: 12px;
-        transform: translateY(-100%);
-      }
-    }
-    .title {
-      position: absolute;
-      bottom: 4px;
-    }
-  }
-}
+// .animate-input-title {
+//   .input-group {
+//     width: 100%;
+//   }
+//   .input-control {
+//     &.has-val,&.focusing {
+//       .title {
+//         font-size: 12px;
+//         transform: translateY(-100%);
+//       }
+//     }
+//     .title {
+//       position: absolute;
+//       bottom: 4px;
+//     }
+//   }
+// }
 
 .input-verify {
   display: flex;
@@ -50,22 +50,59 @@ $iconViewBgColor: $themeColor;
 
 .input-control {
   background-color: rgba(255,255,255,0.2);
-  transition: background-color 0.2s ease, border 0.2s ease;
   position: relative;
   display: inline-block;
-  border-bottom: 1px solid rgba(155,155,155,0.3);
+  .input-btn  {
+    // margin: -1px;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+  &.flow-title {
+    .input-group {
+      width: 100%;
+    }
+    &.has-val,&.focusing {
+      .title {
+        font-size: 12px;
+        transform: translateY(-100%);
+      }
+    }
+    .title {
+      position: absolute;
+      // bottom: 4px;
+    }
+  }
   &.has-icon {
   }
-  &.forcing {
-    border-color: $themeColor;
+  &.has-btn {
+    .input-group {
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+  }
+  &.focusing {
+    .input-group {
+      border-color: $themeColor;
+      box-shadow: 0 0 2px rgba($themeColor, 0.6);
+      background-color: #FFF;
+    }
     .title {
       color: $themeColor;
     }
   }
   .input-con {
     display: flex;
-    align-items: center;
+    align-items: stretch;
     height: 100%;
+  }
+  .input-group {
+    position: relative;
+    display: flex;
+    align-items: center;
+    border: 1px solid $gray;
+    border-radius: 3px;
+    transition: background-color 0.2s ease, border 0.2s ease;
+    background-color: #fefefe;
   }
   .form-control {
     background-color: transparent;
@@ -77,17 +114,13 @@ $iconViewBgColor: $themeColor;
     min-height: 30px;
     box-shadow: none !important;
     // margin-top: 4px;
+    margin: 0 10px;
     &:focus {
       background-color: transparent !important;
     }
     &::placeholder {
       color: #CCC;
     }
-  }
-  .input-group {
-    position: relative;
-    display: flex;
-    align-items: center;
   }
   .title {
     transition: all ease 0.2s;
@@ -97,6 +130,7 @@ $iconViewBgColor: $themeColor;
     display: flex;
     align-items: center;
     color: #999;
+    margin-left: 10px;
     .icon {
       margin-right: 5px;
     }
@@ -111,5 +145,24 @@ $iconViewBgColor: $themeColor;
       user-select: none !important;
     }
     // @include layoutCenter();
+  }
+}
+.input-control {
+  &.xl {
+    padding: 5px 10px;
+  }
+}
+.input-selector {
+  display: flex;
+  align-items: center;
+  .menu-wrapper {
+    min-width: 80px !important;
+    background-color: #f3f3f3;
+  }
+  .input-group {
+    border-radius: 0 3px 3px 0;
+    margin-bottom: 0;
+    // padding: 0 10px;
+    // margin-left: 5px;
   }
 }

@@ -1,51 +1,71 @@
-import React, { Component, PureComponent } from 'react';
-
+/* eslint-disable no-nested-ternary */
+import React, { Component } from 'react';
+import classnames from 'classnames';
 import { Call, HasValue, IsFunc } from 'basic-helper';
 import { Icon } from '../icon';
+import { Button } from '../button';
 
+import { IconProps } from '../icon/icon';
+import { Sizes } from '../utils/props';
+
+type FilterType = string | number;
 
 export interface InputProps {
   /** 是否必填项 */
   required?: boolean;
   /** 是否显示 title */
   showTitle?: boolean;
+  /** title 是否在获取焦点后上浮 */
+  flowTitle?: boolean;
   /** 是否获取焦点后选中文字 */
   forceToSelect?: boolean;
-  /** 输入框的 icon */
-  icon?: string;
-  /** icon 的名字 */
-  n?: string;
+  /** size */
+  size?: Sizes;
   /** 输入框类型 */
   type?: 'input' | 'pw' | 'password' | 'text' | 'number';
   /** 期望输出的值的类型 */
   outputType?: 'string' | 'number';
-  /** 作为自定义的 placeholder */
+  /** placeholder */
   placeholder?: any;
-  /** 作为自定义的 placeholder */
+  /** 固定的 title */
   title?: any;
+  /** className */
   className?: string;
   /** onChange 前执行的过滤器 */
-  filter?: Function;
+  filter?: (value: FilterType) => FilterType;
+  /** defaultValue */
   defaultValue?: number | string;
-  value: number | string;
+  /** value */
+  value?: number | string;
   /** 输入框右侧的按钮配置 */
   inputBtnConfig?: {
     /** 传入 input 的 target */
-    action: Function;
+    action: (inputRef) => void;
     text: string;
-    color: string;
-    className: string;
+    color?: string;
+    icon?: string;
+    className?: string;
   };
   /** 传入 input element 的属性 */
   propsForInput?: {};
-  onChange: Function;
-  onFocus?: Function;
-  onBlur?: Function;
+  /** onChange */
+  onChange?: (value, targetElement: HTMLElement) => void;
+  /** onFocus */
+  onFocus?: (focusEvent) => void;
+  /** onBlur */
+  onBlur?: (value, blurEvent) => void;
+  /** 输入框的 icon */
+  icon?: IconProps['n'];
+  /** 输入框的 icon */
+  n?: IconProps['n'];
+  /** IconProps['s'] */
+  s?: IconProps['s'];
 }
 
 interface State {
   viewClass: string;
   stateVal: any;
+  focusing: boolean;
 }
 
 const controlTypeMapper = {
@@ -68,6 +88,7 @@ export default class Input extends Component<InputProps, State> {
     forceToSelect: false,
     className: 'form-control',
     type: 'input',
+    size: 'md',
     outputType: 'string',
     propsForInput: {},
   }
@@ -96,19 +117,22 @@ export default class Input extends Component<InputProps, State> {
 
     this.state = {
       viewClass: HasValue(this.value) ? 'has-val' : 'normal',
-      stateVal: this.value
+      stateVal: this.value,
+      focusing: false
     };
   }
 
-  addForceClass() {
+  onFocus() {
     this.setState({
-      viewClass: 'forcing'
+      viewClass: 'focusing',
+      focusing: true
     });
   }
 
-  delForceClass() {
+  onBlur() {
     this.setState({
-      viewClass: HasValue(this.getValue()) ? 'has-val' : 'normal'
+      viewClass: HasValue(this.getValue()) ? 'has-val' : 'normal',
+      focusing: false
     });
   }
 
@@ -128,11 +152,9 @@ export default class Input extends Component<InputProps, State> {
    * 用于过滤是 number 类型的值
    */
   numberValFilter(val?) {
-    const { inputType, outputType } = this.props;
-    const _outputType = inputType || outputType;
-    if (inputType) console.warn('inputType 已废弃，请使用 outputType');
+    const { outputType } = this.props;
     let _val = HasValue(val) ? val : this.getValue();
-    switch (_outputType) {
+    switch (outputType) {
       case 'number':
         _val = HasValue(_val) ? +_val : undefined;
         break;
@@ -150,74 +172,89 @@ export default class Input extends Component<InputProps, State> {
     Call(this.props.onChange, val, elem);
   }
 
+  filterVal = (val) => {
+    const { filter } = this.props;
+    return filter && IsFunc(filter) ? filter(val) : val;
+  }
+
   render() {
     const {
-      n, s, icon, placeholder, title, inputBtnConfig, type, showTitle = defaultShowInputTitle,
-      className, children, required, filter,
+      n, s, icon, placeholder, title, inputBtnConfig, type = '',
+      showTitle = defaultShowInputTitle, size, flowTitle,
+      className, children, required,
       onFocus, onBlur,
       propsForInput
     } = this.props;
-    const { viewClass = '' } = this.state;
+    const { viewClass = '', focusing } = this.state;
     const value = this.getValue();
 
     const _icon = icon || n;
     const hasIcon = !!_icon;
 
-    const iconDOM = hasIcon ? (
-      <Icon n={_icon} s={s} />
-    ) : null;
-
-    const highlightDOM = required ? (
+    const highlightDOM = required && (
       <span className="form-desc">
         <span className="highlight">*</span>
       </span>
-    ) : null;
+    );
 
-    const titleDOM = (hasIcon || !!placeholder || !!title) && showTitle ? (
+    const titleDOM = (hasIcon || title) && showTitle && (
       <span className="title">
-        {iconDOM}
-        <span className="text mr10">{placeholder || title}</span>
+        {
+          hasIcon && (
+            <Icon n={_icon} s={s} />
+          )
+        }
+        <span className="text">{title}</span>
         {highlightDOM}
       </span>
-    ) : null;
+    );
 
-    const inputBtnDOM = inputBtnConfig ? (
-      <span
-        className={`input-btn btn flat ${inputBtnConfig.color || 'theme'} ${inputBtnConfig.className || ''}`}
+    const inputBtnDOM = inputBtnConfig && (
+      <Button
+        className={`input-btn btn ${inputBtnConfig.color || 'theme'} ${inputBtnConfig.className || ''}`}
+        icon={inputBtnConfig.icon}
         onClick={() => {
           inputBtnConfig.action(this.iconInput);
         }}>
         {inputBtnConfig.text}
-      </span>
-    ) : null;
+      </Button>
+    );
+
+    const classNames = classnames(
+      'input-control', size, viewClass,
+      hasIcon && 'has-icon',
+      inputBtnConfig && 'has-btn',
+      flowTitle && 'flow-title'
+    );
 
     return (
       <div
-        className={`input-control ${viewClass}${hasIcon ? ' has-icon' : ''}${inputBtnConfig ? ' has-btn' : ''}`}>
+        className={classNames}>
         <div
-          className="input-con"
-          onClick={e => this.iconInput.focus()}>
-          <span className="input-group">
+          className="input-con">
+          <span className="input-group"
+            onClick={e => this.iconInput.focus()}>
             {titleDOM}
             <input
               type={controlTypeMapper[type] || type}
               {...propsForInput}
-              placeholder=""
+              placeholder={flowTitle ? (focusing ? placeholder : '') : placeholder}
               className={className}
               value={value}
               onFocus={(e) => {
-                this.addForceClass();
+                this.onFocus();
                 Call(onFocus, e);
               }}
               onBlur={(e) => {
-                this.delForceClass();
+                this.onBlur();
                 let val = this.numberValFilter();
-                val = IsFunc(filter) ? filter(val) : val;
-                if (typeof val !== 'undefined') Call(onBlur, val, e);
+                val = this.filterVal(val);
+                if (typeof val != 'undefined') Call(onBlur, val, e);
               }}
               onChange={(e) => {
                 let val = e.target.value;
-                val = IsFunc(filter) ? filter(val) : val;
+                // val = IsFunc(filter) ? filter(val) : val;
+                val = this.filterVal(val);
                 this.changeVal(val, e.target);
               }}
               ref={(e) => { this.iconInput = e; }}/>
