@@ -1,6 +1,7 @@
 import Notify, { CancelNotify } from './notify-func';
-import Notification from './notification';
+import Notification, { NotifyEvent } from './notification';
 
 export {
-  Notify, CancelNotify, Notification
+  Notify, CancelNotify, Notification,
+  NotifyEvent
 };

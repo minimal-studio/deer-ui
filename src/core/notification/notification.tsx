@@ -15,9 +15,9 @@ interface State {
 }
 export interface NotifyConfig {
   /** 通知的标题 */
-  title: string;
+  title?: string;
   /** id */
-  id: string;
+  id?: string;
   /** 通知的内容 */
   text?: any;
   /** id */
@@ -33,8 +33,10 @@ export interface NotifyConfig {
 const TRANSFORM_TIMER = 300;
 const defaultTimeToClose = 7;
 
+export const NotifyEvent = 'NOTIFY';
+
 export default class Notification extends UkePureComponent<NotificationProps, State> {
-  timers = {};
+  timers: {[key: string]: any} = {};
 
   IDIncrement = 0;
 
@@ -45,7 +47,7 @@ export default class Notification extends UkePureComponent<NotificationProps, St
       notifyItems: {},
       position: 'top,right'
     };
-    EventEmitter.on('NOTIFY', this.receiveNotify);
+    EventEmitter.on(NotifyEvent, this.receiveNotify);
   }
 
   /**
@@ -67,7 +69,7 @@ export default class Notification extends UkePureComponent<NotificationProps, St
    *  }
    */
   componentWillUnmount() {
-    EventEmitter.rm('NOTIFY', this.receiveNotify);
+    EventEmitter.rm(NotifyEvent, this.receiveNotify);
   }
 
   notifyConfigFilter(notifyConfig: NotifyConfig) {
@@ -82,14 +84,16 @@ export default class Notification extends UkePureComponent<NotificationProps, St
   receiveNotify = (notifyConfig: NotifyConfig, _position) => {
     const nextNotifyConfig = this.notifyConfigFilter(notifyConfig);
     const { id } = nextNotifyConfig;
+    if (!id) return 0;
     this.setState(({ notifyItems, position }) => ({
       notifyItems: {
         ...notifyItems,
-        [id]: nextNotifyConfig
+        [id.toString()]: nextNotifyConfig
       },
       position: _position || position
     }));
     this.startTargetTimer(nextNotifyConfig);
+    return id;
   }
 
   clickTip(clickTarget, msgID) {
@@ -103,6 +107,7 @@ export default class Notification extends UkePureComponent<NotificationProps, St
   }
 
   closeTip(msgID) {
+    console.log(msgID);
     this.setState(({ notifyItems }) => {
       const nextState = Object.assign({}, notifyItems);
       delete nextState[msgID];
@@ -113,7 +118,7 @@ export default class Notification extends UkePureComponent<NotificationProps, St
   }
 
   clearAllNotify = () => {
-    Object.keys(this.timers).forEach(timerID => clearTimeout(timerID));
+    Object.keys(this.timers).forEach(timerID => clearTimeout(+timerID));
     this.setState({
       notifyItems: {}
     });
@@ -135,7 +140,7 @@ export default class Notification extends UkePureComponent<NotificationProps, St
     if (HasValue(timer)) _timer = timer;
     if (!id || _timer <= 0) return;
 
-    this.timers[id] = setTimeout(() => {
+    this.timers[id.toString()] = setTimeout(() => {
       this.closeTip(id);
     }, _timer * 1000);
   }
