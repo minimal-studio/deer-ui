@@ -5,25 +5,25 @@ import { PopoverEntity } from '../popover';
 
 export interface TipButtonProps {
   /** 点击按钮的回调 */
-  onClick: (event: React.MouseEvent<HTMLSpanElement, MouseEvent>) => void;
+  onClick?: (event: React.MouseEvent<HTMLSpanElement, MouseEvent>) => void;
   /** 按钮的显示文字 */
-  text: string;
+  text?: string;
   /** 弹出层关闭的回调 */
-  onClose: () => void;
+  onClose?: () => void;
   /** 弹出层多久自动关闭 */
-  timer: number;
+  timer?: number;
   /** 是否显示弹出层 */
-  showTip: boolean;
+  showTip?: boolean;
   /** 是否自动关闭弹出层 */
-  autoClose: boolean;
+  autoClose?: boolean;
   /** 是否禁用 */
-  disabled: boolean;
+  disabled?: boolean;
   /** 弹出层的位置 */
-  position: string;
+  position?: string;
   /** 按钮的 className */
-  className: string;
+  className?: string;
   /** 传入 popover 显示的 children */
-  popover: any;
+  popover?: any;
 }
 
 /**
