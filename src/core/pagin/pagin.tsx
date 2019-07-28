@@ -4,11 +4,9 @@ import Selector from '../selector/dropdown-menu';
 import { UkeComponent } from '../utils/uke-component';
 import { getScreenHeight } from '../utils/screen';
 import { getScrollTop } from '../utils/scroll';
-import { getElementOffset } from '../utils/get-elem-offset';
+import { getElementTop } from '../utils/get-elem-offset';
 
-export type PaginInfo = {
-  [key: string]: number | boolean;
-} | {
+export interface DefaultPaginInfo {
   /** 当前第几页 */
   pIdx: number;
   /** 每页多少项 */
@@ -16,15 +14,19 @@ export type PaginInfo = {
   /** 一共多少项 */
   total: number;
   /** 是否激活分页 */
-  active: number;
+  active: boolean;
 }
+
+export type PaginInfo = {
+  [key: string]: number | boolean;
+} | DefaultPaginInfo
 
 export interface PaginationProps {
 
   /** 分页的存储数据，可以为不确定的结构，通过 infoMapper 做映射 */
   pagingInfo: PaginInfo;
   /** 分页切换时的回调 */
-  onPagin: (nextPaginInfo: PaginInfo) => void;
+  onPagin: (nextPaginInfo: any) => void;
   /** 由于不确定远端分页数据具体字段，所以有分页数据的字段映射 */
   infoMapper?: {
     /** 当前第几页 */
@@ -57,10 +59,10 @@ interface DefaultProps {
 export default class Pagination extends UkeComponent<PaginationProps> {
   static defaultProps: DefaultProps = {
     infoMapper: {
-      pIdx: 'PageIndex',
-      pSize: 'PageSize',
-      total: 'AllCount',
-      active: 'UsePaging',
+      pIdx: 'pIdx',
+      pSize: 'pSize',
+      total: 'total',
+      active: 'active',
     },
     isNeedHelper: true,
     displayTotal: true,
@@ -70,7 +72,7 @@ export default class Pagination extends UkeComponent<PaginationProps> {
 
   node
 
-  dropdownPosition: string = 'bottom';
+  dropdownPosition: any = 'bottom';
 
   getSelectorOptions = () => {
     const pageListData = [10, 20, 30, 40, 50, 100];
@@ -87,7 +89,7 @@ export default class Pagination extends UkeComponent<PaginationProps> {
 
   componentDidUpdate() {
     if (!this.node) return;
-    const { offsetTop } = getElementOffset(this.node);
+    const offsetTop = getElementTop(this.node);
     if (getScreenHeight() < offsetTop + getScrollTop() + 200) {
       this.dropdownPosition = 'top';
     }
@@ -189,6 +191,7 @@ export default class Pagination extends UkeComponent<PaginationProps> {
                 </span>
               );
             }
+            return null;
           })
         }
       </div>

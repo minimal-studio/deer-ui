@@ -60,6 +60,30 @@
 
 - 新增 tabsClassName 取代旧的 className
 
+### Pagination
+
+- 更改 defaultProps.infoMapper 与 props.infoMapper 的默认数据结构一致
+
+```js
+// change
+<Pagination
+  infoMapper={{
+    pIdx: 'PageIndex',
+    pSize: 'PageSize',
+    total: 'AllCount',
+    active: 'UsePaging',
+  }} />
+
+// to
+<Pagination
+  infoMapper={{
+    pIdx: 'pIdx',
+    pSize: 'pSize',
+    total: 'total',
+    active: 'active',
+  }} />
+```
+
 -----------------
 
 ## 2.17.17

@@ -12,7 +12,29 @@ import { Pagination } from './';
 
 ## Basic Usage
 
-> 输入自定义 key 的数据，输出对应的数据结构
+<Playground>
+  {
+    () => {
+      /** 支持自定义数据结构 */
+      const [pagingInfo, setPagin] = useState({
+        active: true,
+        total: 1000,
+        pIdx: 0,
+        pSize: 10
+      });
+      return (
+        <Pagination
+          onPagin={nextPagin => {
+            console.log(nextPagin)
+            setPagin(nextPagin)
+          }}
+          pagingInfo={pagingInfo}/>
+      )
+    }
+  }
+</Playground>
+
+## 自定义数据结构
 
 <Playground>
   {
