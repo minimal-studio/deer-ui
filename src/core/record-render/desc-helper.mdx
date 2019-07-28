@@ -4,8 +4,8 @@ route: /DescHelper
 menu: Data Display
 ---
 
+import { useState } from 'react'
 import { Playground, Props } from 'docz'
-import { State, Toggle } from 'react-powerplug'
 import { DescHelper } from './';
 
 # DescHelper
@@ -63,32 +63,25 @@ import { DescHelper } from './';
           add: 'uk',
         },
       ]
+      const [activeIdx, setIdx] = useState(0);
       return (
-        <State initial={{ activeRecordIdx: 0 }}>
+        <div>
           {
-            ({ state, setState }) => (
-              <div>
-                {
-                  records.map((item, idx) => {
-                    return (
-                      <span
-                        className="btn theme flat m5"
-                        onClick={e => {
-                          setState({
-                            activeRecordIdx: idx
-                          })
-                        }}
-                        key={idx}>点击查看{item.username}的详情</span>
-                    )
-                  })
-                }
-                <DescHelper
-                  keyMapper={keyMapper}
-                  record={records[state.activeRecordIdx]} />
-              </div>
-            )
+            records.map((item, idx) => {
+              return (
+                <span
+                  className="btn default mr5 mb5"
+                  onClick={e => {
+                    setIdx(idx)
+                  }}
+                  key={idx}>查看{item.username}的数据</span>
+              )
+            })
           }
-        </State>
+          <DescHelper
+            keyMapper={keyMapper}
+            record={records[activeIdx]} />
+        </div>
       )
     }
   }

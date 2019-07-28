@@ -5,7 +5,6 @@ menu: Other
 ---
 
 import { Playground, Props } from 'docz'
-import { State, Toggle } from 'react-powerplug'
 import { TreeList } from './';
 
 import '../../../style/other/default.scss'
@@ -87,23 +86,14 @@ import { TreeList } from 'ukelli-ui/other/treelist';
         },
       ]
       return (
-        <State initial={{
-        }}>
-          {
-            ({ state, setState }) => {
-              return (
-                <TreeList
-                  onChange={val => {
-                    console.log(val)
-                  }}
-                  defaultValue={{
-                    'value2-2': 'value2-2'
-                  }}
-                  treeData={treeData} />
-              )
-            }
-          }
-        </State>
+        <TreeList
+          onChange={val => {
+            console.log(val)
+          }}
+          defaultValue={{
+            'value2-2': 'value2-2'
+          }}
+          treeData={treeData} />
       )
     }
   }
