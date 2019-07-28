@@ -10,7 +10,11 @@ import { Button } from '../button';
 
 # Carousel
 
-> 可以参考默认的动画，设置自己的动画
+## Setup
+
+```scss
+@import 'ukelli-ui/style/transition.scss'
+```
 
 ## Basic Usage
 
@@ -26,14 +30,14 @@ import { Button } from '../button';
         action: () => alert('点击了 img')
       },
       {
-        imgUrl: '/public/images/c1.jpg',
+        imgUrl: '/public/images/c2.jpg',
         action: () => alert('点击了 img')
       },
       {
         element: (
           <div className="p20 t_white">
-            使用自定义的 React Components
-            <Button text="任意的" onClick={e => alert('点击了按钮')} />
+            <div>使用自定义的 React Components</div>
+            <Button text="任意的组件" onClick={e => alert('点击了按钮')} />
           </div>
         )
       }

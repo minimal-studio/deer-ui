@@ -2,24 +2,21 @@ import React, { Component, PureComponent } from 'react';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import { Call } from 'basic-helper';
 import { Icon } from '../icon';
+import { Children } from '../utils/props';
 
 interface CarouselItem {
   /** 如果同时设置了 imgUrl 和 element */
-  imgUrl: string;
+  imgUrl?: string;
   /** 优先渲染 element */
-  element: React.ElementType;
-  action: Function;
+  element?: Children;
+  action?: Function;
 }
 
 interface CarouselProps {
   /** 轮播的具体内容，格式如下 */
   carouselItems: CarouselItem[];
   /** 可设置的 style */
-  styleConfig?: {
-    width: string | number;
-    height: string | number;
-    margin: string | number;
-  };
+  style?: React.CSSProperties;
   /** 预留的操作 class */
   actionClass?: string;
   /** 动画的 css name，可以自由设置 */
@@ -38,6 +35,13 @@ interface CarouselProps {
   thumbRate: number;
 }
 
+interface DefaultProps {
+  style: {
+    width: number;
+    height: number;
+  };
+}
+
 /**
  * 轮播控件
  *
@@ -48,13 +52,17 @@ interface CarouselProps {
 export default class Carousel extends Component<CarouselProps, {
   activeIdx: number;
   toNext: boolean;
-  activeItem: {};
+  activeItem: CarouselItem;
 }> {
   static defaultProps = {
     actionClass: 'action-area',
     transitionName: 'banner',
     thumbType: 'dot',
     indicator: 'dot',
+    style: {
+      width: '100%',
+      height: 380
+    },
     transitionTimer: 400,
     freq: 5,
     thumbRate: 15,
@@ -72,16 +80,16 @@ export default class Carousel extends Component<CarouselProps, {
   endPageX!: number;
 
   mobileEvents: {
-    onMouseDown: Function;
-    onMouseUp: Function;
-    onTouchStart: Function;
-    onTouchEnd: Function;
+    onMouseDown: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
+    onMouseUp: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
+    onTouchStart: (event: React.TouchEvent<HTMLDivElement>) => void;
+    onTouchEnd: (event: React.TouchEvent<HTMLDivElement>) => void;
   }
 
   constructor(props) {
     super(props);
 
-    const { carouselItems = [], styleConfig, isMobile } = props;
+    const { carouselItems = [], style } = props;
     const defaultIdx = 0;
     this.state = {
       activeIdx: defaultIdx,
@@ -89,7 +97,7 @@ export default class Carousel extends Component<CarouselProps, {
       activeItem: carouselItems[defaultIdx],
     };
     this.timer = null;
-    this.itemWidth = styleConfig.width;
+    this.itemWidth = style.width;
 
     this.mobileEvents = {
       onMouseDown: this.handleTouchStart,
@@ -100,7 +108,7 @@ export default class Carousel extends Component<CarouselProps, {
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.carouselItems.length == 0 && prevProps.carouselItems.length > 0) {
+    if (this.props.carouselItems.length === 0 && prevProps.carouselItems.length > 0) {
       this.startLoop();
     }
   }
@@ -114,7 +122,7 @@ export default class Carousel extends Component<CarouselProps, {
   }
 
   startLoop() {
-    const { freq } = this.props;
+    const { freq = 5 } = this.props;
     if (this.timer) this.stopLoop();
     this.timer = setInterval(() => {
       const { carouselItems } = this.props;
@@ -133,26 +141,30 @@ export default class Carousel extends Component<CarouselProps, {
   setActiveIdx(idx) {
     const { carouselItems } = this.props;
     const maxIdx = carouselItems.length - 1;
-    if (idx > maxIdx) idx = 0;
-    if (idx < 0) idx = maxIdx;
+    let nextIdx = idx;
+    if (idx > maxIdx) nextIdx = 0;
+    if (idx < 0) nextIdx = maxIdx;
     this.setState((preState) => {
       const prevActiveIdx = preState.activeIdx;
-      const toNext = prevActiveIdx < idx;
+      const toNext = prevActiveIdx < nextIdx;
       return {
-        activeIdx: idx,
+        activeIdx: nextIdx,
         toNext,
-        activeItem: carouselItems[idx] || <span/>
+        activeItem: carouselItems[nextIdx] || <span/>
       };
     });
     this.startLoop();
   }
 
-  genCarouselDOM(currItem, idx, imgStyle) {
-    const { styleConfig, actionClass } = this.props;
-    const { width, height } = imgStyle || styleConfig;
+  genCarouselDOM(currItem, idx, imgStyle?) {
+    const { style, actionClass } = this.props;
+    const { width, height } = imgStyle || style;
     const { imgUrl, element } = currItem;
-    const objStyle = { width, height };
-    objStyle.backgroundImage = `url(${imgUrl})`;
+    const objStyle = {
+      width,
+      height,
+      backgroundImage: `url(${imgUrl})`
+    };
     return (
       <div className={actionClass} key={idx}>
         {
@@ -182,7 +194,7 @@ export default class Carousel extends Component<CarouselProps, {
       return this.showDetail(activeIdx);
     }
     const toNext = touchOffset > 0;
-    this.setActiveIdx(activeIdx + (toNext ? -1 : 1));
+    return this.setActiveIdx(activeIdx + (toNext ? -1 : 1));
   }
 
   showDetail(activeIdx) {
@@ -192,7 +204,7 @@ export default class Carousel extends Component<CarouselProps, {
 
   getThumb() {
     const {
-      isMobile, carouselItems, styleConfig, thumbRate, thumbType, indicator
+      isMobile, carouselItems, style, thumbRate, thumbType, indicator
     } = this.props;
     const { activeIdx } = this.state;
 
@@ -201,7 +213,7 @@ export default class Carousel extends Component<CarouselProps, {
 
     switch (_indicator) {
       case 'thumb':
-        const { width, height } = styleConfig;
+        const { width, height } = style as DefaultProps['style'];
         const imgWHRate = width / height;
         const thumbImgStyle = {
           width: width / thumbRate,
@@ -221,7 +233,7 @@ export default class Carousel extends Component<CarouselProps, {
       <div className="thumb-contaner">
         {
           carouselItems.map((item, idx) => {
-            const isActive = idx == activeIdx;
+            const isActive = idx === activeIdx;
             return (
               <div
                 className={`thumb-item${isActive ? ' active' : ''} ${thumbType}`}
@@ -244,23 +256,21 @@ export default class Carousel extends Component<CarouselProps, {
 
   render() {
     const {
-      carouselItems, styleConfig,
+      carouselItems, style,
       isMobile, transitionTimer,
-      transitionName, thumbType,
-      thumbRate,
+      transitionName,
     } = this.props;
-    if (!carouselItems || carouselItems.length == 0) {
+    if (!carouselItems || carouselItems.length === 0) {
       return (
         <span className="no-banner" />
       );
     }
     const { activeIdx, toNext, activeItem } = this.state;
-    const { width, height, margin } = styleConfig;
 
     return (
       <div
         className="carousel"
-        style={{ width, height, margin }}>
+        style={style}>
         <TransitionGroup>
           <CSSTransition
             key={activeIdx}
