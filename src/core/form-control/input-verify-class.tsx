@@ -3,19 +3,17 @@ import React, { Component } from 'react';
 import { Call } from 'basic-helper';
 
 export interface InputVerifyClassProps {
-  onChange?: Function;
+  onChange?: (value) => void;
   onFocus?: Function;
   onBlur?: Function;
   onClear?: Function;
   className?: string;
   defaultValue?: any;
   value?: any;
-  /** 控件类型 */
-  type?: 'text' | 'password';
   /** 限制输入数字的范围 */
-  numRange?: number[];
+  numRange?: [number, number];
   /** 限制输入的字符串长度范围 */
-  lenRange?: number[];
+  lenRange?: [number, number, boolean];
 }
 
 interface State {
@@ -45,7 +43,7 @@ export default class InputVerifyClass<P extends InputVerifyClassProps> extends C
   constructor(props) {
     super(props);
 
-    const { defaultValue, value } = props;
+    const { defaultValue = '', value } = props;
 
     this.isControl = this.checkProps('value');
     this.isMatchLen = this.checkProps('lenRange');
@@ -100,9 +98,9 @@ export default class InputVerifyClass<P extends InputVerifyClassProps> extends C
   }
 
   checkLen = (val, lenRange) => {
-    let _val = val;
+    let _val = val.toString();
     if (lenRange) {
-      const [s, e, isSlice] = lenRange;
+      const [s, e, isSlice = true] = lenRange;
       if (_val.length > e) {
         if (isSlice) {
           _val = _val.slice(0, e);

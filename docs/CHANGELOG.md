@@ -33,18 +33,22 @@
 
 - Input.props.inputType
 
-## 组件更新
+### 组件更名
 
-### Input
+- InputVerify -> InputNumber
+
+### 组件更新
+
+#### Input
 
 - 优化参数传递
 - 优化 Title 上浮效果的应用
 
-### Avatar
+#### Avatar
 
 - 新加入 Color 系统
 
-### Button
+#### Button
 
 - 优化样式
 

@@ -22,11 +22,17 @@ $iconViewBgColor: $themeColor;
 
 .input-verify {
   display: flex;
+  align-items: stretch;
   &.error {
     .form-control {
       border-color: $red;
       background-color: $red;
     }
+  }
+  .form-tip {
+    display: flex;
+    align-items: center;
+    margin-left: 10px;
   }
   .form-control {
     min-width: auto !important;
@@ -35,6 +41,7 @@ $iconViewBgColor: $themeColor;
   }
   .option-btns {
     display: flex;
+    user-select: none;
     // align-items: center;
     ._btn {
       display: flex;

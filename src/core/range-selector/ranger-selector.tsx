@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { ToFixed, HasValue } from 'basic-helper';
 
-import InputVerify from '../form-control/input-verify';
+import InputNumber from '../form-control/input-number';
 
 interface RangerProps {
   /** 值改变的回调 */
@@ -301,7 +301,7 @@ export default class Ranger extends Component<RangerProps, State> {
         </div>
         {
           withInput ? (
-            <InputVerify
+            <InputNumber
               value={+stateValue}
               inputable={false}
               precent={precent}
