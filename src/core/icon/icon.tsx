@@ -15,6 +15,8 @@ export interface IconProps {
   className?: string;
   /** multiple class names, 例如 ['class1', 'class2'] */
   classNames?: string[];
+  /** style */
+  style: {};
 }
 
 const Icon: React.SFC<IconProps> = (props) => {

@@ -124,10 +124,9 @@ function getIconMapper() {
 function getIcon(iconName, iconStyle, mergeClassNames, useIconConfig = true) {
   const iconMapper = getIconMapper();
   const iconPrefix = getUkelliConfig('iconPrefix');
-  if (!iconName) return iconMapper;
+  if (!iconName) return iconName;
   const moreClassNameArr = Array.isArray(mergeClassNames) ? mergeClassNames : [mergeClassNames];
   let resultStr = '';
-  // let resultStr = (useIconConfig ? (IsFunc(iconPrefix) ? iconPrefix(iconStyle) : iconPrefix) : '') + (iconMapper[iconName] || iconName) + ' ' + moreClassNameArr.join(' ');
   if (useIconConfig) {
     resultStr = (IsFunc(iconPrefix) ? iconPrefix(iconStyle) : iconPrefix);
   }
