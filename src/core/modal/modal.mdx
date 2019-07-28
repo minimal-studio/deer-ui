@@ -11,7 +11,7 @@ import ModalDemo from './test/modal-demo';
 
 # Modal
 
-> UkeModal 提供多种 Modal, 可以通过继承 ModalHelper 获取管理 Modal 状态的接口
+> UkeModal 提供多种弹出方式的 Modal
 
 ## Basic Usage
 
@@ -29,14 +29,18 @@ import ModalDemo from './test/modal-demo';
           <span className="btn theme flat"
             onClick={e => setModal({
               isOpen: true,
-              children: '内容'
+              children: (
+                <div className="p20">内容</div>
+              )
             })}>打开 Modal</span>
           <span className="btn red flat ml10"
             onClick={e => setModal({
               isOpen: true,
               modalType: 'side',
               position: 'right',
-              children: '内容'
+              children: (
+                <div className="p20">内容</div>
+              )
             })}>左边打开 Modal</span>
           <Modal {...modalSetting} onCloseModal={e => {
             setModal({

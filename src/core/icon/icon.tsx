@@ -17,6 +17,8 @@ export interface IconProps {
   classNames?: string[];
   /** style */
   style?: {};
+  /** style */
+  onClick?: (event?: React.MouseEvent<HTMLElement, MouseEvent>) => void;
 }
 
 const Icon: React.SFC<IconProps> = (props) => {

@@ -9,8 +9,9 @@ import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import { $T_UKE } from '../config';
 import { Icon } from '../icon';
 import ModalHelper from './modal-helper';
-import Modal, { ModalProps } from './modal';
+import Modal, { ModalOptions } from './modal';
 import setDOMById from '../set-dom';
+import { Children } from '../utils/props';
 import {
   windowManagerActions,
   windowManagerStore
@@ -96,9 +97,6 @@ const ModalsManager = connect(selector, windowManagerActions)((props) => {
 });
 
 const Entity = {};
-function getEntityIdLen() {
-  return Object.keys(Entity).length;
-}
 
 function CloseModal(modalID: ModalID) {
   if (!modalID) return;
@@ -143,11 +141,11 @@ const getDefaultOptions = (options) => {
 //   return btoa(unescape(encodeURIComponent(keyStr)));
 // };
 export type ModalID = string | number;
-export interface ShowModalParams extends ModalProps {
+export interface ShowModalParams extends ModalOptions {
   /** modalType */
-  type?: ModalProps['modalType'] | 'confirm';
+  type?: ModalOptions['modalType'] | 'confirm';
   /** 当 type === confirm 时渲染的内容 */
-  confirmText?: any;
+  confirmText?: Children;
   /** 当 type === confirm 时，点击确认按钮的回调 */
   onConfirm?;
   /** 是否显示「确定、取消」按钮 */

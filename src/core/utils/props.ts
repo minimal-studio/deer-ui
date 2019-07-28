@@ -39,7 +39,7 @@ export interface BtnItemConfig {
   preCheck?: boolean;
 }
 
-export type Children = JSX.Element | JSX.Element[]
+export type Children = JSX.Element | JSX.Element[] | boolean | string | null | undefined;
 export type FuncChildren = () => Children;
 
 export type DivideType = '-' | 'hr';

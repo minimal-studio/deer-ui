@@ -11,7 +11,9 @@ export interface ModalHelperState {
   modalSetting: ModalConfig;
 }
 
-export default class ModalHelper<P extends ModalProps = ModalProps> extends Component<P, ModalHelperState> {
+export default class ModalHelper<
+  P extends ModalProps = ModalProps
+> extends Component<P, ModalHelperState> {
   constructor(props) {
     super(props);
     this.state = {
