@@ -4,11 +4,11 @@ import { Color } from '../utils/props';
 
 export interface TipProps {
   /** 大小 */
-  scale: number;
+  scale?: number;
   /** 是否需要动画 */
-  animate: boolean;
+  animate?: boolean;
   /** color */
-  color: Color;
+  color?: Color;
 }
 
 const Tip: React.SFC<TipProps> = ({
