@@ -8,7 +8,7 @@ export interface MenuProps {
   /** 内容 */
   text?: any;
   /** ID */
-  id: string;
+  id?: string | number;
   /** Icon */
   icon?: string;
   /** 参考 PureIcon */
@@ -18,12 +18,12 @@ export interface MenuProps {
   /** isActive */
   isActive?: boolean;
   /** 点击 Menu 的回调 */
-  onClick?: ((event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void) | undefined;
+  onClick?: (event?: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
 }
 
 const Menu: React.SFC<MenuProps> = (props) => {
   const {
-    isActive, text, icon, s, pureIcon, children, ...other
+    isActive, text, icon, s, pureIcon, children, id, ...other
   } = props;
   const I = pureIcon ? <PureIcon n={pureIcon} /> : icon && <Icon n={icon} s={s} />;
   return (
