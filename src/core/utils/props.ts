@@ -20,6 +20,7 @@ export type StatusColorTypes =
   |'warn';
 
 export type Color = NatureColorTypes | GrayColorTypes | StatusColorTypes;
+export type Sizes = 'xl' | 'lg' | 'md' | 'sm' | 'tiny';
 
 export interface BtnItemConfig {
   /** 该按钮的操作 */

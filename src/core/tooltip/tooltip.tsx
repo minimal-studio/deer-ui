@@ -4,7 +4,7 @@ import { Call, DebounceClass } from 'basic-helper';
 import { PopoverEntity } from '../popover';
 import { Icon } from '../icon';
 import { $T } from '../config';
-import { Color } from '../utils/props';
+import { Color, Children } from '../utils/props';
 
 import { IconProps } from '../icon/icon';
 
@@ -18,7 +18,7 @@ export interface ToolTipProps extends IconProps {
   /** 点击即关闭弹出曾 */
   clickToClose?: boolean;
   /** 包裹的组件 */
-  component?: React.ElementType;
+  component?: Children;
   /** 弹出的位置 */
   position?: 'bottom'|'top'|'right'|'left';
   /** 点击的回调 */

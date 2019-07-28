@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import PropTypes from "prop-types";
 import classnames from 'classnames';
 import { IsFunc, DebounceClass } from 'basic-helper';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
@@ -205,15 +204,16 @@ export default class DropdownWrapper extends React.PureComponent<DropdownWrapper
     const { isShow } = this.state;
     const isLeft = position.indexOf('left') !== -1;
     const caretOffset = this.displayTitleDOM ? this.displayTitleDOM.offsetWidth / 2 : 10;
+    const overlayClasses = classnames(
+      "dropdown-items",
+      this._position,
+      isShow && 'show'
+    );
     const dropdownCom = (
       <div
         ref={outside ? e => this.saveItems(e) : null}
         {...this.bindTrigger(true)}
-        className={classnames({
-          "dropdown-items": true,
-          [this._position]: !!this._position,
-          show: isShow,
-        })}>
+        className={overlayClasses}>
         <span className="caret" style={isLeft ? {
           left: caretOffset
         } : {
@@ -317,17 +317,19 @@ export default class DropdownWrapper extends React.PureComponent<DropdownWrapper
       className, withInput, style, error, outside
     } = this.props;
 
+    const classNames = classnames(
+      "uke-dropdown-menu",
+      className && className,
+      withInput && "input-mode",
+      error && 'error',
+      isShow && 'show',
+      this._position
+    );
+
     return (
       <ClickAway ref={this.saveClickAway} onClickAway={this.handleClickAway}>
         <div
-          className={classnames({
-            "uke-dropdown-menu": true,
-            [`${className}`]: !!className,
-            error,
-            "input-mode": withInput,
-            show: isShow,
-            [this._position]: true,
-          })}
+          className={classNames}
           style={style}>
           <span className="menu-wrapper" ref={(e) => { this.displayTitleDOM = e; }}
             {...this.bindTrigger()}>

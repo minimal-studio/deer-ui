@@ -4,9 +4,9 @@ import { DateRange, ToUTC } from 'basic-helper/datetime-helper';
 
 import { DropdownWrapper } from '../selector';
 import { $T_UKE } from '../config';
-import DateBasic, { DateBaiscProps } from './date-basic';
+import { DateBasic, DateBasicProps } from '../date-basic';
 
-export interface DateShortcutProps extends DateBaiscProps {
+export interface DateShortcutProps extends DateBasicProps {
   /** 点击快捷方式的回调 */
   onClick?: Function;
   /** onChange */

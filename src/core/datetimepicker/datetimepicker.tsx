@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/camelcase */
 import React from 'react';
 
 import { Call, DateFormat, UUID } from 'basic-helper';
@@ -6,14 +7,14 @@ import flatpickr from 'flatpickr/dist/typings.d';
 
 // import Flatpickr from '../../libs/flatpickr';
 import 'flatpickr/dist/l10n/zh';
-import DateBasic, { DateBaiscProps } from './date-basic';
+import { DateBasic, DateBasicProps } from '../date-basic';
 import { Icon } from '../icon';
 import { PopoverEntity } from '../popover';
 
-export interface DatetimePickerProps extends DateBaiscProps {
+export interface DatetimePickerProps extends DateBasicProps {
   onChange: (changeVal) => void;
   /** 默认的时分秒的值 */
-  defaultTimes: string[];
+  defaultTimes?: string[];
   /** 日期控件类型 */
   mode?: "single" | "multiple" | "range" | "time";
   /** 是否允许用户输入 */
@@ -21,11 +22,11 @@ export interface DatetimePickerProps extends DateBaiscProps {
   /** 语言 */
   lang?: flatpickr.Locale;
   /** didMount */
-  didMount: () => void;
+  didMount?: () => void;
   /** 默认值 */
-  defaultValue: string[];
+  defaultValue?: string[];
   /** 受控控件的值 */
-  value: string[];
+  value?: string[];
 }
 
 /**
@@ -89,7 +90,8 @@ export default class DatetimePicker extends DateBasic<DatetimePickerProps> {
   componentWillUnmount() {
     if (this.datepicker) this.datepicker.destroy();
     this.popTipEntity.close();
-    this.popTipEntity = this._id = '';
+    this.popTipEntity = '';
+    this._id = '';
   }
 
   handleInputError = (inputElem, isError) => {
@@ -109,7 +111,7 @@ export default class DatetimePicker extends DateBasic<DatetimePickerProps> {
     }) : this.popTipEntity.close();
   }
 
-  getInputValAsync = () => new Promise<Date[]>((resolve) => {
+  getInputValAsync = () => new Promise<Date[] | null>((resolve) => {
     setTimeout(() => {
       resolve(this.getDateRangeFromInput());
     }, 50);
@@ -123,7 +125,7 @@ export default class DatetimePicker extends DateBasic<DatetimePickerProps> {
     const inputElem = this._refs[this._id];
     const inputVal = inputElem.value;
     /** 如果没有任何值，则没有下一步 */
-    if (!inputVal) return;
+    if (!inputVal) return null;
 
     const valueRange = inputVal.split(rangeSeparator).filter(i => !!i);
     let valueRangeLen = valueRange.length;
