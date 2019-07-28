@@ -5,14 +5,14 @@ import { Loading } from '../loading';
 import { LoadScript } from '../utils/load-stuff';
 
 export interface ChartComProps {
-  /** data */
+  /** Chart js 的 data */
   data: {};
-  /** 选项 */
+  /** Chart js 的  options */
   options: {};
+  /** Chart js 的 type */
+  type?: string;
   /** ID */
   id: string;
-  /** type */
-  type?: string;
   /** height */
   height?: string | number;
   /** width */
