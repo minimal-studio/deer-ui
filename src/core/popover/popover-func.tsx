@@ -2,7 +2,7 @@ import React, { Component, PureComponent } from 'react';
 import ReactDOM from 'react-dom';
 
 import Popover from './popover';
-import setDOMById from '../set-dom';
+import setDOMByID, { destoryDOM } from '../set-dom';
 
 interface PopoverHelperState {
   relativeElem: HTMLElement;
@@ -94,7 +94,7 @@ class PopoverEntity {
   }
 
   initDOM(props) {
-    const topPopoverDOM = setDOMById(this.id);
+    const topPopoverDOM = setDOMByID(this.id);
 
     const popoverWrapper = (
       <PopoverWrapper
@@ -130,6 +130,11 @@ class PopoverEntity {
       open: false
     };
     this.set(nextState);
+  }
+
+  destory = () => {
+    this.close();
+    destoryDOM(this.id);
   }
 
   delayClose(timer = 5000) {

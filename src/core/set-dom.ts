@@ -14,3 +14,8 @@ export default function setDOMById(targetID: string, className = '') {
   }
   return targetDOM;
 }
+
+export function destoryDOM(targetID: string) {
+  const targetDOM = document.getElementById(targetID);
+  targetDOM && document.body.removeChild(targetDOM);
+}
