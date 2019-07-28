@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react';
+import classnames from 'classnames';
 
 export interface SwitchButtonProps {
   /** 按钮的配置 */
@@ -8,7 +9,7 @@ export interface SwitchButtonProps {
   /** 当前激活的 index */
   activeIdx: string | number;
   /** 值改变的回调 */
-  onSwitch: (val) => void;
+  onSwitch: (val, isActive: boolean) => void;
   /** 是否只有唯一值 */
   unique?: boolean;
   /** 是否输出数字 */
@@ -54,14 +55,13 @@ export default class SwitchButton extends PureComponent<SwitchButtonProps> {
     const btnsArr = Object.keys(btns);
 
     const btnGroup = btnsArr.map((btnKey, idx) => {
-      const btnText = btns[btnKey].text || btns[btnKey];
-      const isActive = btnKey === activeIdx;
+      const btnText = btns[btnKey];
+      const isActive = btnKey.toString() === activeIdx.toString();
       return (
         <span
-          disabled={disabled}
           key={btnText}
           ref={(e) => { this._refs[btnKey] = e; }}
-          className={`switch-btn${isActive ? ' active' : ''}`}
+          className={`switch-btn${isActive ? ' active' : ''}${disabled ? ' disabled' : ''}`}
           onClick={(e) => {
             if ((!unique || activeIdx != btnKey) && !disabled) {
               const _btnKey = isNum ? +btnKey : btnKey;

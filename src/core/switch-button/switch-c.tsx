@@ -5,17 +5,17 @@ import { HasValue } from 'basic-helper';
 
 export interface SwitchProps {
   /** 值改变的回调 */
-  onChange: (val) => void;
+  onChange?: (val) => void;
   /** 是否禁用 */
-  disabled: boolean;
+  disabled?: boolean;
   /** 开关的提示，第一个是激活状态，第二个是消极状态 */
-  tips: string[];
+  tips?: string[];
   /** 组件的输出，第一个是激活状态，第二个是消极状态 */
-  outputs: any[];
+  outputs?: any[];
   /** 当前激活的 index */
-  checked: number | boolean;
+  checked?: number | boolean;
   /** defaultChecked */
-  defaultChecked: boolean;
+  defaultChecked?: boolean;
 }
 
 interface State {
