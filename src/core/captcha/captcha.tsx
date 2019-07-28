@@ -55,7 +55,7 @@ export default class Captcha extends UkeComponent<CaptchaProps, State> {
   static defaultProps = {
     limit: 4,
     autoRetryTime: 10,
-    icon: 'security',
+    icon: 'shield-alt',
   }
 
   static setQueryCAPTCHAData = (func) => {
