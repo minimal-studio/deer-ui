@@ -2,11 +2,11 @@ import React from 'react';
 
 interface CardContainerProps {
   /** className */
-  className: string;
+  className?: string;
   /** style */
-  style: {};
+  style?: {};
   /** 是否树立排版 */
-  isCol: boolean;
+  isCol?: boolean;
 }
 
 const CardContainer: React.SFC<CardContainerProps> = ({ children, className, style }) => (
