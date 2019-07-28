@@ -14,7 +14,7 @@ export interface LabelProps {
 }
 
 const Label: React.SFC<LabelProps> = ({
-  className, text, color = 'blue', tColor = 'white', children, ...other
+  className, text, color = 'default', tColor = 'white', children, ...other
 }) => {
   const child = children || text;
   return (

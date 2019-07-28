@@ -6,21 +6,51 @@ menu: Components
 
 import { Playground, Props } from 'docz'
 import { Label } from './';
-import Color from '../../../docs/style/color.mdx'
+import { ExampleColors, ForEachColor } from '../utils/color';
 
 # Label
 
-## Basic Usage
+## Background Color
 
 <Playground>
-  <Label text="红色" color="red" />
+  {
+    () => {
+      return (
+        <div>
+          {
+            ForEachColor(ExampleColors)((color) => (
+              <Label color={color} className="" key={color}>
+                {color.toUpperCase()}
+              </Label>
+            ))
+          }
+        </div>
+      )
+    }
+  }
+</Playground>
+
+## Text Color
+
+<Playground>
+  <Label tColor="blue">
+    blue
+  </Label>
+  <Label tColor="green">
+    green
+  </Label>
+  <Label tColor="red">
+    red
+  </Label>
+  <Label tColor="orange">
+    orange
+  </Label>
+  <Label tColor="black" color="default">
+    black
+  </Label>
 </Playground>
 
 ## Props
 
 <Props of={Label} />
-
-## Style
-
-<Color />
 
