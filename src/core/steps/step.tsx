@@ -25,14 +25,14 @@ const typeMapper = {
 };
 
 const Step: React.SFC<StepProps> = ({
-  title, children, isActive, isChecked, type = 'success', idx, style
+  title, children, isActive, isChecked, type = 'success', idx = '', style
 }) => (
   <span className={`step-item ${type} ${(isActive ? 'active' : '')} ${(isChecked ? 'checked' : '')}`}
     style={style}>
     <span className="tip-item">
       <span className="tip-idx">
         {
-          !isChecked ? idx + 1 : (
+          !isChecked ? +idx + 1 : (
             <Icon n={typeMapper[type] || type}/>
           )
         }

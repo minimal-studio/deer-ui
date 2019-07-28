@@ -7,9 +7,9 @@ interface StepsProps {
   /** 传入 steps-container 的 class */
   className: string;
   /** children，可以为任意元素，但是最好为 Step */
-  children: [];
+  children: JSX.Element | JSX.Element[];
   /** 所有 Step 的对齐方式，参考 layout 说明 */
-  justify: 'center'|'start'|'end'|'between'|'around';
+  justify: 'center' | 'start' | 'end' | 'between' | 'around';
 }
 
 const classMapper = {
@@ -34,12 +34,12 @@ export default class Steps extends React.PureComponent<StepsProps> {
       children, activeIdx, justify, className
     } = this.props;
     const layoutClass = `j-c-${classMapper[justify] || justify}`;
-    const childLen = children.length;
+    const childLen = Array.isArray(children) ? children.length : 0;
 
     return (
       <div className={`steps-container layout ${layoutClass} ${className}`}>
         {
-          React.Children.map(children, (child, idx) => {
+          React.Children.map(children, (child: JSX.Element, idx) => {
             const isActive = activeIdx === idx;
             const isChecked = activeIdx > idx;
             const StepCom = React.cloneElement(child, {
