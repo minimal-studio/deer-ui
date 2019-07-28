@@ -6,6 +6,7 @@ import {
   getLeft, getRight, getTop, getBottom,
   PositionReturn, PopoverPosition
 } from '../utils/position';
+import { Children } from '../utils/props';
 
 export interface PopoverProps {
   /** 是否激活 */
@@ -13,7 +14,7 @@ export interface PopoverProps {
   /** 关闭的回调，之前是 RequestClose */
   onClose: Function;
   /** 相对的元素，传入 document node */
-  relativeElem: HTMLElement;
+  relativeElem: HTMLElement | EventTarget;
   /** 弹出的位置 */
   position?: PopoverPosition;
   /** 弹出框的颜色类型 */
@@ -26,6 +27,8 @@ export interface PopoverProps {
   update?: boolean;
   /** class name */
   className?: string;
+  /** class name */
+  children?: Children;
   /** style */
   style?: {};
   /** 是否支持 Esc 关闭 */
@@ -77,7 +80,11 @@ export default class Popover extends Component<PopoverProps, State> {
     super(props);
 
     this.state = {
-      positionStyle: {},
+      positionStyle: {
+        position: 'bottom',
+        top: 0,
+        left: 0,
+      },
       prevProps: props,
       childrenChange: false
     };
@@ -134,20 +141,27 @@ export default class Popover extends Component<PopoverProps, State> {
       top: 0,
       position: 'top'
     };
-    const args = [offsetTop, offsetLeft, offsetWidth, offsetHeight, width, height];
+    const args = {
+      offsetTop,
+      offsetLeft,
+      offsetWidth,
+      offsetHeight,
+      elemWidth: width,
+      elemHeight: height
+    };
 
     switch (position) {
       case 'left':
-        positionStyle = getLeft(...args);
+        positionStyle = getLeft(args);
         break;
       case 'bottom':
-        positionStyle = getBottom(...args);
+        positionStyle = getBottom(args);
         break;
       case 'top':
-        positionStyle = getTop(...args);
+        positionStyle = getTop(args);
         break;
       case 'right':
-        positionStyle = getRight(...args);
+        positionStyle = getRight(args);
         break;
     }
     return positionStyle;
@@ -190,7 +204,9 @@ export default class Popover extends Component<PopoverProps, State> {
       const closeBtn = showCloseBtn && (
         <div className="_close-btn" onClick={e => onClose()}>x</div>
       );
-      const obj = enableTabIndex ? { tabIndex: '-1', onKeyDown: this.handleKeyDown } : {};
+      const obj = enableTabIndex ? {
+        tabIndex: -1, onKeyDown: this.handleKeyDown
+      } : {};
       container = (
         <div {...obj}
           className={`uke-popover${fixed ? ' fixed' : ''}${showCloseBtn ? ' has-close' : ''} ${position} ${className} ${type}`}

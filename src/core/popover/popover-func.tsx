@@ -59,7 +59,7 @@ interface PopoverConstructorOptions {
 }
 
 interface PopShowParams {
-  elem?: HTMLElement;
+  elem?: HTMLElement | EventTarget;
   children?: any;
   open?: boolean;
   props?: {};
