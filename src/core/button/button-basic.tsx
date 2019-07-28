@@ -1,14 +1,15 @@
 /* eslint-disable react/button-has-type */
 
 import React from 'react';
+import classnames from 'classnames';
 
 import { Call } from 'basic-helper';
 import { $T_UKE } from '../config';
 import { Icon } from '../icon';
 import { IconProps } from '../icon/icon';
-import { StatusColorTypes, NatureColorTypes } from '../utils/props';
+import { StatusColorTypes, NatureColorTypes, Sizes } from '../utils/props';
 
-type ButtonSize = 'lg' | 'md' | 'sm';
+type ButtonSize = Sizes;
 
 export interface ButtonProps {
   /** 是否加载中 */
@@ -25,8 +26,6 @@ export interface ButtonProps {
   block?: boolean;
   /** 设置 btn 的 class */
   className?: string;
-  /** 设置 btn 的 icon, 可以使用 iconMapper 来引用 */
-  icon?: string;
   /** btn 的字 */
   text?: string;
   /** btn 内的布局 */
@@ -42,7 +41,9 @@ export interface ButtonProps {
   /** btn 的类型 */
   type?: React.ButtonHTMLAttributes<HTMLButtonElement>['type'];
   /** onClick */
-  onClick?: () => void;
+  onClick?: (clickEvent) => void;
+  /** 设置 btn 的 icon, 可以使用 iconMapper 来引用 */
+  icon?: IconProps['n'];
   /** pass to icon */
   s?: IconProps['s'];
 }
@@ -59,7 +60,7 @@ const defaultProps = {
 
 const Button: React.SFC<ButtonProps> = (props) => {
   const {
-    loading, disabled, text = $T_UKE('提交'), icon, s, type = 'button', children,
+    loading, disabled, text, icon, s, type = 'button', children,
     status, color = 'theme', size = 'md', block = false, className, hola = false,
     loadingHint, loadingDisable, textLayout, onClick,
     ...other
@@ -70,21 +71,32 @@ const Button: React.SFC<ButtonProps> = (props) => {
     <Icon n={icon} s={s} classNames={['btn-icon']}/>
   ) : null;
   const loadingTip = loadingHint && loading ? (
-    <Icon n="loading" s={s} classNames={['btn-loading ml5']}/>
+    <Icon n="loading" s={s} classNames={['btn-loading']}/>
   ) : null;
+  const child = children || text;
+  const classNames = classnames(
+    'btn',
+    status || color,
+    size,
+    className,
+    hola && 'hola',
+    block && 'block',
+  );
 
   return (
     <button
       {...other}
       disabled={!clickable}
       type={type}
-      className={`btn ${status || color} ${size} ${className}${hola ? ' hola' : ''}${block ? ' block' : ''}`}
+      className={classNames}
       onClick={(e) => {
         if (clickable) Call(onClick, e);
       }}>
       <span className={`layout ${textLayout}`}>
         {iconDOM}
-        {children || text}
+        {
+          child && <span className="ms10">{child}</span>
+        }
         {loadingTip}
       </span>
     </button>
