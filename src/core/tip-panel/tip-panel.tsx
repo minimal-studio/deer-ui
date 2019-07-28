@@ -5,13 +5,13 @@ export interface TipPanelProps {
   /** panel 的 title */
   title?: string;
   /** panel 的一项内容 */
-  text?: string;
+  text?: any;
   /** panel 的类型 */
-  type?: 'warm'|'error'|'success'|'normal';
+  type?: 'warn'|'error'|'success'|'normal';
   /** 是否默认显示内容 */
   defaultShow?: boolean;
   /** 数据数据，任意类型，渲染出来带有序号 */
-  texts: any[];
+  texts?: any[];
   /** 是否需要内容收起展开的开关 */
   needToolTip?: boolean;
   /** 是否可收缩内容 */
@@ -22,7 +22,7 @@ export default class TipPanel extends PureComponent<TipPanelProps, {
   showContent: boolean;
 }> {
   static defaultProps = {
-    type: 'warm',
+    type: 'normal',
     needToolTip: false,
     defaultShow: true,
     collapse: false,
