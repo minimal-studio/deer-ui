@@ -8,7 +8,7 @@ import {
  * 通过继承 UkeComponent 或者 UkePureComponent 获取通用函数
  */
 
-export class UkeComponent<P = {}, S = {}, SS = any> extends PureComponent<P, S, SS> {
+export class UkeComponent<P = {}, S = {}, SS = any> extends Component<P, S, SS> {
   /** gm 将要弃用 */
   gm = $T;
 
