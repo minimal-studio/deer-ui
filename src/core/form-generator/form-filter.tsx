@@ -9,7 +9,8 @@ import {
 
 import { UkeComponent } from '../utils/uke-component';
 
-import { DatetimePicker, DateShortcut } from '../datetimepicker';
+import { DatetimePicker } from '../datetimepicker';
+import { DateShortcut } from '../date-shortcut';
 import { Radio, DropdownMenu, Checkbox } from '../selector';
 import { Input } from '../form-control';
 import { Ranger } from '../range-selector';

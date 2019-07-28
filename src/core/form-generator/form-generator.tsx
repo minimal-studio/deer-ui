@@ -49,7 +49,7 @@ export default class FormGenerator extends FormFilterHelper<FormGeneratorProps> 
       if (this.formItemRefs.hasOwnProperty(itemRef)) {
         const currFormItem = this.formItemRefs[itemRef];
         currFormItem.classList.remove('error');
-        if (itemRef == ref && !isPass) {
+        if (itemRef === ref && !isPass) {
           this.formItemRefs[ref].classList.add('error');
         }
       }

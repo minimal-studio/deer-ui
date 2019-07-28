@@ -22,7 +22,7 @@
 
 > 可以通过 type = 'customForm' 来实现，实现 getCustomFormControl 接口
 
-## 完整事例
+## Demo
 
 ```js
 const CustomerCom = ({ onChange }) => {
