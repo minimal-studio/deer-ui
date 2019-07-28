@@ -53,12 +53,12 @@ export default class Toast extends PureComponent {
       if (!this.__unmount) this.hideTip(currDescId);
     }, timer);
 
-    this.timerQueue[currTimer] = true;
+    this.timerQueue[currTimer.toString()] = true;
   }
 
   clearTimer() {
     Object.keys(this.timerQueue).forEach((timerID) => {
-      timerID && clearTimeout(timerID);
+      timerID && clearTimeout(+timerID);
     });
   }
 
