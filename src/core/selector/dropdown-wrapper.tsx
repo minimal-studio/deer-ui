@@ -130,12 +130,12 @@ export default class DropdownWrapper extends React.PureComponent<DropdownWrapper
     if (this.state.isShow) this.hide();
   }
 
-  handleClickMenu = () => {
+  handleClickMenu = (e) => {
     const { outside, scrollElem } = this.props;
     if (outside) {
       // e.preventDefault();
       // const { clientX, clientY } = e;
-      if (!this.addScrollListener) {
+      if (!this.addScrollListener && scrollElem) {
         const _scrollElem = scrollElem();
         _scrollElem.addEventListener('scroll', this.hide);
       }
@@ -300,9 +300,9 @@ export default class DropdownWrapper extends React.PureComponent<DropdownWrapper
             this.delayExec.exec(this.handleClickAway, 200);
           }
         } : {
-          onMouseEnter: () => {
+          onMouseEnter: (event) => {
             if (this.delayExec) this.delayExec.cancel();
-            this.handleClickMenu();
+            this.handleClickMenu(event);
           },
           onMouseLeave: this.handleClickAway
         };

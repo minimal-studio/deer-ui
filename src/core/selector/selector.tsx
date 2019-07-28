@@ -60,17 +60,9 @@ const toArr = (target) => {
   return Array.isArray(target) ? target : [target];
 };
 
-export default class SelectorBasic<P extends SelectorBasicProps, S = {}, SS = {}> extends FormControlBasic<P, S, SS> {
-  // static propTypes = {
-  //   values: selectorValuesType.isRequired,
-  //   defaultValue: PropTypes.any,
-  //   className: PropTypes.string,
-  //   value: PropTypes.any,
-  //   isNum: PropTypes.bool,
-  //   isMultiple: PropTypes.bool,
-  //   style: PropTypes.object,
-  //   onChange: PropTypes.func
-  // };
+export default class SelectorBasic<
+  P extends SelectorBasicProps, S = {}, SS = {}
+> extends FormControlBasic<P, S, SS> {
   values;
 
   valuesObj;

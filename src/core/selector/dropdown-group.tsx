@@ -70,7 +70,7 @@ export default class DropdownGroup extends SelectorBasic<DropdownGroupProps, Sta
     let selectedCount = 0;
     if (!group) return selectedCount;
     for (const key in group) {
-      if (typeof group.key != 'undefined') {
+      if (typeof group[key] != 'undefined') {
         const item = group[key];
         if (Array.isArray(item)) selectedCount += item.length;
       }
@@ -126,14 +126,20 @@ export default class DropdownGroup extends SelectorBasic<DropdownGroupProps, Sta
   getTitle = () => `${this.state.selectedCount}${this.$T_UKE('项已选')}`
 
   render() {
-    const { groupData, style, ...other } = this.props;
+    const {
+      groupData, style, outside, ...other
+    } = this.props;
     const groupDataArr = Object.keys(groupData);
 
     return (
-      <DropdownWrapper {...other} overlay={(helper) => {
+      <DropdownWrapper {...other} outside={outside} overlay={(helper) => {
         const selectedValue = this.getValue();
         return (
-          <div className="dropdown-group p10" style={style}>
+          <div className="dropdown-group p10" style={style}
+            onClick={(e) => {
+              /** 阻止 ClickAway 触发回调 */
+              if (outside) e.preventDefault();
+            }}>
             {
               groupDataArr.map((groupKey, idx) => {
                 const currItem = groupData[groupKey];
