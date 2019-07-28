@@ -132,7 +132,7 @@ class PopoverEntity {
     this.set(nextState);
   }
 
-  destory = () => {
+  destroy = () => {
     this.close();
     destoryDOM(this.id);
   }
