@@ -57,15 +57,16 @@ export default class TipButton extends Component<TipButtonProps> {
     this.popover = new PopoverEntity({ id: this.btnId });
   }
 
+  componentWillUnmount() {
+    this.clearTimer();
+    this.popover.destroy();
+  }
+
   closePopover() {
     const { onClose } = this.props;
     this.clearTimer();
     this.popover.close();
     Call(onClose);
-  }
-
-  componentWillUnmount() {
-    this.clearTimer();
   }
 
   clearTimer() {
