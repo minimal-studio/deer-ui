@@ -56,6 +56,10 @@
 
 - props 更改: styleConfig -> style
 
+### Tabs
+
+- 新增 tabsClassName 取代旧的 className
+
 -----------------
 
 ## 2.17.17

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { CallFunc } from 'basic-helper';
-
+import classnames from 'classnames';
 import Tab from './tab';
 import { ToolTip } from '../tooltip';
 import { Children } from '../utils/props';
@@ -28,10 +28,12 @@ export interface TabsProps {
   defaultTab?: number;
   /** className */
   className?: string;
+  /** tabs container 的 tabsClassName */
+  tabsClassName?: string;
   /** tab 改变时的回调 */
   onChangeTab?: (idx?: number) => void;
   /** tab 关闭时的回调 */
-  onClose?: () => void;
+  onClose?: (closedTabIdx) => void;
 }
 
 interface State {
@@ -109,10 +111,10 @@ export default class Tabs extends Component<TabsProps, State> {
     } = this.props;
     const activeTabIdx = this.getActiveIdx();
 
-    const tabs = [];
-    const tabContents = [];
+    const tabs: any[] = [];
+    const tabContents: any[] = [];
 
-    React.Children.map(children, (tabChild, idx) => {
+    React.Children.map(children, (tabChild: JSX.Element, idx) => {
       if (!tabChild || typeof tabChild.type !== 'function') return;
       const isActive = (idx === activeTabIdx);
       const tabKey = tabChild.key;
@@ -146,9 +148,11 @@ export default class Tabs extends Component<TabsProps, State> {
           </span>
           {
             closeable && (
-              <ToolTip className="_close-btn" title={closeTip}
+              <ToolTip
+                className="_close-btn"
+                title={closeTip}
                 clickToClose
-                onClick={e => onClose(idx)}>
+                onClick={e => onClose && onClose(idx)}>
                 x
               </ToolTip>
             )
@@ -167,14 +171,21 @@ export default class Tabs extends Component<TabsProps, State> {
 
   render() {
     const {
-      className = 'tabs-container',
+      tabsClassName = 'tabs-container',
+      className,
       inRow, withContent, onlyContent
     } = this.props;
 
     const { tabs, tabContents } = this.getTabContents();
+    const classes = classnames(
+      tabsClassName,
+      className,
+      inRow && 'in-row',
+      withContent && 'common-mode'
+    );
 
     return (
-      <div className={className + (inRow ? ' in-row' : `${withContent ? ' common-mode' : ''}`)}>
+      <div className={classes}>
         {
           !onlyContent && (
             <div className="tab-group">
