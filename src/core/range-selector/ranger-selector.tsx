@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { ToFixed, HasValue } from 'basic-helper';
+import classnames from 'classnames';
 
 import InputNumber from '../form-control/input-number';
 
@@ -8,6 +9,8 @@ interface RangerProps {
   onChange: Function;
   /** 默认值 */
   defaultValue?: number;
+  /** 范围 */
+  value?: number;
   /** 基础的单位 */
   basicUnit?: number;
   /** 是否禁用 */
@@ -146,7 +149,9 @@ export default class Ranger extends Component<RangerProps, State> {
 
     const moveOffset = this.isRevert ? dragOriginX - offsetX : offsetX - dragOriginX;
 
-    let currOffsetPer = Math.round(moveOffset / this.rangerBodyWidth * 100 + this.originalOffsetPercent);
+    let currOffsetPer = Math.round(
+      moveOffset / this.rangerBodyWidth * 100 + this.originalOffsetPercent
+    );
 
     if (currOffsetPer < 0) currOffsetPer = 0;
     if (currOffsetPer > 100) currOffsetPer = 100;
@@ -186,11 +191,13 @@ export default class Ranger extends Component<RangerProps, State> {
 
   percentToVal(percent) {
     if (percent - 1 < -1) return null;
-    const { basicUnit } = this.props;
+    const { basicUnit = 1 } = this.props;
     const { min, max } = this;
-    let _val = Math.floor(percent * (max - min) / 100 + min, 0) || 0;
-    if (_val % basicUnit !== 0) _val += 1;
-    return _val;
+    const nextVal = Math.floor(percent * (max - min) / 100 + min) || 0;
+    if ((nextVal % basicUnit) === 0) {
+      return nextVal;
+    }
+    return null;
   }
 
   valToPercent(val) {
@@ -235,11 +242,11 @@ export default class Ranger extends Component<RangerProps, State> {
   }
 
   plusAndLess(mark) {
-    const { basicUnit } = this.props;
+    const { basicUnit = 1 } = this.props;
     const stateValue = this.valueFilter();
 
-    let each = basicUnit;
-    if (mark == '-') each = -each;
+    let each = +basicUnit;
+    if (mark === '-') each = -each;
     if (this.isRevert) each = -each;
     const _val = stateValue + each;
 
@@ -254,7 +261,7 @@ export default class Ranger extends Component<RangerProps, State> {
   render() {
     const stateValue = this.valueFilter();
     const {
-      disabled, precent, range, withInput, basicUnit
+      disabled, precent, range = [], withInput, basicUnit
     } = this.props;
     const { draping } = this.state;
 
@@ -267,9 +274,15 @@ export default class Ranger extends Component<RangerProps, State> {
     };
 
     const _value = precent ? (stateValue / 10).toFixed(1) : stateValue.toFixed(0);
+    const classes = classnames(
+      'uke-ranger',
+      disabled && 'disabled',
+      draping && 'draping',
+      withInput && 'with-input',
+    );
 
     return (
-      <div className={`uke-ranger ${disabled ? 'disabled' : ''} ${draping ? 'draping' : ''} ${withInput ? 'with-input' : ''}`}>
+      <div className={classes}>
         <div className="disabled-mask" />
         <div className="ranger"
           onTouchStart={e => this.handleMouseDown(e)}
@@ -303,11 +316,14 @@ export default class Ranger extends Component<RangerProps, State> {
           withInput ? (
             <InputNumber
               value={+stateValue}
+              key={stateValue}
               inputable={false}
               precent={precent}
               numRange={[0, range[1]]}
               unit={basicUnit}
               onChange={(val) => {
+                const compare = val - stateValue;
+                if (compare === 0) return;
                 this.plusAndLess(val - stateValue > 0 ? '+' : '-');
               }}/>
           ) : null

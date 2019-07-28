@@ -33,6 +33,7 @@ $iconViewBgColor: $themeColor;
     display: flex;
     align-items: center;
     margin-left: 10px;
+    min-width: 100px;
   }
   .form-control {
     min-width: auto !important;
@@ -172,4 +173,7 @@ $iconViewBgColor: $themeColor;
     // padding: 0 10px;
     // margin-left: 5px;
   }
+}
+input[readonly] {
+  background-color: #EEE !important;
 }
