@@ -2869,10 +2869,10 @@ base@^0.11.1:
     mixin-deep "^1.2.0"
     pascalcase "^0.1.1"
 
-basic-helper@^3.0.4:
-  version "3.0.4"
-  resolved "https://registry.yarnpkg.com/basic-helper/-/basic-helper-3.0.4.tgz#c0749c13c82e471efaf5b06d7e1be5e1301b1ae6"
-  integrity sha512-yFkNaVEUESP9YFOJWYrGmadqmyUbSuPruZ1Fl86MHR0rHsBXVuft1i2DIzT629lxcD+WHdbTtEQLSZrxjGGqgg==
+basic-helper@^3.0.5:
+  version "3.0.5"
+  resolved "https://registry.yarnpkg.com/basic-helper/-/basic-helper-3.0.5.tgz#cf5280b5480c46e466612ef62bf3995d6ab85d77"
+  integrity sha512-c/6anLP97Ax4G2ujMW9TSjqhcEOOupMOr60ZMqVuF57/PKNsFvLLMmvN0+BWZQy5XqRhcuzW7k9cBKgtOo+tsQ==
 
 batch@0.6.1:
   version "0.6.1"
