@@ -25,6 +25,33 @@
 - state-manager
 - selector-filter.js
 
+### 废弃组件名
+
+- DatepickerHelper
+
+### 废弃 API
+
+- Input.props.inputType
+
+## 组件更新
+
+### Input
+
+- 优化参数传递
+- 优化 Title 上浮效果的应用
+
+### Avatar
+
+- 新加入 Color 系统
+
+### Button
+
+- 优化样式
+
+### Carousel
+
+- props 更改: styleConfig -> style
+
 -----------------
 
 ## 2.17.17
