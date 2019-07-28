@@ -7,7 +7,7 @@ menu: Components
 import { Playground, Props } from 'docz'
 import { useState } from 'react';
 import Avatar from './avatar';
-import { ExampleColor, ForEachColor } from '../utils/color';
+import { ExampleColors, ForEachColor } from '../utils/color';
 import { List, ListItem } from '../list';
 
 # Avatar
@@ -27,7 +27,7 @@ import { List, ListItem } from '../list';
             overflow: 'auto'
           }}>
             {
-              ForEachColor(ExampleColor)((color) => (
+              ForEachColor(ExampleColors)((color) => (
                 <ListItem className="b layout a-i-c" key={color}>
                   <Avatar
                     color={color}
