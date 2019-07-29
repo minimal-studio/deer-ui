@@ -1,74 +1,70 @@
 ---
 name: Pagination
 route: /Pagination
-menu: Form / 表单
+menu: Form
 ---
 
-import { Playground, PropsTable } from 'docz'
-import { State, Toggle } from 'react-powerplug'
+import { useState } from 'react'
+import { Playground, Props } from 'docz'
 import { Pagination } from './';
 
 # Pagination
 
-<PropsTable of={Pagination} />
+## Basic Usage
 
 <Playground>
-  <State initial={{
-    pagingInfo: {
-      active: true,
-      total: 1000,
-      pIdx: 0,
-      pSize: 10
-    },
-    paginTransfer: {
-      active: 'active',
-      total: 'total',
-      pIdx: 'pIdx',
-      pSize: 'pSize'
-    }
-  }}>
-    {
-      ({ state, setState }) => (
+  {
+    () => {
+      /** 支持自定义数据结构 */
+      const [pagingInfo, setPagin] = useState({
+        active: true,
+        total: 1000,
+        pIdx: 0,
+        pSize: 10
+      });
+      return (
         <Pagination
           onPagin={nextPagin => {
-            setState({
-              pagingInfo: nextPagin
-            })
+            console.log(nextPagin)
+            setPagin(nextPagin)
           }}
-          infoMapper={state.paginTransfer}
-          pagingInfo={state.pagingInfo}/>
+          pagingInfo={pagingInfo}/>
       )
     }
-  </State>
+  }
 </Playground>
 
-```js
-class ForPagin extends React.Component {
-  constructor(props) {
-    super(props);
+## 自定义数据结构
 
-    this.state = {
-      pagin: {
-        PageIndex: 0,
-        PageSize: 10,
-        AllCount: 101,
-        UsePaging: true
+<Playground>
+  {
+    () => {
+      /** 支持自定义数据结构 */
+      const [pagingInfo, setPagin] = useState({
+        Active: true,
+        Total: 1000,
+        PIdx: 0,
+        PSize: 10
+      });
+      const paginTransfer = {
+        active: 'Active',
+        total: 'Total',
+        pIdx: 'PIdx',
+        pSize: 'PSize'
       }
+      return (
+        <Pagination
+          onPagin={nextPagin => {
+            console.log(nextPagin)
+            setPagin(nextPagin)
+          }}
+          infoMapper={paginTransfer}
+          pagingInfo={pagingInfo}/>
+      )
     }
   }
-  render() {
-    const { pagin } = this.state;
-    return (
-      <Pagination
-        onPagin={nextPagin => {
-          this.setState({
-            pagin: nextPagin
-          })
-        }}
-        pagingInfo={pagin}/>
-    )
-  }
-}
+</Playground>
 
-<ForPagin />
-```
+## Props
+
+<Props of={Pagination} />

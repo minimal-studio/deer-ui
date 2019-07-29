@@ -1,97 +1,60 @@
 ---
 name: Steps
 route: /Steps
-menu: Components / 组件
+menu: Components
 ---
 
-import { Playground, PropsTable } from 'docz'
-import { State, Toggle } from 'react-powerplug'
-import { Steps, Step } from './';
+import { useState } from 'react'
+import { Playground, Props } from 'docz'
+import Steps from './steps';
+import Step from './step';
 
 # Steps
 
-<PropsTable of={Steps} />
+> Steps 只专注于渲染，控制 Steps 的状态的管理权由开发者控制
+
+## Example
 
 <Playground>
-  <State initial={{
-    activeIdx: 0,
-    max: 5
-  }}>
-    {
-      ({ state, setState }) => {
-        const { max, activeIdx } = state;
-        return (
-          <div>
-            <Steps activeIdx={activeIdx} justify="between" className="p20">
-              <Step title="分步1" type="success">这里是描述1</Step>
-              <Step title="分步2" type="wran">这里是描述2</Step>
-              <Step title="分步3">这里是描述3</Step>
-              <Step title="分步4">这里是描述4</Step>
-              <Step title="分步5" type="error">
-                这里是描述4这里是描述4这里是描述4这里是描述4, <span style={{
-                  color: 'red'
-                }}>可以为任意元素</span>
-              </Step>
-            </Steps>
+  {
+    () => {
+      const [activeIdx, setActiveIdx] = useState(0);
+      const [max, setMax] = useState(5);
+      return (
+        <div>
+          <Steps activeIdx={activeIdx} justify="between" className="p20">
+            <Step title="分步1" type="success">这里是描述1</Step>
+            <Step title="分步2" type="wran">这里是描述2</Step>
+            <Step title="分步3">这里是描述3</Step>
+            <Step title="分步4">这里是描述4</Step>
+            <Step title="分步5" type="error">
+              这里是描述4这里是描述4这里是描述4这里是描述4, <span style={{
+                color: 'red'
+              }}>可以为任意元素</span>
+            </Step>
+          </Steps>
 
-            <span className="btn theme" onClick={e => {
-              let nextIdx = activeIdx + 1;
-              if(nextIdx > max) nextIdx = 0;
-              setState({
-                activeIdx: nextIdx
-              })
-            }}>
-              下一个
-            </span>
-          </div>
-        )
-      }
+          <span className="btn theme" onClick={e => {
+            let nextIdx = activeIdx + 1;
+            if(nextIdx > max) nextIdx = 0;
+            setActiveIdx(nextIdx)
+          }}>
+            下一个
+          </span>
+        </div>
+      )
     }
-  </State>
+  }
 </Playground>
 
+--------------
 
-分步组件
+## Props of Steps
 
-```js
-const Step = Steps.Step;
-class ForTest extends React.Component {
-  constructor(props) {
-    super(props);
+<Props of={Steps} />
 
-    this.state = {
-      activeIdx: 0,
-      max: 5
-    }
-  }
-  render() {
-    const { activeIdx, max } = this.state;
-    return (
-      <div>
-        <Steps activeIdx={activeIdx} justify="between" className="p20">
-          <Step title="分步1" type="success">这里是描述1</Step>
-          <Step title="分步2" type="wran">这里是描述2</Step>
-          <Step title="分步3">这里是描述3</Step>
-          <Step title="分步4">这里是描述4</Step>
-          <Step title="分步5" type="error">
-            这里是描述4这里是描述4这里是描述4这里是描述4, <span style={{
-              color: 'red'
-            }}>可以为任意元素</span>
-          </Step>
-        </Steps>
+--------------
 
-        <span className="btn theme" onClick={e => {
-          let nextIdx = activeIdx + 1;
-          if(nextIdx > max) nextIdx = 0;
-          this.setState({
-            activeIdx: nextIdx
-          })
-        }}>
-          下一个
-        </span>
-      </div>
-    )
-  }
-}
-<ForTest/>
-```
+## Props of Step
+
+<Props of={Step} />

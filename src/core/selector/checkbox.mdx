@@ -1,18 +1,17 @@
 ---
 name: Checkbox
 route: /Checkbox
-menu: Selector / 选择器
+menu: Selector
 ---
 
-import { Playground, PropsTable } from 'docz'
-import { State, Toggle } from 'react-powerplug'
+import { Playground, Props } from 'docz'
 import { Checkbox, Radio } from './';
 
 # Checkbox
 
 > 基于 selector 的单选组件
 
-<PropsTable of={Radio} />
+## Basic Usage
 
 <Playground>
   <Checkbox onChange={val => {
@@ -24,7 +23,7 @@ import { Checkbox, Radio } from './';
   }} />
 </Playground>
 
-## 任意选中出现的图标
+## 更换激活图标
 
 <Playground>
   <Checkbox
@@ -37,3 +36,7 @@ import { Checkbox, Radio } from './';
       3: 'C',
     }} />
 </Playground>
+
+## Props
+
+<Props of={Radio} />

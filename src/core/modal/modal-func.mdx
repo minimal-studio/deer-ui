@@ -1,11 +1,12 @@
 ---
 name: ShowModal
 route: /ShowModal
-menu: Utils / 效率
+menu: Utils
 ---
 
-import { Playground, PropsTable } from 'docz'
+import { Playground, Props } from 'docz'
 import { ShowModal, CloseModal, ShowGlobalModal, CloseGlobalModal, CloseAllModal } from './';
+import ShowModalAPI from './modal-func-api'
 import { DropdownMenu } from '../selector';
 import { Pop } from '../popover';
 
@@ -19,12 +20,12 @@ import { Pop } from '../popover';
 - type: 用于标记弹出层的类型，默认为 modal，主要有 side, modal, confirm
 - draggable: 是否可拖动模式，只有在 type = modal 时有效，默认为 false
 
-## 一般用法
+## Basic Usage
 
 <Playground>
   <div>
     <span
-      className="btn theme flat mr10"
+      className="btn theme mr10"
       onClick={e => ShowModal({
         draggable: false,
         title: '默认的 Modal',
@@ -66,7 +67,7 @@ import { Pop } from '../popover';
     </span>
 
     <span
-      className="btn gold flat mr10"
+      className="btn red mr10"
       onClick={e => ShowModal({
         title: '有操作按钮的 Modal',
         showFuncBtn: true,
@@ -76,7 +77,7 @@ import { Pop } from '../popover';
     </span>
 
     <span
-      className="btn light-p flat mr10"
+      className="btn green mr10"
       onClick={e => ShowModal({
         type: 'confirm',
         title: '确认框',
@@ -90,13 +91,13 @@ import { Pop } from '../popover';
   </div>
 </Playground>
 
-## 多个弹窗并存
+## 多窗口模式
 
-> 可以弹出多个窗口，并且可拖动
+> 同时共存多个 Modal 事例，并且可以拖动
 
 <Playground>
   <span
-    className="btn red flat mr10"
+    className="btn theme mr10"
     onClick={e => ShowModal({
       draggable: true,
       elem: e,
@@ -107,19 +108,19 @@ import { Pop } from '../popover';
   </span>
 
   <span
-    className="btn green flat mr10"
+    className="btn red mr10"
     onClick={e => CloseAllModal()}>
     关闭所有 Modal
   </span>
 </Playground>
 
-## 不同方向弹出
+## 侧边弹出
 
-> 在不同的方向弹出
+> 可在不同的方向弹出
 
 <Playground>
   <span
-    className="btn red flat mr10"
+    className="btn blue mr10"
     onClick={e => ShowModal({
       title: '有操作按钮的 Modal',
       type: 'side',
@@ -129,7 +130,7 @@ import { Pop } from '../popover';
     右边弹出
   </span>
   <span
-    className="btn warn flat mr10"
+    className="btn green mr10"
     onClick={e => ShowModal({
       title: '有操作按钮的 Modal',
       type: 'side',
@@ -139,7 +140,7 @@ import { Pop } from '../popover';
     左边弹出
   </span>
   <span
-    className="btn green flat mr10"
+    className="btn red mr10"
     onClick={e => ShowModal({
       title: '有操作按钮的 Modal',
       type: 'side',
@@ -149,7 +150,7 @@ import { Pop } from '../popover';
     上边弹出
   </span>
   <span
-    className="btn blue flat mr10"
+    className="btn orange mr10"
     onClick={e => ShowModal({
       title: '有操作按钮的 Modal',
       type: 'side',
@@ -158,15 +159,16 @@ import { Pop } from '../popover';
     })}>
     下边弹出
   </span>
+  <ShowModalAPI />
 </Playground>
 
 ## 自定义弹出模版
 
-> Modal 提供接口，可以弹出任意自定义内容
+> 替换 Modal 提供的默认模版
 
 <Playground>
   <span
-    className="btn wine flat mr10"
+    className="btn blue mr10"
     onClick={e => ShowModal({
       title: '自定义 Modal 模版',
       template: (props) => {
@@ -176,8 +178,8 @@ import { Pop } from '../popover';
             position: 'fixed', top: 0, right: 0,
             boxShadow: '0 4px 10px rgba(0,0,0,0.1)',
             zIndex: 999,
-            height: 400, width: 1000, backgroundColor: '#FFF'}}>
-            自定义的 Modal 模版
+            height: 400, width: 500, backgroundColor: '#FFF'}}>
+            自定义的 Modal 模版，点击关闭
           </div>
         )
       }
@@ -186,19 +188,6 @@ import { Pop } from '../popover';
   </span>
 </Playground>
 
-```js
-/**
- * 以下是默认配置，剩余的都传入 Modal
- * @return {number} 返回该 Modal 的 id，可以用于 CloseModal
- */
-const ModalId = ShowModal({
-  className = 'fixed',
-  topClassName = 'top-modal-opend',
-  type, confirmText = $T_UKE('确定') + '?', title, showFuncBtn = true,
-  width = window.$UKE.isMobile ? '90%' : 600, id, children, draggable,
-  onConfirm, onClose, onCloseModal
-  ...forModalProps
-});
+## API of ShowModal
 
-CloseModal(ModalId);
-```
+<Props of={ShowModalAPI} />

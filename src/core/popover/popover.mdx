@@ -1,102 +1,108 @@
 ---
 name: Pop
 route: /Pop
-menu: Utils / 效率
+menu: Utils
 ---
 
-import { Playground, PropsTable } from 'docz'
+import { Playground, Props } from 'docz'
 import { Pop, GlobalPopover, PopoverEntity, Popover } from './';
 import { Icon } from '../icon';
 
-# Pop
+# API Pop
 
-## 一般用法
+> Uke Pop 会判断用户的屏幕尺寸，如果超出显示范围，则切换到另一个方向显示
 
-> 通过操作 Pop
+## Setup
 
-<PropsTable of={Popover} />
+```js
+import { Pop } from 'ukelli-ui/core/popover'
+```
 
-<Playground style={{overflowX: 'auto'}}>
-  <div className="layout j-c-b" style={{width: '110%'}}>
-    <span className="mr10 p10 flex bg_default" onMouseEnter={e => {
-      Pop.show({
-        elem: e.target,
-        props: {
-          showCloseBtn: false,
-          position: 'top',
-          type: 'red'
-        },
-        children: (
-          <div className="p10">
-            任意内容任意内容任意内容任意内容<br />
-            任意内容任意内容任意内容任意内容<br />
-            任意内容任意内容任意内容任意内容<br />
-            任意内容任意内容任意内容任意内容<br />
-          </div>
-        )
-      })
-    }} onMouseLeave={e => {
-      Pop.close()
-    }}>
-      向上弹出
-    </span>
-    <span className="mr10 p10 flex bg_default" onMouseEnter={e => {
-      Pop.show({
-        elem: e.target,
-        props: {
-          showCloseBtn: false,
-          position: 'bottom',
-          type: 'red'
-        },
-        children: (
-          <div className="p10">任意内容</div>
-        )
-      })
-    }} onMouseLeave={e => {
-      Pop.close()
-    }}>
-      向下弹出
-    </span>
-    <span className="mr10 p10 flex bg_default" onMouseEnter={e => {
-      Pop.show({
-        elem: e.target,
-        props: {
-          showCloseBtn: false,
-          position: 'left',
-          type: 'red'
-        },
-        children: (
-          <div className="p10">任意内容</div>
-        )
-      })
-    }} onMouseLeave={e => {
-      Pop.close()
-    }}>
-      向左弹出
-    </span>
-    <span className="mr10 p10 flex bg_default" onMouseEnter={e => {
-      Pop.show({
-        elem: e.target,
-        props: {
-          showCloseBtn: false,
-          position: 'right',
-          type: 'red'
-        },
-        children: (
-          <div className="p10">任意内容</div>
-        )
-      })
-    }} onMouseLeave={e => {
-      Pop.close()
-    }}>
-      向右弹出
-    </span>
+## Basic Usage
+
+<Playground>
+  <div style={{overflowX: 'auto', position: 'relative', width: '100%'}}>
+    <div className="layout j-c-b" style={{width: '110%'}}>
+      <span className="mr10 p10 flex bg_default" onMouseEnter={e => {
+        Pop.show({
+          elem: e.target,
+          props: {
+            showCloseBtn: false,
+            position: 'top',
+            type: 'red'
+          },
+          children: (
+            <div className="p10">
+              任意内容任意内容任意内容任意内容<br />
+              任意内容任意内容任意内容任意内容<br />
+              任意内容任意内容任意内容任意内容<br />
+              任意内容任意内容任意内容任意内容<br />
+            </div>
+          )
+        })
+      }} onMouseLeave={e => {
+        Pop.close()
+      }}>
+        向上弹出
+      </span>
+      <span className="mr10 p10 flex bg_default" onMouseEnter={e => {
+        Pop.show({
+          elem: e.target,
+          props: {
+            showCloseBtn: false,
+            position: 'bottom',
+            type: 'red'
+          },
+          children: (
+            <div className="p10">任意内容</div>
+          )
+        })
+      }} onMouseLeave={e => {
+        Pop.close()
+      }}>
+        向下弹出
+      </span>
+      <span className="mr10 p10 flex bg_default" onMouseEnter={e => {
+        Pop.show({
+          elem: e.target,
+          props: {
+            showCloseBtn: false,
+            position: 'left',
+            type: 'red'
+          },
+          children: (
+            <div className="p10">任意内容</div>
+          )
+        })
+      }} onMouseLeave={e => {
+        Pop.close()
+      }}>
+        向左弹出
+      </span>
+      <span className="mr10 p10 flex bg_default" onMouseEnter={e => {
+        Pop.show({
+          elem: e.target,
+          props: {
+            showCloseBtn: false,
+            position: 'right',
+            type: 'red'
+          },
+          children: (
+            <div className="p10">任意内容</div>
+          )
+        })
+      }} onMouseLeave={e => {
+        Pop.close()
+      }}>
+        向右弹出
+      </span>
+    </div>
   </div>
 </Playground>
 
 <Playground>
-  <div>
-    <span className="mr10 bg_default" onMouseEnter={e => {
+  <div className="p20 bg_default">
+    <span className="mr10" onMouseEnter={e => {
       Pop.show({
         elem: e.target,
         props: {
@@ -116,7 +122,7 @@ import { Icon } from '../icon';
     }} onMouseLeave={e => {
       Pop.close()
     }}>
-      <Icon n="blind" />
+      <Icon style={{fontSize: 30}} n="blind" />
     </span>
     <span className="mr10 bg_default" onMouseEnter={e => {
       Pop.show({
@@ -133,7 +139,7 @@ import { Icon } from '../icon';
     }} onMouseLeave={e => {
       Pop.close()
     }}>
-      <Icon n="baby" />
+      <Icon style={{fontSize: 30}} n="baby" />
     </span>
     <span className="mr10 bg_default" onMouseEnter={e => {
       Pop.show({
@@ -150,7 +156,7 @@ import { Icon } from '../icon';
     }} onMouseLeave={e => {
       Pop.close()
     }}>
-      <Icon n="bible" />
+      <Icon style={{fontSize: 30}} n="bible" />
     </span>
     <span className="mr10 bg_default" onMouseEnter={e => {
       Pop.show({
@@ -167,7 +173,7 @@ import { Icon } from '../icon';
     }} onMouseLeave={e => {
       Pop.close()
     }}>
-      <Icon n="bicycle" />
+      <Icon style={{fontSize: 30}} n="bicycle" />
     </span>
   </div>
 </Playground>
@@ -191,3 +197,7 @@ pop.show({
   props, // 传入 popover 实体对象的 props
 });
 ```
+
+## API of Pop
+
+<Props of={Popover} />

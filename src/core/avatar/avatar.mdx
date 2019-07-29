@@ -1,18 +1,111 @@
 ---
 name: Avatar
 route: /Avatar
-menu: Components / 组件
+menu: Components
 ---
 
-import { Playground, PropsTable } from 'docz'
+import { Playground, Props } from 'docz'
 import { useState } from 'react';
-import { Avatar } from './';
+import Avatar from './avatar';
+import { ExampleColors, ForEachColor } from '../utils/color';
+import { List, ListItem } from '../list';
 
 # Avatar
 
-<PropsTable of={Avatar} />
+> 通用头像
 
-## Usage
+## Basic Usage
+
+<Playground>
+  {
+    () => {
+      return (
+        <div>
+          <h4>自然色调</h4>
+          <List style={{
+            height: 300,
+            overflow: 'auto'
+          }}>
+            {
+              ForEachColor(ExampleColors)((color) => (
+                <ListItem className="b layout a-i-c" key={color}>
+                  <Avatar
+                    color={color}
+                    size={40}
+                    className="mr10">
+                    {color[0]}
+                  </Avatar>
+                  <div>
+                    <div>
+                    {color.toUpperCase()}
+                    </div>
+                    <div className="t_gray">{color}</div>
+                  </div>
+                </ListItem>
+              ))
+            }
+          </List>
+        </div>
+      )
+    }
+  }
+</Playground>
+
+## Size 控制
+
+<Playground>
+  {
+    () => {
+      return (
+        <div>
+          <Avatar
+            className="mr10"
+            size={70}
+            text="A" />
+          <Avatar
+            color="green"
+            size={60}
+            className="mr10">
+            C
+          </Avatar>  
+          <Avatar
+            color="yellow"
+            size={50}
+            className="mr10"
+            text="B" />     
+          <Avatar
+            color="red"
+            size={40}
+            className="mr10"
+            text="B" />     
+        </div>
+      )
+    }
+  }
+</Playground>
+
+## Avatar 的小提示
+
+<Playground>
+  {
+    () => {
+      return (
+        <div>
+          <Avatar
+            onChangeAvatar={e => {
+              {/* alert('你好') */}
+              console.log(e);
+            }}
+            tip={10}
+            changeAvatarable
+            text="A" />
+        </div>
+      )
+    }
+  }
+</Playground>
+
+## 可换 Avatar
 
 <Playground>
   {
@@ -21,20 +114,6 @@ import { Avatar } from './';
       const [avatarSrc, setAvatarSrc] = useState(defaultAvatarSrc);
       return (
         <div>
-          <Avatar
-            size={100}
-            onChangeAvatar={e => {
-              {/* alert('你好') */}
-              console.log(e);
-            }}
-            tip={10}
-            changeAvatarable
-            text="A" />
-          <hr />
-          <Avatar
-            size={30}
-            text="A" />
-          <hr />
           <Avatar
             size={100}
             onChangeAvatar={res => {
@@ -54,3 +133,7 @@ import { Avatar } from './';
     }
   }
 </Playground>
+
+## Props
+
+<Props of={Avatar} />

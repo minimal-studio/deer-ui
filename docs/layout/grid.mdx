@@ -1,10 +1,10 @@
 ---
 name: Grid
 route: /Grid
-menu: Layout / 布局
+menu: Layout
 ---
 
-import { Playground, PropsTable } from 'docz'
+import { Playground, Props } from 'docz'
 import { Grid } from '../../src/core/grid'
 import { Card, CardContainer } from '../../src/core/card';
 
@@ -12,8 +12,8 @@ import { Card, CardContainer } from '../../src/core/card';
 
 > Grid class 的组件化实现, 具体参考一下 props，可以对应 Grid 的 class
 
-<Playground className="bg_default">
-  <CardContainer>
+<Playground>
+  <CardContainer className="bg_default">
     <Grid container space={20}>
       <Grid item xs={12} sm={6} lg={6}>
         <Card p={20}>
@@ -29,7 +29,7 @@ import { Card, CardContainer } from '../../src/core/card';
   </CardContainer>
 </Playground>
 
-<PropsTable of={Grid} />
+<Props of={Grid} />
 
 ## 参考
 

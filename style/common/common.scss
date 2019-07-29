@@ -51,6 +51,15 @@ body {
   }
 }
 
+.disabled {
+  opacity: 0.6;
+  cursor: not-allowed !important;
+}
+
+.block {
+  width: 100%;
+}
+
 .divid {
   display: block;
   background-color: #EEE;

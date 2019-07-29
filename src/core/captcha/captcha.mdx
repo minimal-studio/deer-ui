@@ -1,15 +1,16 @@
 ---
 name: Captcha
 route: /Captcha
-menu: Form / 表单
+menu: Form
 ---
 
-import { Playground, PropsTable } from 'docz'
+import { useState } from 'react'
+import { Playground, Props } from 'docz'
 import { Captcha } from './';
 
 # Captcha
 
-## 实现异步接口
+## 实现获取数据的接口
 
 ```js
 import { Captcha } from 'ukelli-ui';
@@ -30,7 +31,7 @@ setUkelliConfig({
 })
 ```
 
-<PropsTable of={Captcha} />
+## Basic Usage
 
 <Playground>
   {
@@ -44,15 +45,23 @@ setUkelliConfig({
           })
         }, 1000);
       });
+      const [value, setVal] = useState();
       return (
         <Captcha
           onError={e => console.log(e)}
-          onChange={e => console.log(e)}
+          onChange={e => {
+            console.log(e)
+            setVal(e);
+          }}
           onCaptchaLoad={e => console.log(e)}
           onBlur={e => console.log(e)}
-          value={'123'}
+          value={value}
           limit={4}/>
       )
     }
   }
 </Playground>
+
+## Props
+
+<Props of={Captcha} />

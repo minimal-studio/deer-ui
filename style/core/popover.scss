@@ -16,6 +16,9 @@ $horizontalOffset: 12px;
   border-radius: 3px;
   // @include bgColor;
   @include popbg();
+  &.has-close {
+    padding-right: 20px;
+  }
   &.white {
     background-color: #FFF;
     color: inherit;
@@ -57,11 +60,18 @@ $horizontalOffset: 12px;
     border-width: 8px;
     transition: none;
   }
-  .close-btn {
+  ._close-btn {
     position: absolute;
     border-radius: 0;
     z-index: 1;
     top: 0;
-    right: -20px;
+    right: 0;
+    // bottom: 0;
+    display: flex;
+    align-items: center;
+    padding: 8px;
+    &:hover {
+      color: $themeColor;
+    }
   }
 }

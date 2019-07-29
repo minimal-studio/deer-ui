@@ -1,0 +1,169 @@
+@import '../color/color-map.scss';
+@import '../color/color-mixin.scss';
+
+@mixin mainContainer($m: 0) {
+  width: $mainContainerWidth;
+  margin: $m auto;
+}
+
+@mixin scrollBar($width, $height, $class) {
+  #{$class}::-webkit-scrollbar {
+    width: $width;
+    height: $height;
+  }
+  #{$class}::-webkit-scrollbar-track {
+    background-color: transparent; // background-color: $lightThemeScrollBg;
+  }
+  #{$class}::-webkit-scrollbar-thumb {
+    border-radius: 5px;
+    background-color: $lightThemeScrollThumb;
+    &:hover {
+      background-color: $lightThemeScrollThumbHover;
+    }
+    &:active {
+      background-color: $lightThemeScrollThumbActive;
+    }
+  }
+}
+
+@mixin closeBtn($scale: 22px) {
+  width: $scale;
+  height: $scale;
+  text-align: center;
+  line-height: $scale;
+  background-color: #FFF;
+  color: $red;
+  // border-radius: 50%;
+  display: inline-block;
+}
+
+@mixin layoutCenter() {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin card {
+  // box-shadow: 0 3px 0 rgba(12,12,12,0.03);
+  margin: 5px 10px; // border: 1px solid #EEE;
+  // border-bottom: 1px solid #dde0e3;
+  border-radius: 2px;
+  background-color: #ffffff;
+}
+
+@mixin fill($offset: 0) {
+  position: absolute;
+  top: $offset;
+  left: $offset;
+  right: $offset;
+  bottom: $offset;
+}
+
+@mixin fixbg() {
+  background-repeat: no-repeat;
+  background-origin: content-box;
+  background-clip: content-box;
+  background-position: 50%;
+  background-size: cover;
+}
+
+@mixin layout {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+@mixin layout-center {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@mixin jump {
+  animation-duration: 0.7s;
+  animation-iteration-count: infinite;
+  &:hover {
+    animation-name: jumpAnimation;
+  }
+}
+
+@mixin jumpLoop {
+  animation-duration: 0.7s;
+  animation-iteration-count: infinite;
+  animation-name: jumpAnimation;
+}
+
+@keyframes jumpAnimation {
+  0% {
+    transform: rotate(0deg);
+  }
+  33% {
+    transform: rotate(10deg);
+  }
+  66% {
+    transform: rotate(15deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+@mixin verticalImg($scale: 80px) {
+  height: $scale;
+  width: $scale;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+@mixin btnFlat($btnBgColor, $btnTextColor: #FFF, $setBorder: false) {
+  background-color: $btnBgColor;
+  color: $btnTextColor;
+  @if $setBorder == true {
+    border-color: darken($btnBgColor, 15%);
+  }
+  &:hover {
+    background-color: darken($btnBgColor, 5%);
+  }
+  &:active {
+    @if $setBorder == true {
+      border-color: darken($btnBgColor, 20%);
+    }
+    background-color: darken($btnBgColor, 20%);
+  }
+}
+
+@mixin btnHola($btnBgColor) {
+  color: $btnBgColor;
+  border-color: $btnBgColor;
+  background-color: rgba($btnBgColor, 0.05);
+  &:hover {
+    box-shadow: 0 0 6px rgba($btnBgColor, 0.5);
+  }
+  &:active {
+    box-shadow: 0 0 3px rgba($btnBgColor, 0.8);
+  }
+}
+
+@mixin positionHelper($top: 0, $right: 0, $bottom: 0, $left: 0) {
+  &.top {
+    top: $top;
+  }
+
+  &.right {
+    right: $right;
+  }
+
+  &.bottom {
+    bottom: $bottom;
+  }
+
+  &.left {
+    left: $left;
+  }
+}

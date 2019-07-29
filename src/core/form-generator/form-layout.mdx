@@ -1,22 +1,19 @@
 ---
 name: FormLayout
 route: /FormLayout
-menu: FormGenerator / 表单生成
+menu: FormGenerator
 ---
 
-import { Playground, PropsTable } from 'docz'
+import { Playground, Props } from 'docz'
 import { State, Toggle } from 'react-powerplug'
 import { FormLayout } from './';
 import { Loading } from '../loading';
-import FormLayoutDemo from './form-layout-demo'
-
+import FormLayoutDemo from './demo/form-layout-demo'
 import FormOptionsDesc from './form-options-demo.md';
 
 # FormLayout
 
-<PropsTable of={FormLayout} />
-
-## 通用
+## Usage
 
 <Playground>
   <FormLayoutDemo/>
@@ -295,5 +292,11 @@ import FormOptionsDesc from './form-options-demo.md';
     }
   }
 </Playground>
+
+## Props
+
+<Props of={FormLayout} />
+
+## FormOptions 说明
 
 <FormOptionsDesc/>

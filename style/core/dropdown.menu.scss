@@ -39,9 +39,9 @@ $caretHeight: 6px;
   display: inline-block;
   &.error {
     .menu-wrapper {
-      color: $colorRed !important;
+      color: $red !important;
       .display-title {
-        border-color: rgba($colorRed, 0.6) !important;
+        border-color: rgba($red, 0.6) !important;
       }
     }
   }
@@ -206,7 +206,7 @@ $caretHeight: 6px;
     outline: none;
     pointer-events: none;
     &:focus {
-      box-shadow: 0 0 5px rgba($themeColor, 0.6);
+      box-shadow: 0 0 1px rgba($themeColor, 0.6);
       border-color: $themeColor;
       pointer-events: all;
     }

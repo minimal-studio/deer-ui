@@ -1,15 +1,16 @@
 ---
 name: Menus
 route: /Menus
-menu: Components / 组件
+menu: Components
 ---
 
-import { Playground, PropsTable } from 'docz'
-import { Menus } from './';
+import { Playground, Props } from 'docz'
+import { Menus, Menu } from './';
+// import Menu from './menu';
 
 # Menus
 
-<PropsTable of={Menus} />
+## 使用 data 配置
 
 <Playground className="bg_default">
   <Menus data={[
@@ -38,3 +39,23 @@ import { Menus } from './';
   ]} />
 </Playground>
 
+## 使用 Menu 组件
+
+<Playground className="bg_default">
+  <Menus>
+    <Menu icon="check">Menu1</Menu>
+    <Menu>Menu2</Menu>
+    <Menu>Menu3</Menu>
+    <Menu onClick={e => {console.log('Menu4')}}>Menu4</Menu>
+    <hr />
+    <Menu>Menu5</Menu>
+  </Menus>
+</Playground>
+
+## Props of Menus
+
+<Props of={Menus} />
+
+## Props of Menu
+
+<Props of={Menu} />

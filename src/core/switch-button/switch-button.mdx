@@ -1,54 +1,89 @@
 ---
 name: SwitchBtn
 route: /SwitchBtn
-menu: Selector / 选择器
+menu: Selector
 ---
 
-import { Playground, PropsTable } from 'docz'
-import { State, Toggle } from 'react-powerplug'
+import { useState } from 'react';
+import { Playground, Props } from 'docz'
 import { SwitchBtn } from './';
 
 # SwitchBtn
 
 切换按钮
 
-<PropsTable of={SwitchBtn} />
+## Basic Usage
 
 <Playground>
+  {
+    () => {
+      const [activeIdx, setIdx] = useState('btn1')
 
-  <State initial={{
-      activeIdx: 'btn1',
-    }}>
-    {
-      ({ state, setState }) => {
-        return (
-          <div>
-            <h4>选择按钮</h4>
-            <SwitchBtn
-              onSwitch={val => setState({
-                activeIdx: val
-              })}
-              activeIdx={state.activeIdx}
-              btns={{
-                btn1: '按钮1',
-                btn2: '按钮2',
-                btn3: '按钮312123123',
-              }} />
-            <h4>禁用状态</h4>
-            <SwitchBtn
-              onSwitch={val => setState({
-                activeIdx: val
-              })}
-              disabled
-              activeIdx={state.activeIdx}
-              btns={{
-                btn1: '按钮1',
-                btn2: '按钮2',
-                btn3: '按钮312123123',
-              }} />
-          </div>
-        )
-      }
+      return (
+        <div>
+          <SwitchBtn
+            onSwitch={val => setIdx(val)}
+            activeIdx={activeIdx}
+            btns={{
+              btn1: '选项1',
+              btn2: '选项2',
+              btn3: '选项3',
+            }} />
+        </div>
+      )
     }
-  </State>
+  }
 </Playground>
+
+## 输出 Number 类型的值
+
+<Playground>
+  {
+    () => {
+      const [activeIdx, setIdx] = useState(0)
+
+      return (
+        <div>
+          <SwitchBtn
+            onSwitch={val => setIdx(val)}
+            activeIdx={activeIdx}
+            isNum
+            btns={{
+              0: '选项1',
+              1: '选项2',
+              2: '选项3',
+            }} />
+        </div>
+      )
+    }
+  }
+</Playground>
+
+## 禁用状态
+
+<Playground>
+  {
+    () => {
+      const [activeIdx, setIdx] = useState('btn1')
+      console.log(activeIdx)
+
+      return (
+        <div>
+          <SwitchBtn
+            onSwitch={val => setIdx(val)}
+            disabled
+            activeIdx={'btn1'}
+            btns={{
+              btn1: '选项1',
+              btn2: '选项2',
+              btn3: '选项3',
+            }} />
+        </div>
+      )
+    }
+  }
+</Playground>
+
+## Props
+
+<Props of={SwitchBtn} />

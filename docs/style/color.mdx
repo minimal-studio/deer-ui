@@ -1,10 +1,10 @@
 ---
 name: Color
 route: /Color
-menu: Style / 样式
+menu: Style
 ---
 
-import { Playground, PropsTable } from 'docz'
+import { Playground, Props } from 'docz'
 import { Label } from '../../src/core/label'
 
 # Color
@@ -20,29 +20,6 @@ import { Label } from '../../src/core/label'
 ### 1. 定义 scss 的 colors
 
 ```css
-// color definition
-$colorRed: #f86270;
-$colorRedDark: #b1147a;
-$colorGreen: rgba(90, 185, 155, 1);
-$colorGrey: rgba(40, 44, 52, 0.95);
-$colorCyan: #03b7aa;
-$colorYellow: #ffa200;
-$colorBlue: #449bea;
-$colorBlueLight: #23b1ed;
-$colorPurple: #7474e4;
-$colorPurpleLight: #a974e4;
-$colorOrange: #ff9800;
-$colorBlackPrue: #01040d;
-$colorBlack: #2e2e2f;
-$colorGold: #fcd477;
-$whiteColor: #FFF;
-$defaultColor: #fafafa;
-$importantColor: #027bf5;
-$warmColor: #ff9800;
-$greyColor: #6f6f7e;
-$wineColor: #c42c94;
-
-$themeColor: $colorBlue;
 ```
 
 ### 2. 在 scss 中引入 set-color.scss
@@ -68,7 +45,7 @@ $themeColor: $colorBlue;
   {
     () => {
       const colorsColl = [
-        'theme', 'red', 'orange', 'yellow', 'gold', 'blue', 'green', 'light-p',
+        'theme', 'red', 'orange', 'yellow', 'gold', 'blue', 'green', 'purple',
         'primary', 'default', 'white', 'important', 'warn', 'black',
         'grey', 'wine'
       ];

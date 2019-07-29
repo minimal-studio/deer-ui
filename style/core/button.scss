@@ -1,19 +1,4 @@
-$btnColors: (
-  (name: 'theme', color: $themeColor, text: #FFF),
-  (name: 'red', color: $colorRed, text: #FFF),
-  (name: 'yellow', color: $colorYellow, text: #FFF),
-  (name: 'gold', color: $colorGold, text: #2f2b29),
-  (name: 'blue', color: $colorBlue, text: #FFF),
-  (name: 'green', color: $colorGreen, text: #FFF),
-  (name: 'light-p', color: $colorPurpleLight, text: #FFF),
-  (name: 'primary', color: $colorBlue, text: #FFF),
-  (name: 'default', color: $defaultColor, text: #666),
-  (name: 'important', color: $importantColor, text: #FFF),
-  (name: 'warn', color: $warmColor, text: #FFF),
-  (name: 'black', color: $colorBlack, text: #FFF),
-  (name: 'grey', color: #6f6f7e, text: #FFF),
-  (name: 'wine', color: #c42c94, text: #FFF),
-);
+@import '../color/color-map.scss';
 
 .btn {
   appearance: none;
@@ -25,6 +10,7 @@ $btnColors: (
   border: 0;
   position: relative;
   border: 1px solid transparent;
+  min-width: 100px;
 
   &.file-btn input {
     position: absolute;
@@ -35,7 +21,6 @@ $btnColors: (
     height: 100%;
     cursor: pointer;
   }
-
   &:focus {
     outline: none;
   }
@@ -43,18 +28,30 @@ $btnColors: (
     outline: none;
     box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3) !important;
   }
-  &.flat {
-    // border: none;
-    &.sm {
-      padding: 5px 10px;
-    }
+  &.xl {
+    font-size: 20px;
+    padding: 15px 48px;
   }
-  &.btn-lg {
+  &.lg {
+    font-size: 18px;
+    padding: 10px 36px;
+  }
+  &.md {
     font-size: 14px;
-    padding: 8px 20px;
+    padding: 6px 24px;
   }
-  @for $i from 1 through length($btnColors) {
-    $item: nth($btnColors, $i);
+  &.sm {
+    font-size: 13px;
+    padding: 5px 10px;
+    min-width: 80px;
+  }
+  &.tiny {
+    font-size: 12px;
+    padding: 4px 8px;
+    min-width: 60px;
+  }
+  @for $i from 1 through length($bgColorsWithTextColor) {
+    $item: nth($bgColorsWithTextColor, $i);
     
     &.#{map-get($item, name)} {
       $textColor: map-get($item, text);
@@ -64,21 +61,21 @@ $btnColors: (
   &.default {
     border-color: #DDD;
   }
-  &.res {
+  &.res,&.block {
     width: 100%;
     text-align: center;
   }
-  .btn-icon {
-    margin-right: 10px;
-  }
+  // .btn-icon {
+  //   margin-right: 10px;
+  // }
   &.hola {
     padding: 5px 28px;
     border: 1px solid #FFF;
-    background-color: transparent !important;
+    // background-color: transparent !important;
     color: #FFF;
     box-shadow: 0;
-    @for $i from 1 through length($btnColors) {
-      $item: nth($btnColors, $i);
+    @for $i from 1 through length($bgColorsWithTextColor) {
+      $item: nth($bgColorsWithTextColor, $i);
       
       &.#{map-get($item, name)} {
         $textColor: map-get($item, text);
