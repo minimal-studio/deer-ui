@@ -11,12 +11,12 @@ export interface DescHelperProps {
   keyMapper: DescHelperKeyMapper[];
   /** records 中的项 */
   record: {
-    [key: string]: string;
+    [key: string]: any;
   };
   /** 是否使用竖列显示 */
   col?: boolean;
   /** className */
-  className: string;
+  className?: string;
 }
 
 /**

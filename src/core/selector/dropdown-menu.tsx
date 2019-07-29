@@ -4,7 +4,7 @@ import classnames from 'classnames';
 import { tuple } from 'basic-helper/utils/type';
 
 import SelectorBasic, { SelectorValuesDescription, SelectorBasicProps } from './selector';
-import DropdownWrapper from './dropdown-wrapper';
+import DropdownWrapper, { DropdownWrapperProps } from './dropdown-wrapper';
 import { MenuItem } from '../menu';
 import { $T, $T_UKE } from '../config';
 // import Radio from './radio';
@@ -12,7 +12,7 @@ import { $T, $T_UKE } from '../config';
 const positionList = tuple('button', 'top', 'left', 'right', 'button,left', 'button,right', 'top,left', 'top,right');
 export type DropdownPosition = (typeof positionList)[number];
 
-export interface DropdownMenuProps extends SelectorBasicProps {
+export interface DropdownMenuProps extends SelectorBasicProps, DropdownWrapperProps {
   /** 所有的下拉参数的配置 */
   values: SelectorValuesDescription;
   /** 给 dropdownMenu 的 class */

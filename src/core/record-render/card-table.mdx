@@ -5,12 +5,12 @@ menu: Data Display
 ---
 
 import { Playground, Props } from 'docz'
-import { ShowGlobalModal } from '../modal';
+import { ShowModal } from '../modal';
 import { CardTable, DescHelper } from './';
 
 # CardTable
 
-> 卡片式表格渲染
+> 使用 ukelli-ui 的 Table 的渲染机制
 
 ## Basic Usage
 
@@ -20,7 +20,7 @@ import { CardTable, DescHelper } from './';
       const keyMapper = [
         {
           key: 'username',
-          title: (keyMapper) => {
+          title: (mapper) => {
             return (
               <span>使用 func title 返回表头</span>
             )
@@ -33,11 +33,12 @@ import { CardTable, DescHelper } from './';
         },
         {key: 'age'},
         {key: 'add'},
-        {key: 'birth', date: 1},
+        {key: 'birth', date: true},
         {key: 'action', filter: (str, item) => {
           return (
             <span
-              onClick={e => ShowGlobalModal({
+              onClick={e => ShowModal({
+                title: '详情',
                 children: <DescHelper keyMapper={keyMapper} record={item} />
               })}
               className="link-btn">详情</span>

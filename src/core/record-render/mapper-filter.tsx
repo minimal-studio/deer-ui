@@ -13,7 +13,10 @@ import { Color } from '../utils/props';
 interface TitleFormSelector extends DropdownMenuProps {
   /** 如果为 type === selector，则渲染 DropdownMenu，其余属性传入 DropdownMenu 组件 */
   type?: 'selector' | string;
+  ref?: string;
 }
+
+type FuncTitle = (item, idx) => any
 
 export interface KeyMapperItem {
   /** 对应 record 数据的 [key] */
@@ -21,7 +24,7 @@ export interface KeyMapperItem {
   /** 处理对应 Row 的 filter */
   filter?: (contentResult, record, mapper, rowIdx) => any;
   /** */
-  title?: string | ((item, idx) => any) | TitleFormSelector;
+  title?: string | FuncTitle | TitleFormSelector;
   /** 是否渲染为 date 格式 - YYYY-MM-DD */
   date?: boolean;
   /** 是否渲染为 datetime 格式 - YYYY-MM-DD hh:mm:ss */
@@ -49,7 +52,7 @@ export interface MapperFilterProps {
   keyMapper: KeyMapperItem[];
   /** 服务端返回的数据 */
   records: {
-    [key: string]: string;
+    [key: string]: any;
   }[];
   onChange?: (val, title) => void;
 }
@@ -93,13 +96,13 @@ export default class MapperFilter<P = MapperFilterProps, S = {}> extends UkeComp
   }
 
   titleFilter(item, idx) {
-    const { title, key, tips } = item;
+    const { title, key, tips } = item as KeyMapperItem;
     let titleDOM;
     switch (true) {
       case IsFunc(title):
         titleDOM = title(item, idx);
         break;
-      case IsObj(title) && title.type === 'selector':
+      case title && typeof title === 'object' && title.type === 'selector':
         const {
           outside = true,
           defaultTitle = this.$T(key),
@@ -108,7 +111,7 @@ export default class MapperFilter<P = MapperFilterProps, S = {}> extends UkeComp
           ref = key,
           onChange,
           ...other
-        } = title;
+        } = title as TitleFormSelector;
         titleDOM = (
           <Dropdown {...other}
             withInput={false}
