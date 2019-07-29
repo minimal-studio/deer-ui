@@ -36,6 +36,7 @@ import { setLangTranslate, setUkeLang } from '../config'
             setUkeLang(nextLang);
             setLang(nextLang)
           }}>{lang}</span>
+          <hr />
           <ConditionGenerator
             ref={e => domRef = e}
             onChange={(values, ref, val) => {
@@ -128,6 +129,7 @@ import { setLangTranslate, setUkeLang } from '../config'
               },
             ]}>
             <div>
+              <hr />
               <button type="submit" className="theme btn flat">查看查询条件的值</button>
               <span className="ml10" onClick={e => domRef.clearValue()} className="theme btn red">清空条件</span>
             </div>
