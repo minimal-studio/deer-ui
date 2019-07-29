@@ -1,4 +1,4 @@
-// import doczPluginNetlify from "docz-plugin-netlify";
+import doczPluginNetlify from "docz-plugin-netlify";
 import { css } from 'docz-plugin-css';
 import path from 'path';
 import themeConfig from './docz/theme-config/config';
@@ -42,7 +42,7 @@ export default {
     'More',
   ],
   plugins: [
-    // doczPluginNetlify(),
+    doczPluginNetlify(),
     css({
       preprocessor: 'sass',
     })
