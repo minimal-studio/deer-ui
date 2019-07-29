@@ -9,7 +9,8 @@
     "publish:ts": "npm publish ./dist",
     "release": "npm run build:ts; npm run publish:ts",
     "build:ts": "rm -rf ./dist; tsc; npm run copy-files-ts; npm run copy-style",
-    "copy-style": "cp -R ./style ./build/",
+    "copy-files-ts": "node ./scripts/copy-files-ts",
+    "copy-style": "cp -R ./style ./dist/",
     "test": "jest",
     "docz:dev": "docz dev",
     "docz:build": "NODE_ENV=production docz build"
