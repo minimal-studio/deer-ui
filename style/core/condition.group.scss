@@ -1,35 +1,9 @@
-// @import '../var.scss';
-
 $formControlBgColor: #f9f9f9;
 
 .condition-group {
   position: relative;
   display: flex;
   flex-wrap: wrap;
-  // @include card();
-
-  .input-control {
-    border: 1px solid #DDD;
-    background-color: #f9f9f9;
-    padding: 0 10px;
-    border-radius: 3px;
-    &.forcing {
-      background-color: #FFF;
-    }
-    .input-group {
-      .title {
-        width: auto !important;
-        min-width: 0 !important;
-      }
-    }
-  }
-
-  // .datepicker-ranger-content {
-  // }
-
-  // .flatpickr {
-  //   display: inline-block;
-  // }
 
   .title {
     color: rgba(116, 117, 118, 1);
@@ -39,47 +13,15 @@ $formControlBgColor: #f9f9f9;
 
   >.item {
     margin-right: 10px;
+    margin-bottom: 5px;
+    padding-top: 0.01px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 5px;
-    padding-top: 0.01px;
-    .radio-group {
-      .block-radio {
-        margin-bottom: 0;
-      }
-    }
     &.datetimeRange {
       display: flex;
       justify-content: space-between;
       align-items: center;
-    }
-    &.radio {
-      margin-top: 0;
-      .radio-container {
-        display: inline-block;
-      }
-      .selectAllBtn {
-
-      }
-    }
-    &.fund-change-selector {
-      margin-top: 0;
-      display: flex;
-      align-items: center;
-      .radio-container {
-        flex: 1;
-      }
-      .radio-group {
-        align-items: center;
-      }
-    }
-    &.select {
-      .uke-dropdown-menu {
-        .active-item {
-          background-color: $formControlBgColor !important;
-        }
-      }
     }
   }
 
@@ -89,18 +31,5 @@ $formControlBgColor: #f9f9f9;
 
   .form-control {
     margin-left: 5px;
-    background-color: $formControlBgColor;
-    // width: 140px;
-
-    &::placeholder {
-      color: #999;
-    }
-
-    &[type="text"] {
-      width: 150px;
-    }
-    &:focus {
-      background-color: #FFF !important;
-    }
   }
 }
