@@ -25,7 +25,7 @@
     "src"
   ],
   "exclude": [
-    "test",
-    "demo"
+    "**/test/*",
+    "**/demo/*"
   ]
 }
