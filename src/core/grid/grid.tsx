@@ -55,7 +55,7 @@ export interface GridProps {
   /** children */
   children?: any;
   /** 用于包装的外层组件 */
-  component?: Children | 'div' | 'span';
+  component?: React.ElementType | 'div' | 'span';
   /** className */
   className?: string;
   /** 边框的宽度 */

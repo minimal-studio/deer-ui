@@ -29,6 +29,16 @@ export interface DatetimePickerProps extends DateBasicProps {
   value?: string[];
 }
 
+interface DefaultProps {
+  needTime: boolean;
+  toUTC: boolean;
+  allowInput: boolean;
+  outputAsString: boolean;
+  mode: string;
+  lang: flatpickr.Locale;
+  defaultTimes: string[];
+}
+
 /**
  * 基于 Flatpickr 的时间控件，样式可以根据喜好选择
  *
@@ -118,7 +128,7 @@ export default class DatetimePicker extends DateBasic<DatetimePickerProps> {
   })
 
   getDateRangeFromInput = () => {
-    const { defaultTimes, needTime, mode } = this.props;
+    const { defaultTimes, needTime, mode } = this.props as DefaultProps;
     const isRange = mode === 'range';
     // const expectLen = isRange ? 2 : 1;
     const { rangeSeparator } = this.datepicker.l10n;

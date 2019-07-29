@@ -187,7 +187,7 @@ export default class Captcha extends UkeComponent<CaptchaProps, State> {
     const _captchaValue = this.isControl ? value : captchaValue;
 
     const hasCap = !!captchaImg;
-    let loadingTip = null;
+    let loadingTip;
     const captchaImgElem = hasCap && !loading ? (
       <img
         src={captchaImg}

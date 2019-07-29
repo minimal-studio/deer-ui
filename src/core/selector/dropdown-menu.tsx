@@ -13,8 +13,8 @@ const positionList = tuple('button', 'top', 'left', 'right', 'button,left', 'but
 export type DropdownPosition = (typeof positionList)[number];
 
 export interface DropdownMenuProps extends SelectorBasicProps, DropdownWrapperProps {
-  /** 所有的下拉参数的配置 */
-  values: SelectorValuesDescription;
+  // /** 所有的下拉参数的配置 */
+  // values: SelectorValuesDescription;
   /** 给 dropdownMenu 的 class */
   className?: string;
   /** 监听滚动时隐藏的外层元素 */

@@ -1,7 +1,7 @@
 import React from 'react';
 import { RemoveArrayItem } from 'basic-helper';
 
-import SelectorBasic, { SelectorValuesDescription, SelectorBasicProps } from './selector';
+import SelectorBasic, { SelectorValuesDescription, SelectorBasicProps, SelectorBasicState } from './selector';
 import Checkbox from './checkbox';
 import DropdownWrapper, { DropdownWrapperProps } from './dropdown-wrapper';
 
@@ -25,7 +25,7 @@ export interface DropdownGroupProps extends SelectorBasicProps, DropdownWrapperP
   style?: {};
 }
 
-interface State {
+interface State extends SelectorBasicState {
   selectedCount: number;
   selectedValue: any;
 }
@@ -56,6 +56,7 @@ export default class DropdownGroup extends SelectorBasic<DropdownGroupProps, Sta
     const selectedCount = this.calculateCount(defaultValue);
 
     this.state = {
+      ...this.state,
       selectedValue: defaultValue || {},
       selectedCount
     };
@@ -132,12 +133,15 @@ export default class DropdownGroup extends SelectorBasic<DropdownGroupProps, Sta
     };
   }
 
-  getTitle = () => `${this.state.selectedCount}${this.$T_UKE('项已选')}`
+  getTitle = (selectedCount) => {
+    return `${selectedCount}${this.$T_UKE('项已选')}`;
+  }
 
   render() {
     const {
       groupData, style, outside, ...other
     } = this.props;
+    const { selectedCount } = this.state;
     const groupDataArr = Object.keys(groupData);
 
     return (
@@ -186,7 +190,7 @@ export default class DropdownGroup extends SelectorBasic<DropdownGroupProps, Sta
         );
       }}>
         {
-          this.getTitle()
+          this.getTitle(selectedCount)
         }
       </DropdownWrapper>
     );

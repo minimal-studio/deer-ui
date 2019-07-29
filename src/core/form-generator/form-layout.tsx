@@ -91,9 +91,10 @@ export default class FormLayout extends UkeComponent<FormLayoutProps> {
     return isPass;
   }
 
-  _handleClickBtn = ({
-    actingRef, preCheck = true, action
-  }) => {
+  _handleClickBtn = (btnConfig) => {
+    const {
+      actingRef, preCheck = true, action
+    } = btnConfig;
     this.__changedDesc = false;
     const _action = () => {
       action(this.formHelper, actingRef);

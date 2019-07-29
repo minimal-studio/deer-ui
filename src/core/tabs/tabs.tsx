@@ -7,7 +7,7 @@ import { Children } from '../utils/props';
 
 export interface TabsProps {
   /** children */
-  children: Children;
+  children: JSX.Element | JSX.Element[];
   /** tab 内容与 tab 标签是否在同一行 */
   inRow?: boolean;
   /** 是否只渲染 content */

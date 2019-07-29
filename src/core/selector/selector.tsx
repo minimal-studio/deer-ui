@@ -62,13 +62,15 @@ const toArr = (target) => {
 };
 
 export default class SelectorBasic<
-  P extends SelectorBasicProps, S = {}, SS = {}
-> extends FormControlBasic<P, S | SelectorBasicState, SS> {
+  P extends SelectorBasicProps, S = SelectorBasicState, SS = {}
+> extends FormControlBasic<P, S & SelectorBasicState, SS> {
   values;
 
   valuesObj;
 
   onChangeValue;
+
+  state
 
   constructor(props) {
     super(props);

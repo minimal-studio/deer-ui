@@ -7,7 +7,9 @@ import { Call } from 'basic-helper';
 import { $T_UKE } from '../config';
 import { Icon } from '../icon';
 import { IconProps } from '../icon/icon';
-import { StatusColorTypes, NatureColorTypes, Sizes } from '../utils/props';
+import {
+  StatusColorTypes, NatureColorTypes, Sizes, Color
+} from '../utils/props';
 
 type ButtonSize = Sizes;
 
@@ -33,7 +35,7 @@ export interface ButtonProps {
   /** btn 的状态 */
   status?: StatusColorTypes | 'link';
   /** btn 的颜色 */
-  color?: NatureColorTypes;
+  color?: Color;
   /** size */
   size?: ButtonSize;
   /** children */

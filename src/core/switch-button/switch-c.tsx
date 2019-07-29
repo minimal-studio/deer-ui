@@ -51,17 +51,18 @@ export default class Switch extends PureComponent<SwitchProps, State> {
   getValue = () => (this.isControl ? this.props.checked : this.state.checked)
 
   onChange = (nextValue) => {
+    const { onChange } = this.props;
     if (!this.isControl) {
       this.setState({
         checked: nextValue
       });
     }
-    this.props.onChange(nextValue);
+    onChange && onChange(nextValue);
   }
 
   render() {
     const {
-      disabled, tips, outputs
+      disabled, tips = [], outputs = []
     } = this.props;
     const checked = this.getValue();
     const text = tips[checked ? 0 : 1];
@@ -76,8 +77,7 @@ export default class Switch extends PureComponent<SwitchProps, State> {
           }
         }}>
         <span
-          disabled={disabled}
-          className="switch-btn">
+          className={`switch-btn${disabled ? ' disabled' : ''}`}>
           {text}
         </span>
         <span className="indicator" />

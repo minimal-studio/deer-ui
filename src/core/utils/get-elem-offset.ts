@@ -1,10 +1,17 @@
 import { getScrollTop } from './scroll';
 
+interface GetElementOffsetReturn {
+  offsetLeft: number;
+  offsetTop: number;
+}
+
 /**
  * 获取元素的 OffsetLeft 和 OffsetTop 信息，包括滚动后的偏移量
  */
-export function getElementOffset(element) {
-  if (!element) return null;
+export function getElementOffset(element): GetElementOffsetReturn {
+  if (!element) {
+    throw Error('需要传入 Element');
+  }
   let actualTop = element.offsetTop;
   let actualLeft = element.offsetLeft;
   let current = element.offsetParent;

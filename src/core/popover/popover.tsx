@@ -123,7 +123,7 @@ export default class Popover extends Component<PopoverProps, State> {
 
   getRelativeElemOffset() {
     const { relativeElem } = this.props;
-    const { offsetWidth = 0, offsetHeight = 0 } = relativeElem;
+    const { offsetWidth = 0, offsetHeight = 0 } = relativeElem as HTMLElement;
     const { offsetTop = 0, offsetLeft = 0 } = getElementOffset(relativeElem) || {};
     return {
       offsetWidth, offsetHeight, offsetTop, offsetLeft

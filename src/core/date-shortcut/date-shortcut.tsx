@@ -57,7 +57,9 @@ function getHalfMouthDate(type, format, timeDefaultStr) {
  * @class DateShortcut
  * @extends {DateBasic}
  */
-export default class DateShortcut extends DateBasic<DateShortcutProps> {
+export default class DateShortcut extends DateBasic<DateShortcutProps, {
+  activeIdx: number;
+}> {
   static defaultProps = {
     needTime: true,
     toUTC: true,
@@ -73,7 +75,7 @@ export default class DateShortcut extends DateBasic<DateShortcutProps> {
   constructor(props) {
     super(props);
     this.state = {
-      activeIdx: null,
+      activeIdx: -1,
     };
 
     const { needTime } = props;

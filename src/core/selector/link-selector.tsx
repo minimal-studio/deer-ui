@@ -46,9 +46,9 @@ export default class LinkSelector extends UkeComponent<LinkSelectorProps, State>
     }
   }
 
-  extendsDOM = []
+  extendsDOM: any[] = []
 
-  activeItems = []
+  activeItems: any[] = []
 
   dropWrapper
 
@@ -70,7 +70,7 @@ export default class LinkSelector extends UkeComponent<LinkSelectorProps, State>
     const { mappers } = this.props;
     if (mappers) {
       const {
-        child, code, title, icon
+        child, code, title, icon = ''
       } = mappers;
       return {
         ...item,
@@ -107,7 +107,7 @@ export default class LinkSelector extends UkeComponent<LinkSelectorProps, State>
     this.setState(({ selectedIndexMap }) => {
       const { data } = this.props;
       const nextIndexMap = [...selectedIndexMap];
-      const nextActiveGroup = [];
+      const nextActiveGroup: any[] = [];
       nextIndexMap.splice(foldIdx + 1);
       nextIndexMap[foldIdx] = activeIdx;
 
@@ -135,7 +135,7 @@ export default class LinkSelector extends UkeComponent<LinkSelectorProps, State>
     if (!initDataList || !Array.isArray(initDataList)) return;
     const { selectedIndexMap } = this.state;
     const recursive = (currSelectedIdx, currDataList) => {
-      const currDOMSets = [];
+      const currDOMSets: any[] = [];
       const nextSelectedIdx = currSelectedIdx + 1;
       const activeItemIdx = selectedIndexMap[currSelectedIdx];
       currDataList.forEach((item, currDataIdx) => {
@@ -147,13 +147,12 @@ export default class LinkSelector extends UkeComponent<LinkSelectorProps, State>
         } = _item;
         const hasChildren = child && child.length > 0;
 
-        let dom;
         if (isActive) this.activeItems.push(_item);
         if (hasChildren && isActive) {
           const childDOM = recursive.call(this, nextSelectedIdx, currDataList[activeItemIdx].child);
           this.extendsDOM.unshift(childDOM);
         }
-        dom = (
+        const dom = (
           <div key={currDataIdx} className={`folder${isActive ? ' active' : ''}`}>
             <div
               className="fold-title"
@@ -175,11 +174,9 @@ export default class LinkSelector extends UkeComponent<LinkSelectorProps, State>
   }
 
   getSelectedTitle = () => {
-    let res = this.$T_UKE('请选择');
     const { selectedItems } = this.state;
-    console.log(selectedItems);
     if (selectedItems.length > 0) {
-      res = (
+      return (
         <div>
           {
             selectedItems.map((item, idx) => {
@@ -195,7 +192,7 @@ export default class LinkSelector extends UkeComponent<LinkSelectorProps, State>
         </div>
       );
     }
-    return res;
+    return this.$T_UKE('请选择');
   }
 
   saveDropWrapper = (e) => {
