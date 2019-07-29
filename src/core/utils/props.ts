@@ -17,6 +17,8 @@ export type StatusColorTypes =
   |'default'
   |'important'
   |'danger'
+  |'success'
+  |'error'
   |'warn';
 
 export type Color = NatureColorTypes | GrayColorTypes | StatusColorTypes;
