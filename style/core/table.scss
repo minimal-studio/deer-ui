@@ -203,7 +203,7 @@ $tdPadding: 10px;
     tr th {
       font-weight: normal;
       color: $tableHeaderTextColor;
-      padding: 8px $tdPadding;
+      padding: 8px $tdPadding + 5 8px $tdPadding;
       vertical-align: middle;
       // border-bottom: 2px solid #ddd;
       // text-align: center;
