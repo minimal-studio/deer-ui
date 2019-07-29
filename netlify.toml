@@ -1,0 +1,3 @@
+[build]
+  command = "yarn; yarn docz:build"
+  publish = "./.docz/dist"
