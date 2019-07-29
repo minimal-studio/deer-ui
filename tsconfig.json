@@ -7,25 +7,22 @@
       "esnext"
     ],
     "outDir": "./dist",
-    "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "noImplicitAny": false,
     "strict": true,
     "forceConsistentCasingInFileNames": true,
-    "module": "esnext",
+    "declaration": true,
+    "module": "ES6",
     "moduleResolution": "node",
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "noEmit": true,
     "jsx": "react"
   },
   "include": [
     "src"
   ],
   "exclude": [
-    "**/test/*",
-    "**/demo/*"
+    "src/**/test/*",
+    "src/**/demo/*"
   ]
 }
