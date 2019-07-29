@@ -29,7 +29,6 @@ export default class ClickAway extends Component<ClickAwayProps> {
   }
 
   handleClick = (event) => {
-    console.log(this.node.contains(event.target))
     if (event.defaultPrevented || !this.node || !this.__mounted) return;
     if (!this.node.contains(event.target)) {
       this.props.onClickAway(event);
