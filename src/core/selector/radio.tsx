@@ -1,10 +1,11 @@
 import React from 'react';
 
 import { Icon } from '../icon';
+import { IconProps } from '../icon/icon';
 import SelectorBasic, { SelectorValuesDescription, SelectorBasicProps } from './selector';
 import { $T } from '../config';
 
-export interface RadioProps extends SelectorBasicProps {
+export interface RadioProps extends SelectorBasicProps, IconProps {
   values: SelectorValuesDescription;
   /** 是否需要多选按钮 */
   checkAllBtn?: boolean;

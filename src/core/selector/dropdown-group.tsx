@@ -3,26 +3,26 @@ import { RemoveArrayItem } from 'basic-helper';
 
 import SelectorBasic, { SelectorValuesDescription, SelectorBasicProps } from './selector';
 import Checkbox from './checkbox';
-import DropdownWrapper from './dropdown-wrapper';
+import DropdownWrapper, { DropdownWrapperProps } from './dropdown-wrapper';
 
-export interface DropdownGroupProps extends SelectorBasicProps {
+export interface DropdownGroupProps extends SelectorBasicProps, DropdownWrapperProps {
   /** group data */
   groupData: {
     [groupID: string]: {
       /** 该 Group 的标题 */
       title: string;
       /** 是否输出 number 类型的值 */
-      isNum: boolean;
+      isNum?: boolean;
       values: SelectorValuesDescription;
     };
   };
   /** 用于匹配对应字段 */
-  fieldMapper: {
+  fieldMapper?: {
     title: string;
     values: string;
   };
   /** style of DropdownGroup */
-  style: {};
+  style?: {};
 }
 
 interface State {
@@ -30,8 +30,17 @@ interface State {
   selectedValue: any;
 }
 
+interface DefaultProps {
+  isMultiple: boolean;
+  defaultValue: {};
+  fieldMapper: {
+    title: string;
+    values: string;
+  };
+}
+
 export default class DropdownGroup extends SelectorBasic<DropdownGroupProps, State> {
-  static defaultProps = {
+  static defaultProps: DefaultProps = {
     isMultiple: true,
     defaultValue: {},
     fieldMapper: {
@@ -114,7 +123,7 @@ export default class DropdownGroup extends SelectorBasic<DropdownGroupProps, Sta
 
   itemFilter = (item) => {
     if (!item) return item;
-    const { fieldMapper } = this.props;
+    const { fieldMapper } = this.props as DefaultProps;
     const { title, values } = fieldMapper;
     return {
       ...item,

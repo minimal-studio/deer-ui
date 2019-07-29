@@ -105,7 +105,7 @@ export default class DropdownMenu extends SelectorBasic<DropdownMenuProps> {
       case !!isMultiple:
         resTitle = value.length + $T_UKE('项已选');
         break;
-      case typeof this.valuesObj.value != 'undefined':
+      case typeof this.valuesObj[value] == 'undefined':
         resTitle = $T_UKE(invalidTip);
         this._error = true;
         break;
@@ -174,7 +174,7 @@ export default class DropdownMenu extends SelectorBasic<DropdownMenuProps> {
                       key={value}
                       isActive={isActive}
                       onClick={(e) => {
-                        if (isMultiple) e.preventDefault();
+                        if (e && isMultiple) e.preventDefault();
                         this.handleClick(dataItem, idx, isMultiple ? null : hide);
                       }}
                       {...dataItem}/>

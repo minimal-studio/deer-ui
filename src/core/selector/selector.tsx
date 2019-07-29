@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import React, { Component, PureComponent } from 'react';
 import PropTypes, { string } from 'prop-types';
 import {
@@ -12,12 +13,12 @@ export interface SelectorValueItem {
 
 export type SelectorValuesDescription = {
   /** value 为显示的 title */
-  [value: string]: string;
+  [value: string]: any;
 } | SelectorValueItem[];
 
 export interface SelectorBasicProps {
   /** Selector 的基本要素 */
-  values: SelectorValuesDescription;
+  values?: SelectorValuesDescription;
   /** 默认值 */
   defaultValue?: any;
   /** 与 React 受控组件行为一致，详情请参考 react 受控控件 https://reactjs.org/docs/forms.html */
@@ -62,7 +63,7 @@ const toArr = (target) => {
 
 export default class SelectorBasic<
   P extends SelectorBasicProps, S = {}, SS = {}
-> extends FormControlBasic<P, S, SS> {
+> extends FormControlBasic<P, S | SelectorBasicState, SS> {
   values;
 
   valuesObj;
@@ -184,7 +185,8 @@ export default class SelectorBasic<
   }
 
   selectAll() {
-    this.changeEvent(Object.keys(this.props.values), { preVal: this.getValue() });
+    const { values = {} } = this.props;
+    this.changeEvent(Object.keys(values), { preVal: this.getValue() });
   }
 
   clearAll() {
