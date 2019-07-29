@@ -60,6 +60,10 @@
 
 - 新增 tabsClassName 取代旧的 className
 
+### Table
+
+- whenCheckAction 更名为 checkedOverlay
+
 ### Pagination
 
 - 更改 defaultProps.infoMapper 与 props.infoMapper 的默认数据结构一致
