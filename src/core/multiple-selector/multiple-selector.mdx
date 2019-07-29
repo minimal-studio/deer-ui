@@ -1,20 +1,20 @@
 ---
 name: Multiple
 route: /Multiple
-menu: Form / 表单
+menu: Form
 ---
 
-import { Playground, PropsTable } from 'docz'
+import { Playground, Props } from 'docz'
 import { Multiple } from './';
 
 # Multiple
 
->输入提示控件
+> 输入提示控件
 
-<PropsTable of={Multiple} />
+## Basic Usage
 
 <Playground>
-  <div style={{width: 260, position: 'relative'}}>
+  <div style={{width: 160, position: 'relative'}}>
     <Multiple
       onChange={val => {
         console.log(val)
@@ -24,3 +24,7 @@ import { Multiple } from './';
       range={[1, 10, 20, 30]} />
   </div>
 </Playground>
+
+## Props
+
+<Props of={Multiple} />

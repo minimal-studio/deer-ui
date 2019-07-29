@@ -1,90 +1,93 @@
 ---
 name: Modal
 route: /Modal
-menu: Components / 组件
+menu: Components
 ---
 
-import { Playground, PropsTable } from 'docz'
-import { State, Toggle } from 'react-powerplug'
+import { useState } from 'react';
+import { Playground, Props } from 'docz'
 import { Modal, ModalHelper } from './';
-import ModalDemo from './modal-demo';
+import ModalDemo from './demo/modal-demo';
 
 # Modal
 
-<PropsTable of={Modal} />
+> UkeModal 提供多种弹出方式的 Modal
 
-> 提供内嵌的 modal 组件, 同样也有全局使用 modal 的方法，可以继承 ModalHelper 获取操作 Modal 的一些通用接口接口
+## Basic Usage
 
 <Playground>
-  <State initial={{
-      modalSetting: {
+  {
+    () => {
+      const [modalSetting, setModal] = useState({
         title: '',
         isOpen: false,
         children: '',
         id: ''
-      }
-    }}>
-    {
-      ({ state, setState }) => (
+      });
+      return (
         <div style={{height: 300, position: 'relative'}}>
           <span className="btn theme flat"
-            onClick={e => setState({
-              modalSetting: {
-                isOpen: true,
-                children: '内容'
-              }
+            onClick={e => setModal({
+              isOpen: true,
+              children: (
+                <div className="p20">内容</div>
+              )
             })}>打开 Modal</span>
           <span className="btn red flat ml10"
-            onClick={e => setState({
-              modalSetting: {
-                isOpen: true,
-                modalType: 'side',
-                position: 'right',
-                children: '内容'
-              }
+            onClick={e => setModal({
+              isOpen: true,
+              modalType: 'side',
+              position: 'right',
+              children: (
+                <div className="p20">内容</div>
+              )
             })}>左边打开 Modal</span>
-          <Modal {...state.modalSetting} onCloseModal={e => {
-            setState({
-              modalSetting: {
-                isOpen: false,
-              }
+          <Modal {...modalSetting} onCloseModal={e => {
+            setModal({
+              isOpen: false,
             })
           }}/>
         </div>
       )
     }
-  </State>
+  }
 </Playground>
 
-## 继承 ModalHelper
+### 通过继承 ModalHelper 获取 Modal 状态管理的接口
 
-<Playground>
-  <ModalDemo />
-</Playground>
+```js
+import React from 'react';
+import { Modal, ModalHelper } from 'ukelli-ui/core/modal';
 
-```jsx
-import ModalHelper from './modal-helper';
+export default class YourComponent extends ModalHelper {
+  state = {
+    ...this.state,
+    modalSetting: {
+      ...this.state.modalSetting,
+      children: '内容',
+      title: '标题'
+    }
+  }
 
-class ForModal extends ModalHelper {
   render() {
+    const { modalSetting } = this.state;
     return (
-      <div style={{height: 300, position: 'relative'}}>
-        <span className="btn theme flat"
-          onClick={e => this.setModal({
-            isOpen: true,
-            children: '内容'
-          })}>打开 Modal</span>
-        <Modal {...this.state.modalSetting} onCloseModal={e => {
-          this.setModal({
-            isOpen: false
-          })
-        }}>
-          内容
-        </Modal>
+      <div className="relative" style={{ height: 300 }}>
+        <span className="btn theme"
+          onClick={(e) => {
+            this.setModal({
+              children: '内容2'
+            });
+          }}>
+          打开 Modal
+        </span>
+        <Modal {...modalSetting} onCloseModal={e => this.closeModal()} />
       </div>
-    )
+    );
   }
 }
-
-<ForModal/>
 ```
+
+## Props
+
+<Props of={Modal} />

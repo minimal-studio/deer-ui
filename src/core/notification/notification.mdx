@@ -1,80 +1,76 @@
 ---
 name: Notify
 route: /Notify
-menu: Utils / 效率
+menu: Utils
 ---
 
-import { Playground, PropsTable } from 'docz'
+import { Playground, Props } from 'docz'
 import { EventEmitter } from 'basic-helper';
-import { Notify, CancelNotify } from './';
+import { Notify, CancelNotify, NotifyEvent } from './';
+import NotifyConfigC from './doc-api/notify-config'
+import NotifyParamsC from './doc-api/notify-params'
 
 # Notify
 
-> 全局通知
+## Setup
 
-## 一般通知
+```js
+import { Notify } from 'ukelli-ui/core/notification'
+
+Notify({
+  config: {
+    text: '通知内容',
+    id: 'ID',
+    title: '通知标题',
+    type: 'white', //[success error normal warn black white] default 'desc'
+    timer: -1,
+    onClickTip: (e) => {console.log(e)},
+    actionText: '有 action 时显示的文字',
+  }
+})
+```
+
+## Basic Usage
 
 <Playground>
-  <span className="btn theme flat mr10"
+  <NotifyParamsC />
+  <NotifyConfigC />
+  <span className="btn theme mr10"
     onClick={e => {
       Notify({
         position: 'top,right',
-        config: {
-          text: '通知内容',
-          // id: 'ID',
-          title: '通知标题',
-          type: 'white', //[success error normal warn black white] default 'desc'
-          timer: -1,
-          onClickTip: (e) => {console.log(e)},
-          actionText: '有 action 时显示的文字',
-        }
+        text: '通知内容',
+        // id: 'ID',
+        title: '通知标题',
+        type: 'white', //[success error normal warn black white] default 'desc'
+        timer: -1,
+        onClickTip: (e) => {console.log(e)},
+        actionText: '有 action 时显示的文字',
       })
     }}>
-    发送通知
+    广播通知
   </span>
-  <span className="btn red flat mr10"
+  <span className="btn red mr10"
     onClick={e => {
       Notify({
         position: 'bottom,right',
-        config: {
-          text: '通知内容',
-          // id: 'ID',
-          title: '通知标题',
-          type: 'warn', //[success error normal warn black white] default 'desc'
-          lifecycle: 7,
-          onClickTip: (e) => {console.log(e)},
-          actionText: '有 action 时显示的文字',
-        }
+        text: '通知内容',
+        // id: 'ID',
+        title: '通知标题',
+        type: 'warn', //[success error normal warn black white] default 'desc'
+        lifecycle: 7,
+        onClickTip: (e) => {console.log(e)},
+        actionText: '有 action 时显示的文字',
       })
     }}>
-    右下角发送通知
+    右下角广播通知
   </span>
-  <span className="btn green flat mr10"
+  <span className="btn green mr10"
     onClick={e => {
       Notify({
         position: 'bottom,right',
-        config: {
-          text: '通知内容',
-          // id: 'ID',
-          title: '通知标题',
-          type: 'success', //[success error normal warn black white] default 'desc'
-          lifecycle: 7,
-          onClickTip: (e) => {console.log(e)},
-          actionText: '有 action 时显示的文字',
-        }
-      })
-    }}>
-    成功
-  </span>
-</Playground>
-
-## 通过 EventEmitter
-
-<Playground>
-  <span className="btn theme flat mr10"
-    onClick={e => {
-      EventEmitter.emit('NOTIFY', {
-        text: '通过 EventEmitter 发送通知',
+        text: '通知内容',
+        // id: 'ID',
         title: '通知标题',
         type: 'success', //[success error normal warn black white] default 'desc'
         lifecycle: 7,
@@ -82,6 +78,89 @@ import { Notify, CancelNotify } from './';
         actionText: '有 action 时显示的文字',
       })
     }}>
-    通过 EventEmitter 发送通知
+    成功
   </span>
 </Playground>
+
+## 通过 EventEmitter 广播
+
+```js
+import { EventEmitter } from 'basic-helper'
+import { NotifyEvent } from 'ukelli-ui/core/notification'
+
+EventEmitter.emit(NotifyEvent, {
+  text: '通过 EventEmitter 广播通知',
+  title: '通知标题',
+  type: 'success', //[success error normal warn black white] default 'desc'
+  lifecycle: 7,
+  onClickTip: (e) => {console.log(e)},
+  actionText: '有 action 时显示的文字',
+})
+```
+
+<Playground>
+  <span className="btn theme mr10"
+    onClick={e => {
+      EventEmitter.emit(NotifyEvent, {
+        text: '通过 EventEmitter 广播通知',
+        title: '通知标题',
+        type: 'success', //[success error normal warn black white] default 'desc'
+        lifecycle: 7,
+        onClickTip: (e) => {console.log(e)},
+        actionText: '有 action 时显示的文字',
+      })
+    }}>
+    通过 EventEmitter 广播通知
+  </span>
+</Playground>
+
+## 取消广播
+
+```js
+import { Notify, CancelNotify } from 'ukelli-ui'
+
+const NotifyID = Notify({
+
+})
+
+CancelNotify(NotifyID);
+```
+
+<Playground>
+  {
+    () => {
+      let NotifyID
+      return (
+        <div>
+          <span className="btn theme mr10"
+            onClick={e => {
+              NotifyID = Notify({
+                position: 'top,right',
+                text: '通知内容',
+                // id: 'ID',
+                title: '通知标题',
+                type: 'white', //[success error normal warn black white] default 'desc'
+                timer: -1,
+                onClickTip: (e) => {console.log(e)},
+                actionText: '有 action 时显示的文字',
+              })
+            }}>
+            广播通知
+          </span>
+          <span className="btn red mr10" onClick={e => {
+            CancelNotify(NotifyID)
+          }}>取消广播</span>
+        </div>
+      )
+    }
+  }
+
+</Playground>
+
+## API of Notify
+
+<Props of={NotifyParamsC} />
+
+## API of NotifyConfig
+
+<Props of={NotifyConfigC} />

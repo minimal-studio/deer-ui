@@ -14,6 +14,7 @@ $scale: 26px;
   height: $scale;
   line-height: $scale;
   transition: background-color 0.2s ease;
+  user-select: none;
   &.disabled,&[disabled] {
     opacity: 0.6;
     cursor: not-allowed;

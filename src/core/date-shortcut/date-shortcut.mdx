@@ -1,0 +1,74 @@
+---
+name: DateShortcut
+route: /DateShortcut
+menu: Form
+---
+
+import { useState } from 'react'
+import { Playground, Props } from 'docz'
+import { DateShortcut } from './';
+
+# DateShortcut
+
+## Basic Usage
+
+### 输出字符串结果, 自带时间
+
+<Playground>
+  {
+    () => {
+      const [value, setVal] = useState([]);
+      return (
+        <div>
+          <DateShortcut style={{width: 300}}
+            outputAsString={true}
+            onChange={val => setVal(val)}/>
+          <br/>
+          返回值: {value.join(' - ')}
+        </div>
+      )
+    }
+  }
+</Playground>
+
+### 输出字符串结果, 不需要时间
+
+<Playground>
+  {
+    () => {
+      const [value, setVal] = useState([]);
+      return (
+        <div>
+          <DateShortcut style={{width: 300}}
+            outputAsString={true}
+            needTime={false}
+            onChange={val => setVal(val)}/>
+          <br/>
+          返回值: {value.join(' - ')}
+        </div>
+      )
+    }
+  }
+</Playground>
+
+### 输出原生 Date 对象
+
+<Playground>
+  {
+    () => {
+      const [value, setVal] = useState([]);
+      return (
+        <div>
+          <DateShortcut style={{width: 300}}
+            onChange={val => setVal(val)}/>
+          <br/>
+          返回值: {value.join(' - ')}
+        </div>
+      )
+    }
+  }
+</Playground>
+
+## Props
+
+<Props of={DateShortcut} />

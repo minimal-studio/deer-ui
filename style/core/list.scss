@@ -1,91 +1,14 @@
 // @import "../var.scss";
 $listGroupWidth: 200px;
 
-.list-container {
-  // height: $accountContentHeight - $accountContentMargin * 2 - 2;
-  &.mobile-mode {
-    min-height: 400px;
-    width: 100%;
-    .list-group {
-      flex-basis: 100%;
+.uke-list-container {
+  .list-item {
+    padding: 6px 10px;
+    &:hover {
+      background-color: rgba(#444, 0.05);
     }
-    .back-btn {
-      // position: absolute;
-      // top: 0;
-      // left: 0;
-      padding: 5px 10px;
-      width: 100%;
-      // background-color: $colorBlack;
-      // color: #FFF;
-    }
-    .detail {
-      @include fill();
-      .header {
-        border-top: 1px solid #DDD;
-      }
-    }
-  }
-  .list-group {
-    flex-basis: $listGroupWidth;
-    height: 100%;
-    overflow-y: auto;
-    border-right: 1px solid #EEE;
-    .item {
-      cursor: pointer;
-      padding: 8px 10px;
-      color: #777 !important;
-      width: 100%;
-      border-bottom: 1px dashed #DDD;
-      .text-item {
-        width: 100%;
-      }
-      &:hover {
-        background-color: #f7f7f7;
-      }
-      &.active {
-        background-color: #f0f0f0;
-        color: #000;
-      }
-    }
-  }
-  .detail {
-    flex: 1;
-    background-color: #FFF;
-    height: 100%;
-    &.mobile-mode {
-      // position: absolute;
-      // width: 100%;
-      left: 100%;
-      transition: left 0.2s ease 0.1s;
-      overflow-y: auto;
-      &.fade-out {
-        left: 0;
-      }
-    }
-    .content-detail {
-      min-height: 200px;
-      min-width: $listGroupWidth;
-    }
-    .header {
-      padding: 10px;
-      border-bottom: 1px solid #EEE;
-      padding-bottom: 5px;
-      margin-bottom: 5px;
-    }
-    .content {
-      padding: 10px;
-      text-indent: 24px;
-    }
-  }
-  .time {
-    color: #507ab7;
-    font-size: 12px;
-  }
-  .load-more-btn {
-    text-align: center;
-    padding: 5px;
-    &[disabled] {
-      color: #999;
+    &.b {
+      border-bottom: 1px solid #f1f1f1;
     }
   }
 }

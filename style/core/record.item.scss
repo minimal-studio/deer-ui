@@ -19,18 +19,18 @@
     transition: all ease 0.3s;
     position: relative;
     .link-btn {
-      color: $colorOrange;
-      border: 1px solid $colorOrange;
+      color: $orange;
+      border: 1px solid $orange;
       padding: 0 10px;
       border-radius: 3px;
       // display: inline-block;
       &:hover {
-        color: $colorRed;
-        border-color: $colorRed;
+        color: $red;
+        border-color: $red;
       }
     }
     &:hover {
-      // border-color: $colorOrange;
+      // border-color: $orange;
       box-shadow: 0 12px 24px rgba(0,0,0,0.1);
       z-index: 1;
     }

@@ -1,17 +1,15 @@
 ---
 name: Tip
 route: /Tip
-menu: Components / 组件
+menu: Components
 ---
 
-import { Playground, PropsTable } from 'docz'
+import { Playground, Props } from 'docz'
 import { Tip } from './';
 
 # Tip
 
-<PropsTable of={Tip} />
-
-## Usage
+## Basic Usage
 
 <Playground>
   <span className="relative p10">
@@ -30,16 +28,39 @@ import { Tip } from './';
   </span>
 </Playground>
 
-## 子内容
+## 关闭动画
 
 <Playground>
   <span className="relative p10">
-    显示内容
-    <Tip color="red" scale={20}>12</Tip>
+    写些什么吧
+    <Tip color="red" animate={false} />
+  </span>
+
+  <span className="relative p10">
+    有什么好写的
+    <Tip color="blue" animate={false} />
+  </span>
+
+  <span className="relative p10">
+    说好的呢
+    <Tip color="green" animate={false} />
+  </span>
+</Playground>
+
+## 角标提示
+
+<Playground>
+  <span className="relative p10">
+    未读数提示
+    <Tip color="red" animate={false} scale={20}>12</Tip>
   </span>
   <hr />
   <span className="relative p10">
-    显示内容
-    <Tip color="red" animate={false} scale={20}>12</Tip>
+    带动画的未读数提示
+    <Tip color="red" scale={20}>12</Tip>
   </span>
 </Playground>
+
+## Props
+
+<Props of={Tip} />

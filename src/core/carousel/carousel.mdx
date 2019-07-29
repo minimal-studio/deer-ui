@@ -1,18 +1,22 @@
 ---
 name: Carousel
 route: /Carousel
-menu: Components / 组件
+menu: Components
 ---
 
-import { Playground, PropsTable } from 'docz'
+import { Playground, Props } from 'docz'
 import { Carousel } from './';
 import { Button } from '../button';
 
 # Carousel
 
-> 可以参考默认的动画，设置自己的动画
+## Setup
 
-<PropsTable of={Carousel} />
+```scss
+@import 'ukelli-ui/style/transition.scss'
+```
+
+## Basic Usage
 
 <Playground>
   <Carousel
@@ -22,20 +26,24 @@ import { Button } from '../button';
     }}
     carouselItems={[
       {
-        imgUrl: 'http://t1.hxzdhn.com/uploads/tu/201704/9999/29c7d063d8.jpg',
+        imgUrl: '/public/images/c1.jpg',
         action: () => alert('点击了 img')
       },
       {
-        imgUrl: 'http://t1.hxzdhn.com/uploads/tu/201704/9999/71abe83a7a.jpg',
+        imgUrl: '/public/images/c2.jpg',
         action: () => alert('点击了 img')
       },
       {
         element: (
           <div className="p20 t_white">
-            使用自定义的 React Components
-            <Button text="任意的" onClick={e => alert('点击了按钮')} />
+            <div>使用自定义的 React Components</div>
+            <Button text="任意的组件" onClick={e => alert('点击了按钮')} />
           </div>
         )
       }
     ]}/>
 </Playground>
+
+## Props
+
+<Props of={Carousel} />

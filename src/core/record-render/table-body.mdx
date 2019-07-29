@@ -1,11 +1,10 @@
 ---
 name: Table
 route: /Table
-menu: Table / 表格渲染
+menu: Data Display
 ---
 
-import { Playground, PropsTable } from 'docz'
-import { State, Toggle } from 'react-powerplug'
+import { Playground, Props } from 'docz'
 import { useState } from 'react'
 import { ShowModal } from '../modal';
 import { Table, DescHelper } from './';
@@ -16,9 +15,9 @@ import { setLangTranslate, setUkeLang } from '../config'
 
 # Table
 
-## 通用表格渲染
+## 通用 Table
 
-完美表格很难，但 uke-table 拥有以下特点
+uke-table 包含以下特点
 
 - 声明式逻辑处理
 - 自动计算 cell 的宽度
@@ -26,15 +25,16 @@ import { setLangTranslate, setUkeLang } from '../config'
 - 固定指定的列
 - 可对已有元素进行排列
 - 表头嵌入选择器和过滤器
+- 内置多种 data filter，数据展示更便捷
 
-<PropsTable of={Table} />
-
-## 常规使用
+## KeyMapper
 
 - keyMapper 需要显示的数据的字段映射集合
 - records   数据源
 
-对应关系
+[详情参考 KeyMapper](/KeyMapper)
+
+keyMapper 与 records 的对应关系
 
 ```js
 // key 对应 records 的所有项的 [key], 以下例子对应 username
@@ -56,7 +56,373 @@ const records = [
 ]
 ```
 
-> 可以使用自定义的 filter 或者内置 filter，下面章节有详细描述。
+## Basic Usage
+
+__需要为 Table 设置 rowKey__
+
+```js
+<Table
+  {...props}
+  records={records}
+  // 为了提高渲染效率
+  rowKey={record => record.id} />
+```
+
+<Playground>
+  {
+    () => {
+      const _keyMapper = [...keyMapper];
+      const _records = [...records];
+      return (
+        <div>
+          <Table
+            keyMapper={_keyMapper}
+            rowKey={record => record.id}
+            onChange={(emitVal, config) => {
+              console.log(emitVal, config)
+            }}
+            records={_records} />
+        </div>
+      )
+    }
+  }
+</Playground>
+
+## 统计
+
+#### uke-table 会尝试统计数字，如果某个 `column` 不计入统计，可以配置 `count: false`
+
+<Playground>
+  {
+    () => {
+      const _keyMapper = [...keyMapper];
+      const _records = [...records];
+      return (
+        <div>
+          <Table
+            keyMapper={_keyMapper}
+            ref={e => table = e}
+            rowKey={record => record.id}
+            needCount
+            onChange={(emitVal, config) => {
+              console.log(emitVal, config)
+            }}
+            records={_records} />
+        </div>
+      )
+    }
+  }
+</Playground>
+
+## RowItem 操作
+
+### 可选的 row && 点击 row 高亮
+
+#### checkedOverlay 为选中后出现的元素
+
+<Playground>
+  {
+    () => {
+      const _keyMapper = [...keyMapper];
+      const _records = [...records];
+      let table;
+
+      return (
+        <div>
+          <Table
+            keyMapper={_keyMapper}
+            clickToHighlight
+            ref={e => table = e}
+            checkedOverlay={checkedItems => (
+              <span className="btn theme mu10" onClick={e => table.clearCheckeds()}>
+                清除所有的以选中项
+              </span>
+            )}
+            rowKey={record => record.id}
+            needCheck
+            needCount
+            onChange={(emitVal, config) => {
+              console.log(emitVal, config)
+            }}
+            records={_records} />
+        </div>
+      )
+    }
+  }
+</Playground>
+
+## 固定表头
+
+> 添加 height 固定表头
+
+```js
+const keyMapper = [
+  {
+    ...config,
+    fixed: 'left'
+  },
+  ...mappers,
+  {
+    ...config,
+    fixed: 'right'
+  }
+]
+```
+
+<Playground>
+  {
+    () => {
+      const [_keyMapper, setKeyMapper] = useState([...keyMapperFixed]);
+      const [_records, setRecords] = useState([...records]);
+      const [show, setShow] = useState(false);
+      let table;
+
+      return (
+        <div>
+          <div className="mb10">
+            <span className="btn theme mr10" onClick={e => {
+              let nextKeyMapper = [...keyMapper];
+              nextKeyMapper.splice(-1, 1);
+              setKeyMapper(nextKeyMapper)
+            }}>减少最后一个 keyMapper</span>
+            <span className="btn green mr10" onClick={e => {
+              let nextKeyMapper = [...keyMapper, {
+                key: 'len' + keyMapper.length
+              }];
+              setKeyMapper(nextKeyMapper)
+            }}>增加一个 keyMapper</span>
+            <span className="btn red mr10" onClick={e => {
+              let nextRecords = [...records, records[0]];
+              setRecords(nextRecords)
+            }}>增加一条记录</span>
+            <span className="btn gold mr10" onClick={e => {
+              let nextRecords = [...records].slice(0, records.length - 1);
+              setRecords(nextRecords)
+            }}>减少一条记录</span>
+            <hr />
+            <Table
+              keyMapper={_keyMapper}
+              ref={e => table = e}
+              checkedOverlay={(
+                <span className="btn theme mu10" onClick={e => table.clearCheckeds()}>
+                  清除所有的以选中项
+                </span>
+              )}
+              rowKey={record => record.id}
+              height={200}
+              needCheck
+              needCount
+              onChange={(emitVal, config) => {
+                console.log(emitVal, config)
+              }}
+              records={_records} />
+          </div>
+        </div>
+      )
+    }
+  }
+</Playground>
+
+## 固定列
+
+> 固定列，为 keyMapper 添加 fixed: 'left' | 'right' 配置，并且要注意，从最左边开始添加 left，或者最右开始添加 right
+
+```js
+const keyMapper = [
+  {
+    ...config,
+    fixed: 'left'
+  },
+  ...mappers,
+  {
+    ...config,
+    fixed: 'right'
+  }
+]
+```
+
+<Playground>
+  {
+    () => {
+      const [_keyMapper, setKeyMapper] = useState([...keyMapperFixed]);
+      const [_records, setRecords] = useState([...records]);
+      const [show, setShow] = useState(false);
+      let table;
+
+      return (
+        <div>
+          <div className="mb10">
+            <span className="btn theme mr10" onClick={e => {
+              let nextKeyMapper = [...keyMapper];
+              nextKeyMapper.splice(-1, 1);
+              setKeyMapper(nextKeyMapper)
+            }}>减少最后一个 keyMapper</span>
+            <span className="btn green mr10" onClick={e => {
+              let nextKeyMapper = [...keyMapper, {
+                key: 'len' + keyMapper.length
+              }];
+              setKeyMapper(nextKeyMapper)
+            }}>增加一个 keyMapper</span>
+            <span className="btn red mr10" onClick={e => {
+              let nextRecords = [...records, records[0]];
+              setRecords(nextRecords)
+            }}>增加一条记录</span>
+            <span className="btn gold mr10" onClick={e => {
+              let nextRecords = [...records].slice(0, records.length - 1);
+              setRecords(nextRecords)
+            }}>减少一条记录</span>
+            <hr />
+            <Table
+              keyMapper={_keyMapper}
+              ref={e => table = e}
+              checkedOverlay={(
+                <span className="btn theme mu10" onClick={e => table.clearCheckeds()}>
+                  清除所有的以选中项
+                </span>
+              )}
+              rowKey={record => record.id}
+              height={200}
+              needCheck
+              needCount
+              onChange={(emitVal, config) => {
+                console.log(emitVal, config)
+              }}
+              records={_records} />
+          </div>
+        </div>
+      )
+    }
+  }
+</Playground>
+
+## 重新渲染表格
+
+<Playground>
+  {
+    () => {
+      const [_keyMapper, setKeyMapper] = useState([...keyMapperFixed]);
+      const [_records, setRecords] = useState([...records]);
+      const [show, setShow] = useState(false);
+      let table;
+
+      return (
+        <div>
+          <div className="mb10">
+            <span className="btn blue mr10" onClick={e => {
+              const nextShow = !show;
+              const nextRecords = nextShow ? [...records] : [];
+              setShow(nextShow)
+              setRecords(nextRecords)
+            }}>{show ? '隐藏' : '显示'}表格</span>
+          </div>
+          <div style={!show ? {display: 'none'} : null}>
+            <Table
+              keyMapper={_keyMapper}
+              ref={e => table = e}
+              checkedOverlay={(
+                <span className="btn theme mu10" onClick={e => table.clearCheckeds()}>
+                  清除所有的以选中项
+                </span>
+              )}
+              rowKey={record => record.id}
+              height={200}
+              needCheck
+              needCount
+              fixedRightKeys={['status']}
+              onChange={(emitVal, config) => {
+                console.log(emitVal, config)
+              }}
+              records={_records} />
+          </div>
+        </div>
+      )
+    }
+  }
+</Playground>
+
+## 排序
+
+### 响应表头排序的回调
+
+> 此方式主要应用于：需要与远端数据通讯确定数据排序
+
+```js
+const keyMapper = [
+  {
+    ...options,
+    onSort: (currItem, prevDesc) => {
+      /** 如果返回值 true，则为正序，false 为倒叙 */
+      return boolean;
+    }
+  }
+]
+```
+
+<Playground>
+  {
+    () => {
+      const _keyMapper = [{
+        key: 'desc',
+        title: '排序',
+        filter: (_, item) => item.age,
+        onSort: (mapper, isDesc) => {
+          return !isDesc;
+        }
+      }, ...keyMapper];
+      const _records = [...records];
+      let table;
+      return (
+        <div>
+          <Table
+            keyMapper={_keyMapper}
+            ref={e => table = e}
+            checkedOverlay={checkedItems => (
+              <span className="btn theme mu10" onClick={e => table.clearCheckeds()}>
+                清除所有的以选中项
+              </span>
+            )}
+            rowKey={record => record.id}
+            onChange={(emitVal, config) => {
+              console.log(emitVal, config)
+            }}
+            records={_records} />
+        </div>
+      )
+    }
+  }
+</Playground>
+
+### 按照已有数据排序
+
+<Playground>
+  {
+    () => {
+      const _keyMapper = [...keyMapper];
+      const _records = [...records];
+      let table;
+      return (
+        <div>
+          <Table
+            keyMapper={_keyMapper}
+            ref={e => table = e}
+            checkedOverlay={checkedItems => (
+              <span className="btn theme mu10" onClick={e => table.clearCheckeds()}>
+                清除所有的以选中项
+              </span>
+            )}
+            needInnerSort
+            rowKey={record => record.id}
+            onChange={(emitVal, config) => {
+              console.log(emitVal, config)
+            }}
+            records={_records} />
+        </div>
+      )
+    }
+  }
+</Playground>
+
+## 国际化
 
 <Playground>
   {
@@ -98,262 +464,6 @@ const records = [
   }
 </Playground>
 
-## 响应表头排序
+## Props
 
-```js
-const keyMapper = [
-  {
-    ...options,
-    onSort: (currItem, prevDesc) => {
-      /** 如果返回值 true，则为正序，false 为倒叙 */
-      return boolean;
-    }
-  }
-]
-```
-
-<Playground>
-  {
-    () => {
-      return (
-        <State initial={{
-          keyMapper: [{
-            key: 'desc',
-            title: '排序',
-            filter: (_, item) => item.age,
-            onSort: (mapper, isDesc) => {
-              return !isDesc;
-            }
-          }, ...keyMapper],
-          records: [...records]
-        }}>
-          {
-            ({ state, setState }) => {
-              let table;
-
-              return (
-                <div>
-                  <Table
-                    keyMapper={state.keyMapper}
-                    ref={e => table = e}
-                    whenCheckAction={checkedItems => (
-                      <span className="btn theme mu10" onClick={e => table.clearCheckeds()}>
-                        清除所有的以选中项
-                      </span>
-                    )}
-                    rowKey={record => record.id}
-                    needCheck
-                    needCount
-                    onChange={(emitVal, config) => {
-                      console.log(emitVal, config)
-                    }}
-                    records={state.records} />
-                </div>
-              )
-            }
-          }
-        </State>
-      )
-    }
-  }
-</Playground>
-
-## 可选的 row && 点击 row 高亮
-
-- whenCheckAction 为选中后出现的元素
-
-<Playground>
-  {
-    () => {
-      return (
-        <State initial={{
-          keyMapper: [...keyMapper],
-          records: [...records]
-        }}>
-          {
-            ({ state, setState }) => {
-              let table;
-
-              return (
-                <div>
-                  <Table
-                    keyMapper={state.keyMapper}
-                    clickToHighlight
-                    ref={e => table = e}
-                    whenCheckAction={checkedItems => (
-                      <span className="btn theme mu10" onClick={e => table.clearCheckeds()}>
-                        清除所有的以选中项
-                      </span>
-                    )}
-                    rowKey={record => record.id}
-                    needCheck
-                    needCount
-                    onChange={(emitVal, config) => {
-                      console.log(emitVal, config)
-                    }}
-                    records={state.records} />
-                </div>
-              )
-            }
-          }
-        </State>
-      )
-    }
-  }
-</Playground>
-
-## 固定表头 && 固定左右列
-
-- 固定表头，只需要添加 height
-- 固定列，为 keyMapper 添加 fixed: 'left'[, 'right'] 配置，并且要注意，从最左边开始添加 left，或者最右开始添加 right
-
-```js
-const keyMapper = [
-  {
-    ...config,
-    fixed: 'left'
-  },
-  ...mappers,
-  {
-    ...config,
-    fixed: 'right'
-  }
-]
-```
-
-<Playground>
-  {
-    () => {
-      return (
-        <State initial={{
-          keyMapper: [...keyMapperFixed],
-          records: [...records],
-          show: false
-        }}>
-          {
-            ({ state, setState }) => {
-              let table;
-
-              return (
-                <div>
-                  <div className="mb10">
-                    <span className="btn red mr10" onClick={e => {
-                      setState(({ keyMapper }) => {
-                        let nextKeyMapper = [...keyMapper];
-                        nextKeyMapper.splice(-1, 1);
-                        return {
-                          keyMapper: nextKeyMapper
-                        }
-                      })
-                    }}>减少最后一个 keyMapper</span>
-                    <span className="btn theme mr10" onClick={e => {
-                      setState(({ keyMapper }) => {
-                        let nextKeyMapper = [...keyMapper, {
-                          key: 'len' + keyMapper.length
-                        }];
-                        return {
-                          keyMapper: nextKeyMapper
-                        }
-                      })
-                    }}>增加一个 keyMapper</span>
-                    <span className="btn green mr10" onClick={e => {
-                      setState(({ records }) => {
-                        let nextKeyMapper = [...records, records[0]];
-                        return {
-                          records: nextKeyMapper
-                        }
-                      })
-                    }}>增加一条记录</span>
-                    <span className="btn gold mr10" onClick={e => {
-                      setState(({ records }) => {
-                        let nextKeyMapper = [...records].slice(0, records.length - 1);
-                        return {
-                          records: nextKeyMapper
-                        }
-                      })
-                    }}>减少一条记录</span>
-                    <Table
-                      keyMapper={state.keyMapper}
-                      ref={e => table = e}
-                      whenCheckAction={(
-                        <span className="btn theme mu10" onClick={e => table.clearCheckeds()}>
-                          清除所有的以选中项
-                        </span>
-                      )}
-                      rowKey={record => record.id}
-                      height={200}
-                      needCheck
-                      needCount
-                      onChange={(emitVal, config) => {
-                        console.log(emitVal, config)
-                      }}
-                      records={state.records} />
-                  </div>
-                </div>
-              )
-            }
-          }
-        </State>
-      )
-    }
-  }
-</Playground>
-
-## Toggle 表格的显示，以及重新渲染
-
-<Playground>
-  {
-    () => {
-      return (
-        <State initial={{
-          keyMapper: [...keyMapperFixed],
-          records: [],
-          show: false
-        }}>
-          {
-            ({ state, setState }) => {
-              let table;
-
-              return (
-                <div>
-                  <div className="mb10">
-                    <span className="btn green mr10" onClick={e => {
-                      setState(({ show }) => {
-                        const nextShow = !show;
-                        return {
-                          show: nextShow,
-                          records: nextShow ? [...records] : []
-                        }
-                      })
-                    }}>{state.show ? '隐藏' : '显示'}表格</span>
-                  </div>
-                  <div style={!state.show ? {display: 'none'} : null}>
-                    <Table
-                      keyMapper={state.keyMapper}
-                      ref={e => table = e}
-                      whenCheckAction={(
-                        <span className="btn theme mu10" onClick={e => table.clearCheckeds()}>
-                          清除所有的以选中项
-                        </span>
-                      )}
-                      rowKey={record => record.id}
-                      height={200}
-                      needCheck
-                      needCount
-                      fixedRightKeys={['status']}
-                      onChange={(emitVal, config) => {
-                        console.log(emitVal, config)
-                      }}
-                      records={state.records} />
-                  </div>
-                </div>
-              )
-            }
-          }
-        </State>
-      )
-    }
-  }
-</Playground>
-
-<KeyMapper />
+<Props of={Table} />

@@ -1,19 +1,19 @@
 ---
 name: FormGenerator
 route: /FormGenerator
-menu: FormGenerator / 表单生成
+menu: FormGenerator
 ---
 
-import { Playground, PropsTable } from 'docz'
+import { Playground, Props } from 'docz'
 import { FormGenerator } from './';
 import { setUkelliConfig } from '../';
 
-import formOptions from './form-options-demo';
+import formOptions from './demo/form-options-demo';
 import FormOptionsDesc from './form-options-demo.md';
 
 # FormGenerator
 
-<PropsTable of={FormGenerator} />
+## Usage
 
 <Playground>
   {
@@ -29,7 +29,7 @@ import FormOptionsDesc from './form-options-demo.md';
           }, 1000);
         }
       })
-      /** formOptions 查看 ./form-options-demo.js */
+      /** formOptions 查看 ./demo/form-options-demo.js */
       let formRef;
       return (
         <div>
@@ -50,5 +50,11 @@ import FormOptionsDesc from './form-options-demo.md';
     }
   }
 </Playground>
+
+## Props
+
+<Props of={FormGenerator} />
+
+## FormOptions 说明
 
 <FormOptionsDesc />

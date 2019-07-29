@@ -1,18 +1,20 @@
 ---
 name: ChartCom
 route: /ChartCom
-menu: Components / 组件
+menu: Components
 ---
 
-import { Playground, PropsTable } from 'docz'
+import { useState } from 'react'
+import { Playground, Props } from 'docz'
 import { Random } from 'basic-helper'
-import { State, Toggle } from 'react-powerplug'
 import { ChartCom } from './';
 import { Grid } from '../grid';
 
 # ChartCom
 
-> 需要设置 chart js 的三方库链接
+## Setup
+
+> ChartCom 为 chart js 的封装，需要设置 chart js 资源链接
 
 ```jsx static
 import { ChartCom } from 'ukelli-ui';
@@ -20,7 +22,7 @@ import { ChartCom } from 'ukelli-ui';
 ChartCom.setChartJSPath('https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.min.js');
 ```
 
-<PropsTable of={ChartCom} />
+## Basic Usage
 
 <Playground style={{height: '100%'}}>
   {
@@ -79,68 +81,51 @@ ChartCom.setChartJSPath('https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/C
         }, 15)
       }
       renderChart();
-      {/* setTimeout(() => {
-        chartDOM1.renderChart();
-      }, 15)
-      setTimeout(() => {
-        chartDOM2.renderChart();
-      }, 15)
-      setTimeout(() => {
-        chartDOM3.renderChart();
-      }, 15)
-      setTimeout(() => {
-        chartDOM4.renderChart();
-      }, 15) */}
+      const [mockData, setData] = useState(getMockData())
       return (
-        <State initial={{
-          mockData: getMockData(),
-        }}>
-          {
-            ({ state, setState }) => {
-              const { mockData } = state;
-              return (
-                <Grid container className="p10" space={20}>
-                  <Grid lg={6} style={{height: 400}}>
-                    <ChartCom
-                      type="bar"
-                      id="chartDOM1"
-                      options={options}
-                      data={mockData} ref={e => chartDOM1 = e} />
-                  </Grid>
-                  <Grid lg={6}>
-                    <ChartCom
-                      type="line"
-                      id="chartDOM2"
-                      options={options}
-                      data={mockData} ref={e => chartDOM2 = e} />
-                  </Grid>
-                  <Grid lg={6}>
-                    <ChartCom
-                      type="radar"
-                      id="chartDOM3"
-                      options={options}
-                      data={mockData} ref={e => chartDOM3 = e} />
-                  </Grid>
-                  <Grid lg={6}>
-                    <ChartCom
-                      type="pie"
-                      id="chartDOM4"
-                      options={options}
-                      data={mockData} ref={e => chartDOM4 = e} />
-                  </Grid>
-                  <Grid lg={6}>
-                    <span className="btn theme" onClick={e => {
-                      setState({
-                        mockData: getMockData()
-                      }, renderChart())
-                    }}>重新渲染</span>
-                  </Grid>
-                </Grid>
-              )
-            }
-          }
-        </State>
+        <Grid container className="p10" space={20}>
+          <Grid lg={6}>
+            <ChartCom
+              type="bar"
+              id="chartDOM1"
+              options={options}
+              data={mockData} ref={e => chartDOM1 = e} />
+          </Grid>
+          <Grid lg={6}>
+            <ChartCom
+              type="line"
+              id="chartDOM2"
+              options={options}
+              data={mockData} ref={e => chartDOM2 = e} />
+          </Grid>
+          <Grid lg={6}>
+            <ChartCom
+              type="radar"
+              id="chartDOM3"
+              options={options}
+              data={mockData} ref={e => chartDOM3 = e} />
+          </Grid>
+          <Grid lg={6}>
+            <ChartCom
+              type="pie"
+              id="chartDOM4"
+              options={options}
+              data={mockData} ref={e => chartDOM4 = e} />
+          </Grid>
+          <Grid lg={6}>
+            <span className="btn theme" onClick={e => {
+              setData(getMockData())
+              setTimeout(() => {
+                renderChart()
+              }, 10)
+            }}>重新渲染</span>
+          </Grid>
+        </Grid>
       )
     }
   }
 </Playground>
+
+## Props
+
+<Props of={ChartCom} />

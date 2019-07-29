@@ -29,7 +29,6 @@
     }
   }
 }
-
 @mixin borderColor {
   @for $i from 1 through length($colorsMap) {
     $item: nth($colorsMap, $i);
@@ -37,6 +36,17 @@
     &.#{map-get($item, name)} {
       $color: map-get($item, color);
       border-color: $color;
+    }
+  }
+}
+@mixin bgColorAndTextColor {
+  @for $i from 1 through length($bgColorsWithTextColor) {
+    $item: nth($bgColorsWithTextColor, $i);
+    
+    &.#{map-get($item, name)} {
+      $textColor: map-get($item, text);
+      background-color: map-get($item, color);
+      color: $textColor;
     }
   }
 }

@@ -1,28 +1,29 @@
 ---
 name: LinkSelector
 route: /LinkSelector
-menu: Selector / 选择器
+menu: Selector
 ---
 
-import { Playground, PropsTable } from 'docz'
-import { State, Toggle } from 'react-powerplug'
+import { Playground, Props } from 'docz'
 import LinkSelector from './link-selector';
 
 # LinkSelector
 
 > 联动组件
 
+## Setup
+
 ```js
 import LinkSelector from 'ukelli-ui/core/selector/link-selector'
 ```
 
-<PropsTable of={LinkSelector} />
+## Basic Usage
 
 <Playground>
   {
     () => {
       return (
-        <LinkSelector data={[
+        <LinkSelector outside data={[
           {
             title: '联动1',
             code: 'value1',
@@ -73,3 +74,7 @@ import LinkSelector from 'ukelli-ui/core/selector/link-selector'
     }
   }
 </Playground>
+
+## Props
+
+<Props of={LinkSelector} />

@@ -18,9 +18,11 @@
 - datetimeRange
 - switch
 
-## 表单配置例子
+## 自定义表单插件
 
 > 可以通过 type = 'customForm' 来实现，实现 getCustomFormControl 接口
+
+## Demo
 
 ```js
 const CustomerCom = ({ onChange }) => {

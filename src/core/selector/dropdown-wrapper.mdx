@@ -1,38 +1,29 @@
 ---
 name: DropdownWrapper
 route: /DropdownWrapper
-menu: Utils / 效率
+menu: Utils
 ---
 
-import { Playground, PropsTable } from 'docz'
-import { State, Toggle } from 'react-powerplug'
+import { Playground, Props } from 'docz'
 import DropdownWrapper from './dropdown-wrapper';
 
 # DropdownWrapper
 
 > 通用的下拉组件，可以渲染任意子内容
 
-<PropsTable of={DropdownWrapper} />
+## Basic Usage
 
 <Playground>
   {
     () => {
       return (
-        <State initial={{}}>
-        {
-          ({ state, setState }) => {
-            return (
-              <DropdownWrapper menuTitle="标题" overlay={e => {
-                return (
-                  <div className="p10" style={{width: 400}}>
-                    任意内容
-                  </div>
-                )
-              }} />
-            )
-          }
-        }
-        </State>
+        <DropdownWrapper menuTitle="标题" overlay={e => {
+          return (
+            <div className="p10" style={{width: 400}}>
+              任意内容
+            </div>
+          )
+        }} />
       )
     }
   }
@@ -44,30 +35,26 @@ import DropdownWrapper from './dropdown-wrapper';
   {
     () => {
       return (
-        <State initial={{}}>
-        {
-          ({ state, setState }) => {
-            return (
-              <DropdownWrapper overlay={() => {
-                return (
-                  <div className="p10" style={{width: 400}}>
-                    弹出内容
-                  </div>
-                )
-              }}>
-                {
-                  (options) => {
-                    return (
-                      <div>显示内容</div>
-                    )
-                  }
-                }
-              </DropdownWrapper>
-            )
+        <DropdownWrapper overlay={() => {
+          return (
+            <div className="p10" style={{width: 400}}>
+              弹出内容
+            </div>
+          )
+        }}>
+          {
+            (options) => {
+              return (
+                <div>显示内容</div>
+              )
+            }
           }
-        }
-        </State>
+        </DropdownWrapper>
       )
     }
   }
 </Playground>
+
+## Props
+
+<Props of={DropdownWrapper} />

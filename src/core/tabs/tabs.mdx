@@ -1,62 +1,75 @@
 ---
 name: Tabs
 route: /Tabs
-menu: Components / 组件
+menu: Components
 ---
 
-import { Playground, PropsTable } from 'docz'
-import { State, Toggle } from 'react-powerplug'
+import { useState } from 'react'
+import { Playground, Props } from 'docz'
 import { RemoveArrayItem } from 'basic-helper'
 import { Tabs, Tab } from './';
 import tabsColl from './tabs-demo'
 
 # Tabs
 
-<PropsTable of={Tabs} />
+## Basic Usage
 
-## 默认的 Tabs，状态由 Tabs 控制
+> 状态由 Tabs 控制
 
-<Playground className="bg_default">
-  <State initial={{
-    tabs: tabsColl,
-  }}>
-    {
-      ({ state, setState }) => {
-        return (
-          <Tabs closeable onClose={idx => setState(({tabs}) => {
-              const nextTabs = [...tabs];
-              nextTabs.splice(idx, 1);
-              return {
-                tabs: nextTabs
-              }
-            })}>
-            {
-              state.tabs.map(tab => {
-                return (
-                  <Tab {...tab} key={tab.label} />
-                )
-              })
-            }
-          </Tabs>
-        )
-      }
+<Playground>
+  <Tabs className="bg_default p20">
+    <Tab label="Tab_1">
+      <div className="p10">内容1</div>
+    </Tab>
+    <Tab label="Tab_2">
+      <div className="p10">内容2</div>
+    </Tab>
+    <Tab label="Tab_3">
+      <div className="p10">内容3</div>
+    </Tab>
+  </Tabs>
+</Playground>
+
+## 可关闭
+
+<Playground>
+  {
+    () => {
+      const [tabs, setTabs] = useState(tabsColl)
+      return (
+        <Tabs 
+          className="bg_default p20"
+          closeable onClose={idx => {
+            const nextTabs = [...tabs];
+            nextTabs.splice(idx, 1);
+            setTabs(nextTabs)
+          }}>
+          {
+            tabs.map(tab => {
+              return (
+                <Tab {...tab} key={tab.label} />
+              )
+            })
+          }
+        </Tabs>
+      )
     }
-  </State>
+  }
 </Playground>
 
 ---------
 
 ## Tab 内容与 Tab 标签并列
 
-<Playground className="bg_default">
-  <Tabs inRow={true}>
-    <Tab label="切换到内容1">
+<Playground>
+  <Tabs inRow={true} className="bg_default p20">
+    <Tab label="Tab_1">
       <div className="p10">内容1</div>
     </Tab>
-    <Tab label="切换到内容2">
+    <Tab label="Tab_2">
       <div className="p10">内容2</div>
     </Tab>
-    <Tab label="切换到内容3">
+    <Tab label="Tab_3">
       <div className="p10">内容3</div>
     </Tab>
   </Tabs>
@@ -66,15 +79,15 @@ import tabsColl from './tabs-demo'
 
 ## 只渲染 content
 
-<Playground className="bg_default">
-  <Tabs onlyContent>
-    <Tab label="切换到内容1">
+<Playground>
+  <Tabs onlyContent className="bg_default p20">
+    <Tab label="Tab_1">
       <div className="p10">内容1</div>
     </Tab>
-    <Tab label="切换到内容2">
+    <Tab label="Tab_2">
       <div className="p10">内容2</div>
     </Tab>
-    <Tab label="切换到内容3">
+    <Tab label="Tab_3">
       <div className="p10">内容3</div>
     </Tab>
   </Tabs>
@@ -82,49 +95,41 @@ import tabsColl from './tabs-demo'
 
 ---------
 
-## 父组件控制 Tabs
+## 由父组件控制
 
-<Playground className="bg_default">
+<Playground>
   {
     () => {
-
+      const [activeTabIdx, setIdx] = useState(0)
       return (
-        <State initial={{
-          activeTabIdx: 1
-        }}>
-          {
-            ({ state, setState }) => {
-              const { activeTabIdx } = state;
-              return (
-                <div>
-                  <div>
-                    <span className="btn theme" onClick={e => setState({
-                      activeTabIdx: 2
-                    })}>切换到最后一个 Tab</span>
-                  </div>
-                  <Tabs
-                    activeTabIdx={activeTabIdx}
-                    onChangeTab={idx => {
-                      setState({
-                        activeTabIdx: idx
-                      })
-                    }}>
-                    <Tab label="切换到内容1">
-                      <div className="p10">内容1</div>
-                    </Tab>
-                    <Tab label="切换到内容2">
-                      <div className="p10">内容2</div>
-                    </Tab>
-                    <Tab label="切换到内容3">
-                      <div className="p10">内容3</div>
-                    </Tab>
-                  </Tabs>
-                </div>
-              )
-            }
-          }
-        </State>
+        <div>
+          <div>
+            <span className="btn theme" onClick={e => setIdx(2)}>
+              切换到最后一个 Tab
+            </span>
+          </div>
+          <Tabs
+            activeTabIdx={activeTabIdx}
+            className="bg_default p20"
+            onChangeTab={idx => {
+              setIdx(idx)
+            }}>
+            <Tab label="Tab_1">
+              <div className="p10">内容1</div>
+            </Tab>
+            <Tab label="Tab_2">
+              <div className="p10">内容2</div>
+            </Tab>
+            <Tab label="Tab_3">
+              <div className="p10">内容3</div>
+            </Tab>
+          </Tabs>
+        </div>
       )
     }
   }
 </Playground>
+
+## Props
+
+<Props of={Tabs} />

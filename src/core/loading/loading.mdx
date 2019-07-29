@@ -1,48 +1,65 @@
 ---
 name: Loading
 route: /Loading
-menu: Components / 组件
+menu: Components
 ---
 
-import { Playground, PropsTable } from 'docz'
-import { State, Toggle } from 'react-powerplug'
+import { useState } from 'react'
+import { Playground, Props } from 'docz'
 import { Button } from '../button';
 import { Loading, LoadingProgress, LoadingPlaceholder } from './';
 
 # Loading
 
-## Usage
+> 注意，需要手动控制是否渲染 children
 
-> 注意，由于 React 的机制，在 render 中，无论是否使用 Loading 包裹，如果不希望子组件在 loading 状态下被渲染出来，可以有两种方式
+## function children
 
-### 1. function children
-
-```js
-<Loading loading={true}>
+<Playground>
   {
     () => {
+      const [loading, setLoading] = useState(true)
       return (
-        <div>Loading 状态下不渲染 children</div>
+        <div style={{height: 300}}>
+          <span className="btn theme" onClick={e => setLoading(!loading)}>切换状态</span>
+          <Loading loading={loading}>
+            {
+              () => {
+                return (
+                  <div>Children</div>
+                )
+              }
+            }
+          </Loading>
+        </div>
       )
     }
   }
-</Loading>
-```
+</Playground>
 
-### 2. 判定
+## children 条件控制
 
-```js
-const { loading } = this.state;
-<Loading loading={loading}>
+<Playground>
   {
-    !loading && (
-      <div>Loading 状态下不渲染 children</div>
-    )
+    () => {
+      const [loading, setLoading] = useState(true)
+      return (
+        <div style={{height: 300}}>
+          <span className="btn theme" onClick={e => setLoading(!loading)}>切换状态</span>
+          <Loading loading={loading}>
+            {
+              !loading && (
+                <div>Children</div>
+              )
+            }
+          </Loading>
+        </div>
+      )
+    }
   }
-</Loading>
-```
+</Playground>
 
-## Usage
+## Demo
 
 <Playground style={{height: 500}}>
   {
@@ -54,42 +71,35 @@ const { loading } = this.state;
           </div>
         )
       }
+      const [loading, setLoading] = useState(true)
       return (
-        <State initial={{ loading: true }}>
-          {
-            ({ state, setState }) => (
-              <div>
-                <Button
-                  loading={state.loading}
-                  loadingDisable={false}
-                  className="mb10"
-                  onClick={e => {
-                    setState({
-                      loading: !state.loading
-                    })
-                  }}
-                  color={state.loading ? 'theme' : 'red'} >
-                  切到 {!state.loading ? 'loading' : 'loaded'} 状态
-                </Button>
-                <Loading loading={state.loading} inrow={true}>
-                  {
-                    state.loading && <C title="内容与 loading 共存" />
-                  }
-                  <C title="内容与 loading 共存" />
-                </Loading>
-                <Loading loading={state.loading} inrow={false}>
-                  {
-                    () => {
-                      return (
-                        <C title="内容与 loading 只有一个" />
-                      )
-                    }
-                  }
-                </Loading>
-              </div>
-            )
-          }
-        </State>
+        <div>
+          <Button
+            loading={loading}
+            loadingDisable={false}
+            className="mb10"
+            onClick={e => {
+              setLoading(!loading)
+            }}
+            color={loading ? 'theme' : 'red'} >
+            To {!loading ? 'loading' : 'loaded'}
+          </Button>
+          <Loading loading={loading} inrow={true}>
+            {
+              loading && <C title="内容与 loading 共存" />
+            }
+            <C title="内容与 loading 共存" />
+          </Loading>
+          <Loading loading={loading} inrow={false}>
+            {
+              () => {
+                return (
+                  <C title="内容与 loading 只有一个" />
+                )
+              }
+            }
+          </Loading>
+        </div>
       )
     }
   }
@@ -106,4 +116,6 @@ const { loading } = this.state;
   <LoadingPlaceholder />
 </Playground>
 
-<PropsTable of={Loading} />
+## Props
+
+<Props of={Loading} />

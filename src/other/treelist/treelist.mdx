@@ -1,32 +1,27 @@
 ---
 name: TreeList
 route: /TreeList
-menu: Other / 其他组件
+menu: Other
 ---
 
-import { Playground, PropsTable } from 'docz'
-import { State, Toggle } from 'react-powerplug'
+import { Playground, Props } from 'docz'
 import { TreeList } from './';
 
 import '../../../style/other/default.scss'
 
 # TreeList
 
-<PropsTable of={TreeList} />
-
-## Usage
-
-### import component
+## Setup
 
 ```js
 import { TreeList } from 'ukelli-ui/other/treelist';
 ```
 
-### import style
-
 ```scss
 @import 'yourPath/node_modules/ukelli-ui/style/other/index.scss';
 ```
+
+## Basic Usage
 
 <Playground>
   {
@@ -91,23 +86,14 @@ import { TreeList } from 'ukelli-ui/other/treelist';
         },
       ]
       return (
-        <State initial={{
-        }}>
-          {
-            ({ state, setState }) => {
-              return (
-                <TreeList
-                  onChange={val => {
-                    console.log(val)
-                  }}
-                  defaultValue={{
-                    'value2-2': 'value2-2'
-                  }}
-                  treeData={treeData} />
-              )
-            }
-          }
-        </State>
+        <TreeList
+          onChange={val => {
+            console.log(val)
+          }}
+          defaultValue={{
+            'value2-2': 'value2-2'
+          }}
+          treeData={treeData} />
       )
     }
   }
@@ -128,3 +114,7 @@ import { TreeList } from 'ukelli-ui/other/treelist';
   }}
   treeData={treeData} />
 ```
+
+## Props
+
+<Props of={TreeList} />

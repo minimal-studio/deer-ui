@@ -1,18 +1,54 @@
+// 纯背景颜色
 $colorsMap: (
+  // nature color
   (name: 'theme', color: $themeColor),
-  (name: 'red', color: $colorRed),
-  (name: 'yellow', color: $colorYellow),
-  (name: 'gold', color: $colorGold),
-  (name: 'blue', color: $colorBlue),
-  (name: 'green', color: $colorGreen),
-  (name: 'light-p', color: $colorPurpleLight),
-  (name: 'primary', color: $colorBlue),
-  (name: 'default', color: $defaultColor),
-  (name: 'white', color: $whiteColor),
+  (name: 'blue', color: $blue),
+  (name: 'red', color: $red),
+  (name: 'yellow', color: $yellow),
+  (name: 'gold', color: $gold),
+  (name: 'green', color: $green),
+  (name: 'cyan', color: $cyan),
+  (name: 'purple', color: $purple),
+  (name: 'orange', color: $orange),
+  (name: 'wine', color: $red-2),
+  // Grayscale
+  (name: 'white', color: $white),
+  (name: 'black', color: $black),
+  (name: 'grey', color: $gray),
+  // status color
+  (name: 'default', color: $gray-2),
   (name: 'important', color: $importantColor),
-  (name: 'warn', color: $warmColor),
-  (name: 'black', color: $colorBlack),
-  (name: 'grey', color: $greyColor),
-  (name: 'orange', color: $colorOrange),
-  (name: 'wine', color: $wineColor),
+  (name: 'primary', color: $blue),
+  (name: 'error', color: $errorColor),
+  (name: 'success', color: $successColor),
+  (name: 'warn', color: $warnColor),
+  (name: 'warm', color: $warmColor),
+  (name: 'danger', color: $dangerColor),
+);
+
+// 背景颜色配字体颜色
+$bgColorsWithTextColor: (
+  // nature color
+  (name: 'theme', color: $themeColor, text: #FFF),
+  (name: 'blue', color: $blue, text: #FFF),
+  (name: 'red', color: $red, text: #FFF),
+  (name: 'yellow', color: $yellow, text: #424242),
+  (name: 'gold', color: $gold, text: #424242),
+  (name: 'green', color: $green, text: #FFF),
+  (name: 'cyan', color: $cyan, text: #FFF),
+  (name: 'purple', color: $purple, text: #FFF),
+  (name: 'orange', color: $orange, text: #FFF),
+  (name: 'wine', color: $red-2, text: #FFF),
+  // Grayscale
+  (name: 'white', color: $white, text: #555),
+  (name: 'black', color: $black, text: #FFF),
+  (name: 'grey', color: $gray, text: #FFF),
+  // status color
+  (name: 'default', color: $gray-2, text: #666),
+  (name: 'important', color: $importantColor, text: #FFF),
+  (name: 'primary', color: $blue, text: #FFF),
+  (name: 'error', color: $errorColor, text: #FFF),
+  (name: 'success', color: $successColor, text: #FFF),
+  (name: 'warn', color: $warnColor, text: #FFF),
+  (name: 'danger', color: $dangerColor, text: #FFF),
 );

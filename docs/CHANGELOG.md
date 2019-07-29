@@ -2,6 +2,98 @@
 
 -----------------
 
+## 3.0.0
+
+### 项目重构
+
+- 全面使用 Typescript 重构项目
+- 所有组件提供代码提示，Props 和 API 的参数检查
+- 整理并精简项目结构和代码
+- 调整 /core/utils 目录的结构，按照功能更细致划分代码，旧的 /core/uke-utils 的功能也合并到其中
+- 调整 ClickAway 的目录位置，可以通过 /core/click-away 引用
+- 调整并统一 Button 的样式，去除 `className: flat`
+
+### 新特性
+
+- 全新的 Color 系统
+  - 全新的 scss 架构和主题定制
+  - 全新的配色方案
+- Avatar 支持 Color 系统
+
+### 废弃组件
+
+- state-manager
+- selector-filter.js
+
+### 废弃组件名
+
+- DatepickerHelper
+
+### 废弃 API
+
+- Input.props.inputType
+
+### 组件更名
+
+- InputVerify -> InputNumber
+
+### 组件更新
+
+#### Input
+
+- 优化参数传递
+- 优化 Title 上浮效果的应用
+
+#### Avatar
+
+- 新加入 Color 系统
+
+#### Button
+
+- 优化样式
+
+### Carousel
+
+- props 更改: styleConfig -> style
+
+### Tabs
+
+- 新增 tabsClassName 取代旧的 className
+
+### Table
+
+- whenCheckAction 更名为 checkedOverlay
+
+### Pagination
+
+- 更改 defaultProps.infoMapper 与 props.infoMapper 的默认数据结构一致
+
+```js
+// change
+<Pagination
+  infoMapper={{
+    pIdx: 'PageIndex',
+    pSize: 'PageSize',
+    total: 'AllCount',
+    active: 'UsePaging',
+  }} />
+
+// to
+<Pagination
+  infoMapper={{
+    pIdx: 'pIdx',
+    pSize: 'pSize',
+    total: 'total',
+    active: 'active',
+  }} />
+```
+
+-----------------
+
+## 2.17.17
+
+- 修复查询条件组件清空 datetime 不正确的问题
+
 ## 2.17.16
 
 - Table 新增 clickToHighlight 接口

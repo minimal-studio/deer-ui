@@ -1,17 +1,17 @@
 ---
 name: ConditionGenerator
 route: /ConditionGenerator
-menu: FormGenerator / 表单生成
+menu: FormGenerator
 ---
 
-import { Playground, PropsTable } from 'docz'
+import { Playground, Props } from 'docz'
 import { useState } from 'react'
 import { ConditionGenerator } from './';
 import { setLangTranslate, setUkeLang } from '../config'
 
 # ConditionGenerator
 
-<PropsTable of={ConditionGenerator} />
+## Basic Usage
 
 <Playground>
   {
@@ -36,6 +36,7 @@ import { setLangTranslate, setUkeLang } from '../config'
             setUkeLang(nextLang);
             setLang(nextLang)
           }}>{lang}</span>
+          <hr />
           <ConditionGenerator
             ref={e => domRef = e}
             onChange={(values, ref, val) => {
@@ -128,6 +129,7 @@ import { setLangTranslate, setUkeLang } from '../config'
               },
             ]}>
             <div>
+              <hr />
               <button type="submit" className="theme btn flat">查看查询条件的值</button>
               <span className="ml10" onClick={e => domRef.clearValue()} className="theme btn red">清空条件</span>
             </div>
@@ -138,7 +140,7 @@ import { setLangTranslate, setUkeLang } from '../config'
   }
 </Playground>
 
-查询条件生成器，组合内置的 UI 控件，生成查询条件组合，内置以下控件，通过 type 属性控制
+## type list
 
 - customForm
 - captcha
@@ -155,3 +157,7 @@ import { setLangTranslate, setUkeLang } from '../config'
 - button
 - datetime
 - datetimeRange
+
+## Props
+
+<Props of={ConditionGenerator} />

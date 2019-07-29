@@ -1,60 +1,116 @@
 ---
 name: Switch
 route: /Switch
-menu: Selector / 选择器
+menu: Selector
 ---
 
-import { Playground, PropsTable } from 'docz'
-import { State, Toggle } from 'react-powerplug'
+import { useState } from 'react'
+import { Playground, Props } from 'docz'
 import { Switch } from './';
 
 # Switch
 
-开关
-
-<PropsTable of={Switch} />
+## Basic Usage
 
 <Playground>
-  <State initial={{
-      checked: false,
-      checked2: 0,
-    }}>
-    {
-      ({ state, setState }) => {
-        return (
-          <div>
-            <h4>开关, 输出: {state.checked.toString()}</h4>
-            <Switch
-              onChange={val => setState({
-                checked: val
-              })}
-              checked={state.checked} />
-            <h4>输出期望值: {state.checked2}</h4>
-            <Switch
-              onChange={val => {
-                console.log(val)
-                setState({
-                  checked2: val
-                })
-              }}
-              outputs={[1, 0]}
-              checked={state.checked2} />
-            <h4>不受控组件</h4>
-            <Switch
-              onChange={val => {
-                console.log(val)
-              }}
-              outputs={[1, 0]}
-              defaultChecked={true} />
-            <h4>禁止的开关</h4>
-            <Switch
-              onChange={val => {}}
-              disabled
-              checked={false}
-              tips={['开', '关']} />
-          </div>
-        )
-      }
+  {
+    () => {
+      const [checked1, setChecked1] = useState(false)
+      const [checked2, setChecked2] = useState(0)
+      return (
+        <div>
+          <h4>开关, 输出结果: {JSON.stringify(checked1)}</h4>
+          <Switch
+            onChange={val => setChecked1(val)}
+            checked={checked1} />
+        </div>
+      )
     }
-  </State>
+  }
 </Playground>
+
+## 指定期望输出的值
+
+<Playground>
+  {
+    () => {
+      const [checked1, setChecked1] = useState(false)
+      const [checked2, setChecked2] = useState(0)
+      return (
+        <div>
+          <h4>输出值: {checked2}</h4>
+          <Switch
+            onChange={val => {
+              console.log(val)
+              setChecked2(val)
+            }}
+            outputs={[1, 0]}
+            checked={checked2} />
+        </div>
+      )
+    }
+  }
+</Playground>
+
+## 不受控组件
+
+<Playground>
+  {
+    () => {
+      const [checked1, setChecked1] = useState(false)
+      const [checked2, setChecked2] = useState(0)
+      return (
+        <div>
+          <Switch
+            onChange={val => {
+              console.log(val)
+            }}
+            outputs={[1, 0]}
+            defaultChecked={true} />
+        </div>
+      )
+    }
+  }
+</Playground>
+
+## 自定义显示提示
+
+<Playground>
+  {
+    () => {
+      const [checked1, setChecked1] = useState(false)
+      const [checked2, setChecked2] = useState(0)
+      return (
+        <div>
+          <Switch
+            onChange={val => {}}
+            checked={false}
+            tips={['开', '关']} />
+        </div>
+      )
+    }
+  }
+</Playground>
+
+## 禁用状态
+
+<Playground>
+  {
+    () => {
+      const [checked1, setChecked1] = useState(false)
+      const [checked2, setChecked2] = useState(0)
+      return (
+        <div>
+          <Switch
+            onChange={val => {}}
+            disabled
+            checked={false} />
+        </div>
+      )
+    }
+  }
+</Playground>
+
+## Props
+
+<Props of={Switch} />
