@@ -10,6 +10,18 @@ menu: Data Display
 
 表格渲染的核心配置，RecordRender 的机制是根据 keyMapper 配置遍历 records 中的每一个具体字段，找到对应的过滤器，实现通用的表格处理
 
+## 使用 Typescript 定义
+
+```js
+import { TableKeyMapperItem } from 'ukelli-ui/core/record-render'
+
+const keyMapper: TableKeyMapperItem = [
+  {
+    ...
+  }
+]
+```
+
 ## 在 TableHeader 添加选择器
 
 > 通过传入不同类型的 title 字段，实现多种表头

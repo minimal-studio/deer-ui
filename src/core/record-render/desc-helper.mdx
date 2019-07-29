@@ -7,6 +7,7 @@ menu: Data Display
 import { useState } from 'react'
 import { Playground, Props } from 'docz'
 import { DescHelper } from './';
+import MockData from '../utils/mock-data';
 
 # DescHelper
 
@@ -17,10 +18,7 @@ import { DescHelper } from './';
 <Playground>
   {
     () => {
-      let longText = '';
-      for(let i = 100; i >= 0; i--) {
-        longText = longText + 'Long ';
-      }
+      let longText = MockData[0];
 
       const keyMapper = [
         {

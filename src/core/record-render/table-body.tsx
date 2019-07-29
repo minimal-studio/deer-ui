@@ -4,8 +4,9 @@ import {
 } from 'basic-helper';
 import classnames from 'classnames';
 
-import MapperFilter, { MapperFilterProps, KeyMapperItem } from './mapper-filter';
+import MapperFilter, { MapperFilterProps, KeyMapperItem, RecordItem } from './mapper-filter';
 import { Icon } from '../icon';
+import { Children } from '../utils/props';
 
 export interface TableKeyMapperItem extends KeyMapperItem {
   /** 点击表头排序的回调 */
@@ -14,23 +15,32 @@ export interface TableKeyMapperItem extends KeyMapperItem {
   fixed?: 'left' | 'right';
 }
 
+export type CheckedOverlay = (params: {
+  /** 已选择的项 */
+  checkedItems: {};
+  /** 取消选择 */
+  clearCheckeds: Function;
+}) => any;
+
 export interface TableProps extends MapperFilterProps {
   /** 对应 record 数据的 [key] */
   keyMapper: TableKeyMapperItem[];
-  /** 表格的数据源，用于每一行（row）的数据填充 */
-  clickToHighlight?: boolean;
-  /** 用于获取 row key */
-  rowKey?: (record, recordIdx) => string;
+  /** 数据源 */
+  records: RecordItem[];
   /** 是否需要统计 */
   needCount?: boolean;
-  /** 需要右对齐的 record 的类型 */
-  alignRightTypes?: string[];
-  /** 是否固定头部 */
-  fixHead?: boolean;
   /** 是否需要内部排序 */
   needInnerSort?: boolean;
   /** 是否多选 */
   needCheck?: boolean;
+  /** 表格的数据源，用于每一行（row）的数据填充 */
+  clickToHighlight?: boolean;
+  /** 用于获取 row key */
+  rowKey?: (record, recordIdx) => string;
+  /** 需要右对齐的 record 的类型 */
+  alignRightTypes?: string[];
+  /** 是否固定头部 */
+  fixHead?: boolean;
   /** 右边固定表格的列的集合 */
   fixedRightKeys?: string[];
   /** 左边固定表格的列的集合 */
@@ -43,15 +53,12 @@ export interface TableProps extends MapperFilterProps {
   height?: number | string;
   /** 无视的排序字段 */
   sortIgnores?: string[];
+  /** 当选中时往表格顶部嵌入的内容，即将废弃，改用 checkedOverlay */
+  whenCheckAction?: CheckedOverlay | Children;
   /** 当选中时往表格顶部嵌入的内容 */
-  whenCheckAction?: (params: {
-    /** 已选择的项 */
-    checkedItems: {};
-    /** 取消选择 */
-    clearCheckeds: Function;
-  }) => any;
+  checkedOverlay?: CheckedOverlay | Children;
   /** 选中项时的回调 */
-  onCheck: (nextChecked, idx?) => void;
+  onCheck?: (nextChecked, idx?) => void;
 }
 
 interface State {
@@ -161,6 +168,9 @@ export default class Table extends MapperFilter<TableProps, State> {
 
   componentDidMount() {
     window.addEventListener('resize', this.resizeCalcSize);
+    if (this.props.whenCheckAction) {
+      console.warn('whenCheckAction 即将废弃，请使用 checkedOverlay');
+    }
     // this.calcSize();
   }
 
@@ -449,7 +459,7 @@ export default class Table extends MapperFilter<TableProps, State> {
   }
 
   saveCell = (idx, isMain, rowKey) => (tdDOM) => {
-    if (tdDOM && tdDOM.offsetWidth > tdMaxWidth) tdDOM.classList.add(breakWordClass);
+    if (tdDOM && tdDOM.offsetWidth >= tdMaxWidth) tdDOM.classList.add(breakWordClass);
     if (tdDOM && isMain && idx === 0) {
       this.columnHeightInfo[rowKey] = tdDOM.offsetHeight;
     }
@@ -476,7 +486,7 @@ export default class Table extends MapperFilter<TableProps, State> {
       record, parentIdx, needCount, rowKey, keyMapper,
       needAction = true, filter, statistics, main
     } = options;
-    if (!record) return;
+    if (!record) return null;
     // const keyMapper = this.getKeyMapper();
     const keyMapperLen = keyMapper.length;
 
@@ -499,7 +509,6 @@ export default class Table extends MapperFilter<TableProps, State> {
       } else if (needFilter) {
         filterRes = this.mapperFilter(mapperItem, record, parentIdx);
       }
-      // filterRes = needFilter ? IsFunc(filter) ? filter(currText) : this.mapperFilter(mapperItem, record, parentIdx) : '-';
 
       if (needCount) {
         /**
@@ -856,7 +865,7 @@ export default class Table extends MapperFilter<TableProps, State> {
 
   render() {
     const {
-      whenCheckAction, needCheck
+      whenCheckAction, needCheck, checkedOverlay
     } = this.props;
     const {
       checkedItems
@@ -868,6 +877,7 @@ export default class Table extends MapperFilter<TableProps, State> {
     const checkedItemLen = Object.keys(checkedItems).length;
     const hasChecked = checkedItemLen > 0;
     const isAllCheck = hasRecord && (checkedItemLen === records.length);
+    const _checkedOverlay = checkedOverlay || whenCheckAction;
 
     const renderTableConfig = {
       hasRecord,
@@ -879,7 +889,7 @@ export default class Table extends MapperFilter<TableProps, State> {
     const mainTable = this.renderMainTable(renderTableConfig);
     const fixedGroup = this.renderFixedGroup(renderTableConfig);
 
-    const extendDOM = needCheck && whenCheckAction && (
+    const extendDOM = needCheck && _checkedOverlay && (
       <div className={`checked-actions${hasChecked ? ' show' : ''}`}>
         <span className="mr10">
           <span className="mr10">
@@ -887,9 +897,9 @@ export default class Table extends MapperFilter<TableProps, State> {
           </span>
           <span className="link" onClick={this.clearCheckeds}>{this.$T_UKE('清除')}</span>
         </span>
-        {IsFunc(whenCheckAction) ? whenCheckAction({
+        {typeof _checkedOverlay === 'function' ? _checkedOverlay({
           checkedItems, clearCheckeds: this.clearCheckeds
-        }) : whenCheckAction}
+        }) : _checkedOverlay}
       </div>
     );
 

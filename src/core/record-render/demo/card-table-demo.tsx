@@ -8,7 +8,7 @@ const test1 = () => {
       key: 'username',
       title: (mapper) => {
         return (
-          <span>使用 func title 返回表头</span>
+          <span>Func Title</span>
         );
       },
       namesMapper: {

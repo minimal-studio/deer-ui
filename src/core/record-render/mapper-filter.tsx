@@ -1,3 +1,4 @@
+/* eslint-disable eqeqeq */
 /* eslint-disable no-var */
 /* eslint-disable vars-on-top */
 import React from 'react';
@@ -35,26 +36,35 @@ export interface KeyMapperItem {
   abvMoney?: boolean;
   /** 是否统计该 Row */
   count?: boolean;
+  /** 是否可选择 */
+  selectable?: boolean;
   /** 是否统计该 Row */
   tips?: string | string[];
   /** 渲染让对应 dataSrc 的数据嵌入 Label */
   labels?: {
-    [dataSrc: string]: Color;
+    [dataKey: string]: Color;
   };
   /** 内置的 字段映射 过滤器 */
   namesMapper?: {
     [dataSrc: string]: string;
   };
+  /** 是否固定 */
+  fixed?: 'left' | 'right';
+}
+
+export interface RecordItem {
+  [key: string]: any;
 }
 
 export interface MapperFilterProps {
-  /** 用于生命过滤 */
   keyMapper: KeyMapperItem[];
   /** 服务端返回的数据 */
-  records: {
-    [key: string]: any;
-  }[];
+  records?: RecordItem[];
   onChange?: (val, title) => void;
+  /** 右边固定表格的列的集合 */
+  fixedRightKeys?: string[];
+  /** 左边固定表格的列的集合 */
+  fixedLeftKeys?: string[];
 }
 
 const excludeKey = (target, keys) => {
@@ -65,11 +75,13 @@ const excludeKey = (target, keys) => {
   return res;
 };
 
-export default class MapperFilter<P = MapperFilterProps, S = {}> extends UkeComponent<P, S> {
+export default class MapperFilter<
+  P = MapperFilterProps, S = {}
+> extends UkeComponent<P & MapperFilterProps, S> {
   /** 可以覆盖的 excludeKeys */
-  excludeKeys = ['records', 'keyMapper', 'whenCheckAction'];
+  excludeKeys = ['records', 'keyMapper', 'checkedOverlay', 'whenCheckAction'];
 
-  sortIgnores = [];
+  sortIgnores: string[] = [];
 
   selectorCache = {};
 
@@ -84,10 +96,12 @@ export default class MapperFilter<P = MapperFilterProps, S = {}> extends UkeComp
     const _thisProps = excludeKey(this.props, this.excludeKeys);
     const _nextProps = excludeKey(nextProps, this.excludeKeys);
 
+    const { keyMapper, records } = this.props;
+
     const isStateChange = this.state != nextState;
     const isPropsChange = JSON.stringify(_thisProps) !== JSON.stringify(_nextProps);
-    const isKeyMapperChange = this.props.keyMapper != nextProps.keyMapper;
-    const isRecordsChange = this.props.records != nextProps.records;
+    const isKeyMapperChange = keyMapper != nextProps.keyMapper;
+    const isRecordsChange = records != nextProps.records;
     // const isCheckedItemsChange = this.state.checkedItems != nextState.checkedItems;
     if (isRecordsChange && this.onChangeRecords) {
       this.onChangeRecords();
@@ -95,45 +109,56 @@ export default class MapperFilter<P = MapperFilterProps, S = {}> extends UkeComp
     return isStateChange || isPropsChange || isKeyMapperChange || isRecordsChange;
   }
 
+  isInFixedTable = (key) => {
+    const { fixedRightKeys, fixedLeftKeys } = this.props;
+    const isInFixTable = (Array.isArray(fixedRightKeys) && Array.isArray(fixedLeftKeys))
+      && (fixedLeftKeys.concat(fixedRightKeys).indexOf(key) !== -1);
+    return isInFixTable;
+  }
+
   titleFilter(item, idx) {
-    const { title, key, tips } = item as KeyMapperItem;
+    const {
+      title, key, tips, fixed
+    } = item as KeyMapperItem;
     let titleDOM;
-    switch (true) {
-      case IsFunc(title):
-        titleDOM = title(item, idx);
-        break;
-      case title && typeof title === 'object' && title.type === 'selector':
-        const {
-          outside = true,
-          defaultTitle = this.$T(key),
-          invalidTip = this.$T_UKE('默认'),
-          cancelTitle = this.$T_UKE('默认'),
-          ref = key,
-          onChange,
-          ...other
-        } = title as TitleFormSelector;
-        titleDOM = (
-          <Dropdown {...other}
-            withInput={false}
-            onChange={(val) => {
-              const emitVal = {
-                [ref]: val
-              };
-              Call(onChange, emitVal);
-              Call(this.props.onChange, emitVal, title);
-            }}
-            scrollX={this.scrollX}
-            scrollY={this.scrollY}
-            outside={outside}
-            defaultTitle={defaultTitle}
-            invalidTip={invalidTip}
-            cancelTitle={cancelTitle} />
-        );
-        if (this.sortIgnores.indexOf(key) === -1) this.sortIgnores.push(key);
-        break;
-      default:
-        titleDOM = this.$T(title || key);
-        break;
+
+    if (typeof title === 'function') {
+      titleDOM = title(item, idx);
+    } else if (typeof title === 'object') {
+      switch (title.type) {
+        case 'selector':
+          const {
+            outside = true,
+            defaultTitle = this.$T(key),
+            invalidTip = this.$T_UKE('默认'),
+            cancelTitle = this.$T_UKE('默认'),
+            ref = key,
+            onChange,
+            ...other
+          } = title as TitleFormSelector;
+          const isInFixTable = this.isInFixedTable(key) || !!fixed;
+          titleDOM = (
+            <Dropdown {...other}
+              withInput={false}
+              onChange={(val) => {
+                const emitVal = {
+                  [ref]: val
+                };
+                Call(onChange, emitVal);
+                Call(this.props.onChange, emitVal, title);
+              }}
+              scrollX={isInFixTable ? 0 : this.scrollX}
+              // scrollY={this.scrollY}
+              outside={outside}
+              defaultTitle={defaultTitle}
+              invalidTip={invalidTip}
+              cancelTitle={cancelTitle} />
+          );
+          if (this.sortIgnores.indexOf(key) === -1) this.sortIgnores.push(key);
+          break;
+      }
+    } else {
+      titleDOM = this.$T(title || key);
     }
     const tipsDOM = tips ? (
       <ToolTip n="question" s="r" title={tips}/>
