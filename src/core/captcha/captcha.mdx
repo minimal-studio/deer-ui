@@ -24,11 +24,7 @@ const getData = (callback) => {
   })
 }
 
-// 任选其一
-Captcha.setQueryCAPTCHAData(getData);
-setUkelliConfig({
-  queryCAPTCHAData: getData
-})
+Captcha.setAPI(getData);
 ```
 
 ## Basic Usage
@@ -36,7 +32,7 @@ setUkelliConfig({
 <Playground>
   {
     () => {
-      Captcha.setQueryCAPTCHAData((callback) => {
+      Captcha.setAPI((callback) => {
         setTimeout(() => {
           callback({
             hasErr: false,

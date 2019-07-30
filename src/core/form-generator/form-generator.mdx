@@ -6,7 +6,7 @@ menu: FormGenerator
 
 import { Playground, Props } from 'docz'
 import { FormGenerator } from './';
-import { setUkelliConfig } from '../';
+import { Captcha } from '../captcha';
 
 import formOptions from './demo/form-options-demo';
 import FormOptionsDesc from './form-options-demo.md';
@@ -18,8 +18,8 @@ import FormOptionsDesc from './form-options-demo.md';
 <Playground>
   {
     () => {
-      setUkelliConfig({
-        queryCAPTCHAData: (callback) => {
+      Captcha.setAPI(
+        (callback) => {
           setTimeout(() => {
             callback({
               hasErr: false,
@@ -28,7 +28,7 @@ import FormOptionsDesc from './form-options-demo.md';
             })
           }, 1000);
         }
-      })
+      )
       /** formOptions 查看 ./demo/form-options-demo.js */
       let formRef;
       return (
