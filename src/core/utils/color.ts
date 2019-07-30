@@ -1,3 +1,6 @@
+export const ThemeColor = [
+  'theme',
+];
 export const ExampleColors = [
   // nature color
   // 'theme',
@@ -14,7 +17,6 @@ export const ExampleColors = [
 ];
 export const NatureColors = [
   // nature color
-  'theme',
   'blue',
   'green',
   'orange',
@@ -42,7 +44,7 @@ export const StatusColors = [
   'warn',
   'warm',
 ];
-export const ColorGroup = [...NatureColors, ...GrayscaleColors, ...StatusColors];
+export const ColorGroup = [...ThemeColor, ...NatureColors, ...GrayscaleColors, ...StatusColors];
 
 type ForEachColorParams = (color: string, idx: number) => JSX.Element | JSX.Element[];
 /**
