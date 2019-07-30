@@ -4,33 +4,112 @@ route: /Grid
 menu: Layout
 ---
 
+import { useState } from 'react'
 import { Playground, Props } from 'docz'
 import { Grid } from '../../src/core/grid'
 import { Card, CardContainer } from '../../src/core/card';
+import { Radio } from '../../src/core/selector';
 
 # Grid
 
-> Grid class 的组件化实现, 具体参考一下 props，可以对应 Grid 的 class
+> flex layout system 的组件化实现
+
+## Basic Usage
 
 <Playground>
   <CardContainer className="bg_default">
-    <Grid container space={20}>
-      <Grid item xs={12} sm={6} lg={6}>
+    <Grid container space={5}>
+      <Grid item xs={12} sm={12} lg={12}>
         <Card p={20}>
-          ukelli-ui 是基于 React 的 UI 库，提供简约和功能齐全的组件，可高度定制的组件接口，灵活的配置，提供给开发者另一种开发思路，也致力于尝试不同的组件使用和开发方向。
+          xs-12, sm-12, lg-12
         </Card>
       </Grid>
       <Grid item xs={12} sm={6} lg={6}>
         <Card p={20}>
-          ukelli-ui 是基于 React 的 UI 库，提供简约和功能齐全的组件，可高度定制的组件接口，灵活的配置，提供给开发者另一种开发思路，也致力于尝试不同的组件使用和开发方向。
+          xs-12, sm-6, lg-6
+        </Card>
+      </Grid>
+      <Grid item xs={12} sm={6} lg={6}>
+        <Card p={20}>
+          xs-12, sm-6, lg-6
+        </Card>
+      </Grid>
+      <Grid item xs={12} sm={8} lg={8}>
+        <Card p={20}>
+          xs-12, sm-8, lg-8
+        </Card>
+      </Grid>
+      <Grid item xs={12} sm={4} lg={4}>
+        <Card p={20}>
+          xs-12, sm-4, lg-4
         </Card>
       </Grid>
     </Grid>
   </CardContainer>
 </Playground>
 
+## Space
+
+每个 Grid 之间的空隙
+
+<Playground>
+  {
+    () => {
+      const defaultSpace = 20;
+      const [space, setSpace] = useState(defaultSpace)
+      return (
+        <div>
+          <Radio 
+            defaultValue={space}
+            isNum
+            onChange={nextSpace => setSpace(nextSpace)}
+            values={{
+              0: 0,
+              5: 5,
+              10: 10,
+              15: 15,
+              20: 20,
+            }} />
+          <hr />
+          <CardContainer className="bg_default">
+            <Grid container space={space}>
+              <Grid item xs={12} sm={12} lg={12}>
+                <Card p={20}>
+                  xs-12, sm-12, lg-12
+                </Card>
+              </Grid>
+              <Grid item xs={12} sm={6} lg={6}>
+                <Card p={20}>
+                  xs-12, sm-6, lg-6
+                </Card>
+              </Grid>
+              <Grid item xs={12} sm={6} lg={6}>
+                <Card p={20}>
+                  xs-12, sm-6, lg-6
+                </Card>
+              </Grid>
+              <Grid item xs={12} sm={8} lg={8}>
+                <Card p={20}>
+                  xs-12, sm-8, lg-8
+                </Card>
+              </Grid>
+              <Grid item xs={12} sm={4} lg={4}>
+                <Card p={20}>
+                  xs-12, sm-4, lg-4
+                </Card>
+              </Grid>
+            </Grid>
+          </CardContainer>
+        </div>
+      )
+    }
+  }
+</Playground>
+
+## Props
+
 <Props of={Grid} />
 
 ## 参考
 
-- [Flex 删格系统](#/Flex)
+- [Flex 删格系统](/Flex)

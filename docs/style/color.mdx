@@ -1,82 +1,40 @@
 ---
 name: Color
-route: /Color
+route: /SetColor
 menu: Style
 ---
 
 import { Playground, Props } from 'docz'
 import { Label } from '../../src/core/label'
+import { 
+  ExampleColors, NatureColors,
+  GrayscaleColors, StatusColors,
+  ForEachColor
+} from '../../src/core/utils'
 
-# Color
+# Uke Color
 
-## 使用默认定义的 colors
-
-```css
-@import 'ukelli/style/color/default.scss';
-```
-
-## 自定义颜色
-
-### 1. 定义 scss 的 colors
-
-```css
-```
-
-### 2. 在 scss 中引入 set-color.scss
-
-```css
-@import 'ukelli/style/set-color.scss';
-```
-
-### 3. 使用 color class
-
-规则
-
-1. bg_ 前缀设置背景颜色，bg_red
-1. t_ 前缀设置字体颜色，t_green
-
-```jsx
-<div className="bg_red"></div>
-```
-
-### color 一览
+## Main Color
 
 <Playground>
   {
     () => {
-      const colorsColl = [
-        'theme', 'red', 'orange', 'yellow', 'gold', 'blue', 'green', 'purple',
-        'primary', 'default', 'white', 'important', 'warn', 'black',
-        'grey', 'wine'
-      ];
-      const Block = ({ className }) => {
-        return (
-          <span style={{display: 'inline-block'}} className={className + ' p15'}></span>
-        )
-      }
-      const BlockText = ({ className }) => {
-        return (
-          <span className={className + ' mr5'}>字</span>
-        )
-      }
-      const allBlock = colorsColl.map(color => {
-        return <Block key={color} className={`bg_${color}`} />
-      })
-      const allBlockText = colorsColl.map(color => {
-        return <BlockText key={color} className={`t_${color}`} />
-      })
-      const allLabel = colorsColl.map(color => {
-        return <Label key={color} color={color} text={color} className="mb5" />
-      })
-
       return (
-        <div className="bg_default p20">
-          <h3>背景</h3>
-          {allBlock}
-          <h3>字</h3>
-          {allBlockText}
-          <h3>Label</h3>
-          {allLabel}
+        <div className="layout">
+          {
+            ForEachColor(ExampleColors)((color, idx) => {
+              return (
+                <div key={color} className="flex text-center">
+                  <div className={`flex bg_${color}`}
+                    style={{
+                      height: 150
+                    }}>
+                  </div>
+                  {color}
+                </div>
+              )
+            })
+          }
         </div>
       )
     }
