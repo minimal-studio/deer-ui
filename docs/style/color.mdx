@@ -6,6 +6,7 @@ menu: Style
 
 import { Playground, Props } from 'docz'
 import { Label } from '../../src/core/label'
+import { Grid } from '../../src/core/grid'
 import { 
   ExampleColors, NatureColors,
   GrayscaleColors, StatusColors,
@@ -14,21 +15,97 @@ import {
 
 # Uke Color
 
-## Main Color
+## Colors
+
+`ukelli-ui` 定义了 `8` 种颜色，每种颜色再按照饱和度细分 `6` 级，对应的规则是 `color-level`, 例如
+
+```scss
+$blue;
+$blue-1;
+$blue-2;
+$blue-3;
+$blue-4;
+$blue-5;
+$blue-6;
+```
 
 <Playground>
   {
     () => {
+      const colorLevel = [1,2,3,4,5,6];
+      const colors = ['blue', 'green', 'red'];
+      return (
+        <Grid container space={0}>
+          {
+            ForEachColor(NatureColors)((color, idx) => {
+              return (
+                <Grid key={color} item lg={6} md={6}>
+                  <Grid container space={5}>
+                    <Grid item lg={12} md={12}>
+                      <div className={`flex bg_${color}`}
+                        style={{
+                          height: 100
+                        }}>
+                      </div>
+                    </Grid>
+                    {
+                      colorLevel.map((_, i) => {
+                        const currColor = `bg_${color}-${_}`;
+                        return (
+                          <Grid key={currColor} item lg={2} md={2}>
+                            <div
+                              style={{
+                                display: 'block'
+                              }}
+                              className={currColor + ' flex'}
+                              style={{
+                                height: 100,
+                              }}>
+                            </div>
+                          </Grid>
+                        )
+                      })
+                    }
+                    <div style={{
+                      fontSize: 18,
+                      marginBottom: 20,
+                    }}>{color}</div>
+                  </Grid>
+                </Grid>
+              )
+            })
+          }
+        </Grid>
+      )
       return (
         <div className="layout">
           {
-            ForEachColor(ExampleColors)((color, idx) => {
+            ForEachColor(colors)((color, idx) => {
               return (
-                <div key={color} className="flex text-center">
+                <div key={color} className="flex text-center p10">
                   <div className={`flex bg_${color}`}
                     style={{
                       height: 150
                     }}>
+                  </div>
+                  <div className="layout">
+                    {
+                      colorLevel.map((_, i) => {
+                        const currColor = `bg_${color}-${_}`;
+                        return (
+                          <div
+                            key={currColor}
+                            style={{
+                              display: 'block'
+                            }}
+                            className={currColor + ' flex'}
+                            style={{
+                              height: 150,
+                            }}>
+                          </div>
+                        )
+                      })
+                    }
                   </div>
                   {color}
                 </div>

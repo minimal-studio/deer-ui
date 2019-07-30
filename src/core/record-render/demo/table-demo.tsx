@@ -90,7 +90,7 @@ const Test4 = () => {
           const nextRecords = [...records, records[0]];
           setRecords(nextRecords);
         }}>增加一条记录</span>
-        <span className="btn gold mr10" onClick={(e) => {
+        <span className="btn orange mr10" onClick={(e) => {
           const nextRecords = [...records].slice(0, records.length - 1);
           setRecords(nextRecords);
         }}>减少一条记录</span>
@@ -140,7 +140,7 @@ const Test5 = () => {
           const nextRecords = [...records, records[0]];
           setRecords(nextRecords);
         }}>增加一条记录</span>
-        <span className="btn gold mr10" onClick={(e) => {
+        <span className="btn orange mr10" onClick={(e) => {
           const nextRecords = [...records].slice(0, records.length - 1);
           setRecords(nextRecords);
         }}>减少一条记录</span>

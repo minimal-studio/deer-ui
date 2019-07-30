@@ -11,7 +11,7 @@ const Test1 = () => {
   return (
     <div>
       <span
-        className="btn theme flat mr10"
+        className="btn theme mr10"
         onClick={e => ShowModal({
           draggable: false,
           title: '默认的 Modal',
@@ -53,7 +53,7 @@ const Test1 = () => {
       </span>
 
       <span
-        className="btn gold flat mr10"
+        className="btn orange mr10"
         onClick={e => ShowModal({
           title: '有操作按钮的 Modal',
           showFuncBtn: true,
@@ -63,7 +63,7 @@ const Test1 = () => {
       </span>
 
       <span
-        className="btn purple flat mr10"
+        className="btn purple mr10"
         onClick={e => ShowModal({
           type: 'confirm',
           title: '确认框',
