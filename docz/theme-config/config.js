@@ -21,10 +21,10 @@ export default {
   /**
    * Logo
    */
-  // logo: {
-  //   src: null,
-  //   width: null,
-  // },
+  logo: {
+    src: '/public/logo.png',
+    width: 120
+  },
   /**
    * Radius
    */
