@@ -20,6 +20,11 @@
   - 全新的配色方案
 - Avatar 支持 Color 系统
 
+### 颜色更改
+
+- 新增 light-blue
+- 废弃 gold
+
 ### 废弃组件
 
 - state-manager
