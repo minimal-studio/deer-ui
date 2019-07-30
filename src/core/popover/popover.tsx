@@ -6,7 +6,7 @@ import {
   getLeft, getRight, getTop, getBottom,
   PositionReturn, PopoverPosition
 } from '../utils/position';
-import { Children } from '../utils/props';
+import { Children, Color } from '../utils/props';
 
 export interface PopoverProps {
   /** 是否激活 */
@@ -18,7 +18,7 @@ export interface PopoverProps {
   /** 弹出的位置 */
   position?: PopoverPosition;
   /** 弹出框的颜色类型 */
-  type?: 'black' | 'white' | 'theme' | 'blue' | 'red' | 'green' | 'gold';
+  type?: Color;
   /** 是否显示关闭按钮 */
   showCloseBtn?: boolean;
   /** 是否 fixed 定位 */

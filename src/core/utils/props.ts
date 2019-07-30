@@ -4,7 +4,7 @@ export type NatureColorTypes =
   |'red'
   |'orange'
   |'yellow'
-  |'gold'
+  // |'gold'
   |'blue'
   |'green'
   |'purple';

@@ -18,14 +18,13 @@ export const ExampleColors = [
 export const NatureColors = [
   // nature color
   'blue',
+  'light-blue',
+  'cyan',
   'green',
+  'yellow',
   'orange',
   'red',
-  'cyan',
   'purple',
-  'wine',
-  'yellow',
-  'gold',
 ];
 export const GrayscaleColors = [
   // Grayscale
