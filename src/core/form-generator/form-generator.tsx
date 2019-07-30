@@ -4,6 +4,7 @@
 import React from 'react';
 
 import { UUID, Call } from 'basic-helper';
+import classnames from 'classnames';
 import FormFilterHelper, { FormFilterProps, FormOptionsItem } from './form-filter';
 import { DivideType } from '../utils/props';
 
@@ -103,12 +104,19 @@ export default class FormGenerator extends FormFilterHelper<FormGeneratorProps> 
               <span className="form-desc">{_con.desc}</span>
             );
 
+            const classes = classnames(
+              'form-group',
+              _con.type,
+              itemClassName,
+              isRequired && 'required'
+            );
+
             return (
               <div key={`${itemRef}_${this.ID}`}
                 ref={(e) => {
                   if (e) this.formItemRefs[itemRef] = e;
                 }}
-                className={`form-group ${_con.type} ${itemClassName} ${isRequired ? ' required' : ''}`}>
+                className={classes}>
                 {
                   needTitle ? (
                     <span className="control-label">

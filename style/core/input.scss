@@ -1,24 +1,4 @@
-// @import "../var.scss";
-
 $iconViewBgColor: $themeColor;
-
-// .animate-input-title {
-//   .input-group {
-//     width: 100%;
-//   }
-//   .input-control {
-//     &.has-val,&.focusing {
-//       .title {
-//         font-size: 12px;
-//         transform: translateY(-100%);
-//       }
-//     }
-//     .title {
-//       position: absolute;
-//       bottom: 4px;
-//     }
-//   }
-// }
 
 .input-verify {
   display: flex;
@@ -72,7 +52,7 @@ $iconViewBgColor: $themeColor;
     &.has-val,&.focusing {
       .title {
         font-size: 12px;
-        transform: translateY(-100%);
+        transform: translateY(-120%);
       }
     }
     .title {
@@ -106,6 +86,7 @@ $iconViewBgColor: $themeColor;
   .input-group {
     position: relative;
     display: flex;
+    flex: 1;
     align-items: center;
     border: 1px solid $gray;
     border-radius: 3px;
