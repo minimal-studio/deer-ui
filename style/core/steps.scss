@@ -57,7 +57,7 @@ $tipIdxScale: 30px;
         @include tipIdxColor($red);
       }
       &.wran {
-        @include tipIdxColor($gold);
+        @include tipIdxColor($orange);
         .tip-idx {
           color: rgb(99, 89, 31);
         }
@@ -76,7 +76,7 @@ $tipIdxScale: 30px;
         @include tipIdxBg($red);
       }
       &.wran {
-        @include tipIdxBg($gold);
+        @include tipIdxBg($orange);
         .tip-idx {
           color: rgb(99, 89, 31);
         }

@@ -16,12 +16,12 @@
  
 @mixin paddingForGrid($padding) {
   margin: - $padding * 1px;
-  padding: $padding * 2px;
-  [class*=row-],
-  [class*=xl-],
-  [class*=lg-],
-  [class*=sm-],
-  [class*=xs-] {
+  padding: $padding * 1.5px;
+  >[class*=row-],
+  >[class*=xl-],
+  >[class*=lg-],
+  >[class*=sm-],
+  >[class*=xs-] {
     padding: $padding / 2 * 1px;
   }
 }
