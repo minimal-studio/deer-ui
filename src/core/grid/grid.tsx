@@ -83,7 +83,7 @@ export interface GridProps {
   /** 是否作为子组件 */
   item?: boolean;
   /** style */
-  style?: {};
+  style?: React.CSSProperties;
   /** row 为多少，详情参考 布局系统 layout */
   // row: PropTypes.oneOf(RowSet),
 }

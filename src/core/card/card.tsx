@@ -6,7 +6,7 @@ interface CardProps {
   /** className */
   className?: string;
   /** style */
-  style?: {};
+  style?: React.CSSProperties;
 }
 
 const Card: React.SFC<CardProps> = ({

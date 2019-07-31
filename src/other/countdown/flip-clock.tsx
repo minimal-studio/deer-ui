@@ -8,7 +8,7 @@ interface FlipUnitContainerProps {
   digit: number | string;
   width: number;
   height: number;
-  flipItemStyle?: {};
+  flipItemstyle?: React.CSSProperties;
   unit?: string;
 }
 
@@ -125,7 +125,7 @@ interface CountdownProps {
   height?: number;
   className: string;
   /** 给每一个 flip 的 style */
-  flipItemStyle?: {};
+  flipItemstyle?: React.CSSProperties;
   /** 需要广播的时间节点 */
   countdownNotifyTimer?: number;
   /** 广播的时间节点触发的回调 */

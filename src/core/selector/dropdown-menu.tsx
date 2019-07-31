@@ -30,7 +30,7 @@ export interface DropdownMenuProps extends SelectorBasicProps, DropdownWrapperPr
   /** 是否多选 */
   isMultiple?: boolean;
   /** 传入 dropdownMenu 的 style */
-  style?: {};
+  style?: React.CSSProperties;
   /** 没有值时显示的 title */
   defaultTitle?: string;
   /** 无效值的显示 */

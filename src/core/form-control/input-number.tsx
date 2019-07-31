@@ -18,7 +18,7 @@ export interface InputVerifyProps extends InputVerifyClassProps {
   /** 辅助按钮每一次的增减单位 */
   unit?: number;
   /** style */
-  style?: {};
+  style?: React.CSSProperties;
 }
 
 function precentFilter(val, isPrecent) {

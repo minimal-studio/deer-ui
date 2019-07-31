@@ -30,7 +30,7 @@ export interface PopoverProps {
   /** class name */
   children?: Children;
   /** style */
-  style?: {};
+  style?: React.CSSProperties;
   /** 是否支持 Esc 关闭 */
   enableTabIndex?: boolean;
 }

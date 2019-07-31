@@ -17,7 +17,7 @@ export interface ModalRequiredProps {
 
 export interface ModalOptions extends DragPanelClassProps {
   /** style */
-  style?: {};
+  style?: React.CSSProperties;
   /** 动画的持续时间 */
   duration?: number;
   /** title */
@@ -82,7 +82,7 @@ export interface ModalOptions extends DragPanelClassProps {
 
 export interface ModalProps extends ModalOptions, ModalRequiredProps {
   /** style */
-  style?: {};
+  style?: React.CSSProperties;
   /** 动画的持续时间 */
   duration?: number;
   /** title */

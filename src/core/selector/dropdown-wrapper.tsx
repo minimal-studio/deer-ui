@@ -53,7 +53,7 @@ export interface DropdownWrapperProps {
   /** 用于渲染最外层的内容 */
   overlay?: (helper: FuncChildrenParams) => Children;
   /** style */
-  style?: {};
+  style?: React.CSSProperties;
 }
 
 const dropdownContainerID = 'DropdownContainer';

@@ -30,7 +30,7 @@ export interface SelectorBasicProps {
   /** 是否可以多选 */
   isMultiple?: boolean;
   /** style */
-  style?: {};
+  style?: React.CSSProperties;
   /** onChange callback */
   onChange?: Function;
 }

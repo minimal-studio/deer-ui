@@ -14,7 +14,7 @@ export interface StepProps {
   /** 由 Steps 传入 */
   isChecked?: boolean;
   /** 由 Steps 传入 */
-  style?: {};
+  style?: React.CSSProperties;
 }
 
 const typeMapper = {

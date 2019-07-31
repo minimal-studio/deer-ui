@@ -12,7 +12,7 @@ export interface RadioProps extends SelectorBasicProps, IconProps {
   /** 是否竖向排列 */
   column?: boolean;
   /** 传入每个 item 的 style */
-  itemStyle?: {};
+  itemstyle?: React.CSSProperties;
   /** 统一控制每个 item 的宽度 */
   itemWidth?: string | number;
 }

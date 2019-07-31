@@ -4,7 +4,7 @@ interface CardContainerProps {
   /** className */
   className?: string;
   /** style */
-  style?: {};
+  style?: React.CSSProperties;
   /** 是否树立排版 */
   isCol?: boolean;
 }

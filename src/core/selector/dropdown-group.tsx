@@ -22,7 +22,7 @@ export interface DropdownGroupProps extends SelectorBasicProps, DropdownWrapperP
     values: string;
   };
   /** style of DropdownGroup */
-  style?: {};
+  style?: React.CSSProperties;
 }
 
 interface State extends SelectorBasicState {
