@@ -1,15 +1,11 @@
 # ukelli-ui
 
-ukelli-ui 是基于 React 的 UI 库，提供简约和功能齐全的组件，可高度定制的组件接口，灵活的配置，提供给开发者另一种开发思路，也致力于尝试不同的组件使用和开发方向。
+Base on React's UI lib. Make frontend's dev simpler, faster.
 
 [![Build Status](https://travis-ci.org/ukelli/ukelli-ui.svg?branch=master)](https://travis-ci.org/ukelli/ukelli-ui)
 [![install size](https://packagephobia.now.sh/badge?p=ukelli-ui)](https://packagephobia.now.sh/result?p=ukelli-ui)
 
-> 轻量级 React UI 框架，探索另一种开发方式，尝试另一种可能。
-
-## Installation / 安装
-
-### Via Npm
+## Installation
 
 ```shell
 # yarn
@@ -19,7 +15,7 @@ yarn add ukelli-ui
 npm i ukelli-ui
 ```
 
-## Usage / 使用
+## Usage
 
 ```js
 import React from 'react';
@@ -29,7 +25,7 @@ import { Button } from 'ukelli-ui/core/button';
 
 const handleClick = (e) => {
   const ModalID = ShowModal({
-    title: '弹出层',
+    title: 'Overlay',
     elem: e,
     children: (
       <div>内容</div>
@@ -41,16 +37,14 @@ const handleClick = (e) => {
 
 const App = () => (
   <Button onClick={handleClick}>
-    弹出层
+    Overlay
   </Button>
 )
 
 ReactDOM.render(<App />, document.querySelector('#Main'));
 ```
 
-## 本地构建
-
-> 基于 docz 编写的文档和示例
+## Local dev
 
 ```shell
 git clone https://github.com/ukelli/ukelli-ui
@@ -59,15 +53,12 @@ yarn
 yarn docz:dev
 ```
 
-打开 [http://localhost:3000/](http://localhost:3000/) 本地预览
+## Related reference
 
-## 相关参考
-
-- [在线文档](https://ui.ukelli.com/)
-- [聚合表单](https://ui.ukelli.com/#/G-Desc)
-- [更新日志](./docs/CHANGELOG.md)
-- [关于 FormGenerator 的 UI 的逻辑](./docs/ui-logic.md)
-- [按需加载](./docs/import-desc.md)
-- [配置设置](./docs/configuration.md)
-- [组件说明](./docs/components.md)
-- [引用外部库依赖说明](./docs/components.md)
+- [Online Doc](https://ui.ukelli.com/)
+- [FormGenerator](https://ui.ukelli.com/#/G-Desc)
+- [CHANGELOG](./docs/CHANGELOG.md)
+- [UI logic of FormGenerator](./docs/ui-logic.md)
+- [Import](./docs/import-desc.md)
+- [Configure](./docs/configuration.md)
+- [Components Desc](./docs/components.md)
