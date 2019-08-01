@@ -57,19 +57,19 @@
 
 - 优化样式
 
-### Carousel
+#### Carousel
 
 - props 更改: styleConfig -> style
 
-### Tabs
+#### Tabs
 
 - 新增 tabsClassName 取代旧的 className
 
-### Table
+#### Table
 
 - whenCheckAction 更名为 checkedOverlay
 
-### Pagination
+#### Pagination
 
 - 更改 defaultProps.infoMapper 与 props.infoMapper 的默认数据结构一致
 
