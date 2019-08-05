@@ -5,10 +5,12 @@ import React from 'react';
 
 import { UUID, Call } from 'basic-helper';
 import classnames from 'classnames';
-import FormFilterHelper, { FormFilterProps, FormOptionsItem } from './form-filter';
+import FormFilterHelper, { FormFilterProps, FormOptionsItem, FormChangeEvent } from './form-filter';
 import { DivideType } from '../utils/props';
 
-export interface FormGeneratorProps extends FormFilterProps<(FormOptionsItem & DivideType)[]> {
+export type FormOptions = (FormOptionsItem | DivideType | string)[];
+
+export interface FormGeneratorProps extends FormFilterProps<FormOptions> {
   // /** 表单配置 */
   // formOptions: (FormOptionsItem | DivideType)[];
   /** 是否移动端，开启移动端渲染 */
@@ -20,9 +22,9 @@ export interface FormGeneratorProps extends FormFilterProps<(FormOptionsItem & D
   /** 是否显示 input 组建的 title */
   showInputTitle?: boolean;
   /** 表单类型为 submit 时触发的回调 */
-  onSubmit?: Function;
+  onSubmit?: (formValue) => void;
   /** 内容改变 */
-  onChange?: Function;
+  onChange?: FormChangeEvent;
 }
 
 const hrDivide = ['-', 'hr'];

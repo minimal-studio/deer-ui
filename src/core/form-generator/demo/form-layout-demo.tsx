@@ -2,6 +2,7 @@ import React from 'react';
 
 import { FormLayout } from '..';
 import formOptions from './form-options-demo';
+import { FormLayoutBtnsConfig } from '../form-layout';
 
 export default class FormLayoutDemo extends React.Component {
   state = {
@@ -9,7 +10,7 @@ export default class FormLayoutDemo extends React.Component {
     resDesc: ''
   };
 
-  btnConfig = [
+  btnConfig: FormLayoutBtnsConfig = [
     {
       action: (formRef, actingRef) => {
         console.log(formRef.value, actingRef);

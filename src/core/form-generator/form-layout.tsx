@@ -13,6 +13,8 @@ import FormGenerator, { FormGeneratorProps } from './form-generator';
 import { UkeComponent } from '../utils/uke-component';
 import { BtnItemConfig } from '../utils/props';
 
+export type FormLayoutBtnsConfig = BtnItemConfig[];
+
 export interface FormLayoutProps extends FormGeneratorProps {
   /** 只有一个按钮时传入的按钮 text */
   btnText?: string;
@@ -21,23 +23,23 @@ export interface FormLayoutProps extends FormGeneratorProps {
   /** 是否已准备好渲染 */
   ready?: boolean;
   /** 传入 TipPanel 控件的参数 */
-  tipInfo: TipPanelProps;
+  tipInfo?: TipPanelProps;
   /** 可以配置一个或多个操作按钮 */
-  btnConfig: BtnItemConfig[];
+  btnConfig?: FormLayoutBtnsConfig;
   /** 是否竖立显示 */
-  isVertical: boolean;
+  isVertical?: boolean;
   /** 是否移动端 */
-  isMobile: boolean;
+  isMobile?: boolean;
   /** 操作的返回是否有错误 */
-  hasErr: boolean;
+  hasErr?: boolean;
   /** 操作返回的消息 */
-  resDesc: string;
+  resDesc?: string;
   /** 在 form 之前插入的 children */
-  childrenBeforeForm: any;
+  childrenBeforeForm?: any;
   /** 在 form 之后插入的 children */
-  childrenAfterForm: any;
+  childrenAfterForm?: any;
   /** 在 form 的 children 前插入按钮 */
-  childrenBeforeBtn: any;
+  childrenBeforeBtn?: any;
 }
 
 export default class FormLayout extends UkeComponent<FormLayoutProps> {

@@ -1,4 +1,5 @@
 import React from 'react';
+import { FormLayoutProps } from '../form-layout';
 
 const CustomerCom = ({ onChange }) => {
   // onChange 由 FormGenerator 提供
@@ -7,7 +8,7 @@ const CustomerCom = ({ onChange }) => {
   );
 };
 
-const formOptions = [
+const formOptions: FormLayoutProps['formOptions'] = [
   '日期',
   {
     refs: ['startDate', 'endDate'],

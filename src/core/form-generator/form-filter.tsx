@@ -38,12 +38,17 @@ export interface FormOptionsItem {
   refu?: {
     [ref: string]: string;
   };
+  [anyPropsForComponent: string]: any;
 }
 
-export interface FormFilterProps<FormOptions = FormOptionsItem[]> {
-  formOptions?: FormOptions;
-  conditionConfig?: FormOptions;
-  onChange?: Function;
+export type FormOptions = (FormOptionsItem | string)[];
+
+export type FormChangeEvent = (formValues, changeRef, changeValue) => void;
+
+export interface FormFilterProps<_FormOptions = FormOptions> {
+  formOptions?: _FormOptions;
+  conditionConfig?: _FormOptions;
+  onChange?: FormChangeEvent;
 }
 
 const wrapInputSelectorMarkForRefu = activeRef => `__isActive${activeRef}`;
@@ -92,14 +97,16 @@ export default class FormFilterHelper<P extends FormFilterProps> extends UkeComp
     const nextValue = {};
     for (let i = 0; i < formOptions.length; i++) {
       const options = formOptions[i];
-      // const val = this.value[valKey];
-      const { ref = '', refs } = options;
-      if (this.value[ref]) nextValue[ref] = this.value[ref];
-      if (Array.isArray(refs)) {
-        const refsID = this.getRefsID(refs);
-        if (this.value[refsID]) nextValue[refsID] = this.value[refsID];
-        for (const itemRef of refs) {
-          if (this.value[itemRef]) nextValue[itemRef] = this.value[itemRef];
+      if (typeof options === 'object') {
+        // const val = this.value[valKey];
+        const { ref = '', refs } = options;
+        if (this.value[ref]) nextValue[ref] = this.value[ref];
+        if (Array.isArray(refs)) {
+          const refsID = this.getRefsID(refs);
+          if (this.value[refsID]) nextValue[refsID] = this.value[refsID];
+          for (const itemRef of refs) {
+            if (this.value[itemRef]) nextValue[itemRef] = this.value[itemRef];
+          }
         }
       }
     }
