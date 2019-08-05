@@ -1,3 +1,5 @@
+import { ButtonProps } from "../button/button-basic";
+
 export type NatureColorTypes =
   'theme'
   |'white'
@@ -24,21 +26,11 @@ export type StatusColorTypes =
 export type Color = NatureColorTypes | GrayColorTypes | StatusColorTypes;
 export type Sizes = 'xl' | 'lg' | 'md' | 'sm' | 'tiny';
 
-export interface BtnItemConfig {
+export interface BtnItemConfig extends ButtonProps {
   /** 该按钮的操作 */
   action?: Function;
-  /** 该按钮的类型 */
-  type?: 'submit' | 'button';
-  /** 该按钮的字 */
-  text: string;
   /** className */
   className?: string;
-  /** 记录该按钮的状态 */
-  actingRef?: string;
-  /** 按钮颜色 */
-  color?: Color;
-  /** 该按钮是否需要预检查 */
-  preCheck?: boolean;
 }
 
 export type Children = JSX.Element | JSX.Element[] | boolean | string | null | undefined;

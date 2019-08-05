@@ -13,7 +13,16 @@ import FormGenerator, { FormGeneratorProps } from './form-generator';
 import { UkeComponent } from '../utils/uke-component';
 import { BtnItemConfig } from '../utils/props';
 
-export type FormLayoutBtnsConfig = BtnItemConfig[];
+export interface FormLayoutBtn extends BtnItemConfig {
+  /** 点击按钮的回调 */
+  action?: (formRef: any, actingRef?: string) => void;
+  /** 记录该按钮的状态 */
+  actingRef?: string;
+  /** 该按钮是否需要预检查 */
+  preCheck?: boolean;
+}
+
+export type FormLayoutBtnsConfig = FormLayoutBtn[];
 
 export interface FormLayoutProps extends FormGeneratorProps {
   /** 只有一个按钮时传入的按钮 text */
