@@ -585,7 +585,7 @@ export default class Table extends MapperFilter<TableProps, State> {
 
   calcTableWidth = (keyMapper) => {
     const { headerWidthMapper } = this.state;
-    if (headerWidthMapper.length === 0) return 0;
+    if (headerWidthMapper.length === 0) return null;
     let res = 0;
 
     keyMapper.forEach((mapper, _idx) => {
