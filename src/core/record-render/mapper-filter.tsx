@@ -56,10 +56,12 @@ export interface RecordItem {
   [key: string]: any;
 }
 
+export type Records = RecordItem[];
+
 export interface MapperFilterProps {
   keyMapper: KeyMapperItem[];
   /** 服务端返回的数据 */
-  records?: RecordItem[];
+  records?: Records;
   onChange?: (val, title) => void;
   /** 右边固定表格的列的集合 */
   fixedRightKeys?: string[];

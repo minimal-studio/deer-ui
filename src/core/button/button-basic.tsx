@@ -38,6 +38,8 @@ export interface ButtonProps {
   color?: Color;
   /** size */
   size?: ButtonSize;
+  /** style */
+  style?: React.CSSProperties;
   /** children */
   children?: any;
   /** btn 的类型 */

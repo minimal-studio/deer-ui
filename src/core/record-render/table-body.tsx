@@ -4,7 +4,7 @@ import {
 } from 'basic-helper';
 import classnames from 'classnames';
 
-import MapperFilter, { MapperFilterProps, KeyMapperItem, RecordItem } from './mapper-filter';
+import MapperFilter, { MapperFilterProps, KeyMapperItem, Records } from './mapper-filter';
 import { Icon } from '../icon';
 import { Children } from '../utils/props';
 
@@ -26,7 +26,7 @@ export interface TableProps extends MapperFilterProps {
   /** 对应 record 数据的 [key] */
   keyMapper: TableKeyMapperItem[];
   /** 数据源 */
-  records: RecordItem[];
+  records: Records;
   /** 是否需要统计 */
   needCount?: boolean;
   /** 是否需要内部排序 */
