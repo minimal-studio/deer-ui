@@ -9,7 +9,7 @@ interface CarouselItem {
   imgUrl?: string;
   /** 优先渲染 element */
   element?: Children;
-  action?: Function;
+  action?: (activeItem, activeIdx) => void;
 }
 
 interface CarouselProps {

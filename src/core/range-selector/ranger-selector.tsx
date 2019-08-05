@@ -6,7 +6,7 @@ import InputNumber from '../form-control/input-number';
 
 interface RangerProps {
   /** 值改变的回调 */
-  onChange: Function;
+  onChange: (value) => void;
   /** 默认值 */
   defaultValue?: number;
   /** 范围 */

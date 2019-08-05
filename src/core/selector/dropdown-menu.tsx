@@ -40,7 +40,7 @@ export interface DropdownMenuProps extends SelectorBasicProps, DropdownWrapperPr
   /** 弹出的位置，用 , 分隔，最多支持两个不冲突位置，如果冲突，则选择第一个值 */
   position?: DropdownPosition;
   /** 点击菜单的回调 */
-  onClickItem?: Function;
+  onClickItem?: (dataItem) => void;
 }
 
 const itemActiveFilter = (val, targetVal) => {

@@ -15,18 +15,22 @@ export interface TableKeyMapperItem extends KeyMapperItem {
   fixed?: 'left' | 'right';
 }
 
+export type TableRecords = Records;
+
 export type CheckedOverlay = (params: {
   /** 已选择的项 */
   checkedItems: {};
   /** 取消选择 */
-  clearCheckeds: Function;
+  clearCheckeds: () => void;
 }) => any;
+
+export type TableKeyMapper = TableKeyMapperItem[]
 
 export interface TableProps extends MapperFilterProps {
   /** 对应 record 数据的 [key] */
-  keyMapper: TableKeyMapperItem[];
+  keyMapper: TableKeyMapper;
   /** 数据源 */
-  records: Records;
+  records: TableRecords;
   /** 是否需要统计 */
   needCount?: boolean;
   /** 是否需要内部排序 */

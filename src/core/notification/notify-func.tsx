@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 
 import { HasValue } from 'basic-helper';
 
-import Notification, { NotifyConfig } from './notification';
+import Notification, { NotifyConfig, NotificationProps } from './notification';
 import setDOMById from '../set-dom';
 
 export interface NotifyParams extends NotifyConfig {
@@ -12,7 +12,7 @@ export interface NotifyParams extends NotifyConfig {
   /** 广播通知的位置 */
   position?: string;
   /** 点击通知项时的回调 */
-  handleClick?: Function;
+  handleClick?: NotificationProps['handleClick'];
 }
 
 export type NotifyID = number;

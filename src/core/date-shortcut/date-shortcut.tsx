@@ -8,9 +8,9 @@ import { DateBasic, DateBasicProps } from '../date-basic';
 
 export interface DateShortcutProps extends DateBasicProps {
   /** 点击快捷方式的回调 */
-  onClick?: Function;
+  onClick?: (res) => void;
   /** onChange */
-  onChange: Function;
+  onChange: DateBasicProps['onChange'];
   /** 默认的时分秒的值 */
   defaultTimes?: string[];
   /** 自定义的时间快捷选项 */

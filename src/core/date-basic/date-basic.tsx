@@ -5,7 +5,7 @@ import { ToUTC } from 'basic-helper/datetime-helper';
 import { UkePureComponent } from '../utils/uke-component';
 
 export interface DateBasicProps {
-  onChange?: Function;
+  onChange?: (nextValue) => void;
   /** 是否需要时分秒 */
   needTime?: boolean;
   /** 是否转换成标准 UTC 时间 */

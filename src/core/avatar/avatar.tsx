@@ -29,7 +29,7 @@ export interface AvatarProps {
   /** 显示在右上角的提示 */
   tip?: boolean | string | number;
   /** 换头像后的回调 */
-  onChangeAvatar?: Function;
+  onChangeAvatar?: (avatarRes) => void;
 }
 
 /**

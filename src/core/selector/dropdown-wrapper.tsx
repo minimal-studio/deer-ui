@@ -48,8 +48,6 @@ export interface DropdownWrapperProps {
   scrollY?: number;
   /** 监听滚动时隐藏的外层元素 */
   trigger?: 'click' | 'hover';
-  /** 用于渲染最外层的内容, 将要废弃，请使用 overlay */
-  // menuWrapper?: Function,
   /** 用于渲染最外层的内容 */
   overlay?: (helper: FuncChildrenParams) => Children;
   /** style */

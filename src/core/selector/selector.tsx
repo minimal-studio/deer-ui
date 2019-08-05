@@ -32,7 +32,7 @@ export interface SelectorBasicProps {
   /** style */
   style?: React.CSSProperties;
   /** onChange callback */
-  onChange?: Function;
+  onChange?: (...args) => void;
 }
 
 export interface SelectorBasicState {

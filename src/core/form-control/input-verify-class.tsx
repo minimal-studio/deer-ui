@@ -4,9 +4,9 @@ import { Call } from 'basic-helper';
 
 export interface InputVerifyClassProps {
   onChange?: (value) => void;
-  onFocus?: Function;
-  onBlur?: Function;
-  onClear?: Function;
+  onFocus?: (val, focusEvent) => void;
+  onBlur?: (blurEvent) => void;
+  onClear?: () => void;
   className?: string;
   defaultValue?: any;
   value?: any;

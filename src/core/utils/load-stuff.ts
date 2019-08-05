@@ -4,7 +4,7 @@ import { Call } from 'basic-helper';
 
 interface LoadParams {
   src: string;
-  onload?: Function;
+  onload?: (loadedEvent) => void;
 }
 
 interface LoadStuffParams extends LoadParams {

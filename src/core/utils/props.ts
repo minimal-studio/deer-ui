@@ -28,7 +28,7 @@ export type Sizes = 'xl' | 'lg' | 'md' | 'sm' | 'tiny';
 
 export interface BtnItemConfig extends ButtonProps {
   /** 该按钮的操作 */
-  action?: Function;
+  action?: () => void;
   /** className */
   className?: string;
 }

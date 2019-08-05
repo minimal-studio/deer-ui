@@ -12,7 +12,7 @@ export interface PopoverProps {
   /** 是否激活 */
   open: boolean;
   /** 关闭的回调，之前是 RequestClose */
-  onClose: Function;
+  onClose: (closeEvent) => void;
   /** 相对的元素，传入 document node */
   relativeElem: HTMLElement | EventTarget;
   /** 弹出的位置 */

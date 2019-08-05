@@ -4,13 +4,15 @@ import React from 'react';
 import { UUID, Call } from 'basic-helper';
 import FormFilterHelper, { FormFilterProps, FormOptionsItem } from './form-filter';
 
+export type ConditionOptions = FormOptionsItem[];
+
 export interface ConditionGeneratorProps extends FormFilterProps {
   /** 查询条件的配置 */
-  conditionConfig: FormOptionsItem[];
+  conditionConfig: ConditionOptions;
   /** className */
   className?: string;
   /** onSubmit */
-  onSubmit?: Function;
+  onSubmit?: (values) => void;
 }
 
 /**

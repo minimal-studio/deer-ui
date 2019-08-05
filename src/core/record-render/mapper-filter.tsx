@@ -57,9 +57,10 @@ export interface RecordItem {
 }
 
 export type Records = RecordItem[];
+export type KeyMapper = KeyMapperItem[];
 
 export interface MapperFilterProps {
-  keyMapper: KeyMapperItem[];
+  keyMapper: KeyMapper;
   /** 服务端返回的数据 */
   records?: Records;
   onChange?: (val, title) => void;

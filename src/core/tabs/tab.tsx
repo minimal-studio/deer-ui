@@ -14,9 +14,9 @@ export interface TabProps {
   /** 第几个 idx，Tabs 会传入 */
   idx?: number;
   /** 改变激活的 tab 位置时的回调 */
-  onChange?: Function;
+  onChange?: (changeEvent) => void;
   /** 改变激活的 tab 位置时的回调 */
-  onClick?: Function;
+  onClick?: (clickEvent) => void;
 }
 
 const Tab: React.SFC<TabProps> = ({
@@ -28,8 +28,8 @@ const Tab: React.SFC<TabProps> = ({
 
   return (
     <div className={`tab-label ${labelClass}`} onClick={(e) => {
-      Call(onClick);
-      Call(onChange);
+      Call(onClick, e);
+      Call(onChange, e);
     }}>
       {iconDOM}
       <span className="text">{label}</span>

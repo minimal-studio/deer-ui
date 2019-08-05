@@ -15,15 +15,21 @@ interface GetDataRes {
 
 type APIQueryCaptcha = (getData: (resData: GetDataRes) => void) => void;
 
+export interface CaptchaOnChangeParams {
+  isPass: boolean;
+  value: any;
+  key: string;
+}
+
 export interface CaptchaProps {
   /** 获取错误时的回调 */
-  onError?: Function;
+  onError?: () => void;
   /** 值改变时的回调 */
-  onChange?: Function;
+  onChange?: (options: CaptchaOnChangeParams) => void;
   /** 验证码 Mount 的回调 */
-  onCaptchaLoad?: Function;
+  onCaptchaLoad?: (captchaKey) => void;
   /** 失去焦点的回调 */
-  onBlur?: Function;
+  onBlur?: (blurEvent) => void;
   /** 与 react 受控控件行为一致 */
   value?: string | number;
   /** icon */
