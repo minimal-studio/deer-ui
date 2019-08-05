@@ -9,8 +9,6 @@ export interface ConditionGeneratorProps extends FormFilterProps {
   conditionConfig: FormOptionsItem[];
   /** className */
   className?: string;
-  /** 查询条件变化时的回调 */
-  onChange?: Function;
   /** onSubmit */
   onSubmit?: Function;
 }
@@ -30,13 +28,6 @@ export default class ConditionGenerator extends FormFilterHelper<ConditionGenera
   titleDisplayFilter = (config) => {
     const { type, title } = config;
     return ('input,password'.split(',').indexOf(type) == -1) && title;
-  }
-
-  renderWrapper = () => {
-    const {
-      onSubmit
-    } = this.props;
-    const Wrapper = onSubmit ? 'form' : 'div';
   }
 
   render() {
