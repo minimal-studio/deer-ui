@@ -88,6 +88,11 @@ import { setLangTranslate, setUkeLang } from '../config'
                 }
               },
               {
+                ref: 'input',
+                type: 'input',
+                title: '输入',
+              },
+              {
                 ref: 'refSelector',
                 type: 'select',
                 title: '多选控件',
@@ -130,8 +135,8 @@ import { setLangTranslate, setUkeLang } from '../config'
             ]}>
             <div>
               <hr />
-              <button type="submit" className="theme btn flat">查看查询条件的值</button>
-              <span className="ml10" onClick={e => domRef.clearValue()} className="theme btn red">清空条件</span>
+              <button type="submit" className="theme btn mr10">查看查询条件的值</button>
+              <span onClick={e => domRef.clearValue()} className="theme btn red">清空条件</span>
             </div>
           </ConditionGenerator>
         </div>
