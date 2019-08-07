@@ -72,6 +72,8 @@ interface PopSetParams extends PopShowParams {
 class PopoverEntity {
   id
 
+  idPrefix = 'pop_'
+
   prevProps
 
   lifeTimer
@@ -82,7 +84,7 @@ class PopoverEntity {
 
   constructor(options: PopoverConstructorOptions = {}) {
     const { id = 'topPopover', fixed = false } = options;
-    this.id = id;
+    this.id = this.idPrefix + id;
     this.prevProps = { fixed };
 
     this.initDOM({});
