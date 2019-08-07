@@ -65,6 +65,71 @@ import { Pagination } from './';
   }
 </Playground>
 
+## 不需要上下页按钮
+
+<Playground>
+  {
+    () => {
+      /** 支持自定义数据结构 */
+      const [pagingInfo, setPagin] = useState({
+        Active: true,
+        Total: 1000,
+        PIdx: 0,
+        PSize: 10
+      });
+      const paginTransfer = {
+        active: 'Active',
+        total: 'Total',
+        pIdx: 'PIdx',
+        pSize: 'PSize'
+      }
+      return (
+        <Pagination
+          onPagin={nextPagin => {
+            console.log(nextPagin)
+            setPagin(nextPagin)
+          }}
+          isNeedHelper={false}
+          infoMapper={paginTransfer}
+          pagingInfo={pagingInfo}/>
+      )
+    }
+  }
+</Playground>
+
+## 控制激活按钮的前后按钮的数量
+
+<Playground>
+  {
+    () => {
+      /** 支持自定义数据结构 */
+      const [pagingInfo, setPagin] = useState({
+        Active: true,
+        Total: 1000,
+        PIdx: 4,
+        PSize: 10
+      });
+      const paginTransfer = {
+        active: 'Active',
+        total: 'Total',
+        pIdx: 'PIdx',
+        pSize: 'PSize'
+      }
+      return (
+        <Pagination
+          onPagin={nextPagin => {
+            console.log(nextPagin)
+            setPagin(nextPagin)
+          }}
+          prevBtnCount={3}
+          lastBtnCount={1}
+          infoMapper={paginTransfer}
+          pagingInfo={pagingInfo}/>
+      )
+    }
+  }
+</Playground>
+
 ## Props
 
 <Props of={Pagination} />
