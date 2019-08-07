@@ -75,7 +75,7 @@ export default class DatetimePicker extends DateBasic<DatetimePickerProps> {
     super(props);
     const { value, defaultValue } = this.props;
 
-    this.isControl = typeof props.value != 'undefined';
+    this.isControl = props.hasOwnProperty('value');
 
     const defaultVal = value || defaultValue;
     this.value = defaultVal;

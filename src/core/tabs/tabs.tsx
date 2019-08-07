@@ -72,7 +72,7 @@ export default class Tabs extends Component<TabsProps, State> {
       activeTabIdx: props.activeTabIdx || props.defaultTab || 0
     };
 
-    this.isControl = typeof props.activeTabIdx != 'undefined';
+    this.isControl = props.hasOwnProperty('activeTabIdx');
   }
 
   getActiveIdx() {

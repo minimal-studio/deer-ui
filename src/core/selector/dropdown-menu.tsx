@@ -93,6 +93,7 @@ export default class DropdownMenu extends SelectorBasic<DropdownMenuProps> {
   getActiveTitle() {
     const { isMultiple, defaultTitle, invalidTip } = this.props;
     const value = this.getValue();
+    console.log(this.isControl)
     const hasVal = Array.isArray(value) ? value.length > 0 : value;
 
     let resTitle = '';

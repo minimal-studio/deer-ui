@@ -112,7 +112,7 @@ export default class Input extends Component<InputProps, State> {
 
     const { defaultValue = '', value } = props;
 
-    this.isControl = typeof props.value != 'undefined';
+    this.isControl = props.hasOwnProperty('value');
     this.value = this.isControl ? value : defaultValue;
 
     this.state = {
@@ -249,7 +249,7 @@ export default class Input extends Component<InputProps, State> {
                 this.onBlur();
                 let val = this.numberValFilter();
                 val = this.filterVal(val);
-                if (typeof val != 'undefined') Call(onBlur, val, e);
+                if (HasValue(val)) Call(onBlur, val, e);
               }}
               onChange={(e) => {
                 let val = e.target.value;

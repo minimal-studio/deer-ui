@@ -80,7 +80,7 @@ export default class DropdownGroup extends SelectorBasic<DropdownGroupProps, Sta
     let selectedCount = 0;
     if (!group) return selectedCount;
     for (const key in group) {
-      if (typeof group[key] != 'undefined') {
+      if (group.hasOwnProperty(key)) {
         const item = group[key];
         if (Array.isArray(item)) selectedCount += item.length;
       }

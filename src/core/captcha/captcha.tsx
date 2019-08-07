@@ -100,7 +100,7 @@ export default class Captcha extends UkeComponent<CaptchaProps, State> {
       captchaValue: '',
       loading: false,
     };
-    this.isControl = typeof props.value != 'undefined';
+    this.isControl = props.hasOwnProperty('value');
     this.captchaLength = props.limit || 4;
     this.value = props.value;
   }

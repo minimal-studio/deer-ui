@@ -75,7 +75,7 @@ export default class Ranger extends Component<RangerProps, State> {
   constructor(props) {
     super(props);
 
-    this.isControl = typeof props.value != 'undefined';
+    this.isControl = props.hasOwnProperty('value');
 
     const defaultValue = props.defaultValue || 0;
     const { range } = props;

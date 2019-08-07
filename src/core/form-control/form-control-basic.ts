@@ -21,7 +21,7 @@ export default class FormControlBasic<
 
     // 如果是多选模式，value, defaultValue 必须为array，否则value, defaultValue必须为string
 
-    this.isControl = typeof props.value != 'undefined';
+    this.isControl = props.hasOwnProperty('value');
     this.value = value || defaultValue;
   }
 

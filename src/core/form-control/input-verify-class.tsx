@@ -59,7 +59,7 @@ export default class InputVerifyClass<P extends InputVerifyClassProps> extends C
   }
 
   checkProps(field) {
-    return typeof this.props[field] != 'undefined';
+    return this.props.hasOwnProperty(field);
   }
 
   getValue() {
