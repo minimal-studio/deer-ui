@@ -179,20 +179,24 @@ export default class Pagination extends UkeComponent<PaginationProps> {
     const btnGroup = (
       <div className="pagin-btn-group">
         {
-          [...Array(prevBtnCount + lastBtnCount + 1)].map((_, idx) => {
-            const currIdx = pIdx - prevBtnCount + idx + 1;
-            const isActive = currIdx === (pIdx + 1);
-            if (currIdx > 0 && currIdx < paginBtnCount + 1) {
-              return (
-                <span key={currIdx}
-                  className={`item${isActive ? ' active' : ''}`}
-                  onClick={e => this.changePagin(currIdx - 1)}>
-                  {currIdx}
-                </span>
-              );
+          (() => {
+            const allBtnLen = prevBtnCount + lastBtnCount;
+            const result: any[] = [];
+            for (let i = 0; i <= allBtnLen; i++) {
+              const currIdx = pIdx - prevBtnCount + i + 1;
+              const isActive = currIdx === (pIdx + 1);
+              if (currIdx > 0 && currIdx < paginBtnCount + 1) {
+                result.push(
+                  <span key={currIdx}
+                    className={`item${isActive ? ' active' : ''}`}
+                    onClick={e => this.changePagin(currIdx - 1)}>
+                    {currIdx}
+                  </span>
+                );
+              }
             }
-            return null;
-          })
+            return result;
+          })()
         }
       </div>
     );
