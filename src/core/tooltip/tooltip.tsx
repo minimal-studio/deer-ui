@@ -57,15 +57,19 @@ export default class ToolTip extends PureComponent<ToolTipProps> {
     classNames: []
   }
 
-  Popover = new PopoverEntity({
-    id: UUID(),
-    fixed: true
-  });
+  Popover: PopoverEntity
+
+  constructor(props) {
+    super(props);
+
+    this.Popover = new PopoverEntity({
+      id: UUID(),
+      fixed: true
+    });
+  }
 
   componentWillUnmount = () => {
-    setTimeout(() => {
-      this.Popover.destroy();
-    }, 10);
+    this.Popover.destroy();
   }
 
   handleMouseEnter = (e) => {
