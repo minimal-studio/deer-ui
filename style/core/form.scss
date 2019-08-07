@@ -114,6 +114,12 @@ input, textarea {
   .uke-radio-container {
     max-width: 70%;
   }
+  .form-btn-group {
+    display: flex;
+    .btn {
+      flex: 1;
+    }
+  }
 }
 .vertical-form {
   width: 70%;

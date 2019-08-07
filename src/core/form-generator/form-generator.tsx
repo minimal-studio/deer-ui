@@ -93,7 +93,7 @@ export default class FormGenerator extends FormFilterHelper<FormGeneratorProps> 
             const isCurrInput = isInput(option.type);
             const showFormTitle = !isCurrInput ? true : _showInputTitle;
             const _con = this.wrapConditionTitle(option);
-            if (isCurrInput && !_showInputTitle) {
+            if (isCurrInput && _showInputTitle) {
               _con.showTitle = false;
             }
             const itemClassName = option.className;
