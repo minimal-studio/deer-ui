@@ -126,6 +126,7 @@ $caretHeight: 6px;
   }
   .display-menu {
     transition: color ease 0.2s, border-color ease 0.2s;
+    position: relative;
   }
   .menu-wrapper {
     display: inline-block;
