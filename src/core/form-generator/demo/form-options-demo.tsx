@@ -75,6 +75,22 @@ const formOptions: FormLayoutProps['formOptions'] = [
   },
   '输入控制',
   {
+    ref: 'input',
+    type: 'input',
+    title: '字符串输入',
+    required: true,
+  },
+  {
+    ref: 'ref3',
+    type: 'input',
+    outputType: 'number',
+    props: {
+      type: 'number'
+    },
+    required: true,
+    title: '数字输入',
+  },
+  {
     ref: 'textarea',
     type: 'textarea',
     defaultValue: '123',
@@ -85,21 +101,6 @@ const formOptions: FormLayoutProps['formOptions'] = [
     type: 'captcha',
     keyRef: 'captchKey',
     title: '验证码',
-  },
-  {
-    ref: 'ref3',
-    type: 'input',
-    outputType: 'number',
-    props: {
-      type: 'number'
-    },
-    required: true,
-    title: '选择控件',
-    values: {
-      value1: 'value1',
-      value2: 'value2',
-      value3: 'value3',
-    }
   },
   {
     refs: ['s', 'e'],

@@ -35,10 +35,6 @@ export interface FormLayoutProps extends FormGeneratorProps {
   tipInfo?: TipPanelProps;
   /** 可以配置一个或多个操作按钮 */
   btnConfig?: FormLayoutBtnsConfig;
-  /** 是否竖立显示 */
-  isVertical?: boolean;
-  /** 是否移动端 */
-  isMobile?: boolean;
   /** 操作的返回是否有错误 */
   hasErr?: boolean;
   /** 操作返回的消息 */
@@ -127,11 +123,10 @@ export default class FormLayout extends UkeComponent<FormLayoutProps> {
 
   render() {
     const {
-      tipInfo, btnConfig, isVertical, isMobile,
-      showInputTitle,
+      tipInfo, btnConfig,
       childrenBeforeForm, childrenAfterForm, childrenBeforeBtn,
-      formOptions = [], btnText = this.$T_UKE('确定提交'),
-      onSubmit, onChange, ...other
+      btnText = this.$T_UKE('确定提交'),
+      onSubmit, ...other
     } = this.props;
     const formClassName = this.props.className;
 
@@ -192,16 +187,14 @@ export default class FormLayout extends UkeComponent<FormLayoutProps> {
         <FormGenerator
           {...other}
           // type={formType}
-          onChange={onChange}
           onSubmit={onSubmitForGen}
-          isMobile={isMobile}
-          showInputTitle={showInputTitle}
-          formOptions={formOptions}
           ref={this.saveFormRef}>
           {childrenBeforeBtn}
           <div className="form-group">
             <span className="control-label" />
-            {btnGroup}
+            <div className="form-btn-group">
+              {btnGroup}
+            </div>
           </div>
           {childrenAfterForm}
         </FormGenerator>

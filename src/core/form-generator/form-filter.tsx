@@ -338,7 +338,7 @@ export default class FormFilterHelper<P extends FormFilterProps> extends UkeComp
       ...other,
       ...cusProps,
       onChange: val => this.changeValue(val, ref),
-      ref: this.saveRef(ref)
+      // ref: this.saveRef(ref)
     });
   }
 
@@ -454,14 +454,14 @@ export default class FormFilterHelper<P extends FormFilterProps> extends UkeComp
   getInputRange = (config) => {
     /** 中间无用的是用于过滤 other */
     const {
-      refs, formClass, type, title, ...other
+      refs, formClass, type, title, _title, ...other
     } = config;
     const [refS, refE] = refs;
     return (
       <div className="input-range">
-        {this.getInput({ ref: refS, title: this.$T_UKE('起'), ...other })}
+        {this.getInput({ ref: refS, _title: this.$T_UKE('起'), ...other })}
         <span> - </span>
-        {this.getInput({ ref: refE, title: this.$T_UKE('止'), ...other })}
+        {this.getInput({ ref: refE, _title: this.$T_UKE('止'), ...other })}
       </div>
     );
   }

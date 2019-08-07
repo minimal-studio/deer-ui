@@ -29,6 +29,8 @@ export interface FormGeneratorProps extends FormFilterProps<FormOptions> {
 
 const hrDivide = ['-', 'hr'];
 
+const isInput = type => ['input', 'password'].indexOf(type) !== -1;
+
 export default class FormGenerator extends FormFilterHelper<FormGeneratorProps> {
   static defaultProps = {
     onSubmit: () => {},
@@ -59,8 +61,6 @@ export default class FormGenerator extends FormFilterHelper<FormGeneratorProps> 
     }
   }
 
-  needTitleFilter = type => ['input', 'password'].indexOf(type) === -1
-
   render() {
     const {
       formOptions, children, isMobile,
@@ -90,8 +90,12 @@ export default class FormGenerator extends FormFilterHelper<FormGeneratorProps> 
                 </h3>
               );
             }
-            const needTitle = _showInputTitle ? true : this.needTitleFilter(option.type);
+            const isCurrInput = isInput(option.type);
+            const showFormTitle = !isCurrInput ? true : _showInputTitle;
             const _con = this.wrapConditionTitle(option);
+            if (isCurrInput && !_showInputTitle) {
+              _con.showTitle = false;
+            }
             const itemClassName = option.className;
             const itemRef = _con.ref || (_con.refs ? _con.refs[0] : 'q');
             const isRequired = _con.required;
@@ -120,7 +124,7 @@ export default class FormGenerator extends FormFilterHelper<FormGeneratorProps> 
                 }}
                 className={classes}>
                 {
-                  needTitle ? (
+                  showFormTitle ? (
                     <span className="control-label">
                       {highlightDOM}
                       {_con.tipsDOM}

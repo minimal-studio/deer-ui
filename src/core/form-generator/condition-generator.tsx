@@ -29,7 +29,7 @@ export default class ConditionGenerator extends FormFilterHelper<ConditionGenera
 
   titleDisplayFilter = (config) => {
     const { type, title } = config;
-    return ('input,password'.split(',').indexOf(type) == -1) && title;
+    return ('input,password'.split(',').indexOf(type) === -1) && title;
   }
 
   render() {
