@@ -67,7 +67,7 @@ export default class DatetimePicker extends DateBasic<DatetimePickerProps> {
 
   value;
 
-  popTipEntity
+  popTipEntity: PopoverEntity
 
   _id: string = UUID();
 
@@ -99,8 +99,7 @@ export default class DatetimePicker extends DateBasic<DatetimePickerProps> {
 
   componentWillUnmount() {
     if (this.datepicker) this.datepicker.destroy();
-    this.popTipEntity.close();
-    this.popTipEntity = '';
+    this.popTipEntity.destroy();
     this._id = '';
   }
 
