@@ -122,7 +122,6 @@ input, textarea {
   }
 }
 .vertical-form {
-  width: 70%;
   margin: 0 auto;
   padding: 1px 0;
   .control-label {
@@ -188,8 +187,8 @@ input, textarea {
   transition: transform 0.2s ease;
 }
 
-@media screen and (max-width:800px){
-  .vertical-form {
-    width: 90%;
-  }
-}
+// @media screen and (max-width:800px){
+//   .vertical-form {
+//     width: 90%;
+//   }
+// }
