@@ -69,30 +69,37 @@ export default class FormFilterHelper<P extends FormFilterProps> extends UkeComp
 
   showDesc;
 
+  __mount = false;
+
   constructor(props) {
     super(props);
     this.state = {
       value: {}
     };
-    this.initValues(props);
+    this.initValues();
+  }
+
+  componentDidMount() {
+    this.__mount = true;
   }
 
   componentWillUnmount() {
     this.value = {};
     this.requiredRefMapper = {};
+    this.__mount = false;
   }
 
   componentDidUpdate(prevProps, prevState) {
     this.checkFormOptions(prevProps);
   }
 
-  initValues(props) {
-    const formOptions = this.getFormOptions(props);
+  initValues() {
+    const formOptions = this.getFormOptions(this.props);
     this.setDefaultValues(formOptions);
+    if (this.__mount) this.forceUpdate();
   }
 
-  resetValues(props = this.props) {
-    const formOptions = this.getFormOptions(props);
+  resetValues(formOptions) {
     if (!formOptions) return;
     const nextValue = {};
     for (let i = 0; i < formOptions.length; i++) {
@@ -111,7 +118,7 @@ export default class FormFilterHelper<P extends FormFilterProps> extends UkeComp
       }
     }
     this.value = nextValue;
-    this.initValues(props);
+    this.initValues();
   }
 
   getFormOptions(props = this.props) {
@@ -122,7 +129,7 @@ export default class FormFilterHelper<P extends FormFilterProps> extends UkeComp
     const thisFormOptions = this.getFormOptions(this.props);
     const prevFormOptions = this.getFormOptions(prevProps);
     if (thisFormOptions != prevFormOptions) {
-      this.resetValues();
+      this.resetValues(thisFormOptions);
       this.resetRequireRefMapper(this.props);
     }
   }
