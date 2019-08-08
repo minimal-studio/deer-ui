@@ -1,21 +1,23 @@
 # ukelli-ui
 
-Base on React's UI lib. Make frontend's dev simpler, faster.
+Base on React's UI lib. Make frontend's dev simpler and faster.
 
 [![Build Status](https://travis-ci.org/ukelli/ukelli-ui.svg?branch=master)](https://travis-ci.org/ukelli/ukelli-ui)
 [![install size](https://packagephobia.now.sh/badge?p=ukelli-ui)](https://packagephobia.now.sh/result?p=ukelli-ui)
 
-## Installation
+## Getting started
+
+### Example
+
+Using [`react-app-seed`](https://github.com/SANGET/react-app-seed.git)
 
 ```shell
-# yarn
-yarn add ukelli-ui
-
-# npm
-npm i ukelli-ui
+git clone https://github.com/SANGET/react-app-seed.git
+cd react-app-seed
+yarn; yarn start
 ```
 
-## Usage
+### Use in project
 
 ```js
 import React from 'react';
@@ -28,7 +30,7 @@ const handleClick = (e) => {
     title: 'Overlay',
     elem: e,
     children: (
-      <div>内容</div>
+      <div>Content</div>
     )
   })
 
