@@ -263,8 +263,7 @@ import FormOptionsDesc from './form-options-demo.md';
                   ref={e => formRef = e}
                   onChange={(value, ref, val) => {
                     if(ref == 'ref1') {
-                      // 克隆一个全新的 formOptions，不要影响到上一个
-                      const nextState = [...formOptions];
+                      const nextState = [...state.formOptions];
                       // 更改新 formOptions 的目标的 values
                       nextState[1].values = {...valuesMapper[val]};
                       nextState[2].values = valuesMapper[val];
@@ -354,6 +353,81 @@ import FormOptionsDesc from './form-options-demo.md';
           isMobile
           ref={e => formRef = e}
           formOptions={formOptions}/>
+      )
+    }
+  }
+</Playground>
+
+## 后赋值 FormOptions
+
+<Playground>
+  {
+    () => {
+      const valuesMapper = {
+        value1: {
+          forValue11: 'value1-1 的动态值',
+          forValue12: 'value1-2 的动态值',
+          forValue13: 'value1-3 的动态值',
+        },
+        value2: {
+          forValue21: 'value2-1 的动态值',
+          forValue22: 'value2-2 的动态值',
+          forValue23: 'value2-3 的动态值',
+        },
+        value3: {
+          forValue31: 'value3-1 的动态值',
+          forValue32: 'value3-2 的动态值',
+          forValue33: 'value3-3 的动态值',
+        },
+      }
+      const formOptions1 = [
+        {
+          ref: 'ref1',
+          type: 'radio',
+          title: '单选控件',
+          defaultValue: 'value1',
+          values: {
+            value1: 'value1',
+            value2: 'value2',
+            value3: 'value3',
+          }
+        },
+        {
+          ref: 'ref2',
+          type: 'radio',
+          title: '选择控件',
+          values: valuesMapper['value1']
+        },
+        {
+          ref: 'ref3',
+          type: 'select',
+          title: '选择控件',
+          isMultiple: true,
+          values: valuesMapper['value1']
+        },
+      ]
+      let formRef = {};
+      const [formOptions, setFormOptions] = useState([]);
+      return (
+        <div>
+          <span className="btn theme" onClick={e => {
+            setFormOptions(formOptions1)
+          }}>赋值 FormOptions</span>
+          <FormLayout
+            btnConfig={[
+              {
+                action: (formRef, actingRef) => {
+                  setFormOptions([])
+                },
+                type: 'submit',
+                text: '清空 FormOptions',
+                color: 'red',
+                actingRef: 'forTest'
+              },
+            ]}
+            ref={e => formRef = e}
+            formOptions={formOptions}/>
+        </div>
       )
     }
   }
