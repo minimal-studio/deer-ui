@@ -22,13 +22,27 @@ import { Pagination } from './';
         pIdx: 0,
         pSize: 10
       });
+      const [pagingInfo2, setPagin2] = useState({
+        active: true,
+        total: 12,
+        pIdx: 0,
+        pSize: 10
+      });
       return (
-        <Pagination
-          onPagin={nextPagin => {
-            console.log(nextPagin)
-            setPagin(nextPagin)
-          }}
-          pagingInfo={pagingInfo}/>
+        <div>
+          <Pagination
+            onPagin={nextPagin => {
+              console.log(nextPagin)
+              setPagin2(nextPagin)
+            }}
+            pagingInfo={pagingInfo2}/>
+          <Pagination
+            onPagin={nextPagin => {
+              console.log(nextPagin)
+              setPagin(nextPagin)
+            }}
+            pagingInfo={pagingInfo}/>
+        </div>
       )
     }
   }

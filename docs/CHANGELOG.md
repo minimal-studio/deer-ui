@@ -72,6 +72,7 @@
 #### Pagination
 
 - 更改 defaultProps.infoMapper 与 props.infoMapper 的默认数据结构一致
+- 优化显示和交互
 
 ```js
 // change
