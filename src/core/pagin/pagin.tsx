@@ -56,6 +56,8 @@ interface DefaultProps {
   lastBtnCount: number;
 }
 
+const Seperator = () => <span className="ms5">..</span>;
+
 export default class Pagination extends UkeComponent<PaginationProps> {
   static defaultProps: DefaultProps = {
     infoMapper: {
@@ -66,8 +68,8 @@ export default class Pagination extends UkeComponent<PaginationProps> {
     },
     isNeedHelper: true,
     displayTotal: true,
-    prevBtnCount: 3,
-    lastBtnCount: 3,
+    prevBtnCount: 2,
+    lastBtnCount: 2,
   }
 
   node
@@ -150,8 +152,6 @@ export default class Pagination extends UkeComponent<PaginationProps> {
 
     const paginBtnCount = Math.ceil(total / pSize);
 
-    const _isNeedHelper = isNeedHelper && paginBtnCount > 1;
-
     if (total === -1 || total === 0) return <span />;
 
     const jumpInputDOM = (
@@ -185,7 +185,7 @@ export default class Pagination extends UkeComponent<PaginationProps> {
             for (let i = 0; i <= allBtnLen; i++) {
               const currIdx = pIdx - prevBtnCount + i + 1;
               const isActive = currIdx === (pIdx + 1);
-              if (currIdx > 0 && currIdx < paginBtnCount + 1) {
+              if (currIdx > 1 && currIdx < paginBtnCount) {
                 result.push(
                   <span key={currIdx}
                     className={`item${isActive ? ' active' : ''}`}
@@ -200,18 +200,20 @@ export default class Pagination extends UkeComponent<PaginationProps> {
         }
       </div>
     );
-    const firstCon = _isNeedHelper ? (
+    const isFirstActive = pIdx === 0;
+    const isLastActive = pIdx === paginBtnCount - 1;
+    const firstCon = (
       <span className="item-group">
-        <span onClick={e => this.changePagin(0)} className="item"> &lt;&lt; </span>
-        <span onClick={e => this.changePagin(pIdx - 1)} className="item"> &lt; </span>
+        <span onClick={e => this.changePagin(0)} className={`item${isFirstActive ? ' active' : ''}`}>1</span>
+        {pIdx - prevBtnCount > 1 && <Seperator />}
       </span>
-    ) : null;
-    const lastCon = _isNeedHelper ? (
+    );
+    const lastCon = (
       <span className="item-group">
-        <span onClick={e => this.changePagin(pIdx + 1)} className="item"> &gt; </span>
-        <span onClick={e => this.changePagin(paginBtnCount - 1)} className="item"> &gt;&gt; </span>
+        {paginBtnCount - pIdx - 2 > lastBtnCount && <Seperator />}
+        <span onClick={e => this.changePagin(paginBtnCount - 1)} className={`item${isLastActive ? ' active' : ''}`}>{paginBtnCount}</span>
       </span>
-    ) : null;
+    );
     return (
       <div className="pagin-con has-pagin">
         <div className="layout btns-wrap">
@@ -220,11 +222,17 @@ export default class Pagination extends UkeComponent<PaginationProps> {
           {lastCon}
         </div>
         {
-          displayTotal && <span> {$T_UKE('共')} {total} {$T_UKE('项')}</span>
+          displayTotal && <span> {total} {$T_UKE('项')}</span>
         }
-        <span className="flex" />
-        {pageCountInputDOM}
-        {jumpInputDOM}
+        {
+          isNeedHelper && (
+            <>
+              <span className="flex" />
+              {pageCountInputDOM}
+              {jumpInputDOM}
+            </>
+          )
+        }
       </div>
     );
   }
