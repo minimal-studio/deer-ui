@@ -5,7 +5,6 @@ import { DebounceClass, Call } from 'basic-helper';
 import { Icon } from '../icon';
 
 const TRANSTION_TIME = 2000;
-const defaultRotateX = window.$UKE.isMobile ? '200px' : '1600px';
 const delayExec = new DebounceClass();
 
 /**
@@ -27,6 +26,8 @@ export default class Carousel3D extends Component {
     isMobile: PropTypes.bool,
     onClickItem: PropTypes.func
   }
+
+  defaultRotateX = window.$UKE.isMobile ? '200px' : '1600px'
 
   constructor(props) {
     super(props);
@@ -199,7 +200,7 @@ export default class Carousel3D extends Component {
                     <div
                       key={idx}
                       style={{
-                        transform: `rotateY(${idx * this.eachItemRotate}deg) translateZ(${defaultRotateX})`
+                        transform: `rotateY(${idx * this.eachItemRotate}deg) translateZ(${this.defaultRotateX})`
                       }}
                       className={`card-item item idx-${idx}${isActive ? ' active' : ''}`}>
                       <div

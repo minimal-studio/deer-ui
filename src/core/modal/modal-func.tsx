@@ -154,10 +154,25 @@ export interface ShowModalParams extends ModalOptions {
   needHeader?: boolean;
 }
 
+let hasModalContainer = false;
+const checkModalContainer = () => {
+  if (!hasModalContainer) {
+    hasModalContainer = true;
+    const modalsManagerContainer = setDOMById('ModalsManager', 'modals-manager');
+    ReactDOM.render(
+      <Provider store={windowManagerStore}>
+        <ModalsManager/>
+      </Provider>,
+      modalsManagerContainer,
+    );
+  }
+};
 /**
  * @param {ShowModalParams} params
  */
 function ShowModal(params: ShowModalParams): ModalID {
+  /** 用于检查是否已经渲染了最外层 div */
+  checkModalContainer();
   /** @type {ShowModalParams} */
   let options = Object.assign({}, params);
   let {
@@ -233,14 +248,6 @@ function ShowModal(params: ShowModalParams): ModalID {
 
   return entityId;
 }
-
-const modalsManagerContainer = setDOMById('ModalsManager', 'modals-manager');
-ReactDOM.render(
-  <Provider store={windowManagerStore}>
-    <ModalsManager/>
-  </Provider>,
-  modalsManagerContainer,
-);
 
 const ShowGlobalModal = ShowModal;
 const CloseGlobalModal = CloseModal;

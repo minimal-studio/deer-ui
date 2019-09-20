@@ -55,7 +55,7 @@ export interface DropdownWrapperProps {
 }
 
 const dropdownContainerID = 'DropdownContainer';
-const dropdownContainerDOM = setDOMById(dropdownContainerID, 'uke-dropdown-menu outside');
+let dropdownContainerDOM;
 
 const offset = 10;
 const calculateOverlayPosition = (options) => {
@@ -122,6 +122,7 @@ export default class DropdownWrapper extends React.PureComponent<DropdownWrapper
     super(props);
 
     this._position = positionFilter(props.position);
+    if (!dropdownContainerDOM) dropdownContainerDOM = setDOMById(dropdownContainerID, 'uke-dropdown-menu outside');
   }
 
   handleClickAway = () => {

@@ -107,7 +107,6 @@ export default class Notification extends UkePureComponent<NotificationProps, St
   }
 
   closeTip(msgID) {
-    console.log(msgID);
     this.setState(({ notifyItems }) => {
       const nextState = Object.assign({}, notifyItems);
       delete nextState[msgID];

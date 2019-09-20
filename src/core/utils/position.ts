@@ -24,10 +24,12 @@ let ScreenHeight = getScreenHeight();
 const verticalOffset = 14;
 const horizontalOffset = 4;
 
-window.onresize = () => {
-  ScreenWidth = getScreenWidth();
-  ScreenHeight = getScreenHeight();
-};
+if (!global) {
+  window.onresize = () => {
+    ScreenWidth = getScreenWidth();
+    ScreenHeight = getScreenHeight();
+  };
+}
 
 /**
  * 计算最终的 top 和 left，并且根据浏览器可视边界判断最终结果
