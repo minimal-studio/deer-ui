@@ -18,18 +18,17 @@ export interface GetFuncParams {
   fromRight?: boolean;
 }
 
-let ScreenWidth = getScreenWidth();
-let ScreenHeight = getScreenHeight();
-
 const verticalOffset = 14;
 const horizontalOffset = 4;
 
-if (!global) {
-  window.onresize = () => {
-    ScreenWidth = getScreenWidth();
-    ScreenHeight = getScreenHeight();
-  };
-}
+// let ScreenWidth = getScreenWidth();
+// let ScreenHeight = getScreenHeight();
+// if (!global) {
+//   window.onresize = () => {
+//     ScreenWidth = getScreenWidth();
+//     ScreenHeight = getScreenHeight();
+//   };
+// }
 
 /**
  * 计算最终的 top 和 left，并且根据浏览器可视边界判断最终结果
@@ -55,7 +54,7 @@ export function getRight(params: GetFuncParams): PositionReturn {
     offsetWidth, offsetHeight, elemHeight,
   } = params;
   const left = offsetLeft + offsetWidth + 15;
-  if (left + elemWidth >= ScreenWidth) return getLeft({ ...params, fromRight: true });
+  if (left + elemWidth >= getScreenWidth()) return getLeft({ ...params, fromRight: true });
   // if(left - elemWidth <= 0) left = ScreenWidth - elemWidth;
   return {
     top: offsetTop - horizontalOffset,
@@ -84,7 +83,7 @@ export function getBottom(params: GetFuncParams): PositionReturn {
     offsetWidth, offsetHeight, elemHeight,
   } = params;
   const top = offsetTop + offsetHeight + offsetHeight / 2;
-  if (top + elemHeight >= ScreenHeight) return getTop(params);
+  if (top + elemHeight >= getScreenHeight()) return getTop(params);
   return {
     top,
     position: 'bottom',
