@@ -102,7 +102,6 @@ function setUkelliConfig(config: typeof ukelliui) {
 }
 
 export function getIsMobile() {
-  console.log('getIsMobile')
   return /iPhone|Android|iOS/.test(navigator.userAgent);
 }
 
