@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Call, UUID } from 'basic-helper';
 
-import { PopoverEntity } from '../popover';
+import { PopoverEntity } from '../popover/popover-entity';
 
 export interface TipButtonProps {
   /** 点击按钮的回调 */

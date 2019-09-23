@@ -9,7 +9,7 @@ import flatpickr from 'flatpickr/dist/typings.d';
 import 'flatpickr/dist/l10n/zh';
 import { DateBasic, DateBasicProps } from '../date-basic';
 import { Icon } from '../icon';
-import { PopoverEntity } from '../popover';
+import { PopoverEntity } from '../popover/popover-entity';
 
 export interface DatetimePickerProps extends DateBasicProps {
   onChange: (changeVal) => void;

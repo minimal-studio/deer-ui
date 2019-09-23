@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import { Call, DebounceClass, UUID } from 'basic-helper';
 
-import { PopoverEntity } from '../popover';
+import { PopoverEntity } from '../popover/popover-entity';
 import { Icon } from '../icon';
 import { $T } from '../config';
 import { Color, Children } from '../utils/props';
