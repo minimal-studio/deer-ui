@@ -6,7 +6,7 @@ import { Call, GenerteID } from 'basic-helper';
 import { Provider, connect } from 'unistore/react';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
-import { $T_UKE } from '../config';
+import { $T_UKE, getIsMobile } from '../config';
 import { Icon } from '../icon';
 import ModalHelper from './modal-helper';
 import Modal, { ModalOptions } from './modal';
@@ -120,7 +120,8 @@ const getModalDefaultWidth = (modalType) => {
 
 const getDefaultOptions = (options) => {
   const { width, type } = options;
-  const { isMobile } = window.$UKE;
+  const isMobile = getIsMobile();
+  // const { isMobile } = window.$UKE;
   return {
     className: 'fixed',
     topClassName: 'top-modal-opend',

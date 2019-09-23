@@ -101,6 +101,11 @@ function setUkelliConfig(config: typeof ukelliui) {
   return ukelliui;
 }
 
+export function getIsMobile() {
+  console.log('getIsMobile')
+  return /iPhone|Android|iOS/.test(navigator.userAgent);
+}
+
 /**
  * 获取 ukelli ui 配置
  * @param {string} configKey 配置的 key
