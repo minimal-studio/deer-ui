@@ -17,7 +17,7 @@ const Test1 = () => {
           title: '默认的 Modal',
           id: 'ShowModal',
           onClose: () => {
-            console.log('asd');
+            console.log('ShowModal');
           },
           children: <div
             style={{ height: 200, overflow: 'auto' }} className="p10 relative">
