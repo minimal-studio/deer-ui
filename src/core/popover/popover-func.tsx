@@ -147,7 +147,8 @@ class PopoverEntity {
   }
 }
 
-const GlobalPopover = new PopoverEntity();
+/** 在服务端渲染不能初始化 PopoverEntity */
+const GlobalPopover = !global ? new PopoverEntity() : {};
 const Pop = GlobalPopover;
 
 /**

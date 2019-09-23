@@ -57,26 +57,32 @@ export default class ToolTip extends PureComponent<ToolTipProps> {
     classNames: []
   }
 
-  Popover: PopoverEntity
+  Popover!: PopoverEntity
 
-  constructor(props) {
-    super(props);
-
-    this.Popover = new PopoverEntity({
-      id: UUID(),
-      fixed: true
-    });
-  }
+  // constructor(props) {
+  //   super(props);
+  // }
 
   componentWillUnmount = () => {
-    this.Popover.destroy();
+    if (this.Popover) this.Popover.destroy();
+  }
+
+  newPopover = () => {
+    if (!this.Popover) {
+      this.Popover = new PopoverEntity({
+        id: UUID(),
+        fixed: true
+      });
+    }
+    return this.Popover;
   }
 
   handleMouseEnter = (e) => {
+    const _popover = this.newPopover();
     const {
       title, position, color = 'black'
     } = this.props;
-    this.Popover.show({
+    _popover.show({
       elem: e.target,
       props: {
         position,
