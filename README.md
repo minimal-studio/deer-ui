@@ -5,11 +5,26 @@ Base on React's UI lib. Make frontend's dev simpler and faster.
 [![Build Status](https://travis-ci.org/ukelli/ukelli-ui.svg?branch=master)](https://travis-ci.org/ukelli/ukelli-ui)
 [![install size](https://packagephobia.now.sh/badge?p=ukelli-ui)](https://packagephobia.now.sh/result?p=ukelli-ui)
 
+## Support
+
+- Client side render React App
+- Server side render React App (like Gatsby, Next)
+
+## Project
+
+- [uke-dashboard](https://github.com/ukelli/uke-dashboard)
+- [uke-admin-web-scaffold](https://github.com/ukelli/uke-admin-web-scaffold)
+- [gatsby-theme-elk](https://github.com/SANGET/gatsby-theme-elk)
+
 ## Getting started
+
+```shell
+yarn add ukelli-ui basic-helper unistore
+```
 
 ### Example
 
-Using [`react-app-seed`](https://github.com/SANGET/react-app-seed.git)
+[`react-app-seed`](https://github.com/SANGET/react-app-seed.git)
 
 ```shell
 git clone https://github.com/SANGET/react-app-seed.git
@@ -55,7 +70,7 @@ yarn
 yarn docz:dev
 ```
 
-## Related reference
+## Reference
 
 - [Online Doc](https://ui.ukelli.com/)
 - [FormGenerator](https://ui.ukelli.com/#/G-Desc)
