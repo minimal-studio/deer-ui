@@ -1,21 +1,21 @@
 ---
-name: KeyMapper
-route: /KeyMapper
+name: Columns
+route: /Columns
 menu: Data Display
 ---
 
-# keyMapper
+# columns
 
 对应表格中的每一列（column）的 record 的 key 的映射的集合。
 
-表格渲染的核心配置，RecordRender 的机制是根据 keyMapper 配置遍历 records 中的每一个具体字段，找到对应的过滤器，实现通用的表格处理
+表格渲染的核心配置，RecordRender 的机制是根据 columns 配置遍历 records 中的每一个具体字段，找到对应的过滤器，实现通用的表格处理
 
 ## 使用 Typescript 定义
 
 ```js
-import { TableKeyMapperItem } from 'ukelli-ui/core/record-render'
+import { TableColumns } from 'ukelli-ui/core/record-render'
 
-const keyMapper: TableKeyMapperItem = [
+const columns: TableColumns = [
   {
     ...
   }
@@ -30,7 +30,7 @@ const keyMapper: TableKeyMapperItem = [
 
 ```js
 // propsForSelector 会全部传入 DropdownMenu，type 用于标记是什么类型
-const keyMapper = {
+const columns = {
   key: 'status',
   title: {
     type: 'selector',
@@ -43,7 +43,7 @@ const keyMapper = {
 
 ```js
 // 定义 title 的过滤器，实现返回任意内容
-const keyMapper = {
+const columns = {
   key: 'any',
   title: () => {
     return (
@@ -59,7 +59,7 @@ const keyMapper = {
 
 ```js
 // 一般的文字内容
-const keyMapper = {
+const columns = {
   key: 'title',
   title: '表头'
 }
@@ -78,7 +78,7 @@ const keyMapper = {
 > 内置的时间过滤器
 
 ```js
-const keyMapper = [
+const columns = [
   {
     key: '',
     date: boolean, // 格式成 YYYY-MM-DD
@@ -92,7 +92,7 @@ const keyMapper = [
 > 内置的金钱格式化过滤器
 
 ```js
-const keyMapper = [
+const columns = [
   {
     key: '',
     money: boolean, // 格式成金钱
@@ -110,7 +110,7 @@ const keyMapper = [
 > 标签
 
 ```js
-const keyMapper = [
+const columns = [
   {
     tips: '', // 显示单个提示
     tips: [1, 2, 3], // 显示多个提示
@@ -123,7 +123,7 @@ const keyMapper = [
 > 内置的 labels 过滤器
 
 ```js
-const keyMapper = [
+const columns = [
   {
     key: '',
     labels: {
@@ -140,7 +140,7 @@ const keyMapper = [
 > 内置的 字段映射 过滤器
 
 ```js
-const keyMapper = [
+const columns = [
   {
     key: '',
     namesMapper: {
@@ -157,7 +157,7 @@ const keyMapper = [
 > 可以返回任意想要的字段，在以下内置过滤器中找不到符合预期的，可以通过 filter 返回
 
 ```js
-const keyMapper = [
+const columns = [
   {
     key: '',
     filter: (str, item, mapper, idx) => {

@@ -3,7 +3,7 @@
 /* eslint-disable vars-on-top */
 import React from 'react';
 import {
-  HasValue, DateFormat, MoneyFormat, IsFunc, IsObj, Call
+  HasValue, DateFormat, MoneyFormat, IsFunc, IsObj, Call, DebounceClass
 } from 'basic-helper';
 import { ToolTip } from '../tooltip';
 import { Label } from '../label';
@@ -17,9 +17,10 @@ interface TitleFormSelector extends DropdownMenuProps {
   ref?: string;
 }
 
-type FuncTitle = (item, idx) => any
+type FuncTitle = (item, idx) => any;
 
-export interface KeyMapperItem {
+/** 对应数据库的 column 的定义 */
+export interface Column {
   /** 对应 record 数据的 [key] */
   key: string;
   /** 处理对应 Row 的 filter */
@@ -52,15 +53,23 @@ export interface KeyMapperItem {
   fixed?: 'left' | 'right';
 }
 
+export type KeyMapperItem = Column;
+
 export interface RecordItem {
   [key: string]: any;
 }
 
 export type Records = RecordItem[];
-export type KeyMapper = KeyMapperItem[];
+export type KeyMapper = Column[];
+
+/** column 组合的定义 */
+export type Columns = Column[];
 
 export interface MapperFilterProps {
+  /** 需要重命名为 columns */
   keyMapper: KeyMapper;
+  /** 对于数据的 columns 的定义 */
+  columns: Columns;
   /** 服务端返回的数据 */
   records?: Records;
   onChange?: (val, title) => void;
@@ -69,6 +78,8 @@ export interface MapperFilterProps {
   /** 左边固定表格的列的集合 */
   fixedLeftKeys?: string[];
 }
+
+const delayExec = new DebounceClass();
 
 const excludeKey = (target, keys) => {
   const res = Object.assign({}, target);
@@ -82,7 +93,7 @@ export default class MapperFilter<
   P = MapperFilterProps, S = {}
 > extends UkeComponent<P & MapperFilterProps, S> {
   /** 可以覆盖的 excludeKeys */
-  excludeKeys = ['records', 'keyMapper', 'checkedOverlay', 'whenCheckAction'];
+  excludeKeys = ['columns', 'records', 'keyMapper', 'checkedOverlay', 'whenCheckAction'];
 
   sortIgnores: string[] = [];
 
@@ -99,17 +110,28 @@ export default class MapperFilter<
     const _thisProps = excludeKey(this.props, this.excludeKeys);
     const _nextProps = excludeKey(nextProps, this.excludeKeys);
 
-    const { keyMapper, records } = this.props;
+    const { records } = this.props;
+    const columns = this.getColumns();
 
     const isStateChange = this.state != nextState;
     const isPropsChange = JSON.stringify(_thisProps) !== JSON.stringify(_nextProps);
-    const isKeyMapperChange = keyMapper != nextProps.keyMapper;
+    const isKeyMapperChange = columns != nextProps.columns;
     const isRecordsChange = records != nextProps.records;
     // const isCheckedItemsChange = this.state.checkedItems != nextState.checkedItems;
     if (isRecordsChange && this.onChangeRecords) {
       this.onChangeRecords();
     }
     return isStateChange || isPropsChange || isKeyMapperChange || isRecordsChange;
+  }
+
+  getColumns() {
+    const { columns, keyMapper } = this.props;
+    if (keyMapper) {
+      delayExec.exec(() => {
+        console.log('请将 keyMapper 重命名为 columns');
+      }, 300);
+    }
+    return columns || keyMapper || [];
   }
 
   isInFixedTable = (key) => {

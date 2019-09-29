@@ -1,11 +1,11 @@
 import React, { PureComponent } from 'react';
 import { DescHelper, Table } from '.';
 import { ShowModal } from '../modal';
-import { TableKeyMapperItem } from './table-body';
+import { TableColumns } from './table-body';
 
 let table;
 
-const keyMapper: TableKeyMapperItem[] = [
+const columns: TableColumns = [
   {
     key: 'username',
     namesMapper: {
@@ -72,7 +72,7 @@ const action = {
       <span
         onClick={e => ShowModal({
           title: '详情',
-          children: <DescHelper keyMapper={keyMapper} record={item} />
+          children: <DescHelper columns={columns} record={item} />
         })}
         className="link-btn">详情
       </span>
@@ -82,7 +82,7 @@ const action = {
           title: '详情',
           children: (
             <Table
-              keyMapper={keyMapper}
+              columns={columns}
               ref={(e) => { table = e; }}
               checkedOverlay={(
                 <span className="btn theme mu10" onClick={e => table.clearCheckeds()}>
@@ -100,8 +100,8 @@ const action = {
   )
 };
 
-const keyMapperMiddle: TableKeyMapperItem[] = [...keyMapper].slice(1, keyMapper.length);
-const keyMapperFixed: TableKeyMapperItem[] = [
+const keyMapperMiddle: TableColumns = [...columns].slice(1, columns.length);
+const keyMapperFixed: TableColumns = [
   {
     key: 'username',
     fixed: 'left',
@@ -213,5 +213,5 @@ const records = [
 ];
 
 export {
-  keyMapper, keyMapperFixed, records
+  columns, keyMapperFixed, records
 };

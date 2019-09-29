@@ -6,7 +6,7 @@ import MockData from '../../utils/mock-data';
 const Test = () => {
   const longText = MockData[0];
 
-  const keyMapper = [
+  const columns = [
     {
       key: 'username',
       namesMapper: {
@@ -63,7 +63,7 @@ const Test = () => {
         })
       }
       <DescHelper
-        keyMapper={keyMapper}
+        columns={columns}
         record={records[activeIdx]} />
     </div>
   );

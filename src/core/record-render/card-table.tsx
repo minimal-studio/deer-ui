@@ -11,7 +11,8 @@ import MapperFilter from './mapper-filter';
  */
 export default class CardTable extends MapperFilter {
   render() {
-    const { keyMapper, records } = this.props;
+    const { records } = this.props;
+    const columns = this.getColumns();
     if (!Array.isArray(records)) {
       console.error('records 必须为 []');
       return null;
@@ -23,7 +24,7 @@ export default class CardTable extends MapperFilter {
           records.map((record, idx) => (
             <div className="item" key={idx}>
               {
-                keyMapper.map((mapper, _idx) => {
+                columns.map((mapper, _idx) => {
                   if (!mapper) return null;
                   const { key } = mapper;
                   const currText = record[key];

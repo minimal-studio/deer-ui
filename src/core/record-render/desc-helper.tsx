@@ -1,14 +1,18 @@
 import React from 'react';
 
-import MapperFilter, { MapperFilterProps, KeyMapperItem } from './mapper-filter';
+import MapperFilter, { MapperFilterProps, Column } from './mapper-filter';
 
-interface DescHelperKeyMapper extends KeyMapperItem {
+export interface DescColumn extends Column {
   /** 是否独占一行 */
   block?: boolean;
 }
+export type DescHelperKeyMapper = DescColumn;
 
 export interface DescHelperProps {
+  /** 需要改名为 columns */
   keyMapper: DescHelperKeyMapper[];
+  /** 表格的 columns */
+  columns: DescColumn[];
   /** records 中的项 */
   record: {
     [key: string]: any;
@@ -29,14 +33,15 @@ export interface DescHelperProps {
 export default class DescHelper extends MapperFilter<DescHelperProps> {
   render() {
     const {
-      keyMapper = [], record = {}, className = '', col
+      record = {}, className = '', col
     } = this.props;
+    const columns = this.getColumns();
     let row = 0;
 
     return (
       <div className={`desc-container detail-desc ${className} ${col ? 'col' : ''}`}>
         {
-          keyMapper.map((mapper, idx) => {
+          columns.map((mapper, idx) => {
             if (!mapper) return null;
             const { key } = mapper;
 

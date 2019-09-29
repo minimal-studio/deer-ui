@@ -20,7 +20,7 @@ import MockData from '../utils/mock-data';
     () => {
       let longText = MockData[0];
 
-      const keyMapper = [
+      const columns = [
         {
           key: 'username',
           namesMapper: {
@@ -77,7 +77,7 @@ import MockData from '../utils/mock-data';
             })
           }
           <DescHelper
-            keyMapper={keyMapper}
+            columns={columns}
             record={records[activeIdx]} />
         </div>
       )

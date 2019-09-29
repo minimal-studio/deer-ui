@@ -3,7 +3,7 @@ import { CardTable, DescHelper } from '..';
 import { ShowModal } from '../../modal';
 
 const test1 = () => {
-  const keyMapper = [
+  const columns = [
     {
       key: 'username',
       title: (mapper) => {
@@ -27,7 +27,7 @@ const test1 = () => {
           <span
             onClick={e => ShowModal({
               title: '详情',
-              children: <DescHelper keyMapper={keyMapper} record={item} />
+              children: <DescHelper columns={columns} record={item} />
             })}
             className="link-btn">详情</span>
         );
@@ -62,7 +62,7 @@ const test1 = () => {
   ];
   return (
     <CardTable
-      keyMapper={keyMapper}
+      columns={columns}
       records={records} />
   );
 };

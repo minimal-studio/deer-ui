@@ -9,8 +9,8 @@ import { useState } from 'react'
 import { ShowModal } from '../modal';
 import { Table, DescHelper } from './';
 import { DropdownMenu } from '../selector';
-import KeyMapper from './key-mapper.mdx';
-import { records, keyMapper, keyMapperFixed } from './table-mock-data';
+import Columns from './columns.mdx';
+import { records, columns, keyMapperFixed } from './table-mock-data';
 import { setLangTranslate, setUkeLang } from '../config'
 
 # Table
@@ -27,18 +27,18 @@ uke-table 包含以下特点
 - 表头嵌入选择器和过滤器
 - 内置多种 data filter，数据展示更便捷
 
-## KeyMapper
+## Columns
 
-- keyMapper 需要显示的数据的字段映射集合
+- columns 需要显示的数据的字段映射集合
 - records   数据源
 
-[详情参考 KeyMapper](/KeyMapper)
+[详情参考 Columns](/Columns)
 
-keyMapper 与 records 的对应关系
+columns 与 records 的对应关系
 
 ```js
 // key 对应 records 的所有项的 [key], 以下例子对应 username
-const keyMapper = [
+const columns = [
   {
     key: 'username'
   }
@@ -71,12 +71,12 @@ __需要为 Table 设置 rowKey__
 <Playground>
   {
     () => {
-      const _keyMapper = [...keyMapper];
+      const _keyMapper = [...columns];
       const _records = [...records];
       return (
         <div>
           <Table
-            keyMapper={_keyMapper}
+            columns={_keyMapper}
             rowKey={record => record.id}
             onChange={(emitVal, config) => {
               console.log(emitVal, config)
@@ -95,12 +95,12 @@ __需要为 Table 设置 rowKey__
 <Playground>
   {
     () => {
-      const _keyMapper = [...keyMapper];
+      const _keyMapper = [...columns];
       const _records = [...records];
       return (
         <div>
           <Table
-            keyMapper={_keyMapper}
+            columns={_keyMapper}
             ref={e => table = e}
             rowKey={record => record.id}
             needCount
@@ -123,14 +123,14 @@ __需要为 Table 设置 rowKey__
 <Playground>
   {
     () => {
-      const _keyMapper = [...keyMapper];
+      const _keyMapper = [...columns];
       const _records = [...records];
       let table;
 
       return (
         <div>
           <Table
-            keyMapper={_keyMapper}
+            columns={_keyMapper}
             clickToHighlight
             ref={e => table = e}
             checkedOverlay={checkedItems => (
@@ -156,7 +156,7 @@ __需要为 Table 设置 rowKey__
 > 添加 height 固定表头
 
 ```js
-const keyMapper = [
+const columns = [
   {
     ...config,
     fixed: 'left'
@@ -181,16 +181,16 @@ const keyMapper = [
         <div>
           <div className="mb10">
             <span className="btn theme mr10" onClick={e => {
-              let nextKeyMapper = [...keyMapper];
+              let nextKeyMapper = [...columns];
               nextKeyMapper.splice(-1, 1);
               setKeyMapper(nextKeyMapper)
-            }}>减少最后一个 keyMapper</span>
+            }}>减少最后一个 columns</span>
             <span className="btn green mr10" onClick={e => {
-              let nextKeyMapper = [...keyMapper, {
-                key: 'len' + keyMapper.length
+              let nextKeyMapper = [...columns, {
+                key: 'len' + columns.length
               }];
               setKeyMapper(nextKeyMapper)
-            }}>增加一个 keyMapper</span>
+            }}>增加一个 columns</span>
             <span className="btn red mr10" onClick={e => {
               let nextRecords = [...records, records[0]];
               setRecords(nextRecords)
@@ -201,7 +201,7 @@ const keyMapper = [
             }}>减少一条记录</span>
             <hr />
             <Table
-              keyMapper={_keyMapper}
+              columns={_keyMapper}
               ref={e => table = e}
               checkedOverlay={(
                 <span className="btn theme mu10" onClick={e => table.clearCheckeds()}>
@@ -225,10 +225,10 @@ const keyMapper = [
 
 ## 固定列
 
-> 固定列，为 keyMapper 添加 fixed: 'left' | 'right' 配置，并且要注意，从最左边开始添加 left，或者最右开始添加 right
+> 固定列，为 columns 添加 fixed: 'left' | 'right' 配置，并且要注意，从最左边开始添加 left，或者最右开始添加 right
 
 ```js
-const keyMapper = [
+const columns = [
   {
     ...config,
     fixed: 'left'
@@ -253,16 +253,16 @@ const keyMapper = [
         <div>
           <div className="mb10">
             <span className="btn theme mr10" onClick={e => {
-              let nextKeyMapper = [...keyMapper];
+              let nextKeyMapper = [...columns];
               nextKeyMapper.splice(-1, 1);
               setKeyMapper(nextKeyMapper)
-            }}>减少最后一个 keyMapper</span>
+            }}>减少最后一个 columns</span>
             <span className="btn green mr10" onClick={e => {
-              let nextKeyMapper = [...keyMapper, {
-                key: 'len' + keyMapper.length
+              let nextKeyMapper = [...columns, {
+                key: 'len' + columns.length
               }];
               setKeyMapper(nextKeyMapper)
-            }}>增加一个 keyMapper</span>
+            }}>增加一个 columns</span>
             <span className="btn red mr10" onClick={e => {
               let nextRecords = [...records, records[0]];
               setRecords(nextRecords)
@@ -273,7 +273,7 @@ const keyMapper = [
             }}>减少一条记录</span>
             <hr />
             <Table
-              keyMapper={_keyMapper}
+              columns={_keyMapper}
               ref={e => table = e}
               checkedOverlay={(
                 <span className="btn theme mu10" onClick={e => table.clearCheckeds()}>
@@ -317,7 +317,7 @@ const keyMapper = [
           </div>
           <div style={!show ? {display: 'none'} : null}>
             <Table
-              keyMapper={_keyMapper}
+              columns={_keyMapper}
               ref={e => table = e}
               checkedOverlay={(
                 <span className="btn theme mu10" onClick={e => table.clearCheckeds()}>
@@ -347,7 +347,7 @@ const keyMapper = [
 > 此方式主要应用于：需要与远端数据通讯确定数据排序
 
 ```js
-const keyMapper = [
+const columns = [
   {
     ...options,
     onSort: (currItem, prevDesc) => {
@@ -368,13 +368,13 @@ const keyMapper = [
         onSort: (mapper, isDesc) => {
           return !isDesc;
         }
-      }, ...keyMapper];
+      }, ...columns];
       const _records = [...records];
       let table;
       return (
         <div>
           <Table
-            keyMapper={_keyMapper}
+            columns={_keyMapper}
             ref={e => table = e}
             checkedOverlay={checkedItems => (
               <span className="btn theme mu10" onClick={e => table.clearCheckeds()}>
@@ -397,13 +397,13 @@ const keyMapper = [
 <Playground>
   {
     () => {
-      const _keyMapper = [...keyMapper];
+      const _keyMapper = [...columns];
       const _records = [...records];
       let table;
       return (
         <div>
           <Table
-            keyMapper={_keyMapper}
+            columns={_keyMapper}
             ref={e => table = e}
             checkedOverlay={checkedItems => (
               <span className="btn theme mu10" onClick={e => table.clearCheckeds()}>
@@ -427,7 +427,7 @@ const keyMapper = [
 <Playground>
   {
     () => {
-      const _keyMapper = [...keyMapper];
+      const _keyMapper = [...columns];
       const _records = [...records];
       const [lang, setLang] = useState('zh-CN')
       const langMapper = {
@@ -450,7 +450,7 @@ const keyMapper = [
             setLang(nextLang)
           }}>{lang}</span>
           <Table
-            keyMapper={_keyMapper}
+            columns={_keyMapper}
             ref={e => table = e}
             rowKey={record => record.id}
             needCount

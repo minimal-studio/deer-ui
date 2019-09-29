@@ -4,16 +4,22 @@ import {
 } from 'basic-helper';
 import classnames from 'classnames';
 
-import MapperFilter, { MapperFilterProps, KeyMapperItem, Records } from './mapper-filter';
+import MapperFilter, { MapperFilterProps, Column, Records } from './mapper-filter';
 import { Icon } from '../icon';
 import { Children } from '../utils/props';
 
-export interface TableKeyMapperItem extends KeyMapperItem {
+export interface TableColumn extends Column {
   /** 点击表头排序的回调 */
   onSort?: (record, isDescOutside) => void;
   /** 是否固定 */
   fixed?: 'left' | 'right';
 }
+export type TableColumns = TableColumn[];
+
+/** 兼容旧的 TableKeyMapperItem */
+export type TableKeyMapperItem = TableColumn;
+/** 兼容旧的 TableKeyMapper */
+export type TableKeyMapper = TableKeyMapperItem[];
 
 export type TableRecords = Records;
 
@@ -24,11 +30,12 @@ export type CheckedOverlay = (params: {
   clearCheckeds: () => void;
 }) => any;
 
-export type TableKeyMapper = TableKeyMapperItem[]
 
 export interface TableProps extends MapperFilterProps {
-  /** 对应 record 数据的 [key] */
+  /** 需要重命名为 columns */
   keyMapper: TableKeyMapper;
+  /** 定义 table 的 columns */
+  columns: TableColumns;
   /** 数据源 */
   records: TableRecords;
   /** 是否需要统计 */
@@ -248,18 +255,19 @@ export default class Table extends MapperFilter<TableProps, State> {
   }
 
   getKeyMapper = () => {
-    const { keyMapper = [], needCheck } = this.props;
+    const { needCheck } = this.props;
+    const columns = this.getColumns();
 
-    let result = keyMapper;
+    let result = columns;
 
     if (needCheck) {
-      const fixedLeft = keyMapper[0].fixed === 'left';
+      const fixedLeft = columns[0].fixed === 'left';
       const checkExtend = Object.assign({}, fixedLeft ? { fixed: 'left' } : {}, {
         key: 'checkbox',
         // w: checkWidth,
         filter: this.getCheckbox
       });
-      result = [checkExtend, ...keyMapper];
+      result = [checkExtend, ...columns];
     }
 
     this.saveFixedGroup(result);
@@ -267,11 +275,11 @@ export default class Table extends MapperFilter<TableProps, State> {
     return result;
   }
 
-  saveFixedGroup = (keyMapper) => {
+  saveFixedGroup = (columns) => {
     if (this.hadSaved) return;
     this.hadSaved = true;
     const { fixedRightKeys = [], fixedLeftKeys = [] } = this.props;
-    keyMapper.forEach((item, idx) => {
+    columns.forEach((item, idx) => {
       const { key, fixed } = item;
       const nextItem = { ...item, idx };
       switch (true) {
@@ -308,13 +316,6 @@ export default class Table extends MapperFilter<TableProps, State> {
         nextContainerWidth += nextHeaderWidthMapper[i];
       }
     }
-    // const keyMapper = this.getKeyMapper();
-    // keyMapper.forEach((_, tdIdx) => {
-    //   let currTDDOM = this.firstTDDOMs[tdIdx];
-    //   let currWidth = currTDDOM.offsetWidth || headerWidthMapper[tdIdx];
-    //   nextHeaderWidthMapper[tdIdx] = currWidth;
-    //   nextContainerWidth += nextHeaderWidthMapper[tdIdx];
-    // });
     if (
       nextHeaderWidthMapper.join(',') !== headerWidthMapper.join(',')
     ) {
@@ -487,17 +488,17 @@ export default class Table extends MapperFilter<TableProps, State> {
 
   renderCell(options) {
     const {
-      record, parentIdx, needCount, rowKey, keyMapper,
+      record, parentIdx, needCount, rowKey, columns,
       needAction = true, filter, statistics, main
     } = options;
     if (!record) return null;
-    // const keyMapper = this.getKeyMapper();
-    const keyMapperLen = keyMapper.length;
+    // const columns = this.getKeyMapper();
+    const keyMapperLen = columns.length;
 
     const result: any[] = [];
 
     for (let _idx = 0; _idx < keyMapperLen; _idx++) {
-      const mapperItem = keyMapper[_idx];
+      const mapperItem = columns[_idx];
       // eslint-disable-next-line no-continue
       if (!mapperItem) continue;
 
@@ -583,12 +584,12 @@ export default class Table extends MapperFilter<TableProps, State> {
     });
   }
 
-  calcTableWidth = (keyMapper) => {
+  calcTableWidth = (columns) => {
     const { headerWidthMapper } = this.state;
     if (headerWidthMapper.length === 0) return null;
     let res = 0;
 
-    keyMapper.forEach((mapper, _idx) => {
+    columns.forEach((mapper, _idx) => {
       const { idx } = mapper;
       const __idx = idx || _idx;
       // if(fixed == 'right') {
@@ -607,9 +608,9 @@ export default class Table extends MapperFilter<TableProps, State> {
     const {
       headerWidthMapper, sortField, sortOutsideField, isDescInner, isDescOutside
     } = this.state;
-    const { keyMapper, isAllCheck } = options;
+    const { columns, isAllCheck } = options;
     const style = {
-      width: this.calcTableWidth(keyMapper)
+      width: this.calcTableWidth(columns)
     };
     const isDesc = typeof isDescOutside == 'undefined' ? isDescInner : isDescOutside;
     return (
@@ -621,7 +622,7 @@ export default class Table extends MapperFilter<TableProps, State> {
           <thead>
             <tr>
               {
-                keyMapper.map((item, _idx) => {
+                columns.map((item, _idx) => {
                   if (!item) return;
                   // const { key, w } = item;
                   // const cellWidth = w || headerWidthMapper[idx];
@@ -710,7 +711,7 @@ export default class Table extends MapperFilter<TableProps, State> {
     const { height, needCount } = this.props;
     const { tableWidth, isAutoWidth } = this.state;
     const {
-      hasRecord, keyMapper, ref, main
+      hasRecord, columns, ref, main
     } = options;
     // const hasFixedTable = this.hasFixedGroup();
 
@@ -721,7 +722,7 @@ export default class Table extends MapperFilter<TableProps, State> {
     };
     const style = Object.assign({}, {
       height,
-      width: isAutoWidth ? tableWidth : this.calcTableWidth(keyMapper)
+      width: isAutoWidth ? tableWidth : this.calcTableWidth(columns)
     });
 
     return hasRecord ? (
@@ -803,14 +804,14 @@ export default class Table extends MapperFilter<TableProps, State> {
     const leftFixedTable = hasLeft && this.renderTable({
       ...options,
       className: 'table-fixed left',
-      keyMapper: this.fixedLeftGroup,
+      columns: this.fixedLeftGroup,
       ref: this.saveLeftFixed,
     }, 'table-fixed-left');
     const rightFixedTable = hasRight && this.renderTable({
       ...options,
       className: 'table-fixed right',
       ref: this.saveRightFixed,
-      keyMapper: this.fixedRightGroup,
+      columns: this.fixedRightGroup,
     }, 'table-fixed-right');
 
     return !hasLeft && !hasRight ? null : [
@@ -876,7 +877,7 @@ export default class Table extends MapperFilter<TableProps, State> {
     } = this.state;
     const records = this.recordsOrderFilter();
     const hasRecord = records.length > 0;
-    const keyMapper = this.getKeyMapper();
+    const columns = this.getKeyMapper();
 
     const checkedItemLen = Object.keys(checkedItems).length;
     const hasChecked = checkedItemLen > 0;
@@ -885,7 +886,7 @@ export default class Table extends MapperFilter<TableProps, State> {
 
     const renderTableConfig = {
       hasRecord,
-      keyMapper,
+      columns,
       records,
       isAllCheck
     };

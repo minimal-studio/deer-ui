@@ -2,17 +2,17 @@ import React, { useState } from 'react';
 import { Table, DescHelper } from '..';
 import { ShowModal } from '../../modal';
 import MockData from '../../utils/mock-data';
-import { records, keyMapper, keyMapperFixed } from '../table-mock-data';
+import { records, columns, keyMapperFixed } from '../table-mock-data';
 import { setLangTranslate, setUkeLang } from '../../config';
 
 const Test1 = () => {
-  const _keyMapper = [...keyMapper];
+  const _keyMapper = [...columns];
   const _records = [...records];
   return (
     <div>
       <Table
-        // keyMapper={_keyMapper}
-        keyMapper={_keyMapper}
+        // columns={_keyMapper}
+        columns={_keyMapper}
         rowKey={record => record.id}
         onChange={(emitVal, config) => {
           console.log(emitVal, config);
@@ -23,12 +23,12 @@ const Test1 = () => {
 };
 
 const Test2 = () => {
-  const _keyMapper = [...keyMapper];
+  const _keyMapper = [...columns];
   const _records = [...records];
   return (
     <div>
       <Table
-        keyMapper={_keyMapper}
+        columns={_keyMapper}
         rowKey={record => record.id}
         needCount
         onChange={(emitVal, config) => {
@@ -40,14 +40,14 @@ const Test2 = () => {
 };
 
 const Test3 = () => {
-  const _keyMapper = [...keyMapper];
+  const _keyMapper = [...columns];
   const _records = [...records];
   let table;
 
   return (
     <div>
       <Table
-        keyMapper={_keyMapper}
+        columns={_keyMapper}
         clickToHighlight
         ref={(e) => { table = e; }}
         checkedOverlay={checkedItems => (
@@ -76,16 +76,16 @@ const Test4 = () => {
     <div>
       <div className="mb10">
         <span className="btn theme mr10" onClick={(e) => {
-          const nextKeyMapper = [...keyMapper];
+          const nextKeyMapper = [...columns];
           nextKeyMapper.splice(-1, 1);
           setKeyMapper(nextKeyMapper);
-        }}>减少最后一个 keyMapper</span>
+        }}>减少最后一个 columns</span>
         <span className="btn green mr10" onClick={(e) => {
-          const nextKeyMapper = [...keyMapper, {
-            key: `len${keyMapper.length}`
+          const nextKeyMapper = [...columns, {
+            key: `len${columns.length}`
           }];
           setKeyMapper(nextKeyMapper);
-        }}>增加一个 keyMapper</span>
+        }}>增加一个 columns</span>
         <span className="btn red mr10" onClick={(e) => {
           const nextRecords = [...records, records[0]];
           setRecords(nextRecords);
@@ -96,7 +96,7 @@ const Test4 = () => {
         }}>减少一条记录</span>
         <hr />
         <Table
-          keyMapper={_keyMapper}
+          columns={_keyMapper}
           ref={(e) => { table = e; }}
           checkedOverlay={(
             <span className="btn theme mu10" onClick={e => table.clearCheckeds()}>
@@ -126,16 +126,16 @@ const Test5 = () => {
     <div>
       <div className="mb10">
         <span className="btn theme mr10" onClick={(e) => {
-          const nextKeyMapper = [...keyMapper];
+          const nextKeyMapper = [...columns];
           nextKeyMapper.splice(-1, 1);
           setKeyMapper(nextKeyMapper);
-        }}>减少最后一个 keyMapper</span>
+        }}>减少最后一个 columns</span>
         <span className="btn green mr10" onClick={(e) => {
-          const nextKeyMapper = [...keyMapper, {
-            key: `len${keyMapper.length}`
+          const nextKeyMapper = [...columns, {
+            key: `len${columns.length}`
           }];
           setKeyMapper(nextKeyMapper);
-        }}>增加一个 keyMapper</span>
+        }}>增加一个 columns</span>
         <span className="btn red mr10" onClick={(e) => {
           const nextRecords = [...records, records[0]];
           setRecords(nextRecords);
@@ -146,7 +146,7 @@ const Test5 = () => {
         }}>减少一条记录</span>
         <hr />
         <Table
-          keyMapper={_keyMapper}
+          columns={_keyMapper}
           ref={(e) => { table = e; }}
           checkedOverlay={(
             <span className="btn theme mu10" onClick={e => table.clearCheckeds()}>
@@ -184,7 +184,7 @@ const Test6 = () => {
       </div>
       <div style={!show ? { display: 'none' } : null}>
         <Table
-          keyMapper={_keyMapper}
+          columns={_keyMapper}
           ref={(e) => { table = e; }}
           checkedOverlay={(
             <span className="btn theme mu10" onClick={e => table.clearCheckeds()}>
@@ -213,13 +213,13 @@ const Test7 = () => {
     onSort: (mapper, isDesc) => {
       return !isDesc;
     }
-  }, ...keyMapper];
+  }, ...columns];
   const _records = [...records];
   let table;
   return (
     <div>
       <Table
-        keyMapper={_keyMapper}
+        columns={_keyMapper}
         ref={(e) => { table = e; }}
         checkedOverlay={checkedItems => (
           <span className="btn theme mu10" onClick={e => table.clearCheckeds()}>
@@ -236,13 +236,13 @@ const Test7 = () => {
 };
 
 const Test8 = () => {
-  const _keyMapper = [...keyMapper];
+  const _keyMapper = [...columns];
   const _records = [...records];
   let table;
   return (
     <div>
       <Table
-        keyMapper={_keyMapper}
+        columns={_keyMapper}
         ref={(e) => { table = e; }}
         checkedOverlay={checkedItems => (
           <span className="btn theme mu10" onClick={e => table.clearCheckeds()}>
@@ -260,7 +260,7 @@ const Test8 = () => {
 };
 
 const Test9 = () => {
-  const _keyMapper = [...keyMapper];
+  const _keyMapper = [...columns];
   const _records = [...records];
   const [lang, setLang] = useState('zh-CN');
   const langMapper = {
@@ -284,7 +284,7 @@ const Test9 = () => {
         setLang(nextLang);
       }}>{lang}</span>
       <Table
-        keyMapper={_keyMapper}
+        columns={_keyMapper}
         rowKey={record => record.id}
         needCount
         onChange={(emitVal, config) => {
