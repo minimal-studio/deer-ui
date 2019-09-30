@@ -33,7 +33,7 @@ export type CheckedOverlay = (params: {
 
 export interface TableProps extends MapperFilterProps {
   /** 需要重命名为 columns */
-  keyMapper: TableKeyMapper;
+  keyMapper?: TableKeyMapper;
   /** 定义 table 的 columns */
   columns: TableColumns;
   /** 数据源 */

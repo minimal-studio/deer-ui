@@ -67,7 +67,7 @@ export type Columns = Column[];
 
 export interface MapperFilterProps {
   /** 需要重命名为 columns */
-  keyMapper: KeyMapper;
+  keyMapper?: KeyMapper;
   /** 对于数据的 columns 的定义 */
   columns: Columns;
   /** 服务端返回的数据 */

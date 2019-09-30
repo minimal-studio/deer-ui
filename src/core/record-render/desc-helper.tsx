@@ -10,7 +10,7 @@ export type DescHelperKeyMapper = DescColumn;
 
 export interface DescHelperProps {
   /** 需要改名为 columns */
-  keyMapper: DescHelperKeyMapper[];
+  keyMapper?: DescHelperKeyMapper[];
   /** 表格的 columns */
   columns: DescColumn[];
   /** records 中的项 */
