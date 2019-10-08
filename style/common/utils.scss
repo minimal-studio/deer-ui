@@ -13,6 +13,29 @@
     }
   }
 }
+
+@mixin formControlFocusShadow($color: $themeColor) {
+  box-shadow: 0 0 0 2px rgba($color, 0.2);
+}
+
+@mixin focusBorder {
+  border-color: rgba($themeColor, 0.6);
+}
+
+@mixin formFocusClass {
+  background-color: #FFF;
+  @include focusBorder();
+  @include formControlFocusShadow();
+}
+
+@mixin formControlFocus {
+  &:hover {
+    border-color: rgba($themeColor, 0.6);
+  }
+  &:focus {
+    @include formFocusClass();
+  }
+}
  
 @mixin paddingForGrid($padding) {
   margin: - $padding * 1px;

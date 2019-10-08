@@ -45,6 +45,11 @@ $iconViewBgColor: $themeColor;
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
   }
+  &:hover {
+    .input-group {
+      @include focusBorder();
+    }
+  }
   &.flow-title {
     .input-group {
       width: 100%;
@@ -70,9 +75,7 @@ $iconViewBgColor: $themeColor;
   }
   &.focusing {
     .input-group {
-      border-color: $themeColor;
-      box-shadow: 0 0 2px rgba($themeColor, 0.6);
-      background-color: #FFF;
+      @include formFocusClass();
     }
     .title {
       color: $themeColor;
@@ -90,7 +93,7 @@ $iconViewBgColor: $themeColor;
     align-items: center;
     border: 1px solid $gray;
     border-radius: 3px;
-    transition: background-color 0.2s ease, border 0.2s ease;
+    transition: background-color 0.2s ease, border 0.2s ease, box-shadow 0.2s ease;
     background-color: #fefefe;
   }
   .form-control {

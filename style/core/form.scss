@@ -19,11 +19,7 @@ textarea.form-control {
   height: 100px;
 }
 input, textarea {
-  &:focus {
-    // box-shadow: none;
-    box-shadow: 0 0 1px rgba($themeColor, 0.6);
-    border-color: $themeColor;
-  }
+  @include formControlFocus();
 }
 .form-control {
   &select {
@@ -40,12 +36,6 @@ input, textarea {
   border-color: #e7e7e7;
   background-color: #fefefe;
   transition: border-color 0.1s, background-color 0.1s;
-  &:focus {
-    // box-shadow: none;
-    box-shadow: 0 0 1px rgba($themeColor, 0.6);
-    background-color: #FFF;
-    border-color: $themeColor;
-  }
   &[type="range"] {
     width: auto;
   }

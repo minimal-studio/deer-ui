@@ -120,6 +120,7 @@ $caretHeight: 6px;
       color: $themeColor;
       .display-title {
         border-color: rgba($themeColor, 0.6);
+        // @include formControlFocusShadow();
         // box-shadow: 0 0 4px rgba($themeColor, 0.5);
       }
     }
@@ -154,6 +155,10 @@ $caretHeight: 6px;
   &.show {
     .icon-wrap {
       transform: rotate(180deg);
+    }
+    .display-title {
+      @include focusBorder();
+      @include formControlFocusShadow();
     }
     &.top {
       .icon-wrap {
@@ -207,10 +212,11 @@ $caretHeight: 6px;
     outline: none;
     pointer-events: none;
     &:focus {
-      box-shadow: 0 0 1px rgba($themeColor, 0.6);
-      border-color: $themeColor;
+      // border-color: $themeColor;
       pointer-events: all;
+      // @include formControlFocusShadow();
     }
+    @include formControlFocus();
   }
   .action-group {
     position: relative;
