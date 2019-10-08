@@ -204,7 +204,8 @@ export default class Table extends MapperFilter<TableProps, State> {
     this.toggleAllItems(false);
   }
 
-  handleClickToHighlight = (rowIdx) => {
+  handleClickToHighlight = (e: React.MouseEvent, rowIdx) => {
+    // if (e.currentTarget !== e.target) return;
     this.setState(({ highlightRow }) => {
       const nextState = { ...highlightRow };
       nextState[rowIdx] = !nextState[rowIdx];
@@ -572,7 +573,7 @@ export default class Table extends MapperFilter<TableProps, State> {
         <tr
           key={key}
           onMouseEnter={() => this.handleHoverRow(idx)}
-          onClick={clickToHighlight ? () => this.handleClickToHighlight(idx) : undefined}
+          onClick={clickToHighlight ? (e) => this.handleClickToHighlight(e, idx) : undefined}
           className={`${_highlight}${isHoving ? ' hovering' : ''}${isHighlight ? ' highlight' : ''}`}>
           {
             this.renderCell({
