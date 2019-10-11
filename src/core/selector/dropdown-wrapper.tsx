@@ -134,10 +134,10 @@ export default class DropdownWrapper extends React.PureComponent<DropdownWrapper
     if (this.state.isShow) this.hide();
   }
 
-  handleClickMenu = (e) => {
+  handleClickMenu = (e, preventDefault = false) => {
     const { outside, scrollElem } = this.props;
     if (outside) {
-      e.preventDefault();
+      if (preventDefault) e.preventDefault();
       // const { clientX, clientY } = e;
       if (!this.addScrollListener && scrollElem) {
         const _scrollElem = scrollElem();
@@ -229,7 +229,7 @@ export default class DropdownWrapper extends React.PureComponent<DropdownWrapper
           {isShow ? (
             <div
               ref={outside ? e => this.saveItems(e) : null}
-              {...this.bindTrigger(false)}
+              {...this.bindTrigger(false, true)}
               className={overlayClasses}>
               <span className="caret" style={isLeft ? {
                 left: caretOffset
@@ -303,18 +303,18 @@ export default class DropdownWrapper extends React.PureComponent<DropdownWrapper
     return child;
   }
 
-  bindTrigger = (isHide = false) => {
+  bindTrigger = (isHide = false, preventDefault = false) => {
     const { trigger } = this.props;
     let res;
     switch (trigger) {
       case 'click':
         res = !isHide ? {
-          onClick: this.handleClickMenu
+          onClick: e => this.handleClickMenu(e, preventDefault)
         } : {};
         break;
       case 'hover':
         res = !isHide ? {
-          onMouseEnter: this.handleClickMenu,
+          onMouseEnter: e => this.handleClickMenu(e, preventDefault),
           onMouseLeave: () => {
             if (!this.delayExec) this.delayExec = new DebounceClass();
             this.delayExec.exec(this.handleClickAway, 200);
@@ -322,7 +322,7 @@ export default class DropdownWrapper extends React.PureComponent<DropdownWrapper
         } : {
           onMouseEnter: (event) => {
             if (this.delayExec) this.delayExec.cancel();
-            this.handleClickMenu(event);
+            this.handleClickMenu(event, preventDefault);
           },
           onMouseLeave: this.handleClickAway
         };

@@ -61,23 +61,42 @@ import DropdownWrapper from './dropdown-wrapper';
   {
     () => {
       return (
-        <DropdownWrapper outside overlay={(helper) => {
-          return (
-            <div className="p10" style={{width: 400}}>
-              弹出内容, <span className="link" onClick={e => {
-                helper.hide()
-              }}>点击关闭</span>
-            </div>
-          )
-        }}>
-          {
-            (options) => {
-              return (
-                <div>显示内容</div>
-              )
+        <div>
+          <DropdownWrapper outside overlay={(helper) => {
+            return (
+              <div className="p10" style={{width: 400}}>
+                弹出内容, <span className="link" onClick={e => {
+                  helper.hide()
+                }}>点击关闭</span>
+              </div>
+            )
+          }}>
+            {
+              (options) => {
+                return (
+                  <div>显示内容</div>
+                )
+              }
             }
-          }
-        </DropdownWrapper>
+          </DropdownWrapper>
+          <DropdownWrapper outside overlay={(helper) => {
+            return (
+              <div className="p10" style={{width: 400}}>
+                弹出内容, <span className="link" onClick={e => {
+                  helper.hide()
+                }}>点击关闭</span>
+              </div>
+            )
+          }}>
+            {
+              (options) => {
+                return (
+                  <div>显示内容</div>
+                )
+              }
+            }
+          </DropdownWrapper>
+        </div>
       )
     }
   }
