@@ -10,6 +10,9 @@ import { Children } from '../utils/props';
 import { getElementOffsetInfo } from '../utils/get-elem-offset';
 import positionFilter from '../position-filter';
 import setDOMById from '../set-dom';
+import {
+  getLeft, getRight, getTop, getBottom, PositionReturn,
+} from '../utils/position';
 
 interface State {
   isShow: boolean;
@@ -67,22 +70,41 @@ const calculateOverlayPosition = (options) => {
   } = getElementOffsetInfo(target);
   const overlayElemWidth = overlayElem.offsetWidth;
   const overlayElemHeight = overlayElem.offsetHeight;
-  let top; let
-    left = offsetLeft;
+  const offsetInfo = {
+    offsetWidth,
+    offsetHeight,
+    elemHeight: overlayElemHeight,
+    elemWidth: overlayElemWidth,
+    offsetLeft,
+    offsetTop
+  };
+  let posiInfo!: PositionReturn;
+  const _position: string[] = [];
+  // const left = getLeft(offsetInfo);
   if (position.indexOf('top') !== -1) {
-    top = offsetTop - offsetHeight - overlayElemHeight + offset;
+    posiInfo = getTop(offsetInfo);
   } else if (position.indexOf('bottom') !== -1) {
-    top = offsetTop + offsetHeight + offset;
+    posiInfo = getBottom(offsetInfo);
   }
   if (position.indexOf('right') !== -1) {
-    left = offsetLeft + offsetWidth - overlayElemWidth;
+    posiInfo.left = offsetLeft + offsetWidth - overlayElemWidth;
+    _position.push('right');
+  } else {
+    _position.push('left');
   }
+  _position.push(posiInfo.position);
+  // overlayElem.classList.add(position);
+  // console.log(overlayElem.classList)
+  _position.forEach((p) => {
+    overlayElem.classList.add(p);
+  });
   // res = { top, left };
   // topAnimation(overlayElem, top);
-  overlayElem.style.left = `${left - scrollX}px`;
-  overlayElem.style.top = `${top - scrollY}px`;
+  overlayElem.style.left = `${posiInfo.left - scrollX}px`;
+  overlayElem.style.top = `${posiInfo.top - scrollY}px`;
   // setTimeout(() => overlayElem.classList.add('done'), 50);
-  return { top, left };
+  // return { top, left };
+  return posiInfo;
 };
 
 export default class DropdownWrapper extends React.PureComponent<DropdownWrapperProps, State> {
@@ -126,7 +148,7 @@ export default class DropdownWrapper extends React.PureComponent<DropdownWrapper
   constructor(props) {
     super(props);
 
-    this._position = positionFilter(props.position);
+    this._position = positionFilter(props.position).split(' ');
     if (!dropdownContainerDOM) dropdownContainerDOM = setDOMById(dropdownContainerID, 'uke-dropdown-menu outside');
   }
 
@@ -213,11 +235,11 @@ export default class DropdownWrapper extends React.PureComponent<DropdownWrapper
     const { overlay, outside, position = '' } = this.props;
     const { isShow } = this.state;
 
-    const isLeft = position.indexOf('left') !== -1;
-    const caretOffset = this.displayTitleDOM ? this.displayTitleDOM.offsetWidth / 2 : 10;
+    // const isLeft = position.indexOf('left') !== -1;
+    // const caretOffset = this.displayTitleDOM ? this.displayTitleDOM.offsetWidth / 2 : 10;
     const overlayClasses = classnames(
       "dropdown-items",
-      this._position,
+      !outside && this._position,
       isShow && 'show'
     );
     const dropdownCom = (
@@ -231,11 +253,7 @@ export default class DropdownWrapper extends React.PureComponent<DropdownWrapper
               ref={outside ? e => this.saveItems(e) : null}
               {...this.bindOverlayTrigger()}
               className={overlayClasses}>
-              <span className="caret" style={isLeft ? {
-                left: caretOffset
-              } : {
-                right: caretOffset
-              }} />
+              <span className="caret" />
               {overlay && overlay(this.getPropsForOverlay())}
             </div>
           ) : <span />}
@@ -365,7 +383,7 @@ export default class DropdownWrapper extends React.PureComponent<DropdownWrapper
       withInput && "input-mode",
       error && 'error',
       isShow && 'show',
-      this._position
+      !outside && this._position
     );
 
     return (
