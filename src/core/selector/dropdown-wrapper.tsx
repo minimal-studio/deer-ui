@@ -106,11 +106,16 @@ export default class DropdownWrapper extends React.PureComponent<DropdownWrapper
 
   _input
 
+  // 记录是否已经渲染过一次 overlay
+  _shown = false
+
   overlayElem
 
   displayTitleDOM
 
   delayExec
+
+  hideDebounce
 
   addScrollListener
 
@@ -132,7 +137,7 @@ export default class DropdownWrapper extends React.PureComponent<DropdownWrapper
   handleClickMenu = (e) => {
     const { outside, scrollElem } = this.props;
     if (outside) {
-      // e.preventDefault();
+      e.preventDefault();
       // const { clientX, clientY } = e;
       if (!this.addScrollListener && scrollElem) {
         const _scrollElem = scrollElem();
@@ -161,6 +166,12 @@ export default class DropdownWrapper extends React.PureComponent<DropdownWrapper
       elem.removeEventListener('scroll', this.hide);
       this.addScrollListener = false;
     }
+    /** 一定隐藏成功 */
+    if (!this.hideDebounce) this.hideDebounce = new DebounceClass();
+    this.hideDebounce.exec(this._hide, 50);
+  }
+
+  _hide = () => {
     this.setState({
       isShow: false,
       searchValue: ''
@@ -201,6 +212,7 @@ export default class DropdownWrapper extends React.PureComponent<DropdownWrapper
   overlayRender = () => {
     const { overlay, outside, position = '' } = this.props;
     const { isShow } = this.state;
+
     const isLeft = position.indexOf('left') !== -1;
     const caretOffset = this.displayTitleDOM ? this.displayTitleDOM.offsetWidth / 2 : 10;
     const overlayClasses = classnames(
@@ -209,17 +221,26 @@ export default class DropdownWrapper extends React.PureComponent<DropdownWrapper
       isShow && 'show'
     );
     const dropdownCom = (
-      <div
-        ref={outside ? e => this.saveItems(e) : null}
-        {...this.bindTrigger(true)}
-        className={overlayClasses}>
-        <span className="caret" style={isLeft ? {
-          left: caretOffset
-        } : {
-          right: caretOffset
-        }} />
-        {overlay && overlay(this.getPropsForOverlay())}
-      </div>
+      <TransitionGroup component={null}>
+        <CSSTransition
+          key={isShow ? "opened" : "closed"}
+          classNames="drop-menu"
+          timeout={200}>
+          {isShow ? (
+            <div
+              ref={outside ? e => this.saveItems(e) : null}
+              {...this.bindTrigger(false)}
+              className={overlayClasses}>
+              <span className="caret" style={isLeft ? {
+                left: caretOffset
+              } : {
+                right: caretOffset
+              }} />
+              {overlay && overlay(this.getPropsForOverlay())}
+            </div>
+          ) : <span />}
+        </CSSTransition>
+      </TransitionGroup>
     );
 
     return outside ? ReactDOM.createPortal(
@@ -336,7 +357,8 @@ export default class DropdownWrapper extends React.PureComponent<DropdownWrapper
               this.childrenRender()
             }
           </span>
-          {
+          {this.overlayRender()}
+          {/* {
             outside ? this.overlayRender() : (
               <TransitionGroup component={null}>
                 <CSSTransition
@@ -347,7 +369,7 @@ export default class DropdownWrapper extends React.PureComponent<DropdownWrapper
                 </CSSTransition>
               </TransitionGroup>
             )
-          }
+          } */}
         </div>
       </ClickAway>
     );
