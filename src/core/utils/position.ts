@@ -9,13 +9,20 @@ export interface PositionReturn {
   left: number;
 }
 export interface GetFuncParams {
-  offsetTop: any;
-  offsetLeft: any;
-  offsetWidth: any;
-  offsetHeight: any;
-  elemWidth: any;
-  elemHeight: any;
-  fromRight?: boolean;
+  /** 相对元素的属性 */
+  offsetTop: number;
+  /** 相对元素的属性 */
+  offsetLeft: number;
+  /** 相对元素的属性 */
+  offsetWidth: number;
+  /** 相对元素的属性 */
+  offsetHeight: number;
+  /** 当前需要定位的元素的属性 */
+  elemWidth: number;
+  /** 当前需要定位的元素的属性 */
+  elemHeight: number;
+  /** 内部属性 */
+  _fromRight?: boolean;
 }
 
 const verticalOffset = 14;
@@ -35,11 +42,11 @@ const horizontalOffset = 4;
  */
 export function getLeft(params: GetFuncParams): PositionReturn {
   const {
-    offsetLeft, elemWidth, offsetTop, fromRight,
+    offsetLeft, elemWidth, offsetTop, _fromRight,
     offsetWidth, offsetHeight, elemHeight,
   } = params;
   const left = offsetLeft - elemWidth - 12;
-  if (left - elemWidth <= 0 && !fromRight) return getRight(params);
+  if (left - elemWidth <= 0 && !_fromRight) return getRight(params);
   // if(left + elemWidth > ScreenWidth) left = ScreenWidth - elemWidth;
   return {
     top: offsetTop - horizontalOffset,
@@ -50,11 +57,11 @@ export function getLeft(params: GetFuncParams): PositionReturn {
 
 export function getRight(params: GetFuncParams): PositionReturn {
   const {
-    offsetLeft, elemWidth, offsetTop, fromRight,
+    offsetLeft, elemWidth, offsetTop, _fromRight,
     offsetWidth, offsetHeight, elemHeight,
   } = params;
   const left = offsetLeft + offsetWidth + 15;
-  if (left + elemWidth >= getScreenWidth()) return getLeft({ ...params, fromRight: true });
+  if (left + elemWidth >= getScreenWidth()) return getLeft({ ...params, _fromRight: true });
   // if(left - elemWidth <= 0) left = ScreenWidth - elemWidth;
   return {
     top: offsetTop - horizontalOffset,
@@ -65,7 +72,7 @@ export function getRight(params: GetFuncParams): PositionReturn {
 
 export function getTop(params: GetFuncParams): PositionReturn {
   const {
-    offsetLeft, elemWidth, offsetTop, fromRight,
+    offsetLeft, elemWidth, offsetTop, _fromRight,
     offsetWidth, offsetHeight, elemHeight,
   } = params;
   const top = offsetTop - elemHeight - offsetHeight / 2;
@@ -79,7 +86,7 @@ export function getTop(params: GetFuncParams): PositionReturn {
 
 export function getBottom(params: GetFuncParams): PositionReturn {
   const {
-    offsetLeft, elemWidth, offsetTop, fromRight,
+    offsetLeft, elemWidth, offsetTop, _fromRight,
     offsetWidth, offsetHeight, elemHeight,
   } = params;
   const top = offsetTop + offsetHeight + offsetHeight / 2;
