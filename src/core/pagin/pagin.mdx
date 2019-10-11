@@ -28,8 +28,20 @@ import { Pagination } from './';
         pIdx: 0,
         pSize: 10
       });
+      const [pagingInfo3, setPagin3] = useState({
+        active: true,
+        total: 2,
+        pIdx: 0,
+        pSize: 10
+      });
       return (
         <div>
+          <Pagination
+            onPagin={nextPagin => {
+              console.log(nextPagin)
+              setPagin3(nextPagin)
+            }}
+            pagingInfo={pagingInfo3}/>
           <Pagination
             onPagin={nextPagin => {
               console.log(nextPagin)

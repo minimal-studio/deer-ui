@@ -151,6 +151,9 @@ export default class Pagination extends UkeComponent<PaginationProps> {
     const { $T_UKE } = this;
 
     const paginBtnCount = Math.ceil(total / pSize);
+    const isFirstActive = pIdx === 0;
+    const isLastActive = pIdx === paginBtnCount - 1;
+    const hasMorePagin = paginBtnCount > 1;
 
     if (total === -1 || total === 0) return <span />;
 
@@ -160,6 +163,7 @@ export default class Pagination extends UkeComponent<PaginationProps> {
         <span>{$T_UKE('跳至')}</span>
         <input
           type="text"
+          disabled={!hasMorePagin}
           className="form-control input-sm ms10 input"
           onBlur={e => this.changePagin(+e.target.value - 1)}/>
         <span>{$T_UKE('页')}</span>
@@ -200,16 +204,15 @@ export default class Pagination extends UkeComponent<PaginationProps> {
         }
       </div>
     );
-    const isFirstActive = pIdx === 0;
-    const isLastActive = pIdx === paginBtnCount - 1;
-    const firstCon = (
-      <span className="item-group">
+    
+    const firstCon = hasMorePagin && (
+      <span className="item-group first">
         <span onClick={e => this.changePagin(0)} className={`item${isFirstActive ? ' active' : ''}`}>1</span>
         {pIdx - prevBtnCount > 1 && <Seperator />}
       </span>
     );
     const lastCon = (
-      <span className="item-group">
+      <span className="item-group last">
         {paginBtnCount - pIdx - 2 > lastBtnCount && <Seperator />}
         <span onClick={e => this.changePagin(paginBtnCount - 1)} className={`item${isLastActive ? ' active' : ''}`}>{paginBtnCount}</span>
       </span>
