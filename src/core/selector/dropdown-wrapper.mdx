@@ -55,6 +55,34 @@ import DropdownWrapper from './dropdown-wrapper';
   }
 </Playground>
 
+## 渲染在 root 以外
+
+<Playground>
+  {
+    () => {
+      return (
+        <DropdownWrapper outside overlay={(helper) => {
+          return (
+            <div className="p10" style={{width: 400}}>
+              弹出内容, <span className="link" onClick={e => {
+                helper.hide()
+              }}>点击关闭</span>
+            </div>
+          )
+        }}>
+          {
+            (options) => {
+              return (
+                <div>显示内容</div>
+              )
+            }
+          }
+        </DropdownWrapper>
+      )
+    }
+  }
+</Playground>
+
 ## Props
 
 <Props of={DropdownWrapper} />
