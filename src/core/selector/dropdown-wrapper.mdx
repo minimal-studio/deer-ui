@@ -20,7 +20,7 @@ import DropdownWrapper from './dropdown-wrapper';
         <>
           <DropdownWrapper menuTitle="标题" overlay={e => {
             return (
-              <div className="p10" style={{width: 400}}>
+              <div className="p10" style={{width: 200}}>
                 任意内容
               </div>
             )
@@ -28,8 +28,36 @@ import DropdownWrapper from './dropdown-wrapper';
           <span className="ms10"></span>
           <DropdownWrapper menuTitle="鼠标移入" trigger="hover" overlay={e => {
             return (
-              <div className="p10" style={{width: 400}}>
+              <div className="p10" style={{width: 200}}>
                 任意内容
+              </div>
+            )
+          }} />
+        </>
+      )
+    }
+  }
+</Playground>
+
+## 不通方向
+
+<Playground>
+  {
+    () => {
+      return (
+        <>
+          <DropdownWrapper menuTitle="上" position="top" trigger="hover" overlay={e => {
+            return (
+              <div className="p10" style={{width: 200}}>
+                上
+              </div>
+            )
+          }} />
+          <span className="ms10"></span>
+          <DropdownWrapper menuTitle="下" trigger="hover" overlay={e => {
+            return (
+              <div className="p10" style={{width: 200}}>
+                下
               </div>
             )
           }} />
@@ -47,7 +75,7 @@ import DropdownWrapper from './dropdown-wrapper';
       return (
         <DropdownWrapper overlay={() => {
           return (
-            <div className="p10" style={{width: 400}}>
+            <div className="p10" style={{width: 200}}>
               弹出内容
             </div>
           )
@@ -74,7 +102,7 @@ import DropdownWrapper from './dropdown-wrapper';
         <div>
           <DropdownWrapper outside overlay={(helper) => {
             return (
-              <div className="p10" style={{width: 400}}>
+              <div className="p10" style={{width: 200}}>
                 弹出内容, <span className="link" onClick={e => {
                   helper.hide()
                 }}>点击关闭</span>
@@ -92,7 +120,7 @@ import DropdownWrapper from './dropdown-wrapper';
           <span className="ms10"></span>
           <DropdownWrapper outside overlay={(helper) => {
             return (
-              <div className="p10" style={{width: 400}}>
+              <div className="p10" style={{width: 200}}>
                 弹出内容, <span className="link" onClick={e => {
                   helper.hide()
                 }}>点击关闭</span>
@@ -122,20 +150,50 @@ import DropdownWrapper from './dropdown-wrapper';
         <div>
           <DropdownWrapper outside trigger="hover" overlay={(helper) => {
             return (
-              <div className="p10" style={{width: 400}}>
+              <div className="p10" style={{width: 200}}>
                 弹出内容, <span className="link" onClick={e => {
                   helper.hide()
                 }}>点击关闭</span>
               </div>
             )
           }}>
-            {
-              (options) => {
-                return (
-                  <div>鼠标移入显示内容</div>
-                )
-              }
-            }
+            下左
+          </DropdownWrapper>
+          <span className="ms10"></span>
+          <DropdownWrapper outside position="top" trigger="hover" overlay={(helper) => {
+            return (
+              <div className="p10" style={{width: 200}}>
+                弹出内容, <span className="link" onClick={e => {
+                  helper.hide()
+                }}>点击关闭</span>
+              </div>
+            )
+          }}>
+            上左
+          </DropdownWrapper>
+          <span className="ms10"></span>
+          <DropdownWrapper outside position="top,right" trigger="hover" overlay={(helper) => {
+            return (
+              <div className="p10" style={{width: 200}}>
+                弹出内容, <span className="link" onClick={e => {
+                  helper.hide()
+                }}>点击关闭</span>
+              </div>
+            )
+          }}>
+            上右
+          </DropdownWrapper>
+          <span className="ms10"></span>
+          <DropdownWrapper outside position="bottom,right" trigger="hover" overlay={(helper) => {
+            return (
+              <div className="p10" style={{width: 200}}>
+                弹出内容, <span className="link" onClick={e => {
+                  helper.hide()
+                }}>点击关闭</span>
+              </div>
+            )
+          }}>
+            下右
           </DropdownWrapper>
         </div>
       )
