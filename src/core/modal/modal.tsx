@@ -30,8 +30,6 @@ export interface ModalOptions extends DragPanelClassProps {
   topClassName?: string;
   /** 宽度 */
   width?: string | number;
-  /** 点击的元素 */
-  // elem?: PropTypes.node,
   /** 当前 modal 的 index */
   idx?: string | number;
   /** marginTop */
@@ -95,8 +93,6 @@ export interface ModalProps extends ModalOptions, ModalRequiredProps {
   topClassName?: string;
   /** 宽度 */
   width?: string | number;
-  /** 点击的元素 */
-  // elem?: PropTypes.node,
   /** 当前 modal 的 index */
   idx?: string | number;
   /** marginTop */

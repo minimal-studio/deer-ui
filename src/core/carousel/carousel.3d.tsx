@@ -1,8 +1,19 @@
 import React, { Component, PureComponent } from 'react';
-import PropTypes from 'prop-types';
 
 import { DebounceClass, Call } from 'basic-helper';
 import { Icon } from '../icon';
+
+interface Carousel3DProps {
+  /**
+   * config: [
+   *   ...components
+   * ]
+   * @type {[type]}
+   */
+  config: any[],
+  isMobile: boolean,
+  onClickItem: () => void
+}
 
 const TRANSTION_TIME = 2000;
 const delayExec = new DebounceClass();
@@ -14,18 +25,7 @@ const delayExec = new DebounceClass();
  * @class Carousel3D
  * @extends {Component}
  */
-export default class Carousel3D extends Component {
-  static propTypes = {
-    /**
-     * config: [
-     *   ...components
-     * ]
-     * @type {[type]}
-     */
-    config: PropTypes.array.isRequired,
-    isMobile: PropTypes.bool,
-    onClickItem: PropTypes.func
-  }
+export default class Carousel3D extends Component<Carousel3DProps> {
 
   defaultRotateX = window.$UKE.isMobile ? '200px' : '1600px'
 

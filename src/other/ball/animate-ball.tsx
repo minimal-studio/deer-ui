@@ -38,7 +38,6 @@ function createDynamicAnimate(options) {
 }
 
 export interface AnimateBallProps {
-  // index: PropTypes.any,
   animating: boolean;
   numberRange: number[];
   activeNumb: number | string;

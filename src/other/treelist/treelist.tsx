@@ -1,7 +1,6 @@
 /* eslint-disable no-nested-ternary */
 /* eslint-disable no-prototype-builtins */
 import React, { Component } from "react";
-import PropTypes from "prop-types";
 import { Call } from "basic-helper";
 import { Icon } from '../../core/icon';
 

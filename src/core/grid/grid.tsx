@@ -84,8 +84,6 @@ export interface GridProps {
   item?: boolean;
   /** style */
   style?: React.CSSProperties;
-  /** row 为多少，详情参考 布局系统 layout */
-  // row: PropTypes.oneOf(RowSet),
 }
 
 const Grid: React.SFC<GridProps> = (props) => {

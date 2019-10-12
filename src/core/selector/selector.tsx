@@ -1,6 +1,5 @@
 /* eslint-disable no-param-reassign */
 import React, { Component, PureComponent } from 'react';
-import PropTypes, { string } from 'prop-types';
 import {
   Call, RemoveArrayItem, IsFunc, HasValue
 } from 'basic-helper';

@@ -26,9 +26,8 @@
   "license": "MIT",
   "peerDependencies": {
     "basic-helper": "^3.0.5",
-    "prop-types": "^15.5.10",
-    "react": "^16.2.0",
-    "react-dom": "^16.2.0",
+    "react": "^16.8.0",
+    "react-dom": "^16.8.0",
     "react-transition-group": "^2.5.0",
     "unistore": "^3.1.0"
   },
@@ -77,6 +76,6 @@
   },
   "dependencies": {
     "classnames": "^2.2.6",
-    "flatpickr": "^4.6.1"
+    "flatpickr": "^4.6.3"
   }
 }
