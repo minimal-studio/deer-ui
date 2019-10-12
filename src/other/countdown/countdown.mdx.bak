@@ -5,7 +5,6 @@ menu: Other
 ---
 
 import { Playground, Props } from 'docz'
-import { State, Toggle } from 'react-powerplug'
 import { FlipClock } from './';
 
 import '../../../style/other/default.scss'
