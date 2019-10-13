@@ -23,7 +23,7 @@
   }
   &:focus {
     outline: none;
-    @include formControlFocusShadow($themeColor, 0.4, 3px);
+    @include formControlFocusShadow($themeColor, 0.4);
   }
   &:focus:active {
     outline: none;

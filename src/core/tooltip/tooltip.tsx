@@ -105,11 +105,11 @@ export default class ToolTip extends PureComponent<ToolTipProps> {
     } = this.props;
     Call(onClick, e);
     if (clickToClose) {
-      this.Popover.close();
+      this.Popover && this.Popover.close();
     } else {
       debounce.exec(() => {
         const { title } = this.props;
-        this.Popover.show({
+        this.Popover && this.Popover.show({
           children: <TitleDOM title={title}/>,
         });
       }, 15);

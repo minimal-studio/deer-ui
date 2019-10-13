@@ -1,7 +1,7 @@
 @import '../color/color-mixin.scss';
 
 $verticalOffset: 12px;
-$horizontalOffset: 12px;
+$horizontalOffset: 8px;
 $caretScale: 8px;
 
 .uke-popover {
@@ -29,28 +29,28 @@ $caretScale: 8px;
   }
   &.top {
     .caret {
-      bottom: - $caretScale;
+      bottom: -$caretScale;
       // left: ;
       transform: translateX($horizontalOffset);
     }
   }
   &.right {
     .caret {
-      left: - $horizontalOffset;
+      left: - $horizontalOffset * 1.5;
       top: $verticalOffset;
       transform: rotate(90deg);
     }
   }
   &.bottom {
     .caret {
-      top: - $caretScale;
+      top: -$caretScale;
       // left: 48%;
       transform: rotate(-180deg) translateX(-$horizontalOffset);
     }
   }
   &.left {
     .caret {
-      right: - $horizontalOffset;
+      right: - $horizontalOffset * 1.5;
       top: $verticalOffset;
       transform: rotate(-90deg);
     }
@@ -58,7 +58,7 @@ $caretScale: 8px;
   .caret {
     position: absolute;
     color: #FFF;
-    border-width: 8px;
+    border-width: $caretScale;
     transition: none;
   }
   ._close-btn {
