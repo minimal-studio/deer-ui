@@ -2,6 +2,7 @@
 
 $verticalOffset: 12px;
 $horizontalOffset: 12px;
+$caretScale: 8px;
 
 .uke-popover {
   position: fixed;
@@ -28,29 +29,29 @@ $horizontalOffset: 12px;
   }
   &.top {
     .caret {
-      bottom: -8px;
+      bottom: - $caretScale;
       // left: ;
-      transform: translateX($verticalOffset);
+      transform: translateX($horizontalOffset);
     }
   }
   &.right {
     .caret {
-      left: -14px;
-      top: $horizontalOffset;
+      left: - $horizontalOffset;
+      top: $verticalOffset;
       transform: rotate(90deg);
     }
   }
   &.bottom {
     .caret {
-      top: -8px;
+      top: - $caretScale;
       // left: 48%;
-      transform: rotate(-180deg) translateX(-$verticalOffset);
+      transform: rotate(-180deg) translateX(-$horizontalOffset);
     }
   }
   &.left {
     .caret {
-      right: -12px;
-      top: $horizontalOffset;
+      right: - $horizontalOffset;
+      top: $verticalOffset;
       transform: rotate(-90deg);
     }
   }

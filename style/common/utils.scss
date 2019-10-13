@@ -14,8 +14,8 @@
   }
 }
 
-@mixin formControlFocusShadow($color: $themeColor) {
-  box-shadow: 0 0 0 2px rgba($color, 0.2);
+@mixin formControlFocusShadow($color: $themeColor, $opacity: 0.2, $borderWidth: 2px) {
+  box-shadow: 0 0 0 $borderWidth rgba($color, $opacity);
 }
 
 @mixin focusBorder {
