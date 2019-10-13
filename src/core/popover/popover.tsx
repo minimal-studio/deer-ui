@@ -147,6 +147,7 @@ export default class Popover extends Component<PopoverProps, State> {
       offsetWidth,
       offsetHeight,
       elemWidth: width,
+      // verticalOffset: offsetWidth / 2,
       elemHeight: height
     };
 

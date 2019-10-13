@@ -23,9 +23,10 @@ export interface GetFuncParams {
   elemHeight: number;
   /** 内部属性 */
   _fromRight?: boolean;
+  /** 内部属性 */
+  verticalOffset?: number;
 }
 
-const verticalOffset = 14;
 const horizontalOffset = 4;
 
 // let ScreenWidth = getScreenWidth();
@@ -72,7 +73,7 @@ export function getRight(params: GetFuncParams): PositionReturn {
 
 export function getTop(params: GetFuncParams): PositionReturn {
   const {
-    offsetLeft, elemWidth, offsetTop, _fromRight,
+    offsetLeft, elemWidth, offsetTop, _fromRight, verticalOffset = 0,
     offsetWidth, offsetHeight, elemHeight,
   } = params;
   const top = offsetTop - elemHeight - offsetHeight / 2;
@@ -86,7 +87,7 @@ export function getTop(params: GetFuncParams): PositionReturn {
 
 export function getBottom(params: GetFuncParams): PositionReturn {
   const {
-    offsetLeft, elemWidth, offsetTop, _fromRight,
+    offsetLeft, elemWidth, offsetTop, _fromRight, verticalOffset = 0,
     offsetWidth, offsetHeight, elemHeight,
   } = params;
   const top = offsetTop + offsetHeight + offsetHeight / 2;

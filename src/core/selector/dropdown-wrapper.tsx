@@ -358,7 +358,7 @@ export default class DropdownWrapper extends React.PureComponent<DropdownWrapper
     switch (trigger) {
       case 'click':
         res = {
-          onClick: this.showSubMenu
+          onClick: this.handleClickMenu
         };
         break;
       case 'hover':
