@@ -39,7 +39,7 @@ const ukelliui: UkelliUIConfig = {
 Object.defineProperties(ukelliui, {
   queryCAPTCHAData: {
     set() {
-      console.warn('queryCAPTCHAData 已废弃，请使用 Captcha.setQueryCAPTCHAData');
+      console.warn('queryCAPTCHAData 已废弃，请使用 Captcha.setAPI');
     }
   },
   queryQRCodeData: {

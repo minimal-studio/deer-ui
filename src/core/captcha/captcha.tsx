@@ -4,7 +4,7 @@ import { Call } from 'basic-helper';
 import { UkeComponent } from '../utils/uke-component';
 import Input from '../form-control/input';
 
-interface GetDataRes {
+export interface CaptchaResData {
   /** 是否发生错误 */
   hasErr: boolean;
   /** 验证码的图片 */
@@ -13,7 +13,7 @@ interface GetDataRes {
   captchaKey: string;
 }
 
-type APIQueryCaptcha = (getData: (resData: GetDataRes) => void) => void;
+type APIQueryCaptcha = (getDataCallback: (resData: CaptchaResData) => void) => void;
 
 export interface CaptchaOnChangeParams {
   isPass: boolean;
@@ -23,7 +23,7 @@ export interface CaptchaOnChangeParams {
 
 export interface CaptchaProps {
   /** 获取错误时的回调 */
-  onError?: () => void;
+  onError?: (e: any) => void;
   /** 值改变时的回调 */
   onChange?: (options: CaptchaOnChangeParams) => void;
   /** 验证码 Mount 的回调 */
@@ -46,7 +46,7 @@ interface State {
   loading: boolean;
 }
 
-let queryCAPTCHAData: APIQueryCaptcha = (getData) => {
+let queryCAPTCHAData: APIQueryCaptcha = () => {
   console.log('请先通过 Captcha.setAPI() 设置获取数据接口');
 };
 
@@ -64,12 +64,12 @@ export default class Captcha extends UkeComponent<CaptchaProps, State> {
     icon: 'shield-alt',
   }
 
-  static setQueryCAPTCHAData = (func) => {
+  static setQueryCAPTCHAData = (func: APIQueryCaptcha) => {
     console.log('此接口已废弃，请使用 setAPI');
     queryCAPTCHAData = func;
   }
 
-  static setAPI = (func) => {
+  static setAPI = (func: APIQueryCaptcha) => {
     queryCAPTCHAData = func;
   }
 
@@ -127,7 +127,7 @@ export default class Captcha extends UkeComponent<CaptchaProps, State> {
       loading: true
     });
 
-    queryCAPTCHAData((resData: GetDataRes) => {
+    queryCAPTCHAData((resData: CaptchaResData) => {
       if (this.__didMount) {
         const { hasErr, captchaImage, captchaKey } = resData;
         if (hasErr) {
