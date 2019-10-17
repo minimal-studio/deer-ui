@@ -7,7 +7,7 @@ import React from 'react';
  * @param {string} oldComponentName 旧的 component 的显示名字
  * @param {string} newComponentName 新的 component 的显示名字
  */
-const Rename = (NewComponent, oldComponentName, newComponentName) => {
+const Rename = (NewComponent, oldComponentName: string, newComponentName: string) => {
   return (props) => {
     console.warn(`${oldComponentName} 要废弃了，请使用 ${newComponentName} 代替`);
     return (

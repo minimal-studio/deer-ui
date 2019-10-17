@@ -4,7 +4,7 @@ import InputSelector from './input-selector';
 
 import Rename from '../rename-filter';
 
-const InputVerify = Rename(InputNumber, 'InputNumber', 'InputVerify');
+const InputVerify = Rename(InputNumber, 'InputVerify', 'InputNumber');
 
 export {
   InputVerify,
