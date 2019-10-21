@@ -2,6 +2,10 @@
 
 -----------------
 
+## 3.1.1
+
+- FormLayout 的 btnConfig 改名为 formBtns
+
 ## 3.1.0
 
 - 数据表渲染组件的 prop keyMapper 重命名为与数据库定义的 columns，更加语义化
