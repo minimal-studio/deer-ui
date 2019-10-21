@@ -12,11 +12,11 @@ export default () => {
         }}
         carouselItems={[
           {
-            imgUrl: '/public/images/c1.jpg',
+            imgUrl: '/website/static/images/c1.jpg',
             action: () => alert('点击了 img')
           },
           {
-            imgUrl: '/public/images/c2.jpg',
+            imgUrl: '/website/static/images/c2.jpg',
             action: () => alert('点击了 img')
           },
           {

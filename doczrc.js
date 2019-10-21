@@ -11,7 +11,7 @@ export default {
   filterComponents: files => files.filter(filepath => /[w-]*.(js|jsx|ts|tsx)$/.test(filepath)),
   indexHtml: 'docz/index.html',
   wrapper: 'docz/wrapper',
-  public: path.resolve(__dirname, './public'),
+  public: path.resolve(__dirname, './website/static'),
   // theme: path.resolve(__dirname, './docz/theme/theme.tsx'),
   codeSandbox: false,
   hashRouter: true,
