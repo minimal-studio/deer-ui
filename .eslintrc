@@ -12,8 +12,10 @@
     "@typescript-eslint/indent": ["error", 2],
     "@typescript-eslint/explicit-function-return-type": 0,
     "@typescript-eslint/explicit-member-accessibility": 0,
+    "@typescript-eslint/no-var-requires": 0,
     "indent": ["error", 2, { "SwitchCase": 1 }],
     "semi": ["error", "always"],
+    "import/no-dynamic-require": 0,
     "no-unused-vars": [
       1,
       {
@@ -42,7 +44,6 @@
     "react/jsx-max-props-per-line": 0,
     "react/jsx-first-prop-new-line": 0,
     "react/jsx-one-expression-per-line": 0,
-    "react/jsx-closing-bracket-location": [1, "after-props"],
     "react/jsx-filename-extension": [
       1,
       {

@@ -57,3 +57,5 @@ dist
 .docz
 docz-dist
 for-testing
+.cache
+public

@@ -1,7 +1,14 @@
 {
   "name": "ukelli-ui",
-  "version": "3.1.0",
+  "version": "4.0.0-alpha0",
   "main": "./index.js",
+  "private": true,
+  "workspaces": [
+    "packages/ui-core",
+    "packages/ui-extra",
+    "ui-doc",
+    "website"
+  ],
   "files": [
     "*"
   ],
@@ -12,8 +19,9 @@
     "copy-files-ts": "node ./scripts/copy-files-ts",
     "copy-style": "cp -R ./style ./dist/",
     "test": "jest",
-    "docz:dev": "docz dev",
-    "docz:build": "NODE_ENV=production docz build"
+    "doc": "yarn workspace @ukelli-ui/website dev",
+    "clean:doc": "yarn workspace @ukelli-ui/website clean",
+    "doc:build": "NODE_ENV=production docz build"
   },
   "repository": {
     "type": "git",
@@ -38,10 +46,6 @@
     "@typescript-eslint/parser": "^2.3.3",
     "basic-helper": "^3.0.6",
     "codemirror": "^5.42.2",
-    "docz": "^1.2.0",
-    "docz-plugin-css": "^0.11.0",
-    "docz-plugin-netlify": "^1.1.4",
-    "docz-theme-default": "^1.2.0",
     "eslint": "^6.5.1",
     "eslint-config-airbnb": "^18.0.1",
     "eslint-config-react-app": "^5.0.2",
@@ -53,8 +57,9 @@
     "eslint-plugin-react-hooks": "^2.1.2",
     "fs-extra": "^7.0.0",
     "jest": "^24.5.0",
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6",
+    "lerna": "^3.18.1",
+    "react": "^16.10.1",
+    "react-dom": "^16.10.1",
     "react-hot-loader": "^4.8.0",
     "react-transition-group": "^4.0.1",
     "ts-jest": "^24.0.2",

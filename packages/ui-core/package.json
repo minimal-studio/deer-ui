@@ -1,0 +1,7 @@
+{
+  "name": "@ukelli-ui/core",
+  "description": "ukelli-ui core ui components",
+  "main": "index.js",
+  "version": "4.0.0",
+  "private": true
+}

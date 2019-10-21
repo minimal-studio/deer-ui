@@ -1,5 +1,3 @@
-// import 'basic-helper';
-
 export * from './chart-dom';
 export * from './loading';
 export * from './tip-panel';
