@@ -5,21 +5,23 @@
  */
 
 import React from 'react';
-
+import { DebounceClass } from 'basic-helper';
 import { Button } from '../button';
 import TipPanel, { TipPanelProps } from '../tip-panel/tip-panel';
 import Toast from '../toast/toast';
 import FormGenerator, { FormGeneratorProps } from './form-generator';
 import { UkeComponent } from '../utils/uke-component';
-import { BtnItemConfig } from '../utils/props';
+import { ButtonProps } from '../button/button-basic';
 
-export interface FormLayoutBtn extends BtnItemConfig {
+export interface FormLayoutBtn extends ButtonProps {
   /** 点击按钮的回调 */
-  action?: (formRef: any, actingRef?: string) => void;
+  action?: (formRef: FormGenerator, actingRef?: string) => void;
   /** 记录该按钮的状态 */
   actingRef?: string;
   /** 该按钮是否需要预检查 */
   preCheck?: boolean;
+  /** className */
+  className?: string;
 }
 
 export type FormLayoutBtnsConfig = FormLayoutBtn[];
@@ -33,7 +35,9 @@ export interface FormLayoutProps extends FormGeneratorProps {
   ready?: boolean;
   /** 传入 TipPanel 控件的参数 */
   tipInfo?: TipPanelProps;
-  /** 可以配置一个或多个操作按钮 */
+  /** 表单操作按钮 */
+  formBtns?: FormLayoutBtnsConfig;
+  /** 已改名为 formBtns */
   btnConfig?: FormLayoutBtnsConfig;
   /** 操作的返回是否有错误 */
   hasErr?: boolean;
@@ -46,6 +50,8 @@ export interface FormLayoutProps extends FormGeneratorProps {
   /** 在 form 的 children 前插入按钮 */
   childrenBeforeBtn?: any;
 }
+
+const delayExec = (new DebounceClass()).exec;
 
 export default class FormLayout extends UkeComponent<FormLayoutProps> {
   // static getDerivedStateFromProps(nextProps, prevState) {
@@ -65,7 +71,7 @@ export default class FormLayout extends UkeComponent<FormLayoutProps> {
 
   toast
 
-  formHelper
+  formHelper!: FormGenerator
 
   clearValue
 
@@ -98,10 +104,10 @@ export default class FormLayout extends UkeComponent<FormLayoutProps> {
     return isPass;
   }
 
-  _handleClickBtn = (btnConfig) => {
+  _handleClickBtn = (formBtns) => {
     const {
       actingRef, preCheck = true, action
-    } = btnConfig;
+    } = formBtns;
     this.__changedDesc = false;
     const _action = () => {
       action(this.formHelper, actingRef);
@@ -115,17 +121,30 @@ export default class FormLayout extends UkeComponent<FormLayoutProps> {
     }
   }
 
-  saveFormRef = (e) => {
+  saveFormRef = (e: FormGenerator) => {
     if (!e) return;
     this.formHelper = e;
     this.clearValue = e.clearValue;
   }
 
+  getDefaultBtn = (): FormLayoutBtn => {
+    const {
+      onSubmit,
+      btnText = this.$T_UKE('确定'),
+    } = this.props;
+    return {
+      action: onSubmit,
+      text: btnText,
+      color: 'theme',
+      type: 'button',
+      className: ''
+    };
+  }
+
   render() {
     const {
-      tipInfo, btnConfig,
+      tipInfo, btnConfig, formBtns,
       childrenBeforeForm, childrenAfterForm, childrenBeforeBtn,
-      btnText = this.$T_UKE('确定提交'),
       onSubmit, ...other
     } = this.props;
     const formClassName = this.props.className;
@@ -133,15 +152,13 @@ export default class FormLayout extends UkeComponent<FormLayoutProps> {
     let formType = '';
     let onSubmitForGen;
 
-    const _btnConfig = btnConfig || [
-      {
-        action: onSubmit,
-        text: btnText,
-        color: 'theme',
-        type: 'button',
-        className: ''
-      }
-    ];
+    if (btnConfig) {
+      delayExec(() => {
+        console.warn('请将 btnConfig 改为 formBtns');
+      }, 300);
+    }
+
+    const _btnConfig = formBtns || btnConfig || [this.getDefaultBtn()];
 
     const tipDOM = tipInfo ? (
       <TipPanel {...tipInfo}/>

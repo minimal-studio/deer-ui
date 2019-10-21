@@ -10,7 +10,7 @@ export default class FormLayoutDemo extends React.Component {
     resDesc: ''
   };
 
-  btnConfig: FormLayoutBtnsConfig = [
+  formBtns: FormLayoutBtnsConfig = [
     {
       action: (formRef, actingRef) => {
         console.log(formRef.value, actingRef);
@@ -38,7 +38,7 @@ export default class FormLayoutDemo extends React.Component {
     return (
       <FormLayout
         {...this.state}
-        btnConfig={this.btnConfig}
+        formBtns={this.formBtns}
         formOptions={this.formOptions}/>
     );
   }

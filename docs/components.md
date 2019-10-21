@@ -144,7 +144,7 @@ class Com extends Component {
     const {loading, formOptions} = this.state;
 
     // 多个按钮的配置
-    let btnConfig = [
+    let formBtns = [
       {
         action: this.transferIn,
         text: '转入游戏',
@@ -166,12 +166,12 @@ class Com extends Component {
             <FormLayout
               ref="formHelperRef"
               /**
-               * 可以通过 btnConfig 设置配置多个按钮
+               * 可以通过 formBtns 设置配置多个按钮
                */
-              btnConfig={btnConfig}
+              formBtns={formBtns}
               /**
                * onSubmit 和 btnText 作为一个按钮出现
-               * 如果传入 btnConfig ， 则此传入的上面两个 props 会失效
+               * 如果传入 formBtns ， 则此传入的上面两个 props 会失效
                */
               onSubmit={formHelperRef => this.onSubmit(formHelperRef)}
               btnText="提交"

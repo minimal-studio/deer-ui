@@ -9,7 +9,7 @@ import { ToolTip } from '../tooltip';
 import { Label } from '../label';
 import Dropdown, { DropdownMenuProps } from '../selector/dropdown-menu';
 import { UkeComponent } from '../utils/uke-component';
-import { Color } from '../utils/props';
+import { Color, Children } from '../utils/props';
 
 interface TitleFormSelector extends DropdownMenuProps {
   /** 如果为 type === selector，则渲染 DropdownMenu，其余属性传入 DropdownMenu 组件 */
@@ -24,7 +24,7 @@ export interface Column {
   /** 对应 record 数据的 [key] */
   key: string;
   /** 处理对应 Row 的 filter */
-  filter?: (contentResult, record, mapper, rowIdx) => any;
+  filter?: (contentResult: any, record: RecordItem, column: Column, rowIdx: number) => Children;
   /** */
   title?: string | FuncTitle | TitleFormSelector;
   /** 是否渲染为 date 格式 - YYYY-MM-DD */
@@ -203,8 +203,8 @@ export default class MapperFilter<
    * 2. labels && namesMapper
    * 3. filter
    */
-  mapperFilter = (mapper, record, rowIdx?) => {
-    const originContent = record[mapper.key];
+  mapperFilter = (column, record, rowIdx?) => {
+    const originContent = record[column.key];
     let currContent = originContent;
     if (!HasValue(currContent)) {
       currContent = currContent || '-';
@@ -212,7 +212,7 @@ export default class MapperFilter<
 
     const {
       date, datetime, money, abvMoney, namesMapper, labels, filter
-    } = mapper;
+    } = column;
 
     let contentResult = currContent;
 
@@ -241,7 +241,7 @@ export default class MapperFilter<
       ) : currContent;
     }
     if (IsFunc(filter)) {
-      contentResult = filter(contentResult, record, mapper, rowIdx);
+      contentResult = filter(contentResult, record, column, rowIdx);
     }
 
     return contentResult;
