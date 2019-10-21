@@ -87,9 +87,9 @@ input, textarea {
     // border-top: 1px solid rgba(#000, 0.05);
     // padding-top: 20px;
     .inner-text {
-      border-bottom: 2px solid $themeColor;
+      border-bottom: 1px solid $themeColor;
       display: inline-block;
-      margin-bottom: -2px;
+      margin-bottom: -1px;
     }
   }
 }
@@ -160,7 +160,7 @@ input, textarea {
     .control-label {
       width: 120px;
       text-align: right;
-      margin-right: 40px;
+      margin-right: 20px;
     }
   }
 }
