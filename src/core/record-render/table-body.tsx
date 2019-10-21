@@ -611,7 +611,7 @@ export default class Table extends MapperFilter<TableProps, State> {
     } = this.state;
     const { columns, isAllCheck } = options;
     const style = {
-      width: this.calcTableWidth(columns)
+      width: this.calcTableWidth(columns) || undefined
     };
     const isDesc = typeof isDescOutside == 'undefined' ? isDescInner : isDescOutside;
     return (
