@@ -1,0 +1,85 @@
+---
+name: Flex
+route: /
+menu: Layout
+---
+
+import { Card } from 'ukelli-ui/core/card';
+
+# Flex layout System
+
+规则: 3 个重要的 class，用于构建 layout 系统的基线
+
+- .grid: 为 flex 布局的起点, 一共切割为 12 份
+- .space-[5, 10, 15]: 以 5 为单位的，每个单元的 padding
+- xs, sm, lg, xl: [1, 2, 3, ..., 12]: 为具体定格元素布局的单元, 一共 12 份
+
+```js
+<div className="grid space-5">
+  <div className="sm-3 xs-12">
+    ...
+  </div>
+  <div className="sm-4 xs-12">
+    ...
+  </div>
+  <div className="sm-1 xs-12">
+    ...
+  </div>
+  <div className="sm-7 xs-12">
+    // 新占一行
+    ...
+  </div>
+</div>
+```
+
+## Demo
+
+<div className="card-container">
+  <div className="grid space-20">
+    <div className="sm-6 xs-12">
+      <Card p={10}>
+        sm-6
+      </Card>
+    </div>
+    <div className="sm-6 xs-12">
+      <Card p={10}>
+        sm-6
+      </Card>
+    </div>
+    <div className="sm-4 xs-12">
+      <Card p={10}>
+        sm-4
+      </Card>
+    </div>
+    <div className="sm-4 xs-12">
+      <Card p={10}>
+        sm-4
+      </Card>
+    </div>
+    <div className="sm-4 xs-12">
+      <Card p={10}>
+        sm-4
+      </Card>
+    </div>
+    <div className="sm-3 xs-12">
+      <Card p={10}>
+        sm-4
+      </Card>
+    </div>
+    <div className="sm-3 xs-12">
+      <Card p={10}>
+        sm-4
+      </Card>
+    </div>
+    <div className="sm-3 xs-12">
+      <Card p={10}>
+        sm-4
+      </Card>
+    </div>
+    <div className="sm-3 xs-12">
+      <Card p={10}>
+        sm-4
+      </Card>
+    </div>
+  </div>
+</div>

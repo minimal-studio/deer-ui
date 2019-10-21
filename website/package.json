@@ -1,0 +1,33 @@
+{
+  "name": "@ukelli-ui/website",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "gatsby develop",
+    "build": "gatsby build",
+    "clean": "gatsby clean",
+    "serve": "gatsby serve"
+  },
+  "author": "Alex",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/react": "^16.8.17",
+    "@types/react-dom": "^16.8.4",
+    "@typescript-eslint/eslint-plugin": "^2.3.3",
+    "@typescript-eslint/parser": "^2.3.3",
+    "basic-helper": "^3.0.6",
+    "codemirror": "^5.42.2",
+    "fs-extra": "^7.0.0",
+    "gatsby": "^2.16.5",
+    "jest": "^24.5.0",
+    "lerna": "^3.18.1",
+    "react": "^16.10.1",
+    "react-dom": "^16.10.1",
+    "react-hot-loader": "^4.8.0",
+    "react-transition-group": "^4.0.1",
+    "ts-jest": "^24.0.2",
+    "typescript": "3.6.4",
+    "ukelli-ui": "^3.1.0",
+    "unistore": "^3.1.0"
+  }
+}
