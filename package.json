@@ -1,13 +1,14 @@
 {
   "name": "ukelli-ui",
-  "version": "3.1.0",
+  "version": "3.1.0-hotfix0",
   "main": "./index.js",
   "files": [
     "*"
   ],
   "scripts": {
     "publish:ts": "npm publish ./dist",
-    "release": "npm run build:ts; npm run publish:ts",
+    "complie:scss": "node-sass ./style/default.scss dist/default.css --output-style compressed",
+    "release": "npm run build:ts; npm run complie:scss; npm run publish:ts",
     "build:ts": "rm -rf ./dist; tsc; npm run copy-files-ts; npm run copy-style",
     "copy-files-ts": "node ./scripts/copy-files-ts",
     "copy-style": "cp -R ./style ./dist/",
@@ -53,6 +54,7 @@
     "eslint-plugin-react-hooks": "^2.1.2",
     "fs-extra": "^7.0.0",
     "jest": "^24.5.0",
+    "node-sass": "^4.12.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-hot-loader": "^4.8.0",
