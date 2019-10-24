@@ -173,10 +173,11 @@ $tdPadding: 10px;
   overflow: hidden;
 }
 .no-record-tip {
-  display: block;
   padding: 20px 0;
-  text-align: center;
   color: #CCC;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   .icon {
     font-size: 26px;
     margin-right: 10px;
