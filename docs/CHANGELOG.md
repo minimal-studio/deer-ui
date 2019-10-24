@@ -2,6 +2,11 @@
 
 -----------------
 
+## 3.2.0
+
+- 修改所有 uke- 前缀的 className
+- 修复 position 可能出现的无限循环问题
+
 ## 3.1.1
 
 - FormLayout 的 btnConfig 改名为 formBtns
