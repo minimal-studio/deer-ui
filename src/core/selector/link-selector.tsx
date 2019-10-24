@@ -209,7 +209,7 @@ export default class LinkSelector extends UkeComponent<LinkSelectorProps, State>
         {...propsForDropWrapper}
         menuTitle={selectedTitle}
         overlay={helper => (
-          <div className="uke-link-selector" style={{ width: 400 }}>
+          <div className="__link-selector" style={{ width: 400 }}>
             <div className="items">
               <div className="wrapper">
                 {

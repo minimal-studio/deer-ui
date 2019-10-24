@@ -236,7 +236,7 @@ export default class TreeList extends Component<TreeListProps, {
     const { treeData } = this.props;
     const { selectedItems, activeLevel } = this.state;
     return (
-      <div className="uke-treelist">
+      <div className="__treelist">
         <Tree
           treeData={treeData}
           activeLevel={activeLevel}

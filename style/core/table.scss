@@ -10,7 +10,7 @@ $tdPadding: 10px;
     border-bottom-color: darken($color, 10%);
   }
 }
-.uke-table-scroll-container {
+.__table-scroll-container {
   &.table-fixed {
     position: absolute;
     top: 0;
@@ -27,13 +27,13 @@ $tdPadding: 10px;
       box-shadow: -8px 0 6px -6px #BBB;
       // border-left: 1px solid #CCC;
     }
-    .uke-table-scroll {
+    .__table-scroll {
       overflow: hidden;
       // overflow-y: auto;
     }
   }
 }
-.uke-table-scroll {
+.__table-scroll {
   overflow-y: auto;
   overflow-x: hidden;
 }
@@ -97,7 +97,7 @@ $tdPadding: 10px;
     }
   }
 }
-.uke-table {
+.__table {
   position: relative;
   .checked-actions {
     opacity: 0;
@@ -121,7 +121,7 @@ $tdPadding: 10px;
   }
 }
 // @include scrollBar(5px, 5px, '.table-render');
-// @include scrollBar(5px, 5px, '.uke-table-scroll');
+// @include scrollBar(5px, 5px, '.__table-scroll');
 .table-render {
   overflow-x: auto;
   .table-fixed {

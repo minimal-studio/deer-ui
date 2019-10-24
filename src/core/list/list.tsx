@@ -7,7 +7,7 @@ interface ListProps {
 const List: React.SFC<ListProps> = (props) => {
   const { children, className = '', ...other } = props;
   return (
-    <div {...other} className={`uke-list-container ${className || ''}`}>
+    <div {...other} className={`__list-container ${className || ''}`}>
       {
         React.Children.map(children, (Child, idx) => Child)
       }

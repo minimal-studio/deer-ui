@@ -11,7 +11,7 @@ export interface SubContentProps {
 }
 
 const SubContent: React.SFC<SubContentProps> = ({ displayElem, children, position = 'left' }) => (
-  <div className={`uke-hide-container ${position}`}>
+  <div className={`__hide-container ${position}`}>
     <span className="display-elem">{displayElem}</span>
     <div className="hide-content">
       <span className="caret" />

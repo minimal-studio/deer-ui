@@ -275,7 +275,7 @@ export default class Ranger extends Component<RangerProps, State> {
 
     const _value = precent ? (stateValue / 10).toFixed(1) : stateValue.toFixed(0);
     const classes = classnames(
-      'uke-ranger',
+      '__ranger',
       disabled && 'disabled',
       draping && 'draping',
       withInput && 'with-input',

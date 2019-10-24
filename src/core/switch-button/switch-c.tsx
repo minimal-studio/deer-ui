@@ -68,7 +68,7 @@ export default class Switch extends PureComponent<SwitchProps, State> {
     const text = tips[checked ? 0 : 1];
 
     const switchBtnGroup = (
-      <span className={`uke-switch${checked ? ' checked' : ''}${disabled ? ' disabled' : ''}`}
+      <span className={`__switch${checked ? ' checked' : ''}${disabled ? ' disabled' : ''}`}
         onClick={(e) => {
           const nextChecked = !checked;
           const emitVal = outputs[nextChecked ? 0 : 1];

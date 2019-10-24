@@ -113,7 +113,7 @@ export default class Avatar extends UkePureComponent<AvatarProps> {
     const _changeAvatarable = changeAvatarable && faceOptions && faceOptions.length > 0;
 
     const avatarDOM = (
-      <span className={`uke-avatar ${className}`}>
+      <span className={`__avatar ${className}`}>
         <span
           className={`avatar fixbg ${color}`}
           style={sizeStyle}>

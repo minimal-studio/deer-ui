@@ -318,7 +318,7 @@ export default class Modal extends DragPanelClass<ModalRequiredProps & ModalProp
         sections = template(this.wrapPropsForTMPL());
       } else {
         sections = (
-          <div className={`uke-modal-container ${classNames} idx-${isMinimize ? '-1' : modalIdx}`}
+          <div className={`__modal-container ${classNames} idx-${isMinimize ? '-1' : modalIdx}`}
             onMouseDown={(e) => {
               /** 用于判断是否通过 ShowModal 打开的 Modal，如果有 idx != 0 的时候才触发选择窗口 */
               id && idx && selectWindow && selectWindow(id);
@@ -326,7 +326,7 @@ export default class Modal extends DragPanelClass<ModalRequiredProps & ModalProp
             <div className="animate-layout">
               {
                 modalLayoutDOM || (
-                  <div className="uke-modal-layout"
+                  <div className="__modal-layout"
                     ref={(c) => {
                       if (!c) return;
                       this.ukeLayout = c;
@@ -341,7 +341,7 @@ export default class Modal extends DragPanelClass<ModalRequiredProps & ModalProp
                           closeModal: this.closeModal,
                           props: this.props
                         }) : (
-                          <header className="uke-modal-header">
+                          <header className="__modal-header">
                             <div
                               onMouseDown={(e) => {
                                 !isMaximize && draggable && this.dragStart(e, this.ukeLayout);
@@ -358,7 +358,7 @@ export default class Modal extends DragPanelClass<ModalRequiredProps & ModalProp
                         )
                       )
                     }
-                    <div className={`uke-modal-content${maxHeightable ? ' max-height' : ''}`}>
+                    <div className={`__modal-content${maxHeightable ? ' max-height' : ''}`}>
                       {children}
                     </div>
                   </div>

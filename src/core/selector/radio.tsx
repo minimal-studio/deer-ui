@@ -80,7 +80,7 @@ export default class Radio extends SelectorBasic<RadioProps> {
       );
     });
     return (
-      <div className={`uke-radio-container${isMultiple ? ' multiple' : ''}`}>
+      <div className={`__radio-container${isMultiple ? ' multiple' : ''}`}>
         {selectAllBtn}
         <div className={`layout ${column ? 'col' : ''} group`}>
           {radioGroup}

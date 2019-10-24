@@ -617,7 +617,7 @@ export default class Table extends MapperFilter<TableProps, State> {
     return (
       <div
         key="tableHead"
-        className="uke-table-scroll"
+        className="__table-scroll"
         style={style}>
         <table className="table nomargin table-header">
           <thead>
@@ -731,7 +731,7 @@ export default class Table extends MapperFilter<TableProps, State> {
         key="tableBody"
         onScroll={this.handleTableScroll}
         ref={ref}
-        className="uke-table-scroll"
+        className="__table-scroll"
         style={style}>
         <table className="table nomargin table-body"
           ref={main ? this.saveTableBody : null}>
@@ -776,7 +776,7 @@ export default class Table extends MapperFilter<TableProps, State> {
     return (
       <div key={key}
         style={style}
-        className={`uke-table-scroll-container ${className || ''}`}>
+        className={`__table-scroll-container ${className || ''}`}>
         {tableHeader}
         {tableBody}
       </div>
@@ -910,7 +910,7 @@ export default class Table extends MapperFilter<TableProps, State> {
     );
 
     return (
-      <div className="uke-table" onMouseLeave={e => this.handleHoverRow(null)}>
+      <div className="__table" onMouseLeave={e => this.handleHoverRow(null)}>
         {extendDOM}
         <div
           className="table-render"

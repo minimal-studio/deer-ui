@@ -18,7 +18,7 @@ const Label: React.SFC<LabelProps> = ({
 }) => {
   const child = children || text;
   return (
-    <span {...other} className={`uke-label bg_${color} t_${tColor}${className ? ` ${className}` : ''}`}>{child}</span>
+    <span {...other} className={`__label bg_${color} t_${tColor}${className ? ` ${className}` : ''}`}>{child}</span>
   );
 };
 

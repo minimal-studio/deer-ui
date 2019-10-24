@@ -18,7 +18,7 @@ const menuDividGroup = ['-', 'hr'];
 const Menus: React.SFC<MenusProps> = (props) => {
   const { data, children } = props;
   return (
-    <span className="uke-menus">
+    <span className="__menus">
       {
         data ? data.map((item, idx) => {
           if (!item) return null;

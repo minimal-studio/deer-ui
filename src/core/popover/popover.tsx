@@ -210,7 +210,7 @@ export default class Popover extends Component<PopoverProps, State> {
       } : {};
       container = (
         <div {...obj}
-          className={`uke-popover${fixed ? ' fixed' : ''}${showCloseBtn ? ' has-close' : ''} ${position} ${className} ${type}`}
+          className={`__popover${fixed ? ' fixed' : ''}${showCloseBtn ? ' has-close' : ''} ${position} ${className} ${type}`}
           style={_style}
           ref={e => this.setSelfPosition(e)}>
           <span className="caret" />

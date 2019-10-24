@@ -149,7 +149,7 @@ export default class DropdownWrapper extends React.PureComponent<DropdownWrapper
     super(props);
 
     this._position = positionFilter(props.position).split(' ');
-    if (!dropdownContainerDOM) dropdownContainerDOM = setDOMById(dropdownContainerID, 'uke-dropdown-menu outside');
+    if (!dropdownContainerDOM) dropdownContainerDOM = setDOMById(dropdownContainerID, '__dropdown-menu outside');
   }
 
   handleClickAway = () => {
@@ -378,7 +378,7 @@ export default class DropdownWrapper extends React.PureComponent<DropdownWrapper
     } = this.props;
 
     const classNames = classnames(
-      "uke-dropdown-menu",
+      "__dropdown-menu",
       className && className,
       withInput && "input-mode",
       error && 'error',

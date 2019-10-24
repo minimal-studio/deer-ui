@@ -3,7 +3,7 @@ $rangerBgH: 4px;
 $rangerContentH: 26px;
 $rangerHandleScale: 20px;
 
-.uke-ranger {
+.__ranger {
   position: relative;
   min-width: 100px;
   flex: 1;
@@ -121,7 +121,7 @@ $rangerHandleScale: 20px;
 }
 
 .mobile {
-  .uke-ranger {
+  .__ranger {
     width: 100%;
     display: block;
   }

@@ -22,9 +22,9 @@ export interface GetFuncParams {
   /** 当前需要定位的元素的属性 */
   elemHeight: number;
   /** 内部属性 */
-  _fromRight?: boolean;
-  /** 内部属性 */
   verticalOffset?: number;
+  /** 内部属性 */
+  _fromInternal?: boolean;
 }
 
 const horizontalOffset = 4;
@@ -43,11 +43,11 @@ const horizontalOffset = 4;
  */
 export function getLeft(params: GetFuncParams): PositionReturn {
   const {
-    offsetLeft, elemWidth, offsetTop, _fromRight,
+    offsetLeft, elemWidth, offsetTop, _fromInternal,
     offsetWidth, offsetHeight, elemHeight,
   } = params;
   const left = offsetLeft - elemWidth - 12;
-  if (left - elemWidth <= 0 && !_fromRight) return getRight(params);
+  if (left - elemWidth <= 0 && !_fromInternal) return getRight({ ...params, _fromInternal: true });
   // if(left + elemWidth > ScreenWidth) left = ScreenWidth - elemWidth;
   return {
     top: offsetTop - horizontalOffset,
@@ -58,11 +58,11 @@ export function getLeft(params: GetFuncParams): PositionReturn {
 
 export function getRight(params: GetFuncParams): PositionReturn {
   const {
-    offsetLeft, elemWidth, offsetTop, _fromRight,
+    offsetLeft, elemWidth, offsetTop, _fromInternal,
     offsetWidth, offsetHeight, elemHeight,
   } = params;
   const left = offsetLeft + offsetWidth + 15;
-  if (left + elemWidth >= getScreenWidth()) return getLeft({ ...params, _fromRight: true });
+  if (left + elemWidth >= getScreenWidth() && !_fromInternal) return getLeft({ ...params, _fromInternal: true });
   // if(left - elemWidth <= 0) left = ScreenWidth - elemWidth;
   return {
     top: offsetTop - horizontalOffset,
@@ -73,11 +73,11 @@ export function getRight(params: GetFuncParams): PositionReturn {
 
 export function getTop(params: GetFuncParams): PositionReturn {
   const {
-    offsetLeft, elemWidth, offsetTop, _fromRight, verticalOffset = 0,
+    offsetLeft, elemWidth, offsetTop, _fromInternal, verticalOffset = 0,
     offsetWidth, offsetHeight, elemHeight,
   } = params;
   const top = offsetTop - elemHeight - offsetHeight / 2;
-  if (top - elemHeight <= 0) return getBottom(params);
+  if (top - elemHeight <= 0 && !_fromInternal) return getBottom({ ...params, _fromInternal: true });
   return {
     top,
     position: 'top',
@@ -87,11 +87,11 @@ export function getTop(params: GetFuncParams): PositionReturn {
 
 export function getBottom(params: GetFuncParams): PositionReturn {
   const {
-    offsetLeft, elemWidth, offsetTop, _fromRight, verticalOffset = 0,
+    offsetLeft, elemWidth, offsetTop, _fromInternal, verticalOffset = 0,
     offsetWidth, offsetHeight, elemHeight,
   } = params;
   const top = offsetTop + offsetHeight + offsetHeight / 2;
-  if (top + elemHeight >= getScreenHeight()) return getTop(params);
+  if (top + elemHeight >= getScreenHeight() && !_fromInternal) return getTop({ ...params, _fromInternal: true });
   return {
     top,
     position: 'bottom',

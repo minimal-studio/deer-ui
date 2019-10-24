@@ -20,7 +20,7 @@ const Tip: React.SFC<TipProps> = ({
     width: scale
   };
   return (
-    <div className="uke-tip-item" style={tipStyle}>
+    <div className="__tip-item" style={tipStyle}>
       <span className={`tip ${color}`} />
       {
         animate && (
