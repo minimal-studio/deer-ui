@@ -2,7 +2,7 @@
 
 export * from './chart-dom';
 export * from './loading';
-export * from './tip-panel';
+export * from './alert';
 export * from './toast';
 export * from './range-selector';
 export * from './pagin';
