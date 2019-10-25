@@ -1,12 +1,40 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { FormLayoutProps } from '../form-layout';
 
 const CustomerCom = ({ onChange }) => {
+  const [isMount, setisMount] = useState(false);
   // onChange 由 FormGenerator 提供
   return (
-    <div onClick={e => onChange('vvvvv')}>内容</div>
+    <div onClick={(e) => {
+      onChange('vvvvv');
+      setisMount(!isMount);
+    }}>Mounted: {isMount ? 'Yes' : 'No'}</div>
   );
 };
+
+class CustomerCom2 extends React.Component {
+  state = {
+    isMount: false
+  }
+
+  componentDidMount() {
+    console.log('mount');
+  }
+
+  render() {
+    // onChange 由 FormGenerator 提供
+    const { onChange } = this.props;
+    const { isMount } = this.state;
+    return (
+      <div onClick={(e) => {
+        onChange('vvvvv');
+        this.setState({
+          isMount: !isMount
+        });
+      }}>Mounted: {isMount ? 'Yes' : 'No'}</div>
+    );
+  }
+}
 
 const formOptions: FormLayoutProps['formOptions'] = [
   '日期',
@@ -153,7 +181,7 @@ const formOptions: FormLayoutProps['formOptions'] = [
   {
     ref: 'customer2',
     type: 'customForm',
-    getCustomFormControl: () => CustomerCom,
+    getCustomFormControl: () => CustomerCom2,
     title: '自定义的表单组件2',
     values: {
       value1: 'value1',
