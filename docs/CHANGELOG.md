@@ -2,6 +2,12 @@
 
 -----------------
 
+## 3.3.0
+
+- TipPanel 改名为 Alert
+- 调整 DatetimePicker 的样式
+- 调整 DatetimePicker 引入 flatpickr 的方式
+
 ## 3.2.0
 
 - 修改所有 uke- 前缀的 className
