@@ -26,6 +26,7 @@
   background-color: #FFF;
   @include focusBorder();
   @include formControlFocusShadow();
+  border-color: rgba($themeColor, 0.6);
 }
 
 @mixin formControlFocus {

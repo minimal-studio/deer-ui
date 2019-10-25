@@ -75,6 +75,51 @@ $caretHeight: 6px;
       right: 0;
     }
   }
+  &.input-mode, &.multiple {
+    .display-title,.search-input {
+      border: 1px solid #e7e7e7;
+      border-radius: 3px;
+    }
+    .menu-wrapper {
+      color: #888;
+    }
+    .display-menu {
+      line-height: $itemH;
+    }
+  }
+  &.top {
+    .icon-wrap {
+      transform: rotate(180deg);
+    }
+  }
+  &.show {
+    .icon-wrap {
+      transform: rotate(180deg);
+    }
+    .display-title {
+      @include focusBorder();
+      @include formControlFocusShadow();
+    }
+    .search-input {
+      @include formFocusClass();
+    }
+    &.top {
+      .icon-wrap {
+        transform: rotate(0);
+      }
+    }
+    &.input-mode {
+      &.single {
+        .search-input {
+          opacity: 1;
+          z-index: 1;
+        }
+        .display-title {
+          opacity: 0;
+        }
+      }
+    }
+  }
   .dropdown-items {
     position: absolute;
     // transition: all ease 0.2s;
@@ -146,48 +191,6 @@ $caretHeight: 6px;
     opacity: 0.6;
     z-index: 1;
     transition: transform ease 0.3s;
-  }
-  &.top {
-    .icon-wrap {
-      transform: rotate(180deg);
-    }
-  }
-  &.show {
-    .icon-wrap {
-      transform: rotate(180deg);
-    }
-    .display-title {
-      @include focusBorder();
-      @include formControlFocusShadow();
-    }
-    &.top {
-      .icon-wrap {
-        transform: rotate(0);
-      }
-    }
-    &.input-mode {
-      &.single {
-        .search-input {
-          opacity: 1;
-          z-index: 1;
-        }
-        .display-title {
-          opacity: 0;
-        }
-      }
-    }
-  }
-  &.input-mode, &.multiple {
-    .display-title,.search-input {
-      border: 1px solid #e7e7e7;
-      border-radius: 3px;
-    }
-    .menu-wrapper {
-      color: #888;
-    }
-    .display-menu {
-      line-height: $itemH;
-    }
   }
   .display-title {
     opacity: 1;
