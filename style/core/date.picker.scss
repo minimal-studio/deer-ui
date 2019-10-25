@@ -1,49 +1,19 @@
-.flatpickr-calendar {
-  transition: opacity .2s ease;
-
-  border-radius: 3px;
-  box-shadow: 0 0 24px rgba(0, 0, 0, .2);
-  > .caret {
-    position: absolute;
-    bottom: 100%;
-    left: 40px;
-
-    display: block;
-
-    width: 0;
-    height: 0;
-    margin: 0 -5px;
-
-    content: '';
-    pointer-events: none;
-
-    border: solid transparent;
-    border-width: 5px;
-    border-bottom-color: #fff;
-    // transform: rotate(180deg);
-  }
-  &:before,
-  &:after {
-    display: none !important;
-  }
-}
-
 .datepicker-ranger-content {
   @include layout();
   align-items: center;
 }
 .flatpickr {
-  // position: relative;
-  // display: flex;
-  // align-items: center;
+  &.input-group {
+    position: relative;
+  }
   .form-control {
-    min-width: 270px;
-    width: 270px;
-    // width: 100% !important;
-    // min-width: 100% !important;
+    min-width: 280px;
+    width: 280px;
   }
   .icon {
-    // position: absolute;
+    position: absolute;
+    top: 8px;
+    right: 8px;
     // right: 16px;
     // top: 7px;
     color: #999;

@@ -7,7 +7,7 @@
 import React from 'react';
 import { DebounceClass } from 'basic-helper';
 import { Button } from '../button';
-import TipPanel, { TipPanelProps } from '../tip-panel/tip-panel';
+import Alert, { AlertProps } from '../alert/alert';
 import Toast from '../toast/toast';
 import FormGenerator, { FormGeneratorProps } from './form-generator';
 import { UkeComponent } from '../utils/uke-component';
@@ -33,8 +33,8 @@ export interface FormLayoutProps extends FormGeneratorProps {
   className?: string;
   /** 是否已准备好渲染 */
   ready?: boolean;
-  /** 传入 TipPanel 控件的参数 */
-  tipInfo?: TipPanelProps;
+  /** 传入 Alert 控件的参数 */
+  tipInfo?: AlertProps;
   /** 表单操作按钮 */
   formBtns?: FormLayoutBtnsConfig;
   /** 已改名为 formBtns */
@@ -161,7 +161,7 @@ export default class FormLayout extends UkeComponent<FormLayoutProps> {
     const _btnConfig = formBtns || btnConfig || [this.getDefaultBtn()];
 
     const tipDOM = tipInfo ? (
-      <TipPanel {...tipInfo}/>
+      <Alert {...tipInfo}/>
     ) : null;
 
     const btnGroup = _btnConfig.map((btn, idx) => {

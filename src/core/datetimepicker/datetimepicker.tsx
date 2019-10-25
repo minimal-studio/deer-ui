@@ -2,14 +2,47 @@
 import React from 'react';
 
 import { Call, DateFormat, UUID } from 'basic-helper';
-import Flatpickr from 'flatpickr';
 import flatpickr from 'flatpickr/dist/typings.d';
 
-// import Flatpickr from '../../libs/flatpickr';
-import 'flatpickr/dist/l10n/zh';
 import { DateBasic, DateBasicProps } from '../date-basic';
 import { Icon } from '../icon';
 import { PopoverEntity } from '../popover/popover-entity';
+import { LoadScript } from '../utils';
+import Mandarin from './zh';
+
+let flatpickrCDNUrl = 'https://cdn.jsdelivr.net/npm/flatpickr@4.6.3/dist/flatpickr.min.js';
+let isLoadingScript = false;
+
+const loadJSFormCDN = () => {
+  return new Promise((resolve) => {
+    if (window.flatpickr) {
+      // 如果已经加载成功，直接 resolve
+      return resolve();
+    }
+    if (!isLoadingScript) {
+      // 如果没有加载，则加载
+      isLoadingScript = true;
+      LoadScript({
+        src: flatpickrCDNUrl
+      })
+        .then((res) => {
+          resolve();
+        });
+    } else {
+      // 如果有在加载中，则等待加载完成在 resolve
+      const checkIsLoad = () => {
+        if (!window.flatpickr) {
+          setTimeout(() => {
+            checkIsLoad();
+          }, 50);
+        } else {
+          resolve();
+        }
+      };
+      checkIsLoad();
+    }
+  });
+};
 
 export interface DatetimePickerProps extends DateBasicProps {
   onChange: (changeVal) => void;
@@ -47,6 +80,10 @@ interface DefaultProps {
  * @extends {DateBasic}
  */
 export default class DatetimePicker extends DateBasic<DatetimePickerProps> {
+  static setCDNUrl = (url) => {
+    flatpickrCDNUrl = url;
+  }
+
   static defaultProps = {
     needTime: true,
     toUTC: true,
@@ -86,8 +123,10 @@ export default class DatetimePicker extends DateBasic<DatetimePickerProps> {
   }
 
   componentDidMount() {
-    // setTimeout(this.initPicker.bind(this), 50);
-    this.initPicker();
+    loadJSFormCDN()
+      .then(() => {
+        this.initPicker();
+      });
     Call(this.props.didMount, this.value);
   }
 
@@ -183,6 +222,8 @@ export default class DatetimePicker extends DateBasic<DatetimePickerProps> {
   }
 
   initPicker = () => {
+    if (!window.flatpickr) return console.error(`加载 flatpickr 失败`);
+    window.flatpickr.l10ns.zh = Mandarin;
     const {
       mode, needTime, lang, allowInput,
       // enableTime,
@@ -208,7 +249,7 @@ export default class DatetimePicker extends DateBasic<DatetimePickerProps> {
       // onChange: this.handleChange
     };
 
-    this.datepicker = Flatpickr(this._refs[this._id], flatpickrOptions);
+    this.datepicker = window.flatpickr(this._refs[this._id], flatpickrOptions);
   }
 
   changeDate = (val) => {
@@ -222,17 +263,17 @@ export default class DatetimePicker extends DateBasic<DatetimePickerProps> {
   render() {
     return (
       <div className="flatpickr input-group">
-        <input
-          type="text"
-          className="form-control input-sm"
-          id={this._id}
-          ref={(e) => { this._refs[this._id] = e; }}/>
         <span className="input-addon"
           onClick={(e) => {
             if (this.datepicker) this.datepicker.toggle();
           }}>
           <Icon n="date"/>
         </span>
+        <input
+          type="text"
+          className="form-control input-sm"
+          id={this._id}
+          ref={(e) => { this._refs[this._id] = e; }}/>
       </div>
     );
   }
