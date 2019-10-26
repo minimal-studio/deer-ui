@@ -2,7 +2,6 @@
 import React from 'react';
 
 import { Call, DateFormat, UUID } from 'basic-helper';
-import flatpickr from 'flatpickr/dist/typings.d';
 
 import { DateBasic, DateBasicProps } from '../date-basic';
 import { Icon } from '../icon';
@@ -53,7 +52,7 @@ export interface DatetimePickerProps extends DateBasicProps {
   /** 是否允许用户输入 */
   allowInput?: boolean;
   /** 语言 */
-  lang?: flatpickr.Locale;
+  lang?: string;
   /** didMount */
   didMount?: () => void;
   /** 默认值 */
@@ -68,7 +67,7 @@ interface DefaultProps {
   allowInput: boolean;
   outputAsString: boolean;
   mode: string;
-  lang: flatpickr.Locale;
+  lang: string;
   defaultTimes: string[];
 }
 

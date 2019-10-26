@@ -64,7 +64,6 @@
     "unistore": "^3.1.0"
   },
   "dependencies": {
-    "classnames": "^2.2.6",
-    "flatpickr": "^4.6.3"
+    "classnames": "^2.2.6"
   }
 }
