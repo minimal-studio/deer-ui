@@ -7,6 +7,7 @@
 - TipPanel 改名为 Alert
 - 调整 DatetimePicker 的样式
 - 调整 DatetimePicker 引入 flatpickr 的方式
+- 调整 Pop 的实现，符合服务端渲染
 
 ## 3.2.0
 
