@@ -1,10 +1,12 @@
+/* eslint-disable max-classes-per-file */
+
 import React, { Component, PureComponent } from 'react';
 import ReactDOM from 'react-dom';
 
 import Popover from './popover';
 import setDOMById, { destoryDOM } from '../set-dom';
 
-interface PopoverHelperState {
+export interface PopoverHelperState {
   relativeElem: HTMLElement;
   open: boolean;
   children: any;
@@ -51,14 +53,14 @@ export class PopoverWrapper extends Component<{}, PopoverHelperState> {
   }
 }
 
-interface PopoverConstructorOptions {
+export interface PopoverConstructorOptions {
   /** 是否设置 css position: fixed */
   fixed?: boolean;
   /** id */
   id?: string;
 }
 
-interface PopShowParams {
+export interface PopShowParams {
   elem?: HTMLElement | EventTarget;
   children?: any;
   open?: boolean;

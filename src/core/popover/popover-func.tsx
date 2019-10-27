@@ -1,7 +1,42 @@
-import { PopoverEntity } from './popover-entity';
+/* eslint-disable import/no-mutable-exports */
+import { PopoverEntity, PopShowParams } from './popover-entity';
 
-/** 在服务端渲染不能初始化 PopoverEntity */
-const GlobalPopover = new PopoverEntity();
+/** 在服务端渲染不初始化 PopoverEntity */
+let _GlobalPopover;
+const GlobalPopover = {};
+Object.defineProperties(GlobalPopover, {
+  show: {
+    writable: false,
+    value: (options: PopShowParams) => {
+      if (!_GlobalPopover) {
+        _GlobalPopover = new PopoverEntity();
+      }
+      _GlobalPopover.show(options);
+    }
+  },
+  set: {
+    writable: false,
+    value: (options: PopShowParams) => {
+      if (!_GlobalPopover) {
+        _GlobalPopover = new PopoverEntity();
+      }
+      _GlobalPopover.set(options);
+    }
+  },
+  close: {
+    writable: false,
+    value: () => {
+      _GlobalPopover.close();
+    }
+  },
+  destroy: {
+    writable: false,
+    value: () => {
+      _GlobalPopover.destroy();
+    }
+  },
+});
+
 const Pop = GlobalPopover;
 
 /**
