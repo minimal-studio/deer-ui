@@ -1,5 +1,5 @@
 {
-  "name": "dear-ui",
+  "name": "@dear-ui/all",
   "version": "4.0.0-alpha0",
   "main": "./index.js",
   "files": [
