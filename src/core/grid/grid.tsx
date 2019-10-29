@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
-import { tuple } from 'basic-helper/utils/type';
+import { tuple } from '@mini-code/base-func/utils/type';
 import { Children } from '../utils/props';
 
 export type LayoutSpaces = 0 | 5 | 10 | 15 | 20 | 25 | 30;

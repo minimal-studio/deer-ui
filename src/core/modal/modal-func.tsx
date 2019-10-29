@@ -2,11 +2,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import { Call, GenerteID } from 'basic-helper';
+import { Call, GenerteID } from '@mini-code/base-func';
 import { Provider, connect } from 'unistore/react';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
-import { $T_UKE, getIsMobile } from '../config';
+import { $T_IN, getIsMobile } from '../config';
 import { Icon } from '../icon';
 import ModalHelper from './modal-helper';
 import Modal, { ModalOptions } from './modal';
@@ -121,7 +121,6 @@ const getModalDefaultWidth = (modalType) => {
 const getDefaultOptions = (options) => {
   const { width, type } = options;
   const isMobile = getIsMobile();
-  // const { isMobile } = window.$UKE;
   return {
     className: 'fixed',
     topClassName: 'top-modal-opend',
@@ -177,7 +176,7 @@ function ShowModal(params: ShowModalParams): ModalID {
   /** @type {ShowModalParams} */
   let options = Object.assign({}, params);
   let {
-    type, confirmText = `${$T_UKE('确定')}?`, showFuncBtn,
+    type, confirmText = `${$T_IN('确定')}?`, showFuncBtn,
     id, children,
     onConfirm, needHeader
   } = options;
@@ -195,8 +194,8 @@ function ShowModal(params: ShowModalParams): ModalID {
 
   const btnGroupDOM = _showFuncBtn && (
     <div className="btn-group">
-      <span className="btn flat default" onClick={e => onClickBtn(false)}>{$T_UKE('取消')}</span>
-      <span className="btn flat theme" onClick={e => onClickBtn(true)}>{$T_UKE('确定')}</span>
+      <span className="btn flat default" onClick={e => onClickBtn(false)}>{$T_IN('取消')}</span>
+      <span className="btn flat theme" onClick={e => onClickBtn(true)}>{$T_IN('确定')}</span>
     </div>
   );
 

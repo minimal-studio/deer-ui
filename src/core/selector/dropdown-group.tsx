@@ -1,5 +1,5 @@
 import React from 'react';
-import { RemoveArrayItem } from 'basic-helper';
+import { RemoveArrayItem } from '@mini-code/base-func';
 
 import SelectorBasic, { SelectorValuesDescription, SelectorBasicProps, SelectorBasicState } from './selector';
 import Checkbox from './checkbox';
@@ -134,7 +134,7 @@ export default class DropdownGroup extends SelectorBasic<DropdownGroupProps, Sta
   }
 
   getTitle = (selectedCount) => {
-    return `${selectedCount}${this.$T_UKE('项已选')}`;
+    return `${selectedCount}${this.$T_IN('项已选')}`;
   }
 
   render() {

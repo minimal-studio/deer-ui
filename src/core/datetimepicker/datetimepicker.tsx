@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import React from 'react';
 
-import { Call, DateFormat, UUID } from 'basic-helper';
+import { Call, DateFormat, UUID } from '@mini-code/base-func';
 
 import { DateBasic, DateBasicProps } from '../date-basic';
 import { Icon } from '../icon';

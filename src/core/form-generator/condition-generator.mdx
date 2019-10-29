@@ -7,7 +7,7 @@ menu: FormGenerator
 import { Playground, Props } from 'docz'
 import { useState } from 'react'
 import { ConditionGenerator } from './';
-import { setLangTranslate, setUkeLang } from '../config'
+import { setLangTranslate, setUILang } from '../config'
 
 # ConditionGenerator
 
@@ -33,7 +33,7 @@ import { setLangTranslate, setUkeLang } from '../config'
         <div>
           <span className="btn theme" onClick={e => {
             const nextLang = lang == 'zh-CN' ? 'en-US' : 'zh-CN';
-            setUkeLang(nextLang);
+            setUILang(nextLang);
             setLang(nextLang)
           }}>{lang}</span>
           <hr />

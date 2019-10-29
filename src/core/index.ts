@@ -1,4 +1,4 @@
-// import 'basic-helper';
+// import '@mini-code/base-func';
 
 export * from './chart-dom';
 export * from './loading';

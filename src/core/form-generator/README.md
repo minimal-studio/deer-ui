@@ -127,7 +127,7 @@ const formOptions = {
 
 ### 2. type
 
-选择的控件的类型，以下为控件预览，对应的 ukelli-ui 中的控件，都可以在文档中找到
+选择的控件的类型，以下为控件预览，对应的 dear-ui 中的控件，都可以在文档中找到
 
 ```js static
 typeMapper = {

@@ -48,7 +48,7 @@ export default class Radio extends SelectorBasic<RadioProps> {
       <span
         className={`btn flat selectAllBtn ${isSelectedAll ? 'red' : 'theme'}`}
         onClick={e => (isSelectedAll ? this.clearAll() : this.selectAll())}>
-        {this.$T_UKE(isSelectedAll ? '清除' : '全选')}
+        {this.$T_IN(isSelectedAll ? '清除' : '全选')}
       </span>
     ) : null;
 

@@ -1,10 +1,10 @@
 import React from "react";
-import { Call } from 'basic-helper';
+import { Call } from '@mini-code/base-func';
 
 import { DropdownWrapper } from '../selector';
 import { Tip } from '../tip';
 
-import { UkePureComponent } from '../utils/uke-component';
+import { UIPureComponent } from '../utils/ui-component';
 import { Color } from '../utils/props';
 
 export interface AvatarProps {
@@ -39,7 +39,7 @@ export interface AvatarProps {
  * @class Avatar
  * @extends {PureComponent}
  */
-export default class Avatar extends UkePureComponent<AvatarProps> {
+export default class Avatar extends UIPureComponent<AvatarProps> {
   static defaultProps: AvatarProps = {
     size: 50,
     text: '',

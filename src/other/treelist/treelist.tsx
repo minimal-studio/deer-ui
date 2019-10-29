@@ -1,7 +1,7 @@
 /* eslint-disable no-nested-ternary */
 /* eslint-disable no-prototype-builtins */
 import React, { Component } from "react";
-import { Call } from "basic-helper";
+import { Call } from "@mini-code/base-func";
 import { Icon } from '../../core/icon';
 
 interface TreeProps {

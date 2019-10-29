@@ -1,6 +1,6 @@
 import React, { Component, PureComponent } from 'react';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
-import { IsFunc } from 'basic-helper';
+import { IsFunc } from '@mini-code/base-func';
 
 // import LoadingDOMSnip from './snip';
 import LoadingProgress from './progress';

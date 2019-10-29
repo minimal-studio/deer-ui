@@ -1,5 +1,5 @@
 import createStore from 'unistore';
-import { RemoveArrayItem } from 'basic-helper';
+import { RemoveArrayItem } from '@mini-code/base-func';
 
 export interface WindowItemConfig {
   title: string;

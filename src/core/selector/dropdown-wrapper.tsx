@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import classnames from 'classnames';
-import { IsFunc, DebounceClass } from 'basic-helper';
+import { IsFunc, DebounceClass } from '@mini-code/base-func';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
 import { Icon } from '../icon';

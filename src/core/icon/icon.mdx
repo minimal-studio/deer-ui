@@ -20,8 +20,8 @@ n 对应了 FontAwesomeIcon 的 icon-name，默认添加 `fa fa-` 前缀
   <Icon n="address-card" classNames={['ms10']} style={{fontSize: 20}} />
 </Playground>
 
-- 如果需要切换图表库，可以通过 setUkelliConfig 设置 icon 的前缀
-- 同时支持 icon 的名字映射，通过 setUkelliConfig 设置 iconMapper
+- 如果需要切换图表库，可以通过 setUIConfig 设置 icon 的前缀
+- 同时支持 icon 的名字映射，通过 setUIConfig 设置 iconMapper
 
 -----------
 
@@ -42,10 +42,10 @@ n 对应了 FontAwesomeIcon 的 icon-name，默认添加 `fa fa-` 前缀
 ## 设置 IconMapper
 
 ```js
-import { setUkelliConfig } from 'ukelli-ui';
+import { setUIConfig } from 'dear-ui';
 
 // 以下为默认设置，可以覆盖
-setUkelliConfig({
+setUIConfig({
   iconMapper: {
     arrow: 'angle-left',
     date: 'calendar-alt',

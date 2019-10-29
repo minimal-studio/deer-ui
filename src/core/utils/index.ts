@@ -6,4 +6,4 @@ export * from './position';
 export * from './props';
 export * from './screen';
 export * from './scroll';
-export * from './uke-component';
+export * from './ui-component';

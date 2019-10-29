@@ -1,6 +1,6 @@
 import React, { Component, PureComponent } from 'react';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
-import { Call } from 'basic-helper';
+import { Call } from '@mini-code/base-func';
 import { Icon } from '../icon';
 import { Children } from '../utils/props';
 

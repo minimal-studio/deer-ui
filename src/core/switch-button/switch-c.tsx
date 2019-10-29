@@ -1,7 +1,7 @@
 /* eslint-disable react/no-array-index-key */
 
 import React, { Component, PureComponent } from 'react';
-import { HasValue } from 'basic-helper';
+import { HasValue } from '@mini-code/base-func';
 
 export interface SwitchProps {
   /** 值改变的回调 */

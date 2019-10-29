@@ -1,9 +1,9 @@
 import React from 'react';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
-import { EventEmitter, Call, HasValue } from 'basic-helper';
+import { EventEmitter, Call, HasValue } from '@mini-code/base-func';
 import { Icon } from '../icon';
 import positionFilter from '../position-filter';
-import { UkePureComponent } from '../utils/uke-component';
+import { UIPureComponent } from '../utils/ui-component';
 import { tipIcons } from '../utils/icon-mapper';
 
 export interface NotificationProps {
@@ -35,7 +35,7 @@ const defaultTimeToClose = 7;
 
 export const NotifyEvent = 'NOTIFY';
 
-export default class Notification extends UkePureComponent<NotificationProps, State> {
+export default class Notification extends UIPureComponent<NotificationProps, State> {
   timers: {[key: string]: any} = {};
 
   IDIncrement = 0;
@@ -151,7 +151,7 @@ export default class Notification extends UkePureComponent<NotificationProps, St
     const notifyItemsKeysLen = notifyItemsKeys.length;
     const hasMsg = notifyItemsKeysLen > 0;
     const needClearAllBtn = notifyItemsKeysLen > 3;
-    const { $T_UKE } = this;
+    const { $T_IN } = this;
 
     const container = (
       <div className={`notify-group ${positionFilter(position)} ${hasMsg ? 'has-msg' : 'no-msg'}`}>
@@ -168,7 +168,7 @@ export default class Notification extends UkePureComponent<NotificationProps, St
               notifyItemsKeys.map((msgID) => {
                 const item = notifyItems[msgID];
                 const {
-                  type = 'normal', title, text, onClickTip, actionText = $T_UKE('点击查看详情')
+                  type = 'normal', title, text, onClickTip, actionText = $T_IN('点击查看详情')
                 } = item;
                 return (
                   <CSSTransition
@@ -192,7 +192,7 @@ export default class Notification extends UkePureComponent<NotificationProps, St
                         )
                       }
                       <div className="content">
-                        <div className="title">{title || $T_UKE('新消息')}</div>
+                        <div className="title">{title || $T_IN('新消息')}</div>
                         <div className="text">{text || ''}</div>
                         {
                           (onClickTip || handleClick) ? (

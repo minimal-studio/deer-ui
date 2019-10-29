@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { UkeComponent } from '../utils/uke-component';
+import { UIComponent } from '../utils/ui-component';
 import { getScreenWidth } from '../utils/screen';
 
 export interface DragPanelClassProps {
@@ -9,7 +9,7 @@ export interface DragPanelClassProps {
 
 // let SCREEN_WIDTH = document.documentElement.clientWidth;
 
-export class DragPanelClass<P extends DragPanelClassProps> extends UkeComponent<P> {
+export class DragPanelClass<P extends DragPanelClassProps> extends UIComponent<P> {
 
   drapElemInfo: {
     isDrapStart: boolean;

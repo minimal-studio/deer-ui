@@ -2,7 +2,7 @@
 
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-// import { UUID } from 'basic-helper';
+// import { UUID } from '@mini-code/base-func';
 
 export interface ClickAwayProps {
   /** 点击 children 以外的区域时触发的回调 */

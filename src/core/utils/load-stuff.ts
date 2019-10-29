@@ -1,6 +1,6 @@
 /* eslint-disable no-param-reassign */
 
-import { Call } from 'basic-helper';
+import { Call } from '@mini-code/base-func';
 
 interface LoadParams {
   src: string;

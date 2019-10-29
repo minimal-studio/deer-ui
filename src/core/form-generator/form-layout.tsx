@@ -5,12 +5,12 @@
  */
 
 import React from 'react';
-import { DebounceClass } from 'basic-helper';
+import { DebounceClass } from '@mini-code/base-func';
 import { Button } from '../button';
 import Alert, { AlertProps } from '../alert/alert';
 import Toast from '../toast/toast';
 import FormGenerator, { FormGeneratorProps } from './form-generator';
-import { UkeComponent } from '../utils/uke-component';
+import { UIComponent } from '../utils/ui-component';
 import { ButtonProps } from '../button/button-basic';
 
 export interface FormLayoutBtn extends ButtonProps {
@@ -53,7 +53,7 @@ export interface FormLayoutProps extends FormGeneratorProps {
 
 const delayExec = (new DebounceClass()).exec;
 
-export default class FormLayout extends UkeComponent<FormLayoutProps> {
+export default class FormLayout extends UIComponent<FormLayoutProps> {
   // static getDerivedStateFromProps(nextProps, prevState) {
   //   const { resDesc } = nextProps;
   //   if(prevState.prevResDesc !== resDesc) {
@@ -97,7 +97,7 @@ export default class FormLayout extends UkeComponent<FormLayoutProps> {
     const { isPass, desc } = this.formHelper.checkForm();
     if (!isPass) {
       this.showResDesc({
-        resDesc: desc + this.$T_UKE('必填|选'),
+        resDesc: desc + this.$T_IN('必填|选'),
         hasErr: true
       });
     }
@@ -130,7 +130,7 @@ export default class FormLayout extends UkeComponent<FormLayoutProps> {
   getDefaultBtn = (): FormLayoutBtn => {
     const {
       onSubmit,
-      btnText = this.$T_UKE('确定'),
+      btnText = this.$T_IN('确定'),
     } = this.props;
     return {
       action: onSubmit,
@@ -187,7 +187,7 @@ export default class FormLayout extends UkeComponent<FormLayoutProps> {
           {...otherForBtn}
           key={key}
           disabled={!isActive}
-          text={isBtnLoading ? `${text + this.$T_UKE('中')}...` : text}
+          text={isBtnLoading ? `${text + this.$T_IN('中')}...` : text}
           loading={isBtnLoading}
           type={type}
           color={color}

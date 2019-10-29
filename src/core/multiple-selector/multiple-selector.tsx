@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { Call } from 'basic-helper';
+import { Call } from '@mini-code/base-func';
 import { Icon } from '../icon';
 
 export interface MultipleProps {

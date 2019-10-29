@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { ToFixed } from 'basic-helper';
-import NumTransformToCN from 'basic-helper/num-to-cn';
+import { ToFixed } from '@mini-code/base-func';
+import NumTransformToCN from '@mini-code/base-func/num-to-cn';
 import InputVerifyClass, { InputVerifyClassProps } from './input-verify-class';
 
 export interface InputVerifyProps extends InputVerifyClassProps {

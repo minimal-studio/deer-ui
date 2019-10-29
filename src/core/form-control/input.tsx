@@ -1,7 +1,7 @@
 /* eslint-disable no-nested-ternary */
 import React, { Component } from 'react';
 import classnames from 'classnames';
-import { Call, HasValue, IsFunc } from 'basic-helper';
+import { Call, HasValue, IsFunc } from '@mini-code/base-func';
 import { Icon } from '../icon';
 import { Button } from '../button';
 

@@ -1,6 +1,6 @@
 import React, { Component, PureComponent } from 'react';
 
-import { DebounceClass, Call } from 'basic-helper';
+import { DebounceClass, Call } from '@mini-code/base-func';
 import { Icon } from '../icon';
 
 interface Carousel3DProps {

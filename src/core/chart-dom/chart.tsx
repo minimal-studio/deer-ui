@@ -1,5 +1,5 @@
 import React, { Component, PureComponent } from 'react';
-import { Call } from 'basic-helper';
+import { Call } from '@mini-code/base-func';
 
 import { Loading } from '../loading';
 import { LoadScript } from '../utils/load-stuff';
@@ -41,7 +41,7 @@ export default class ChartCom extends PureComponent<ChartComProps, ChartComState
 
   static defaultProps = {
     type: 'line',
-    id: 'ukeChart',
+    id: 'ChartID',
     height: '100%',
     width: '100%',
   };

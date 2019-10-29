@@ -1,8 +1,8 @@
 import React from 'react';
-import { Call, DateFormat } from 'basic-helper';
-import { ToUTC } from 'basic-helper/datetime-helper';
+import { Call, DateFormat } from '@mini-code/base-func';
+import { ToUTC } from '@mini-code/base-func/datetime-helper';
 
-import { UkePureComponent } from '../utils/uke-component';
+import { UIPureComponent } from '../utils/ui-component';
 
 export interface DateBasicProps {
   onChange?: (nextValue) => void;
@@ -18,7 +18,7 @@ export interface DateBasicProps {
 
 export class DateBasic<
   P extends DateBasicProps, S = {}, SS = {}
-> extends UkePureComponent<P, S, SS> {
+> extends UIPureComponent<P, S, SS> {
   dateFormat = 'YYYY-MM-DD';
 
   timeFormat = 'hh:mm:ss';

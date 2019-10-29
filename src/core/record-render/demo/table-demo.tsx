@@ -3,7 +3,7 @@ import { Table, DescHelper } from '..';
 import { ShowModal } from '../../modal';
 import MockData from '../../utils/mock-data';
 import { records, columns, keyMapperFixed } from '../table-mock-data';
-import { setLangTranslate, setUkeLang } from '../../config';
+import { setLangTranslate, setUILang } from '../../config';
 
 const Test1 = () => {
   const _keyMapper = [...columns];
@@ -280,7 +280,7 @@ const Test9 = () => {
     <div>
       <span className="btn theme" onClick={(e) => {
         const nextLang = lang == 'zh-CN' ? 'en-US' : 'zh-CN';
-        setUkeLang(nextLang);
+        setUILang(nextLang);
         setLang(nextLang);
       }}>{lang}</span>
       <Table

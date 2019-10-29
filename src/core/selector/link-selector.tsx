@@ -1,10 +1,10 @@
 /* eslint-disable consistent-return */
 import React from 'react';
-import { CallFunc, Call } from 'basic-helper';
+import { CallFunc, Call } from '@mini-code/base-func';
 import DropdownWrapper from './dropdown-wrapper';
 import { Icon } from '../icon';
 
-import { UkeComponent } from '../utils/uke-component';
+import { UIComponent } from '../utils/ui-component';
 
 export interface LinkDataStruct {
   /** ID */
@@ -36,7 +36,7 @@ interface State {
   selectedItems: any[];
 }
 
-export default class LinkSelector extends UkeComponent<LinkSelectorProps, State> {
+export default class LinkSelector extends UIComponent<LinkSelectorProps, State> {
   static defaultProps = {
     mappers: {
       child: 'child',
@@ -192,7 +192,7 @@ export default class LinkSelector extends UkeComponent<LinkSelectorProps, State>
         </div>
       );
     }
-    return this.$T_UKE('请选择');
+    return this.$T_IN('请选择');
   }
 
   saveDropWrapper = (e) => {

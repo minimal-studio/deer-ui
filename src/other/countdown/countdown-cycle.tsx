@@ -1,5 +1,5 @@
 import React, { Component, PureComponent } from 'react';
-import { Call, ToFixed, TimeFormat } from 'basic-helper';
+import { Call, ToFixed, TimeFormat } from '@mini-code/base-func';
 
 import CountdownBg from './countdown-svg-bg';
 

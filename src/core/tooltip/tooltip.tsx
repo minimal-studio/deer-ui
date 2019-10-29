@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { Call, DebounceClass, UUID } from 'basic-helper';
+import { Call, DebounceClass, UUID } from '@mini-code/base-func';
 
 import { PopoverEntity } from '../popover/popover-entity';
 import { Icon } from '../icon';

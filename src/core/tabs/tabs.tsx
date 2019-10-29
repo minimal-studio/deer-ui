@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { CallFunc } from 'basic-helper';
+import { CallFunc } from '@mini-code/base-func';
 import classnames from 'classnames';
 import Tab from './tab';
 import { ToolTip } from '../tooltip';

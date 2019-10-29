@@ -5,9 +5,9 @@
 import React, { Component } from 'react';
 import {
   Call, CallFunc, IsFunc, HasValue, IsObj
-} from 'basic-helper';
+} from '@mini-code/base-func';
 
-import { UkeComponent } from '../utils/uke-component';
+import { UIComponent } from '../utils/ui-component';
 
 import { DatetimePicker } from '../datetimepicker';
 import { DateShortcut } from '../date-shortcut';
@@ -57,7 +57,7 @@ const wrapInputSelectorMarkForRefu = activeRef => `__isActive${activeRef}`;
  * 表单生成器
  * 统一的聚合表单
  */
-export default class FormFilterHelper<P extends FormFilterProps> extends UkeComponent<P> {
+export default class FormFilterHelper<P extends FormFilterProps> extends UIComponent<P> {
   _refs = {};
 
   state = {};
@@ -466,9 +466,9 @@ export default class FormFilterHelper<P extends FormFilterProps> extends UkeComp
     const [refS, refE] = refs;
     return (
       <div className="input-range">
-        {this.getInput({ ref: refS, _title: this.$T_UKE('起'), ...other })}
+        {this.getInput({ ref: refS, _title: this.$T_IN('起'), ...other })}
         <span> - </span>
-        {this.getInput({ ref: refE, _title: this.$T_UKE('止'), ...other })}
+        {this.getInput({ ref: refE, _title: this.$T_IN('止'), ...other })}
       </div>
     );
   }
@@ -602,7 +602,7 @@ export default class FormFilterHelper<P extends FormFilterProps> extends UkeComp
 
     return (
       <div className="datepicker-ranger-content">
-        {/* <span className="title">{this.$T_UKE('范围')}</span> */}
+        {/* <span className="title">{this.$T_IN('范围')}</span> */}
         <DatetimePicker
           mode="range"
           {...other}

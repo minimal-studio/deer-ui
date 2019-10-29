@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Random } from 'basic-helper';
+import { Random } from '@mini-code/base-func';
 import { ChartCom } from '..';
 import { Grid } from '../../grid';
 

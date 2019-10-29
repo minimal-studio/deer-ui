@@ -1,12 +1,12 @@
 import React from 'react';
-import { HasValue, Call } from 'basic-helper';
+import { HasValue, Call } from '@mini-code/base-func';
 import classnames from 'classnames';
-import { tuple } from 'basic-helper/utils/type';
+import { tuple } from '@mini-code/base-func/utils/type';
 
 import SelectorBasic, { SelectorValuesDescription, SelectorBasicProps } from './selector';
 import DropdownWrapper, { DropdownWrapperProps } from './dropdown-wrapper';
 import { MenuItem } from '../menu';
-import { $T, $T_UKE } from '../config';
+import { $T, $T_IN } from '../config';
 // import Radio from './radio';
 
 const positionList = tuple('button', 'top', 'left', 'right', 'button,left', 'button,right', 'top,left', 'top,right');
@@ -100,13 +100,13 @@ export default class DropdownMenu extends SelectorBasic<DropdownMenuProps> {
 
     switch (true) {
       case !hasVal:
-        resTitle = $T_UKE(defaultTitle);
+        resTitle = $T_IN(defaultTitle);
         break;
       case !!isMultiple:
-        resTitle = value.length + $T_UKE('项已选');
+        resTitle = value.length + $T_IN('项已选');
         break;
       case typeof this.valuesObj[value] == 'undefined':
-        resTitle = $T_UKE(invalidTip);
+        resTitle = $T_IN(invalidTip);
         this._error = true;
         break;
       default:
@@ -114,9 +114,9 @@ export default class DropdownMenu extends SelectorBasic<DropdownMenuProps> {
         if (HasValue(title)) {
           resTitle = title;
         } else if (typeof title == 'undefined') {
-          resTitle = $T_UKE(defaultTitle);
+          resTitle = $T_IN(defaultTitle);
         } else {
-          resTitle = $T_UKE(invalidTip);
+          resTitle = $T_IN(invalidTip);
           this._error = true;
         }
         break;
@@ -152,7 +152,7 @@ export default class DropdownMenu extends SelectorBasic<DropdownMenuProps> {
                   canSelectAll ? this.selectAll() : this.clearAll();
                   hide();
                 }}>
-                  {$T_UKE(canSelectAll ? '全选' : cancelTitle)}
+                  {$T_IN(canSelectAll ? '全选' : cancelTitle)}
                 </div>
               )
             }

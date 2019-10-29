@@ -1,7 +1,7 @@
 import React from 'react';
 import {
   Call, IsFunc, MoneyFormat, HasValue, DebounceClass
-} from 'basic-helper';
+} from '@mini-code/base-func';
 import classnames from 'classnames';
 
 import MapperFilter, { MapperFilterProps, Column, Records } from './mapper-filter';
@@ -764,7 +764,7 @@ export default class Table extends MapperFilter<TableProps, State> {
     ) : main && (
       <span className="no-record-tip">
         <Icon n="noData"/>
-        <span className="text">{this.$T_UKE('暂无记录')}</span>
+        <span className="text">{this.$T_IN('暂无记录')}</span>
       </span>
     );
   }
@@ -899,9 +899,9 @@ export default class Table extends MapperFilter<TableProps, State> {
       <div className={`checked-actions${hasChecked ? ' show' : ''}`}>
         <span className="mr10">
           <span className="mr10">
-            {this.$T_UKE('已选')} <span className="t_theme">{checkedItemLen}</span> {this.$T_UKE('项')}
+            {this.$T_IN('已选')} <span className="t_theme">{checkedItemLen}</span> {this.$T_IN('项')}
           </span>
-          <span className="link" onClick={this.clearCheckeds}>{this.$T_UKE('清除')}</span>
+          <span className="link" onClick={this.clearCheckeds}>{this.$T_IN('清除')}</span>
         </span>
         {typeof _checkedOverlay === 'function' ? _checkedOverlay({
           checkedItems, clearCheckeds: this.clearCheckeds

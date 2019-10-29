@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ToFixed, HasValue } from 'basic-helper';
+import { ToFixed, HasValue } from '@mini-code/base-func';
 import classnames from 'classnames';
 
 import InputNumber from '../form-control/input-number';

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { Call } from 'basic-helper';
+import { Call } from '@mini-code/base-func';
 
 export interface InputVerifyClassProps {
   onChange?: (value) => void;

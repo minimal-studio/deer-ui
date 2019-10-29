@@ -16,13 +16,13 @@ import '../../../style/other/default.scss'
 ### Import Component
 
 ```js
-import Countdown from 'ukelli-ui/other/countdown/clip-clock';
+import Countdown from 'dear-ui/other/countdown/clip-clock';
 ```
 
 ### Import Style
 
 ```scss
-@import 'ukelli-ui/style/other/flip-clock.scss';
+@import 'dear-ui/style/other/flip-clock.scss';
 ```
 
 <Playground className="bg_default">

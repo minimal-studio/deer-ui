@@ -5,7 +5,7 @@ menu: Utils
 ---
 
 import { Playground, Props } from 'docz'
-import { EventEmitter } from 'basic-helper';
+import { EventEmitter } from '@mini-code/base-func';
 import { Notify, CancelNotify, NotifyEvent } from './';
 import NotifyConfigC from './doc-api/notify-config'
 import NotifyParamsC from './doc-api/notify-params'
@@ -15,7 +15,7 @@ import NotifyParamsC from './doc-api/notify-params'
 ## Setup
 
 ```js
-import { Notify } from 'ukelli-ui/core/notification'
+import { Notify } from 'dear-ui/core/notification'
 
 Notify({
   config: {
@@ -85,8 +85,8 @@ Notify({
 ## 通过 EventEmitter 广播
 
 ```js
-import { EventEmitter } from 'basic-helper'
-import { NotifyEvent } from 'ukelli-ui/core/notification'
+import { EventEmitter } from '@mini-code/base-func'
+import { NotifyEvent } from 'dear-ui/core/notification'
 
 EventEmitter.emit(NotifyEvent, {
   text: '通过 EventEmitter 广播通知',
@@ -117,7 +117,7 @@ EventEmitter.emit(NotifyEvent, {
 ## 取消广播
 
 ```js
-import { Notify, CancelNotify } from 'ukelli-ui'
+import { Notify, CancelNotify } from 'dear-ui'
 
 const NotifyID = Notify({
 

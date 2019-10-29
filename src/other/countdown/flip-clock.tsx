@@ -1,7 +1,7 @@
 /* eslint-disable react/no-multi-comp */
 
 import React, { Component, PureComponent } from 'react';
-import { Call, ToFixed, TimeFormat } from 'basic-helper';
+import { Call, ToFixed, TimeFormat } from '@mini-code/base-func';
 import { Grid } from '../../core/grid';
 
 interface FlipUnitContainerProps {

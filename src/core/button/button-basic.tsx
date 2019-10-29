@@ -3,8 +3,8 @@
 import React from 'react';
 import classnames from 'classnames';
 
-import { Call } from 'basic-helper';
-import { $T_UKE } from '../config';
+import { Call } from '@mini-code/base-func';
+import { $T_IN } from '../config';
 import { Icon } from '../icon';
 import { IconProps } from '../icon/icon';
 import {

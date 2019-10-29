@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Selector from '../selector/dropdown-menu';
-import { UkeComponent } from '../utils/uke-component';
+import { UIComponent } from '../utils/ui-component';
 import { getScreenHeight } from '../utils/screen';
 import { getScrollTop } from '../utils/scroll';
 import { getElementTop } from '../utils/get-elem-offset';
@@ -58,7 +58,7 @@ interface DefaultProps {
 
 const Seperator = () => <span className="ms5">..</span>;
 
-export default class Pagination extends UkeComponent<PaginationProps> {
+export default class Pagination extends UIComponent<PaginationProps> {
   static defaultProps: DefaultProps = {
     infoMapper: {
       pIdx: 'pIdx',
@@ -80,7 +80,7 @@ export default class Pagination extends UkeComponent<PaginationProps> {
     const pageListData = [10, 20, 30, 40, 50, 100];
     const pageListMap = {};
     pageListData.forEach((item) => {
-      pageListMap[item] = `${item} ${this.$T_UKE('条/页')}`;
+      pageListMap[item] = `${item} ${this.$T_IN('条/页')}`;
     });
     return pageListMap;
   }
@@ -148,7 +148,7 @@ export default class Pagination extends UkeComponent<PaginationProps> {
       );
     }
 
-    const { $T_UKE } = this;
+    const { $T_IN } = this;
 
     const paginBtnCount = Math.ceil(total / pSize);
     const isFirstActive = pIdx === 0;
@@ -159,14 +159,14 @@ export default class Pagination extends UkeComponent<PaginationProps> {
 
     const jumpInputDOM = (
       <div className="jump-input">
-        {/* <span>{$T_UKE('共')} {paginBtnCount || 1} {$T_UKE('页')}, {$T_UKE('跳至')}</span> */}
-        <span>{$T_UKE('跳至')}</span>
+        {/* <span>{$T_IN('共')} {paginBtnCount || 1} {$T_IN('页')}, {$T_IN('跳至')}</span> */}
+        <span>{$T_IN('跳至')}</span>
         <input
           type="text"
           disabled={!hasMorePagin}
           className="form-control input-sm ms10 input"
           onBlur={e => this.changePagin(+e.target.value - 1)}/>
-        <span>{$T_UKE('页')}</span>
+        <span>{$T_IN('页')}</span>
       </div>
     );
     const pageCountInputDOM = (
@@ -225,7 +225,7 @@ export default class Pagination extends UkeComponent<PaginationProps> {
           {lastCon}
         </div>
         {
-          displayTotal && <span> {total} {$T_UKE('项')}</span>
+          displayTotal && <span> {total} {$T_IN('项')}</span>
         }
         {
           isNeedHelper && (

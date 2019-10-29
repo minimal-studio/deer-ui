@@ -11,13 +11,13 @@ import { Table, DescHelper } from './';
 import { DropdownMenu } from '../selector';
 import Columns from './columns.mdx';
 import { records, columns, keyMapperFixed } from './table-mock-data';
-import { setLangTranslate, setUkeLang } from '../config'
+import { setLangTranslate, setUILang } from '../config'
 
 # Table
 
 ## 通用 Table
 
-uke-table 包含以下特点
+包含以下特点
 
 - 声明式逻辑处理
 - 自动计算 cell 的宽度
@@ -90,7 +90,7 @@ __需要为 Table 设置 rowKey__
 
 ## 统计
 
-#### uke-table 会尝试统计数字，如果某个 `column` 不计入统计，可以配置 `count: false`
+#### table 会尝试统计数字，如果某个 `column` 不计入统计，可以配置 `count: false`
 
 <Playground>
   {
@@ -446,7 +446,7 @@ const columns = [
         <div>
           <span className="btn theme" onClick={e => {
             const nextLang = lang == 'zh-CN' ? 'en-US' : 'zh-CN';
-            setUkeLang(nextLang);
+            setUILang(nextLang);
             setLang(nextLang)
           }}>{lang}</span>
           <Table

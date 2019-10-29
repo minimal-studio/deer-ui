@@ -1,7 +1,7 @@
 import React from 'react';
-import { Call } from 'basic-helper';
+import { Call } from '@mini-code/base-func';
 
-import { UkeComponent } from '../utils/uke-component';
+import { UIComponent } from '../utils/ui-component';
 import Input from '../form-control/input';
 
 export interface CaptchaResData {
@@ -51,13 +51,13 @@ let queryCAPTCHAData: APIQueryCaptcha = () => {
 };
 
 /**
- * 验证码，需要先通过 setUkelliConfig 设置获取验证码的方式
+ * 验证码，需要先通过 setUIConfig 设置获取验证码的方式
  *
  * @export
  * @class Captcha
  * @extends {Component}
  */
-export default class Captcha extends UkeComponent<CaptchaProps, State> {
+export default class Captcha extends UIComponent<CaptchaProps, State> {
   static defaultProps = {
     limit: 4,
     autoRetryTime: 10,
@@ -201,10 +201,10 @@ export default class Captcha extends UkeComponent<CaptchaProps, State> {
         className="cover-image"/>
     ) : null;
     if (!hasCap) {
-      loadingTip = this.$T_UKE('验证码');
+      loadingTip = this.$T_IN('验证码');
     }
     if (loading) {
-      loadingTip = this.$T_UKE('刷新中');
+      loadingTip = this.$T_IN('刷新中');
     }
 
     return (
@@ -217,7 +217,7 @@ export default class Captcha extends UkeComponent<CaptchaProps, State> {
           value={_captchaValue}
           onFocus={e => this.shouldRefreshCaptcha()}
           onChange={val => this.changeCaptcha(val)}
-          placeholder={this.$T_UKE("验证码")}>
+          placeholder={this.$T_IN("验证码")}>
           <div className="captcha"
             onClick={(e) => {
               this.getCaptcha();

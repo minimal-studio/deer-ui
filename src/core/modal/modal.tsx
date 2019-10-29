@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Call, IsFunc } from 'basic-helper';
+import { Call, IsFunc } from '@mini-code/base-func';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import classnames from 'classnames';
 
@@ -187,7 +187,7 @@ export default class Modal extends DragPanelClass<ModalRequiredProps & ModalProp
 
   __mount
 
-  ukeLayout
+  internalLayout
 
   componentDidMount() {
     this.setContentFocus();
@@ -224,8 +224,8 @@ export default class Modal extends DragPanelClass<ModalRequiredProps & ModalProp
   }
 
   setContentFocus = () => {
-    if (this.props.isOpen && this.ukeLayout) {
-      this.ukeLayout.focus();
+    if (this.props.isOpen && this.internalLayout) {
+      this.internalLayout.focus();
     }
   }
 
@@ -329,7 +329,7 @@ export default class Modal extends DragPanelClass<ModalRequiredProps & ModalProp
                   <div className="__modal-layout"
                     ref={(c) => {
                       if (!c) return;
-                      this.ukeLayout = c;
+                      this.internalLayout = c;
                       draggable && this.setLayoutInitPosition(c);
                     }}
                     style={_style}
@@ -344,7 +344,7 @@ export default class Modal extends DragPanelClass<ModalRequiredProps & ModalProp
                           <header className="__modal-header">
                             <div
                               onMouseDown={(e) => {
-                                !isMaximize && draggable && this.dragStart(e, this.ukeLayout);
+                                !isMaximize && draggable && this.dragStart(e, this.internalLayout);
                                 id && selectWindow && selectWindow(id);
                               }}>
                               <h5 className="title">{title}</h5>

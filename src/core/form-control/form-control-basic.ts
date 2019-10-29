@@ -1,4 +1,4 @@
-import { UkeComponent } from '../utils/uke-component';
+import { UIComponent } from '../utils/ui-component';
 
 export interface FormControlBasicProps {
   value?: any;
@@ -7,7 +7,7 @@ export interface FormControlBasicProps {
 
 export default class FormControlBasic<
   P extends FormControlBasicProps, S = {}, SS = any
-> extends UkeComponent<P, S, SS> {
+> extends UIComponent<P, S, SS> {
   isControl: boolean;
 
   value;

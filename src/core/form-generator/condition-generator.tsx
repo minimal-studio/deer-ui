@@ -1,7 +1,7 @@
 /* eslint-disable consistent-return */
 import React from 'react';
 
-import { UUID, Call } from 'basic-helper';
+import { UUID, Call } from '@mini-code/base-func';
 import FormFilterHelper, { FormFilterProps, FormOptionsItem } from './form-filter';
 
 export type ConditionOptions = FormOptionsItem[];

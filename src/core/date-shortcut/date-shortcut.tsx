@@ -1,9 +1,9 @@
 import React from 'react';
-import { Call, DateFormat } from 'basic-helper';
-import { DateRange, ToUTC } from 'basic-helper/datetime-helper';
+import { Call, DateFormat } from '@mini-code/base-func';
+import { DateRange, ToUTC } from '@mini-code/base-func/datetime-helper';
 
 import { DropdownWrapper } from '../selector';
-import { $T_UKE } from '../config';
+import { $T_IN } from '../config';
 import { DateBasic, DateBasicProps } from '../date-basic';
 
 export interface DateShortcutProps extends DateBasicProps {
@@ -153,7 +153,7 @@ export default class DateShortcut extends DateBasic<DateShortcutProps, {
                         hide();
                         this.generateDate(item, idx);
                       }} key={text}>
-                      {$T_UKE(text)}
+                      {$T_IN(text)}
                     </span>
                   );
                 })
@@ -162,7 +162,7 @@ export default class DateShortcut extends DateBasic<DateShortcutProps, {
           </div>
         )} position={position}>
         {
-          () => this.$T_UKE('快捷')
+          () => this.$T_IN('快捷')
         }
       </DropdownWrapper>
     );

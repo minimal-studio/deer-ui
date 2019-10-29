@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Call, UUID } from 'basic-helper';
+import { Call, UUID } from '@mini-code/base-func';
 
 import { PopoverEntity } from '../popover/popover-entity';
 

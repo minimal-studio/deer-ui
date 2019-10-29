@@ -7,14 +7,14 @@ menu: Config
 
 # 国际化
 
-ukelli ui 使用了中文 mapper 的方案，可自定义国际化配置。
+中文 mapper 的方案，可自定义国际化配置。
 
 ## API
 
 ```js
-import { $T, $T_UKE } from 'ukelli-ui/core/config'
+import { $T, $T_IN } from 'dear-ui/core/config'
 
-$T_UKE('按钮') // 内部翻译接口
+$T_IN('按钮') // 内部翻译接口
 $T('内容')     // 外部翻译接口
 ```
 
@@ -23,7 +23,7 @@ $T('内容')     // 外部翻译接口
 > 作用于 record-render, form-render
 
 ```js
-import { setLangTranslate, setUkeLang } from 'ukelli-ui'
+import { setLangTranslate, setUILang } from 'dear-ui'
 
 const TranslateMapper = {
   'zh-CH': {
@@ -35,16 +35,16 @@ const TranslateMapper = {
 }
 
 setLangTranslate(TranslateMapper)
-setUkeLang('zh-CH');
+setUILang('zh-CH');
 ```
 
 ## 设置 UI 内部组件国际化
 
 ```js
-import { setUkeLang, setUkeLangConfig } from 'ukelli-ui'
+import { setUILang, setUILangConfig } from 'dear-ui'
 
 // 设置 en-US 的翻译 mapper
-setUkeLangConfig({
+setUILangConfig({
   'en-US': {
     "跳转到第": "Jump to",
     "共": "Total",
@@ -55,11 +55,11 @@ setUkeLangConfig({
   }
 })
 
-// 把 ukelli ui 的语言设置为 en-US
-setUkeLang('en-US');
+// 把 ui 的语言设置为 en-US
+setUILang('en-US');
 ```
 
-详细配置参考 `ukelli-ui/i18n/zh-CN.js`
+详细配置参考 `dear-ui/i18n/zh-CN.js`
 
 ## 国际化代码
 

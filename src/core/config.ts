@@ -1,8 +1,12 @@
-import { defineGlobalScope } from 'basic-helper/registe-global-funcs';
-import { IsFunc } from 'basic-helper';
+import { defineGlobalScope } from '@mini-code/base-func/registe-global-funcs';
+import { IsFunc } from '@mini-code/base-func';
 import chKeyMapper from '../i18n/zh-CN';
 import enKeyMapper from '../i18n/en-US';
 import defaultIconMapper from './icon-mapper';
+
+const renameFunc = (oldApiName: string, newApiName: string) => {
+  console.warn(`${oldApiName} 要废弃了，请使用 ${newApiName}.`);
+};
 
 export interface UkeLangStruct {
   [lang: string]: {
@@ -28,15 +32,15 @@ const translateMapper: UkeLangStruct = {
 
 let language = defaultLanguage;
 
-const ukelliui: UkelliUIConfig = {
+const UIConfig: UkelliUIConfig = {
   iconMapper: {},
-  iconPrefix: s => `fa${s} fa-`,
+  iconPrefix: (s) => `fa${s} fa-`,
 };
 
 /**
  * 兼容旧版本的设置
  */
-Object.defineProperties(ukelliui, {
+Object.defineProperties(UIConfig, {
   queryCAPTCHAData: {
     set() {
       console.warn('queryCAPTCHAData 已废弃，请使用 Captcha.setAPI');
@@ -60,7 +64,7 @@ function _translate(langConfig) {
  * 内部翻译接口
  * @param {string} key 需要翻译的内容
  */
-const $T_UKE = _translate(ukeLangConfig);
+const $T_IN = _translate(ukeLangConfig);
 
 /**
  * 外部内容翻译接口
@@ -69,14 +73,24 @@ const $T_UKE = _translate(ukeLangConfig);
 const $T = _translate(translateMapper);
 
 function setUkeLang(lang: string) {
+  renameFunc('setUkeLang', 'setUILang');
+  setUILang(lang);
+}
+
+function setUILang(lang: string) {
   language = lang;
 }
 
+function setUkeLangConfig(config: UkeLangStruct) {
+  renameFunc('setUkeLangConfig', 'setUILangConfig');
+  setUILangConfig(config);
+}
+
 /**
- * 设置 uke 内部语言配置
+ * 设置内部语言配置
  * @param {UkeLangStruct} config
  */
-function setUkeLangConfig(config: UkeLangStruct) {
+function setUILangConfig(config: UkeLangStruct) {
   Object.assign(ukeLangConfig, config);
 }
 
@@ -87,35 +101,45 @@ function setUkeLangConfig(config: UkeLangStruct) {
 function setLangTranslate(nextTranslate) {
   Object.assign(translateMapper, nextTranslate);
   window.$UKE && window.$UKE.registe({
-    $T, $T_UKE, translateMapper
+    $T, $T_IN, translateMapper
   });
 }
 
+function setUkelliConfig(config: typeof UIConfig) {
+  renameFunc('setUkelliConfig', 'setUIConfig');
+  return setUIConfig(config);
+}
+
 /**
- * 设置 ukelli ui 配置
- * @param {ukelliui} config ukelli ui 的配置
+ * 设置 ui 配置
+ * @param {UIConfig} config ui 的配置
  */
-function setUkelliConfig(config: typeof ukelliui) {
-  Object.assign(ukelliui, config);
+function setUIConfig(config: typeof UIConfig) {
+  Object.assign(UIConfig, config);
   window.$UKE && window.$UKE.registe(config);
-  return ukelliui;
+  return UIConfig;
 }
 
 export function getIsMobile() {
   return /iPhone|Android|iOS/.test(navigator.userAgent);
 }
 
+function getUkelliConfig(configKey: string) {
+  renameFunc('setUkelliConfig', 'setUIConfig');
+  return getUIConfig(configKey);
+}
+
 /**
- * 获取 ukelli ui 配置
+ * 获取 ui 配置
  * @param {string} configKey 配置的 key
  */
-function getUkelliConfig(configKey: string) {
-  const _ukelliui = Object.assign({}, ukelliui);
-  return configKey ? (_ukelliui[configKey] || false) : _ukelliui;
+function getUIConfig(configKey: string) {
+  const _config = { ...UIConfig };
+  return configKey ? (_config[configKey] || false) : _config;
 }
 
 function getIconMapper() {
-  return Object.assign({}, defaultIconMapper, ukelliui.iconMapper);
+  return { ...defaultIconMapper, ...UIConfig.iconMapper };
 }
 
 /**
@@ -127,7 +151,7 @@ function getIconMapper() {
  */
 function getIcon(iconName, iconStyle, mergeClassNames, useIconConfig = true) {
   const iconMapper = getIconMapper();
-  const iconPrefix = getUkelliConfig('iconPrefix');
+  const iconPrefix = getUIConfig('iconPrefix');
   if (!iconName) return iconName;
   const moreClassNameArr = Array.isArray(mergeClassNames) ? mergeClassNames : [mergeClassNames];
   let resultStr = '';
@@ -140,13 +164,19 @@ function getIcon(iconName, iconStyle, mergeClassNames, useIconConfig = true) {
 
 export {
   $T,
-  $T_UKE,
+  $T_IN,
+  /** 需要废弃的接口 start */
   getUkelliConfig,
   setUkelliConfig,
-  getIcon,
   setUkeLang,
   setUkeLangConfig,
+  /** 需要废弃的接口 end */
+  getUIConfig,
+  setUIConfig,
+  getIcon,
+  setUILang,
   setLangTranslate,
+  setUILangConfig,
 };
 
-defineGlobalScope('$UKE', ukelliui);
+defineGlobalScope('$UKE', UIConfig);

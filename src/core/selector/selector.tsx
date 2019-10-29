@@ -2,7 +2,7 @@
 import React, { Component, PureComponent } from 'react';
 import {
   Call, RemoveArrayItem, IsFunc, HasValue
-} from 'basic-helper';
+} from '@mini-code/base-func';
 import FormControlBasic from '../form-control/form-control-basic';
 
 export interface SelectorValueItem {

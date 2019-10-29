@@ -4,11 +4,11 @@
 import React from 'react';
 import {
   HasValue, DateFormat, MoneyFormat, IsFunc, IsObj, Call, DebounceClass
-} from 'basic-helper';
+} from '@mini-code/base-func';
 import { ToolTip } from '../tooltip';
 import { Label } from '../label';
 import Dropdown, { DropdownMenuProps } from '../selector/dropdown-menu';
-import { UkeComponent } from '../utils/uke-component';
+import { UIComponent } from '../utils/ui-component';
 import { Color, Children } from '../utils/props';
 
 interface TitleFormSelector extends DropdownMenuProps {
@@ -91,7 +91,7 @@ const excludeKey = (target, keys) => {
 
 export default class MapperFilter<
   P = MapperFilterProps, S = {}
-> extends UkeComponent<P & MapperFilterProps, S> {
+> extends UIComponent<P & MapperFilterProps, S> {
   /** 可以覆盖的 excludeKeys */
   excludeKeys = ['columns', 'records', 'keyMapper', 'checkedOverlay', 'whenCheckAction'];
 
@@ -155,8 +155,8 @@ export default class MapperFilter<
           const {
             outside = true,
             defaultTitle = this.$T(key),
-            invalidTip = this.$T_UKE('默认'),
-            cancelTitle = this.$T_UKE('默认'),
+            invalidTip = this.$T_IN('默认'),
+            cancelTitle = this.$T_IN('默认'),
             ref = key,
             onChange,
             ...other

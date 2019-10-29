@@ -1,5 +1,5 @@
 import React, { Component, PureComponent } from 'react';
-import { GenerateNumberRange } from 'basic-helper';
+import { GenerateNumberRange } from '@mini-code/base-func';
 
 const hasSetKeyAnimateMapper = {};
 const headDOM = document.getElementsByTagName('head')[0];
