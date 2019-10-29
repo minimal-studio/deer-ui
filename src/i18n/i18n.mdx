@@ -12,7 +12,7 @@ menu: Config
 ## API
 
 ```js
-import { $T, $T_IN } from 'dear-ui/core/config'
+import { $T, $T_IN } from '@dear-ui/all/core/config'
 
 $T_IN('按钮') // 内部翻译接口
 $T('内容')     // 外部翻译接口
@@ -23,7 +23,7 @@ $T('内容')     // 外部翻译接口
 > 作用于 record-render, form-render
 
 ```js
-import { setLangTranslate, setUILang } from 'dear-ui'
+import { setLangTranslate, setUILang } from '@dear-ui/all'
 
 const TranslateMapper = {
   'zh-CH': {
@@ -41,7 +41,7 @@ setUILang('zh-CH');
 ## 设置 UI 内部组件国际化
 
 ```js
-import { setUILang, setUILangConfig } from 'dear-ui'
+import { setUILang, setUILangConfig } from '@dear-ui/all'
 
 // 设置 en-US 的翻译 mapper
 setUILangConfig({

@@ -15,7 +15,7 @@ import NotifyParamsC from './doc-api/notify-params'
 ## Setup
 
 ```js
-import { Notify } from 'dear-ui/core/notification'
+import { Notify } from '@dear-ui/all/core/notification'
 
 Notify({
   config: {
@@ -86,7 +86,7 @@ Notify({
 
 ```js
 import { EventEmitter } from '@mini-code/base-func'
-import { NotifyEvent } from 'dear-ui/core/notification'
+import { NotifyEvent } from '@dear-ui/all/core/notification'
 
 EventEmitter.emit(NotifyEvent, {
   text: '通过 EventEmitter 广播通知',
@@ -117,7 +117,7 @@ EventEmitter.emit(NotifyEvent, {
 ## 取消广播
 
 ```js
-import { Notify, CancelNotify } from 'dear-ui'
+import { Notify, CancelNotify } from '@dear-ui/all'
 
 const NotifyID = Notify({
 

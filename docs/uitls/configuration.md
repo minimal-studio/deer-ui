@@ -17,7 +17,7 @@ const DefaultUkeConfig = {
 ## setUIConfig
 
 ```jsx static
-import { setUIConfig } from 'dear-ui';
+import { setUIConfig } from '@dear-ui/all';
 
 setUIConfig({
   // Icon 的 mapper， Ukelli UI 库并不提供内置的 icon，可以根据具体项目的实际使用来决定使用的 icon 库

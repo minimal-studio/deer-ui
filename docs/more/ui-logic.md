@@ -4,7 +4,7 @@
 - 可以为空的选择器可以选择 DropdownMenu
 
 ```jsx static
-import { Radio, DropdownMenu } from 'dear-ui';
+import { Radio, DropdownMenu } from '@dear-ui/all';
 
 const values = {
   '1': '显示为 1',
