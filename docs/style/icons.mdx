@@ -8,8 +8,8 @@ menu: Style
 
 > 默认使用 fontawesome 的 icons，使用 Icon 组件时默认添加了 fa fa- 前缀，只需要填写对应的图标名即可
 
-- 如果需要切换图表库，可以通过 setUkelliConfig 设置 icon 的前缀
-- 同时支持 icon 的名字映射，通过 setUkelliConfig 设置 iconMapper
+- 如果需要切换图表库，可以通过 setUIConfig 设置 icon 的前缀
+- 同时支持 icon 的名字映射，通过 setUIConfig 设置 iconMapper
 
 ## Setup CDN Recourse
 
@@ -26,10 +26,10 @@ menu: Style
 ## 内置组件的 IconMapper
 
 ```js static
-import { setUkelliConfig } from 'ukelli-ui';
+import { setUIConfig } from 'dear-ui';
 
 // Ukelli UI 组件使用的默认 icon
-setUkelliConfig({
+setUIConfig({
   iconMapper: {
     'arrow-left': 'angle-left',
     'arrow-right': 'angle-right',

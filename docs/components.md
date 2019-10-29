@@ -1,16 +1,16 @@
 - 支持国际化
 
-分为外部 KeyMapper 和内部 UkeKeyMapper 两种情况，可以通过 setUkeLang 设置语言，默认提供 「中文」 和 「英语」 两种语言，也可以通过 setUkeLangConfig 设置更多的语言
+分为外部 KeyMapper 和内部 keyMapper 两种情况，可以通过 setUILang 设置语言，默认提供 「中文」 和 「英语」 两种语言，也可以通过 setUILangConfig 设置更多的语言
 
 ```jsx static
-import { setUkeLang, setUkeLangConfig } from 'ukelli-ui';
+import { setUILang, setUILangConfig } from 'dear-ui';
 
-setUkeLangConfig({
+setUILangConfig({
   'zh-HK': {
     '无': '無'
   }
 });
-setUkeLang('zh-HK');
+setUILang('zh-HK');
 ```
 
 -----------------
@@ -18,7 +18,7 @@ setUkeLang('zh-HK');
 Modal 提供可拖动模式
 
 ```jsx static
-import { ShowModal, CloseModal } from 'ukelli-ui';
+import { ShowModal, CloseModal } from 'dear-ui';
 
 const ModalId = ShowModal({
   id: '', // 唯一 ID，如果是拖动模式，用于定位具体 Modal
@@ -215,10 +215,10 @@ ChartCom.setChartJSPath(chartJsDownloadPath);
 
 -----------------
 
-Notify, CancelNotify 只要引入 'import * as UI from ukelli-ui' 就可以使用
+Notify, CancelNotify 只要引入 'import * as UI from dear-ui' 就可以使用
 
 ```jsx static
-import {Notify, CancelNotify} from 'ukelli-ui';
+import {Notify, CancelNotify} from 'dear-ui';
 
 // Notify 将返回 ID，可以提供取消
 let notifyID = Notify({
@@ -244,16 +244,16 @@ $GH.EventEmitter.emit('NOTIGY', config) // config 配置与上述的一致
 
 -----------------
 
-ukelli-ui/core/selector/selector 目录提供选择器的通用方法，提供基础的 value 的 state 管理，详情请参考源码
+dear-ui/core/selector/selector 目录提供选择器的通用方法，提供基础的 value 的 state 管理，详情请参考源码
 
 -----------------
 
-ukelli-ui/other/state-manager 提供通用的 react 组件 state 的管理，包含完整的异步请求的 state 的处理流程，提供几个 hook 函数处理数据，可根据具体业务定制相应的流程代码，详情请查看源码
+dear-ui/other/state-manager 提供通用的 react 组件 state 的管理，包含完整的异步请求的 state 的处理流程，提供几个 hook 函数处理数据，可根据具体业务定制相应的流程代码，详情请查看源码
 
 以下为 ActionBasic 的实现方式，主要是用于处理业务请求
 
 ```jsx static
-import StateManager from 'ukelli-ui/other/state-manager';
+import StateManager from 'dear-ui/other/state-manager';
 
 export default class ActionBasic extends StateManager {
   constructor(props) {
@@ -320,7 +320,7 @@ Radio 控件须传入 defaultValue 才会有选择，否则为空
 Carousel 轮播图
 
 ```jsx static
-import {Carousel} from 'ukelli-ui';
+import {Carousel} from 'dear-ui';
 // css style config of carousel, 只有 3 个参数有效
 let styleConfig = {
   width,
@@ -414,7 +414,7 @@ let thumbRate = 15; // 缩略图的缩放比例，默认 15
 新增 Tip 组件
 
 ```jsx static
-import { Tip } from 'ukelli-ui';
+import { Tip } from 'dear-ui';
 
 <Tip/>
 ```

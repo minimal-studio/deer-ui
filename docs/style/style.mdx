@@ -8,29 +8,29 @@ menu: Style
 
 ## Import Style
 
-在项目入口 `.scss` 文件 `import` `ukelli-ui` 的内置样式
+在项目入口 `.scss` 文件 `import` `dear-ui` 的内置样式
 
 ```scss
 // 默认的颜色变量
-@import 'ukelli-ui/style/color/default.scss';
+@import 'dear-ui/style/color/default.scss';
 
 // 依赖颜色变量的主样式入口
-@import 'ukelli-ui/style/var.scss';
-@import 'ukelli-ui/style/index.scss';
+@import 'dear-ui/style/var.scss';
+@import 'dear-ui/style/index.scss';
 ```
 
 ## 自定义样式变量
 
-创建 `./var.scss` 变量 scss 文件，具体内容参考 https://github.com/ukelli/ukelli-ui/blob/master/style/color/default.scss
+创建 `./var.scss` 变量 scss 文件，具体内容参考 https://github.com/minimal-studio/dear-ui/blob/master/style/color/default.scss
 
 ```scss
-@import 'ukelli-ui/style/color/default.scss';
+@import 'dear-ui/style/color/default.scss';
 
-// 在 ukelli-ui/style/index.scss 之前覆盖 color 变量
+// 在 dear-ui/style/index.scss 之前覆盖 color 变量
 @import './var.scss';
 
 // 依赖颜色变量的主样式入口
-@import 'ukelli-ui/style/index.scss';
+@import 'dear-ui/style/index.scss';
 ```
 
 ### 3. 使用 color class

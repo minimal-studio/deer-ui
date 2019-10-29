@@ -22,7 +22,7 @@ export default {
    * Logo
    */
   logo: {
-    src: 'https://raw.githubusercontent.com/ukelli/ukelli-ui/master/website/static/logo.png',
+    src: 'https://raw.githubusercontent.com/minimal-studio/dear-ui/master/website/static/logo.png',
     width: 120
   },
   /**

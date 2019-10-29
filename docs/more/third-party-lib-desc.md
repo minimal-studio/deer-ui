@@ -9,7 +9,7 @@
 
 ```jsx static
 // 在使用以下组件之前设置，设置一次即可
-import { Avatar, ChartDOM } from 'ukelli-ui';
+import { Avatar, ChartDOM } from 'dear-ui';
 
 Avatar.setCroppieUrl(loadUrl);
 ChartDOM.setChartJSPath(loadUrl);

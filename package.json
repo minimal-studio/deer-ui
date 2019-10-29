@@ -1,12 +1,12 @@
 {
-  "name": "ukelli-ui",
-  "version": "3.3.0",
+  "name": "dear-ui",
+  "version": "1.0.0-alpha0",
   "main": "./index.js",
   "files": [
     "*"
   ],
   "scripts": {
-    "publish:ts": "npm publish ./dist",
+    "publish:ts": "npm publish ./dist --access public",
     "complie:scss": "node-sass ./style/default.scss dist/default.css --output-style compressed",
     "release": "npm run build:ts; npm run complie:scss; npm run publish:ts",
     "build:ts": "rm -rf ./dist; tsc; npm run copy-files-ts; npm run copy-style",
@@ -18,7 +18,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/ukelli/ukelli-ui.git"
+    "url": "https://github.com/minimal-studio/dear-ui.git"
   },
   "keywords": [
     "UI"
@@ -26,7 +26,7 @@
   "author": "Alex",
   "license": "MIT",
   "peerDependencies": {
-    "basic-helper": "^3.0.5",
+    "@mini-code/base-func": "^1.0.1",
     "react": "^16.8.0",
     "react-dom": "^16.8.0",
     "react-transition-group": "^2.5.0",
@@ -37,7 +37,7 @@
     "@types/react-dom": "^16.8.4",
     "@typescript-eslint/eslint-plugin": "^2.3.3",
     "@typescript-eslint/parser": "^2.3.3",
-    "basic-helper": "^3.0.6",
+    "@mini-code/base-func": "^1.0.1",
     "codemirror": "^5.42.2",
     "docz": "^1.2.0",
     "docz-plugin-css": "^0.11.0",

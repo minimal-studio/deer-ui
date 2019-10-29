@@ -18,7 +18,7 @@
 
 ```js static
 // 订阅发布机制
-import { EventEmitter, EventEmitterClass } from 'basic-helper';
+import { EventEmitter, EventEmitterClass } from '@mini-code/base-func';
 // EventEmitter 为内置的对象
 
 // 简写 Alias
@@ -45,7 +45,7 @@ Demo.on('res', (resConfig) => {
 #### 函数代理
 
 ```js static
-import { Call, CallFunc } from 'basic-helper';
+import { Call, CallFunc } from '@mini-code/base-func';
 
 // 无法确定 fakeFunc1 是否一个函数，可以是用函数代理，适用于 props.func
 const fakeFunc1 = (arg1, arg2) => {};
@@ -67,5 +67,5 @@ import {
   CallFunc, UUID, Random, InArr,
   UnitFormat, DateParseHook,
   RemoveArrayItem
-} from 'basic-helper';
+} from '@mini-code/base-func';
 ```
