@@ -1,4 +1,4 @@
-# dear-ui
+# @dear-ui
 
 Base on React's UI lib. Make frontend's dev simpler and faster.
 
@@ -13,7 +13,7 @@ Base on React's UI lib. Make frontend's dev simpler and faster.
 ## Getting started
 
 ```shell
-yarn add dear-ui @mini-code/base-func unistore
+yarn add @dear-ui/all @mini-code/base-func unistore
 ```
 
 ### Use in project
@@ -21,8 +21,8 @@ yarn add dear-ui @mini-code/base-func unistore
 ```js
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { ShowModal, CloseModal } from 'dear-ui/core/modal';
-import { Button } from 'dear-ui/core/button';
+import { ShowModal, CloseModal } from '@dear-ui/all/core/modal';
+import { Button } from '@dear-ui/all/core/button';
 
 const handleClick = (e) => {
   const ModalID = ShowModal({
