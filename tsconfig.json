@@ -19,10 +19,10 @@
     "jsx": "react"
   },
   "include": [
-    "src"
+    "packages/*"
   ],
   "exclude": [
-    "src/**/test/*",
-    "src/**/demo/*"
+    "**/test/*",
+    "**/demo/*"
   ]
 }
