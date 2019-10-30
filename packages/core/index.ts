@@ -6,7 +6,7 @@ export * from './alert';
 export * from './toast';
 export * from './slider';
 export * from './pagination';
-export * from './tip-button';
+// export * from './tip-button';
 export * from './icon';
 export * from './tip';
 export * from './label';
