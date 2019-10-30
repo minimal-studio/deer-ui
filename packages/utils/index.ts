@@ -7,3 +7,8 @@ export * from './props';
 export * from './screen';
 export * from './scroll';
 export * from './ui-component';
+
+// TODO: 重构引用
+export * from './set-dom';
+export * from './position-filter';
+export * from './rename-filter';
