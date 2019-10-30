@@ -33,6 +33,7 @@ input, textarea {
   &.success {
     border-color: $green;
   }
+  @include formControlFocus();
 }
 .control-label {
   color: #777;
