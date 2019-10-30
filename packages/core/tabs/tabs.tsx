@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { CallFunc } from '@mini-code/base-func';
 import classnames from 'classnames';
+import { Children } from '@dear-ui/utils/props';
 import Tab from './tab';
 import { ToolTip } from '../tooltip';
-import { Children } from '../utils/props';
 
 export interface TabsProps {
   /** children */
@@ -143,7 +143,7 @@ export default class Tabs extends Component<TabsProps, State> {
         <div key={tabKey || label}
           className={_labelClass}
           draggable>
-          <span onClick={e => this.onTapTab(idx)}>
+          <span onClick={(e) => this.onTapTab(idx)}>
             {tabChild}
           </span>
           {
@@ -152,7 +152,7 @@ export default class Tabs extends Component<TabsProps, State> {
                 className="_close-btn"
                 title={closeTip}
                 clickToClose
-                onClick={e => onClose && onClose(idx)}>
+                onClick={(e) => onClose && onClose(idx)}>
                 x
               </ToolTip>
             )

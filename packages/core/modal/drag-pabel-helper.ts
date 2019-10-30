@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { UIComponent } from '../utils/ui-component';
-import { getScreenWidth } from '../utils/screen';
+import { UIComponent } from '@dear-ui/utils/ui-component';
+import { getScreenWidth } from '@dear-ui/utils/screen';
 
 export interface DragPanelClassProps {
   topLimit?: number;

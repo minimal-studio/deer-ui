@@ -3,8 +3,8 @@ import { Call, DebounceClass, UUID } from '@mini-code/base-func';
 
 import { PopoverEntity } from '../popover/popover-entity';
 import { Icon } from '../icon';
-import { $T } from '../config';
-import { Color, Children } from '../utils/props';
+import { $T } from '@dear-ui/ui-config';
+import { Color, Children } from '@dear-ui/utils/props';
 
 import { IconProps } from '../icon/icon';
 

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import { Tabs, Tab } from '..';
-import tabsColl from '../tabs-demo';
+import tabsColl from './tabs-demo';
 
 const Test = () => (
   <div>

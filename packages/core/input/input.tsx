@@ -2,11 +2,11 @@
 import React, { Component } from 'react';
 import classnames from 'classnames';
 import { Call, HasValue, IsFunc } from '@mini-code/base-func';
+import { Sizes } from '@dear-ui/utils/props';
 import { Icon } from '../icon';
 import { Button } from '../button';
 
 import { IconProps } from '../icon/icon';
-import { Sizes } from '../utils/props';
 
 type FilterType = string | number;
 
@@ -233,7 +233,7 @@ export default class Input extends Component<InputProps, State> {
         <div
           className="input-con">
           <span className="input-group"
-            onClick={e => this.iconInput.focus()}>
+            onClick={(e) => this.iconInput.focus()}>
             {titleDOM}
             <input
               type={controlTypeMapper[type] || type}

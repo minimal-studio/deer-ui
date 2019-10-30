@@ -1,5 +1,5 @@
+import Rename from '@dear-ui/utils/rename';
 import Multiple from './multiple-selector';
-import Rename from '../rename-filter';
 
 const MultipleHelper = Rename(Multiple, 'MultipleHelper', 'Multiple');
 

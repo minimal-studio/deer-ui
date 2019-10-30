@@ -1,8 +1,8 @@
 import React, { Component, PureComponent } from 'react';
 import { Call } from '@mini-code/base-func';
 
-import { Loading } from '../loading';
-import { LoadScript } from '../utils/load-stuff';
+import { LoadScript } from '@dear-ui/utils/load-stuff';
+import { Loading } from '@dear-ui/core/loading';
 
 export interface ChartComProps {
   /** Chart js 的 data */

@@ -1,11 +1,10 @@
 import React, { Component, PureComponent } from 'react';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import { IsFunc } from '@mini-code/base-func';
+import { Children, FuncChildren } from '@dear-ui/utils/props';
 
-// import LoadingDOMSnip from './snip';
 import LoadingProgress from './progress';
 import LoadingDOMPlaceholder from './placeholder';
-import { Children, FuncChildren } from '../utils/props';
 
 export interface LoadingProps {
   /** animation timeout */
@@ -22,7 +21,7 @@ export interface LoadingProps {
   inrow?: boolean;
 }
 
-const childrenFuncFilter = children => (IsFunc(children) ? children() : children);
+const childrenFuncFilter = (children) => (IsFunc(children) ? children() : children);
 
 export default class Loading extends Component<LoadingProps> {
   static defaultProps = {

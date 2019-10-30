@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import { Call } from '@mini-code/base-func';
-import { Icon } from '../icon';
+import { Icon } from '@dear-ui/core/icon';
 
 export interface MultipleProps {
   /** onChange */
@@ -102,11 +102,9 @@ export default class Multiple extends PureComponent<MultipleProps, State> {
               e.target.select();
             }}
             onBlur={(e) => {
-              const self = this;
               setTimeout(() => {
                 if (!isShowIdea) return;
-                self.setIdea(false);
-                // self.checkValue();
+                this.setIdea(false);
               }, 1 * 100);
             }}
             value={value}
@@ -117,9 +115,9 @@ export default class Multiple extends PureComponent<MultipleProps, State> {
             }}/>
           <span className="multiple-tip">{suffix}</span>
           <span className="multiple-action-btn"
-            onClick={e => this.multipleOperation('less')}>-</span>
+            onClick={(e) => this.multipleOperation('less')}>-</span>
           <span className="multiple-action-btn"
-            onClick={e => this.multipleOperation('plus')}>+</span>
+            onClick={(e) => this.multipleOperation('plus')}>+</span>
           <span className="ps5 toggle-tip-btn" onClick={(e) => {
             this.multipleHelper.focus();
             this.setIdea(true);
@@ -129,7 +127,7 @@ export default class Multiple extends PureComponent<MultipleProps, State> {
         </div>
         <div className="idea-tip">
           {
-            range && range.map(item => (
+            range && range.map((item) => (
               <div key={item} className="item" onClick={(e) => {
                 this.setIdea(false);
                 this.changeValue(item);

@@ -24,7 +24,7 @@ const DefaultWindowManagerState: WindowMultipleState = {
 
 const windowManagerStore = createStore(DefaultWindowManagerState);
 
-const windowManagerActions = store => ({
+const windowManagerActions = (store) => ({
   closeAllWindow: () => {
     store.setState({
       ...DefaultWindowManagerState

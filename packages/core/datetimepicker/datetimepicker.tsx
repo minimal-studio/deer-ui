@@ -2,11 +2,11 @@
 import React from 'react';
 
 import { Call, DateFormat, UUID } from '@mini-code/base-func';
+import { LoadScript } from '@dear-ui/utils';
 
 import { DateBasic, DateBasicProps } from '../date-basic';
 import { Icon } from '../icon';
 import { PopoverEntity } from '../popover/popover-entity';
-import { LoadScript } from '../utils';
 import Mandarin from './zh';
 
 let flatpickrCDNUrl = 'https://cdn.jsdelivr.net/npm/flatpickr@4.6.3/dist/flatpickr.min.js';
@@ -103,7 +103,7 @@ export default class DatetimePicker extends DateBasic<DatetimePickerProps> {
 
   value;
 
-  popTipEntity: PopoverEntity
+  popTipEntity!: PopoverEntity
 
   _id: string = UUID();
 
@@ -115,10 +115,6 @@ export default class DatetimePicker extends DateBasic<DatetimePickerProps> {
 
     const defaultVal = value || defaultValue;
     this.value = defaultVal;
-
-    this.popTipEntity = new PopoverEntity({
-      id: this._id,
-    });
   }
 
   componentDidMount() {
@@ -143,19 +139,28 @@ export default class DatetimePicker extends DateBasic<DatetimePickerProps> {
 
   handleInputError = (inputElem, isError) => {
     inputElem.classList.toggle('error', isError);
-    isError ? this.popTipEntity.show({
-      elem: inputElem,
-      props: {
-        type: 'red',
-        position: 'bottom',
-        // showCloseBtn: false,
-      },
-      children: (
-        <div className="p10">
-          输入时间有误，请检查
-        </div>
-      )
-    }) : this.popTipEntity.close();
+    if (!this.popTipEntity) {
+      this.popTipEntity = new PopoverEntity({
+        id: this._id,
+      });
+    }
+    if (isError) {
+      this.popTipEntity.show({
+        elem: inputElem,
+        props: {
+          type: 'red',
+          position: 'bottom',
+          // showCloseBtn: false,
+        },
+        children: (
+          <div className="p10">
+            输入时间有误，请检查
+          </div>
+        )
+      });
+    } else {
+      this.popTipEntity.close();
+    }
   }
 
   getInputValAsync = () => new Promise<Date[] | null>((resolve) => {
@@ -174,7 +179,7 @@ export default class DatetimePicker extends DateBasic<DatetimePickerProps> {
     /** 如果没有任何值，则没有下一步 */
     if (!inputVal) return null;
 
-    const valueRange = inputVal.split(rangeSeparator).filter(i => !!i);
+    const valueRange = inputVal.split(rangeSeparator).filter((i) => !!i);
     let valueRangeLen = valueRange.length;
     if (isRange && needTime && valueRangeLen === 1) {
       /**

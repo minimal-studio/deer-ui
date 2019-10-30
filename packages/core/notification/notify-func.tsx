@@ -2,9 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import { HasValue, UUID } from '@mini-code/base-func';
+import setDOMById from '@dear-ui/utils/set-dom';
 
 import Notification, { NotifyConfig, NotificationProps } from './notification';
-import setDOMById from '../set-dom';
 
 export interface NotifyParams extends NotifyConfig {
   /** 广播 Notify 的配置 */
@@ -48,9 +48,7 @@ export default function Notify(options: NotifyParams): NotifyID {
   } = options;
   setNotification().then((notify) => {
     notify.receiveNotify(
-      Object.assign({
-        id
-      }, config, otherConfig), position
+      { id, ...config, ...otherConfig }, position
     );
   });
   // const {

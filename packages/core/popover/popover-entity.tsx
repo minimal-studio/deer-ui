@@ -3,8 +3,9 @@
 import React, { Component, PureComponent } from 'react';
 import ReactDOM from 'react-dom';
 
+import setDOMById, { destoryDOM } from '@dear-ui/utils/set-dom';
+
 import Popover from './popover';
-import setDOMById, { destoryDOM } from '../set-dom';
 
 export interface PopoverHelperState {
   relativeElem: HTMLElement;
@@ -35,7 +36,7 @@ export class PopoverWrapper extends Component<{}, PopoverHelperState> {
 
   show(elem: HTMLElement, isShow: boolean, children: any, props: {}) {
     const _isShow = typeof isShow !== 'undefined' ? isShow : !this.state.open;
-    this.setState(prevState => ({
+    this.setState((prevState) => ({
       ...props,
       relativeElem: elem || prevState.relativeElem,
       open: _isShow,
@@ -48,7 +49,7 @@ export class PopoverWrapper extends Component<{}, PopoverHelperState> {
       <Popover
         {...this.props}
         {...this.state}
-        onClose={e => this.close()} />
+        onClose={(e) => this.close()} />
     );
   }
 }
@@ -112,14 +113,12 @@ export class PopoverEntity {
   }
 
   show(options: PopShowParams) {
-    const setConfig = Object.assign({}, options, {
-      open: true
-    });
+    const setConfig = { ...options, open: true };
     this.set(setConfig);
   }
 
   set(options: PopSetParams) {
-    const _options = Object.assign({}, this.prevOptions, options);
+    const _options = { ...this.prevOptions, ...options };
     const {
       elem, children, open, props = this.prevProps
     } = _options;

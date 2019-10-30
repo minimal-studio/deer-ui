@@ -39,9 +39,7 @@ export default class ModalHelper<
     this.setState(({ modalSetting }) => {
       const { isOpen = true } = nextSetting;
       return {
-        modalSetting: Object.assign({}, modalSetting, nextSetting, {
-          isOpen
-        })
+        modalSetting: { ...modalSetting, ...nextSetting, isOpen }
       };
     });
   }

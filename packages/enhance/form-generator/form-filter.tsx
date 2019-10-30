@@ -7,19 +7,40 @@ import {
   Call, CallFunc, IsFunc, HasValue, IsObj
 } from '@mini-code/base-func';
 
-import { UIComponent } from '../utils/ui-component';
+import { UIComponent } from '@dear-ui/utils/ui-component';
 
-import { DatetimePicker } from '../datetimepicker';
-import { DateShortcut } from '../date-shortcut';
-import { Radio, DropdownMenu, Checkbox } from '../selector';
-import { Input } from '../form-control';
-import { Ranger } from '../range-selector';
+import { DatetimePicker } from '@dear-ui/core/datetimepicker';
+import { DateShortcut } from '@dear-ui/core/date-shortcut';
+import { Radio } from '@dear-ui/core/radio';
+import { Checkbox } from '@dear-ui/core/checkbox';
+import { Dropdown } from '@dear-ui/core/dropdown';
+import { Input } from '@dear-ui/core/input';
+import { Slider } from '@dear-ui/core/slider';
+import { ToolTip } from '@dear-ui/core/tooltip';
+import Switch from '@dear-ui/core/switch-button/switch-c';
+import { InputSelector } from '@dear-ui/core/input-selector';
+
 import { Captcha } from '../captcha';
-import { ToolTip } from '../tooltip';
-import InputSelector from '../form-control/input-selector';
-import Switch from '../switch-button/switch-c';
 
-export type FormGeneratorTypes = 'customForm'|'captcha'|'select-n'|'select'|'input-selector-s'|'input-selector'|'input-range'|'input'|'password'|'textarea'|'ranger'|'text'|'radio'|'checkbox'|'button'|'datetime'|'datetimeRange'|'switch'|'hr';
+export type FormGeneratorTypes = 'customForm'|
+'captcha'|
+'select-n'|
+'select'|
+'input-selector-s'|
+'input-selector'|
+'input-range'|
+'input'|
+'password'|
+'textarea'|
+'ranger'|
+'slider'|
+'text'|'radio'|
+'checkbox'|
+'button'|
+'datetime'|
+'datetimeRange'|
+'switch'|
+'hr';
 
 export interface FormOptionsItem {
   /** UI 类型 */
@@ -51,7 +72,7 @@ export interface FormFilterProps<_FormOptions = FormOptions> {
   onChange?: FormChangeEvent;
 }
 
-const wrapInputSelectorMarkForRefu = activeRef => `__isActive${activeRef}`;
+const wrapInputSelectorMarkForRefu = (activeRef) => `__isActive${activeRef}`;
 
 /**
  * 表单生成器
@@ -313,7 +334,7 @@ export default class FormFilterHelper<P extends FormFilterProps> extends UICompo
     return HasValue(targetVal) ? targetVal : otherwise;
   }
 
-  saveRef = ref => (elem) => { this._refs[ref] = elem; }
+  saveRef = (ref) => (elem) => { this._refs[ref] = elem; }
 
   loadPlugin = (Plugin, props) => {
     let P = IsFunc(Plugin) ? <Plugin /> : Plugin;
@@ -324,7 +345,7 @@ export default class FormFilterHelper<P extends FormFilterProps> extends UICompo
   }
 
   /** 获取 refs 的 ID */
-  getRefsID = refs => (Array.isArray(refs) ? refs.join('-') : '')
+  getRefsID = (refs) => (Array.isArray(refs) ? refs.join('-') : '')
 
   /**
    * 表单插件接口
@@ -344,7 +365,7 @@ export default class FormFilterHelper<P extends FormFilterProps> extends UICompo
     return this.loadPlugin(component, {
       ...other,
       ...cusProps,
-      onChange: val => this.changeValue(val, ref),
+      onChange: (val) => this.changeValue(val, ref),
       // ref: this.saveRef(ref)
     });
   }
@@ -356,7 +377,7 @@ export default class FormFilterHelper<P extends FormFilterProps> extends UICompo
         {...other}
         value={this.getValue(ref, '')}
         ref={this.saveRef('CaptchaCode')}
-        onCaptchaLoad={captchKey => this.changeValue(captchKey, keyRef)}
+        onCaptchaLoad={(captchKey) => this.changeValue(captchKey, keyRef)}
         onChange={(captchaConfig) => {
           this.changeValue(captchaConfig.value, ref);
         }}/>
@@ -389,7 +410,7 @@ export default class FormFilterHelper<P extends FormFilterProps> extends UICompo
   getSelect = (config) => {
     const { ref, ...other } = config;
     return (
-      <DropdownMenu
+      <Dropdown
         {...other}
         ref={this.saveRef(ref)}
         value={this.getValue(ref)}
@@ -505,18 +526,18 @@ export default class FormFilterHelper<P extends FormFilterProps> extends UICompo
         className="form-control"
         ref={this.saveRef(ref)}
         id={ref}
-        onChange={e => this.changeValue(e.target.value, ref)} />
+        onChange={(e) => this.changeValue(e.target.value, ref)} />
     );
   }
 
-  getRange = (config) => {
+  getSlider = (config) => {
     const { ref, ...other } = config;
     return (
-      <Ranger
+      <Slider
         {...other}
         ref={this.saveRef(ref)}
         value={this.getValue(ref)}
-        onChange={val => this.changeValue(val, ref)}/>
+        onChange={(val) => this.changeValue(val, ref)}/>
     );
   }
 
@@ -531,7 +552,7 @@ export default class FormFilterHelper<P extends FormFilterProps> extends UICompo
     );
   }
 
-  radioFactory = Comp => (config) => {
+  radioFactory = (Comp) => (config) => {
     const { ref, refs, ...other } = config;
     return (
       <Comp
@@ -556,7 +577,7 @@ export default class FormFilterHelper<P extends FormFilterProps> extends UICompo
       <span
         className={`btn flat ${className}`}
         ref={this.saveRef(ref)}
-        onClick={e => Call(onClick, e, ref)}>
+        onClick={(e) => Call(onClick, e, ref)}>
         {text}
       </span>
     );
@@ -611,7 +632,7 @@ export default class FormFilterHelper<P extends FormFilterProps> extends UICompo
           id={datetimeRangeRef}
           defaultValue={range}
           value={this.value[datetimeRangeRef]}
-          onChange={val => this.changeDateValues(val, refs)}/>
+          onChange={(val) => this.changeDateValues(val, refs)}/>
         {
           !config.noHelper && (
             <DateShortcut
@@ -632,7 +653,7 @@ export default class FormFilterHelper<P extends FormFilterProps> extends UICompo
       <Switch ref={this.saveRef(ref)} {...other}
         checked={this.getValue(ref)}
         defaultChecked={defaultValue}
-        onChange={val => this.changeValue(val, ref)} />
+        onChange={(val) => this.changeValue(val, ref)} />
     );
   }
 
@@ -649,7 +670,8 @@ export default class FormFilterHelper<P extends FormFilterProps> extends UICompo
     input: this.getInput,
     password: this.getInput,
     textarea: this.getTextArea,
-    ranger: this.getRange,
+    slider: this.getSlider,
+    ranger: this.getSlider,
     text: this.getText,
     radio: this.getRadio,
     checkbox: this.getCheckbox,

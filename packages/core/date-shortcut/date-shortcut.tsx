@@ -1,9 +1,9 @@
 import React from 'react';
 import { Call, DateFormat } from '@mini-code/base-func';
 import { DateRange, ToUTC } from '@mini-code/base-func/datetime-helper';
+import { $T_IN } from '@dear-ui/ui-config';
 
-import { DropdownWrapper } from '../selector';
-import { $T_IN } from '../config';
+import { DropdownWrapper } from '../dropdown-wrapper';
 import { DateBasic, DateBasicProps } from '../date-basic';
 
 export interface DateShortcutProps extends DateBasicProps {

@@ -2,7 +2,7 @@ import React from 'react';
 import { Call, DateFormat } from '@mini-code/base-func';
 import { ToUTC } from '@mini-code/base-func/datetime-helper';
 
-import { UIPureComponent } from '../utils/ui-component';
+import { UIPureComponent } from '@dear-ui/utils/ui-component';
 
 export interface DateBasicProps {
   onChange?: (nextValue) => void;

@@ -5,15 +5,15 @@ import React from 'react';
 
 import { UUID, Call } from '@mini-code/base-func';
 import classnames from 'classnames';
+import { DivideType } from '@dear-ui/utils/props';
 import FormFilterHelper, { FormFilterProps, FormOptionsItem, FormChangeEvent } from './form-filter';
-import { DivideType } from '../utils/props';
 
 export type FormOptions = (FormOptionsItem | DivideType | string)[];
 
 export interface FormGeneratorProps extends FormFilterProps<FormOptions> {
   // /** 表单配置 */
   // formOptions: (FormOptionsItem | DivideType)[];
-  /** 是否移动端，开启移动端渲染 */
+  /** 使用移动端布局 */
   isMobile?: boolean;
   // /** 表单的类型 */
   // type?: string;
@@ -29,7 +29,7 @@ export interface FormGeneratorProps extends FormFilterProps<FormOptions> {
 
 const hrDivide = ['-', 'hr'];
 
-const isInput = type => ['input', 'password'].indexOf(type) !== -1;
+const isInput = (type) => ['input', 'password'].indexOf(type) !== -1;
 
 export default class FormGenerator extends FormFilterHelper<FormGeneratorProps> {
   static defaultProps = {

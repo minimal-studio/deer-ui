@@ -1,7 +1,7 @@
 import { defineGlobalScope } from '@mini-code/base-func/registe-global-funcs';
 import { IsFunc } from '@mini-code/base-func';
-import chKeyMapper from '../i18n/zh-CN';
-import enKeyMapper from '../i18n/en-US';
+import chKeyMapper from '@dear-ui/i18n/zh-CN';
+import enKeyMapper from '@dear-ui/i18n/en-US';
 import defaultIconMapper from './icon-mapper';
 
 const renameFunc = (oldApiName: string, newApiName: string) => {

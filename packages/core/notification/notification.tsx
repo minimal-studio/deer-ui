@@ -1,10 +1,11 @@
 import React from 'react';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import { EventEmitter, Call, HasValue } from '@mini-code/base-func';
+import { UIPureComponent } from '@dear-ui/utils/ui-component';
+import { tipIcons } from '@dear-ui/utils/icon-mapper';
+import positionFilter from '@dear-ui/utils/position-filter';
+
 import { Icon } from '../icon';
-import positionFilter from '../position-filter';
-import { UIPureComponent } from '../utils/ui-component';
-import { tipIcons } from '../utils/icon-mapper';
 
 export interface NotificationProps {
   handleClick?: (params: {}) => void;
@@ -74,7 +75,7 @@ export default class Notification extends UIPureComponent<NotificationProps, Sta
 
   notifyConfigFilter(notifyConfig: NotifyConfig) {
     ++this.IDIncrement;
-    const nextConfig = Object.assign({}, notifyConfig);
+    const nextConfig = { ...notifyConfig };
     if (!nextConfig.id) {
       nextConfig.id = `${this.IDIncrement}`;
     }
@@ -108,7 +109,7 @@ export default class Notification extends UIPureComponent<NotificationProps, Sta
 
   closeTip(msgID) {
     this.setState(({ notifyItems }) => {
-      const nextState = Object.assign({}, notifyItems);
+      const nextState = { ...notifyItems };
       delete nextState[msgID];
       return {
         notifyItems: nextState
@@ -117,7 +118,7 @@ export default class Notification extends UIPureComponent<NotificationProps, Sta
   }
 
   clearAllNotify = () => {
-    Object.keys(this.timers).forEach(timerID => clearTimeout(+timerID));
+    Object.keys(this.timers).forEach((timerID) => clearTimeout(+timerID));
     this.setState({
       notifyItems: {}
     });
@@ -182,8 +183,8 @@ export default class Notification extends UIPureComponent<NotificationProps, Sta
                           e.style.height = `${e.offsetHeight}px`;
                         }
                       }}
-                      onMouseEnter={e => this.clearTargetTimer(msgID)}
-                      onMouseLeave={e => this.startTargetTimer(item)}>
+                      onMouseEnter={(e) => this.clearTargetTimer(msgID)}
+                      onMouseLeave={(e) => this.startTargetTimer(item)}>
                       {
                         tipIcons[type] && (
                           <div className="notify-type-tip">
@@ -197,13 +198,13 @@ export default class Notification extends UIPureComponent<NotificationProps, Sta
                         {
                           (onClickTip || handleClick) ? (
                             <div className="action"
-                              onClick={e => this.clickTip(item, msgID)}>
+                              onClick={(e) => this.clickTip(item, msgID)}>
                               <span className="flex" />
                               <span className="action-btn">{actionText}</span>
                             </div>
                           ) : null
                         }
-                        <div className="_close-btn" onClick={e => this.closeTip(msgID)}>
+                        <div className="_close-btn" onClick={(e) => this.closeTip(msgID)}>
                           <Icon n="close"/>
                         </div>
                       </div>

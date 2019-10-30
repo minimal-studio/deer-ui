@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
-import { getElementOffset } from '../utils/get-elem-offset';
+import { getElementOffset } from '@dear-ui/utils/get-elem-offset';
 import {
   getLeft, getRight, getTop, getBottom,
   PositionReturn, PopoverPosition
-} from '../utils/position';
-import { Children, Color } from '../utils/props';
+} from '@dear-ui/utils/position';
+import { Children, Color } from '@dear-ui/utils/props';
 
 export interface PopoverProps {
   /** 是否激活 */
@@ -46,7 +46,7 @@ const ESC_KEY = 27;
 function getChildrenKeys(children) {
   if (!children) return [];
   const _children = Array.isArray(children) ? children : [children];
-  const childrenKeys = _children.map(item => item.key);
+  const childrenKeys = _children.map((item) => item.key);
   return childrenKeys;
 }
 
@@ -203,7 +203,7 @@ export default class Popover extends Component<PopoverProps, State> {
     const transitionKey = open ? 'popover' : 'popover-close';
     if (open) {
       const closeBtn = showCloseBtn && (
-        <div className="_close-btn" onClick={e => onClose()}>x</div>
+        <div className="_close-btn" onClick={(e) => onClose(e)}>x</div>
       );
       const obj = enableTabIndex ? {
         tabIndex: -1, onKeyDown: this.handleKeyDown
@@ -212,7 +212,7 @@ export default class Popover extends Component<PopoverProps, State> {
         <div {...obj}
           className={`__popover${fixed ? ' fixed' : ''}${showCloseBtn ? ' has-close' : ''} ${position} ${className} ${type}`}
           style={_style}
-          ref={e => this.setSelfPosition(e)}>
+          ref={(e) => this.setSelfPosition(e)}>
           <span className="caret" />
           {children}
           {closeBtn}

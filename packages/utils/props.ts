@@ -1,4 +1,4 @@
-import { ButtonProps } from "../button/button-basic";
+import { ButtonProps } from "../button/button";
 
 export type NatureColorTypes =
   'theme'

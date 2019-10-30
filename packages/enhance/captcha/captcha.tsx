@@ -1,8 +1,8 @@
 import React from 'react';
 import { Call } from '@mini-code/base-func';
 
-import { UIComponent } from '../utils/ui-component';
-import Input from '../form-control/input';
+import { UIComponent } from '@dear-ui/utils/ui-component';
+import { Input } from '@dear-ui/core/input';
 
 export interface CaptchaResData {
   /** 是否发生错误 */
@@ -215,8 +215,8 @@ export default class Captcha extends UIComponent<CaptchaProps, State> {
           type="number"
           className="form-control captcha-input"
           value={_captchaValue}
-          onFocus={e => this.shouldRefreshCaptcha()}
-          onChange={val => this.changeCaptcha(val)}
+          onFocus={(e) => this.shouldRefreshCaptcha()}
+          onChange={(val) => this.changeCaptcha(val)}
           placeholder={this.$T_IN("验证码")}>
           <div className="captcha"
             onClick={(e) => {

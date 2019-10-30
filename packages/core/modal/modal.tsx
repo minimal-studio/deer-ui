@@ -1,12 +1,13 @@
+/* eslint-disable prefer-object-spread */
 import React from 'react';
 
 import { Call, IsFunc } from '@mini-code/base-func';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import classnames from 'classnames';
+import { Children } from '@dear-ui/utils/props';
 
 import { DragPanelClass, DragPanelClassProps } from './drag-pabel-helper';
 import { Icon } from '../icon';
-import { Children } from '../utils/props';
 
 export interface ModalRequiredProps {
   /** 当前 modal 是否打开 */
@@ -282,19 +283,19 @@ export default class Modal extends DragPanelClass<ModalRequiredProps & ModalProp
 
     const closeBtnDOM = showCloseBtn && (
       <span className="close _btn"
-        onClick={e => onCloseModal()}>
+        onClick={(e) => onCloseModal()}>
         <Icon n="close" />
       </span>
     );
     const maxBtnDOM = needMaxBtn && (
       <span className="max _btn"
-        onClick={e => this.maximinzeWindow(!isMaximize)}>
+        onClick={(e) => this.maximinzeWindow(!isMaximize)}>
         <Icon n={isMaximize ? "restore" : "max"} />
       </span>
     );
     const minBtnDOM = !isMaximize && minimizeWindow && needMinBtn && (
       <span className="min _btn"
-        onClick={e => sectionId && minimizeWindow(sectionId)}>
+        onClick={(e) => sectionId && minimizeWindow(sectionId)}>
         <Icon n="min" />
       </span>
     );

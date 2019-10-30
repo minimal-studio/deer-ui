@@ -1,11 +1,11 @@
 import React from "react";
 import { Call } from '@mini-code/base-func';
 
-import { DropdownWrapper } from '../selector';
-import { Tip } from '../tip';
+import { UIPureComponent } from '@dear-ui/utils/ui-component';
+import { Color } from '@dear-ui/utils/props';
+import { DropdownWrapper } from '../dropdown-wrapper';
 
-import { UIPureComponent } from '../utils/ui-component';
-import { Color } from '../utils/props';
+import { Tip } from '../tip';
 
 export interface AvatarProps {
   /** 头像的大小 */

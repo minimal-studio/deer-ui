@@ -6,19 +6,19 @@ import { Call, GenerteID } from '@mini-code/base-func';
 import { Provider, connect } from 'unistore/react';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
-import { $T_IN, getIsMobile } from '../config';
+import { $T_IN, getIsMobile } from '@dear-ui/ui-config';
+import { Children } from '@dear-ui/utils/props';
+import setDOMById from '@dear-ui/utils/set-dom';
 import { Icon } from '../icon';
 import ModalHelper from './modal-helper';
 import Modal, { ModalOptions } from './modal';
-import setDOMById from '../set-dom';
-import { Children } from '../utils/props';
 import {
   windowManagerActions,
   windowManagerStore
 } from './window-manager';
 
 let connectedStore;
-const selector = state => state;
+const selector = (state) => state;
 
 class ModalEntity extends ModalHelper {
   componentDidMount() {
@@ -68,7 +68,7 @@ const ModalsManager = connect(selector, windowManagerActions)((props) => {
           animation={false}
           isOpen
           {...currItem}
-          onCloseModal={e => closeWindow(sectionId)} />
+          onCloseModal={(e) => closeWindow(sectionId)} />
       </CSSTransition>
     );
   });
@@ -85,8 +85,8 @@ const ModalsManager = connect(selector, windowManagerActions)((props) => {
             return (
               <div key={minSectionId}
                 className="min-item">
-                <span className="title" onClick={e => selectWindow(minSectionId)}>{currItem.title}</span>
-                <Icon n="close" onClick={e => closeWindow(minSectionId)} />
+                <span className="title" onClick={(e) => selectWindow(minSectionId)}>{currItem.title}</span>
+                <Icon n="close" onClick={(e) => closeWindow(minSectionId)} />
               </div>
             );
           })
@@ -174,7 +174,7 @@ function ShowModal(params: ShowModalParams): ModalID {
   /** 用于检查是否已经渲染了最外层 div */
   checkModalContainer();
   /** @type {ShowModalParams} */
-  let options = Object.assign({}, params);
+  let options = { ...params };
   let {
     type, confirmText = `${$T_IN('确定')}?`, showFuncBtn,
     id, children,
@@ -194,8 +194,8 @@ function ShowModal(params: ShowModalParams): ModalID {
 
   const btnGroupDOM = _showFuncBtn && (
     <div className="btn-group">
-      <span className="btn flat default" onClick={e => onClickBtn(false)}>{$T_IN('取消')}</span>
-      <span className="btn flat theme" onClick={e => onClickBtn(true)}>{$T_IN('确定')}</span>
+      <span className="btn flat default" onClick={(e) => onClickBtn(false)}>{$T_IN('取消')}</span>
+      <span className="btn flat theme" onClick={(e) => onClickBtn(true)}>{$T_IN('确定')}</span>
     </div>
   );
 
@@ -216,12 +216,13 @@ function ShowModal(params: ShowModalParams): ModalID {
       );
       break;
     case 'side':
-      options = Object.assign({}, {
+      options = {
         modalType: 'side',
         clickBgToClose: true,
         needMaxBtn: false,
         needMinBtn: false,
-      }, options);
+        ...options
+      };
       modalTMPL = (
         <div className="global-modal-container">
           <div className="content">{children}</div>
@@ -253,7 +254,7 @@ const ShowGlobalModal = ShowModal;
 const CloseGlobalModal = CloseModal;
 
 
-const ShowModalAPI: React.SFC<ShowModalParams> = props => (
+const ShowModalAPI: React.SFC<ShowModalParams> = (props) => (
   <div></div>
 );
 

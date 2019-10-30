@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { $T } from '../config';
+import { $T } from '@dear-ui/ui-config';
 import { Icon, PureIcon } from '../icon';
 import { IconProps } from '../icon/icon';
 

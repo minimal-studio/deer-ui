@@ -2,7 +2,7 @@ import React from 'react';
 
 import { ToFixed } from '@mini-code/base-func';
 import NumTransformToCN from '@mini-code/base-func/num-to-cn';
-import InputVerifyClass, { InputVerifyClassProps } from './input-verify-class';
+import InputVerifyClass, { InputVerifyClassProps } from '../form-control/input-verify-class';
 
 export interface InputVerifyProps extends InputVerifyClassProps {
   /** 控件类型 */
@@ -64,16 +64,16 @@ export default class InputNumber extends InputVerifyClass<InputVerifyProps> {
           style={style}
           readOnly={!inputable}
           className={`form-control ${className}`}
-          onBlur={e => this._onBlur(e)}
-          onChange={e => this._onChange(e.target.value)}
-          onFocus={e => this._onFocus(e.target.value, e)}/>
+          onBlur={(e) => this._onBlur(e)}
+          onChange={(e) => this._onChange(e.target.value)}
+          onFocus={(e) => this._onFocus(e.target.value, e)}/>
         {
           selectable && (
             <div className="option-btns">
-              <div className="minu _btn" onClick={e => this._onChange((+value - unit))}>
+              <div className="minu _btn" onClick={(e) => this._onChange((+value - unit))}>
                 <span>-</span>
               </div>
-              <div className="plus _btn" onClick={e => this._onChange((+value + unit))}>
+              <div className="plus _btn" onClick={(e) => this._onChange((+value + unit))}>
                 <span>+</span>
               </div>
             </div>
