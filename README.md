@@ -56,8 +56,8 @@ yarn docz:dev
 
 ## Reference
 
-- [Online Doc](https://ui.ukelli.com/)
-- [FormGenerator](https://ui.ukelli.com/#/G-Desc)
+- [Online Doc](https://ui.thinkmore.xyz/)
+- [FormGenerator](https://ui.thinkmore.xyz/#/G-Desc)
 - [CHANGELOG](./CHANGELOG.md)
 - [UI logic of FormGenerator](./docs/ui-logic.md)
 - [Components Desc](./docs/components.md)
