@@ -4,8 +4,7 @@
   "main": "./index.js",
   "private": true,
   "workspaces": [
-    "packages/*",
-    "website"
+    "packages/*"
   ],
   "files": [
     "*"
@@ -17,6 +16,8 @@
     "build:ts": "rm -rf ./dist; tsc; npm run copy-files-ts; npm run copy-style",
     "copy-files-ts": "node ./scripts/copy-files-ts",
     "copy-style": "cp -R ./style ./dist/",
+    "dev:doc": "cd ./website; yarn; yarn dev",
+    "deploy:doc": "cd ./website; yarn; yarn build",
     "test": "jest"
   },
   "repository": {
