@@ -14,7 +14,7 @@ export interface UkeLangStruct {
   };
 }
 
-export interface UkelliUIConfig {
+export interface UIConfigStruct {
   iconMapper: {};
   iconPrefix: (str: string) => string;
 }
@@ -32,7 +32,7 @@ const translateMapper: UkeLangStruct = {
 
 let language = defaultLanguage;
 
-const UIConfig: UkelliUIConfig = {
+const UIConfig: UIConfigStruct = {
   iconMapper: {},
   iconPrefix: (s) => `fa${s} fa-`,
 };
