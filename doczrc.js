@@ -5,8 +5,8 @@ import themeConfig from './docz/theme-config/config';
 
 export default {
   // dest: 'docz-dist',
-  title: 'Ukelli-UI',
-  description: 'Ukelli-UI, 轻量级 React UI 框架',
+  title: 'Dear-UI',
+  description: 'Dear-UI, 轻量级 React UI 框架',
   notUseSpecifiers: true,
   filterComponents: files => files.filter(filepath => /[w-]*.(js|jsx|ts|tsx)$/.test(filepath)),
   indexHtml: 'docz/index.html',
