@@ -1,0 +1,61 @@
+---
+name: Menus
+route: /Menus
+menu: Components
+---
+
+import { Playground, Props } from 'docz'
+import { Menus, Menu } from './';
+// import Menu from './menu';
+
+# Menus
+
+## 使用 data 配置
+
+<Playground className="bg_default">
+  <Menus data={[
+    {
+      text: '菜单1',
+      icon: 'check',
+      action: () => {}
+    },
+    {
+      text: '菜单2',
+      action: () => {}
+    },
+    {
+      text: '菜单3',
+      action: () => {}
+    },
+    {
+      text: '菜单4',
+      action: () => {}
+    },
+    '-',
+    {
+      text: '菜单5',
+      action: () => {}
+    },
+  ]} />
+</Playground>
+
+## 使用 Menu 组件
+
+<Playground className="bg_default">
+  <Menus>
+    <Menu icon="check">Menu1</Menu>
+    <Menu>Menu2</Menu>
+    <Menu>Menu3</Menu>
+    <Menu onClick={e => {console.log('Menu4')}}>Menu4</Menu>
+    <hr />
+    <Menu>Menu5</Menu>
+  </Menus>
+</Playground>
+
+## Props of Menus
+
+<Props of={Menus} />
+
+## Props of Menu
+
+<Props of={Menu} />

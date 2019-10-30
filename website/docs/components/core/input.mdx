@@ -1,0 +1,83 @@
+---
+name: Input
+route: /Input
+menu: Form
+---
+
+import { Playground, Props } from 'docz'
+import { Input } from './';
+
+# Input
+
+> 输入验证控件, 基础类提供基本验证
+
+## Basic Usage
+
+<Playground>
+  <Input placeholder="请输入"
+    onChange={e => console.log(e)}/>
+</Playground>
+
+## 固定的 Title
+
+> 为 Input 添加 title，与 placeholder 不同，title 并不会在输入后消失
+
+<Playground>
+  <Input title="固定 Title" placeholder="placeholder"
+    onChange={e => console.log(e)}/>
+</Playground>
+
+## 输出数字类型
+
+<Playground>
+  <Input title="输出 number 类型" placeholder="输出数字" outputType="number" 
+    propsForInput={{
+      type: 'number'
+    }}
+    onChange={e => console.log(e)}/>
+</Playground>
+
+## 过滤器
+
+<Playground>
+  <Input title="只能输入数字" filter={val => (val + '').replace(/[^0-9]/g, '')} />
+</Playground>
+
+## With Icon
+
+<Playground>
+  <Input n="phone" />
+</Playground>
+
+## With Button
+
+<Playground>
+  <Input
+    title="带按钮的输入框"
+    outputType="number"
+    inputBtnConfig={{
+      action: (e) => console.log(e),
+      text: '按钮'
+    }}/>
+  <hr />
+  <Input
+    title="带按钮的输入框"
+    outputType="number"
+    inputBtnConfig={{
+      action: (e) => console.log(e),
+      icon: 'search',
+      text: ''
+    }}/>
+</Playground>
+
+## 获取焦点时 Title 上浮
+
+<Playground>
+  <Input n="phone" title="电话号码" placeholder="请输入" flowTitle />
+  {/* <div className="animate-input-title">
+  </div> */}
+</Playground>
+
+## Props
+
+<Props of={Input} />

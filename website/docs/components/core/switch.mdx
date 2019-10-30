@@ -1,0 +1,116 @@
+---
+name: Switch
+route: /Switch
+menu: Selector
+---
+
+import { useState } from 'react'
+import { Playground, Props } from 'docz'
+import { Switch } from './';
+
+# Switch
+
+## Basic Usage
+
+<Playground>
+  {
+    () => {
+      const [checked1, setChecked1] = useState(false)
+      const [checked2, setChecked2] = useState(0)
+      return (
+        <div>
+          <h4>开关, 输出结果: {JSON.stringify(checked1)}</h4>
+          <Switch
+            onChange={val => setChecked1(val)}
+            checked={checked1} />
+        </div>
+      )
+    }
+  }
+</Playground>
+
+## 指定期望输出的值
+
+<Playground>
+  {
+    () => {
+      const [checked1, setChecked1] = useState(false)
+      const [checked2, setChecked2] = useState(0)
+      return (
+        <div>
+          <h4>输出值: {checked2}</h4>
+          <Switch
+            onChange={val => {
+              console.log(val)
+              setChecked2(val)
+            }}
+            outputs={[1, 0]}
+            checked={checked2} />
+        </div>
+      )
+    }
+  }
+</Playground>
+
+## 不受控组件
+
+<Playground>
+  {
+    () => {
+      const [checked1, setChecked1] = useState(false)
+      const [checked2, setChecked2] = useState(0)
+      return (
+        <div>
+          <Switch
+            onChange={val => {
+              console.log(val)
+            }}
+            outputs={[1, 0]}
+            defaultChecked={true} />
+        </div>
+      )
+    }
+  }
+</Playground>
+
+## 自定义显示提示
+
+<Playground>
+  {
+    () => {
+      const [checked1, setChecked1] = useState(false)
+      const [checked2, setChecked2] = useState(0)
+      return (
+        <div>
+          <Switch
+            onChange={val => {}}
+            checked={false}
+            tips={['开', '关']} />
+        </div>
+      )
+    }
+  }
+</Playground>
+
+## 禁用状态
+
+<Playground>
+  {
+    () => {
+      const [checked1, setChecked1] = useState(false)
+      const [checked2, setChecked2] = useState(0)
+      return (
+        <div>
+          <Switch
+            onChange={val => {}}
+            disabled
+            checked={false} />
+        </div>
+      )
+    }
+  }
+</Playground>
+
+## Props
+
+<Props of={Switch} />

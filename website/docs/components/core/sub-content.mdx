@@ -1,0 +1,24 @@
+---
+name: SubContent
+route: /SubContent
+menu: Components
+---
+
+import { Playground, Props } from 'docz'
+import { SubContent } from './';
+
+# SubContent
+
+隐藏/显示
+
+## Basic Usage
+
+<Playground style={{height: 200}}>
+  <SubContent displayElem={'鼠标移至此处出现隐藏的内容'}>
+    显示的内容
+  </SubContent>
+</Playground>
+
+## Props
+
+<Props of={SubContent} />

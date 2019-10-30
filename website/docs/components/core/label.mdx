@@ -1,0 +1,56 @@
+---
+name: Label
+route: /Label
+menu: Components
+---
+
+import { Playground, Props } from 'docz'
+import { Label } from './';
+import { ExampleColors, ForEachColor } from '@dear-ui/utils/color';
+
+# Label
+
+## Background Color
+
+<Playground>
+  {
+    () => {
+      return (
+        <div>
+          {
+            ForEachColor(ExampleColors)((color) => (
+              <Label color={color} className="" key={color}>
+                {color.toUpperCase()}
+              </Label>
+            ))
+          }
+        </div>
+      )
+    }
+  }
+</Playground>
+
+## Text Color
+
+<Playground>
+  <Label tColor="blue">
+    blue
+  </Label>
+  <Label tColor="green">
+    green
+  </Label>
+  <Label tColor="red">
+    red
+  </Label>
+  <Label tColor="orange">
+    orange
+  </Label>
+  <Label tColor="black" color="default">
+    black
+  </Label>
+</Playground>
+
+## Props
+
+<Props of={Label} />
+

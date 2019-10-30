@@ -1,0 +1,42 @@
+---
+name: Checkbox
+route: /Checkbox
+menu: Selector
+---
+
+import { Playground, Props } from 'docz'
+import { Checkbox, Radio } from './';
+
+# Checkbox
+
+> 基于 selector 的单选组件
+
+## Basic Usage
+
+<Playground>
+  <Checkbox onChange={val => {
+    console.log(val)
+  }} values={{
+    1: 'A',
+    2: 'B',
+    3: 'C',
+  }} />
+</Playground>
+
+## 更换激活图标
+
+<Playground>
+  <Checkbox
+    n="star"
+    onChange={val => {
+      console.log(val)
+    }} values={{
+      1: 'A',
+      2: 'B',
+      3: 'C',
+    }} />
+</Playground>
+
+## Props
+
+<Props of={Radio} />

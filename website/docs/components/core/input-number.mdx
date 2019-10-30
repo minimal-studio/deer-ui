@@ -1,0 +1,74 @@
+---
+name: InputNumber
+route: /InputNumber
+menu: Form
+---
+
+import { Playground, Props } from 'docz'
+import { InputNumber } from './';
+
+# InputNumber
+
+> 带输入验证的 InputNumber 控件
+
+## 数字范围限制
+
+<Playground>
+  <h4>输入范围 1 ~ 100</h4>
+  <InputNumber
+    numRange={[1, 100]}
+    style={{width: 200}}
+    selectable={false}
+    onChange={val => {
+      console.log(val)
+    }} />
+</Playground>
+
+## 输入长度限制
+
+<Playground>
+  <h4>长度 1 ~ 5 个字符</h4>
+  <InputNumber
+    lenRange={[1, 5]}
+    selectable={false}
+    onChange={val => {
+      console.log(val)
+    }} />
+</Playground>
+
+## 加减操作按钮的单位
+
+<Playground>
+  <h4>每次加减 2</h4>
+  <InputNumber
+    unit={2}
+    selectable
+    numRange={[1, 100]}
+    onChange={val => {
+      console.log(val)
+    }} />
+</Playground>
+
+## 显示中文
+
+<Playground>
+  <InputNumber
+    needCN={true}
+    onChange={val => {
+      console.log(val)
+    }} />
+</Playground>
+
+## 显示百分比
+
+<Playground>
+  <InputNumber
+    precent
+    onChange={val => {
+      console.log(val)
+    }} />
+</Playground>
+
+## Props
+
+<Props of={InputNumber} />

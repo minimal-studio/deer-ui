@@ -1,0 +1,193 @@
+---
+name: ShowModal
+route: /ShowModal
+menu: Utils
+---
+
+import { Playground, Props } from 'docz'
+import { ShowModal, CloseModal, ShowGlobalModal, CloseGlobalModal, CloseAllModal } from './';
+import ShowModalAPI from './modal-func-api'
+import { DropdownMenu } from '../selector';
+import { Pop } from '../popover';
+
+# ShowModal
+
+> 提供了全局的 modal 使用方法，由系统托管 modal 的状态
+
+重要参数说明：
+
+- id: 用于初始化 Modal 的标记，如果没有，则随机生成一个。主要用于标记最小化的 Modal
+- type: 用于标记弹出层的类型，默认为 modal，主要有 side, modal, confirm
+- draggable: 是否可拖动模式，只有在 type = modal 时有效，默认为 false
+
+## Basic Usage
+
+<Playground>
+  <div>
+    <span
+      className="btn theme mr10"
+      onClick={e => ShowModal({
+        draggable: false,
+        title: '默认的 Modal',
+        id: 'ShowModal',
+        onClose: () => {
+          console.log('ShowModal')
+        },
+        children: <div
+          style={{height: 200, overflow: 'auto'}} className="p10 relative">
+          内容
+          <div style={{height: 300}}>
+          </div>
+          <DropdownMenu
+            values={{
+              a: '123',
+              b: '456',
+            }} />
+          <div onClick={e => {
+            Pop.show({
+              elem: e.target,
+              props: {
+                showCloseBtn: false,
+                position: 'top',
+                type: 'red'
+              },
+              children: (
+                <div className="p10">
+                  任意内容任意内容任意内容任意内容<br />
+                  任意内容任意内容任意内容任意内容<br />
+                  任意内容任意内容任意内容任意内容<br />
+                  任意内容任意内容任意内容任意内容<br />
+                </div>
+              )
+            })
+          }}>浮动</div>
+        </div>
+      })}>
+      默认的 Modal
+    </span>
+
+    <span
+      className="btn red mr10"
+      onClick={e => ShowModal({
+        title: '有操作按钮的 Modal',
+        showFuncBtn: true,
+        children: <div className="p20">任意的内容</div>
+      })}>
+      有操作按钮的 Modal
+    </span>
+
+    <span
+      className="btn green mr10"
+      onClick={e => ShowModal({
+        type: 'confirm',
+        title: '确认框',
+        confirmText: '是否确定',
+        onConfirm: (isSure) => {
+          alert('确定？' + isSure)
+        }
+      })}>
+      确认框
+    </span>
+  </div>
+</Playground>
+
+## 多窗口模式
+
+> 同时共存多个 Modal 事例，并且可以拖动
+
+<Playground>
+  <span
+    className="btn theme mr10"
+    onClick={e => ShowModal({
+      draggable: true,
+      elem: e,
+      title: '按住 header 可拖动的 Modal',
+      children: <div className="p15">任意的内容</div>
+    })}>
+    多个可拖动的 Modal
+  </span>
+
+  <span
+    className="btn red mr10"
+    onClick={e => CloseAllModal()}>
+    关闭所有 Modal
+  </span>
+</Playground>
+
+## 侧边弹出
+
+> 可在不同的方向弹出
+
+<Playground>
+  <span
+    className="btn blue mr10"
+    onClick={e => ShowModal({
+      title: '有操作按钮的 Modal',
+      type: 'side',
+      position: 'right',
+      children: <div className="p20">任意的内容</div>
+    })}>
+    右边弹出
+  </span>
+  <span
+    className="btn green mr10"
+    onClick={e => ShowModal({
+      title: '有操作按钮的 Modal',
+      type: 'side',
+      position: 'left',
+      children: <div className="p20">任意的内容</div>
+    })}>
+    左边弹出
+  </span>
+  <span
+    className="btn red mr10"
+    onClick={e => ShowModal({
+      title: '有操作按钮的 Modal',
+      type: 'side',
+      position: 'top',
+      children: <div className="p20">任意的内容</div>
+    })}>
+    上边弹出
+  </span>
+  <span
+    className="btn orange mr10"
+    onClick={e => ShowModal({
+      title: '有操作按钮的 Modal',
+      type: 'side',
+      position: 'bottom',
+      children: <div className="p20">任意的内容</div>
+    })}>
+    下边弹出
+  </span>
+  <ShowModalAPI />
+</Playground>
+
+## 自定义弹出模版
+
+> 替换 Modal 提供的默认模版
+
+<Playground>
+  <span
+    className="btn blue mr10"
+    onClick={e => ShowModal({
+      title: '自定义 Modal 模版',
+      template: (props) => {
+        console.log(props)
+        return (
+          <div onClick={e => props.onCloseModal()} style={{
+            position: 'fixed', top: 0, right: 0,
+            boxShadow: '0 4px 10px rgba(0,0,0,0.1)',
+            zIndex: 999,
+            height: 400, width: 500, backgroundColor: '#FFF'}}>
+            自定义的 Modal 模版，点击关闭
+          </div>
+        )
+      }
+    })}>
+    自定义 Modal 模版
+  </span>
+</Playground>
+
+## API of ShowModal
+
+<Props of={ShowModalAPI} />

@@ -1,0 +1,63 @@
+---
+name: Ranger
+route: /Ranger
+menu: Form
+---
+
+import { Playground, Props } from 'docz'
+import { Ranger } from './';
+
+# Ranger
+
+> 滑动选择器
+
+## Basic Usage
+
+<Playground>
+  <h4>范围 0 ~ 100</h4>
+  <Ranger
+    range={[0, 100]}
+    withInput={false}
+    onChange={val => {
+    }
+  } />
+</Playground>
+
+## 带数值输入
+
+<Playground>
+  <h4>范围 0 ~ 100</h4>
+  <Ranger
+    range={[0, 100]}
+    withInput
+    onChange={val => {
+    }
+  } />
+</Playground>
+
+## 基本单位
+
+<Playground>
+  <h4>基本单位 5</h4>
+  <Ranger
+    range={[0, 100]}
+    basicUnit={5}
+    onChange={val => {
+    }
+  } />
+</Playground>
+
+## 百分比显示
+
+<Playground>
+  <Ranger
+    range={[0, 100]}
+    precent
+    onChange={val => {
+    }
+  } />
+</Playground>
+
+## Props
+
+<Props of={Ranger} />

@@ -1,0 +1,161 @@
+---
+name: Pagination
+route: /Pagination
+menu: Form
+---
+
+import { useState } from 'react'
+import { Playground, Props } from 'docz'
+import { Pagination } from './';
+
+# Pagination
+
+## Basic Usage
+
+<Playground>
+  {
+    () => {
+      /** 支持自定义数据结构 */
+      const [pagingInfo, setPagin] = useState({
+        active: true,
+        total: 1000,
+        pIdx: 0,
+        pSize: 10
+      });
+      const [pagingInfo2, setPagin2] = useState({
+        active: true,
+        total: 12,
+        pIdx: 0,
+        pSize: 10
+      });
+      const [pagingInfo3, setPagin3] = useState({
+        active: true,
+        total: 2,
+        pIdx: 0,
+        pSize: 10
+      });
+      return (
+        <div>
+          <Pagination
+            onPagin={nextPagin => {
+              console.log(nextPagin)
+              setPagin3(nextPagin)
+            }}
+            pagingInfo={pagingInfo3}/>
+          <Pagination
+            onPagin={nextPagin => {
+              console.log(nextPagin)
+              setPagin2(nextPagin)
+            }}
+            pagingInfo={pagingInfo2}/>
+          <Pagination
+            onPagin={nextPagin => {
+              console.log(nextPagin)
+              setPagin(nextPagin)
+            }}
+            pagingInfo={pagingInfo}/>
+        </div>
+      )
+    }
+  }
+</Playground>
+
+## 自定义数据结构
+
+<Playground>
+  {
+    () => {
+      /** 支持自定义数据结构 */
+      const [pagingInfo, setPagin] = useState({
+        Active: true,
+        Total: 1000,
+        PIdx: 0,
+        PSize: 10
+      });
+      const paginTransfer = {
+        active: 'Active',
+        total: 'Total',
+        pIdx: 'PIdx',
+        pSize: 'PSize'
+      }
+      return (
+        <Pagination
+          onPagin={nextPagin => {
+            console.log(nextPagin)
+            setPagin(nextPagin)
+          }}
+          infoMapper={paginTransfer}
+          pagingInfo={pagingInfo}/>
+      )
+    }
+  }
+</Playground>
+
+## 不需要上下页按钮
+
+<Playground>
+  {
+    () => {
+      /** 支持自定义数据结构 */
+      const [pagingInfo, setPagin] = useState({
+        Active: true,
+        Total: 1000,
+        PIdx: 0,
+        PSize: 10
+      });
+      const paginTransfer = {
+        active: 'Active',
+        total: 'Total',
+        pIdx: 'PIdx',
+        pSize: 'PSize'
+      }
+      return (
+        <Pagination
+          onPagin={nextPagin => {
+            console.log(nextPagin)
+            setPagin(nextPagin)
+          }}
+          isNeedHelper={false}
+          infoMapper={paginTransfer}
+          pagingInfo={pagingInfo}/>
+      )
+    }
+  }
+</Playground>
+
+## 控制激活按钮的前后按钮的数量
+
+<Playground>
+  {
+    () => {
+      /** 支持自定义数据结构 */
+      const [pagingInfo, setPagin] = useState({
+        Active: true,
+        Total: 1000,
+        PIdx: 4,
+        PSize: 10
+      });
+      const paginTransfer = {
+        active: 'Active',
+        total: 'Total',
+        pIdx: 'PIdx',
+        pSize: 'PSize'
+      }
+      return (
+        <Pagination
+          onPagin={nextPagin => {
+            console.log(nextPagin)
+            setPagin(nextPagin)
+          }}
+          prevBtnCount={3}
+          lastBtnCount={1}
+          infoMapper={paginTransfer}
+          pagingInfo={pagingInfo}/>
+      )
+    }
+  }
+</Playground>
+
+## Props
+
+<Props of={Pagination} />

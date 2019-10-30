@@ -1,0 +1,63 @@
+---
+name: InputSelector
+route: /InputSelector
+menu: Form
+---
+
+import { Playground, Props } from 'docz'
+import InputSelector from './input-selector';
+
+# InputSelector
+
+> 选择器 & 输入控件
+
+## Basic Usage
+
+<Playground>
+  <InputSelector
+    values={{
+      value1: 'value1',
+      value2: 'value2',
+      value3: 'value3',
+    }}
+    onChange={(inputVal, selectorVal) => {
+      console.log(inputVal, 'inputVal')
+      console.log(selectorVal, 'selectorVal')
+    }} />
+</Playground>
+
+## 选择器弹出方向控制
+
+> 选择器为 DropdownMenu
+
+<Playground>
+  <h3>top left</h3>
+  <InputSelector
+    position="top"
+    values={{
+      value1: 'value1',
+      value2: 'value2',
+      value3: 'value3',
+    }}
+    onChange={(inputVal, selectorVal) => {
+      console.log(inputVal, 'inputVal')
+      console.log(selectorVal, 'selectorVal')
+    }} />
+  <hr />  
+  <h3>top right</h3>
+  <InputSelector
+    position="top,right"
+    values={{
+      value1: 'value1',
+      value2: 'value2',
+      value3: 'value3',
+    }}
+    onChange={(inputVal, selectorVal) => {
+      console.log(inputVal, 'inputVal')
+      console.log(selectorVal, 'selectorVal')
+    }} />
+</Playground>
+
+## Props
+
+<Props of={InputSelector} />

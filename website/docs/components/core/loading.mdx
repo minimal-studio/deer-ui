@@ -1,0 +1,121 @@
+---
+name: Loading
+route: /Loading
+menu: Components
+---
+
+import { useState } from 'react'
+import { Playground, Props } from 'docz'
+import { Button } from '../button';
+import { Loading, LoadingProgress, LoadingPlaceholder } from './';
+
+# Loading
+
+> 注意，需要手动控制是否渲染 children
+
+## function children
+
+<Playground>
+  {
+    () => {
+      const [loading, setLoading] = useState(true)
+      return (
+        <div style={{height: 300}}>
+          <span className="btn theme" onClick={e => setLoading(!loading)}>切换状态</span>
+          <Loading loading={loading}>
+            {
+              () => {
+                return (
+                  <div>Children</div>
+                )
+              }
+            }
+          </Loading>
+        </div>
+      )
+    }
+  }
+</Playground>
+
+## children 条件控制
+
+<Playground>
+  {
+    () => {
+      const [loading, setLoading] = useState(true)
+      return (
+        <div style={{height: 300}}>
+          <span className="btn theme" onClick={e => setLoading(!loading)}>切换状态</span>
+          <Loading loading={loading}>
+            {
+              !loading && (
+                <div>Children</div>
+              )
+            }
+          </Loading>
+        </div>
+      )
+    }
+  }
+</Playground>
+
+## Demo
+
+<Playground style={{height: 500}}>
+  {
+    () => {
+      const C = ({ title }) => {
+        return (
+          <div className="p20 mb10 bg_default">
+            {title}
+          </div>
+        )
+      }
+      const [loading, setLoading] = useState(true)
+      return (
+        <div>
+          <Button
+            loading={loading}
+            loadingDisable={false}
+            className="mb10"
+            onClick={e => {
+              setLoading(!loading)
+            }}
+            color={loading ? 'theme' : 'red'} >
+            To {!loading ? 'loading' : 'loaded'}
+          </Button>
+          <Loading loading={loading} inrow={true}>
+            {
+              loading && <C title="内容与 loading 共存" />
+            }
+            <C title="内容与 loading 共存" />
+          </Loading>
+          <Loading loading={loading} inrow={false}>
+            {
+              () => {
+                return (
+                  <C title="内容与 loading 只有一个" />
+                )
+              }
+            }
+          </Loading>
+        </div>
+      )
+    }
+  }
+</Playground>
+
+## Loading 样式
+
+<Playground>
+  <h3>Progress</h3>
+  <div className="relative pb20">
+    <LoadingProgress />
+  </div>
+  <h3>Placeholder</h3>
+  <LoadingPlaceholder />
+</Playground>
+
+## Props
+
+<Props of={Loading} />

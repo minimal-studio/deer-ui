@@ -1,0 +1,63 @@
+---
+name: Captcha
+route: /Captcha
+menu: Form
+---
+
+import { useState } from 'react'
+import { Playground, Props } from 'docz'
+import { Captcha } from './';
+
+# Captcha
+
+## 实现获取数据的接口
+
+```js
+import { Captcha } from '@dear-ui/all';
+
+const getData = (callback) => {
+  // 请求成功后调用 callback，传入 3 个必要参数
+  callback({
+    hasErr: false, // 是否发生错误
+    captchaImage: '', // 验证码的图片
+    captchaKey: '' // 验证码的 key
+  })
+}
+
+Captcha.setAPI(getData);
+```
+
+## Basic Usage
+
+<Playground>
+  {
+    () => {
+      Captcha.setAPI((callback) => {
+        setTimeout(() => {
+          callback({
+            hasErr: false,
+            captchaImage: 'https://cms.marketplace.org/sites/default/files/styles/primary-image-400x222/website/static/captcha.png?itok=JsLPSa66',
+            captchaKey: '12412412512513'
+          })
+        }, 1000);
+      });
+      const [value, setVal] = useState();
+      return (
+        <Captcha
+          onError={e => console.log(e)}
+          onChange={e => {
+            console.log(e)
+            setVal(e);
+          }}
+          onCaptchaLoad={e => console.log(e)}
+          onBlur={e => console.log(e)}
+          value={value}
+          limit={4}/>
+      )
+    }
+  }
+</Playground>
+
+## Props
+
+<Props of={Captcha} />
