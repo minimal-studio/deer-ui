@@ -1,7 +1,12 @@
 {
-  "name": "@dear-ui/all",
+  "name": "dear-ui",
   "version": "4.0.0-alpha1",
   "main": "./index.js",
+  "private": true,
+  "workspaces": [
+    "packages/*",
+    "website"
+  ],
   "files": [
     "*"
   ],
@@ -12,9 +17,7 @@
     "build:ts": "rm -rf ./dist; tsc; npm run copy-files-ts; npm run copy-style",
     "copy-files-ts": "node ./scripts/copy-files-ts",
     "copy-style": "cp -R ./style ./dist/",
-    "test": "jest",
-    "docz:dev": "docz dev",
-    "docz:build": "NODE_ENV=production docz build"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -38,11 +41,6 @@
     "@typescript-eslint/eslint-plugin": "^2.3.3",
     "@typescript-eslint/parser": "^2.3.3",
     "@mini-code/base-func": "^1.0.1",
-    "codemirror": "^5.42.2",
-    "docz": "^1.2.0",
-    "docz-plugin-css": "^0.11.0",
-    "docz-plugin-netlify": "^1.1.4",
-    "docz-theme-default": "^1.2.0",
     "eslint": "^6.5.1",
     "eslint-config-airbnb": "^18.0.1",
     "eslint-config-react-app": "^5.0.2",
