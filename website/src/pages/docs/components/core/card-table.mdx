@@ -1,14 +1,14 @@
 ---
-name: CardTable
-route: /CardTable
+name: TableCard
+route: /TableCard
 menu: Data Display
 ---
 
 import { Playground, Props } from 'docz'
 import { ShowModal } from '@dear-ui/core/modal';
-import { CardTable, DescHelper } from '@dear-ui/core';
+import { TableCard, DescHelper } from '@dear-ui/core';
 
-# CardTable
+# TableCard
 
 > 使用 dear-ui 的 Table 的渲染机制
 
@@ -72,7 +72,7 @@ import { CardTable, DescHelper } from '@dear-ui/core';
         },
       ];
       return (
-        <CardTable
+        <TableCard
           columns={columns}
           records={records} />
       )
@@ -82,4 +82,4 @@ import { CardTable, DescHelper } from '@dear-ui/core';
 
 ## Props
 
-<Props of={CardTable} />
+<Props of={TableCard} />
