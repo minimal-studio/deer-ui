@@ -22,7 +22,7 @@ export default {
     'Config',
     'More',
   ],
-  files: '**/*.mdx',
+  files: 'src/pages/**/*.mdx',
   // notUseSpecifiers: true,
   // filterComponents: files => files.filter(filepath => /[w-]*.(js|jsx|ts|tsx)$/.test(filepath)),
   // indexHtml: 'docz/index.html',
