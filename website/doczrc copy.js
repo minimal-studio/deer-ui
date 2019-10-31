@@ -37,7 +37,7 @@ export default {
     'Form',
     'FormGenerator',
     'Data Display',
-    'Other',
+    'Enhance-UI',
     'Config',
     'More',
   ],

@@ -1,13 +1,13 @@
 ---
-name: Ranger
-route: /Ranger
+name: Slider
+route: /Slider
 menu: Form
 ---
 
 import { Playground, Props } from 'docz'
-import { Ranger } from '@dear-ui/core/slider';
+import { Slider } from '@dear-ui/core/slider';
 
-# Ranger
+# Slider
 
 > 滑动选择器
 
@@ -15,7 +15,7 @@ import { Ranger } from '@dear-ui/core/slider';
 
 <Playground>
   <h4>范围 0 ~ 100</h4>
-  <Ranger
+  <Slider
     range={[0, 100]}
     withInput={false}
     onChange={val => {
@@ -27,7 +27,7 @@ import { Ranger } from '@dear-ui/core/slider';
 
 <Playground>
   <h4>范围 0 ~ 100</h4>
-  <Ranger
+  <Slider
     range={[0, 100]}
     withInput
     onChange={val => {
@@ -39,7 +39,7 @@ import { Ranger } from '@dear-ui/core/slider';
 
 <Playground>
   <h4>基本单位 5</h4>
-  <Ranger
+  <Slider
     range={[0, 100]}
     basicUnit={5}
     onChange={val => {
@@ -50,7 +50,7 @@ import { Ranger } from '@dear-ui/core/slider';
 ## 百分比显示
 
 <Playground>
-  <Ranger
+  <Slider
     range={[0, 100]}
     precent
     onChange={val => {
@@ -60,4 +60,4 @@ import { Ranger } from '@dear-ui/core/slider';
 
 ## Props
 
-<Props of={Ranger} />
+<Props of={Slider} />
