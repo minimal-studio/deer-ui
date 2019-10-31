@@ -22,6 +22,7 @@ export default {
     'Config',
     'More',
   ],
+  files: '**/*.mdx',
   // notUseSpecifiers: true,
   // filterComponents: files => files.filter(filepath => /[w-]*.(js|jsx|ts|tsx)$/.test(filepath)),
   // indexHtml: 'docz/index.html',
@@ -30,7 +31,6 @@ export default {
   // // theme: path.resolve(__dirname, './docz/theme/theme.tsx'),
   // codeSandbox: false,
   // hashRouter: true,
-  // files: '**/*.mdx',
   // htmlContext: {
   //   head: {
   //     links: [{
