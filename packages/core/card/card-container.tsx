@@ -9,12 +9,10 @@ interface CardContainerProps {
   isCol?: boolean;
 }
 
-const CardContainer: React.SFC<CardContainerProps> = ({ children, className, style }) => (
+export const CardContainer: React.SFC<CardContainerProps> = ({ children, className, style }) => (
   <div
     style={style}
     className={`card-container ${className || ''}`}>
     {children}
   </div>
 );
-
-export default CardContainer;

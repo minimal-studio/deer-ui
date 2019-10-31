@@ -6,9 +6,6 @@
   "workspaces": [
     "packages/*"
   ],
-  "files": [
-    "*"
-  ],
   "scripts": {
     "publish:all": "npm publish ./dist --access public",
     "complie:scss": "node-sass ./style/default.scss dist/default.css --output-style compressed",
@@ -16,7 +13,7 @@
     "build:ts": "rm -rf ./dist; tsc; npm run copy-files-ts; npm run copy-style",
     "copy-files-ts": "node ./scripts/copy-files-ts",
     "copy-style": "cp -R ./style ./dist/",
-    "dev:doc": "cd ./website; yarn; yarn dev",
+    "dev:doc": "yarn workspace @dear-ui/ui-doc dev",
     "deploy:doc": "cd ./website; yarn; yarn build",
     "test": "jest"
   },
@@ -37,22 +34,22 @@
     "unistore": "^3.1.0"
   },
   "devDependencies": {
+    "@mini-code/base-func": "^1.0.1",
     "@types/react": "^16.8.17",
     "@types/react-dom": "^16.8.4",
     "@typescript-eslint/eslint-plugin": "^2.3.3",
     "@typescript-eslint/parser": "^2.3.3",
-    "@mini-code/base-func": "^1.0.1",
     "eslint": "^6.5.1",
     "eslint-config-airbnb": "^18.0.1",
     "eslint-config-react-app": "^5.0.2",
     "eslint-loader": "3.0.2",
-    "eslint-plugin-flowtype": "4.3.0",
     "eslint-plugin-import": "2.18.2",
     "eslint-plugin-jsx-a11y": "6.2.3",
     "eslint-plugin-react": "7.16.0",
     "eslint-plugin-react-hooks": "^2.1.2",
-    "fs-extra": "^7.0.0",
+    "fs-extra": "^8.1.0",
     "jest": "^24.5.0",
+    "lerna": "^3.18.3",
     "node-sass": "^4.12.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",

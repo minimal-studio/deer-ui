@@ -85,7 +85,7 @@ export interface GridProps {
   style?: React.CSSProperties;
 }
 
-const Grid: React.SFC<GridProps> = (props) => {
+export const Grid: React.SFC<GridProps> = (props) => {
   const {
     children, className = '', style, component = 'div',
     space, container, item,
@@ -128,5 +128,3 @@ Grid.defaultProps = {
   container: false,
   // item: false,
 };
-
-export default Grid;

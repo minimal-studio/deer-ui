@@ -9,7 +9,7 @@ interface CardProps {
   style?: React.CSSProperties;
 }
 
-const Card: React.SFC<CardProps> = ({
+export const Card: React.SFC<CardProps> = ({
   children, className, style, p = 0.1
 }) => (
   <div
@@ -21,5 +21,3 @@ const Card: React.SFC<CardProps> = ({
     {children}
   </div>
 );
-
-export default Card;

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Icon from '../icon/icon';
+import { Icon } from '../icon';
 
 export interface StepProps {
   /** 标题 */

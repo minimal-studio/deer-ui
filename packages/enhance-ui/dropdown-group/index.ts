@@ -1,1 +1,1 @@
-export { default as DropdownGroup } from './dropdown-group';
+export * from './dropdown-group';

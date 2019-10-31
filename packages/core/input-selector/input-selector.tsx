@@ -1,8 +1,8 @@
 /* eslint-disable max-len */
 import React from 'react';
 
-import Input, { InputProps } from '../input/input';
-import Selector, { DropdownPosition } from '../dropdown/dropdown-menu';
+import { Input, InputProps } from '../input/input';
+import { Dropdown, DropdownPosition } from '../dropdown/dropdown';
 import { SelectorBasicProps } from '../selector-basic';
 import FormControlBasic from '../form-control/form-control-basic';
 
@@ -11,7 +11,7 @@ export interface InputSelectorProps extends SelectorBasicProps {
   inputProps?: InputProps;
   /** Input 控件的输出值的类型 */
   outputType?: InputProps['outputType'];
-  /** Selector's position */
+  /** Dropdown's position */
   position?: DropdownPosition;
   /** onChange */
   onChange: (inputVal, selectorVal) => void;
@@ -92,7 +92,7 @@ export default class InputSelector extends FormControlBasic<InputSelectorProps, 
     const inputVal = this.getValue();
     return (
       <div className="input-selector">
-        <Selector
+        <Dropdown
           needAction={false}
           {...other}
           values={values}

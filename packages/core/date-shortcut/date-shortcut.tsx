@@ -57,7 +57,7 @@ function getHalfMouthDate(type, format, timeDefaultStr) {
  * @class DateShortcut
  * @extends {DateBasic}
  */
-export default class DateShortcut extends DateBasic<DateShortcutProps, {
+export class DateShortcut extends DateBasic<DateShortcutProps, {
   activeIdx: number;
 }> {
   static defaultProps = {

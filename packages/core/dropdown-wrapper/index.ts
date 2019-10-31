@@ -1,5 +1,1 @@
-import DropdownWrapper from './dropdown-wrapper';
-
-export {
-  DropdownWrapper,
-};
+export * from './dropdown-wrapper';

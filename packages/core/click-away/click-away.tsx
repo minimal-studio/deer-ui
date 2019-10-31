@@ -11,7 +11,7 @@ export interface ClickAwayProps {
   children: any;
 }
 
-export default class ClickAway extends Component<ClickAwayProps> {
+export class ClickAway extends Component<ClickAwayProps> {
   __mounted = false;
 
   node

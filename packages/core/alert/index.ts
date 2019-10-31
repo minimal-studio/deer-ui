@@ -1,5 +1,5 @@
-import Alert from './alert';
 import Rename from '@dear-ui/utils/rename';
+import Alert from './alert';
 
 const TipPanel = Rename(Alert, 'TipPanel', 'Alert');
 

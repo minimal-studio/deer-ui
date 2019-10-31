@@ -8,8 +8,7 @@ import { $T_IN } from '@dear-ui/ui-config';
 import {
   StatusColorTypes, NatureColorTypes, Sizes, Color
 } from '@dear-ui/utils/props';
-import { Icon } from '../icon';
-import { IconProps } from '../icon/icon';
+import { Icon, IconProps } from '../icon';
 
 type ButtonSize = Sizes;
 

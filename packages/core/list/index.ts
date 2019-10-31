@@ -1,6 +1,2 @@
-import List from './list';
-import ListItem from './list-item';
-
-export {
-  List, ListItem
-};
+export * from './list';
+export * from './list-item';

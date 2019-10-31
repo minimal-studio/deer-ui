@@ -39,7 +39,7 @@ export interface AvatarProps {
  * @class Avatar
  * @extends {PureComponent}
  */
-export default class Avatar extends UIPureComponent<AvatarProps> {
+export class Avatar extends UIPureComponent<AvatarProps> {
   static defaultProps: AvatarProps = {
     size: 50,
     text: '',

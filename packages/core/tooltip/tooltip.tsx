@@ -1,12 +1,10 @@
 import React, { PureComponent } from 'react';
 import { Call, DebounceClass, UUID } from '@mini-code/base-func';
 
-import { PopoverEntity } from '../popover/popover-entity';
-import { Icon } from '../icon';
 import { $T } from '@dear-ui/ui-config';
 import { Color, Children } from '@dear-ui/utils/props';
-
-import { IconProps } from '../icon/icon';
+import { PopoverEntity } from '../popover/popover-entity';
+import { Icon, IconProps } from '../icon';
 
 export interface ToolTipProps extends IconProps {
   /** 提示的标题 */

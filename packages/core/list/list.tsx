@@ -4,7 +4,7 @@ interface ListProps {
   className: string;
 }
 
-const List: React.SFC<ListProps> = (props) => {
+export const List: React.SFC<ListProps> = (props) => {
   const { children, className = '', ...other } = props;
   return (
     <div {...other} className={`__list-container ${className || ''}`}>
@@ -14,5 +14,3 @@ const List: React.SFC<ListProps> = (props) => {
     </div>
   );
 };
-
-export default List;

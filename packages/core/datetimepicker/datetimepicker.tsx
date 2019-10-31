@@ -78,7 +78,7 @@ interface DefaultProps {
  * @class DatetimePicker
  * @extends {DateBasic}
  */
-export default class DatetimePicker extends DateBasic<DatetimePickerProps> {
+export class DatetimePicker extends DateBasic<DatetimePickerProps> {
   static setCDNUrl = (url) => {
     flatpickrCDNUrl = url;
   }

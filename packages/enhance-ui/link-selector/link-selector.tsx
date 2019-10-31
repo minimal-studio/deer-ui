@@ -36,7 +36,7 @@ interface State {
   selectedItems: any[];
 }
 
-export default class LinkSelector extends UIComponent<LinkSelectorProps, State> {
+export class LinkSelector extends UIComponent<LinkSelectorProps, State> {
   static defaultProps = {
     mappers: {
       child: 'child',

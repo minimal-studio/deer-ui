@@ -108,7 +108,7 @@ const calculateOverlayPosition = (options) => {
   return posiInfo;
 };
 
-export default class DropdownWrapper extends React.PureComponent<DropdownWrapperProps, State> {
+export class DropdownWrapper extends React.PureComponent<DropdownWrapperProps, State> {
   static defaultProps = {
     withInput: true,
     menuTitle: 'Title',

@@ -1,1 +1,1 @@
-export { default as LinkSelector } from './link-selector';
+export * from './link-selector';

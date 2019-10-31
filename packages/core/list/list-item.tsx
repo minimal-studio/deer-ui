@@ -4,7 +4,7 @@ interface ListItemProps {
   className: string;
 }
 
-const ListItem: React.SFC<ListItemProps> = (props) => {
+export const ListItem: React.SFC<ListItemProps> = (props) => {
   const { children, className = '', ...other } = props;
   return (
     <div {...other} className={`list-item ${className || ''}`}>
@@ -14,5 +14,3 @@ const ListItem: React.SFC<ListItemProps> = (props) => {
     </div>
   );
 };
-
-export default ListItem;

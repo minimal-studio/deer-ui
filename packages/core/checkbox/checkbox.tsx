@@ -8,10 +8,8 @@ const defaultProps = {
   n: 'check'
 };
 
-const Checkbox = forwardRef<Radio, RadioProps>((props, ref?) => (
+export const Checkbox = forwardRef<Radio, RadioProps>((props, ref?) => (
   <Radio {...props} ref={ref} />
 ));
 
 Checkbox.defaultProps = defaultProps;
-
-export default Checkbox;

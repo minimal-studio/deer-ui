@@ -1,5 +1,1 @@
-import DateShortcut from './date-shortcut';
-
-export {
-  DateShortcut
-};
+export * from './date-shortcut';

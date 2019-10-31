@@ -5,14 +5,14 @@ import { tuple } from '@mini-code/base-func/utils/type';
 
 import { $T, $T_IN } from '@dear-ui/ui-config';
 import SelectorBasic, { SelectorValuesDescription, SelectorBasicProps } from '../selector-basic';
-import DropdownWrapper, { DropdownWrapperProps } from '../dropdown-wrapper/dropdown-wrapper';
+import { DropdownWrapper, DropdownWrapperProps } from '../dropdown-wrapper';
 import { MenuItem } from '../menu';
 // import Radio from './radio';
 
 const positionList = tuple('button', 'top', 'left', 'right', 'button,left', 'button,right', 'top,left', 'top,right');
 export type DropdownPosition = (typeof positionList)[number];
 
-export interface DropdownMenuProps extends SelectorBasicProps, DropdownWrapperProps {
+export interface DropdownProps extends SelectorBasicProps, DropdownWrapperProps {
   // /** 所有的下拉参数的配置 */
   // values: SelectorValuesDescription;
   /** 给 dropdownMenu 的 class */
@@ -70,7 +70,7 @@ const itemActiveFilter = (val, targetVal) => {
  * @class DropdownMenu
  * @extends {SelectorBasic}
  */
-export default class DropdownMenu extends SelectorBasic<DropdownMenuProps> {
+export class Dropdown extends SelectorBasic<DropdownProps> {
   static defaultProps = {
     withInput: true,
     needAction: true,

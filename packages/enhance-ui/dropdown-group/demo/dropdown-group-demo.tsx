@@ -1,5 +1,5 @@
 import React from 'react';
-import DropdownGroup from '../dropdown-group';
+import { DropdownGroup } from '../dropdown-group';
 
 const Test1 = () => {
   const groupData = {

@@ -10,9 +10,9 @@ import { Color, Children } from '@dear-ui/utils/props';
 import { ApiRename } from '@dear-ui/utils/rename';
 import { ToolTip } from '../tooltip';
 import { Label } from '../label';
-import Dropdown, { DropdownMenuProps } from '../dropdown/dropdown-menu';
+import { Dropdown, DropdownProps } from '../dropdown/dropdown';
 
-interface TitleFormSelector extends DropdownMenuProps {
+interface TitleFormSelector extends DropdownProps {
   /** 如果为 type === selector，则渲染 DropdownMenu，其余属性传入 DropdownMenu 组件 */
   type?: 'selector';
   ref?: string;

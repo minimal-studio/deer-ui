@@ -1,8 +1,7 @@
 import React from 'react';
 
 import { $T } from '@dear-ui/ui-config';
-import { Icon, PureIcon } from '../icon';
-import { IconProps } from '../icon/icon';
+import { Icon, PureIcon, IconProps } from '../icon';
 
 export interface MenuProps {
   /** 内容 */

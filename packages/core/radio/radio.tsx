@@ -1,8 +1,7 @@
 import React from 'react';
 
 import { $T } from '@dear-ui/ui-config';
-import { Icon } from '../icon';
-import { IconProps } from '../icon/icon';
+import { Icon, IconProps } from '../icon';
 import SelectorBasic, { SelectorValuesDescription, SelectorBasicProps } from '../selector-basic';
 
 export interface RadioProps extends SelectorBasicProps, IconProps {

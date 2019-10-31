@@ -13,7 +13,7 @@ export interface LabelProps {
   children?: any;
 }
 
-const Label: React.SFC<LabelProps> = ({
+export const Label: React.SFC<LabelProps> = ({
   className, text, color = 'default', tColor = 'white', children, ...other
 }) => {
   const child = children || text;
@@ -21,5 +21,3 @@ const Label: React.SFC<LabelProps> = ({
     <span {...other} className={`__label bg_${color} t_${tColor}${className ? ` ${className}` : ''}`}>{child}</span>
   );
 };
-
-export default Label;

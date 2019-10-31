@@ -1,37 +1,41 @@
-// import '@mini-code/base-func';
-
-// export * from './chart-dom';
-export * from './loading';
+/**
+ * 按照首字母顺序排序
+ */
 export * from './alert';
-export * from './toast';
-export * from './slider';
-export * from './pagination';
-// export * from './tip-button';
-export * from './icon';
-export * from './tip';
-export * from './label';
-export * from './tooltip';
-export * from './menu';
-
-export * from './notification';
-export * from './sub-content';
-
-// export * from './carousel';
-// export * from './captcha';
 export * from './avatar';
-// export * from './multiple-selector';
-export * from './switch-button';
-export * from './popover';
-// export * from './form-generator';
-export * from './datetimepicker';
-export * from './form-control';
 export * from './button';
-export * from './table';
-export * from './table-row';
-export * from './table-card';
-export * from './tabs';
-export * from './modal';
-export * from './selector-basic';
-export * from './steps';
 export * from './card';
+export * from './checkbox';
+export * from './click-away';
+export * from './date-basic';
+export * from './date-shortcut';
+export * from './datetimepicker';
+export * from './dropdown';
+export * from './dropdown-wrapper';
+export * from './form-control';
 export * from './grid';
+export * from './icon';
+export * from './input';
+export * from './input-number';
+export * from './input-selector';
+export * from './label';
+export * from './list';
+export * from './loading';
+export * from './menu';
+export * from './modal';
+export * from './notification';
+export * from './pagination';
+export * from './popover';
+export * from './radio';
+export * from './selector-basic';
+export * from './slider';
+export * from './steps';
+export * from './sub-content';
+export * from './switch-button';
+export * from './table';
+export * from './table-card';
+export * from './table-row';
+export * from './tabs';
+export * from './toast';
+export * from './tooltip';
+export * from './tip';

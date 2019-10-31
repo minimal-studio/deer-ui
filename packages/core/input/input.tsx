@@ -3,10 +3,8 @@ import React, { Component } from 'react';
 import classnames from 'classnames';
 import { Call, HasValue, IsFunc } from '@mini-code/base-func';
 import { Sizes } from '@dear-ui/utils/props';
-import { Icon } from '../icon';
+import { Icon, IconProps } from '../icon';
 import { Button } from '../button';
-
-import { IconProps } from '../icon/icon';
 
 type FilterType = string | number;
 
@@ -82,7 +80,7 @@ let defaultShowInputTitle = true;
  * @class Input
  * @extends {Component}
  */
-export default class Input extends Component<InputProps, State> {
+export class Input extends Component<InputProps, State> {
   static defaultProps = {
     required: false,
     forceToSelect: false,

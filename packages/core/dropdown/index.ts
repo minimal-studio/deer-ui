@@ -1,6 +1,6 @@
-import DropdownMenu from './dropdown-menu';
+import { Dropdown } from './dropdown';
 
-const Dropdown = DropdownMenu;
+const DropdownMenu = Dropdown;
 
 export {
   DropdownMenu,

@@ -110,7 +110,7 @@ const defaultSortIgnores: string[] = ['action', 'checkbox'];
  * @class Table
  * @extends {ColumnFilter}
  */
-export default class Table extends ColumnFilter<TableProps, State> {
+export class Table extends ColumnFilter<TableProps, State> {
   static defaultProps = {
     sortIgnores: [],
     fixedLeftKeys: [],

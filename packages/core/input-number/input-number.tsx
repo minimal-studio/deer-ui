@@ -4,7 +4,7 @@ import { ToFixed } from '@mini-code/base-func';
 import NumTransformToCN from '@mini-code/base-func/num-to-cn';
 import InputVerifyClass, { InputVerifyClassProps } from '../form-control/input-verify-class';
 
-export interface InputVerifyProps extends InputVerifyClassProps {
+export interface InputNumberProps extends InputVerifyClassProps {
   /** 控件类型 */
   type?: 'input' | 'password';
   /** 是否开启数字转中文 */
@@ -39,7 +39,7 @@ const FormTip = ({ children }) => {
  * @class InputNumber
  * @extends {InputVerifyClass}
  */
-export default class InputNumber extends InputVerifyClass<InputVerifyProps> {
+export class InputNumber extends InputVerifyClass<InputNumberProps> {
   render() {
     const { matchLen, matchRange } = this.state;
     const {
