@@ -177,45 +177,43 @@ const columns = [
       let table;
 
       return (
-        <div>
-          <div className="mb10">
-            <span className="btn theme mr10" onClick={e => {
-              let nextKeyMapper = [...columns];
-              nextKeyMapper.splice(-1, 1);
-              setKeyMapper(nextKeyMapper)
-            }}>减少最后一个 columns</span>
-            <span className="btn green mr10" onClick={e => {
-              let nextKeyMapper = [...columns, {
-                key: 'len' + columns.length
-              }];
-              setKeyMapper(nextKeyMapper)
-            }}>增加一个 columns</span>
-            <span className="btn red mr10" onClick={e => {
-              let nextRecords = [...records, records[0]];
-              setRecords(nextRecords)
-            }}>增加一条记录</span>
-            <span className="btn orange mr10" onClick={e => {
-              let nextRecords = [...records].slice(0, records.length - 1);
-              setRecords(nextRecords)
-            }}>减少一条记录</span>
-            <hr />
-            <Table
-              columns={_keyMapper}
-              ref={e => table = e}
-              checkedOverlay={(
-                <span className="btn theme mu10" onClick={e => table.clearCheckeds()}>
-                  清除所有的以选中项
-                </span>
-              )}
-              rowKey={record => record.id}
-              height={200}
-              needCheck
-              needCount
-              onChange={(emitVal, config) => {
-                console.log(emitVal, config)
-              }}
-              records={_records} />
-          </div>
+        <div className="mb10">
+          <span className="btn theme mr10" onClick={e => {
+            let nextKeyMapper = [...columns];
+            nextKeyMapper.splice(-1, 1);
+            setKeyMapper(nextKeyMapper)
+          }}>减少最后一个 columns</span>
+          <span className="btn green mr10" onClick={e => {
+            let nextKeyMapper = [...columns, {
+              key: 'len' + columns.length
+            }];
+            setKeyMapper(nextKeyMapper)
+          }}>增加一个 columns</span>
+          <span className="btn red mr10" onClick={e => {
+            let nextRecords = [...records, records[0]];
+            setRecords(nextRecords)
+          }}>增加一条记录</span>
+          <span className="btn orange mr10" onClick={e => {
+            let nextRecords = [...records].slice(0, records.length - 1);
+            setRecords(nextRecords)
+          }}>减少一条记录</span>
+          <hr />
+          <Table
+            columns={_keyMapper}
+            ref={e => table = e}
+            checkedOverlay={(
+              <span className="btn theme mu10" onClick={e => table.clearCheckeds()}>
+                清除所有的以选中项
+              </span>
+            )}
+            rowKey={record => record.id}
+            height={200}
+            needCheck
+            needCount
+            onChange={(emitVal, config) => {
+              console.log(emitVal, config)
+            }}
+            records={_records} />
         </div>
       )
     }
