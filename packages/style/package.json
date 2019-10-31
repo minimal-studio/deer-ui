@@ -1,5 +1,9 @@
 {
   "name": "@dear-ui/ui-style",
   "version": "1.0.0",
-  "private": true
+  "private": true,
+  "scripts": {
+    "complie:all:scss": "node-sass ./style/all.scss ../../dist/default.css --output-style compressed",
+    "complie:scss": "node-sass ./style/default.scss ../../dist/default.css --output-style compressed"
+  }
 }
