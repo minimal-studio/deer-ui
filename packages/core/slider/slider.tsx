@@ -4,7 +4,7 @@ import classnames from 'classnames';
 
 import { InputNumber } from '../input-number';
 
-interface RangerProps {
+interface SliderProps {
   /** 值改变的回调 */
   onChange: (value) => void;
   /** 默认值 */
@@ -32,10 +32,10 @@ interface State {
  * 拖动的选择控件
  *
  * @export
- * @class Ranger
+ * @class Slider
  * @extends {Component}
  */
-export default class Ranger extends Component<RangerProps, State> {
+export default class Slider extends Component<SliderProps, State> {
   static defaultProps = {
     basicUnit: 1,
     disabled: false,

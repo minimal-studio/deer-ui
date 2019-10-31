@@ -142,13 +142,13 @@ export class DateShortcut extends DateBasic<DateShortcutProps, {
         outside
         trigger="hover"
         overlay={({ hide }) => (
-          <div className="date-helper-group" style={style}>
-            <div className="date-helper">
+          <div className="date-shortcut" style={style}>
+            <div className="wrapper">
               {
                 _dateHelperInfo.map((item, idx) => {
                   const text = item.t;
                   return (
-                    <span className={`${idx === activeIdx ? 'active ' : ''}date-helper-btn`}
+                    <span className={`action-btn${idx === activeIdx ? ' active' : ''}`}
                       onClick={(e) => {
                         hide();
                         this.generateDate(item, idx);

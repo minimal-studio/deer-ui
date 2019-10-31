@@ -133,7 +133,7 @@ export class DatetimePicker extends DateBasic<DatetimePickerProps> {
 
   componentWillUnmount() {
     if (this.datepicker) this.datepicker.destroy();
-    this.popTipEntity.destroy();
+    if (this.popTipEntity) this.popTipEntity.destroy();
     this._id = '';
   }
 

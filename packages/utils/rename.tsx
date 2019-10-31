@@ -9,7 +9,7 @@ import React from 'react';
  */
 const ComponentRename = (NewComponent, oldComponentName: string, newComponentName: string) => {
   return (props) => {
-    console.warn(`${oldComponentName} 要废弃了，请使用 ${newComponentName} 代替`);
+    console.warn(`请将组件 ${oldComponentName} 改为 ${newComponentName}`);
     return (
       <NewComponent {...props}/>
     );

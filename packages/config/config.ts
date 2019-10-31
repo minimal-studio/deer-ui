@@ -2,11 +2,8 @@ import { defineGlobalScope } from '@mini-code/base-func/registe-global-funcs';
 import { IsFunc } from '@mini-code/base-func';
 import chKeyMapper from '@dear-ui/i18n/zh-CN';
 import enKeyMapper from '@dear-ui/i18n/en-US';
+import { ApiRename } from '@dear-ui/utils';
 import defaultIconMapper from './icon-mapper';
-
-const renameFunc = (oldApiName: string, newApiName: string) => {
-  console.warn(`${oldApiName} 要废弃了，请使用 ${newApiName}.`);
-};
 
 export interface UkeLangStruct {
   [lang: string]: {
@@ -73,7 +70,7 @@ const $T_IN = _translate(ukeLangConfig);
 const $T = _translate(translateMapper);
 
 function setUkeLang(lang: string) {
-  renameFunc('setUkeLang', 'setUILang');
+  ApiRename('setUkeLang', 'setUILang');
   setUILang(lang);
 }
 
@@ -82,7 +79,7 @@ function setUILang(lang: string) {
 }
 
 function setUkeLangConfig(config: UkeLangStruct) {
-  renameFunc('setUkeLangConfig', 'setUILangConfig');
+  ApiRename('setUkeLangConfig', 'setUILangConfig');
   setUILangConfig(config);
 }
 
@@ -106,7 +103,7 @@ function setLangTranslate(nextTranslate) {
 }
 
 function setUkelliConfig(config: typeof UIConfig) {
-  renameFunc('setUkelliConfig', 'setUIConfig');
+  ApiRename('setUkelliConfig', 'setUIConfig');
   return setUIConfig(config);
 }
 
@@ -125,7 +122,7 @@ export function getIsMobile() {
 }
 
 function getUkelliConfig(configKey: string) {
-  renameFunc('setUkelliConfig', 'setUIConfig');
+  ApiRename('setUkelliConfig', 'setUIConfig');
   return getUIConfig(configKey);
 }
 

@@ -6,10 +6,10 @@ import ColumnFilter from '../table/column-filter';
  * 卡片式表格渲染模版
  *
  * @export
- * @class CardTable
+ * @class TableCard
  * @extends {ColumnFilter}
  */
-export default class CardTable extends ColumnFilter {
+export default class TableCard extends ColumnFilter {
   render() {
     const { records } = this.props;
     const columns = this.getColumns();
@@ -19,7 +19,7 @@ export default class CardTable extends ColumnFilter {
     }
 
     return (
-      <div className="record-items">
+      <div className="table-card">
         {
           records.map((record, idx) => (
             <div className="item" key={idx}>

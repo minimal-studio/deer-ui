@@ -8,7 +8,6 @@
   ],
   "scripts": {
     "publish:all": "npm publish ./dist --access public",
-    "complie:scss": "node-sass ./style/default.scss dist/default.css --output-style compressed",
     "release": "npm run build:ts; npm run complie:scss; npm run publish:all",
     "build:ts": "rm -rf ./dist; tsc; npm run copy-files-ts; npm run copy-style",
     "copy-files-ts": "node ./scripts/copy-files-ts",

@@ -1,5 +1,5 @@
 import React from 'react';
-import { CardTable, DescHelper } from '..';
+import { TableCard, DescHelper } from '..';
 import { ShowModal } from '../../modal';
 
 const test1 = () => {
@@ -61,7 +61,7 @@ const test1 = () => {
     },
   ];
   return (
-    <CardTable
+    <TableCard
       columns={columns}
       records={records} />
   );
