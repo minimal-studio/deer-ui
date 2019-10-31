@@ -237,7 +237,7 @@ $tdPadding: 10px;
     // background-color: $tableBodyBgColor;
     tr {
       &.hovering {
-        background-color: rgba($themeColor, 0.08) !important;
+        background-color: rgba($blue, 0.08) !important;
       }
       &.highlight {
         background-color: rgba($themeColor, 0.2) !important;
