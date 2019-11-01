@@ -4,7 +4,7 @@
 // import themeConfig from './docz/theme-config/config';
 
 export default {
-  // dest: 'docz-dist',
+  dest: '../public',
   typescript: true,
   title: 'Dear-UI',
   description: 'Dear-UI, 轻量级 React UI 框架',
@@ -22,8 +22,8 @@ export default {
     'Config',
     'More',
   ],
-  files: 'temp/**/*.mdx',
-  // files: 'src/pages/**/*.mdx',
+  // files: 'temp/**/*.mdx',
+  files: 'src/pages/**/*.mdx',
   // notUseSpecifiers: true,
   // filterComponents: files => files.filter(filepath => /[w-]*.(js|jsx|ts|tsx)$/.test(filepath)),
   // indexHtml: 'docz/index.html',

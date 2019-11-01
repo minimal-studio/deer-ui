@@ -19,7 +19,6 @@ import MockData from '@dear-ui/utils/mock-data';
   {
     () => {
       let longText = MockData[0];
-
       const columns = [
         {
           key: 'username',
@@ -37,7 +36,6 @@ import MockData from '@dear-ui/utils/mock-data';
         {key: 'desc3'},
         {key: 'desc4'},
       ]
-
       const records = [
         {
           username: 'alex',
@@ -76,9 +74,11 @@ import MockData from '@dear-ui/utils/mock-data';
               )
             })
           }
-          <DescHelper
-            columns={columns}
-            record={records[activeIdx]} />
+          <div>
+            <DescHelper
+              columns={columns}
+              record={records[activeIdx]} />
+          </div>
         </div>
       )
     }

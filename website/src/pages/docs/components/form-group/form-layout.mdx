@@ -8,7 +8,7 @@ import { useState } from 'react'
 import { Playground, Props } from 'docz'
 import { FormLayout } from '@dear-ui/enhance-ui/form-layout';
 import { Loading } from '@dear-ui/core/loading';
-import FormLayoutDemo from '@dear-ui/enhance-ui/form-generator/demo/form-layout-demo'
+import FormLayoutDemo from '@dear-ui/enhance-ui/form-layout/demo/form-layout-demo'
 
 # FormLayout
 
@@ -238,43 +238,45 @@ import FormLayoutDemo from '@dear-ui/enhance-ui/form-generator/demo/form-layout-
               resDesc: '成功'
             })
           }}>使用 FormLayout 的 showResDesc 接口显示 Toast 提示</span>
-          <Loading loading={state.loading}>
-            {
-              !state.loading && (
-                <FormLayout
-                  formBtns={[
-                    {
-                      action: (formRef, actingRef) => {
-                        console.log(formRef.value, actingRef);
+          <div>
+            <Loading loading={state.loading}>
+              {
+                !state.loading && (
+                  <FormLayout
+                    formBtns={[
+                      {
+                        action: (formRef, actingRef) => {
+                          console.log(formRef.value, actingRef);
+                        },
+                        type: 'submit',
+                        text: '测试按钮, 带预检查',
+                        actingRef: 'forTest'
                       },
-                      type: 'submit',
-                      text: '测试按钮, 带预检查',
-                      actingRef: 'forTest'
-                    },
-                    {
-                      action: () => {
-                        formRef.clearValue();
-                      },
-                      text: '清空内容'
-                    }
-                  ]}
-                  ref={e => formRef = e}
-                  onChange={(value, ref, val) => {
-                    if(ref == 'ref1') {
-                      const nextState = [...state.formOptions];
-                      // 更改新 formOptions 的目标的 values
-                      nextState[1].values = {...valuesMapper[val]};
-                      nextState[2].values = valuesMapper[val];
-                      setState({
-                        ...state,
-                        formOptions: nextState
-                      })
-                    }
-                  }}
-                  formOptions={state.formOptions}/>
-              )
-            }
-          </Loading>
+                      {
+                        action: () => {
+                          formRef.clearValue();
+                        },
+                        text: '清空内容'
+                      }
+                    ]}
+                    ref={e => formRef = e}
+                    onChange={(value, ref, val) => {
+                      if(ref == 'ref1') {
+                        const nextState = [...state.formOptions];
+                        // 更改新 formOptions 的目标的 values
+                        nextState[1].values = {...valuesMapper[val]};
+                        nextState[2].values = valuesMapper[val];
+                        setState({
+                          ...state,
+                          formOptions: nextState
+                        })
+                      }
+                    }}
+                    formOptions={state.formOptions}/>
+                )
+              }
+            </Loading>
+          </div>
         </div>
       )
     }
@@ -411,20 +413,22 @@ import FormLayoutDemo from '@dear-ui/enhance-ui/form-generator/demo/form-layout-
           <span className="btn theme" onClick={e => {
             setFormOptions(formOptions1)
           }}>赋值 FormOptions</span>
-          <FormLayout
-            formBtns={[
-              {
-                action: (formRef, actingRef) => {
-                  setFormOptions([])
+          <div>
+            <FormLayout
+              formBtns={[
+                {
+                  action: (formRef, actingRef) => {
+                    setFormOptions([])
+                  },
+                  type: 'submit',
+                  text: '清空 FormOptions',
+                  color: 'red',
+                  actingRef: 'forTest'
                 },
-                type: 'submit',
-                text: '清空 FormOptions',
-                color: 'red',
-                actingRef: 'forTest'
-              },
-            ]}
-            ref={e => formRef = e}
-            formOptions={formOptions}/>
+              ]}
+              ref={e => formRef = e}
+              formOptions={formOptions}/>
+          </div>
         </div>
       )
     }

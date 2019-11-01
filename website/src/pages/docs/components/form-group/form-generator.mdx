@@ -7,8 +7,7 @@ menu: FormGenerator
 import { Playground, Props } from 'docz'
 import { FormGenerator } from '@dear-ui/enhance-ui/form-generator';
 import { Captcha } from '@dear-ui/enhance-ui/captcha';
-
-import formOptions from '@dear-ui/enhance-ui/form-generator/demo/form-options-demo';
+import formOptions from '@dear-ui/enhance-ui/form-layout/demo/form-options-demo';
 
 # FormGenerator
 
@@ -28,16 +27,17 @@ import formOptions from '@dear-ui/enhance-ui/form-generator/demo/form-options-de
           }, 1000);
         }
       )
-      /** formOptions 查看 ./demo/form-options-demo.js */
       let formRef;
       return (
         <div>
-          <FormGenerator
-            ref={e => formRef = e}
-            onChange={(values, ref, val) => {
-              console.log(values, ref, val)
-            }}
-            formOptions={formOptions}/>
+          <div>
+            <FormGenerator
+              ref={e => formRef = e}
+              onChange={(values, ref, val) => {
+                console.log(values, ref, val)
+              }}
+              formOptions={formOptions}/>
+          </div>
           <span className="btn theme flat mr10" onClick={e => {
               console.log(formRef, formRef.value);
           }}>提交</span>
