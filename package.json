@@ -12,7 +12,7 @@
     "build:ts": "rm -rf ./dist; tsc; npm run copy-files-ts; npm run copy-style",
     "copy-files-ts": "node ./scripts/copy-files-ts",
     "copy-style": "cp -R ./style ./dist/",
-    "dev:doc": "yarn workspace @dear-ui/ui-doc dev",
+    "dev:doc": "cd website; npm run dev",
     "deploy:doc": "cd ./website; yarn; yarn build",
     "test": "jest"
   },
