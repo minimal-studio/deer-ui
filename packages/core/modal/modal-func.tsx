@@ -98,13 +98,13 @@ const ModalsManager = connect(selector, windowManagerActions)((props) => {
 
 const Entity = {};
 
-function CloseModal(modalID: ModalID) {
+const CloseModal = (modalID: ModalID) => {
   if (!modalID) return;
   connectedStore.closeWindow(modalID);
-}
-function CloseAllModal() {
+};
+const CloseAllModal = () => {
   connectedStore.closeAllWindow();
-}
+};
 
 /**
  * 给对应的 type 的 modal 返回默认的 width
@@ -170,7 +170,7 @@ const checkModalContainer = () => {
 /**
  * @param {ShowModalParams} params
  */
-function ShowModal(params: ShowModalParams): ModalID {
+const ShowModal = (params: ShowModalParams): ModalID => {
   /** 用于检查是否已经渲染了最外层 div */
   checkModalContainer();
   /** @type {ShowModalParams} */
@@ -248,7 +248,7 @@ function ShowModal(params: ShowModalParams): ModalID {
   connectedStore.openWindow(options);
 
   return entityId;
-}
+};
 
 const ShowGlobalModal = ShowModal;
 const CloseGlobalModal = CloseModal;
