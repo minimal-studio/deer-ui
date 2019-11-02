@@ -1,14 +1,14 @@
 ---
-name: DropdownMenu
-route: /DropdownMenu
+name: Dropdown
+route: /Dropdown
 menu: Selector
 ---
 
 import { useState } from 'react'
 import { Playground, Props } from 'docz'
-import { DropdownMenu } from '@dear-ui/core/dropdown';
+import { Dropdown } from '@dear-ui/core/dropdown';
 
-# DropdownMenu
+# Dropdown
 
 > 基于 selector 的下拉选择器组件，支持多选
 
@@ -27,7 +27,7 @@ import { DropdownMenu } from '@dear-ui/core/dropdown';
       const [value, setValue] = useState('value1')
       return (
         <div className="mu10">
-          <DropdownMenu
+          <Dropdown
             onChange={val => {
               setValue(val)
             }}
@@ -54,7 +54,7 @@ import { DropdownMenu } from '@dear-ui/core/dropdown';
       const [valueMul, setValueMul] = useState([])
       return (
         <div className="mu10">
-          <DropdownMenu
+          <Dropdown
             onChange={val => {
               setValueMul(val)
             }}
@@ -87,7 +87,7 @@ import { DropdownMenu } from '@dear-ui/core/dropdown';
               dropdownRef.changeValue('value3')
             }}>把 Dropdown 实例中的更改为 value3</span>
           <br />
-          <DropdownMenu
+          <Dropdown
             ref={e => dropdownRef = e}
             onChange={val => {
               setValue(val)
@@ -117,7 +117,7 @@ import { DropdownMenu } from '@dear-ui/core/dropdown';
       const [valueMul, setValueMul] = useState([])
       return (
         <div className="mu10">
-          <DropdownMenu
+          <Dropdown
             onChange={val => {
               setValue(val)
             }}
@@ -128,7 +128,7 @@ import { DropdownMenu } from '@dear-ui/core/dropdown';
           <span className="ml10">输出值 {value}, 类型 {typeof value}</span>
           <hr />
           <h4>多选</h4>
-          <DropdownMenu
+          <Dropdown
             onChange={val => {
               setValueMul(val)
             }}
@@ -155,13 +155,13 @@ import { DropdownMenu } from '@dear-ui/core/dropdown';
       return (
         <div className="mu10">
           <span className="ms10">上左对齐</span>
-          <DropdownMenu
+          <Dropdown
             position="top,left"
             values={values}
           />
           <hr/>
           <span className="ms10">上右对齐</span>
-          <DropdownMenu
+          <Dropdown
             position="top,right"
             values={values}
           />
@@ -185,7 +185,7 @@ import { DropdownMenu } from '@dear-ui/core/dropdown';
       }
       return (
         <div className="mu10">
-          <DropdownMenu
+          <Dropdown
             outside
             values={values}
           />
@@ -216,7 +216,7 @@ import { DropdownMenu } from '@dear-ui/core/dropdown';
           <div style={{
             height: 200
           }}>
-            <DropdownMenu
+            <Dropdown
               outside
               scrollElem={() => containerRef}
               values={values}
@@ -242,7 +242,7 @@ import { DropdownMenu } from '@dear-ui/core/dropdown';
       }
       return (
         <div className="mu10">
-          <DropdownMenu
+          <Dropdown
             position="top,right"
             defaultValue="123"
             values={values}
@@ -267,7 +267,7 @@ import { DropdownMenu } from '@dear-ui/core/dropdown';
       const [valueMul, setValueMul] = useState(defaultValue);
       return (
         <div className="mu10">
-          <DropdownMenu
+          <Dropdown
             onChange={val => {
               setValueMul(val)
             }}
@@ -294,7 +294,7 @@ import { DropdownMenu } from '@dear-ui/core/dropdown';
       }
       return (
         <div className="mu10">
-          <DropdownMenu
+          <Dropdown
             withInput={false}
             values={values}
           />
@@ -306,4 +306,4 @@ import { DropdownMenu } from '@dear-ui/core/dropdown';
 
 ## Props
 
-<Props of={DropdownMenu} />
+<Props of={Dropdown} />

@@ -1,13 +1,13 @@
 ---
 name: FormGenerator
 route: /FormGenerator
-menu: FormGenerator
+menu: Form Generator
 ---
 
 import { Playground, Props } from 'docz'
-import { FormGenerator } from '@dear-ui/enhance-ui/form-generator';
+import { FormGenerator } from '@dear-ui/core/form-generator';
+import formOptions from '@dear-ui/core/form-layout/demo/form-options-demo';
 import { Captcha } from '@dear-ui/enhance-ui/captcha';
-import formOptions from '@dear-ui/enhance-ui/form-layout/demo/form-options-demo';
 
 # FormGenerator
 
@@ -28,6 +28,16 @@ import formOptions from '@dear-ui/enhance-ui/form-layout/demo/form-options-demo'
         }
       )
       let formRef;
+      const _formOptions = [
+        ...formOptions,
+        {
+          ref: 'captchCode',
+          type: 'customForm',
+          keyRef: 'captchKey',
+          title: '验证码',
+          getCustomFormControl: () => Captcha,
+        },
+      ]
       return (
         <div>
           <div>
@@ -36,12 +46,12 @@ import formOptions from '@dear-ui/enhance-ui/form-layout/demo/form-options-demo'
               onChange={(values, ref, val) => {
                 console.log(values, ref, val)
               }}
-              formOptions={formOptions}/>
+              formOptions={_formOptions}/>
           </div>
-          <span className="btn theme flat mr10" onClick={e => {
+          <span className="btn theme mr10" onClick={e => {
               console.log(formRef, formRef.value);
           }}>提交</span>
-          <span className="btn red flat" onClick={e => {
+          <span className="btn red" onClick={e => {
               formRef.clearValue();
           }}>清空表单</span>
         </div>

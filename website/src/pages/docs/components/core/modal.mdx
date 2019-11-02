@@ -25,14 +25,14 @@ import { Modal, ModalHelper } from '@dear-ui/core/modal';
       });
       return (
         <div style={{height: 300, position: 'relative'}}>
-          <span className="btn theme flat"
+          <span className="btn theme"
             onClick={e => setModal({
               isOpen: true,
               children: (
                 <div className="p20">内容</div>
               )
             })}>打开 Modal</span>
-          <span className="btn red flat ml10"
+          <span className="btn red ml10"
             onClick={e => setModal({
               isOpen: true,
               modalType: 'side',

@@ -1,14 +1,14 @@
 ---
 name: FormLayout
 route: /FormLayout
-menu: FormGenerator
+menu: Form Generator
 ---
 
 import { useState } from 'react'
 import { Playground, Props } from 'docz'
-import { FormLayout } from '@dear-ui/enhance-ui/form-layout';
+import { FormLayout } from '@dear-ui/core/form-layout';
 import { Loading } from '@dear-ui/core/loading';
-import FormLayoutDemo from '@dear-ui/enhance-ui/form-layout/demo/form-layout-demo'
+import FormLayoutDemo from '@dear-ui/core/form-layout/demo/form-layout-demo'
 
 # FormLayout
 
@@ -228,11 +228,11 @@ import FormLayoutDemo from '@dear-ui/enhance-ui/form-layout/demo/form-layout-dem
       return (
         <div>
           <h4>动态表单</h4>
-          <span className="btn theme flat mr10" onClick={e => setState({
+          <span className="btn theme mr10" onClick={e => setState({
             ...state,
             loading: !state.loading
           })}>模拟异步获取表单条件</span>
-          <span className="btn red flat" onClick={e => {
+          <span className="btn red" onClick={e => {
             formRef.showResDesc({
               hasErr: false,
               resDesc: '成功'

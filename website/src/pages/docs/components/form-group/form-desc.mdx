@@ -1,7 +1,7 @@
 ---
 name: FormGenerator 详述
 route: /G-Desc
-menu: FormGenerator
+menu: Form Generator
 ---
 
 # FormGenerator 方案
@@ -134,7 +134,7 @@ typeMapper = {
   'customForm': formFilter.getCustomForm,     // 自定义的组件接口，使用方式参考 FormLayout
   'captcha': Captcha,                         // 验证码
   'select-n': () => (<select></select>),      // 浏览器的原生 select 组件
-  'select': DropdownMenu,                     // DropdownMenu 下拉菜单
+  'select': Dropdown,                         // Dropdown 下拉菜单
   'input-selector': InputSelector,            // InputSelector 输入 + 选择器
   'input-range': Input + Input,               // 组合的 Input
   'input': Input,                             // Input
@@ -165,7 +165,7 @@ typeMapper = {
 
 ### 5. values
 
-给 [Selector选择器控件](/DropdownMenu) 选项
+给 [Selector选择器控件](/Dropdown) 选项
 
 -------------
 
