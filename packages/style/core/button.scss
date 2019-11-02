@@ -4,13 +4,17 @@
   appearance: none;
   background-color: #FFF;
   padding: 5px 24px;
+  font-size: 14px;
   border-radius: 3px;
   transition: background-color 0.1s ease, box-shadow 0.1s ease, color 0.1s ease;
   outline: none;
-  border: 0;
   position: relative;
   border: 1px solid transparent;
+  white-space: nowrap;
+  text-align: center;
+  font-weight: normal;
   min-width: 100px;
+  cursor: pointer;
 
   &.file-btn input {
     position: absolute;
@@ -21,54 +25,74 @@
     height: 100%;
     cursor: pointer;
   }
+
   &:focus {
     outline: none;
     @include formControlFocusShadow($themeColor, 0.4);
   }
+
   &:focus:active {
     outline: none;
   }
-  &:active,&.active {
+
+  &.disable,
+  &:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
+
+  &:active,
+  &.active {
     outline: none;
     box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3) !important;
   }
+
   &.xl {
     font-size: 20px;
     padding: 15px 48px;
   }
+
   &.lg {
     font-size: 18px;
     padding: 10px 36px;
   }
+
   &.md {
     font-size: 14px;
     padding: 6px 24px;
   }
+
   &.sm {
     font-size: 13px;
     padding: 5px 10px;
     min-width: 80px;
   }
+
   &.tiny {
     font-size: 12px;
     padding: 4px 8px;
     min-width: 60px;
   }
+
   @for $i from 1 through length($bgColorsWithTextColor) {
     $item: nth($bgColorsWithTextColor, $i);
-    
+
     &.#{map-get($item, name)} {
       $textColor: map-get($item, text);
       @include btnFlat(map-get($item, color), $textColor);
     }
   }
+
   &.default {
     border-color: #DDD;
   }
-  &.res,&.block {
+
+  &.res,
+  &.block {
     width: 100%;
     text-align: center;
   }
+
   // .btn-icon {
   //   margin-right: 10px;
   // }
@@ -78,14 +102,16 @@
     // background-color: transparent !important;
     color: #FFF;
     box-shadow: 0;
+
     @for $i from 1 through length($bgColorsWithTextColor) {
       $item: nth($bgColorsWithTextColor, $i);
-      
+
       &.#{map-get($item, name)} {
         $textColor: map-get($item, text);
         @include btnHola(map-get($item, color));
       }
     }
+
     &.default {
       border-color: #d1d1d1;
       color: #777;
@@ -93,16 +119,19 @@
   }
 }
 
-.link-btn,.link {
+.link-btn,
+.link {
   color: $themeColor;
   cursor: pointer;
   border-bottom: 1px solid transparent;
+
   &:hover {
     border-color: $themeColor;
   }
 }
 
-[class*=_btn],[class*=-btn] {
+[class*=_btn],
+[class*=-btn] {
   cursor: pointer;
 }
 
@@ -118,6 +147,7 @@
   0% {
     transform: rotate(0);
   }
+
   // 50% {
   //   transform: rotate(180deg);
   // }

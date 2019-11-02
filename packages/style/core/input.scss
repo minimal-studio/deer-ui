@@ -1,28 +1,56 @@
 $iconViewBgColor: $themeColor;
 
+input,
+textarea {
+  border: 1px solid;
+
+  &:focus {
+    outline: none !important;
+  }
+
+  &:hover {
+    @include focusBorder();
+  }
+}
+
+textarea.form-control {
+  width: 400px;
+  height: 100px;
+}
+
+input,
+textarea {
+  @include formControlFocus();
+}
+
 .input-verify {
   display: flex;
   align-items: stretch;
+
   &.error {
     .form-control {
       border-color: $red;
       background-color: $red;
     }
   }
+
   .form-tip {
     display: flex;
     align-items: center;
     margin-left: 10px;
     min-width: 100px;
   }
+
   .form-control {
     min-width: auto !important;
     width: 80px;
     text-align: center;
   }
+
   .option-btns {
     display: flex;
     user-select: none;
+
     // align-items: center;
     ._btn {
       display: flex;
@@ -37,55 +65,66 @@ $iconViewBgColor: $themeColor;
 }
 
 .input-control {
-  background-color: rgba(255,255,255,0.2);
+  background-color: rgba(255, 255, 255, 0.2);
   position: relative;
   display: inline-block;
-  .input-btn  {
+
+  .input-btn {
     // margin: -1px;
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
   }
+
   &:hover {
     .input-group {
       @include focusBorder();
     }
   }
+
   &.flow-title {
     .input-group {
       width: 100%;
     }
-    &.has-val,&.focusing {
+
+    &.has-val,
+    &.focusing {
       .title {
         font-size: 12px;
         transform: translateY(-120%);
       }
     }
+
     .title {
       position: absolute;
       // bottom: 4px;
     }
   }
-  &.has-icon {
-  }
+
+  &.has-icon {}
+
   &.has-btn {
     .input-group {
       border-top-right-radius: 0;
       border-bottom-right-radius: 0;
     }
   }
+
   &.focusing {
     .input-group {
       @include formFocusClass();
     }
+
     .title {
       color: $themeColor;
     }
   }
+
   .input-con {
     display: flex;
     align-items: stretch;
     height: 100%;
   }
+
   .input-group {
     position: relative;
     display: flex;
@@ -96,6 +135,7 @@ $iconViewBgColor: $themeColor;
     transition: background-color 0.2s ease, border 0.2s ease, box-shadow 0.2s ease;
     background-color: #fefefe;
   }
+
   .form-control {
     background-color: transparent;
     border: none;
@@ -107,13 +147,16 @@ $iconViewBgColor: $themeColor;
     box-shadow: none !important;
     // margin-top: 4px;
     margin: 0 10px;
+
     &:focus {
       background-color: transparent !important;
     }
+
     &::placeholder {
       color: #CCC;
     }
   }
+
   .title {
     transition: all ease 0.2s;
     font-size: 14px;
@@ -123,9 +166,11 @@ $iconViewBgColor: $themeColor;
     align-items: center;
     color: #999;
     margin-left: 10px;
+
     .icon {
       margin-right: 5px;
     }
+
     .text {
       display: inline-block;
     }
@@ -136,21 +181,26 @@ $iconViewBgColor: $themeColor;
       -moz-user-select: none !important;
       user-select: none !important;
     }
+
     // @include layoutCenter();
   }
 }
+
 .input-control {
   &.xl {
     padding: 5px 10px;
   }
 }
+
 .input-selector {
   display: flex;
   align-items: center;
+
   .menu-wrapper {
     min-width: 80px !important;
     background-color: #f3f3f3;
   }
+
   .input-group {
     border-radius: 0 3px 3px 0;
     margin-bottom: 0;
@@ -158,6 +208,7 @@ $iconViewBgColor: $themeColor;
     // margin-left: 5px;
   }
 }
+
 input[readonly] {
   background-color: #EEE !important;
 }

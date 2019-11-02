@@ -2,28 +2,21 @@
   position: relative;
   padding: 0.1px;
 }
-textarea.form-control {
-  width: 400px;
-  height: 100px;
-}
-input, textarea {
-  @include formControlFocus();
-}
 .form-control {
-  &select {
-    padding: 0;
-  }
   color: $black;
   display: inline-block;
   width: auto;
   background-color: #FFF;
-  // -webkit-border-radius: 3px;
+  height: 30px;
+  padding: 0 5px;
   border-radius: 3px;
-  // -webkit-box-shadow: none;
   box-shadow: none;
   border-color: #e7e7e7;
   background-color: #fefefe;
   transition: border-color 0.1s, background-color 0.1s;
+  &select {
+    padding: 0;
+  }
   &[type="range"] {
     width: auto;
   }

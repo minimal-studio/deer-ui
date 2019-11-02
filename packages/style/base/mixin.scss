@@ -11,15 +11,19 @@
     width: $width;
     height: $height;
   }
+
   #{$class}::-webkit-scrollbar-track {
     background-color: transparent; // background-color: $lightThemeScrollBg;
   }
+
   #{$class}::-webkit-scrollbar-thumb {
     border-radius: 5px;
     background-color: $lightThemeScrollThumb;
+
     &:hover {
       background-color: $lightThemeScrollThumbHover;
     }
+
     &:active {
       background-color: $lightThemeScrollThumbActive;
     }
@@ -87,6 +91,7 @@
 @mixin jump {
   animation-duration: 0.7s;
   animation-iteration-count: infinite;
+
   &:hover {
     animation-name: jumpAnimation;
   }
@@ -102,12 +107,15 @@
   0% {
     transform: rotate(0deg);
   }
+
   33% {
     transform: rotate(10deg);
   }
+
   66% {
     transform: rotate(15deg);
   }
+
   100% {
     transform: rotate(0deg);
   }
@@ -124,16 +132,20 @@
 @mixin btnFlat($btnBgColor, $btnTextColor: #FFF, $setBorder: false) {
   background-color: $btnBgColor;
   color: $btnTextColor;
-  @if $setBorder == true {
+
+  @if $setBorder==true {
     border-color: darken($btnBgColor, 15%);
   }
+
   &:hover {
     background-color: darken($btnBgColor, 5%);
   }
+
   &:active {
-    @if $setBorder == true {
+    @if $setBorder==true {
       border-color: darken($btnBgColor, 20%);
     }
+
     background-color: darken($btnBgColor, 20%);
   }
 }
@@ -142,9 +154,11 @@
   color: $btnBgColor;
   border-color: $btnBgColor;
   background-color: rgba($btnBgColor, 0.05);
+
   &:hover {
     box-shadow: 0 0 6px rgba($btnBgColor, 0.5);
   }
+
   &:active {
     box-shadow: 0 0 3px rgba($btnBgColor, 0.8);
   }
