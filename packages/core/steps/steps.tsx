@@ -1,4 +1,6 @@
 import React from 'react';
+import { Children } from '@dear-ui/utils/props';
+
 import Step from './step';
 
 interface StepsProps {
@@ -7,7 +9,7 @@ interface StepsProps {
   /** 传入 steps-container 的 class */
   className: string;
   /** children，可以为任意元素，但是最好为 Step */
-  children: JSX.Element | JSX.Element[];
+  children: Children;
   /** 所有 Step 的对齐方式，参考 layout 说明 */
   justify: 'center' | 'start' | 'end' | 'between' | 'around';
 }

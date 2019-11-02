@@ -4,9 +4,9 @@ import classnames from 'classnames';
 
 import { InputNumber } from '../input-number';
 
-interface SliderProps {
+export interface SliderProps {
   /** 值改变的回调 */
-  onChange: (value) => void;
+  onChange?: (value) => void;
   /** 默认值 */
   defaultValue?: number;
   /** 范围 */
@@ -233,7 +233,7 @@ export default class Slider extends Component<SliderProps, State> {
 
       this.value = val;
 
-      if (emitChangeEvent) onChange(val);
+      if (emitChangeEvent && onChange) onChange(val);
 
       !this.isControl && this.setState({
         stateValue: val

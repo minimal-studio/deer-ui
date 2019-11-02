@@ -13,8 +13,10 @@ export interface InputSelectorProps extends SelectorBasicProps {
   outputType?: InputProps['outputType'];
   /** Dropdown's position */
   position?: DropdownPosition;
+  /** defaultSelectorIdx */
+  defaultSelectorIdx?: number;
   /** onChange */
-  onChange: (inputVal, selectorVal) => void;
+  onChange?: (inputVal, selectorVal) => void;
 }
 
 interface InputSelectorState {

@@ -19,56 +19,60 @@ import { Slider } from '@dear-ui/core/slider';
 import { ToolTip } from '@dear-ui/core/tooltip';
 import Switch from '@dear-ui/core/switch-button/switch-c';
 import { InputSelector } from '@dear-ui/core/input-selector';
+import { FormOptionsItemEnhance } from './form-types';
+import { Button } from '../button';
+
+export type FormOptionsItem = FormOptionsItemEnhance;
 
 // import { Captcha } from '../captcha';
 
-export type FormGeneratorTypes = 'customForm'|
-'captcha'|
-'select-n'|
-'select'|
-'input-selector-s'|
-'input-selector'|
-'input-range'|
-'input'|
-'password'|
-'textarea'|
-'ranger'|
-'slider'|
-'text'|'radio'|
-'checkbox'|
-'button'|
-'datetime'|
-'datetimeRange'|
-'switch'|
-'hr';
+// export type FormGeneratorTypes = 'customForm'|
+// // 'captcha'|
+// 'select-n'|
+// 'select'|
+// 'input-selector-s'|
+// 'input-selector'|
+// 'input-range'|
+// 'input'|
+// 'password'|
+// 'textarea'|
+// 'ranger'|
+// 'slider'|
+// 'text'|'radio'|
+// 'checkbox'|
+// 'button'|
+// 'datetime'|
+// 'datetimeRange'|
+// 'switch'|
+// 'hr';
 
-export interface FormOptionsItem {
-  /** UI 类型 */
-  type: FormGeneratorTypes;
-  /** 显示标题 */
-  title?: string;
-  /** className */
-  className?: string;
-  /** 是否必填|选 */
-  required?: boolean;
-  /** UI 的引用 key */
-  ref?: string;
-  /** UI 的引用 key, 作用于 datetime */
-  refs?: string[];
-  /** UI 的引用 key, 暂时弃用 */
-  refu?: {
-    [ref: string]: string;
-  };
-  [anyPropsForComponent: string]: any;
-}
+// export interface FormOptionsItem {
+//   /** UI 类型 */
+//   type: FormOptionsItemEnhance;
+//   /** 显示标题 */
+//   title?: string;
+//   /** className */
+//   className?: string;
+//   /** 是否必填|选 */
+//   required?: boolean;
+//   /** UI 的引用 key */
+//   ref?: string;
+//   /** UI 的引用 key, 作用于 datetime */
+//   refs?: string[];
+//   /** UI 的引用 key, 暂时弃用 */
+//   refu?: {
+//     [ref: string]: string;
+//   };
+//   [anyPropsForComponent: string]: any;
+// }
 
 export type FormOptions = (FormOptionsItem | string)[];
 
 export type FormChangeEvent = (formValues, changeRef, changeValue) => void;
 
-export interface FormFilterProps<_FormOptions = FormOptions> {
-  formOptions?: _FormOptions;
-  conditionConfig?: _FormOptions;
+export interface FormFilterProps<T = FormOptions> {
+  formOptions?: T;
+  conditionConfig?: T;
   onChange?: FormChangeEvent;
 }
 
@@ -422,15 +426,13 @@ export default class FormFilterHelper<P extends FormFilterProps> extends UICompo
 
   getInputSelectorS = (config) => {
     const {
-      inputProps = {}, defaultValueForS, refForS, values, required, ref, ...other
+      defaultValueForS, refForS, required, ref, ...other
     } = config;
     return (
       <InputSelector
         {...other}
         ref={this.saveRef(ref)}
         defaultSelectorIdx={defaultValueForS}
-        values={values}
-        inputProps={inputProps}
         value={this.zeroFilter(this.getValue(ref), '')}
         onChange={(val, activeRef) => {
           const isEmptyVal = val == '';
@@ -571,15 +573,16 @@ export default class FormFilterHelper<P extends FormFilterProps> extends UICompo
 
   getButton = (config) => {
     const {
-      ref, className, text, onClick
+      ref, text, onClick, ...other
     } = config;
     return (
-      <span
-        className={`btn ${className}`}
-        ref={this.saveRef(ref)}
-        onClick={(e) => Call(onClick, e, ref)}>
+      <Button
+        {...other}
+        onClick={(e) => {
+          Call(onClick, e, ref)}
+        }>
         {text}
-      </span>
+      </Button>
     );
   }
 
@@ -650,7 +653,9 @@ export default class FormFilterHelper<P extends FormFilterProps> extends UICompo
   getSwitch = (config) => {
     const { ref, defaultValue, ...other } = config;
     return (
-      <Switch ref={this.saveRef(ref)} {...other}
+      <Switch
+        {...other}
+        ref={this.saveRef(ref)}
         checked={this.getValue(ref)}
         defaultChecked={defaultValue}
         onChange={(val) => this.changeValue(val, ref)} />
@@ -660,6 +665,7 @@ export default class FormFilterHelper<P extends FormFilterProps> extends UICompo
   getHr = () => <hr />
 
   typeMapper = {
+    button: this.getButton,
     customForm: this.getCustomForm,
     // captcha: this.getCaptcha,
     'select-n': this.getSelectNative,
@@ -672,13 +678,12 @@ export default class FormFilterHelper<P extends FormFilterProps> extends UICompo
     textarea: this.getTextArea,
     slider: this.getSlider,
     ranger: this.getSlider,
-    text: this.getText,
     radio: this.getRadio,
     checkbox: this.getCheckbox,
-    button: this.getButton,
     datetime: this.getDatetime,
     datetimeRange: this.getDatetimeRange,
     switch: this.getSwitch,
+    text: this.getText,
     hr: this.getHr,
   }
 

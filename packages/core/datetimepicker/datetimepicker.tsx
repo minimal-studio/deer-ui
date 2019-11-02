@@ -44,7 +44,6 @@ const loadJSFormCDN = () => {
 };
 
 export interface DatetimePickerProps extends DateBasicProps {
-  onChange: (changeVal) => void;
   /** 默认的时分秒的值 */
   defaultTimes?: string[];
   /** 日期控件类型 */
@@ -231,7 +230,7 @@ export class DatetimePicker extends DateBasic<DatetimePickerProps> {
     const {
       mode, needTime, lang, allowInput,
       // enableTime,
-      defaultTimes, onChange, ...others
+      defaultTimes, ...others
     } = this.props;
 
     const flatpickrOptions = {
@@ -248,9 +247,7 @@ export class DatetimePicker extends DateBasic<DatetimePickerProps> {
       mode,
       // wrap: true,
       allowInput,
-      // onChange: (rangeValues, dateStr, instance) => {
       onClose: this.handleChange
-      // onChange: this.handleChange
     };
 
     this.datepicker = window.flatpickr(this._refs[this._id], flatpickrOptions);

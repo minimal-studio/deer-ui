@@ -7,7 +7,7 @@ import { ToolTip } from '../tooltip';
 
 export interface TabsProps {
   /** children */
-  children: JSX.Element | JSX.Element[];
+  children: Children;
   /** tab 内容与 tab 标签是否在同一行 */
   inRow?: boolean;
   /** 是否只渲染 content */
