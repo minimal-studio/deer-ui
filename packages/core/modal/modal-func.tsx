@@ -194,8 +194,8 @@ const ShowModal = (params: ShowModalParams): ModalID => {
 
   const btnGroupDOM = _showFuncBtn && (
     <div className="btn-group">
-      <span className="btn flat default" onClick={(e) => onClickBtn(false)}>{$T_IN('取消')}</span>
-      <span className="btn flat theme" onClick={(e) => onClickBtn(true)}>{$T_IN('确定')}</span>
+      <span className="btn default" onClick={(e) => onClickBtn(false)}>{$T_IN('取消')}</span>
+      <span className="btn theme" onClick={(e) => onClickBtn(true)}>{$T_IN('确定')}</span>
     </div>
   );
 

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { DropdownMenu } from '..';
+import { Dropdown } from '..';
 
 const Test1 = () => {
   const values = {
@@ -10,7 +10,7 @@ const Test1 = () => {
   const [value, setValue] = useState('value1');
   return (
     <div className="mu10">
-      <DropdownMenu
+      <Dropdown
         onChange={(val) => {
           setValue(val);
         }}
@@ -29,7 +29,7 @@ const Test2 = () => {
   const [valueMul, setValueMul] = useState([]);
   return (
     <div className="mu10">
-      <DropdownMenu
+      <Dropdown
         onChange={(val) => {
           setValueMul(val);
         }}
@@ -54,7 +54,7 @@ const Test3 = () => {
           dropdownRef.changeValue('value3');
         }}>把 Dropdown 实例中的更改为 value3</span>
       <br />
-      <DropdownMenu
+      <Dropdown
         ref={(e) => { dropdownRef = e; }}
         onChange={(val) => {
           setValue(val);
@@ -76,7 +76,7 @@ const Test4 = () => {
   const [valueMul, setValueMul] = useState([]);
   return (
     <div className="mu10">
-      <DropdownMenu
+      <Dropdown
         onChange={(val) => {
           setValue(val);
         }}
@@ -86,7 +86,7 @@ const Test4 = () => {
       <span className="ml10">输出值 {value}, 类型 {typeof value}</span>
       <hr />
       <h4>多选</h4>
-      <DropdownMenu
+      <Dropdown
         onChange={(val) => {
           setValueMul(val);
         }}
@@ -105,12 +105,12 @@ const Test5 = () => {
   return (
     <div className="mu10">
       <span className="ms10">上左对齐</span>
-      <DropdownMenu
+      <Dropdown
         position="top,left"
         values={values}/>
       <hr/>
       <span className="ms10">上右对齐</span>
-      <DropdownMenu
+      <Dropdown
         position="top,right"
         values={values}/>
     </div>
@@ -124,7 +124,7 @@ const Test6 = () => {
   };
   return (
     <div className="mu10">
-      <DropdownMenu
+      <Dropdown
         outside
         values={values}/>
     </div>
@@ -147,7 +147,7 @@ const Test7 = () => {
       <div style={{
         height: 200
       }}>
-        <DropdownMenu
+        <Dropdown
           outside
           scrollElem={() => containerRef}
           values={values}/>
@@ -163,7 +163,7 @@ const Test8 = () => {
   };
   return (
     <div className="mu10">
-      <DropdownMenu
+      <Dropdown
         position="top,right"
         defaultValue="123"
         values={values}/>
@@ -180,7 +180,7 @@ const Test9 = () => {
   const [valueMul, setValueMul] = useState(defaultValue);
   return (
     <div className="mu10">
-      <DropdownMenu
+      <Dropdown
         onChange={(val) => {
           setValueMul(val);
         }}
@@ -199,7 +199,7 @@ const Test10 = () => {
   };
   return (
     <div className="mu10">
-      <DropdownMenu
+      <Dropdown
         withInput={false}
         values={values}/>
     </div>

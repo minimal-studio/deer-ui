@@ -5,7 +5,7 @@ import React from 'react';
 import {
   ShowModal, Modal, CloseModal, CloseAllModal
 } from '..';
-import { DropdownMenu, Pop } from '../..';
+import { Dropdown, Pop } from '../..';
 
 const Test1 = () => {
   return (
@@ -24,7 +24,7 @@ const Test1 = () => {
           内容
             <div style={{ height: 300 }}>
             </div>
-            <DropdownMenu
+            <Dropdown
               values={{
                 a: '123',
                 b: '456',

@@ -67,7 +67,7 @@ const itemActiveFilter = (val, targetVal) => {
  * 下拉菜单组件，带有输入搜索功能
  *
  * @export
- * @class DropdownMenu
+ * @class Dropdown
  * @extends {SelectorBasic}
  */
 export class Dropdown extends SelectorBasic<DropdownProps> {

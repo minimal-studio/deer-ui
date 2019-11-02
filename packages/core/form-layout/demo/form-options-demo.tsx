@@ -125,12 +125,6 @@ const formOptions: FormLayoutProps['formOptions'] = [
     title: '文本',
   },
   {
-    ref: 'captchCode',
-    type: 'captcha',
-    keyRef: 'captchKey',
-    title: '验证码',
-  },
-  {
     refs: ['s', 'e'],
     type: 'input-range',
     title: '范围',

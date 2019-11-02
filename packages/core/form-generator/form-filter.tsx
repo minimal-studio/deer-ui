@@ -20,7 +20,7 @@ import { ToolTip } from '@dear-ui/core/tooltip';
 import Switch from '@dear-ui/core/switch-button/switch-c';
 import { InputSelector } from '@dear-ui/core/input-selector';
 
-import { Captcha } from '../captcha';
+// import { Captcha } from '../captcha';
 
 export type FormGeneratorTypes = 'customForm'|
 'captcha'|
@@ -370,19 +370,19 @@ export default class FormFilterHelper<P extends FormFilterProps> extends UICompo
     });
   }
 
-  getCaptcha = (config) => {
-    const { ref, keyRef = 'CaptchaKey', ...other } = config;
-    return (
-      <Captcha
-        {...other}
-        value={this.getValue(ref, '')}
-        ref={this.saveRef('CaptchaCode')}
-        onCaptchaLoad={(captchKey) => this.changeValue(captchKey, keyRef)}
-        onChange={(captchaConfig) => {
-          this.changeValue(captchaConfig.value, ref);
-        }}/>
-    );
-  }
+  // getCaptcha = (config) => {
+  //   const { ref, keyRef = 'CaptchaKey', ...other } = config;
+  //   return (
+  //     <Captcha
+  //       {...other}
+  //       value={this.getValue(ref, '')}
+  //       ref={this.saveRef('CaptchaCode')}
+  //       onCaptchaLoad={(captchKey) => this.changeValue(captchKey, keyRef)}
+  //       onChange={(captchaConfig) => {
+  //         this.changeValue(captchaConfig.value, ref);
+  //       }}/>
+  //   );
+  // }
 
   getSelectNative = (config) => {
     const { values, ref } = config;
@@ -575,7 +575,7 @@ export default class FormFilterHelper<P extends FormFilterProps> extends UICompo
     } = config;
     return (
       <span
-        className={`btn flat ${className}`}
+        className={`btn ${className}`}
         ref={this.saveRef(ref)}
         onClick={(e) => Call(onClick, e, ref)}>
         {text}
@@ -661,7 +661,7 @@ export default class FormFilterHelper<P extends FormFilterProps> extends UICompo
 
   typeMapper = {
     customForm: this.getCustomForm,
-    captcha: this.getCaptcha,
+    // captcha: this.getCaptcha,
     'select-n': this.getSelectNative,
     select: this.getSelect,
     'input-selector-s': this.getInputSelectorS,

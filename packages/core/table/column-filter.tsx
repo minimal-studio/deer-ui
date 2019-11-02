@@ -13,7 +13,7 @@ import { Label } from '../label';
 import { Dropdown, DropdownProps } from '../dropdown/dropdown';
 
 interface TitleFormSelector extends DropdownProps {
-  /** 如果为 type === selector，则渲染 DropdownMenu，其余属性传入 DropdownMenu 组件 */
+  /** 如果为 type === selector，则渲染 Dropdown，其余属性传入 Dropdown 组件 */
   type?: 'selector';
   ref?: string;
 }

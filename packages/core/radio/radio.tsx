@@ -2,6 +2,7 @@ import React from 'react';
 
 import { $T } from '@dear-ui/ui-config';
 import { Icon, IconProps } from '../icon';
+import { Button } from '../button';
 import SelectorBasic, { SelectorValuesDescription, SelectorBasicProps } from '../selector-basic';
 
 export interface RadioProps extends SelectorBasicProps, IconProps {
@@ -44,13 +45,13 @@ export default class Radio extends SelectorBasic<RadioProps> {
     const isSelectedAll = isMultiple && selectedValue
       && selectedValue.length === this.values.length;
 
-    const selectAllBtn = isMultiple && checkAllBtn ? (
-      <span
-        className={`btn flat selectAllBtn ${isSelectedAll ? 'red' : 'theme'}`}
+    const selectAllBtn = isMultiple && checkAllBtn && (
+      <Button
+        color={!isSelectedAll ? 'theme' : 'red'}
         onClick={(e) => (isSelectedAll ? this.clearAll() : this.selectAll())}>
         {this.$T_IN(isSelectedAll ? '清除' : '全选')}
-      </span>
-    ) : null;
+      </Button>
+    );
 
     const radioGroup = this.values.map((item, idx) => {
       const { text, value, img } = item;
