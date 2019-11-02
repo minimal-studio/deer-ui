@@ -8,27 +8,17 @@ $transtionTimer: 300ms;
 $itemW: 360px;
 
 @mixin nitifyItem($bgColor, $textColor) {
-  border-left: 3px solid $bgColor;
+  // border-left: 3px solid $bgColor;
   // color: $textColor;
 
-  &:hover {
-    // background-color: rgba($bgColor, 1);
-    box-shadow: 0 12px 48px rgba(#000, 0.2);
-  }
   .notify-type-tip {
     // font-size: 30px;
     color: $bgColor;
   }
+
   .title {
     // border-color: rgba($bgColor, 1);
   }
-  // .close-btn {
-  //   // background-color: rgba($textColor, 1);
-  //   color: $textColor;
-  // }
-  // .action {
-  //   color: $textColor;
-  // }
 }
 
 #NOTIFICATION_CONTAINER {
@@ -42,12 +32,26 @@ $itemW: 360px;
     pointer-events: none;
 
     &.has-msg {
+      .notify-item {
+        pointer-events: all;
+      }
       .scroll-content {
-        padding: 40px 0 40px 40px;
+        padding: 40px 0;
         max-height: 90vh;
         overflow-y: auto;
         overflow-x: hidden;
-        pointer-events: all;
+      }
+
+      &.left {
+        .scroll-content {
+          padding-right: 40px;
+        }
+      }
+
+      &.right {
+        .scroll-content {
+          padding-left: 40px;
+        }
       }
     }
 
@@ -68,21 +72,19 @@ $itemW: 360px;
       box-shadow: 0 0 24px rgba(0, 0, 0, 0.2);
       position: relative;
       cursor: pointer;
-      // transition: all 0.3s ease;
+      // transition: box-shadow 0.3s ease;
       display: flex;
       // border-bottom: 1px dashed #CCC;
       margin-bottom: 10px;
       padding: 10px 20px;
       width: $itemW;
-      border-radius: 4px 0 0 4px;
-      // transition: all ease 0.2s;
       background-color: #FFF;
       pointer-events: auto;
       // transition: box-shadow ease 0.3s;
 
       &:hover {
         // transform: scale(1.02);
-        box-shadow: 0 12px 36px rgba(#000, 0.5);
+        box-shadow: 0 12px 36px rgba(#000, 0.2);
       }
 
       .title {
@@ -97,6 +99,7 @@ $itemW: 360px;
         right: 0;
         padding: 8px 18px;
         display: inline-block;
+
         &:hover {
           color: $themeColor;
           // color: #FFF;
@@ -116,12 +119,14 @@ $itemW: 360px;
         text-align: right;
         padding: 5px 0;
         display: flex;
+
         // width: 100%;
         .action-btn {
           display: inline-block;
           padding: 5px 10px;
           border-radius: 4px;
           border: 1px solid #DDD;
+
           &:hover {
             background-color: rgba(#000, 0.06);
           }
@@ -131,18 +136,23 @@ $itemW: 360px;
       &.normal {
         @include nitifyItem(#FFF, #444);
       }
+
       &.success {
         @include nitifyItem($green, #FFF);
       }
+
       &.error {
         @include nitifyItem($red, #FFF);
       }
+
       &.warn {
         @include nitifyItem($orange, #FFF);
       }
+
       &.black {
         @include nitifyItem($black, #FFF);
       }
+
       &.white {
         @include nitifyItem(#FFF, #333);
       }

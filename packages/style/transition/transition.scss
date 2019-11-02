@@ -148,12 +148,12 @@ $notifyTransDuration   : 300ms;
 // notify
 .notify-enter {
   opacity: 0.01;
-  transform: scale(0);
+  transform: scaleY(0);
 }
 
 .notify-enter.notify-enter-active {
-  transform-origin: right top;
-  transform: scale(1);
+  transform-origin: center top;
+  transform: scaleY(1);
   opacity: 1;
   transition: all $notifyTransDuration ease;
 }
