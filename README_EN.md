@@ -1,37 +1,28 @@
 # @dear-ui
 
-基于 React 的，可扩展的 UI 库。
+Base on React's UI lib. Make frontend's dev simpler and faster.
+
+<!-- [![Build Status](https://travis-ci.org/ukelli/dear-ui.svg?branch=master)](https://travis-ci.org/ukelli/dear-ui)
+[![install size](https://packagephobia.now.sh/badge?p=dear-ui)](https://packagephobia.now.sh/result?p=dear-ui) -->
 
 ## Support
 
-- 支持客户端渲染的 React 应用
-- 支持服务端渲染的 React 应用 (例如 Gatsby, Next)
+- Client side render React App
+- Server side render React App (like Gatsby, Next)
 
 ## Getting started
 
-### core
-
-核心 UI 库
-
 ```shell
-yarn add @dear-ui/core @mini-code/base-func unistore
+yarn add @dear-ui/all @mini-code/base-func unistore
 ```
 
-### enhance-ui
-
-增强 UI 库
-
-```shell
-yarn add @dear-ui/enhance-ui @dear-ui/core @mini-code/base-func unistore
-```
-
-## Usage
+### Use in project
 
 ```js
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { ShowModal, CloseModal } from '@dear-ui/core/modal';
-import { Button } from '@dear-ui/core/button';
+import { ShowModal, CloseModal } from '@dear-ui/all/core/modal';
+import { Button } from '@dear-ui/all/core/button';
 
 const handleClick = (e) => {
   const ModalID = ShowModal({
@@ -60,7 +51,7 @@ ReactDOM.render(<App />, document.querySelector('#Main'));
 git clone https://github.com/minimal-studio/dear-ui
 cd dear-ui
 yarn
-yarn dev:doc
+yarn docz:dev
 ```
 
 ## Reference
