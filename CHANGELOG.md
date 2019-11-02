@@ -32,7 +32,6 @@
 
 文件调整
 
-- 将 FormGenerator 调整到 enhance 目录中
 - 将文档单独放入 website 目录中，并且把所有组件的文档都放入其中
 
 ### 组件文件名更改
@@ -63,3 +62,7 @@
 ### Props 更改
 
 - Table 相关的 records -> dataRows
+
+### FormGenerator
+
+- 不再提供 captcha 的支持，需要通过扩展字段引入
