@@ -19,7 +19,7 @@
     "jsx": "react"
   },
   "include": [
-    "packages/*"
+    "./packages"
   ],
   "exclude": [
     "**/test/*",
