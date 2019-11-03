@@ -1,6 +1,6 @@
 import React from 'react';
 
-import "@dear-ui/ui-style/default-all.scss";
+import "./index.scss";
 
 export function RootWrapper({ children, theme }) {
   return children;
