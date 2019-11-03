@@ -2,8 +2,16 @@
   "name": "@dear-ui/core",
   "version": "4.0.0-alpha1.0",
   "scripts": {
-    "build": "npm run get:style:files; npm run copy:files",
+    "build": "npm run get:style:files; npm run copy:files; npm run complie:scss",
     "get:style:files": "sh ./get-style-file.sh",
-    "copy:files": "node ./copy-files"
+    "copy:files": "node ./copy-files",
+    "complie:scss": "node-sass ../../packages/core/style/default.scss -o ../../packages/core --output-style compressed"
+  },
+  "peerDependencies": {
+    "@mini-code/base-func": "^1.0.2",
+    "react": "^16.8.0",
+    "react-dom": "^16.8.0",
+    "react-transition-group": "^2.5.0",
+    "unistore": "^3.1.0"
   }
 }
