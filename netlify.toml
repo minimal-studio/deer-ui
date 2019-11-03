@@ -1,3 +1,4 @@
 [build]
-  command = "npm run deploy:doc"
-  publish = "./website/.docz/dist"
+  command = "npm run build"
+  publish = "public"
+  environment = { NODE_VERSION = "13.0.1" }
