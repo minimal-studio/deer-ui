@@ -2,7 +2,7 @@ import React, { Component, PureComponent } from 'react';
 
 import { DebounceClass, Call } from '@mini-code/base-func';
 import { Icon } from '@dear-ui/core/icon';
-import { getIsMobile } from '@dear-ui/ui-config';
+import { getIsMobile } from '@dear-ui/utils';
 
 interface Carousel3DProps {
   /**

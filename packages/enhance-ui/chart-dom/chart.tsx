@@ -17,15 +17,18 @@ export interface ChartComProps {
   height?: string | number;
   /** width */
   width?: string | number;
+  /** 加载外部资源成功的回调 */
+  onLoadDep?: () => void;
 }
 
 interface ChartComState {
   loading: boolean;
 }
 
-let chartjsURL = '';
+let chartjsURL = 'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.min.js';
 
 let isLoading = false;
+let isLoaded = false;
 
 export default class ChartCom extends PureComponent<ChartComProps, ChartComState> {
   /**
@@ -56,7 +59,7 @@ export default class ChartCom extends PureComponent<ChartComProps, ChartComState
     super(props);
 
     this.state = {
-      loading: !window.Chart,
+      loading: !isLoaded,
     };
   }
 
@@ -76,6 +79,8 @@ export default class ChartCom extends PureComponent<ChartComProps, ChartComState
     });
     Call(callback);
     isLoading = false;
+    isLoaded = true;
+    Call(this.props.onLoadDep);
   }
 
   renderChart = () => {

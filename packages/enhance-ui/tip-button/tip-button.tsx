@@ -44,7 +44,7 @@ export default class TipButton extends Component<TipButtonProps> {
 
   btnId = UUID()
 
-  popover: PopoverEntity
+  _popEntity: PopoverEntity
 
   prevNode
 
@@ -53,19 +53,17 @@ export default class TipButton extends Component<TipButtonProps> {
   constructor(props) {
     super(props);
     this.popoverLifeTimer = null;
-
-    this.popover = new PopoverEntity({ id: this.btnId });
   }
 
   componentWillUnmount() {
     this.clearTimer();
-    this.popover.destroy();
+    this._popEntity && this._popEntity.destroy();
   }
 
   closePopover() {
     const { onClose } = this.props;
     this.clearTimer();
-    this.popover.close();
+    this._popEntity && this._popEntity.close();
     Call(onClose);
   }
 
@@ -78,7 +76,10 @@ export default class TipButton extends Component<TipButtonProps> {
     const {
       timer, autoClose, popover, position
     } = this.props;
-    this.popover.show({
+    if (!this._popEntity) {
+      this._popEntity = new PopoverEntity({ id: this.btnId });
+    }
+    this._popEntity.show({
       elem: e.target,
       props: {
         position,
@@ -110,7 +111,7 @@ export default class TipButton extends Component<TipButtonProps> {
 
   setPopoverChildren(popover) {
     if (!this.prevNode) return;
-    this.popover.show({
+    this._popEntity.show({
       children: popover
     });
   }
