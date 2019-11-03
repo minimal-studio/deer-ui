@@ -1,4 +1,5 @@
 export * from './color';
+export * from './config';
 export * from './get-elem-offset';
 export * from './icon-mapper';
 export * from './load-stuff';

@@ -1,9 +1,8 @@
-import { defineGlobalScope } from '@mini-code/base-func/registe-global-funcs';
 import { IsFunc } from '@mini-code/base-func';
 import chKeyMapper from '@dear-ui/i18n/zh-CN';
 import enKeyMapper from '@dear-ui/i18n/en-US';
 import { ApiRename } from '@dear-ui/utils';
-import defaultIconMapper from './icon-mapper';
+import { defaultIconMapper } from './icon-mapper';
 
 export interface UkeLangStruct {
   [lang: string]: {
@@ -18,7 +17,7 @@ export interface UIConfigStruct {
 
 const defaultLanguage = 'zh-CN';
 
-const ukeLangConfig: UkeLangStruct = {
+const internalLangConfig: UkeLangStruct = {
   'zh-CN': chKeyMapper,
   'en-US': enKeyMapper,
 };
@@ -61,7 +60,7 @@ function _translate(langConfig) {
  * 内部翻译接口
  * @param {string} key 需要翻译的内容
  */
-const $T_IN = _translate(ukeLangConfig);
+const $T_IN = _translate(internalLangConfig);
 
 /**
  * 外部内容翻译接口
@@ -88,7 +87,7 @@ function setUkeLangConfig(config: UkeLangStruct) {
  * @param {UkeLangStruct} config
  */
 function setUILangConfig(config: UkeLangStruct) {
-  Object.assign(ukeLangConfig, config);
+  Object.assign(internalLangConfig, config);
 }
 
 /**
@@ -97,9 +96,6 @@ function setUILangConfig(config: UkeLangStruct) {
  */
 function setLangTranslate(nextTranslate) {
   Object.assign(translateMapper, nextTranslate);
-  window.$UKE && window.$UKE.registe({
-    $T, $T_IN, translateMapper
-  });
 }
 
 function setUkelliConfig(config: typeof UIConfig) {
@@ -113,7 +109,6 @@ function setUkelliConfig(config: typeof UIConfig) {
  */
 function setUIConfig(config: typeof UIConfig) {
   Object.assign(UIConfig, config);
-  window.$UKE && window.$UKE.registe(config);
   return UIConfig;
 }
 
@@ -175,5 +170,3 @@ export {
   setLangTranslate,
   setUILangConfig,
 };
-
-defineGlobalScope('$UKE', UIConfig);

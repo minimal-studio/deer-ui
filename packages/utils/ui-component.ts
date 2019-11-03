@@ -2,7 +2,7 @@
 import React, { Component, PureComponent } from 'react';
 import {
   getUIConfig, setUIConfig, $T, $T_IN
-} from '@dear-ui/ui-config';
+} from './config';
 
 /**
  * 用于提供所有组件的通用函数
