@@ -72,7 +72,7 @@ ChartCom.setChartJSPath('https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/C
       let chartDOM2;
       let chartDOM3;
       let chartDOM4;
-      const renderChart = () => {
+      const renderCharts = () => {
         setTimeout(() => {
           chartDOM1.renderChart();
           chartDOM2.renderChart();
@@ -80,7 +80,6 @@ ChartCom.setChartJSPath('https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/C
           chartDOM4.renderChart();
         }, 15)
       }
-      renderChart();
       const [mockData, setData] = useState(getMockData())
       return (
         <Grid container className="p10" space={20}>
@@ -89,6 +88,9 @@ ChartCom.setChartJSPath('https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/C
               type="bar"
               id="chartDOM1"
               options={options}
+              onLoadDep={e => {
+                renderCharts();
+              }}
               data={mockData} ref={e => chartDOM1 = e} />
           </Grid>
           <Grid lg={6}>
@@ -116,7 +118,7 @@ ChartCom.setChartJSPath('https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/C
             <span className="btn theme" onClick={e => {
               setData(getMockData())
               setTimeout(() => {
-                renderChart()
+                renderCharts()
               }, 10)
             }}>重新渲染</span>
           </Grid>

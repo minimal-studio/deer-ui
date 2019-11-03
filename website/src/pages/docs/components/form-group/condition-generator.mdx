@@ -7,7 +7,6 @@ menu: Form Generator
 import { Playground, Props } from 'docz'
 import { useState } from 'react'
 import { ConditionGenerator } from '@dear-ui/core/form-generator';
-import { setLangTranslate, setUILang } from '@dear-ui/ui-config'
 
 # ConditionGenerator
 
@@ -28,13 +27,13 @@ import { setLangTranslate, setUILang } from '@dear-ui/ui-config'
           'value1': '值1',
         },
       }
-      setLangTranslate(langMapper);
       return (
         <div>
           <span className="btn theme" onClick={e => {
             const nextLang = lang == 'zh-CN' ? 'en-US' : 'zh-CN';
+            {/* setLangTranslate(langMapper);
             setUILang(nextLang);
-            setLang(nextLang)
+            setLang(nextLang) */}
           }}>{lang}</span>
           <hr />
           <ConditionGenerator
