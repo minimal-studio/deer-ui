@@ -1,7 +1,6 @@
 {
   "name": "dear-ui",
   "version": "4.0.0-alpha1.0",
-  "main": "./index.js",
   "private": true,
   "workspaces": [
     "packages/*"
@@ -11,7 +10,7 @@
     "publish:core": "npm publish ./dist/core --access public",
     "publish:enhance": "npm publish ./dist/enhance-ui --access public",
     "publish:all:lerna": "lerna publish",
-    "release": "npm run build:all; npm run complie:scss; npm run publish:all:lerna",
+    "release": "npm run build:all; npm run publish:all:lerna",
     "build:all": "rm -rf ./dist; tsc; lerna run build",
     "copy-files-ts": "node ./scripts/copy-files-ts",
     "copy-style": "cp -R ./style ./dist/",
