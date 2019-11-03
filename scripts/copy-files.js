@@ -3,49 +3,53 @@
 const path = require('path');
 const fse = require('fs-extra');
 
-module.exports = (dir, packageOptions = {}) => {
-  if (!dir) return console.error('请输入 dir');
+module.exports = ({
+  outdir,
+  targetPackageJson,
+  /** 需要 copy 的文件 */
+  targetFiles = [],
+  packageExtraOptions = {}
+}) => {
+  if (!outdir) return console.error('请输入 outdir');
+  const buildPath = path.resolve(outdir, `package.json`);
 
   async function copyFile(file) {
-    const buildPath = path.resolve(__dirname, `../${dir}/`, path.basename(file));
+    const buildPath = path.resolve(__dirname, outdir, path.basename(file));
     await fse.copy(file, buildPath);
     console.log(`Copied ${file} to ${buildPath}`);
   }
 
   async function createPackageFile() {
-    const packageData = await fse.readFile(path.resolve(__dirname, '../package.json'), 'utf8');
-    const {
-      nyc, scripts, devDependencies, workspaces, ...packageDataOther
-    } = JSON.parse(
-      packageData,
-    );
-    const newPackageData = {
-      ...packageDataOther,
-      main: './core/index.js',
-      private: false,
-      ...packageOptions,
-    };
-    const buildPath = path.resolve(__dirname, `../${dir}/package.json`);
+    fse.readJson(targetPackageJson, (err, packageData) => {
+      if(err) console.log(err);
+      const {
+        nyc, scripts, devDependencies, workspaces, ...packageDataOther
+      } = packageData;
 
-    await fse.writeFile(buildPath, JSON.stringify(newPackageData, null, 2), 'utf8');
-    console.log(`Created package.json in ${buildPath}`);
-
-    return newPackageData;
-  }
-
-  async function prepend(file, string) {
-    const data = await fse.readFile(file, 'utf8');
-    await fse.writeFile(file, string + data, 'utf8');
+      const newPackageData = {
+        ...packageDataOther,
+        private: false,
+        ...packageExtraOptions,
+      };
+      const buildPath = path.resolve(outdir, `package.json`);
+  
+      fse.writeJson(buildPath, newPackageData, (err) => {
+        if(err) {
+          return console.log(err);
+        }
+        console.log(`Created package.json in ${buildPath}`);
+      });
+    });
   }
 
   async function run() {
     await Promise.all(
-      ['../README.md'].map((file) => {
+      targetFiles.map((file) => {
         const filePath = path.resolve(__dirname, file);
         copyFile(filePath);
       }),
     );
-    const packageData = await createPackageFile();
+    createPackageFile();
   }
 
   return run();
