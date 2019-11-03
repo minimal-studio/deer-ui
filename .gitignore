@@ -37,8 +37,6 @@ bower_components
 
 .DS_Store
 
-# galleries
-matrix-web-tour
 tmp
 .tmp
 .tags
@@ -55,5 +53,5 @@ package-lock.json
 
 dist
 .docz
-docz-dist
 for-testing
+/public
