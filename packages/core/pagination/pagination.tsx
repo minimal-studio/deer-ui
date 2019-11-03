@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { UIComponent } from '@dear-ui/utils/ui-component';
-import { getScreenHeight } from '@dear-ui/utils/screen';
-import { getScrollTop } from '@dear-ui/utils/scroll';
-import { getElementTop } from '@dear-ui/utils/get-elem-offset';
+import { UIComponent } from '../utils/ui-component';
+import { getScreenHeight } from '../utils/screen';
+import { getScrollTop } from '../utils/scroll';
+import { getElementTop } from '../utils/get-elem-offset';
 import Dropdown from '../dropdown';
 
 export interface DefaultPaginInfo {

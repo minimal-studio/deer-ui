@@ -2,7 +2,7 @@
 import React from 'react';
 
 import { Call, DateFormat, UUID } from '@mini-code/base-func';
-import { LoadScript } from '@dear-ui/utils';
+import { LoadScript } from '../utils';
 
 import { DateBasic, DateBasicProps } from '../date-basic';
 import { Icon } from '../icon';

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Children } from '@dear-ui/utils/props';
+import { Children } from '../utils/props';
 
 import Step from './step';
 

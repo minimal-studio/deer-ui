@@ -2,7 +2,7 @@ import React, { Component, PureComponent } from 'react';
 
 import { DebounceClass, Call } from '@mini-code/base-func';
 import { Icon } from '@dear-ui/core/icon';
-import { getIsMobile } from '@dear-ui/utils';
+import { getIsMobile } from '@dear-ui/core/utils';
 
 interface Carousel3DProps {
   /**
@@ -56,6 +56,8 @@ export default class Carousel3D extends Component<Carousel3DProps, {
   configLen
 
   eachItemRotate
+  
+  endPageX
 
   constructor(props) {
     super(props);

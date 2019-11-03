@@ -1,0 +1,1 @@
+cp -r "./style" "../../dist/core"

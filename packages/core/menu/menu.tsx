@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { $T } from '@dear-ui/utils';
+import { $T } from '../utils';
 import { Icon, PureIcon, IconProps } from '../icon';
 
 export interface MenuProps {

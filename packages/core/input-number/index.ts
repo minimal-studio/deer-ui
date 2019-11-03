@@ -1,4 +1,4 @@
-import Rename from '@dear-ui/utils/rename';
+import Rename from '../utils/rename';
 
 import { InputNumber } from './input-number';
 

@@ -3,7 +3,7 @@ import { HasValue, Call } from '@mini-code/base-func';
 import classnames from 'classnames';
 import { tuple } from '@mini-code/base-func/utils/type';
 
-import { $T, $T_IN } from '@dear-ui/utils';
+import { $T, $T_IN } from '../utils';
 import SelectorBasic, { SelectorValuesDescription, SelectorBasicProps } from '../selector-basic';
 import { DropdownWrapper, DropdownWrapperProps } from '../dropdown-wrapper';
 import { MenuItem } from '../menu';

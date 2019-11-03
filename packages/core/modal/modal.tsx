@@ -4,7 +4,7 @@ import React from 'react';
 import { Call, IsFunc } from '@mini-code/base-func';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import classnames from 'classnames';
-import { Children } from '@dear-ui/utils/props';
+import { Children } from '../utils/props';
 
 import { DragPanelClass, DragPanelClassProps } from './drag-pabel-helper';
 import { Icon } from '../icon';

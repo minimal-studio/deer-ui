@@ -1,7 +1,7 @@
 /* eslint-disable consistent-return */
 import React from 'react';
 import { CallFunc, Call } from '@mini-code/base-func';
-import { UIComponent } from '@dear-ui/utils/ui-component';
+import { UIComponent } from '@dear-ui/core/utils/ui-component';
 import { DropdownWrapper } from '@dear-ui/core/dropdown-wrapper';
 import { Icon } from '@dear-ui/core/icon';
 

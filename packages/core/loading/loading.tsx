@@ -1,7 +1,7 @@
 import React, { Component, PureComponent } from 'react';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import { IsFunc } from '@mini-code/base-func';
-import { Children, FuncChildren } from '@dear-ui/utils/props';
+import { Children, FuncChildren } from '../utils/props';
 
 import LoadingProgress from './progress';
 import LoadingDOMPlaceholder from './placeholder';

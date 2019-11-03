@@ -1,8 +1,8 @@
 import React from "react";
 import { Call } from '@mini-code/base-func';
 
-import { UIPureComponent } from '@dear-ui/utils/ui-component';
-import { Color } from '@dear-ui/utils/props';
+import { UIPureComponent } from '../utils/ui-component';
+import { Color } from '../utils/props';
 import { DropdownWrapper } from '../dropdown-wrapper';
 
 import { Tip } from '../tip';

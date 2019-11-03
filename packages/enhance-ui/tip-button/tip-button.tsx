@@ -44,7 +44,7 @@ export default class TipButton extends Component<TipButtonProps> {
 
   btnId = UUID()
 
-  _popEntity: PopoverEntity
+  _popEntity!: PopoverEntity
 
   prevNode
 

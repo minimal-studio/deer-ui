@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import { Icon } from '../icon';
-import { tipIcons } from '@dear-ui/utils/icon-mapper';
+import { tipIcons } from '../utils/icon-mapper';
 
 const TRANSTION_TIME = 200;
 

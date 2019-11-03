@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import classnames from 'classnames';
 import { Call, HasValue, IsFunc } from '@mini-code/base-func';
-import { Sizes } from '@dear-ui/utils/props';
+import { Sizes } from '../utils/props';
 import { Icon, IconProps } from '../icon';
 import { Button } from '../button';
 

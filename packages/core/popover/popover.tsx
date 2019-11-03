@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
-import { getElementOffset } from '@dear-ui/utils/get-elem-offset';
+import { getElementOffset } from '../utils/get-elem-offset';
 import {
   getLeft, getRight, getTop, getBottom,
   PositionReturn, PopoverPosition
-} from '@dear-ui/utils/position';
-import { Children, Color } from '@dear-ui/utils/props';
+} from '../utils/position';
+import { Children, Color } from '../utils/props';
 
 export interface PopoverProps {
   /** 是否激活 */

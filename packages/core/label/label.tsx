@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Color } from '@dear-ui/utils/props';
+import { Color } from '../utils/props';
 
 export interface LabelProps {
   /** 内容 */

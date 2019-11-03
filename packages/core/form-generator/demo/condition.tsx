@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { ConditionGenerator } from '@dear-ui/core/form-generator';
-import { setLangTranslate, setUILang } from '@dear-ui/utils'
+import { setLangTranslate, setUILang } from '../../utils'
 
 const Playground = ({ children }) => {
   return children();

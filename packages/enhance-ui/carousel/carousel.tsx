@@ -1,7 +1,7 @@
 import React, { Component, PureComponent } from 'react';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import { Call } from '@mini-code/base-func';
-import { Children } from '@dear-ui/utils/props';
+import { Children } from '@dear-ui/core/utils/props';
 import { Icon } from '@dear-ui/core/icon';
 
 interface CarouselItem {

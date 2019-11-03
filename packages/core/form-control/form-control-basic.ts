@@ -1,4 +1,4 @@
-import { UIComponent } from '@dear-ui/utils/ui-component';
+import { UIComponent } from '../utils/ui-component';
 
 export interface FormControlBasicProps {
   value?: any;

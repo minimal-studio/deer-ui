@@ -5,7 +5,7 @@ import React from 'react';
 
 import { UUID, Call } from '@mini-code/base-func';
 import classnames from 'classnames';
-import { DivideType } from '@dear-ui/utils/props';
+import { DivideType } from '../utils/props';
 import FormFilterHelper, { FormFilterProps, FormOptionsItem, FormChangeEvent } from './form-filter';
 
 export type FormOptions = (FormOptionsItem | DivideType | string)[];

@@ -1,7 +1,8 @@
 import { IsFunc } from '@mini-code/base-func';
-import chKeyMapper from '@dear-ui/i18n/zh-CN';
-import enKeyMapper from '@dear-ui/i18n/en-US';
-import { ApiRename } from '@dear-ui/utils';
+import { ApiRename } from '../utils';
+
+import chKeyMapper from './i18n/zh-CN';
+import enKeyMapper from './i18n/en-US';
 import { defaultIconMapper } from './icon-mapper';
 
 export interface UkeLangStruct {

@@ -5,9 +5,9 @@ import React from 'react';
 import {
   HasValue, DateFormat, MoneyFormat, IsFunc, IsObj, Call, DebounceClass
 } from '@mini-code/base-func';
-import { UIComponent } from '@dear-ui/utils/ui-component';
-import { Color, Children } from '@dear-ui/utils/props';
-import { ApiRename } from '@dear-ui/utils/rename';
+import { UIComponent } from '../utils/ui-component';
+import { Color, Children } from '../utils/props';
+import { ApiRename } from '../utils/rename';
 import { ToolTip } from '../tooltip';
 import { Label } from '../label';
 import { Dropdown, DropdownProps } from '../dropdown/dropdown';

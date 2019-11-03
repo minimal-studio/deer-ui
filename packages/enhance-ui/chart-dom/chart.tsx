@@ -1,7 +1,7 @@
 import React, { Component, PureComponent } from 'react';
 import { Call } from '@mini-code/base-func';
 
-import { LoadScript } from '@dear-ui/utils/load-stuff';
+import { LoadScript } from '@dear-ui/core/utils/load-stuff';
 import { Loading } from '@dear-ui/core/loading';
 
 export interface ChartComProps {

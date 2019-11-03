@@ -4,13 +4,13 @@ import classnames from 'classnames';
 import { IsFunc, DebounceClass } from '@mini-code/base-func';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
-import { Children, FuncChildren } from '@dear-ui/utils/props';
-import { getElementOffsetInfo } from '@dear-ui/utils/get-elem-offset';
+import { Children, FuncChildren } from '../utils/props';
+import { getElementOffsetInfo } from '../utils/get-elem-offset';
 import {
   getLeft, getRight, getTop, getBottom, PositionReturn,
-} from '@dear-ui/utils/position';
-import positionFilter from '@dear-ui/utils/position-filter';
-import setDOMById from '@dear-ui/utils/set-dom';
+} from '../utils/position';
+import positionFilter from '../utils/position-filter';
+import setDOMById from '../utils/set-dom';
 
 import { Icon } from '../icon';
 import { ClickAway } from '../click-away';

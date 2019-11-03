@@ -6,9 +6,9 @@ import { Call, GenerteID } from '@mini-code/base-func';
 import { Provider, connect } from 'unistore/react';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
-import { $T_IN, getIsMobile } from '@dear-ui/utils';
-import { Children } from '@dear-ui/utils/props';
-import setDOMById from '@dear-ui/utils/set-dom';
+import { $T_IN, getIsMobile } from '../utils';
+import { Children } from '../utils/props';
+import setDOMById from '../utils/set-dom';
 import { Icon } from '../icon';
 import ModalHelper from './modal-helper';
 import Modal, { ModalOptions } from './modal';

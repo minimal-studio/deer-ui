@@ -6,7 +6,7 @@ import classnames from 'classnames';
 import { Call } from '@mini-code/base-func';
 import {
    ButtonProps
-} from '@dear-ui/utils/props';
+} from '../utils/props';
 import { Icon, IconProps } from '../icon';
 
 interface ButtonProps2 extends ButtonProps {

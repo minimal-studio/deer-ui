@@ -6,12 +6,13 @@
 
 import React from 'react';
 import { DebounceClass } from '@mini-code/base-func';
-import { UIComponent } from '@dear-ui/utils/ui-component';
+import { UIComponent } from '../utils/ui-component';
 import Alert, { AlertProps } from '@dear-ui/core/alert/alert';
 import Toast from '@dear-ui/core/toast/toast';
-import Button, { ButtonProps } from '@dear-ui/core/button/button';
+import Button from '@dear-ui/core/button/button';
 
 import FormGenerator, { FormGeneratorProps } from '../form-generator/form-generator';
+import { ButtonProps } from '../utils';
 
 export interface FormLayoutBtn extends ButtonProps {
   /** 点击按钮的回调 */

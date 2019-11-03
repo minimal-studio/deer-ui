@@ -7,7 +7,7 @@ import {
   Call, CallFunc, IsFunc, HasValue, IsObj
 } from '@mini-code/base-func';
 
-import { UIComponent } from '@dear-ui/utils/ui-component';
+import { UIComponent } from '../utils/ui-component';
 
 import { DatetimePicker } from '@dear-ui/core/datetimepicker';
 import { DateShortcut } from '@dear-ui/core/date-shortcut';

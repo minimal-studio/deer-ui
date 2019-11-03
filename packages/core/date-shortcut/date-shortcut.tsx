@@ -1,7 +1,7 @@
 import React from 'react';
 import { Call, DateFormat } from '@mini-code/base-func';
 import { DateRange, ToUTC } from '@mini-code/base-func/datetime-helper';
-import { $T_IN } from '@dear-ui/utils';
+import { $T_IN } from '../utils';
 
 import { DropdownWrapper } from '../dropdown-wrapper';
 import { DateBasic, DateBasicProps } from '../date-basic';

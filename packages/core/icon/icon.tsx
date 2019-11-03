@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { getIcon } from '@dear-ui/utils';
+import { getIcon } from '../utils';
 
 export interface IconProps {
   /** 是否使用默认的 icon 配置 */

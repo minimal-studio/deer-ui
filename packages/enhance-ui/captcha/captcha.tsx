@@ -1,7 +1,7 @@
 import React from 'react';
 import { Call } from '@mini-code/base-func';
 
-import { UIComponent } from '@dear-ui/utils/ui-component';
+import { UIComponent } from '@dear-ui/core/utils/ui-component';
 import { Input } from '@dear-ui/core/input';
 
 export interface CaptchaResData {

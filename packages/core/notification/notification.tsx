@@ -1,9 +1,9 @@
 import React from 'react';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import { EventEmitter, Call, HasValue } from '@mini-code/base-func';
-import { UIPureComponent } from '@dear-ui/utils/ui-component';
-import { tipIcons } from '@dear-ui/utils/icon-mapper';
-import positionFilter from '@dear-ui/utils/position-filter';
+import { UIPureComponent } from '../utils/ui-component';
+import { tipIcons } from '../utils/icon-mapper';
+import positionFilter from '../utils/position-filter';
 
 import { Icon } from '../icon';
 

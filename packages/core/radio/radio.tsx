@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { $T } from '@dear-ui/utils';
+import { $T } from '../utils';
 import { Icon, IconProps } from '../icon';
 import { Button } from '../button';
 import SelectorBasic, { SelectorValuesDescription, SelectorBasicProps } from '../selector-basic';

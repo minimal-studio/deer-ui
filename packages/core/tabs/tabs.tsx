@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { CallFunc } from '@mini-code/base-func';
 import classnames from 'classnames';
-import { Children } from '@dear-ui/utils/props';
+import { Children } from '../utils/props';
 import Tab from './tab';
 import { ToolTip } from '../tooltip';
 

@@ -3,7 +3,7 @@
 import React, { Component, PureComponent } from 'react';
 import ReactDOM from 'react-dom';
 
-import setDOMById, { destoryDOM } from '@dear-ui/utils/set-dom';
+import setDOMById, { destoryDOM } from '../utils/set-dom';
 
 import Popover from './popover';
 

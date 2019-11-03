@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import { HasValue, UUID } from '@mini-code/base-func';
-import setDOMById from '@dear-ui/utils/set-dom';
+import setDOMById from '../utils/set-dom';
 
 import Notification, { NotifyConfig, NotificationProps } from './notification';
 

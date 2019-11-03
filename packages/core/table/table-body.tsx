@@ -4,7 +4,7 @@ import {
 } from '@mini-code/base-func';
 import classnames from 'classnames';
 
-import { Children } from '@dear-ui/utils/props';
+import { Children } from '../utils/props';
 import ColumnFilter, { ColumnFilterProps, Column, DataRows } from './column-filter';
 import { Icon } from '../icon';
 

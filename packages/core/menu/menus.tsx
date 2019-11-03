@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { DivideType } from '@dear-ui/utils/props';
+import { DivideType } from '../utils/props';
 import Menu, { MenuProps } from './menu';
 
 export interface MenuItemData extends MenuProps {
