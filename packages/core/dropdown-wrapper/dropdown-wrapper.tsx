@@ -4,7 +4,7 @@ import classnames from 'classnames';
 import { IsFunc, DebounceClass } from '@mini-code/base-func';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
-import { Children } from '@dear-ui/utils/props';
+import { Children, FuncChildren } from '@dear-ui/utils/props';
 import { getElementOffsetInfo } from '@dear-ui/utils/get-elem-offset';
 import {
   getLeft, getRight, getTop, getBottom, PositionReturn,
@@ -17,6 +17,7 @@ import { ClickAway } from '../click-away';
 
 interface State {
   isShow: boolean;
+  outsideReady: boolean;
   searchValue: string;
 }
 
@@ -43,7 +44,7 @@ export interface DropdownWrapperProps {
   /** 外层的 title */
   menuTitle?: string | number | Children;
   /** 接受函数 children，只在 show 的时候渲染 */
-  children?: Children | any;
+  children?: Children | FuncChildren;
   /** 监听滚动时隐藏的外层元素 */
   scrollElem?: () => HTMLElement;
   /** 父容器的 scrollX 偏移值 */
@@ -122,6 +123,7 @@ export class DropdownWrapper extends React.PureComponent<DropdownWrapperProps, S
 
   state = {
     isShow: false,
+    outsideReady: !!dropdownContainerDOM,
     searchValue: ''
   };
 
@@ -150,7 +152,6 @@ export class DropdownWrapper extends React.PureComponent<DropdownWrapperProps, S
     super(props);
 
     this._position = positionFilter(props.position).split(' ');
-    if (!dropdownContainerDOM) dropdownContainerDOM = setDOMById(dropdownContainerID, '__dropdown-menu outside');
   }
 
   handleClickAway = () => {
@@ -174,6 +175,21 @@ export class DropdownWrapper extends React.PureComponent<DropdownWrapperProps, S
 
   focusInput() {
     this._input && this._input.focus();
+  }
+
+  /**
+   * 为了兼容 SSR 渲染，以及更新 state 触发动画效果
+   */
+  setOutSideContainer = () => {
+    if (this.props.outside && !this.state.outsideReady) {
+      if (!dropdownContainerDOM) {
+        dropdownContainerDOM = setDOMById(dropdownContainerID, '__dropdown-menu outside');
+      }
+      this.overlayRender();
+      this.setState({
+        outsideReady: true
+      })
+    }
   }
 
   showSubMenu = (isShow = true) => {
@@ -232,7 +248,7 @@ export class DropdownWrapper extends React.PureComponent<DropdownWrapperProps, S
     });
   }
 
-  overlayRender = () => {
+  getOverlayDOM = () => {
     const { overlay, outside, position = '' } = this.props;
     const { isShow } = this.state;
 
@@ -243,10 +259,11 @@ export class DropdownWrapper extends React.PureComponent<DropdownWrapperProps, S
       !outside && this._position,
       isShow && 'show'
     );
+    const transitionKey = isShow ? "opened" : "closed";
     const dropdownCom = (
       <TransitionGroup component={null}>
         <CSSTransition
-          key={isShow ? "opened" : "closed"}
+          key={transitionKey}
           classNames="drop-menu"
           timeout={200}>
           {isShow ? (
@@ -261,11 +278,19 @@ export class DropdownWrapper extends React.PureComponent<DropdownWrapperProps, S
         </CSSTransition>
       </TransitionGroup>
     );
+    return dropdownCom;
+  }
 
-    return outside ? ReactDOM.createPortal(
-      dropdownCom,
-      dropdownContainerDOM
-    ) : dropdownCom;
+  overlayRender = () => {
+    const { outside } = this.props;
+    if (outside) {
+
+    }
+
+    return outside ? (dropdownContainerDOM && ReactDOM.createPortal(
+      this.getOverlayDOM(),
+      dropdownContainerDOM,
+    )) : this.getOverlayDOM();
   }
 
   saveClickAway = (e) => {
@@ -305,7 +330,7 @@ export class DropdownWrapper extends React.PureComponent<DropdownWrapperProps, S
     let child;
     let _title = menuTitle;
     switch (true) {
-      case IsFunc(children):
+      case typeof children === 'function':
         child = children(this.getPropsForOverlay());
         break;
       case React.isValidElement(children):
@@ -319,7 +344,9 @@ export class DropdownWrapper extends React.PureComponent<DropdownWrapperProps, S
         break;
     }
 
-    return child;
+    return React.cloneElement(child, {
+      onMouseEnter: this.setOutSideContainer
+    });
   }
 
   handleMouseEnter = (event) => {

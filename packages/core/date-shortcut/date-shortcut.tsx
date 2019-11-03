@@ -1,7 +1,7 @@
 import React from 'react';
 import { Call, DateFormat } from '@mini-code/base-func';
 import { DateRange, ToUTC } from '@mini-code/base-func/datetime-helper';
-import { $T_IN } from '@dear-ui/ui-config';
+import { $T_IN } from '@dear-ui/utils';
 
 import { DropdownWrapper } from '../dropdown-wrapper';
 import { DateBasic, DateBasicProps } from '../date-basic';
@@ -86,35 +86,7 @@ export class DateShortcut extends DateBasic<DateShortcutProps, {
     // const format = basicFormat + (needTime ? (' ' + timeFormat) : '');
     const dateRangeOptions = { extendFormat: timeDefaultStr };
 
-    this.defaultDateHelperInfo = [
-      {
-        filter() {
-          return [];
-        },
-        t: '清空'
-      },
-      {
-        filter() {
-          return DateRange(0, 0, dateRangeOptions);
-        },
-        t: '今天'
-      }, {
-        filter() {
-          return DateRange(1, -1, dateRangeOptions);
-        },
-        t: '昨天'
-      }, {
-        filter() {
-          return getHalfMouthDate('up', basicFormat, timeDefaultStr);
-        },
-        t: '前半月'
-      }, {
-        filter() {
-          return getHalfMouthDate('down', basicFormat, timeDefaultStr);
-        },
-        t: '后半月'
-      }
-    ];
+    this.defaultDateHelperInfo = [];
   }
 
   generateDate(itemConfig, idx) {
@@ -141,6 +113,7 @@ export class DateShortcut extends DateBasic<DateShortcutProps, {
       <DropdownWrapper
         outside
         trigger="hover"
+        position={position}
         overlay={({ hide }) => (
           <div className="date-shortcut" style={style}>
             <div className="wrapper">
@@ -160,10 +133,8 @@ export class DateShortcut extends DateBasic<DateShortcutProps, {
               }
             </div>
           </div>
-        )} position={position}>
-        {
-          () => this.$T_IN('快捷')
-        }
+        )}>
+        {this.$T_IN('快捷')}
       </DropdownWrapper>
     );
   }

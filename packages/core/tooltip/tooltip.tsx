@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import { Call, DebounceClass, UUID } from '@mini-code/base-func';
 
-import { $T } from '@dear-ui/ui-config';
+import { $T } from '@dear-ui/utils';
 import { Color, Children } from '@dear-ui/utils/props';
 import { PopoverEntity } from '../popover/popover-entity';
 import { Icon, IconProps } from '../icon';

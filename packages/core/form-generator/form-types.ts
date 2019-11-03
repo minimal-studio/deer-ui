@@ -162,3 +162,87 @@ SwitchType |
 SelectNativeType |
 SelectNativeType |
 SelectType;
+
+const demo: FormOptionsItemEnhance[] = [
+  {
+    refs: ['startDate', 'endDate'],
+    type: 'datetimeRange',
+    needTime: true,
+    title: '带默认时间',
+    range: [
+      '2019-05-05 00:00:00',
+      '2019-05-06 00:00:00',
+    ],
+  },
+  {
+    refs: ['startDate3', 'endDate3'],
+    type: 'datetimeRange',
+    needTime: false,
+    outputAsString: true,
+    title: '时间',
+    range: [],
+  },
+  {
+    refs: ['startDate2', 'endDate2'],
+    type: 'datetimeRange',
+    needTime: true,
+    title: '时间',
+    range: [],
+  },
+  {
+    ref: 'ref1',
+    tips: [123,321,222],
+    type: 'radio',
+    title: '单选控件',
+    values: {
+      value1: 'value1',
+      value2: 'value2',
+      value3: 'value3',
+    }
+  },
+  {
+    ref: 'input',
+    type: 'input',
+    title: '输入',
+  },
+  {
+    ref: 'refSelector',
+    type: 'select',
+    title: '多选控件',
+    isMultiple: true,
+    isNum: true,
+    defaultValue: [1, 2],
+    values: {
+      1: 'value1',
+      2: 'value2',
+      3: 'value3',
+    }
+  },
+  {
+    ref: 'ref_for_input',
+    refForS: 'ref_for_selector',
+    type: 'input-selector-s',
+    title: '选择输入框',
+    values: {
+      value1: 'value1',
+      value2: 'value2',
+      value3: 'value3',
+    }
+  },
+  {
+    ref: 'ref2',
+    type: 'select',
+    title: '选择控件',
+    values: {
+      value1: 'value1',
+      value2: 'value2',
+      value3: 'value3',
+    }
+  },
+  {
+    refs: ['s', 'e'],
+    type: 'input-range',
+    title: '范围',
+    range: [0, 10]
+  },
+]

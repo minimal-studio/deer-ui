@@ -4,47 +4,12 @@ import React from 'react';
 import classnames from 'classnames';
 
 import { Call } from '@mini-code/base-func';
-import { $T_IN } from '@dear-ui/ui-config';
 import {
-  StatusColorTypes, NatureColorTypes, Sizes, Color
+   ButtonProps
 } from '@dear-ui/utils/props';
 import { Icon, IconProps } from '../icon';
 
-type ButtonSize = Sizes;
-
-export interface ButtonProps {
-  /** 是否加载中 */
-  loading?: boolean;
-  /** 是否需要加载中的提示 */
-  loadingHint?: boolean;
-  /** 加载中是否禁用 */
-  loadingDisable?: boolean;
-  /** 是否禁用 */
-  disabled?: boolean;
-  /** 按钮样式是否中空 */
-  hola?: boolean;
-  /** 是否占据一行 */
-  block?: boolean;
-  /** 设置 btn 的 class */
-  className?: string;
-  /** btn 的字 */
-  text?: string;
-  /** btn 内的布局 */
-  textLayout?: string;
-  /** btn 的状态 */
-  status?: StatusColorTypes | 'link';
-  /** btn 的颜色 */
-  color?: Color;
-  /** size */
-  size?: ButtonSize;
-  /** style */
-  style?: React.CSSProperties;
-  /** children */
-  children?: any;
-  /** btn 的类型 */
-  type?: React.ButtonHTMLAttributes<HTMLButtonElement>['type'];
-  /** onClick */
-  onClick?: (clickEvent) => void;
+interface ButtonProps2 extends ButtonProps {
   /** 设置 btn 的 icon, 可以使用 iconMapper 来引用 */
   icon?: IconProps['n'];
   /** pass to icon */
@@ -61,7 +26,7 @@ const defaultProps = {
   icon: '',
 };
 
-const Button: React.SFC<ButtonProps> = (props) => {
+const Button: React.SFC<ButtonProps2> = (props) => {
   const {
     loading, disabled, text, icon, s, type = 'button', children,
     status, color = 'theme', size = 'md', block = false, className, hola = false,
