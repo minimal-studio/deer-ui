@@ -15,7 +15,7 @@ const Test1 = () => {
       <h1>标题</h1>
     ),
     value2: (
-      <img src="http://m.360buyimg.com/pop/jfs/t22765/41/1722519893/139051/da2d7354/5b6948b5Nb66bd80d.png"/>
+      <img src="https://m.360buyimg.com/pop/jfs/t22765/41/1722519893/139051/da2d7354/5b6948b5Nb66bd80d.png"/>
     ),
     value3: '显示的值3',
   };
