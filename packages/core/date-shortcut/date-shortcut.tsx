@@ -3,7 +3,7 @@ import { Call, DateFormat } from '@mini-code/base-func';
 import { DateRange, ToUTC } from '@mini-code/base-func/datetime-helper';
 import { $T_IN } from '../utils';
 
-import { DropdownWrapper } from '../dropdown-wrapper';
+import { DropdownWrapper, DropdownWrapperProps } from '../dropdown-wrapper';
 import { DateBasic, DateBasicProps } from '../date-basic';
 
 export interface DateShortcutProps extends DateBasicProps {
@@ -19,9 +19,9 @@ export interface DateShortcutProps extends DateBasicProps {
     filter: (args) => string[];
   }[];
   /** subContent 的位置 */
-  position: 'right' | 'left';
+  position: DropdownWrapperProps['position'];
   /** DateShortcut 的 style */
-  style: {};
+  style: React.CSSProperties;
 }
 
 function getHalfMouthDate(type, format, timeDefaultStr) {
@@ -86,7 +86,35 @@ export class DateShortcut extends DateBasic<DateShortcutProps, {
     // const format = basicFormat + (needTime ? (' ' + timeFormat) : '');
     const dateRangeOptions = { extendFormat: timeDefaultStr };
 
-    this.defaultDateHelperInfo = [];
+    this.defaultDateHelperInfo = [
+      {
+        filter() {
+          return [];
+        },
+        t: '清空'
+      },
+      {
+        filter() {
+          return DateRange(0, 0, dateRangeOptions);
+        },
+        t: '今天'
+      }, {
+        filter() {
+          return DateRange(1, -1, dateRangeOptions);
+        },
+        t: '昨天'
+      }, {
+        filter() {
+          return getHalfMouthDate('up', basicFormat, timeDefaultStr);
+        },
+        t: '前半月'
+      }, {
+        filter() {
+          return getHalfMouthDate('down', basicFormat, timeDefaultStr);
+        },
+        t: '后半月'
+      }
+    ];
   }
 
   generateDate(itemConfig, idx) {
