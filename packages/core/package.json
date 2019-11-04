@@ -1,6 +1,6 @@
 {
   "name": "@dear-ui/core",
-  "version": "4.0.0-alpha1.3",
+  "version": "4.0.0-alpha1.4",
   "scripts": {
     "build": "npm run get:style:files; npm run copy:files; npm run complie:scss",
     "get:style:files": "sh ./get-style-file.sh",
