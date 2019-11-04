@@ -5,8 +5,11 @@
   "workspaces": [
     "packages/*"
   ],
+  "files": [
+    "dist"
+  ],
   "scripts": {
-    "publish:all": "npm publish ./dist --access public",
+    "publish:all": "npm run publish:core; npm run publish:enhance",
     "publish:core": "npm publish ./dist/core --access public",
     "publish:enhance": "npm publish ./dist/enhance-ui --access public",
     "publish:all:lerna": "lerna publish",
