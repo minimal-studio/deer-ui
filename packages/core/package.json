@@ -5,7 +5,7 @@
     "build": "npm run get:style:files; npm run copy:files; npm run complie:scss",
     "get:style:files": "sh ./get-style-file.sh",
     "copy:files": "node ./copy-files",
-    "complie:scss": "node-sass ../../packages/core/style/default.scss -o ../../packages/core --output-style compressed"
+    "complie:scss": "node-sass ../../packages/core/style/default.scss -o ../../dist/core --output-style compressed"
   },
   "peerDependencies": {
     "@mini-code/base-func": "^1.0.2",

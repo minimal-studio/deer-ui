@@ -5,10 +5,11 @@
     "build": "npm run get:style:files; npm run copy:files",
     "get:style:files": "sh ./get-style-file.sh",
     "copy:files": "node ./copy-files",
-    "complie:scss": "node-sass ../../packages/enhance-ui/style/default.scss -o ../../packages/enhance-ui --output-style compressed"
+    "complie:scss": "node-sass ../../packages/enhance-ui/style/default.scss -o ../../dist/enhance-ui --output-style compressed"
   },
   "peerDependencies": {
     "@mini-code/base-func": "^1.0.2",
+    "@dear-ui/core": "^4.0.0",
     "react": "^16.8.0",
     "react-dom": "^16.8.0",
     "react-transition-group": "^2.5.0",
