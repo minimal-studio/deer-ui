@@ -3,11 +3,11 @@
   padding: 0.1px;
 }
 .form-control {
+  height: $form-control-height;
   color: $black;
   display: inline-block;
   width: auto;
   background-color: #FFF;
-  height: 30px;
   padding: 0 5px;
   border-radius: 3px;
   box-shadow: none;

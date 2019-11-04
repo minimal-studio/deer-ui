@@ -3,7 +3,7 @@
 .btn {
   appearance: none;
   background-color: #FFF;
-  padding: 5px 24px;
+  padding: $button-md-padding-vertical 24px;
   font-size: 14px;
   border-radius: 3px;
   transition: background-color 0.1s ease, box-shadow 0.1s ease, color 0.1s ease;
@@ -59,7 +59,7 @@
 
   &.md {
     font-size: 14px;
-    padding: 6px 24px;
+    padding: $button-md-padding-vertical 24px;
   }
 
   &.sm {
@@ -97,7 +97,7 @@
   //   margin-right: 10px;
   // }
   &.hola {
-    padding: 5px 28px;
+    padding: $button-md-padding-vertical 28px;
     border: 1px solid #FFF;
     // background-color: transparent !important;
     color: #FFF;
