@@ -13,6 +13,8 @@ export * from './datetimepicker';
 export * from './dropdown';
 export * from './dropdown-wrapper';
 export * from './form-control';
+export * from './form-generator';
+export * from './form-layout';
 export * from './grid';
 export * from './icon';
 export * from './input';
