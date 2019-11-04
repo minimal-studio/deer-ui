@@ -66,5 +66,6 @@
 ### FormGenerator
 
 - 不再提供 captcha 的支持，需要通过扩展字段引入
+- 重构 customForm 表单控件接入接口
 
 ### 彻底舍弃 $UKE 获取配置的方式
