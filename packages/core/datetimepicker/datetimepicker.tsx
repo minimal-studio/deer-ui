@@ -263,7 +263,7 @@ export class DatetimePicker extends DateBasic<DatetimePickerProps> {
 
   render() {
     return (
-      <div className="flatpickr input-group">
+      <div className="__flatpickr input-group">
         <span className="input-addon"
           onClick={(e) => {
             if (this.datepicker) this.datepicker.toggle();

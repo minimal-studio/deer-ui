@@ -2,7 +2,7 @@
   @include layout();
   align-items: center;
 }
-.flatpickr {
+.__flatpickr {
   &.input-group {
     position: relative;
   }
@@ -11,11 +11,6 @@
     width: 280px;
   }
   .icon {
-    position: absolute;
-    top: 6px;
-    right: 6px;
-    // right: 16px;
-    // top: 7px;
     color: #999;
   }
 }
