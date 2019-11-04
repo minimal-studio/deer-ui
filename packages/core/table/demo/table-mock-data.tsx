@@ -101,7 +101,7 @@ const action = {
 };
 
 const keyMapperMiddle: TableColumns = [...columns].slice(1, columns.length);
-const keyMapperFixed: TableColumns = [
+const fixedColumns: TableColumns = [
   {
     key: 'username',
     fixed: 'left',
@@ -120,6 +120,24 @@ const keyMapperFixed: TableColumns = [
     }
   },
   ...keyMapperMiddle,
+  {
+    key: 'add2',
+    labels: {
+      cn: 'red'
+    }
+  },
+  {
+    key: 'add3',
+    labels: {
+      cn: 'red'
+    }
+  },
+  {
+    key: 'add4',
+    labels: {
+      cn: 'red'
+    }
+  },
   {
     ...action,
     fixed: 'right',
@@ -213,5 +231,5 @@ const dataRows = [
 ];
 
 export {
-  columns, keyMapperFixed, dataRows
+  columns, fixedColumns, dataRows
 };

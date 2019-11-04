@@ -511,12 +511,12 @@ export class Table extends ColumnFilter<TableProps, State> {
       const currText = record[key];
 
       const needFilter = needAction || this.excludeFilterField.indexOf(key) === -1;
-      /** 优先使用 options 传入的 filter 作为过滤器，其次为 this.mapperFilter */
+      /** 优先使用 options 传入的 filter 作为过滤器，其次为 this.columnFilter */
       let filterRes = '-';
       if (IsFunc(filter)) {
         filterRes = filter(currText);
       } else if (needFilter) {
-        filterRes = this.mapperFilter(mapperItem, record, parentIdx);
+        filterRes = this.columnFilter(mapperItem, record, parentIdx);
       }
 
       if (needCount) {

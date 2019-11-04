@@ -47,7 +47,7 @@ export default class TableRow extends ColumnFilter<TableRowProps> {
             const { key } = column;
 
             const title = this.titleFilter(column, idx);
-            const text = this.mapperFilter(column, record);
+            const text = this.columnFilter(column, record);
 
             const isLongText = text ? text.length > 100 : '';
             const { block = isLongText } = column;

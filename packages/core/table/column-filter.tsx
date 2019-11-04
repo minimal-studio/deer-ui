@@ -133,7 +133,7 @@ export default class ColumnFilter<
     const dataRows = this.getDataRows();
     const columns = this.getColumns();
     const nextColumns = this.getColumns(nextProps);
-    const nextDataRows = this.getColumns(nextProps);
+    const nextDataRows = this.getDataRows(nextProps);
 
     const isStateChange = this.state != nextState;
     const isPropsChange = JSON.stringify(_thisProps) !== JSON.stringify(_nextProps);
@@ -232,13 +232,13 @@ export default class ColumnFilter<
   }
 
   /**
-   * mapperFilter 字段过滤器处理顺序
+   * columnFilter 字段过滤器处理顺序
    *
    * 1. date || datetime || money || abvMoney
    * 2. labels && namesMapper
    * 3. filter
    */
-  mapperFilter = (column, row, rowIdx?) => {
+  columnFilter = (column, row, rowIdx?) => {
     const originContent = row[column.key];
     let currContent = originContent;
     if (!HasValue(currContent)) {

@@ -11,24 +11,24 @@ import ColumnFilter from '../table/column-filter';
  */
 export default class TableCard extends ColumnFilter {
   render() {
-    const { records } = this.props;
+    const dataRows = this.getDataRows();
     const columns = this.getColumns();
-    if (!Array.isArray(records)) {
-      console.error('records 必须为 []');
+    if (!Array.isArray(dataRows)) {
+      console.error('dataRows 必须为 []');
       return null;
     }
 
     return (
       <div className="table-card">
         {
-          records.map((record, idx) => (
+          dataRows.map((record, idx) => (
             <div className="item" key={idx}>
               {
                 columns.map((mapper, _idx) => {
                   if (!mapper) return null;
                   const { key } = mapper;
                   const currText = record[key];
-                  const resultText = this.mapperFilter(mapper, record, idx);
+                  const resultText = this.columnFilter(mapper, record, idx);
                   const title = this.titleFilter(mapper, _idx);
                   const tdKey = `${key}_${currText}`;
                   return (
