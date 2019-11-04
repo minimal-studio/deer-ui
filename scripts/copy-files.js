@@ -13,7 +13,6 @@ module.exports = ({
   packageExtraOptions = {}
 }) => {
   if (!outdir) return console.error('请输入 outdir');
-  const buildPath = path.resolve(outdir, `package.json`);
 
   async function copyFile(file) {
     const buildPath = path.resolve(__dirname, outdir, path.basename(file));
