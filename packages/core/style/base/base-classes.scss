@@ -1,13 +1,11 @@
 * {
   box-sizing: border-box;
 }
-html {
-  font: 14px;
-}
 body {
   margin: 0;
-  font-size: 14px;
-  font-family: "Roboto", "Helvetica", "Arial", sans-serif, "Microsoft YaHei", "微软雅黑";
+  font-size: $base-body-font-size;
+  color: $base-body-color;
+  font-family: $base-font-family;
 }
 
 .section-mark {
