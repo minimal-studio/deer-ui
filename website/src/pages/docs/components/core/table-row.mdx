@@ -1,15 +1,15 @@
 ---
-name: DescHelper
-route: /DescHelper
+name: TableRow
+route: /TableRow
 menu: Data Display
 ---
 
 import { useState } from 'react'
 import { Playground, Props } from 'docz'
-import { DescHelper } from '@dear-ui/core';
+import { TableRow } from '@dear-ui/core';
 import MockData from '@dear-ui/core/utils/mock-data';
 
-# DescHelper
+# TableRow
 
 > 用于渲染列表中详细数据的组件
 
@@ -75,7 +75,7 @@ import MockData from '@dear-ui/core/utils/mock-data';
             })
           }
           <div>
-            <DescHelper
+            <TableRow
               columns={columns}
               record={records[activeIdx]} />
           </div>
@@ -87,5 +87,5 @@ import MockData from '@dear-ui/core/utils/mock-data';
 
 ## Props
 
-<Props of={DescHelper} />
+<Props of={TableRow} />
 

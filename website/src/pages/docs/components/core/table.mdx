@@ -7,8 +7,8 @@ menu: Data Display
 import { Playground, Props } from 'docz'
 import { useState } from 'react'
 import { ShowModal } from '@dear-ui/core/modal';
-import { Table, DescHelper } from '@dear-ui/core';
-import { records, columns, keyMapperFixed } from '@dear-ui/core/table/demo/table-mock-data';
+import { Table } from '@dear-ui/core';
+import { dataRows, columns, keyMapperFixed } from '@dear-ui/core/table/demo/table-mock-data';
 import { setLangTranslate, setUILang } from '@dear-ui/core/utils'
 
 # Table
@@ -28,20 +28,20 @@ import { setLangTranslate, setUILang } from '@dear-ui/core/utils'
 ## Columns
 
 - columns 需要显示的数据的字段映射集合
-- records   数据源
+- dataRows   数据源
 
 [详情参考 Columns](/Columns)
 
-columns 与 records 的对应关系
+columns 与 dataRows 的对应关系
 
 ```js
-// key 对应 records 的所有项的 [key], 以下例子对应 username
+// key 对应 dataRows 的所有项的 [key], 以下例子对应 username
 const columns = [
   {
     key: 'username'
   }
 ]
-const records = [
+const dataRows = [
   {
     username: 'alex',
   },
@@ -61,7 +61,7 @@ __需要为 Table 设置 rowKey__
 ```js
 <Table
   {...props}
-  records={records}
+  dataRows={dataRows}
   // 为了提高渲染效率
   rowKey={record => record.id} />
 ```
@@ -70,7 +70,7 @@ __需要为 Table 设置 rowKey__
   {
     () => {
       const _keyMapper = [...columns];
-      const _records = [...records];
+      const _records = [...dataRows];
       return (
         <div>
           <Table
@@ -79,7 +79,7 @@ __需要为 Table 设置 rowKey__
             onChange={(emitVal, config) => {
               console.log(emitVal, config)
             }}
-            records={_records} />
+            dataRows={_records} />
         </div>
       )
     }
@@ -94,7 +94,7 @@ __需要为 Table 设置 rowKey__
   {
     () => {
       const _keyMapper = [...columns];
-      const _records = [...records];
+      const _records = [...dataRows];
       return (
         <div>
           <Table
@@ -105,7 +105,7 @@ __需要为 Table 设置 rowKey__
             onChange={(emitVal, config) => {
               console.log(emitVal, config)
             }}
-            records={_records} />
+            dataRows={_records} />
         </div>
       )
     }
@@ -122,7 +122,7 @@ __需要为 Table 设置 rowKey__
   {
     () => {
       const _keyMapper = [...columns];
-      const _records = [...records];
+      const _records = [...dataRows];
       let table;
       return (
         <div>
@@ -141,7 +141,7 @@ __需要为 Table 设置 rowKey__
             onChange={(emitVal, config) => {
               console.log(emitVal, config)
             }}
-            records={_records} />
+            dataRows={_records} />
         </div>
       )
     }
@@ -170,7 +170,7 @@ const columns = [
   {
     () => {
       const [_keyMapper, setKeyMapper] = useState([...keyMapperFixed]);
-      const [_records, setRecords] = useState([...records]);
+      const [_records, setRecords] = useState([...dataRows]);
       const [show, setShow] = useState(false);
       let table;
       return (
@@ -187,11 +187,11 @@ const columns = [
             setKeyMapper(nextKeyMapper)
           }}>增加一个 columns</span>
           <span className="btn red mr10" onClick={e => {
-            let nextRecords = [...records, records[0]];
+            let nextRecords = [...dataRows, dataRows[0]];
             setRecords(nextRecords)
           }}>增加一条记录</span>
           <span className="btn orange mr10" onClick={e => {
-            let nextRecords = [...records].slice(0, records.length - 1);
+            let nextRecords = [...dataRows].slice(0, dataRows.length - 1);
             setRecords(nextRecords)
           }}>减少一条记录</span>
           <hr />
@@ -211,7 +211,7 @@ const columns = [
               onChange={(emitVal, config) => {
                 console.log(emitVal, config)
               }}
-              records={_records} />
+              dataRows={_records} />
           </div>
         </div>
       )
@@ -241,7 +241,7 @@ const columns = [
   {
     () => {
       const [_keyMapper, setKeyMapper] = useState([...keyMapperFixed]);
-      const [_records, setRecords] = useState([...records]);
+      const [_records, setRecords] = useState([...dataRows]);
       const [show, setShow] = useState(false);
       let table;
       return (
@@ -259,11 +259,11 @@ const columns = [
               setKeyMapper(nextKeyMapper)
             }}>增加一个 columns</span>
             <span className="btn red mr10" onClick={e => {
-              let nextRecords = [...records, records[0]];
+              let nextRecords = [...dataRows, dataRows[0]];
               setRecords(nextRecords)
             }}>增加一条记录</span>
             <span className="btn orange mr10" onClick={e => {
-              let nextRecords = [...records].slice(0, records.length - 1);
+              let nextRecords = [...dataRows].slice(0, dataRows.length - 1);
               setRecords(nextRecords)
             }}>减少一条记录</span>
             <hr />
@@ -283,7 +283,7 @@ const columns = [
                 onChange={(emitVal, config) => {
                   console.log(emitVal, config)
                 }}
-                records={_records} />
+                dataRows={_records} />
             </div>
           </div>
         </div>
@@ -298,7 +298,7 @@ const columns = [
   {
     () => {
       const [_keyMapper, setKeyMapper] = useState([...keyMapperFixed]);
-      const [_records, setRecords] = useState([...records]);
+      const [_records, setRecords] = useState([...dataRows]);
       const [show, setShow] = useState(false);
       let table;
       return (
@@ -306,7 +306,7 @@ const columns = [
           <div className="mb10">
             <span className="btn blue mr10" onClick={e => {
               const nextShow = !show;
-              const nextRecords = nextShow ? [...records] : [];
+              const nextRecords = nextShow ? [...dataRows] : [];
               setShow(nextShow)
               setRecords(nextRecords)
             }}>{show ? '隐藏' : '显示'}表格</span>
@@ -328,7 +328,7 @@ const columns = [
               onChange={(emitVal, config) => {
                 console.log(emitVal, config)
               }}
-              records={_records} />
+              dataRows={_records} />
           </div>
         </div>
       )
@@ -365,7 +365,7 @@ const columns = [
           return !isDesc;
         }
       }, ...columns];
-      const _records = [...records];
+      const _records = [...dataRows];
       let table;
       return (
         <div>
@@ -381,7 +381,7 @@ const columns = [
             onChange={(emitVal, config) => {
               console.log(emitVal, config)
             }}
-            records={_records} />
+            dataRows={_records} />
         </div>
       )
     }
@@ -394,7 +394,7 @@ const columns = [
   {
     () => {
       const _keyMapper = [...columns];
-      const _records = [...records];
+      const _records = [...dataRows];
       let table;
       return (
         <div>
@@ -411,7 +411,7 @@ const columns = [
             onChange={(emitVal, config) => {
               console.log(emitVal, config)
             }}
-            records={_records} />
+            dataRows={_records} />
         </div>
       )
     }
@@ -424,7 +424,7 @@ const columns = [
   {
     () => {
       const _keyMapper = [...columns];
-      const _records = [...records];
+      const _records = [...dataRows];
       const [lang, setLang] = useState('zh-CN')
       const langMapper = {
         'zh-CN': {
@@ -454,7 +454,7 @@ const columns = [
               onChange={(emitVal, config) => {
                 console.log(emitVal, config)
               }}
-              records={_records} />
+              dataRows={_records} />
           </div>
         </div>
       )
