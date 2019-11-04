@@ -35,7 +35,7 @@ import { Captcha } from '@dear-ui/enhance-ui/captcha';
           type: 'customForm',
           keyRef: 'captchKey',
           title: '验证码',
-          getCustomFormControl: () => Captcha,
+          getCustomFormControl: (onChange) => <Captcha onChange={onChange} />,
         },
       ]
       return (
