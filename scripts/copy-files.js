@@ -3,6 +3,8 @@
 const path = require('path');
 const fse = require('fs-extra');
 
+const rootPackageJson = path.resolve(__dirname, '../package.json');
+
 module.exports = ({
   outdir,
   targetPackageJson,
@@ -22,23 +24,30 @@ module.exports = ({
   async function createPackageFile() {
     fse.readJson(targetPackageJson, (err, packageData) => {
       if(err) console.log(err);
-      const {
-        nyc, scripts, devDependencies, workspaces, ...packageDataOther
-      } = packageData;
-
-      const newPackageData = {
-        ...packageDataOther,
-        private: false,
-        ...packageExtraOptions,
-      };
-      const buildPath = path.resolve(outdir, `package.json`);
+      fse.readJson(rootPackageJson, (_err, rootPackageData) => {
+        const {
+          nyc, scripts, devDependencies, workspaces, ...packageDataOther
+        } = packageData;
   
-      fse.writeJson(buildPath, newPackageData, (err) => {
-        if(err) {
-          return console.log(err);
-        }
-        console.log(`Created package.json in ${buildPath}`);
-      });
+        const newPackageData = {
+          ...packageDataOther,
+          private: false,
+          license: rootPackageData.license,
+          author: rootPackageData.author,
+          keywords: rootPackageData.keywords,
+          repository: rootPackageData.repository,
+          dependencies: rootPackageData.dependencies,
+          ...packageExtraOptions,
+        };
+        const buildPath = path.resolve(outdir, `package.json`);
+    
+        fse.writeJson(buildPath, newPackageData, (err) => {
+          if(err) {
+            return console.log(err);
+          }
+          console.log(`Created package.json in ${buildPath}`);
+        });
+      })
     });
   }
 
