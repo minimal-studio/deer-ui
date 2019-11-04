@@ -15,8 +15,6 @@
     "publish:all:lerna": "lerna publish",
     "release": "npm run build:all; npm run publish:all:lerna",
     "build:all": "rm -rf ./dist; tsc; lerna run build",
-    "copy-files-ts": "node ./scripts/copy-files-ts",
-    "copy-style": "cp -R ./style ./dist/",
     "dev:doc": "cd website; npm run dev",
     "build": "cd website; yarn; yarn build",
     "test": "jest"
