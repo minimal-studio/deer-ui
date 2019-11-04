@@ -352,12 +352,10 @@ export default class FormFilterHelper<P extends FormFilterProps> extends UICompo
   getRefsID = (refs) => (Array.isArray(refs) ? refs.join('-') : '')
 
   /**
-   * 表单插件接口
-   *
-   * @param {object} config 配置项
-   * @memberof FormFilterHelper
+   * 旧的表单插件接口
    */
-  getCustomForm = (config) => {
+  getCustomFormOld = (config) => {
+    console.warn(`customFormOld 将要被废弃，请使用新的插件接口`)
     const { ref, getCustomFormControl, ...other } = config;
     const customeComponent = IsFunc(getCustomFormControl) ? getCustomFormControl() : null;
 
@@ -372,6 +370,23 @@ export default class FormFilterHelper<P extends FormFilterProps> extends UICompo
       onChange: (val) => this.changeValue(val, ref),
       // ref: this.saveRef(ref)
     });
+  }
+
+  getCustomForm = (config) => {
+    const { ref, getCustomFormControl, ...other } = config;
+
+    const _onChange = (val) => {
+      console.log(val)
+      this.changeValue(val, ref);
+    };
+    
+    const C = IsFunc(getCustomFormControl) ? getCustomFormControl(_onChange) : null;
+    if(!React.isValidElement(C)) {
+      console.log('请返回 React 组件实例')
+      return null;
+    }
+    
+    return C;
   }
 
   // getCaptcha = (config) => {
@@ -666,6 +681,7 @@ export default class FormFilterHelper<P extends FormFilterProps> extends UICompo
 
   typeMapper = {
     button: this.getButton,
+    customFormOld: this.getCustomFormOld,
     customForm: this.getCustomForm,
     // captcha: this.getCaptcha,
     'select-n': this.getSelectNative,

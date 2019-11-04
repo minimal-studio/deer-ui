@@ -52,9 +52,27 @@ type CustomFormReturn = {
   /** props for component */
   props: {};
 };
+export interface CustomFormOld extends RefFormControl {
+  type: 'customFormOld';
+  getCustomFormControl: (() => Children | CustomFormReturn);
+}
+
 export interface CustomForm extends RefFormControl {
   type: 'customForm';
-  getCustomFormControl: (() => Children | CustomFormReturn);
+  /**
+   * 自定义插件的接口
+   * 
+   * @example
+   * {
+   *   type: 'customForm',
+   *   getCustomFormControl: (onChange) => {
+   *     return (
+   *       <Customer onChange={nextVal => onChange(nextVal)} />
+   *     )
+   *   }
+   * }
+   */
+  getCustomFormControl: (onChangeValueCallback: (nextVal) => any) => Children;
 }
 
 export interface DatetimeType extends RefFormControl, DatetimePickerProps {
@@ -145,6 +163,7 @@ export interface HRType {
 export type FormOptionsItemEnhance = 
 ButtonType |
 CustomForm |
+CustomFormOld |
 CheckboxType |
 DatetimeType |
 DatetimeRangeType |

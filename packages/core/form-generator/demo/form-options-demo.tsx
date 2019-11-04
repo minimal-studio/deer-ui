@@ -156,6 +156,13 @@ const formOptions: FormOptions = [
   },
   '自定义组件',
   {
+    type: 'customForm',
+    ref: '123',
+    getCustomFormControl: (onChange) => {
+      return <div>CustomFormControl</div>
+    }
+  },
+  {
     ref: 'customer1',
     type: 'customForm',
     title: '自定义的表单组件1',
