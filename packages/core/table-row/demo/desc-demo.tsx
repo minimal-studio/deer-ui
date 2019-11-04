@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { CardTable, DescHelper } from '..';
+import { TableRow } from '..';
 import { ShowModal } from '../../modal';
 import MockData from '../../utils/mock-data';
 
@@ -62,7 +62,7 @@ const Test = () => {
           );
         })
       }
-      <DescHelper
+      <TableRow
         columns={columns}
         record={records[activeIdx]} />
     </div>

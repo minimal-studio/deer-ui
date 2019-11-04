@@ -1,5 +1,5 @@
 import React from 'react';
-import { TableCard, DescHelper } from '..';
+import { TableCard, TableRow } from '..';
 import { ShowModal } from '../../modal';
 
 const test1 = () => {
@@ -27,7 +27,7 @@ const test1 = () => {
           <span
             onClick={e => ShowModal({
               title: '详情',
-              children: <DescHelper columns={columns} record={item} />
+              children: <TableRow columns={columns} record={item} />
             })}
             className="link-btn">详情</span>
         );

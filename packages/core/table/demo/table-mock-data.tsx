@@ -1,7 +1,7 @@
 import React from 'react';
-import { DescHelper } from '../../table-row';
+import { TableRow } from '../../table-row';
 import { ShowModal } from '../../modal';
-import Table, { TableColumns } from '../table-body';
+import { Table, TableColumns } from '../table-body';
 
 let table;
 
@@ -72,7 +72,7 @@ const action = {
       <span
         onClick={e => ShowModal({
           title: '详情',
-          children: <DescHelper columns={columns} record={item} />
+          children: <TableRow columns={columns} record={item} />
         })}
         className="link-btn">详情
       </span>
@@ -91,7 +91,7 @@ const action = {
               )}
               needCheck
               needCount
-              records={records} />
+              dataRows={dataRows} />
           )
         })}
         className="link-btn t_red">弹出表格
@@ -125,7 +125,7 @@ const keyMapperFixed: TableColumns = [
     fixed: 'right',
   }
 ];
-const records = [
+const dataRows = [
   {
     id: 1,
     username: 'alex',
@@ -213,5 +213,5 @@ const records = [
 ];
 
 export {
-  columns, keyMapperFixed, records
+  columns, keyMapperFixed, dataRows
 };

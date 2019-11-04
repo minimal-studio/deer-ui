@@ -122,7 +122,7 @@ export class Table extends ColumnFilter<TableProps, State> {
     needInnerSort: false,
     watcherTimer: 1000,
     fixHead: true,
-    checkWidth: 30,
+    checkWidth: 40,
     needCount: false,
   };
 
