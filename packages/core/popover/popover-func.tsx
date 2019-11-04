@@ -3,37 +3,38 @@ import { PopoverEntity, PopShowParams } from './popover-entity';
 
 /** 在服务端渲染不初始化 PopoverEntity */
 let _GlobalPopover;
-const GlobalPopover = {};
+const GlobalPopover = {
+  show: (options: PopShowParams) => {
+    if (!_GlobalPopover) {
+      _GlobalPopover = new PopoverEntity();
+    }
+    _GlobalPopover.show(options);
+  },
+  set: (options: PopShowParams) => {
+    if (!_GlobalPopover) {
+      _GlobalPopover = new PopoverEntity();
+    }
+    _GlobalPopover.set(options);
+  },
+  close: () => {
+    _GlobalPopover.close();
+  },
+  destroy: () => {
+    _GlobalPopover.destroy();
+  },
+};
 Object.defineProperties(GlobalPopover, {
   show: {
     writable: false,
-    value: (options: PopShowParams) => {
-      if (!_GlobalPopover) {
-        _GlobalPopover = new PopoverEntity();
-      }
-      _GlobalPopover.show(options);
-    }
   },
   set: {
     writable: false,
-    value: (options: PopShowParams) => {
-      if (!_GlobalPopover) {
-        _GlobalPopover = new PopoverEntity();
-      }
-      _GlobalPopover.set(options);
-    }
   },
   close: {
     writable: false,
-    value: () => {
-      _GlobalPopover.close();
-    }
   },
   destroy: {
     writable: false,
-    value: () => {
-      _GlobalPopover.destroy();
-    }
   },
 });
 
