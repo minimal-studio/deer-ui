@@ -8,7 +8,7 @@ import { Playground, Props } from 'docz'
 import { useState } from 'react'
 import { ShowModal } from '@dear-ui/core/modal';
 import { Table } from '@dear-ui/core';
-import { dataRows, columns, keyMapperFixed } from '@dear-ui/core/table/demo/table-mock-data';
+import { dataRows, columns, fixedColumns } from '@dear-ui/core/table/demo/table-mock-data';
 import { setLangTranslate, setUILang } from '@dear-ui/core/utils'
 
 # Table
@@ -69,12 +69,12 @@ __需要为 Table 设置 rowKey__
 <Playground>
   {
     () => {
-      const _keyMapper = [...columns];
+      const _columns = [...columns];
       const _records = [...dataRows];
       return (
         <div>
           <Table
-            columns={_keyMapper}
+            columns={_columns}
             rowKey={record => record.id}
             onChange={(emitVal, config) => {
               console.log(emitVal, config)
@@ -93,12 +93,12 @@ __需要为 Table 设置 rowKey__
 <Playground>
   {
     () => {
-      const _keyMapper = [...columns];
+      const _columns = [...columns];
       const _records = [...dataRows];
       return (
         <div>
           <Table
-            columns={_keyMapper}
+            columns={_columns}
             ref={e => table = e}
             rowKey={record => record.id}
             needCount
@@ -121,13 +121,13 @@ __需要为 Table 设置 rowKey__
 <Playground>
   {
     () => {
-      const _keyMapper = [...columns];
+      const _columns = [...columns];
       const _records = [...dataRows];
       let table;
       return (
         <div>
           <Table
-            columns={_keyMapper}
+            columns={_columns}
             clickToHighlight
             ref={e => table = e}
             checkedOverlay={checkedItems => (
@@ -150,70 +150,30 @@ __需要为 Table 设置 rowKey__
 
 ## 固定表头
 
-添加 height 固定表头
-
-```js
-const columns = [
-  {
-    ...config,
-    fixed: 'left'
-  },
-  ...mappers,
-  {
-    ...config,
-    fixed: 'right'
-  }
-]
-```
-
 <Playground>
   {
     () => {
-      const [_keyMapper, setKeyMapper] = useState([...keyMapperFixed]);
+      const [_columns, setKeyMapper] = useState([...fixedColumns]);
       const [_records, setRecords] = useState([...dataRows]);
       const [show, setShow] = useState(false);
       let table;
       return (
-        <div className="mb10">
-          <span className="btn theme mr10" onClick={e => {
-            let nextKeyMapper = [...columns];
-            nextKeyMapper.splice(-1, 1);
-            setKeyMapper(nextKeyMapper)
-          }}>减少最后一个 columns</span>
-          <span className="btn green mr10" onClick={e => {
-            let nextKeyMapper = [...columns, {
-              key: 'len' + columns.length
-            }];
-            setKeyMapper(nextKeyMapper)
-          }}>增加一个 columns</span>
-          <span className="btn red mr10" onClick={e => {
-            let nextRecords = [...dataRows, dataRows[0]];
-            setRecords(nextRecords)
-          }}>增加一条记录</span>
-          <span className="btn orange mr10" onClick={e => {
-            let nextRecords = [...dataRows].slice(0, dataRows.length - 1);
-            setRecords(nextRecords)
-          }}>减少一条记录</span>
-          <hr />
-          <div>
-            <Table
-              columns={_keyMapper}
-              ref={e => table = e}
-              checkedOverlay={(
-                <span className="btn theme mu10" onClick={e => table.clearCheckeds()}>
-                  清除所有的以选中项
-                </span>
-              )}
-              rowKey={record => record.id}
-              height={200}
-              needCheck
-              needCount
-              onChange={(emitVal, config) => {
-                console.log(emitVal, config)
-              }}
-              dataRows={_records} />
-          </div>
-        </div>
+        <Table
+          columns={_columns}
+          ref={e => table = e}
+          checkedOverlay={(
+            <span className="btn theme mu10" onClick={e => table.clearCheckeds()}>
+              清除所有的以选中项
+            </span>
+          )}
+          rowKey={record => record.id}
+          height={200}
+          needCheck
+          needCount
+          onChange={(emitVal, config) => {
+            console.log(emitVal, config)
+          }}
+          dataRows={_records} />
       )
     }
   }
@@ -240,7 +200,38 @@ const columns = [
 <Playground>
   {
     () => {
-      const [_keyMapper, setKeyMapper] = useState([...keyMapperFixed]);
+      const [_columns, setKeyMapper] = useState([...fixedColumns]);
+      const [_records, setRecords] = useState([...dataRows]);
+      const [show, setShow] = useState(false);
+      let table;
+      return (
+        <Table
+          columns={_columns}
+          ref={e => table = e}
+          checkedOverlay={(
+            <span className="btn theme mu10" onClick={e => table.clearCheckeds()}>
+              清除所有的以选中项
+            </span>
+          )}
+          rowKey={record => record.id}
+          height={200}
+          needCheck
+          needCount
+          onChange={(emitVal, config) => {
+            console.log(emitVal, config)
+          }}
+          dataRows={_records} />
+      )
+    }
+  }
+</Playground>
+
+## 动态操作表格
+
+<Playground>
+  {
+    () => {
+      const [_columns, setKeyMapper] = useState([...fixedColumns]);
       const [_records, setRecords] = useState([...dataRows]);
       const [show, setShow] = useState(false);
       let table;
@@ -248,15 +239,15 @@ const columns = [
         <div>
           <div className="mb10">
             <span className="btn theme mr10" onClick={e => {
-              let nextKeyMapper = [...columns];
-              nextKeyMapper.splice(-1, 1);
-              setKeyMapper(nextKeyMapper)
+              let nextColumns = [..._columns];
+              nextColumns.splice(-1, 1);
+              setKeyMapper(nextColumns)
             }}>减少最后一个 columns</span>
             <span className="btn green mr10" onClick={e => {
-              let nextKeyMapper = [...columns, {
-                key: 'len' + columns.length
-              }];
-              setKeyMapper(nextKeyMapper)
+              let nextColumns = [{
+                key: `addKey_${_columns.length}`
+              }, ..._columns];
+              setKeyMapper(nextColumns)
             }}>增加一个 columns</span>
             <span className="btn red mr10" onClick={e => {
               let nextRecords = [...dataRows, dataRows[0]];
@@ -269,7 +260,7 @@ const columns = [
             <hr />
             <div>
               <Table
-                columns={_keyMapper}
+                columns={_columns}
                 ref={e => table = e}
                 checkedOverlay={(
                   <span className="btn theme mu10" onClick={e => table.clearCheckeds()}>
@@ -297,7 +288,7 @@ const columns = [
 <Playground>
   {
     () => {
-      const [_keyMapper, setKeyMapper] = useState([...keyMapperFixed]);
+      const [_columns, setKeyMapper] = useState([...fixedColumns]);
       const [_records, setRecords] = useState([...dataRows]);
       const [show, setShow] = useState(false);
       let table;
@@ -313,7 +304,7 @@ const columns = [
           </div>
           <div style={!show ? {display: 'none'} : null}>
             <Table
-              columns={_keyMapper}
+              columns={_columns}
               ref={e => table = e}
               checkedOverlay={(
                 <span className="btn theme mu10" onClick={e => table.clearCheckeds()}>
@@ -357,7 +348,7 @@ const columns = [
 <Playground>
   {
     () => {
-      const _keyMapper = [{
+      const _columns = [{
         key: 'desc',
         title: '排序',
         filter: (_, item) => item.age,
@@ -370,7 +361,7 @@ const columns = [
       return (
         <div>
           <Table
-            columns={_keyMapper}
+            columns={_columns}
             ref={e => table = e}
             checkedOverlay={checkedItems => (
               <span className="btn theme mu10" onClick={e => table.clearCheckeds()}>
@@ -393,13 +384,13 @@ const columns = [
 <Playground>
   {
     () => {
-      const _keyMapper = [...columns];
+      const _columns = [...columns];
       const _records = [...dataRows];
       let table;
       return (
         <div>
           <Table
-            columns={_keyMapper}
+            columns={_columns}
             ref={e => table = e}
             checkedOverlay={checkedItems => (
               <span className="btn theme mu10" onClick={e => table.clearCheckeds()}>
@@ -423,7 +414,7 @@ const columns = [
 <Playground>
   {
     () => {
-      const _keyMapper = [...columns];
+      const _columns = [...columns];
       const _records = [...dataRows];
       const [lang, setLang] = useState('zh-CN')
       const langMapper = {
@@ -447,7 +438,7 @@ const columns = [
           }}>{lang}</span>
           <div>
             <Table
-              columns={_keyMapper}
+              columns={_columns}
               ref={e => table = e}
               rowKey={record => record.id}
               needCount
