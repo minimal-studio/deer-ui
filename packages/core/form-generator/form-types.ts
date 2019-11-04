@@ -123,7 +123,7 @@ export interface CheckboxType extends RefFormControl, RadioProps {
 
 export interface TextareaType extends RefFormControl {
   type: 'textarea';
-  defaultValue: any;
+  defaultValue?: string;
 }
 
 export interface TextType extends RefFormControl {
