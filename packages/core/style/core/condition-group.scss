@@ -4,6 +4,7 @@ $formControlBgColor: #f9f9f9;
   position: relative;
   display: flex;
   flex-wrap: wrap;
+  font-size: $form-control-font-size;
 
   .title {
     color: rgba(116, 117, 118, 1);
