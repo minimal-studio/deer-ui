@@ -1,6 +1,6 @@
 {
   "name": "@deer-ui/enhance-ui",
-  "version": "4.0.0-alpha2.0",
+  "version": "4.0.0-alpha2.1",
   "scripts": {
     "build": "npm run get:style:files; npm run copy:files",
     "get:style:files": "sh ./get-style-file.sh",
