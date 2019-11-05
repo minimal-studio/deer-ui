@@ -1,9 +1,9 @@
 import React from 'react';
 import { RemoveArrayItem } from '@mini-code/base-func';
 
-import { Checkbox } from '@dear-ui/core/checkbox';
-import { DropdownWrapper, DropdownWrapperProps } from '@dear-ui/core/dropdown-wrapper';
-import SelectorBasic, { SelectorValuesDescription, SelectorBasicProps, SelectorBasicState } from '@dear-ui/core/selector-basic';
+import { Checkbox } from '@deer-ui/core/checkbox';
+import { DropdownWrapper, DropdownWrapperProps } from '@deer-ui/core/dropdown-wrapper';
+import SelectorBasic, { SelectorValuesDescription, SelectorBasicProps, SelectorBasicState } from '@deer-ui/core/selector-basic';
 
 export interface DropdownGroupProps extends SelectorBasicProps, DropdownWrapperProps {
   /** group data */

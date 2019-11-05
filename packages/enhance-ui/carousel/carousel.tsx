@@ -1,8 +1,8 @@
 import React, { Component, PureComponent } from 'react';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import { Call } from '@mini-code/base-func';
-import { Children } from '@dear-ui/core/utils/props';
-import { Icon } from '@dear-ui/core/icon';
+import { Children } from '@deer-ui/core/utils/props';
+import { Icon } from '@deer-ui/core/icon';
 
 interface CarouselItem {
   /** 如果同时设置了 imgUrl 和 element */

@@ -4,7 +4,7 @@
 
 ### 重命名
 
-从 ukelli ui 重命名为 dear-ui，为产品化做基础建设
+从 ukelli ui 重命名为 deer-ui，为产品化做基础建设
 
 ### Code Change
 

@@ -1,8 +1,8 @@
 import React from 'react';
 import { Call } from '@mini-code/base-func';
 
-import { UIComponent } from '@dear-ui/core/utils/ui-component';
-import { Input } from '@dear-ui/core/input';
+import { UIComponent } from '@deer-ui/core/utils/ui-component';
+import { Input } from '@deer-ui/core/input';
 
 export interface CaptchaResData {
   /** 是否发生错误 */

@@ -1,5 +1,5 @@
 {
-  "name": "dear-ui",
+  "name": "deer-ui",
   "version": "4.0.0-alpha1.0",
   "private": true,
   "workspaces": [
@@ -23,7 +23,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/minimal-studio/dear-ui.git"
+    "url": "https://github.com/minimal-studio/deer-ui.git"
   },
   "keywords": [
     "UI"

@@ -9,16 +9,16 @@ import {
 
 import { UIComponent } from '../utils/ui-component';
 
-import { DatetimePicker } from '@dear-ui/core/datetimepicker';
-import { DateShortcut } from '@dear-ui/core/date-shortcut';
-import { Radio } from '@dear-ui/core/radio';
-import { Checkbox } from '@dear-ui/core/checkbox';
-import { Dropdown } from '@dear-ui/core/dropdown';
-import { Input } from '@dear-ui/core/input';
-import { Slider } from '@dear-ui/core/slider';
-import { ToolTip } from '@dear-ui/core/tooltip';
-import Switch from '@dear-ui/core/switch-button/switch-c';
-import { InputSelector } from '@dear-ui/core/input-selector';
+import { DatetimePicker } from '@deer-ui/core/datetimepicker';
+import { DateShortcut } from '@deer-ui/core/date-shortcut';
+import { Radio } from '@deer-ui/core/radio';
+import { Checkbox } from '@deer-ui/core/checkbox';
+import { Dropdown } from '@deer-ui/core/dropdown';
+import { Input } from '@deer-ui/core/input';
+import { Slider } from '@deer-ui/core/slider';
+import { ToolTip } from '@deer-ui/core/tooltip';
+import Switch from '@deer-ui/core/switch-button/switch-c';
+import { InputSelector } from '@deer-ui/core/input-selector';
 import { FormOptionsItemEnhance } from './form-types';
 import { Button } from '../button';
 

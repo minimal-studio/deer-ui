@@ -7,9 +7,9 @@
 import React from 'react';
 import { DebounceClass } from '@mini-code/base-func';
 import { UIComponent } from '../utils/ui-component';
-import Alert, { AlertProps } from '@dear-ui/core/alert/alert';
-import Toast from '@dear-ui/core/toast/toast';
-import Button from '@dear-ui/core/button/button';
+import Alert, { AlertProps } from '@deer-ui/core/alert/alert';
+import Toast from '@deer-ui/core/toast/toast';
+import Button from '@deer-ui/core/button/button';
 
 import FormGenerator, { FormGeneratorProps } from '../form-generator/form-generator';
 import { ButtonProps } from '../utils';

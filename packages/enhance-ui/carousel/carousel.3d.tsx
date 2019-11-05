@@ -1,8 +1,8 @@
 import React, { Component, PureComponent } from 'react';
 
 import { DebounceClass, Call } from '@mini-code/base-func';
-import { Icon } from '@dear-ui/core/icon';
-import { getIsMobile } from '@dear-ui/core/utils';
+import { Icon } from '@deer-ui/core/icon';
+import { getIsMobile } from '@deer-ui/core/utils';
 
 interface Carousel3DProps {
   /**

@@ -2,7 +2,7 @@
 /* eslint-disable no-prototype-builtins */
 import React, { Component } from "react";
 import { Call } from "@mini-code/base-func";
-import { Icon } from '@dear-ui/core/icon';
+import { Icon } from '@deer-ui/core/icon';
 
 interface TreeProps {
   level;

@@ -1,9 +1,9 @@
-# @dear-ui
+# @deer-ui
 
 Base on React's UI lib. Make frontend's dev simpler and faster.
 
-<!-- [![Build Status](https://travis-ci.org/ukelli/dear-ui.svg?branch=master)](https://travis-ci.org/ukelli/dear-ui)
-[![install size](https://packagephobia.now.sh/badge?p=dear-ui)](https://packagephobia.now.sh/result?p=dear-ui) -->
+<!-- [![Build Status](https://travis-ci.org/ukelli/deer-ui.svg?branch=master)](https://travis-ci.org/ukelli/deer-ui)
+[![install size](https://packagephobia.now.sh/badge?p=deer-ui)](https://packagephobia.now.sh/result?p=deer-ui) -->
 
 ## Support
 
@@ -13,7 +13,7 @@ Base on React's UI lib. Make frontend's dev simpler and faster.
 ## Getting started
 
 ```shell
-yarn add @dear-ui/all @mini-code/base-func unistore
+yarn add @deer-ui/all @mini-code/base-func unistore
 ```
 
 ### Use in project
@@ -21,8 +21,8 @@ yarn add @dear-ui/all @mini-code/base-func unistore
 ```js
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { ShowModal, CloseModal } from '@dear-ui/all/core/modal';
-import { Button } from '@dear-ui/all/core/button';
+import { ShowModal, CloseModal } from '@deer-ui/all/core/modal';
+import { Button } from '@deer-ui/all/core/button';
 
 const handleClick = (e) => {
   const ModalID = ShowModal({
@@ -48,8 +48,8 @@ ReactDOM.render(<App />, document.querySelector('#Main'));
 ## Local dev
 
 ```shell
-git clone https://github.com/minimal-studio/dear-ui
-cd dear-ui
+git clone https://github.com/minimal-studio/deer-ui
+cd deer-ui
 yarn
 yarn docz:dev
 ```

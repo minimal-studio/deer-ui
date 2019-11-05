@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import { Call } from '@mini-code/base-func';
-import { Icon } from '@dear-ui/core/icon';
+import { Icon } from '@deer-ui/core/icon';
 
 export interface MultipleProps {
   /** onChange */

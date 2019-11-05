@@ -6,16 +6,16 @@ menu: Utils
 
 import { Playground, Props } from 'docz'
 import { EventEmitter } from '@mini-code/base-func';
-import { Notify, CancelNotify, NotifyEvent } from '@dear-ui/core/notification';
-import NotifyConfigC from '@dear-ui/core/notification/doc-api/notify-config'
-import NotifyParamsC from '@dear-ui/core/notification/doc-api/notify-params'
+import { Notify, CancelNotify, NotifyEvent } from '@deer-ui/core/notification';
+import NotifyConfigC from '@deer-ui/core/notification/doc-api/notify-config'
+import NotifyParamsC from '@deer-ui/core/notification/doc-api/notify-params'
 
 # Notify
 
 ## Setup
 
 ```js
-import { Notify } from '@dear-ui/all/core/notification'
+import { Notify } from '@deer-ui/all/core/notification'
 
 Notify({
   config: {
@@ -101,7 +101,7 @@ Notify({
 
 ```js
 import { EventEmitter } from '@mini-code/base-func'
-import { NotifyEvent } from '@dear-ui/all/core/notification'
+import { NotifyEvent } from '@deer-ui/all/core/notification'
 
 EventEmitter.emit(NotifyEvent, {
   text: '通过 EventEmitter 广播通知',
@@ -132,7 +132,7 @@ EventEmitter.emit(NotifyEvent, {
 ## 取消广播
 
 ```js
-import { Notify, CancelNotify } from '@dear-ui/all'
+import { Notify, CancelNotify } from '@deer-ui/all'
 
 const NotifyID = Notify({
 

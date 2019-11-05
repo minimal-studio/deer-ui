@@ -1,5 +1,5 @@
 {
-  "name": "@dear-ui/enhance-ui",
+  "name": "@deer-ui/enhance-ui",
   "version": "4.0.0-alpha1.2",
   "scripts": {
     "build": "npm run get:style:files; npm run copy:files",
@@ -8,7 +8,7 @@
     "complie:scss": "node-sass ../../packages/enhance-ui/style/default.scss -o ../../dist/enhance-ui --output-style compressed"
   },
   "peerDependencies": {
-    "@dear-ui/core": "^4.0.0",
+    "@deer-ui/core": "^4.0.0",
     "@mini-code/base-func": "^1.0.2",
     "react": "^16.8.0",
     "react-dom": "^16.8.0",

@@ -1,9 +1,9 @@
 /* eslint-disable consistent-return */
 import React from 'react';
 import { CallFunc, Call } from '@mini-code/base-func';
-import { UIComponent } from '@dear-ui/core/utils/ui-component';
-import { DropdownWrapper } from '@dear-ui/core/dropdown-wrapper';
-import { Icon } from '@dear-ui/core/icon';
+import { UIComponent } from '@deer-ui/core/utils/ui-component';
+import { DropdownWrapper } from '@deer-ui/core/dropdown-wrapper';
+import { Icon } from '@deer-ui/core/icon';
 
 
 export interface LinkDataStruct {

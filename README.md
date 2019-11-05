@@ -1,4 +1,4 @@
-# @dear-ui
+# @deer-ui
 
 基于 React 的，可扩展的 UI 库。
 
@@ -14,7 +14,7 @@
 核心 UI 库
 
 ```shell
-yarn add @dear-ui/core @mini-code/base-func unistore
+yarn add @deer-ui/core @mini-code/base-func unistore
 ```
 
 ### enhance-ui
@@ -22,7 +22,7 @@ yarn add @dear-ui/core @mini-code/base-func unistore
 增强 UI 库
 
 ```shell
-yarn add @dear-ui/enhance-ui @dear-ui/core @mini-code/base-func unistore
+yarn add @deer-ui/enhance-ui @deer-ui/core @mini-code/base-func unistore
 ```
 
 ## Usage
@@ -30,8 +30,8 @@ yarn add @dear-ui/enhance-ui @dear-ui/core @mini-code/base-func unistore
 ```js
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { ShowModal, CloseModal } from '@dear-ui/core/modal';
-import { Button } from '@dear-ui/core/button';
+import { ShowModal, CloseModal } from '@deer-ui/core/modal';
+import { Button } from '@deer-ui/core/button';
 
 const handleClick = (e) => {
   const ModalID = ShowModal({
@@ -57,8 +57,8 @@ ReactDOM.render(<App />, document.querySelector('#Main'));
 ## Local dev
 
 ```shell
-git clone https://github.com/minimal-studio/dear-ui
-cd dear-ui
+git clone https://github.com/minimal-studio/deer-ui
+cd deer-ui
 yarn
 yarn dev:doc
 ```
