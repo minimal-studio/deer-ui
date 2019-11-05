@@ -20,8 +20,10 @@ import { Loading, LoadingProgress, LoadingPlaceholder } from '@deer-ui/core';
     () => {
       const [loading, setLoading] = useState(true)
       return (
+        <>
+        <span className="btn theme" onClick={e => setLoading(!loading)}>切换状态</span>
+        <hr />
         <div style={{height: 300}}>
-          <span className="btn theme" onClick={e => setLoading(!loading)}>切换状态</span>
           <Loading loading={loading}>
             {
               () => {
@@ -32,6 +34,7 @@ import { Loading, LoadingProgress, LoadingPlaceholder } from '@deer-ui/core';
             }
           </Loading>
         </div>
+        </>
       )
     }
   }
@@ -44,8 +47,10 @@ import { Loading, LoadingProgress, LoadingPlaceholder } from '@deer-ui/core';
     () => {
       const [loading, setLoading] = useState(true)
       return (
+        <>
+        <span className="btn theme" onClick={e => setLoading(!loading)}>切换状态</span>
+        <hr />
         <div style={{height: 300}}>
-          <span className="btn theme" onClick={e => setLoading(!loading)}>切换状态</span>
           <Loading loading={loading}>
             {
               !loading && (
@@ -54,6 +59,7 @@ import { Loading, LoadingProgress, LoadingPlaceholder } from '@deer-ui/core';
             }
           </Loading>
         </div>
+        </>
       )
     }
   }

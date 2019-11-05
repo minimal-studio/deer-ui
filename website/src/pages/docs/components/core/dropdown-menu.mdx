@@ -86,7 +86,7 @@ import { Dropdown } from '@deer-ui/core/dropdown';
             onClick={e => {
               dropdownRef.changeValue('value3')
             }}>把 Dropdown 实例中的更改为 value3</span>
-          <br />
+          <hr />
           <Dropdown
             ref={e => dropdownRef = e}
             onChange={val => {
@@ -195,7 +195,9 @@ import { Dropdown } from '@deer-ui/core/dropdown';
   }
 </Playground>
 
-### 监听指定元素的 onScroll
+### 监听指定元素的 onScroll 事件
+
+监听 Dropdown 的父级元素的 onScroll 事件并隐藏 Dropdown
 
 <Playground>
   {
