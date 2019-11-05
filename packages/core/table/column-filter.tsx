@@ -11,6 +11,7 @@ import { ApiRename } from '../utils/rename';
 import { ToolTip } from '../tooltip';
 import { Label } from '../label';
 import { Dropdown, DropdownProps } from '../dropdown/dropdown';
+import { $T } from '../utils';
 
 interface TitleFormSelector extends DropdownProps {
   /** 如果为 type === selector，则渲染 Dropdown，其余属性传入 Dropdown 组件 */
@@ -42,6 +43,8 @@ export interface Column {
   selectable?: boolean;
   /** 是否统计该 Row */
   tips?: string | string[];
+  /** 是否使用翻译 */
+  T?: boolean;
   /** 渲染让对应 dataSrc 的数据嵌入 Label */
   labels?: {
     [dataKey: string]: Color;
@@ -101,6 +104,8 @@ const excludeKey = (target, keys) => {
   });
   return res;
 };
+
+const nonDateReg = /0001/;
 
 export default class ColumnFilter<
   P = ColumnFilterProps, S = {}
@@ -246,7 +251,7 @@ export default class ColumnFilter<
     }
 
     const {
-      date, datetime, money, abvMoney, namesMapper, labels, filter
+      date, datetime, money, abvMoney, namesMapper, labels, filter, T
     } = column;
 
     let contentResult = currContent;
@@ -256,12 +261,15 @@ export default class ColumnFilter<
       case !!date:
       case !!datetime:
         var format = `YYYY-MM-DD${date ? '' : ' hh:mm:ss'}`;
-        contentResult = /0001/.test(currContent) ? '-' : DateFormat(currContent, format);
+        contentResult = nonDateReg.test(currContent) ? '-' : DateFormat(currContent, format);
         break;
       case !!money:
       case !!abvMoney:
         contentResult = MoneyFormat(contentResult);
         if (abvMoney) contentResult = contentResult.replace('-', '');
+        break;
+      case T:
+        contentResult = $T(contentResult);
         break;
     }
     /** 并不冲突的，需要流式处理，swtich case 只能互相冲突的情况 */
