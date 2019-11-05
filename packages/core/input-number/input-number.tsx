@@ -58,7 +58,7 @@ export class InputNumber extends InputVerifyClass<InputNumberProps> {
 
     return (
       <div
-        className={`input-verify${(!matchLen || !matchRange) ? ' error' : ''}`}>
+        className={`input-number${(!matchLen || !matchRange) ? ' error' : ''}`}>
         <input type={type}
           value={value}
           style={style}

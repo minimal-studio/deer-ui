@@ -262,19 +262,22 @@ export class DatetimePicker extends DateBasic<DatetimePickerProps> {
   }
 
   render() {
+    const { needTime, mode } = this.props;
     return (
-      <div className="__flatpickr input-group">
-        <span className="input-addon"
-          onClick={(e) => {
-            if (this.datepicker) this.datepicker.toggle();
-          }}>
-          <Icon n="date"/>
-        </span>
-        <input
-          type="text"
-          className="form-control input-sm"
-          id={this._id}
-          ref={(e) => { this._refs[this._id] = e; }}/>
+      <div className={`__flatpickr input-control ${needTime ? 'long' : ''} ${mode}`}>
+        <div className="input-group">
+          <span className="input-addon"
+            onClick={(e) => {
+              if (this.datepicker) this.datepicker.toggle();
+            }}>
+            <Icon n="date"/>
+          </span>
+          <input
+            type="text"
+            className="form-control input-sm"
+            id={this._id}
+            ref={(e) => { this._refs[this._id] = e; }}/>
+        </div>
       </div>
     );
   }

@@ -90,7 +90,7 @@ export function getBottom(params: GetFuncParams): PositionReturn {
     offsetLeft, elemWidth, offsetTop, _fromInternal, verticalOffset = 0,
     offsetWidth, offsetHeight, elemHeight,
   } = params;
-  const top = offsetTop + offsetHeight + offsetHeight / 2;
+  const top = offsetTop + offsetHeight + offsetHeight / 4;
   if (top + elemHeight >= getScreenHeight() && !_fromInternal) return getTop({ ...params, _fromInternal: true });
   return {
     top,
