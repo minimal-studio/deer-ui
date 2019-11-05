@@ -24,9 +24,10 @@ textarea {
   @include formControlFocus();
 }
 
-.input-verify {
+.input-number {
   display: flex;
   align-items: stretch;
+  height: $form-control-height;
 
   &.error {
     .form-control {
@@ -131,10 +132,22 @@ textarea {
     display: flex;
     flex: 1;
     align-items: center;
-    border: 1px solid $gray;
+    border: $form-control-border-width solid $form-control-border-color;
     border-radius: 3px;
     transition: background-color 0.2s ease, border 0.2s ease, box-shadow 0.2s ease;
     background-color: #fefefe;
+    .input-addon {
+      color: #999;
+      height: $form-control-height - 2 * $form-control-border-width;
+      line-height: $form-control-height - 4px;
+      padding: 0 8px;
+      border-right: 1px solid $form-control-border-color;
+      border-radius: $form-control-border-radius 0 0 $form-control-border-radius;
+    }
+    &.right {
+      border-right: 0;
+      border-left: 1px solid $form-control-border-color;
+    }
   }
 
   .form-control {
@@ -199,12 +212,13 @@ textarea {
 
   .menu-wrapper {
     min-width: 80px !important;
-    background-color: #f3f3f3;
+    // background-color: #f3f3f3;
   }
 
   .input-group {
     border-radius: 0 3px 3px 0;
     margin-bottom: 0;
+    margin-left: -1px;
     // padding: 0 10px;
     // margin-left: 5px;
   }

@@ -15,6 +15,7 @@ th {
   width: 100%;
   max-width: 100%;
   margin-bottom: 0;
+  font-size: $base-body-font-size;
   // Cells
   > thead,
   > tbody,
@@ -271,10 +272,8 @@ table {
       color: $tableHeaderTextColor;
       padding: 8px $tdPadding + 5 8px $tdPadding;
       vertical-align: middle;
-      // border-bottom: 2px solid #ddd;
-      // text-align: center;
-      // background: linear-gradient(180deg, #fefefe, #f6f6f6);
-      background-color: #f9f9f9;
+      background: linear-gradient(180deg, #fafafa, #f6f6f6);
+      // background-color: #f9f9f9;
       text-overflow: ellipsis;
       white-space: nowrap;
       overflow: hidden;

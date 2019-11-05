@@ -1,6 +1,6 @@
 // @import "../var.scss";
 .pagin-con {
-  padding: 5px 10px;
+  // padding: 5px 10px;
   // height: 46px;
   &.has-pagin {
     display: flex;
@@ -19,10 +19,12 @@
   }
   .item {
     display: inline-block;
-    padding: 3px 12px 3px;
-    border: 1px solid #EEE;
-    border-radius: 3px;
+    padding: 0 12px;
+    border: $form-control-border-width solid $form-control-border-color;
+    border-radius: $form-control-border-radius;
     margin-right: 5px;
+    height: $form-control-height;
+    line-height: $form-control-height - 2 * $form-control-border-width;
     cursor: pointer;
     &:hover {
       background-color: #f8f8f8;

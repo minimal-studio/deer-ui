@@ -1,17 +1,30 @@
+$date-picker-width: 260px;
+
 .datepicker-ranger-content {
   @include layout();
   align-items: center;
+  .display-title {
+    border: none !important;
+  }
+  // .__dropdown-menu {
+  //   margin-left: -1px;
+  // }
 }
 .__flatpickr {
+  display: flex;
   &.input-group {
     position: relative;
   }
-  .form-control {
-    min-width: 280px;
-    width: 280px;
-  }
-  .icon {
-    color: #999;
-    margin-right: 5px;
+  &.range {
+    .form-control {
+      min-width: $date-picker-width - 100px;
+      width: $date-picker-width - 100px;
+    }
+    &.long {
+      .form-control {
+        min-width: $date-picker-width;
+        width: $date-picker-width;
+      }
+    }
   }
 }

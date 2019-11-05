@@ -3,16 +3,16 @@
   padding: 0.1px;
 }
 .form-control {
+  font-size: $form-control-font-size;
   height: $form-control-height;
   color: $black;
   display: inline-block;
   width: auto;
-  background-color: #FFF;
   padding: 0 5px;
-  border-radius: 3px;
+  border-radius: $form-control-border-radius;
   box-shadow: none;
-  border-color: #e7e7e7;
-  background-color: #fefefe;
+  border-color: $form-control-border-color;
+  background-color: $form-control-bg-color;
   transition: border-color 0.1s, background-color 0.1s;
   &select {
     padding: 0;
@@ -55,6 +55,7 @@
   // .form-control {
   //   min-width: 240px;
   // }
+  font-size: $form-control-font-size;
   &.inlineTitle {
     .title {
       display: inline !important;
