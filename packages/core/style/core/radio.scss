@@ -12,9 +12,10 @@ $normalColor: #CCC;
       margin-right: 10px;
     }
     .item {
-      height: $form-control-height;
       $itemPaddingHeight: 10px;
-      padding: 4px $itemPaddingHeight;
+      height: $form-control-height;
+      line-height: $form-control-height;
+      padding: 0 $itemPaddingHeight;
       position: relative;
       margin-left: $frameScale;
       margin-right: 10px;

@@ -1,35 +1,28 @@
-// @import '../var.scss';
-$indicatorOffset: 2px;
+$padding: 0;
 
 .switch-btn-group {
-  // padding: 3px 4px;
-  // background-color: #fff;
   border-radius: 20px;
   background-color: #f1f1f1;
-  // background-color: $themeColor;
-  border: 1px solid #ededed;
+  border: $form-control-border-width solid $form-control-border-color;
   display: inline-block;
   position: relative;
   overflow: hidden;
   box-shadow: inset 0 1px 1px rgba(#000, 0.05);
+  padding: $padding;
   .indicator {
     position: absolute;
-    // top: $indicatorOffset;
-    // bottom: $indicatorOffset;
     left: 0;
     height: 100%;
-    // margin: $indicatorOffset;
-    // width: 33%;
-    // height: 1px;
     background-color: $themeColor;
-    // background-color: #FFF;
     transition: all 0.2s ease;
     border-radius: 20px;
-    // border-top: 1px solid darken($themeColor, 5%);
     box-shadow: inset 0 1px 1px rgba(#000, 0.1);
   }
   .switch-btn {
-    padding: 3px 16px;
+    $btn-height: $form-control-height - 2 * ($form-control-border-width + $padding);
+    height: $btn-height;
+    line-height: $btn-height;
+    padding: 0 16px;
     text-align: center;
     border-radius: 20px;
     cursor: pointer;

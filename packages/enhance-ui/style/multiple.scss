@@ -2,8 +2,9 @@
 $borderRadius: 4px;
 
 .multiple-helper {
+  font-size: $base-body-font-size;
+  height: $form-control-height;
   border: 1px solid #EEE;
-  // padding: 3px 8px 3px 5px;
   padding: 4px 2px;
   border-radius: $borderRadius;
   background-color: #FFF;

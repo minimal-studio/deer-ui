@@ -55,24 +55,24 @@ export default class ToolTip extends PureComponent<ToolTipProps> {
     classNames: []
   }
 
-  Popover!: PopoverEntity
+  _Popover!: PopoverEntity
 
   // constructor(props) {
   //   super(props);
   // }
 
   componentWillUnmount = () => {
-    if (this.Popover) this.Popover.destroy();
+    if (this._Popover) this._Popover.destroy();
   }
 
   newPopover = () => {
-    if (!this.Popover) {
-      this.Popover = new PopoverEntity({
+    if (!this._Popover) {
+      this._Popover = new PopoverEntity({
         id: UUID(),
         fixed: true
       });
     }
-    return this.Popover;
+    return this._Popover;
   }
 
   handleMouseEnter = (e) => {
@@ -94,7 +94,7 @@ export default class ToolTip extends PureComponent<ToolTipProps> {
   }
 
   handleMouseLeave = (e) => {
-    this.Popover.close();
+    this._Popover && this._Popover.close();
   }
 
   handleClick = (e) => {
@@ -103,11 +103,11 @@ export default class ToolTip extends PureComponent<ToolTipProps> {
     } = this.props;
     Call(onClick, e);
     if (clickToClose) {
-      this.Popover && this.Popover.close();
+      this._Popover && this._Popover.close();
     } else {
       debounce.exec(() => {
         const { title } = this.props;
-        this.Popover && this.Popover.show({
+        this._Popover && this._Popover.show({
           children: <TitleDOM title={title}/>,
         });
       }, 15);

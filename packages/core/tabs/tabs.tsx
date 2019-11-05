@@ -106,7 +106,7 @@ export default class Tabs extends Component<TabsProps, State> {
   getTabContents() {
     const {
       children, height,
-      inRow, withContent, closeable, closeTip,
+      inRow, withContent, closeable, closeTip = '关闭',
       onClose
     } = this.props;
     const activeTabIdx = this.getActiveIdx();
