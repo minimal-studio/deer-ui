@@ -56,8 +56,8 @@ export interface DatetimePickerProps extends DateBasicProps {
   didMount?: () => void;
   /** 默认值 */
   defaultValue?: string[];
-  /** 受控控件的值 */
-  value?: string[];
+  // /** 受控控件的值 */
+  // value?: string[];
 }
 
 interface DefaultProps {
@@ -124,9 +124,16 @@ export class DatetimePicker extends DateBasic<DatetimePickerProps> {
     Call(this.props.didMount, this.value);
   }
 
-  componentDidUpdate(prevProps) {
-    if (JSON.stringify(this.props.value) !== JSON.stringify(prevProps.value)) {
-      this.datepicker.setDate(this.props.value, false);
+  // componentDidUpdate(prevProps) {
+  //   if (JSON.stringify(this.props.value) !== JSON.stringify(prevProps.value)) {
+  //     this.datepicker.setDate(this.props.value, false);
+  //   }
+  // }
+
+  setDate = (nextValue, tiggerChange = true) => {
+    this.datepicker.setDate(nextValue);
+    if (tiggerChange) {
+      this.changeDate(nextValue);
     }
   }
 
@@ -228,7 +235,8 @@ export class DatetimePicker extends DateBasic<DatetimePickerProps> {
     if (!window.flatpickr) return console.error(`加载 flatpickr 失败`);
     window.flatpickr.l10ns.zh = Mandarin;
     const {
-      mode, needTime, lang, allowInput,
+      mode, needTime, lang, allowInput, value, defaultValue,
+      onChange,
       // enableTime,
       defaultTimes, ...others
     } = this.props;

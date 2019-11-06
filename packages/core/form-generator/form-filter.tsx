@@ -24,48 +24,6 @@ import { Button } from '../button';
 
 export type FormOptionsItem = FormOptionsItemEnhance;
 
-// import { Captcha } from '../captcha';
-
-// export type FormGeneratorTypes = 'customForm'|
-// // 'captcha'|
-// 'select-n'|
-// 'select'|
-// 'input-selector-s'|
-// 'input-selector'|
-// 'input-range'|
-// 'input'|
-// 'password'|
-// 'textarea'|
-// 'ranger'|
-// 'slider'|
-// 'text'|'radio'|
-// 'checkbox'|
-// 'button'|
-// 'datetime'|
-// 'datetimeRange'|
-// 'switch'|
-// 'hr';
-
-// export interface FormOptionsItem {
-//   /** UI 类型 */
-//   type: FormOptionsItemEnhance;
-//   /** 显示标题 */
-//   title?: string;
-//   /** className */
-//   className?: string;
-//   /** 是否必填|选 */
-//   required?: boolean;
-//   /** UI 的引用 key */
-//   ref?: string;
-//   /** UI 的引用 key, 作用于 datetime */
-//   refs?: string[];
-//   /** UI 的引用 key, 暂时弃用 */
-//   refu?: {
-//     [ref: string]: string;
-//   };
-//   [anyPropsForComponent: string]: any;
-// }
-
 export type FormOptions = (FormOptionsItem | string)[];
 
 export type FormChangeEvent = (formValues, changeRef, changeValue) => void;
@@ -75,6 +33,9 @@ export interface FormFilterProps<T = FormOptions> {
   conditionConfig?: T;
   onChange?: FormChangeEvent;
 }
+
+/** 获取 refs 的 ID */
+const getRefsID = (refs) => (Array.isArray(refs) ? refs.join('-') : '')
 
 const wrapInputSelectorMarkForRefu = (activeRef) => `__isActive${activeRef}`;
 
@@ -134,7 +95,7 @@ export default class FormFilterHelper<P extends FormFilterProps> extends UICompo
         const { ref = '', refs } = options;
         if (this.value[ref]) nextValue[ref] = this.value[ref];
         if (Array.isArray(refs)) {
-          const refsID = this.getRefsID(refs);
+          const refsID = getRefsID(refs);
           if (this.value[refsID]) nextValue[refsID] = this.value[refsID];
           for (const itemRef of refs) {
             if (this.value[itemRef]) nextValue[itemRef] = this.value[itemRef];
@@ -246,9 +207,9 @@ export default class FormFilterHelper<P extends FormFilterProps> extends UICompo
       });
     }
 
-    if (type === 'datetimeRange') {
-      this.value[this.getRefsID(refs)] = range;
-    }
+    // if (type === 'datetimeRange') {
+    //   this.value[getRefsID(refs)] = range;
+    // }
   }
 
   checkForm() {
@@ -327,10 +288,6 @@ export default class FormFilterHelper<P extends FormFilterProps> extends UICompo
     });
   }
 
-  refreshCaptcha(ref) {
-    this._refs[ref].refreshCaptcha();
-  }
-
   zeroFilter = (target, otherwise?) => (target === 0 ? 0 : (target || otherwise))
 
   getValue(ref, otherwise?) {
@@ -340,6 +297,8 @@ export default class FormFilterHelper<P extends FormFilterProps> extends UICompo
 
   saveRef = (ref) => (elem) => { this._refs[ref] = elem; }
 
+  getRef = (ref) => this._refs[ref]
+
   loadPlugin = (Plugin, props) => {
     let P = IsFunc(Plugin) ? <Plugin /> : Plugin;
 
@@ -347,9 +306,6 @@ export default class FormFilterHelper<P extends FormFilterProps> extends UICompo
 
     return P;
   }
-
-  /** 获取 refs 的 ID */
-  getRefsID = (refs) => (Array.isArray(refs) ? refs.join('-') : '')
 
   /**
    * 旧的表单插件接口
@@ -388,20 +344,6 @@ export default class FormFilterHelper<P extends FormFilterProps> extends UICompo
     
     return C;
   }
-
-  // getCaptcha = (config) => {
-  //   const { ref, keyRef = 'CaptchaKey', ...other } = config;
-  //   return (
-  //     <Captcha
-  //       {...other}
-  //       value={this.getValue(ref, '')}
-  //       ref={this.saveRef('CaptchaCode')}
-  //       onCaptchaLoad={(captchKey) => this.changeValue(captchKey, keyRef)}
-  //       onChange={(captchaConfig) => {
-  //         this.changeValue(captchaConfig.value, ref);
-  //       }}/>
-  //   );
-  // }
 
   getSelectNative = (config) => {
     const { values, ref } = config;
@@ -615,29 +557,34 @@ export default class FormFilterHelper<P extends FormFilterProps> extends UICompo
     );
   }
 
-  changeDateValues = (vals, refs) => {
+  changeDateRangeValues = (vals, refs) => {
     const [refS, refE] = refs;
-    const datetimeRangeRef = this.getRefsID(refs);
-    if (vals.length === 0) {
-      this.value[datetimeRangeRef] = null;
-    } else {
-      this.value[datetimeRangeRef] = vals;
+    // const datetimeRangeRef = getRefsID(refs);
+    if (!Array.isArray(vals)) {
+      // 如果不是数组，则封装成数组
+      vals = [vals];
     }
+    // if (vals.length === 0) {
+    //   // 如果是 []，则清空值
+    //   this.value[datetimeRangeRef] = null;
+    // } else {
+    //   this.value[datetimeRangeRef] = vals;
+    // }
     const nextValue = {
       [refS]: vals[0],
-      [refE]: vals[1],
+      [refE]: vals[1] || vals[0], // 如果只有一个值，则把第一个个值赋给 ref end
       // [datetimeRangeRef]: [...vals]
     };
-    this.value[datetimeRangeRef] = vals;
+    // this.value[datetimeRangeRef] = vals;
     this.changeValues(nextValue);
   }
 
   getDatetimeRange = (config) => {
     const {
-      ref, range, refs, ...other
+      ref, range, mode, refs, ...other
     } = config;
     // let [refS, refE] = refs;
-    const datetimeRangeRef = this.getRefsID(refs);
+    const datetimeRangeRef = getRefsID(refs);
 
     return (
       <div className="datepicker-ranger-content">
@@ -645,19 +592,22 @@ export default class FormFilterHelper<P extends FormFilterProps> extends UICompo
         <DatetimePicker
           mode="range"
           {...other}
-          // ref={e => this._refs[datetimeRangeRef] = e}
           ref={this.saveRef(datetimeRangeRef)}
           id={datetimeRangeRef}
           defaultValue={range}
-          value={this.value[datetimeRangeRef]}
-          onChange={(val) => this.changeDateValues(val, refs)}/>
+          // value={this.value[datetimeRangeRef]}
+          onChange={(val) => {
+            this.changeDateRangeValues(val, refs)
+          }}/>
         {
           !config.noHelper && (
             <DateShortcut
               {...other}
               position="right"
               onChange={(val) => {
-                this.changeDateValues(val, refs);
+                // 点击更改 DatetimePicker 中的值
+                this.getRef(datetimeRangeRef).setDate(val);
+                // this.changeDateRangeValues(val, refs);
               }}/>
           )
         }
@@ -683,7 +633,6 @@ export default class FormFilterHelper<P extends FormFilterProps> extends UICompo
     button: this.getButton,
     customFormOld: this.getCustomFormOld,
     customForm: this.getCustomForm,
-    // captcha: this.getCaptcha,
     'select-n': this.getSelectNative,
     select: this.getSelect,
     'input-selector-s': this.getInputSelectorS,

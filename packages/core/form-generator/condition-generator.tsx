@@ -3,6 +3,7 @@ import React from 'react';
 
 import { UUID, Call } from '@mini-code/base-func';
 import FormFilterHelper, { FormFilterProps, FormOptionsItem } from './form-filter';
+import { FormLayoutBtn } from '../form-layout/form-layout';
 
 export type ConditionOptions = FormOptionsItem[];
 
@@ -13,6 +14,8 @@ export interface ConditionGeneratorProps extends FormFilterProps {
   className?: string;
   /** onSubmit */
   onSubmit?: (values) => void;
+  /** 查询条件组的按钮 */
+  formBtns?: FormLayoutBtn[];
 }
 
 /**

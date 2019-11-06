@@ -79,6 +79,11 @@ export interface DatetimeType extends RefFormControl, DatetimePickerProps {
   type: 'datetime';
 }
 
+export interface HiddenType extends RefFormControl {
+  type: 'hidden';
+  value?: any;
+}
+
 export interface DatetimeRangeType extends RefsFormControl, DatetimePickerProps {
   type: 'datetimeRange';
   /** default value for datetimePicker */
@@ -168,6 +173,7 @@ CheckboxType |
 DatetimeType |
 DatetimeRangeType |
 HRType |
+HiddenType |
 InputType |
 InputRangeType |
 InputSelectorType |
