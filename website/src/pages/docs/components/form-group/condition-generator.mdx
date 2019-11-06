@@ -39,7 +39,7 @@ import { ConditionGenerator } from '@deer-ui/core/form-generator';
           <ConditionGenerator
             ref={e => domRef = e}
             onChange={(values, ref, val) => {
-              console.log(values)
+              {/* console.log(values) */}
               if(ref === 'ref1') {
                 domRef.changeValue(val, 'ref_for_input')
               }
@@ -135,7 +135,9 @@ import { ConditionGenerator } from '@deer-ui/core/form-generator';
           </ConditionGenerator>
           <hr />
           <div>
-            <button type="submit" className="theme btn mr10">查看查询条件的值</button>
+            <button type="submit" className="theme btn mr10" onClick={e => {
+              console.log(domRef.value)
+            }}>查看查询条件的值</button>
             <span onClick={e => domRef.clearValue()} className="theme btn red">清空条件</span>
           </div>
         </div>
