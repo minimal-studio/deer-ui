@@ -2,39 +2,36 @@
 
 ## 4.0.0
 
-### 重命名
+### 组织升级
 
-从 ukelli ui 重命名为 deer-ui，为产品化做基础建设
+从 ukelli ui 升级为 @deer-ui，为产品化做基础建设
 
-### Code Change
+### 项目结构调整
 
-- uke-component 改名为 ui-component，其中的 UkeComponent 改名为 UIComponent
+项目结构调整为
 
-### API Rename
+- @dear-ui/core 核心组件
+  - style
+  - utils 工具库
+    - config 配置
+    - i18n 国际化
+- @dear-ui/enhance-ui 基于核心组件的增强组件
+  - style
 
+### API 调整
+
+彻底舍弃 window.$UKE 全局变量模式
+
+- UkeComponent -> UIComponent
 - $T_UKE -> $T_IN
 - setUkeLang -> setUILang
 - setUkeLangConfig -> setUILangConfig
 - setUkelliConfig -> setUIConfig
 - getUkelliConfig -> getUIConfig
 
-### 项目结构调整
-
-项目结构调整为
-
-- core 核心组件
-- enhance 基于核心组件的聚合增强组件
-- utils 工具库
-- style 样式库
-- config 配置
-- i18n 国际化
-- layout 布局
-
-文件调整
-
-- 将文档单独放入 website 目录中，并且把所有组件的文档都放入其中
-
 ### 组件文件名更改
+
+@dear-ui/core
 
 - pagin -> pagination
 - button-basic -> button
@@ -43,21 +40,30 @@
 - form-control/input-selector -> input-selector
 - form-control/input-number -> input-number
 - record-render/table -> table
+- record-render/mapper-filter -> table/column-filter
 - record-render/card-table -> table-card
 - record-render/desc-helper -> table-row
-- record-render/mapper-filter -> table/column-filter
-- tip-button -> enhance/tip-button
 - selector/radio -> radio
 - selector/checkbox -> checkbox
 - selector/dropdown-menu -> dropdown
-- selector/dropdown-group -> dropdown-group
 - selector/dropdown-wrapper -> dropdown-wrapper
-- selector/link-selector -> enhance/link-selector
 - selector -> selector-basic
+- uke-component -> ui-component
+
+@dear-ui/enhance-ui
+
+- captcha -> enhance-ui/captcha
+- selector/chart-dom -> enhance-ui/chart-dom
+- selector/dropdown-group -> enhance-ui/dropdown-group
+- tip-button -> enhance-ui/tip-button
+- selector/link-selector -> enhance-ui/link-selector
 
 ### 组件名更改
 
 - Ranger -> Slider
+- DropdownMenu -> Dropdown
+- CardTable -> TableCard
+- DescHelper -> TableRow
 
 ### Props 更改
 
@@ -68,4 +74,6 @@
 - 不再提供 captcha 的支持，需要通过扩展字段引入
 - 重构 customForm 表单控件接入接口
 
-### 彻底舍弃 $UKE 获取配置的方式
+### 文档调整
+
+- 将文档单独放入 website 目录中，并且存放所有组件的文档和测试用例
