@@ -10,14 +10,8 @@ import {
  */
 
 export class UIComponent<P = {}, S = {}, SS = any> extends Component<P, S, SS> {
-  /** gm 将要弃用 */
-  gm = $T;
-
   /** 外部国际化键值对 $T() */
   $T = $T;
-
-  /** gmUke 将要弃用 */
-  gmUke = $T_IN;
 
   /** 内部国际化键值对 $T_IN() */
   $T_IN = $T_IN;
@@ -29,14 +23,8 @@ export class UIComponent<P = {}, S = {}, SS = any> extends Component<P, S, SS> {
   setConfig = setUIConfig;
 }
 export class UIPureComponent<P = {}, S = {}, SS = any> extends PureComponent<P, S, SS> {
-  /** gm 将要弃用 */
-  gm = $T;
-
   /** 外部国际化键值对 $T() */
   $T = $T;
-
-  /** gmUke 将要弃用 */
-  gmUke = $T_IN;
 
   /** 内部国际化键值对 $T_IN() */
   $T_IN = $T_IN;
