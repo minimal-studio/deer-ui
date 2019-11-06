@@ -12,11 +12,11 @@ menu: Style
 
 ```scss
 // 默认的颜色变量
-@import '@deer-ui/all/style/color/default.scss';
+@import '@deer-ui/style/color/default.scss';
 
 // 依赖颜色变量的主样式入口
-@import '@deer-ui/all/style/var.scss';
-@import '@deer-ui/all/style/index.scss';
+@import '@deer-ui/style/var.scss';
+@import '@deer-ui/style/index.scss';
 ```
 
 ## 自定义样式变量
@@ -24,13 +24,13 @@ menu: Style
 创建 `./var.scss` 变量 scss 文件，具体内容参考 https://github.com/minimal-studio/deer-ui/blob/master/style/color/default.scss
 
 ```scss
-@import '@deer-ui/all/style/color/default.scss';
+@import '@deer-ui/style/color/default.scss';
 
 // 在 deer-ui/style/index.scss 之前覆盖 color 变量
 @import './var.scss';
 
 // 依赖颜色变量的主样式入口
-@import '@deer-ui/all/style/index.scss';
+@import '@deer-ui/style/index.scss';
 ```
 
 ### 3. 使用 color class

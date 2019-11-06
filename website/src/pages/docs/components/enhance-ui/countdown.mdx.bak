@@ -16,13 +16,13 @@ import '../../../style/other/default.scss'
 ### Import Component
 
 ```js
-import Countdown from '@deer-ui/all/other/countdown/clip-clock';
+import Countdown from '@deer-ui/other/countdown/clip-clock';
 ```
 
 ### Import Style
 
 ```scss
-@import '@deer-ui/all/style/other/flip-clock.scss';
+@import '@deer-ui/style/other/flip-clock.scss';
 ```
 
 <Playground className="bg_default">

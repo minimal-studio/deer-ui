@@ -15,7 +15,7 @@ import NotifyParamsC from '@deer-ui/core/notification/doc-api/notify-params'
 ## Setup
 
 ```js
-import { Notify } from '@deer-ui/all/core/notification'
+import { Notify } from '@deer-ui/core/notification'
 
 Notify({
   config: {
@@ -101,7 +101,7 @@ Notify({
 
 ```js
 import { EventEmitter } from '@mini-code/base-func'
-import { NotifyEvent } from '@deer-ui/all/core/notification'
+import { NotifyEvent } from '@deer-ui/core/notification'
 
 EventEmitter.emit(NotifyEvent, {
   text: '通过 EventEmitter 广播通知',
@@ -132,7 +132,7 @@ EventEmitter.emit(NotifyEvent, {
 ## 取消广播
 
 ```js
-import { Notify, CancelNotify } from '@deer-ui/all'
+import { Notify, CancelNotify } from '@deer-ui'
 
 const NotifyID = Notify({
 

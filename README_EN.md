@@ -13,7 +13,7 @@ Base on React's UI lib. Make frontend's dev simpler and faster.
 ## Getting started
 
 ```shell
-yarn add @deer-ui/all @mini-code/base-func unistore
+yarn add @deer-ui @mini-code/base-func unistore
 ```
 
 ### Use in project
@@ -21,8 +21,8 @@ yarn add @deer-ui/all @mini-code/base-func unistore
 ```js
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { ShowModal, CloseModal } from '@deer-ui/all/core/modal';
-import { Button } from '@deer-ui/all/core/button';
+import { ShowModal, CloseModal } from '@deer-ui/core/modal';
+import { Button } from '@deer-ui/core/button';
 
 const handleClick = (e) => {
   const ModalID = ShowModal({
