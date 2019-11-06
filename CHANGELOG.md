@@ -1,4 +1,4 @@
-# Change logs of Dear-UI
+# Change logs of Deer-UI
 
 ## 4.0.0
 
