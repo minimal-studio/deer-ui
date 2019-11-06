@@ -6,8 +6,8 @@
 export default {
   dest: '../public',
   typescript: true,
-  title: 'Dear-UI',
-  description: 'Dear-UI, 轻量级 React UI 框架',
+  title: 'Deer-UI',
+  description: 'Deer-UI, 轻量级 React UI 框架',
   menu: [
     'Getting Started',
     'Style',
