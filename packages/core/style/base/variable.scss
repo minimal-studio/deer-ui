@@ -29,3 +29,18 @@ $heading-margin-bottom: 15px;
 // button setting
 
 $button-md-padding-vertical: 7px;
+
+// table
+
+$table-td-padding-horizontal: 10px;
+$table-td-padding-verical: 8px;
+
+$table-td-min-width: 100px;
+$table-td-max-width: 400px;
+
+$table-th-bg: linear-gradient(180deg, #fafafa, #f6f6f6);
+$table-th-border-bottom-color: #ddd;
+
+$table-tr-hovering-bg-color: rgba($blue, 0.05);
+$table-tr-bg-highlight: rgba($blue, 0.1);
+$table-tr-border-highlight: rgba($blue, 0.15);

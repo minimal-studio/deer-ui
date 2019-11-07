@@ -253,11 +253,14 @@ export class Table extends ColumnFilter<TableProps, State> {
     const checked = !!checkedItems[idx];
     return (
       <input type="checkbox"
-        checked={checked} onChange={(e) => this.toggleSelectItem(item, idx)}/>
+        checked={checked} onChange={(e) => {
+          e.stopPropagation();
+          this.toggleSelectItem(item, idx);
+        }}/>
     );
   }
 
-  getKeyMapper = () => {
+  _getColumns = () => {
     const { needCheck } = this.props;
     const columns = this.getColumns();
 
@@ -496,7 +499,7 @@ export class Table extends ColumnFilter<TableProps, State> {
       needAction = true, filter, statistics, main
     } = options;
     if (!record) return null;
-    // const columns = this.getKeyMapper();
+    // const columns = this._getColumns();
     const keyMapperLen = columns.length;
 
     const result: any[] = [];
@@ -563,13 +566,14 @@ export class Table extends ColumnFilter<TableProps, State> {
   renderRow = (options) => {
     const { clickToHighlight } = this.props;
     const { dataRows, ...other } = options;
-    const { hoveringRow, highlightRow } = this.state;
+    const { hoveringRow, highlightRow, checkedItems } = this.state;
 
     return dataRows.map((record, idx) => {
       if (!record) return;
       const { _highlight = '' } = record;
       const key = this.getRowKey(record, idx);
-      const isHighlight = !!highlightRow[idx];
+      const isChecked = !!checkedItems[idx];
+      const isHighlight = !!highlightRow[idx] || isChecked;
       const isHoving = hoveringRow === idx;
       // eslint-disable-next-line consistent-return
       return (
@@ -640,7 +644,10 @@ export class Table extends ColumnFilter<TableProps, State> {
                   if (key === 'checkbox') {
                     title = (
                       <input type="checkbox" checked={isAllCheck}
-                        onChange={(e) => this.toggleAllItems(e.target.checked)}/>
+                        onChange={(e) => {
+                          e.stopPropagation()
+                          this.toggleAllItems(e.target.checked);
+                        }}/>
                     );
                   } else {
                     title = this.titleFilter(item, __idx);
@@ -672,6 +679,7 @@ export class Table extends ColumnFilter<TableProps, State> {
                   } : {};
 
                   const _className = classnames(
+                    needSort && 'sort-th',
                     isOrdering && (isDesc ? '_desc' : '_asc'),
                     canOrder && '_order _btn',
                     isRightAlign && 'right'
@@ -881,7 +889,7 @@ export class Table extends ColumnFilter<TableProps, State> {
     } = this.state;
     const dataRows = this.dataRowsOrderFilter();
     const hasRecord = dataRows.length > 0;
-    const columns = this.getKeyMapper();
+    const columns = this._getColumns();
 
     const checkedItemLen = Object.keys(checkedItems).length;
     const hasChecked = checkedItemLen > 0;

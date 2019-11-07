@@ -1,7 +1,5 @@
 // @import "../var.scss";
 
-$tdPadding: 10px;
-
 //
 // Tables
 // --------------------------------------------------
@@ -23,7 +21,7 @@ th {
     > tr {
       > th,
       > td {
-        padding: 0;
+        padding: $table-td-padding-verical $table-td-padding-horizontal;
         line-height: 1.1;
         vertical-align: top;
         border-top: 1px solid #EEE;
@@ -71,7 +69,6 @@ table {
 @mixin highlightTD($color) {
   td,
   th {
-    // background-color: $color;
     color: $color;
     border-bottom-color: darken($color, 10%);
   }
@@ -85,8 +82,6 @@ table {
     z-index: 1;
     &.left {
       left: 0;
-      // box-shadow: 3px 0 3px rgba(#000, 0.1);
-      // display: none;
     }
     &.right {
       right: 0;
@@ -115,14 +110,6 @@ table {
       &:hover {
         background: #EEE;
       }
-      // background: linear-gradient(180deg, darken(#FFF, 3%), darken(#FFF, 6%));
-      // position: relative;
-      // color: $themeColor;
-      // .caret {
-      //   position: absolute;
-      //   top: 45%;
-      //   right: 10px;
-      // }
     }
     .sort-caret-group, .selector-group {
       position: absolute;
@@ -201,7 +188,6 @@ table {
   }
   &.ready {
     .table-fixed {
-      // display: block;
       opacity: 1;
     }
     .table-header {
@@ -211,8 +197,6 @@ table {
   &.scroll-to-left {
     .table-fixed.left {
       box-shadow: 8px 0 6px -6px #BBB;
-      // display: block;
-      // border-right: 2px solid #DDD;
     }
   }
   &.auto-width {
@@ -222,16 +206,12 @@ table {
   }
   &.auto-width,&.scroll-at-right {
     .table-fixed.right {
-      // box-shadow: 1px 0 1px rgba(#000, 0.1);
       box-shadow: none;
-      // display: none;
-      // border-left: none;
     }
   }
 }
 .table-container {
   @include card();
-  // padding-bottom: 10px;
 }
 .hide-table {
   // opacity: 0;
@@ -266,20 +246,20 @@ table {
     }
   }
   thead {
-    // background-color: $tableHeaderBgColor;
     tr th {
       font-weight: normal;
       color: $tableHeaderTextColor;
-      padding: 8px $tdPadding + 5 8px $tdPadding;
+      padding: $table-td-padding-verical $table-td-padding-horizontal;
       vertical-align: middle;
-      background: linear-gradient(180deg, #fafafa, #f6f6f6);
-      // background-color: #f9f9f9;
+      background: $table-th-bg;
       text-overflow: ellipsis;
       white-space: nowrap;
       overflow: hidden;
-      // border-right: 1px solid #DDD;
-      // border-top: 1px solid #EEE;
-      border-bottom: 1px solid #ddd;
+      border-bottom: 1px solid $table-th-border-bottom-color;
+
+      &.sort-th {
+        padding-right: $table-td-padding-horizontal + 8;
+      }
     }
   }
 
@@ -299,32 +279,28 @@ table {
   }
 
   tbody {
-    // background-color: $tableBodyBgColor;
     tr {
       &.hovering {
-        background-color: rgba($blue, 0.08) !important;
+        background-color: $table-tr-hovering-bg-color !important;
       }
       &.highlight {
-        background-color: rgba($themeColor, 0.2) !important;
+        background-color: $table-tr-bg-highlight !important;
         td {
-          border-color: rgba($themeColor, 0.25) !important;
+          border-color: $table-tr-border-highlight !important;
         }
       }
       td {
         border-bottom: 1px solid #f0f0f0;
         border-top: 0;
         // border-right: 1px solid #EEE;
-        padding: 8px $tdPadding;
-        // text-align: center;
-        // word-break: break-all;
-        // white-space: inherit;
+        padding: $table-td-padding-verical $table-td-padding-horizontal;
         /** 为了让表格形成一行 */
         word-break: keep-all;
         white-space: nowrap;
         // vertical-align: middle;
         color: $tableBodyTextColor;
-        min-width: 100px;
-        max-width: 400px !important;
+        min-width: $table-td-min-width;
+        max-width: $table-td-max-width !important;
         // border-right: 1px solid #e9e9e9;
         &.check-td  {
           min-width: 40px !important;
@@ -333,7 +309,7 @@ table {
         &.break-word {
           word-break: break-word;
           white-space: inherit;
-          min-width: 400px;
+          min-width: $table-td-max-width;
         }
       }
       &:nth-of-type(even) {
@@ -341,13 +317,4 @@ table {
       }
     }
   }
-  // tfoot {
-  //   tr td {
-  //     text-align: center;
-  //   }
-  // }
-
-  // &.fixed {
-  //   table-layout: fixed;
-  // }
 }
