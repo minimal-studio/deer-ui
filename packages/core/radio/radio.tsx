@@ -48,6 +48,7 @@ export default class Radio extends SelectorBasic<RadioProps> {
     const selectAllBtn = isMultiple && checkAllBtn && (
       <Button
         color={!isSelectedAll ? 'theme' : 'red'}
+        className="select-all-btn"
         onClick={(e) => (isSelectedAll ? this.clearAll() : this.selectAll())}>
         {this.$T_IN(isSelectedAll ? '清除' : '全选')}
       </Button>
@@ -71,13 +72,13 @@ export default class Radio extends SelectorBasic<RadioProps> {
               <img src={img} alt="" />
             )
           }
-          <div className="text">{$T(text)}</div>
           {/* <div className="caret"></div> */}
           <div className={`frame${n ? ' icon-mode' : ''}`}>
             {
               n ? <Icon n={n} /> : <div className="unit"/>
             }
           </div>
+          <div className="text">{$T(text)}</div>
         </div>
       );
     });

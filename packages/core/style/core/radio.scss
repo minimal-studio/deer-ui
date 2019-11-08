@@ -1,20 +1,24 @@
 $frameScale: 16px;
 $normalColor: #CCC;
 .__radio-container {
+  display: flex;
+  align-items: center;
+  .select-all-btn {
+    margin-right: 10px;
+  }
   .group {
-    @include layout();
-    align-items: center;
+    align-content: center;
     // padding-left: $frameScale;
     &.col {
       flex-direction: column;
     }
-    .select-all {
-      margin-right: 10px;
-    }
     .item {
       $itemPaddingHeight: 10px;
-      height: $form-control-height;
-      line-height: $form-control-height;
+      display: flex;
+      align-items: center;
+      min-height: $form-control-height;
+      // height: $form-control-height;
+      // line-height: $form-control-height;
       padding: 0 $itemPaddingHeight;
       position: relative;
       margin-left: $frameScale;
