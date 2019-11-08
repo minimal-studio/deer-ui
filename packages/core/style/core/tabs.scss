@@ -81,12 +81,12 @@ $tabTextColor: #999;
           // transform: scale(1);
           opacity: 1;
         }
-        .tab-label {
-          // padding-right: 30px;
-          .text {
-            transform: translateX(10px);
-          }
-        }
+        // .tab-label {
+        //   // padding-right: 30px;
+        //   .text {
+        //     transform: translateX(10px);
+        //   }
+        // }
       }
       &.active {
         color: $tabTextActiveColor;
