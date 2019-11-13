@@ -269,7 +269,7 @@ export default class ColumnFilter<
         if (abvMoney) contentResult = contentResult.replace('-', '');
         break;
       case T:
-        contentResult = $T(contentResult);
+        currContent = $T(currContent);
         break;
     }
     /** 并不冲突的，需要流式处理，swtich case 只能互相冲突的情况 */
