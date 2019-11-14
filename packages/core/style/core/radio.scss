@@ -3,12 +3,13 @@ $normalColor: #CCC;
 .__radio-container {
   display: flex;
   align-items: center;
+  .layout {
+    flex: 1;
+  }
   .select-all-btn {
     margin-right: 10px;
   }
   .group {
-    align-content: center;
-    // padding-left: $frameScale;
     &.col {
       flex-direction: column;
     }
