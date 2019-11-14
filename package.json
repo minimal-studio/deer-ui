@@ -11,7 +11,7 @@
   "scripts": {
     "publish:all": "npm run publish:core; npm run publish:enhance",
     "publish:core": "npm publish ./dist/core --access public",
-    "publish:enhance": "npm publish ./dist/enhance-ui --access public",
+    "publish:enhance-ui": "npm publish ./dist/enhance-ui --access public",
     "publish:all:lerna": "lerna publish",
     "release": "npm run build:all; npm run publish:all:lerna",
     "release:core": "npm run build:all; npm run publish:core",
