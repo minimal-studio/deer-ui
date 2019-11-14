@@ -3,13 +3,13 @@
 .btn {
   appearance: none;
   background-color: #FFF;
-  padding: $button-md-padding-vertical 24px;
-  font-size: 14px;
-  border-radius: 3px;
+  padding: $button-md-padding-vertical $button-md-padding-horizontal;
+  font-size: $form-control-font-size;
+  border-radius: $form-control-border-radius;
   transition: background-color 0.1s ease, box-shadow 0.1s ease, color 0.1s ease;
   outline: none;
   position: relative;
-  border: 1px solid transparent;
+  border: $form-control-border-width solid transparent;
   white-space: nowrap;
   display: inline-block;
   text-align: center;

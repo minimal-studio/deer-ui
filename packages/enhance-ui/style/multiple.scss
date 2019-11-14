@@ -1,12 +1,9 @@
-// @import "../var.scss";
-$borderRadius: 4px;
-
 .multiple-helper {
   font-size: $base-body-font-size;
   height: $form-control-height;
   border: 1px solid #EEE;
   padding: 4px 2px;
-  border-radius: $borderRadius;
+  border-radius: $form-control-border-radius;
   background-color: #FFF;
   position: relative;
   margin: 0 10px;
@@ -17,7 +14,7 @@ $borderRadius: 4px;
     // font-size: 10px;
   }
   &.show {
-    border-radius: $borderRadius $borderRadius 0 0;
+    border-radius: $form-control-border-radius $form-control-border-radius 0 0;
     .toggle-tip-btn {
       transform: rotate(-90deg);
     }

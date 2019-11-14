@@ -15,7 +15,7 @@ $windowActiveShadow: 0 12px 36px rgba(#000, 0.3);
       pointer-events: auto;
       cursor: pointer;
       margin-left: 10px;
-      border-radius: 4px 4px 0 0;
+      border-radius: $base-border-radius $base-border-radius 0 0;
       opacity: 0.6;
       color: #555;
       display: flex;
@@ -205,7 +205,7 @@ $windowActiveShadow: 0 12px 36px rgba(#000, 0.3);
   .__modal-layout {
     // position: fixed;
     position: relative;
-    border-radius: 3px;
+    border-radius: $base-border-radius;
     transition: top ease 0.3s, left ease 0.3s, right ease 0.3s, bottom ease 0.3s, opacity ease 0.3s;
     // z-index: 100;
     width: 60%;
@@ -214,7 +214,7 @@ $windowActiveShadow: 0 12px 36px rgba(#000, 0.3);
 
     .__modal-header {
       // text-align: center;
-      border-radius: 4px 4px 0 0;
+      border-radius: $base-border-radius $base-border-radius 0 0;
       width: 100%;
       background-color: #FFF;
       border-bottom: 1px solid #EEE;
@@ -230,7 +230,7 @@ $windowActiveShadow: 0 12px 36px rgba(#000, 0.3);
     }
 
     .__modal-content {
-      border-radius: 0 0 4px 4px;
+      border-radius: 0 0 $base-border-radius $base-border-radius;
       min-height: 100px;
       // padding: 0.1px;
       overflow-y: auto;

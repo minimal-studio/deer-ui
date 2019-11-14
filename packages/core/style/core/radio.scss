@@ -83,9 +83,9 @@ $normalColor: #CCC;
   }
   &.multiple {
     .frame {
-      border-radius: 2px !important;
+      border-radius: $base-border-radius !important;
       .unit {
-        border-radius: 2px !important;
+        border-radius: $base-border-radius !important;
       }
     }
   }

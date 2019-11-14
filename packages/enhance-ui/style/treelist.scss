@@ -24,7 +24,7 @@ $funcBtnMargin: 5px;
         // margin-left: - $funcBtnScale - $funcBtnMargin;
         border: 1px solid #CCC;
         text-align: center;
-        border-radius: 3px;
+        border-radius: $base-border-radius;
         color: #999;
         padding: 0 3px;
         display: inline-block;

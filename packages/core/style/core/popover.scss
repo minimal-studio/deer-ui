@@ -2,7 +2,6 @@
 
 $verticalOffset: 12px;
 $horizontalOffset: 8px;
-$caretScale: 8px;
 
 .__popover {
   position: fixed;
@@ -11,10 +10,9 @@ $caretScale: 8px;
   min-width: 60px;
   min-height: 30px;
   box-shadow: 0 12px 48px rgba(0, 0, 0, 0.3);
-  border-radius: 2px;
   transition: opacity 0.2s ease;
   outline: none;
-  border-radius: 3px;
+  border-radius: $base-border-radius;
   // @include bgColor;
   @include popbg();
   &.has-close {
@@ -29,7 +27,7 @@ $caretScale: 8px;
   }
   &.top {
     .caret {
-      bottom: -$caretScale;
+      bottom: -$caret-scale;
       // left: ;
       transform: translateX($horizontalOffset);
     }
@@ -43,7 +41,7 @@ $caretScale: 8px;
   }
   &.bottom {
     .caret {
-      top: -$caretScale;
+      top: -$caret-scale;
       // left: 48%;
       transform: rotate(-180deg) translateX(-$horizontalOffset);
     }
@@ -58,7 +56,7 @@ $caretScale: 8px;
   .caret {
     position: absolute;
     color: #FFF;
-    border-width: $caretScale;
+    border-width: $caret-scale;
     transition: none;
   }
   ._close-btn {

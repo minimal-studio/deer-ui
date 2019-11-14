@@ -8,7 +8,7 @@ $bgScale: 60px;
   justify-content: space-between;
   .item {
     display: inline-block;
-    border-radius: 5px;
+    border-radius: $form-control-border-radius;
     // overflow: hidden;
     // width: 50px;
     text-align: center;

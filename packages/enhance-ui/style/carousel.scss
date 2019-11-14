@@ -34,7 +34,7 @@
       transition: all 0.2s ease;
       &:hover {
         background-color: $themeColor;
-        border-radius: 4px;
+        border-radius: $form-control-border-radius;
         // transform: translateX(10px);
       }
     }

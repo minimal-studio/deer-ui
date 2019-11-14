@@ -15,7 +15,7 @@
   // margin: 0 3px;
   margin-left: 3px;
   margin-right: 3px;
-  border-radius: 4px;
+  border-radius: $base-border-radius;
   &.bg_white.t_white {
     color: #666;
   }

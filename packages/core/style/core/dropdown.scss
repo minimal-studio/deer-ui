@@ -1,8 +1,6 @@
 // @import "../var.scss";
 $itemH: 30px;
 $iconW: 20px;
-$itemPadding: 6px 12px;
-$caretHeight: 6px;
 
 /** 外层的 dropdown menu 的层级需要提升 */
 #DropdownContainer {
@@ -77,14 +75,14 @@ $caretHeight: 6px;
   }
   &.input-mode, &.multiple {
     .display-title,.search-input {
-      border: 1px solid #e7e7e7;
-      border-radius: 3px;
+      border: $form-control-border-width solid #e7e7e7;
+      border-radius: $form-control-border-radius;
     }
     .menu-wrapper {
       color: #888;
     }
     .display-menu {
-      line-height: $itemH;
+      line-height: $form-control-height - $form-control-border-width * 2;
     }
   }
   &.top {
@@ -127,12 +125,12 @@ $caretHeight: 6px;
   
     z-index: 112;
     background-color: #FFF;
-    border-radius: 3px;
+    border-radius: $form-control-border-radius;
     // transition: all 0.2s ease;
     box-shadow: 0 2px 36px rgba(#333, 0.3);
     .caret {
       position: absolute;
-      border-width: $caretHeight;
+      border-width: $caret-scale;
       color: #FFF;
     }
     // &.done {
@@ -140,23 +138,23 @@ $caretHeight: 6px;
     // }
     &.top {
       .caret {
-        bottom: -$caretHeight;
+        bottom: -$caret-scale;
       }
     }
     &.bottom {
       .caret {
         transform: rotate(180deg);
-        top: -$caretHeight;
+        top: -$caret-scale;
       }
     }
     &.left {
       .caret {
-        left: 20px;
+        left: $caret-offset;
       }
     }
     &.right {
       .caret {
-        right: 20px;
+        right: $caret-offset;
       }
     }
   }
@@ -201,9 +199,7 @@ $caretHeight: 6px;
     transition: border-color ease 0.2s, box-shadow ease 0.2s;
   }
   .display-title,.search-input {
-    // border: 1px solid #e7e7e7;
     padding: 0 30px 0 10px;
-    // border-radius: 3px;
   }
   .search-input {
     position: absolute;
@@ -227,7 +223,7 @@ $caretHeight: 6px;
     position: relative;
     z-index: 11;
     .action-btn {
-      padding: $itemPadding;
+      padding: $dropdown-menu-item-padding;
       color: #AAA;
       &:hover {
         background-color: #f9f9f9;
@@ -243,7 +239,7 @@ $caretHeight: 6px;
     color: #777;
     transition: border ease 0.1s;
     border-left: 0 solid $themeColor;
-    padding: $itemPadding;
+    padding: $dropdown-menu-item-padding;
     &.active {
       border-left-width: 2px;
       color: rgba($themeColor, 0.8) !important;

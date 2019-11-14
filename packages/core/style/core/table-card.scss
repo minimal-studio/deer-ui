@@ -14,7 +14,7 @@
     background-color: #fafafa;
     padding: 10px;
     line-height: 22px;
-    border-radius: 3px;
+    border-radius: $base-border-radius;
     min-width: 250px;
     transition: all ease 0.3s;
     position: relative;
@@ -22,7 +22,7 @@
       color: $orange;
       border: 1px solid $orange;
       padding: 0 10px;
-      border-radius: 3px;
+      border-radius: $base-border-radius;
       // display: inline-block;
       &:hover {
         color: $red;

@@ -17,7 +17,7 @@
   }
 
   #{$class}::-webkit-scrollbar-thumb {
-    border-radius: 5px;
+    border-radius: $base-border-radius;
     background-color: $lightThemeScrollThumb;
 
     &:hover {
@@ -51,7 +51,7 @@
   // box-shadow: 0 3px 0 rgba(12,12,12,0.03);
   margin: 5px 10px; // border: 1px solid #EEE;
   // border-bottom: 1px solid #dde0e3;
-  border-radius: 2px;
+  border-radius: $base-border-radius;
   background-color: #ffffff;
 }
 

@@ -116,7 +116,7 @@ $colorRedDark: #b1147a;
       // border: 1px solid transparent;
       // width: $imgWidth;
       // height: $imgHeight;
-      border-radius: 6px;
+      border-radius: $form-control-border-radius;
       overflow: hidden;
       min-height: 100px;
       transition: all ease 0.2s;

@@ -60,7 +60,7 @@ $rangerHandleScale: 20px;
       position: absolute;
       // opacity: 0;
       background-color: #FFF;
-      border-radius: 5px;
+      border-radius: $form-control-border-radius;
       // color: #FFF;
       box-shadow: 0 2px 12px rgba(#000, 0.3);
       padding: 6px 10px;

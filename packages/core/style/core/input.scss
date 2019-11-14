@@ -133,7 +133,7 @@ textarea {
     flex: 1;
     align-items: center;
     border: $form-control-border-width solid $form-control-border-color;
-    border-radius: 3px;
+    border-radius: $form-control-border-radius;
     transition: background-color 0.2s ease, border 0.2s ease, box-shadow 0.2s ease;
     background-color: #fefefe;
     .input-addon {
@@ -216,7 +216,7 @@ textarea {
   }
 
   .input-group {
-    border-radius: 0 3px 3px 0;
+    border-radius: 0 $form-control-border-radius $form-control-border-radius 0;
     margin-bottom: 0;
     margin-left: -1px;
     // padding: 0 10px;

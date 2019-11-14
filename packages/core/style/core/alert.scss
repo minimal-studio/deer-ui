@@ -1,6 +1,6 @@
 .__alert {
-  border: 1px solid transparent;
-  border-radius: 3px;
+  border: $form-control-border-width solid transparent;
+  border-radius: $form-control-border-radius;
   padding: 10px 15px;
   margin: 10px;
   position: relative;
