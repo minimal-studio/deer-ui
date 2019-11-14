@@ -7,6 +7,8 @@ import { $T, $T_IN } from '../utils';
 import SelectorBasic, { SelectorValuesDescription, SelectorBasicProps } from '../selector-basic';
 import { DropdownWrapper, DropdownWrapperProps } from '../dropdown-wrapper';
 import { MenuItem } from '../menu';
+import { Radio } from '../radio';
+import { Checkbox } from '../checkbox';
 // import Radio from './radio';
 
 const positionList = tuple('button', 'top', 'left', 'right', 'button,left', 'button,right', 'top,left', 'top,right');
@@ -141,6 +143,8 @@ export class Dropdown extends SelectorBasic<DropdownProps> {
     const canSelectAll = isMultiple && !isSelectedAll;
     const menuTitle = this.getActiveTitle();
 
+    const Selector = isMultiple ? Checkbox : Radio;
+
     return (
       <DropdownWrapper {...this.props}
         menuTitle={$T(menuTitle)}
@@ -156,7 +160,14 @@ export class Dropdown extends SelectorBasic<DropdownProps> {
                 </div>
               )
             }
-            <div className="items-group">
+            <div className="__menus">
+              <Selector value={_selectedValue} column values={this.values} onChange={(nextVal, {idx}) => {
+                const dataItem = this.values[idx];
+                // console.log(nextVal, idx)
+                this.handleClick(dataItem, idx, isMultiple ? null : hide);
+              }} />
+            </div>
+            {/* <div className="__menus">
               {
                 this.values.map((dataItem, idx) => {
                   const {
@@ -177,11 +188,12 @@ export class Dropdown extends SelectorBasic<DropdownProps> {
                         if (e && isMultiple) e.preventDefault();
                         this.handleClick(dataItem, idx, isMultiple ? null : hide);
                       }}
-                      {...dataItem}/>
+                      {...dataItem}>
+                    </MenuItem>
                   ) : null;
                 })
               }
-            </div>
+            </div> */}
           </div>
         )}
         withInput={!withInput ? withInput : !isMultiple}
