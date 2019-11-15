@@ -20,7 +20,7 @@ import { DateShortcut } from '@deer-ui/core';
       const [value, setVal] = useState([]);
       return (
         <div>
-          <DateShortcut style={{width: 300}}
+          <DateShortcut
             outputAsString={true}
             onChange={val => setVal(val)}/>
           <br/>
@@ -39,7 +39,7 @@ import { DateShortcut } from '@deer-ui/core';
       const [value, setVal] = useState([]);
       return (
         <div>
-          <DateShortcut style={{width: 300}}
+          <DateShortcut
             outputAsString={true}
             needTime={false}
             onChange={val => setVal(val)}/>
@@ -59,7 +59,7 @@ import { DateShortcut } from '@deer-ui/core';
       const [value, setVal] = useState([]);
       return (
         <div>
-          <DateShortcut style={{width: 300}}
+          <DateShortcut
             onChange={val => setVal(val)}/>
           <br/>
           返回值: {value.join(' - ')}

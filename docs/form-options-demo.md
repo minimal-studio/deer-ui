@@ -85,20 +85,10 @@ const formOptions = [
   {
     ref: 'customer1',
     type: 'customForm',
-    getCustomFormControl: () => {
-      return {
-        component: CustomerCom,
-        props: {
-
-        }
-      };
-    },
-    title: '自定义的表单组件1',
-    values: {
-      value1: 'value1',
-      value2: 'value2',
-      value3: 'value3',
-    }
+    getCustomFormControl: (onChange) => (
+      <div>自定义组件</div>
+    )
+    title: '自定义的表单组件1'
   },
   {
     ref: 'customer2',

@@ -18,6 +18,12 @@ import FormLayoutDemo from '@deer-ui/core/form-layout/demo/form-layout-demo'
   <FormLayoutDemo/>
 </Playground>
 
+## 移动端布局
+
+<Playground>
+  <FormLayoutDemo isMobile/>
+</Playground>
+
 表单生成器的再一层封装模版，用于渲染通用表单配置
 
 - 表单渲染
@@ -278,81 +284,6 @@ import FormLayoutDemo from '@deer-ui/core/form-layout/demo/form-layout-demo'
             </Loading>
           </div>
         </div>
-      )
-    }
-  }
-</Playground>
-
-## 移动端布局
-
-<Playground>
-  {
-    () => {
-      const valuesMapper = {
-        value1: {
-          forValue11: 'value1-1 的动态值',
-          forValue12: 'value1-2 的动态值',
-          forValue13: 'value1-3 的动态值',
-        },
-        value2: {
-          forValue21: 'value2-1 的动态值',
-          forValue22: 'value2-2 的动态值',
-          forValue23: 'value2-3 的动态值',
-        },
-        value3: {
-          forValue31: 'value3-1 的动态值',
-          forValue32: 'value3-2 的动态值',
-          forValue33: 'value3-3 的动态值',
-        },
-      }
-      const formOptions = [
-        {
-          ref: 'ref1',
-          type: 'radio',
-          title: '单选控件',
-          values: {
-            value1: 'value1',
-            value2: 'value2',
-            value3: 'value3',
-          }
-        },
-        {
-          ref: 'ref2',
-          type: 'radio',
-          title: '选择控件',
-          values: valuesMapper['value1']
-        },
-        {
-          ref: 'ref3',
-          type: 'select',
-          title: '选择控件',
-          isMultiple: true,
-          values: valuesMapper['value1']
-        },
-      ]
-      let formRef = {};
-      return (
-        <FormLayout
-          formBtns={[
-            {
-              action: (formRef, actingRef) => {
-                console.log(formRef.value, actingRef);
-              },
-              type: 'submit',
-              text: '测试按钮, 带预检查',
-              actingRef: 'forTest'
-            },
-            {
-              action: () => {
-                formRef.clearValue();
-              },
-              color: 'red',
-              text: '清空内容'
-            }
-          ]}
-          isMobile
-          ref={e => formRef = e}
-          formOptions={formOptions}/>
       )
     }
   }
