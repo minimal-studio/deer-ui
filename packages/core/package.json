@@ -1,6 +1,6 @@
 {
   "name": "@deer-ui/core",
-  "version": "4.0.0-alpha5.2",
+  "version": "4.0.0-alpha5.3",
   "scripts": {
     "build": "npm run get:style:files; npm run copy:files; npm run complie:scss",
     "get:style:files": "sh ./get-style-file.sh",
