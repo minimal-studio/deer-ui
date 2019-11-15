@@ -157,31 +157,10 @@ const formOptions: FormLayoutProps['formOptions'] = [
   {
     ref: 'customer1',
     type: 'customForm',
-    getCustomFormControl: () => {
-      return {
-        component: CustomerCom,
-        props: {
-
-        }
-      };
-    },
     title: '自定义的表单组件1',
-    values: {
-      value1: 'value1',
-      value2: 'value2',
-      value3: 'value3',
-    }
-  },
-  {
-    ref: 'customer2',
-    type: 'customForm',
-    getCustomFormControl: () => CustomerCom2,
-    title: '自定义的表单组件2',
-    values: {
-      value1: 'value1',
-      value2: 'value2',
-      value3: 'value3',
-    }
+    getCustomFormControl: () => (
+      <div>自定义组件</div>
+    )
   },
 ];
 

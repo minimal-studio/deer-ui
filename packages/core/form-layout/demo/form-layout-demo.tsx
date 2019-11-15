@@ -2,9 +2,9 @@ import React from 'react';
 
 import { FormLayout } from '..';
 import formOptions from './form-options-demo';
-import { FormLayoutBtnsConfig } from '../form-layout';
+import { FormLayoutBtnsConfig, FormLayoutProps } from '../form-layout';
 
-export default class FormLayoutDemo extends React.Component {
+export default class FormLayoutDemo extends React.Component<FormLayoutProps> {
   state = {
     hasErr: false,
     resDesc: ''
@@ -38,6 +38,7 @@ export default class FormLayoutDemo extends React.Component {
     return (
       <FormLayout
         {...this.state}
+        {...this.props}
         formBtns={this.formBtns}
         formOptions={this.formOptions}/>
     );

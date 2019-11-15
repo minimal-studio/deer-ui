@@ -41,7 +41,8 @@ const Mandarin = {
       "十二月",
     ]
   },
-  rangeSeparator: " 至 ",
+  // rangeSeparator: " 至 ",
+  rangeSeparator: " - ",
   weekAbbreviation: "周",
   scrollTitle: "滚动切换",
   toggleTitle: "点击切换 12/24 小时时制"

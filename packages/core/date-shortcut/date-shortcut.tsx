@@ -13,6 +13,7 @@ export interface DateShortcutProps extends DateBasicProps {
   onChange: DateBasicProps['onChange'];
   /** 默认的时分秒的值 */
   defaultTimes?: string[];
+  trigger?: DropdownWrapperProps['trigger'];
   /** 自定义的时间快捷选项 */
   dateHelperInfo?: {
     t: string;
@@ -63,6 +64,7 @@ export class DateShortcut extends DateBasic<DateShortcutProps, {
   static defaultProps = {
     needTime: true,
     toUTC: true,
+    trigger: 'click',
     position: 'left',
     outputAsString: false,
     defaultTimes: ['00:00:00', '23:59:59'],
@@ -133,23 +135,23 @@ export class DateShortcut extends DateBasic<DateShortcutProps, {
 
   render() {
     const { activeIdx } = this.state;
-    const { dateHelperInfo, style, position } = this.props;
+    const { dateHelperInfo, style, position, trigger } = this.props;
     const _dateHelperInfo = !!dateHelperInfo && dateHelperInfo.length > 0
       ? dateHelperInfo : this.defaultDateHelperInfo;
 
     return (
       <DropdownWrapper
         outside
-        trigger="hover"
+        trigger={trigger}
         position={position}
         overlay={({ hide }) => (
           <div className="date-shortcut" style={style}>
-            <div className="wrapper">
+            <div className="__menus">
               {
                 _dateHelperInfo.map((item, idx) => {
                   const text = item.t;
                   return (
-                    <span className={`action-btn${idx === activeIdx ? ' active' : ''}`}
+                    <span className={`menu-item action-btn${idx === activeIdx ? ' active' : ''}`}
                       onClick={(e) => {
                         hide();
                         this.generateDate(item, idx);

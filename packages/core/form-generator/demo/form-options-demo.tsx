@@ -166,18 +166,9 @@ const formOptions: FormOptions = [
     ref: 'customer1',
     type: 'customForm',
     title: '自定义的表单组件1',
-    getCustomFormControl: () => {
-      return {
-        component: '',
-        props: {}
-      }
-    }
-  },
-  {
-    ref: 'customer2',
-    type: 'customForm',
-    getCustomFormControl: () => CustomerCom2,
-    title: '自定义的表单组件2',
+    getCustomFormControl: () => (
+      <div>自定义组件</div>
+    )
   },
 ];
 

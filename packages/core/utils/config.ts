@@ -5,7 +5,7 @@ import chKeyMapper from './i18n/zh-CN';
 import enKeyMapper from './i18n/en-US';
 import { defaultIconMapper } from './icon-mapper';
 
-export interface UkeLangStruct {
+export interface UILangStructure {
   [lang: string]: {
     [translateKey: string]: string;
   };
@@ -18,11 +18,11 @@ export interface UIConfigStruct {
 
 const defaultLanguage = 'zh-CN';
 
-const internalLangConfig: UkeLangStruct = {
+const internalLangConfig: UILangStructure = {
   'zh-CN': chKeyMapper,
   'en-US': enKeyMapper,
 };
-const translateMapper: UkeLangStruct = {
+const translateMapper: UILangStructure = {
   'zh-CN': {},
   'en-US': {},
 };
@@ -78,16 +78,16 @@ function setUILang(lang: string) {
   language = lang;
 }
 
-function setUkeLangConfig(config: UkeLangStruct) {
+function setUkeLangConfig(config: UILangStructure) {
   ApiRename('setUkeLangConfig', 'setUILangConfig');
   setUILangConfig(config);
 }
 
 /**
  * 设置内部语言配置
- * @param {UkeLangStruct} config
+ * @param {UILangStructure} config
  */
-function setUILangConfig(config: UkeLangStruct) {
+function setUILangConfig(config: UILangStructure) {
   Object.assign(internalLangConfig, config);
 }
 

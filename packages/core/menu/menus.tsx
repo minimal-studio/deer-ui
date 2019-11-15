@@ -11,14 +11,15 @@ export interface MenuItemData extends MenuProps {
 export interface MenusProps {
   /** Menus 数据，可以为 Menu 的数据结构，如果为 '-' 或 'hr'，则渲染分隔线 */
   data?: (MenuItemData | DivideType)[];
+  padding?: 5 | 10 | 15 | 20;
 }
 
 const menuDividGroup = ['-', 'hr'];
 
 const Menus: React.SFC<MenusProps> = (props) => {
-  const { data, children } = props;
+  const { data, padding = 10, children } = props;
   return (
-    <span className="__menus">
+    <span className={`__menus ${padding ? 'p' + padding : ''}`}>
       {
         data ? data.map((item, idx) => {
           if (!item) return null;

@@ -143,7 +143,7 @@ export class Dropdown extends SelectorBasic<DropdownProps> {
     const canSelectAll = isMultiple && !isSelectedAll;
     const menuTitle = this.getActiveTitle();
 
-    const Selector = isMultiple ? Checkbox : Radio;
+    // const Selector = isMultiple ? Checkbox : Radio;
 
     return (
       <DropdownWrapper {...this.props}
@@ -160,13 +160,45 @@ export class Dropdown extends SelectorBasic<DropdownProps> {
                 </div>
               )
             }
-            <div className="__menus">
-              <Selector value={_selectedValue} column values={this.values} onChange={(nextVal, {idx}) => {
-                const dataItem = this.values[idx];
-                // console.log(nextVal, idx)
-                this.handleClick(dataItem, idx, isMultiple ? null : hide);
-              }} />
-            </div>
+            {
+              isMultiple ? (
+                <div className="wrapper">
+                  <Checkbox value={_selectedValue} column values={this.values} onChange={(nextVal, {idx}) => {
+                    const dataItem = this.values[idx];
+                    // console.log(nextVal, idx)
+                    this.handleClick(dataItem, idx, isMultiple ? null : hide);
+                  }} />
+                </div>
+              ) : (
+                <div className="__menus">
+                  {
+                    this.values.map((dataItem, idx) => {
+                      const {
+                        text, value, icon, img
+                      } = dataItem;
+    
+                      const isActive = itemActiveFilter(_selectedValue, value);
+                      const renderable = !searchValue
+                        ? true
+                        : (text.toString().indexOf(searchValue) !== -1
+                          || value.toString().toLowerCase().indexOf(searchValue) !== -1);
+    
+                      return renderable ? (
+                        <MenuItem
+                          key={value}
+                          isActive={isActive}
+                          onClick={(e) => {
+                            if (e && isMultiple) e.preventDefault();
+                            this.handleClick(dataItem, idx, isMultiple ? null : hide);
+                          }}
+                          {...dataItem}>
+                        </MenuItem>
+                      ) : null;
+                    })
+                  }
+                </div>
+              )
+            }
             {/* <div className="__menus">
               {
                 this.values.map((dataItem, idx) => {
