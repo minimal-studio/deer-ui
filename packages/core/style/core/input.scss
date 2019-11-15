@@ -148,8 +148,12 @@ textarea {
       border-radius: $form-control-border-radius 0 0 $form-control-border-radius;
     }
     &.right {
-      border-right: 0;
-      border-left: 1px solid $form-control-border-color;
+      // border-right: 0;
+      // border-left: 1px solid $form-control-border-color;
+      .input-addon {
+        border-left: 1px solid $form-control-border-color;
+        border-right: none;
+      }
     }
   }
 
