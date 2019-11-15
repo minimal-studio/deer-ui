@@ -118,6 +118,10 @@ $iconW: 20px;
       }
     }
   }
+  .scroll-content {
+    max-height: $form-control-height * $dropdown-menu-display-items-count;
+    overflow-y: auto;
+  }
   .wrapper {
     padding: 4px 8px;
     min-width: $menu-min-width;
