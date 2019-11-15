@@ -118,6 +118,10 @@ $iconW: 20px;
       }
     }
   }
+  .wrapper {
+    padding: 4px 8px;
+    min-width: $menu-min-width;
+  }
   .dropdown-items {
     position: absolute;
     // transition: all ease 0.2s;
@@ -247,36 +251,6 @@ $iconW: 20px;
       // &:hover {
       //   background-color: $themeColor !important;
       // }
-    }
-  }
-  .items-group {
-    max-height: 240px;
-    overflow-y: auto;
-    min-width: 180px;
-    transition: height 0.2s ease;
-    .group {
-      &.active {
-        .cateroy-title {
-          color: $themeColor;
-          .check-icon {
-            display: block;
-          }
-        }
-      }
-      .cateroy-title {
-        padding: 10px 10px;
-        border-top: 1px solid #EEE;
-        border-bottom: 1px solid #EEE;
-        background-color: #f3f3f3;
-        position: relative;
-        display: flex;
-        .check-icon {
-          display: none;
-        }
-        &:hover {
-          background-color: #EEE;
-        }
-      }
     }
   }
 }

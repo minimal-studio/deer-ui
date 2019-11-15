@@ -3,7 +3,7 @@ $listGroupWidth: 200px;
 
 .__list-container {
   .list-item {
-    padding: 6px 10px;
+    padding: $menu-item-padding-vertical $menu-item-padding-horizontal;
     &:hover {
       background-color: rgba(#444, 0.05);
     }

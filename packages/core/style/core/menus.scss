@@ -1,11 +1,13 @@
 .__menus {
   background-color: #FFF;
   display: inline-block;
-  min-width: 180px;
+  min-width: $menu-min-width;
   width: 100%;
-  padding: 8px;
+  .p {
+    padding: $menu-item-padding-vertical;
+  }
   .menu-item {
-    padding: 10px 15px;
+    padding: $menu-item-padding-vertical $menu-item-padding-horizontal;
     // border-bottom: 1px solid #EEE;
     cursor: pointer;
     .icon {

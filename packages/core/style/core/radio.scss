@@ -12,6 +12,9 @@ $normalColor: #CCC;
   .group {
     &.col {
       flex-direction: column;
+      .item {
+        width: 90%;
+      }
     }
     .item {
       $itemPaddingHeight: 10px;

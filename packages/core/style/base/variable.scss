@@ -5,6 +5,15 @@ $base-body-font-size: 14px;
 $base-fg: #FFF;
 $base-font-family: "Roboto", "Helvetica", "Arial", sans-serif, "Microsoft YaHei", "微软雅黑";
 $base-border-radius: 3px;
+$base-container-padding-vertical: 10px;
+$base-container-padding-horizontal: 15px;
+$base-container-margin-vertical: 10px;
+$base-container-margin-horizontal: 10px;
+
+// text
+
+$label-padding-vertical: 3px;
+$label-padding-horizontal: 12px;
 
 // form control setting
 
@@ -14,6 +23,8 @@ $form-control-bg-color: #fefefe;
 $form-control-border-radius: $base-border-radius;
 $form-control-border-color: #e7e7e7;
 $form-control-border-width: 1px;
+$form-control-padding-horizontal: 5px;
+$form-control-padding-vertical: 0;
 
 // type setting
 
@@ -47,12 +58,21 @@ $table-tr-hovering-bg-color: rgba($blue, 0.05);
 $table-tr-bg-highlight: rgba($blue, 0.1);
 $table-tr-border-highlight: rgba($blue, 0.15);
 
-// Dropdown
-
-$dropdown-menu-item-padding: 8px 12px;
-
 // Popover
 
 $caret-offset: 12px;
 $caret-scale: 8px;
+
+// Menu
+
+$menu-min-width: 140px;
+$menu-item-padding-vertical: 8px;
+$menu-item-padding-horizontal: 15px;
+
+// Dropdown
+
+$dropdown-menu-item-padding: $menu-item-padding-vertical $menu-item-padding-horizontal;
+
+// loading
+
 

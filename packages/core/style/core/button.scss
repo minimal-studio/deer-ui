@@ -60,7 +60,7 @@
 
   &.md {
     font-size: 14px;
-    padding: $button-md-padding-vertical 24px;
+    padding: $button-md-padding-vertical $button-md-padding-horizontal;
   }
 
   &.sm {
