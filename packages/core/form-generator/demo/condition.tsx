@@ -1,45 +1,45 @@
-import { useState } from 'react'
+import { useState } from 'react';
 import { ConditionGenerator } from '@deer-ui/core/form-generator';
-import { setLangTranslate, setUILang } from '../../utils'
+import { setLangTranslate, setUILang } from '../../utils';
 
 const Playground = ({ children }) => {
   return children();
-}
+};
 
 <Playground>
   {
     () => {
       let domRef;
-      const [lang, setLang] = useState('zh-CN')
+      const [lang, setLang] = useState('zh-CN');
       const langMapper = {
         'en-US': {
-          '时间': 'Date',
-          '单选控件': 'Radio',
-          '范围': 'range'
+          时间: 'Date',
+          单选控件: 'Radio',
+          范围: 'range'
         },
         'zh-CN': {
-          'value1': '值1',
+          value1: '值1',
         },
-      }
+      };
       return (
         <div>
-          <span className="btn theme" onClick={e => {
+          <span className="btn theme" onClick={(e) => {
             const nextLang = lang == 'zh-CN' ? 'en-US' : 'zh-CN';
             setLangTranslate(langMapper);
             setUILang(nextLang);
-            setLang(nextLang)
+            setLang(nextLang);
           }}>{lang}</span>
           <hr />
           <ConditionGenerator
-            ref={e => domRef = e}
+            ref={(e) => domRef = e}
             onChange={(values, ref, val) => {
-              console.log(values)
-              if(ref === 'ref1') {
-                domRef.changeValue(val, 'ref_for_input')
+              console.log(values);
+              if (ref === 'ref1') {
+                domRef.changeValue(val, 'ref_for_input');
               }
             }}
-            onSubmit={value => {
-              console.log(value)
+            onSubmit={(value) => {
+              console.log(value);
             }}
             conditionConfig={[
               {
@@ -69,7 +69,7 @@ const Playground = ({ children }) => {
               },
               {
                 ref: 'ref1',
-                tips: [123,321,222],
+                tips: [123, 321, 222],
                 type: 'radio',
                 title: '单选控件',
                 values: {
@@ -127,11 +127,11 @@ const Playground = ({ children }) => {
             <div>
               <hr />
               <button type="submit" className="theme btn mr10">查看查询条件的值</button>
-              <span onClick={e => domRef.clearValue()} className="theme btn red">清空条件</span>
+              <span onClick={(e) => domRef.clearValue()} className="theme btn red">清空条件</span>
             </div>
           </ConditionGenerator>
         </div>
-      )
+      );
     }
   }
-</Playground>
+</Playground>;

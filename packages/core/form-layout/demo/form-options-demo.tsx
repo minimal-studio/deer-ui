@@ -101,6 +101,11 @@ const formOptions: FormLayoutProps['formOptions'] = [
     title: '开关',
     defaultValue: true
   },
+  {
+    ref: 'slider',
+    type: 'slider',
+    title: '拖动选择器',
+  },
   '输入控制',
   {
     ref: 'input',

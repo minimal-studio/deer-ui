@@ -61,7 +61,7 @@ export interface CustomForm extends RefFormControl {
   type: 'customForm';
   /**
    * 自定义插件的接口
-   * 
+   *
    * @example
    * {
    *   type: 'customForm',
@@ -165,7 +165,7 @@ export interface HRType {
   type: 'hr';
 }
 
-export type FormOptionsItemEnhance = 
+export type FormOptionsItemEnhance =
 ButtonType |
 CustomForm |
 CustomFormOld |
@@ -185,6 +185,7 @@ TextType |
 SwitchType |
 SelectNativeType |
 SelectNativeType |
+SliderType |
 SelectType;
 
 // const demo: FormOptionsItemEnhance[] = [

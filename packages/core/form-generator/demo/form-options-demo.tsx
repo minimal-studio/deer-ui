@@ -8,7 +8,9 @@ const CustomerCom = ({ onChange }) => {
     <div onClick={(e) => {
       onChange('vvvvv');
       setisMount(!isMount);
-    }}>Mounted: {isMount ? 'Yes' : 'No'}</div>
+    }}>
+      Mounted: {isMount ? 'Yes' : 'No'}
+    </div>
   );
 };
 
@@ -31,7 +33,9 @@ class CustomerCom2 extends React.Component {
         this.setState({
           isMount: !isMount
         });
-      }}>Mounted: {isMount ? 'Yes' : 'No'}</div>
+      }}>
+        Mounted: {isMount ? 'Yes' : 'No'}
+      </div>
     );
   }
 }
@@ -103,6 +107,11 @@ const formOptions: FormOptions = [
     title: '开关',
     defaultValue: true
   },
+  {
+    ref: 'slider',
+    type: 'slider',
+    title: '拖动选择器',
+  },
   '输入控制',
   {
     ref: 'input',
@@ -159,7 +168,7 @@ const formOptions: FormOptions = [
     type: 'customForm',
     ref: '123',
     getCustomFormControl: (onChange) => {
-      return <div>CustomFormControl</div>
+      return <div>CustomFormControl</div>;
     }
   },
   {

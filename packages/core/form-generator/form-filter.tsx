@@ -7,8 +7,6 @@ import {
   Call, CallFunc, IsFunc, HasValue, IsObj
 } from '@mini-code/base-func';
 
-import { UIComponent } from '../utils/ui-component';
-
 import { DatetimePicker } from '@deer-ui/core/datetimepicker';
 import { DateShortcut } from '@deer-ui/core/date-shortcut';
 import { Radio } from '@deer-ui/core/radio';
@@ -19,6 +17,7 @@ import { Slider } from '@deer-ui/core/slider';
 import { ToolTip } from '@deer-ui/core/tooltip';
 import Switch from '@deer-ui/core/switch-button/switch-c';
 import { InputSelector } from '@deer-ui/core/input-selector';
+import { UIComponent } from '../utils/ui-component';
 import { FormOptionsItemEnhance } from './form-types';
 import { Button } from '../button';
 
@@ -35,7 +34,7 @@ export interface FormFilterProps<T = FormOptions> {
 }
 
 /** 获取 refs 的 ID */
-const getRefsID = (refs) => (Array.isArray(refs) ? refs.join('-') : '')
+const getRefsID = (refs) => (Array.isArray(refs) ? refs.join('-') : '');
 
 const wrapInputSelectorMarkForRefu = (activeRef) => `__isActive${activeRef}`;
 
@@ -165,9 +164,7 @@ export default class FormFilterHelper<P extends FormFilterProps> extends UICompo
   }
 
   _requiredMapperSetter = (ref, title) => {
-    this.requiredRefMapper = Object.assign({}, this.requiredRefMapper, {
-      [ref]: title
-    });
+    this.requiredRefMapper = { ...this.requiredRefMapper, [ref]: title };
   }
 
   setDefaultValues(options) {
@@ -311,7 +308,7 @@ export default class FormFilterHelper<P extends FormFilterProps> extends UICompo
    * 旧的表单插件接口
    */
   getCustomFormOld = (config) => {
-    console.warn(`customFormOld 将要被废弃，请使用新的插件接口`)
+    console.warn(`customFormOld 将要被废弃，请使用新的插件接口`);
     const { ref, getCustomFormControl, ...other } = config;
     const customeComponent = IsFunc(getCustomFormControl) ? getCustomFormControl() : null;
 
@@ -332,16 +329,16 @@ export default class FormFilterHelper<P extends FormFilterProps> extends UICompo
     const { ref, getCustomFormControl, ...other } = config;
 
     const _onChange = (val) => {
-      console.log(val)
+      console.log(val);
       this.changeValue(val, ref);
     };
-    
+
     const C = IsFunc(getCustomFormControl) ? getCustomFormControl(_onChange) : null;
-    if(!React.isValidElement(C)) {
-      console.log('请返回 React 组件实例')
+    if (!React.isValidElement(C)) {
+      console.log('请返回 React 组件实例');
       return null;
     }
-    
+
     return C;
   }
 
@@ -485,7 +482,7 @@ export default class FormFilterHelper<P extends FormFilterProps> extends UICompo
         className="form-control"
         ref={this.saveRef(ref)}
         id={ref}
-        onChange={(e) => this.changeValue(e.target.value, ref)} />
+        onChange={(e) => this.changeValue(e.target.value, ref)}/>
     );
   }
 
@@ -536,8 +533,8 @@ export default class FormFilterHelper<P extends FormFilterProps> extends UICompo
       <Button
         {...other}
         onClick={(e) => {
-          Call(onClick, e, ref)}
-        }>
+          Call(onClick, e, ref);
+        }}>
         {text}
       </Button>
     );
@@ -597,7 +594,7 @@ export default class FormFilterHelper<P extends FormFilterProps> extends UICompo
           defaultValue={range}
           // value={this.value[datetimeRangeRef]}
           onChange={(val) => {
-            this.changeDateRangeValues(val, refs)
+            this.changeDateRangeValues(val, refs);
           }}/>
         {
           !config.noHelper && (
@@ -623,7 +620,7 @@ export default class FormFilterHelper<P extends FormFilterProps> extends UICompo
         ref={this.saveRef(ref)}
         checked={this.getValue(ref)}
         defaultChecked={defaultValue}
-        onChange={(val) => this.changeValue(val, ref)} />
+        onChange={(val) => this.changeValue(val, ref)}/>
     );
   }
 

@@ -6,10 +6,10 @@
 
 import React from 'react';
 import { DebounceClass } from '@mini-code/base-func';
-import { UIComponent } from '../utils/ui-component';
 import Alert, { AlertProps } from '@deer-ui/core/alert/alert';
 import Toast from '@deer-ui/core/toast/toast';
 import Button from '@deer-ui/core/button/button';
+import { UIComponent } from '../utils/ui-component';
 
 import FormGenerator, { FormGeneratorProps } from '../form-generator/form-generator';
 import { ButtonProps } from '../utils';
@@ -193,7 +193,8 @@ export default class FormLayout extends UIComponent<FormLayoutProps> {
           type={type}
           color={color}
           className={className}
-          onClick={(e) => !isSubmit && this._handleClickBtn(btn)}/>
+          onClick={(e) => !isSubmit && this._handleClickBtn(btn)}
+        />
       );
     });
 
@@ -206,7 +207,8 @@ export default class FormLayout extends UIComponent<FormLayoutProps> {
           {...other}
           // type={formType}
           onSubmit={onSubmitForGen}
-          ref={this.saveFormRef}>
+          ref={this.saveFormRef}
+        >
           {childrenBeforeBtn}
           <div className="form-group">
             <span className="control-label" />
