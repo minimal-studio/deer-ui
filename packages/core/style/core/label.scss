@@ -1,30 +1,14 @@
-// $themeMapper: (
-//   red: $red,
-//   green: $green,
-//   black: $black,
-//   cyan: $cyan,
-//   orange: $orange,
-//   grey: $gray,
-//   blue: $blue
-// );
-
 .__label {
   display: inline-block;
   color: #FFF;
   padding: $label-padding-vertical $label-padding-horizontal;
-  // margin: 0 3px;
   margin-left: 3px;
   margin-right: 3px;
   border-radius: $base-border-radius;
   &.bg_white.t_white {
-    color: #666;
+    color: $text-normal-color;
   }
   &.bg_default {
-    color: #666;
+    color: $text-normal-color;
   }
-  // @each $name, $value in $themeMapper {
-  //   &.#{$name} {
-  //     background-color: $value;
-  //   }
-  // }
 }

@@ -10,9 +10,9 @@
   .item {
     flex-basis: 32%;
     margin: 0 1% 1% 0;
-    border: 1px solid #f3f3f3;
+    border: $form-control-border-width solid #f3f3f3;
     background-color: #fafafa;
-    padding: 10px;
+    padding: $base-container-padding;
     line-height: 22px;
     border-radius: $base-border-radius;
     min-width: 250px;
@@ -20,7 +20,7 @@
     position: relative;
     .link-btn {
       color: $orange;
-      border: 1px solid $orange;
+      border: $form-control-border-width solid $orange;
       padding: 0 10px;
       border-radius: $base-border-radius;
       // display: inline-block;
@@ -36,10 +36,10 @@
     }
     .title {
       width: 100px;
-      color: #666;
+      color: $form-label-text-color;
     }
     .content {
-      color: #71a3b8;
+      color: $form-content-text-color;
     }
     .content, .title {
       display: inline-block;

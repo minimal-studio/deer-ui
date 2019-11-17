@@ -17,7 +17,7 @@ $windowActiveShadow: 0 12px 36px rgba(#000, 0.3);
       margin-left: 10px;
       border-radius: $base-border-radius $base-border-radius 0 0;
       opacity: 0.6;
-      color: #555;
+      color: $text-normal-color;
       display: flex;
       align-items: center;
       &:hover {
@@ -88,7 +88,6 @@ $windowActiveShadow: 0 12px 36px rgba(#000, 0.3);
   &.normal-mode {
     z-index: 999;
     .__modal-layout {
-      // margin: 2% auto 0;
       margin-left: auto;
       margin-right: auto;
     }
@@ -252,7 +251,7 @@ $windowActiveShadow: 0 12px 36px rgba(#000, 0.3);
     font-size: 16px;
     display: flex;
     align-items: center;
-    color: #666;
+    color: $text-normal-color;
     .icon {
       padding: 8px 10px;
       opacity: 0.5;
@@ -261,14 +260,4 @@ $windowActiveShadow: 0 12px 36px rgba(#000, 0.3);
       }
     }
   }
-  // .close-btn {
-  //   cursor: pointer;
-  //   background-color: #FFF;
-  //   // color: $themeColor;
-  //   color: #444;
-  //   &:hover {
-  //     color: $themeColor;
-  //   }
-  //   // border: 1px solid darken($themeColor, 5%);
-  // }
 }

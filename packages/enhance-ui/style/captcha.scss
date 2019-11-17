@@ -21,7 +21,7 @@
     .captcha-tip {
       @include fill();
       background-color: #f1f1f1;
-      color: #000;
+      color: $text-normal-color;
     }
     img {
       width: 100%;

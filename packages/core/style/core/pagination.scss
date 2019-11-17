@@ -19,7 +19,7 @@
   }
   .item {
     display: inline-block;
-    padding: 0 12px;
+    padding: $pagin-item-padding;
     border: $form-control-border-width solid $form-control-border-color;
     border-radius: $form-control-border-radius;
     margin-right: 5px;
@@ -27,16 +27,11 @@
     line-height: $form-control-height - 2 * $form-control-border-width;
     cursor: pointer;
     &:hover {
-      background-color: #f8f8f8;
+      background-color: $pagin-item-hover-bg-color;
     }
     &.active {
-      background-color: $themeColor;
-      border-color: $themeColor;
-      color: #FFF;
+      color: $themeColor;
+      border-color: rgba($themeColor, 0.6);
     }
   }
 }
-// .nopaging {
-//   height: 54px;
-//   display: block;
-// }

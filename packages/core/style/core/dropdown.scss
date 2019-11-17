@@ -79,7 +79,7 @@ $iconW: 20px;
       border-radius: $form-control-border-radius;
     }
     .menu-wrapper {
-      color: #888;
+      color: $form-label-text-color;
     }
     .display-menu {
       line-height: $form-control-height - $form-control-border-width * 2;
@@ -170,7 +170,7 @@ $iconW: 20px;
     &:hover {
       color: $themeColor;
       .display-title {
-        border-color: rgba($themeColor, 0.6);
+        // border-color: rgba($themeColor, 0.6);
         // @include formControlFocusShadow();
         // box-shadow: 0 0 4px rgba($themeColor, 0.5);
       }
@@ -193,7 +193,6 @@ $iconW: 20px;
     right: $iconW / 2;
     display: flex;
     align-items: center;
-    // color: inherit;
     opacity: 0.6;
     z-index: 1;
     transition: transform ease 0.3s;
@@ -232,7 +231,7 @@ $iconW: 20px;
     z-index: 11;
     .action-btn {
       padding: $dropdown-menu-item-padding;
-      color: #AAA;
+      color: $form-label-text-color;
       &:hover {
         background-color: #f9f9f9;
       }
@@ -244,17 +243,13 @@ $iconW: 20px;
     // z-index: 111;
   }
   .menu-item {
-    color: #777;
+    color: $form-label-text-color;
     transition: border ease 0.1s;
     border-left: 0 solid $themeColor;
     padding: $dropdown-menu-item-padding;
     &.active {
       border-left-width: 2px;
       color: rgba($themeColor, 0.8) !important;
-      // color: #FFF;
-      // &:hover {
-      //   background-color: $themeColor !important;
-      // }
     }
   }
 }

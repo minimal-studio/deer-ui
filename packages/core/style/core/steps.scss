@@ -26,7 +26,7 @@ $tipIdxScale: 30px;
   .step-item {
     word-break: break-all;
     .desc {
-      color: #777;
+      color: $form-content-text-color;
       margin-top: 10px;
     }
     .tip-idx {
@@ -42,10 +42,8 @@ $tipIdxScale: 30px;
       margin-right: 10px;
     }
     &.active {
-      // @include tipIdxBg($themeColor);
       .tip-idx {
         box-shadow: inset 0 2px 2px rgba(#000, 0.1), 0 2px 2px rgba(#000, 0.1);
-        // color: #FFF;
       }
       &.normal {
         @include tipIdxColor($themeColor);
@@ -78,7 +76,7 @@ $tipIdxScale: 30px;
       &.wran {
         @include tipIdxBg($orange);
         .tip-idx {
-          color: rgb(99, 89, 31);
+          color: $orange-1;
         }
       }
     }

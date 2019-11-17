@@ -26,30 +26,18 @@ $padding: 0;
     text-align: center;
     border-radius: 20px;
     cursor: pointer;
-    color: #666;
-    // color: #FFF;
+    color: $form-label-text-color;
     display: inline-block;
     z-index: 1;
     position: relative;
     transition: color 0.2s ease;
     &.active {
-      // background-color: #FFF !important;
-      // background-color: $themeColor !important;
-      // color: #666 !important;
       color: #FFF !important;
-      // color: $themeColor !important;
-      // color: darken($blue, 15%) !important;
-      // border-radius: 1px;
-      // box-shadow: 0 0 1px 1px rgba($themeColor, 0.5) !important;
     }
     &:hover {
-      // background-color: #f7f7f7;
-      // box-shadow: inset 0 2px 6px rgba(#000, 0.1);
       color: $themeColor;
     }
     &[disabled] {
-      // background-color: #CCC;
-      // display: none;
       opacity: 0.6;
       cursor: not-allowed;
     }

@@ -21,7 +21,7 @@
     position: relative;
     z-index: 1;
     // background-color: #FFF;
-    border: 1px solid transparent;
+    border: $form-control-border-width solid transparent;
     border-radius: $base-border-radius;
     overflow: hidden;
     align-items: center;

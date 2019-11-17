@@ -35,7 +35,7 @@
 }
 
 .control-label {
-  color: #777;
+  color: $form-label-text-color;
 
   .icon {
     margin: 0 5px;
@@ -44,7 +44,7 @@
 
 .form-desc {
   display: inline-block;
-  color: #999;
+  color: $text-weaken-color-2;
   font-size: 12px;
 
   .highlight {
@@ -77,11 +77,6 @@
     margin-top: 40px;
     margin-left: 20px;
     border-bottom: 1px solid rgba(#000, 0.05);
-
-    // padding-left: 10px;
-    // padding-bottom: 10px;
-    // border-top: 1px solid rgba(#000, 0.05);
-    // padding-top: 20px;
     .inner-text {
       border-bottom: 1px solid $themeColor;
       display: inline-block;
@@ -91,7 +86,7 @@
 }
 
 .form-group {
-  margin: 20px 0;
+  margin: $form-group-margin-vertical 0;
 
   &.error {
     .control-label {
@@ -115,6 +110,9 @@
 .vertical-form {
   margin: 0 auto;
   padding: 0.1px;
+  textarea.form-control {
+    width: auto;
+  }
 
   .form-group-title {
     margin: 20px 0;

@@ -7,7 +7,7 @@ $formControlBgColor: #f9f9f9;
   font-size: $form-control-font-size;
 
   .title {
-    color: rgba(116, 117, 118, 1);
+    color: $form-label-text-color;
     margin-right: 5px;
     word-break: keep-all;
   }

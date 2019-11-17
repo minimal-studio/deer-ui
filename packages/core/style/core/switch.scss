@@ -4,7 +4,6 @@ $scale: 26px;
 .__switch {
   border-radius: 20px;
   background-color: #AAA;
-  // border: 1px solid #AAA;
   display: inline-block;
   position: relative;
   overflow: hidden;
@@ -46,24 +45,14 @@ $scale: 26px;
     text-align: center;
     border-radius: 20px;
     cursor: pointer;
-    // color: #666;
     color: #FFF;
     display: inline-block;
-    // z-index: 1;
     position: relative;
     transition: color 0.2s ease;
-    // height: $scale;
-    // line-height: $scale;
-    // font-size: 12px;
     &.active {
       color: #FFF !important;
     }
-    // &:hover {
-    //   color: $themeColor;
-    // }
     &[disabled] {
-      // background-color: #CCC;
-      // display: none;
     }
   }
 }

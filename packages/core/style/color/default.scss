@@ -52,17 +52,4 @@ $warmColor: $orange;
 $errorColor: $red;
 $successColor: $green;
 
-// Table
-$tableHeaderBgColor: #FFF;
-$tableHeaderTextColor: #444;
-$tableBodyBgColor: #FFF;
-$tableBodyTextColor: #777;
-
-// Scroll bar
-$lightThemeScrollThumb: rgba(#777, 0.5);
-$lightThemeScrollThumbHover: #666;
-$lightThemeScrollThumbActive: #444;
-
-// $themeColor: $blue;
-
 @import './color-level.scss'

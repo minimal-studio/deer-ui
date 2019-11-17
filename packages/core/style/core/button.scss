@@ -99,7 +99,7 @@
   // }
   &.hola {
     padding: $button-md-padding-vertical 28px;
-    border: 1px solid #FFF;
+    border: $form-control-border-width solid #FFF;
     // background-color: transparent !important;
     color: #FFF;
     box-shadow: 0;

@@ -2,7 +2,7 @@ $iconViewBgColor: $themeColor;
 
 input,
 textarea {
-  border: 1px solid;
+  border: $form-control-border-width solid;
 
   &:focus {
     outline: none !important;
@@ -67,12 +67,11 @@ textarea {
 }
 
 .input-control {
-  background-color: rgba(255, 255, 255, 0.2);
+  background-color: $form-control-bg-color;
   position: relative;
   display: inline-block;
 
   .input-btn {
-    // margin: -1px;
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
   }
@@ -135,12 +134,11 @@ textarea {
     border: $form-control-border-width solid $form-control-border-color;
     border-radius: $form-control-border-radius;
     transition: background-color 0.2s ease, border 0.2s ease, box-shadow 0.2s ease;
-    background-color: #fefefe;
     .form-control {
       flex: 1;
     }
     .input-addon {
-      color: #999;
+      color: $form-label-text-color;
       height: $form-control-height - 2 * $form-control-border-width;
       line-height: $form-control-height - 4px;
       padding: 0 8px;
@@ -164,7 +162,7 @@ textarea {
     z-index: 1;
     padding: 0;
     height: 100%;
-    min-height: 30px;
+    min-height: $form-control-min-height-width-border;
     box-shadow: none !important;
     // margin-top: 4px;
     margin: 0 10px;
@@ -174,7 +172,7 @@ textarea {
     }
 
     &::placeholder {
-      color: #CCC;
+      color: $text-light-color;
     }
   }
 
@@ -185,7 +183,7 @@ textarea {
     // min-width: 60px;
     display: flex;
     align-items: center;
-    color: #999;
+    color: $form-label-text-color;
     margin-left: 10px;
 
     .icon {

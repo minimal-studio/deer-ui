@@ -29,18 +29,13 @@
     clear: both;
     display: flex;
     .t {
-      // text-align: right;
-      // float: left;
       width: 120px;
       flex-basis: 120px;
-      color: #555;
-      // padding-left: 20px;
+      color: $form-label-text-color;
       font-weight: bold;
     }
     .c {
-      // clear: left;
-      // margin-left: 140px;
-      color: #777;
+      color: $form-content-text-color;
       word-break: break-all;
       flex: 1;
       &:after {

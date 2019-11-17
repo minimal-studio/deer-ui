@@ -8,11 +8,7 @@ $transtionTimer: 300ms;
 $itemW: 360px;
 
 @mixin nitifyItem($bgColor, $textColor) {
-  // border-left: 3px solid $bgColor;
-  // color: $textColor;
-
   .notify-type-tip {
-    // font-size: 30px;
     color: $bgColor;
   }
 
@@ -58,7 +54,7 @@ $itemW: 360px;
     .close-btn {
       background-color: transparent !important;
       font-size: 22px;
-      color: #999;
+      color: $text-weaken-color;
     }
 
     @include positionHelper();
@@ -102,7 +98,6 @@ $itemW: 360px;
 
         &:hover {
           color: $themeColor;
-          // color: #FFF;
         }
       }
 
@@ -125,7 +120,7 @@ $itemW: 360px;
           display: inline-block;
           padding: 5px 10px;
           border-radius: $base-border-radius;
-          border: 1px solid #DDD;
+          border: $form-control-border-width solid #DDD;
 
           &:hover {
             background-color: rgba(#000, 0.06);

@@ -3,23 +3,29 @@ $date-picker-width: 260px;
 .datepicker-ranger-content {
   @include layout();
   align-items: center;
+
   .display-title {
     border: none !important;
   }
-  // .__dropdown-menu {
-  //   margin-left: -1px;
-  // }
 }
+
 .__flatpickr {
   display: flex;
+
+  .form-control {
+    font-size: 13px;
+  }
+
   &.input-group {
     position: relative;
   }
+
   &.range {
     .form-control {
       min-width: $date-picker-width - 100px;
       width: $date-picker-width - 100px;
     }
+
     &.long {
       .form-control {
         min-width: $date-picker-width;

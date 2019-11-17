@@ -1,9 +1,3 @@
-// @import "../var.scss";
-
-$tabTextActiveColor: $themeColor;
-$tabTextHoverColor: #777;
-$tabTextColor: #999;
-
 .tabs-container {
   @include card();
   &.common-mode {
@@ -41,7 +35,7 @@ $tabTextColor: #999;
     box-shadow: inset 0 -1px 1px rgba(#999, 0.1);
     // margin-bottom: 5px;
     .tab {
-      color: $tabTextColor;
+      color: $tab-text-color;
       cursor: pointer;
       position: relative;
       transition: color 0.15s ease, background-color 0.15s ease, border-color 0.15s ease;
@@ -74,30 +68,18 @@ $tabTextColor: #999;
         align-self: baseline;
       }
       &:hover {
-        color: $tabTextHoverColor;
+        color: $tab-text-hover-color;
         z-index: 2;
         ._close-btn {
-          // display: block;
-          // transform: scale(1);
           opacity: 1;
         }
-        // .tab-label {
-        //   // padding-right: 30px;
-        //   .text {
-        //     transform: translateX(10px);
-        //   }
-        // }
       }
       &.active {
-        color: $tabTextActiveColor;
+        color: $tab-text-active-color;
         background-color: #FFF;
         z-index: 1;
         border-color: #DDD;
         box-shadow: 0 -2px 2px rgba(#777, 0.1);
-        .tab-label {
-          // border-top-color: $tabTextActiveColor;
-          // background-color: rgba(#000, 0.02);
-        }
       }
       .tab-label {
         display: inline-block;
@@ -106,7 +88,4 @@ $tabTextColor: #999;
       }
     }
   }
-  // .tab-content {
-  //   overflow-y: auto;
-  // }
 }

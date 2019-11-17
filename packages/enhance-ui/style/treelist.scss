@@ -16,16 +16,16 @@ $funcBtnMargin: 5px;
         display: none;
         padding-left: $funcBtnScale / 2;
         margin-left: $funcBtnScale / 2;
-        border-left: 1px dashed #DDD;
+        border-left: $form-control-border-width dashed #DDD;
         // margin-bottom: 10px;
         margin-top: 10px;
       }
       .func-btn {
         // margin-left: - $funcBtnScale - $funcBtnMargin;
-        border: 1px solid #CCC;
+        border: $form-control-border-width solid #CCC;
         text-align: center;
         border-radius: $base-border-radius;
-        color: #999;
+        color: $text-weaken-color;
         padding: 0 3px;
         display: inline-block;
         font-weight: 100;
