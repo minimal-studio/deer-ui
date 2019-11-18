@@ -140,6 +140,10 @@ export class Table extends ColumnFilter<TableProps, State> {
 
   columnHeightInfo = {};
 
+  scrolling = false
+
+  scrollTimer
+
   mainTableBody
 
   checkedItems
@@ -268,11 +272,12 @@ export class Table extends ColumnFilter<TableProps, State> {
 
     if (needCheck) {
       const fixedLeft = columns[0].fixed === 'left';
-      const checkExtend = Object.assign({}, fixedLeft ? { fixed: 'left' } : {}, {
+      const checkExtend = {
+        ...(fixedLeft ? { fixed: 'left' } : {}),
         key: 'checkbox',
         // w: checkWidth,
         filter: this.getCheckbox
-      });
+      };
       result = [checkExtend, ...columns];
     }
 
@@ -558,9 +563,11 @@ export class Table extends ColumnFilter<TableProps, State> {
   }
 
   handleHoverRow = (idx) => {
-    this.setState({
-      hoveringRow: idx
-    });
+    if (!this.scrolling) {
+      this.setState({
+        hoveringRow: idx
+      });
+    }
   }
 
   renderRow = (options) => {
@@ -645,7 +652,7 @@ export class Table extends ColumnFilter<TableProps, State> {
                     title = (
                       <input type="checkbox" checked={isAllCheck}
                         onChange={(e) => {
-                          e.stopPropagation()
+                          e.stopPropagation();
                           this.toggleAllItems(e.target.checked);
                         }}/>
                     );
@@ -732,10 +739,10 @@ export class Table extends ColumnFilter<TableProps, State> {
       _highlight: 'theme',
       id: 'statistics'
     };
-    const style = Object.assign({}, {
+    const style = {
       height,
       width: isAutoWidth ? tableWidth : this.calcTableWidth(columns)
-    });
+    };
 
     return hasRecord ? (
       <div
@@ -837,9 +844,21 @@ export class Table extends ColumnFilter<TableProps, State> {
     ref: this.saveMainTable,
   }, 'mainTable')
 
+  setScrolling = () => {
+    this.scrolling = true;
+    window.clearTimeout(this.scrollTimer);
+    this.scrollTimer = setTimeout(() => {
+      this.scrolling = false;
+    }, 66);
+  }
+
   handleTableScroll = (e) => {
     const { target } = e;
     if (e.currentTarget !== target) return;
+
+    // 设置正在滚动，停止其他的 setState 行为
+    this.setScrolling();
+
     const currScrollOffset = target.scrollTop;
     if (currScrollOffset === this.lastScrollTop) return;
 
@@ -858,11 +877,12 @@ export class Table extends ColumnFilter<TableProps, State> {
   }
 
   handleScrollHor = (e) => {
-    // this.calcScroll(e, 'scrollLeft');
     const { target } = e;
     if (e.currentTarget !== target) return;
     const { scrollLeft } = target;
     if (scrollLeft === this.lastScrollTop) return;
+    // 设置正在滚动，停止其他的 setState 行为
+    this.setScrolling();
 
     const { tableWidth } = this.state;
     const scrollLeftEndPoint = typeof tableWidth == 'number' ? tableWidth - this.tableContainerWidth : 0;
