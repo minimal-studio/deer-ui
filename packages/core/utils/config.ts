@@ -1,5 +1,5 @@
 import { IsFunc } from '@mini-code/base-func';
-import { ApiRename } from '../utils';
+import { ApiRename } from ".";
 
 import chKeyMapper from './i18n/zh-CN';
 import enKeyMapper from './i18n/en-US';
@@ -96,7 +96,9 @@ function setUILangConfig(config: UILangStructure) {
  * @param {object} nextTranslate 翻译的内容
  */
 function setLangTranslate(nextTranslate) {
-  Object.assign(translateMapper, nextTranslate);
+  Object.keys(translateMapper).forEach((lang) => {
+    translateMapper[lang] = Object.assign({}, translateMapper[lang], nextTranslate[lang]);
+  });
 }
 
 function setUkelliConfig(config: typeof UIConfig) {

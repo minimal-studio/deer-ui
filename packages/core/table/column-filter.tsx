@@ -270,6 +270,7 @@ export default class ColumnFilter<
         break;
       case T:
         currContent = $T(currContent);
+        contentResult = currContent;
         break;
     }
     /** 并不冲突的，需要流式处理，swtich case 只能互相冲突的情况 */
