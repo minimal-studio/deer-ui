@@ -29,6 +29,7 @@
     "no-return-assign": 0,
     "no-case-declarations": 0,
     "no-plusplus": 0,
+    "prefer-object-spread": 0,
     "guard-for-in": 0,
     "comma-dangle": 0,
     "quotes": 0,
