@@ -17,10 +17,10 @@ const GlobalPopover = {
     _GlobalPopover.set(options);
   },
   close: () => {
-    _GlobalPopover.close();
+    _GlobalPopover && _GlobalPopover.close();
   },
   destroy: () => {
-    _GlobalPopover.destroy();
+    _GlobalPopover && _GlobalPopover.destroy();
   },
 };
 Object.defineProperties(GlobalPopover, {
