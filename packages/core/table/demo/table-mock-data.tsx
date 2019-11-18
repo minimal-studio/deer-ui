@@ -8,11 +8,7 @@ let table;
 const columns: TableColumns = [
   {
     key: 'username',
-    namesMapper: {
-      alex: '埃里克斯',
-      chili: '吃梨',
-      dove: '德芙',
-    }
+    T: true
   },
   {
     key: 'age',

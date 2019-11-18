@@ -112,6 +112,38 @@ __需要为 Table 设置 rowKey__
   }
 </Playground>
 
+## 内置翻译功能
+
+<Playground>
+  {
+    () => {
+      const _columns = [...columns];
+      const _records = [...dataRows];
+      setLangTranslate({
+        'zh-CN': {
+          alex: '埃里克斯',
+          chili: '吃梨',
+          dove: '德芙',
+        }
+      })
+      setUILang('zh-CN');
+      return (
+        <div>
+          <Table
+            columns={_columns}
+            ref={e => table = e}
+            rowKey={record => record.id}
+            needCount
+            onChange={(emitVal, config) => {
+              console.log(emitVal, config)
+            }}
+            dataRows={_records} />
+        </div>
+      )
+    }
+  }
+</Playground>
+
 ## RowItem 操作
 
 ### 可选的 row && 点击 row 高亮
