@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
+import classnames from 'classnames';
 
 import { getElementOffset } from '../utils/get-elem-offset';
 import {
@@ -11,6 +12,8 @@ import { Children, Color } from '../utils/props';
 export interface PopoverProps {
   /** 是否激活 */
   open: boolean;
+  /** 是否只有显示效果，关闭所有交互 */
+  onlyDisplay?: boolean;
   /** 关闭的回调，之前是 RequestClose */
   onClose: (closeEvent: any) => void;
   /** 相对的元素，传入 document node */
@@ -147,7 +150,7 @@ export default class Popover extends Component<PopoverProps, State> {
       offsetWidth,
       offsetHeight,
       elemWidth: width,
-      verticalOffset: 8,
+      // verticalOffset: 8,
       elemHeight: height
     };
 
@@ -187,7 +190,7 @@ export default class Popover extends Component<PopoverProps, State> {
 
   render() {
     const {
-      open, children, relativeElem,
+      open, children, relativeElem, onlyDisplay,
       className = '', onClose, fixed, type, style,
       showCloseBtn, enableTabIndex
     } = this.props;
@@ -208,9 +211,18 @@ export default class Popover extends Component<PopoverProps, State> {
       const obj = enableTabIndex ? {
         tabIndex: -1, onKeyDown: this.handleKeyDown
       } : {};
+      const popClasses = classnames(
+        `__popover`,
+        position,
+        className,
+        type,
+        fixed && `fixed`,
+        onlyDisplay && `only-display`,
+        showCloseBtn && `has-close`,
+      );
       container = (
         <div {...obj}
-          className={`__popover${fixed ? ' fixed' : ''}${showCloseBtn ? ' has-close' : ''} ${position} ${className} ${type}`}
+          className={popClasses}
           style={_style}
           ref={(e) => this.setSelfPosition(e)}>
           <span className="caret" />

@@ -3,6 +3,10 @@
 $verticalOffset: 12px;
 $horizontalOffset: 8px;
 
+.only-display {
+  pointer-events: none;
+}
+
 .__popover {
   position: fixed;
   z-index: 1122;

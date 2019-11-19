@@ -6,7 +6,9 @@ let _GlobalPopover;
 const GlobalPopover = {
   show: (options: PopShowParams) => {
     if (!_GlobalPopover) {
-      _GlobalPopover = new PopoverEntity();
+      _GlobalPopover = new PopoverEntity({
+        onlyDisplay: true
+      });
     }
     _GlobalPopover.show(options);
   },

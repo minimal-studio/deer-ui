@@ -57,6 +57,8 @@ export class PopoverWrapper extends Component<{}, PopoverHelperState> {
 export interface PopoverConstructorOptions {
   /** 是否设置 css position: fixed */
   fixed?: boolean;
+  /** 是否只有显示效果，关闭所有交互 */
+  onlyDisplay?: boolean;
   /** id */
   id?: string;
 }
@@ -86,11 +88,13 @@ export class PopoverEntity {
   prevOptions = {}
 
   constructor(options: PopoverConstructorOptions = {}) {
-    const { id = 'topPopover', fixed = false } = options;
+    const { id = 'topPopover', fixed = false, onlyDisplay = true } = options;
     this.id = this.idPrefix + id;
     this.prevProps = { fixed };
 
-    this.initDOM({});
+    this.initDOM({
+      onlyDisplay
+    });
   }
 
   savePopWrapper = (e: PopoverWrapper) => {
