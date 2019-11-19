@@ -29,7 +29,7 @@ const TitleDOM = ({ title }) => {
     <p key={text}>{idx + 1}. {$T(text)}</p>
   )) : $T(title);
   return (
-    <div style={{ padding: '5px 10px' }}>{titleDOM}</div>
+    <div className="p10">{titleDOM}</div>
   );
 };
 
