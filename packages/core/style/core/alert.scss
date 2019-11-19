@@ -1,17 +1,12 @@
 .__alert {
   border: $form-control-border-width solid transparent;
   border-radius: $form-control-border-radius;
-  padding: $base-container-padding-vertical $base-container-padding-horizontal;
+  padding: $base-container-padding-vertical $base-container-padding-horizontal + 5px;
   margin: $base-container-margin-vertical $base-container-margin-horizontal;
   position: relative;
 
   .icon {
     margin-left: 10px;
-    // position: absolute;
-    // top: -5px;
-    // left: -5px;
-    // font-size: 16px;
-    // color: inherit;
   }
 
   .item {
@@ -21,58 +16,63 @@
 
   .title {
     font-size: 16px;
+    margin: 5px 0;
   }
 
   &.warn {
-    background-color: #fffbe6;
-    border-color: #d0cb61;
-    color: #887210;
+    // background-color: #fffbe6;
+    // border-color: #d0cb61;
+    // color: #887210;
+    background-color: rgba($yellow, 0.1);
+    border-color: $yellow-5;
 
     .item {
-      color: #837743;
+      color: $yellow-6;
     }
 
     .title {
-      color: #574b17;
+      color: $yellow-6;
     }
   }
 
   &.normal {
-    background-color: #f9fcff;
-    border-color: #abc3ea;
+    // background-color: #f9fcff;
+    // border-color: #abc3ea;
+    background-color: rgba($blue-2, 0.1);
+    border-color: $blue-2;
 
     .item {
-      color: #3a73ad;
+      color: darken($blue-5, 10%);
     }
 
     .title {
-      color: #224b97;
+      color: $blue-6;
     }
   }
 
   &.error {
-    background-color: #fff5f5;
-    border-color: #f5c8c8;
+    background-color: rgba($red-2, 0.1);
+    border-color: $red-2;
 
     .item {
-      color: #bb6f6f;
+      color: $red-5;
     }
 
     .title {
-      color: #c2135e;
+      color: $red-5;
     }
   }
 
   &.success {
-    background-color: #f7fff8;
-    border-color: #c8f5d7;
+    background-color: rgba($green-3, 0.08);
+    border-color: $green;
 
     .item {
-      color: #589750;
+      color: $green-5;
     }
 
     .title {
-      color: #0e7917;
+      color: $green-5;
     }
   }
 }
