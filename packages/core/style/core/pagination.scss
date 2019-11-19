@@ -1,7 +1,4 @@
-// @import "../var.scss";
 .pagin-con {
-  // padding: 5px 10px;
-  // height: 46px;
   &.has-pagin {
     display: flex;
     align-items: center;
@@ -30,8 +27,9 @@
       background-color: $pagin-item-hover-bg-color;
     }
     &.active {
-      color: $themeColor;
-      border-color: rgba($themeColor, 0.6);
+      background-color: $themeColor;
+      color: #FFF;
+      border-color: darken($themeColor, 10%);
     }
   }
 }
