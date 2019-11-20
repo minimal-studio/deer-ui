@@ -32,36 +32,25 @@
     position: relative;
     display: flex;
     flex-wrap: wrap;
-    box-shadow: inset 0 -1px 1px rgba(#999, 0.1);
-    // margin-bottom: 5px;
+    border-bottom: $tab-border;
     .tab {
       color: $tab-text-color;
       cursor: pointer;
       position: relative;
       transition: color 0.15s ease, background-color 0.15s ease, border-color 0.15s ease;
-      // padding: 5px 10px;
-      border-radius: $base-border-radius $base-border-radius 0 0;
-      background-color: #fafafa;
-      margin-right: 5px;
-      box-shadow: inset 0 -1px 1px rgba(#999, 0.1);
+      border-bottom: $tab-indicator-width solid transparent;
+      margin-bottom: -$tab-indicator-width;
       ._close-btn {
         display: inline-block;
-        // padding: 5px;
-        // line-height: 22px;
         position: absolute;
         top: 50%;
         right: 4px;
-        // top: -8px;
         color: #999;
-        // background-color: #FFF;
-        // box-shadow: 0 3px 3px rgba(#000, 0.2);
-        // display: none;
         opacity: 0;
         transform: translateY(-50%);
         transition: opacity ease 0.2s;
         &:hover {
           color: $red;
-          // background-color: $red;
         }
       }
       &.right {
@@ -70,21 +59,19 @@
       &:hover {
         color: $tab-text-hover-color;
         z-index: 2;
+        border-color: $tab-indicator-bg-color;
         ._close-btn {
           opacity: 1;
         }
       }
       &.active {
         color: $tab-text-active-color;
-        background-color: #FFF;
         z-index: 1;
-        border-color: #DDD;
-        box-shadow: 0 -2px 2px rgba(#777, 0.1);
+        border-color: $themeColor;
       }
       .tab-label {
         display: inline-block;
-        padding: 10px 26px;
-        border-top: 1px solid transparent;
+        padding: $tab-label-padding;
       }
     }
   }
