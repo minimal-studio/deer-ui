@@ -14,7 +14,7 @@
     "@typescript-eslint/eslint-plugin": "^2.3.3",
     "@typescript-eslint/parser": "^2.3.3",
     "codemirror": "^5.42.2",
-    "docz": "^2.0.0-rc.67",
+    "docz": "^2.0.0-rc.75",
     "eslint": "^6.5.1",
     "eslint-config-airbnb": "^18.0.1",
     "eslint-config-react-app": "^5.0.2",
