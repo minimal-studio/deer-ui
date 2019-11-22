@@ -88,39 +88,6 @@
   justify-content: space-between;
 }
 
-@mixin jump {
-  animation-duration: 0.7s;
-  animation-iteration-count: infinite;
-
-  &:hover {
-    animation-name: jumpAnimation;
-  }
-}
-
-@mixin jumpLoop {
-  animation-duration: 0.7s;
-  animation-iteration-count: infinite;
-  animation-name: jumpAnimation;
-}
-
-@keyframes jumpAnimation {
-  0% {
-    transform: rotate(0deg);
-  }
-
-  33% {
-    transform: rotate(10deg);
-  }
-
-  66% {
-    transform: rotate(15deg);
-  }
-
-  100% {
-    transform: rotate(0deg);
-  }
-}
-
 @mixin verticalImg($scale: 80px) {
   height: $scale;
   width: $scale;
