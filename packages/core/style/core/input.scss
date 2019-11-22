@@ -54,7 +54,7 @@ textarea {
     user-select: none;
 
     // align-items: center;
-    ._btn {
+    &._btn {
       display: flex;
       flex-direction: column;
       justify-content: center;

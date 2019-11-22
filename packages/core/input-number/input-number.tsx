@@ -59,6 +59,14 @@ export class InputNumber extends InputVerifyClass<InputNumberProps> {
     return (
       <div
         className={`input-number${(!matchLen || !matchRange) ? ' error' : ''}`}>
+        {
+          selectable && (
+            <div className="option-btns minu _btn"
+              onClick={(e) => this._onChange((+value - unit))}>
+              <span>-</span>
+            </div>
+          )
+        }
         <input type={type}
           value={value}
           style={style}
@@ -69,13 +77,9 @@ export class InputNumber extends InputVerifyClass<InputNumberProps> {
           onFocus={(e) => this._onFocus(e.target.value, e)}/>
         {
           selectable && (
-            <div className="option-btns">
-              <div className="minu _btn" onClick={(e) => this._onChange((+value - unit))}>
-                <span>-</span>
-              </div>
-              <div className="plus _btn" onClick={(e) => this._onChange((+value + unit))}>
-                <span>+</span>
-              </div>
+            <div className="option-btns plus _btn"
+              onClick={(e) => this._onChange((+value + unit))}>
+              <span>+</span>
             </div>
           )
         }
