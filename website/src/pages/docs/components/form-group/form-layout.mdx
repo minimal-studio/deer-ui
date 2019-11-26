@@ -12,12 +12,14 @@ import FormLayoutDemo from '@deer-ui/core/form-layout/demo/form-layout-demo'
 
 # FormLayout
 
-## 水平布局（默认）
+自动根据屏幕尺寸切换布局，也可以指定布局
+
+## 水平布局
 
 适用于 PC
 
 <Playground>
-  <FormLayoutDemo/>
+  <FormLayoutDemo layout="horizontal"/>
 </Playground>
 
 ## 垂直布局的表单
@@ -26,6 +28,14 @@ import FormLayoutDemo from '@deer-ui/core/form-layout/demo/form-layout-demo'
 
 <Playground>
   <FormLayoutDemo layout="vertical"/>
+</Playground>
+
+## 流(flow)布局的表单
+
+适用于 pc 的查询条件
+
+<Playground>
+  <FormLayoutDemo layout="flow"/>
 </Playground>
 
 表单生成器的再一层封装模版，用于渲染通用表单配置

@@ -132,13 +132,16 @@ import { ConditionGenerator } from '@deer-ui/core/form-generator';
                 range: [0, 10]
               },
             ]}>
+            <button type="submit" className="theme btn mr10" onClick={e => {
+              console.log(domRef.value)
+            }}>查看查询条件的值</button>
           </ConditionGenerator>
           <hr />
           <div>
             <button type="submit" className="theme btn mr10" onClick={e => {
               console.log(domRef.value)
             }}>查看查询条件的值</button>
-            <span onClick={e => domRef.clearValue()} className="theme btn red">清空条件</span>
+            <button onClick={e => domRef.clearValue()} className="theme btn red">清空条件</button>
           </div>
         </div>
       )
