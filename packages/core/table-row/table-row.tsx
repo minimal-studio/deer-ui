@@ -1,6 +1,7 @@
 import React from 'react';
 
 import ColumnFilter, { Column } from '../table/column-filter';
+import { queryIsMobile } from '../utils';
 
 export interface DescColumn extends Column {
   /** 是否独占一行 */
@@ -34,13 +35,13 @@ export type DescHelperProps = TableRowProps;
 export default class TableRow extends ColumnFilter<TableRowProps> {
   render() {
     const {
-      record = {}, className = '', col
+      record = {}, className = '', col = queryIsMobile()
     } = this.props;
     const columns = this.getColumns();
     let row = 0;
 
     return (
-      <div className={`desc-container detail-desc ${className} ${col ? 'col' : ''}`}>
+      <div className={`table-row ${className} ${col ? 'col' : ''}`}>
         {
           columns.map((column, idx) => {
             if (!column) return null;
