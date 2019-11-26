@@ -310,6 +310,14 @@ $iconW: 20px;
 
 @media only screen and (max-width: $screen-xs-width) {
   .__dropdown-menu {
+    transition: background-color 0.2s ease;
+    &.outside {
+      position: fixed !important;
+      &.show {
+        background-color: rgba(#333, 0.3);
+        pointer-events: all !important;
+      }
+    }
     .caret {
       display: none;
     }
