@@ -115,7 +115,51 @@ $notifyTransDuration   : 300ms;
 }
 
 // modal
-@include modal(modal, 20px);
+.modal-enter {
+  .animate-layout {
+    transform: scale(1.02);
+    opacity: 0;
+  }
+  .section-mark {
+    opacity: 0.01;
+  }
+}
+
+.modal-enter.modal-enter-active {
+  .animate-layout {
+    transform: scale(1);
+    opacity: 1;
+    transition: all $modalTSDuration ease;
+  }
+  .section-mark {
+    opacity: 1;
+    transition: opacity $modalTSDuration ease;
+  }
+}
+
+.modal-exit {
+  .animate-layout {
+    transform: scale(1);
+    opacity: 1;
+  }
+  .section-mark {
+    opacity: 1;
+  }
+}
+
+.modal-exit.modal-exit-active {
+  .animate-layout {
+    transform: scale(0.98);
+    opacity: 0.01;
+    transition: all $modalTSDuration ease;
+  }
+  .section-mark {
+    opacity: 0.01;
+    transition: opacity $modalTSDuration ease;
+  }
+}
+
+// side modal
 @include modal(top-side-modal, -20px);
 @include modal(bottom-side-modal, 20px);
 @include sideModal(right-side-modal, 100px);
@@ -125,7 +169,7 @@ $notifyTransDuration   : 300ms;
 // drop-menu
 .drop-menu-enter {
   opacity: 0.01;
-  transform: translateY(-5px);
+  transform: translateY(5px);
 }
 
 .drop-menu-enter.drop-menu-enter-active {
@@ -141,7 +185,7 @@ $notifyTransDuration   : 300ms;
 
 .drop-menu-exit.drop-menu-exit-active {
   opacity: 0.01;
-  transform: translateY(-5px);
+  transform: translateY(5px);
   transition: transform $dropMenuTSDuration ease, opacity $dropMenuTSDuration ease;
 }
 

@@ -86,7 +86,7 @@ export default class Radio extends SelectorBasic<RadioProps> {
     return (
       <div className={`__radio-container${isMultiple ? ' multiple' : ''}`}>
         {selectAllBtn}
-        <div className={`layout ${column ? 'col' : ''} group`}>
+        <div className={`layout group${column ? ' col' : ''}`}>
           {radioGroup}
         </div>
       </div>

@@ -14,6 +14,7 @@ import setDOMById from '../utils/set-dom';
 
 import { Icon } from '../icon';
 import { ClickAway } from '../click-away';
+import { queryIsMobile } from '../utils';
 
 interface State {
   isShow: boolean;
@@ -60,9 +61,8 @@ export interface DropdownWrapperProps {
 }
 
 const dropdownContainerID = 'DropdownContainer';
-let dropdownContainerDOM;
+let dropdownContainerDOM: HTMLElement;
 
-const offset = 10;
 const calculateOverlayPosition = (options) => {
   const {
     target, position, overlayElem, scrollX, scrollY
@@ -111,10 +111,8 @@ const calculateOverlayPosition = (options) => {
 
 export class DropdownWrapper extends React.PureComponent<DropdownWrapperProps, State> {
   static defaultProps = {
-    withInput: true,
     menuTitle: 'Title',
     trigger: 'click',
-    outside: false,
     scrollX: 0,
     scrollY: 0,
     position: 'bottom,left',
@@ -148,10 +146,24 @@ export class DropdownWrapper extends React.PureComponent<DropdownWrapperProps, S
 
   updateNodeRef: any;
 
+  _withInput
+
+  _outside
+
+  isMobile
+
   constructor(props) {
     super(props);
 
-    this._position = positionFilter(props.position).split(' ');
+    const { withInput, position, outside } = props;
+
+    this._position = positionFilter(position).split(' ');
+
+    const isMobile = queryIsMobile();
+    this.isMobile = isMobile;
+
+    this._withInput = typeof withInput == 'undefined' ? !isMobile : withInput;
+    this._outside = typeof outside == 'undefined' ? isMobile : outside;
   }
 
   handleClickAway = () => {
@@ -159,8 +171,8 @@ export class DropdownWrapper extends React.PureComponent<DropdownWrapperProps, S
   }
 
   handleClickMenu = (e, preventDefault = false) => {
-    const { outside, scrollElem } = this.props;
-    if (outside) {
+    const { scrollElem } = this.props;
+    if (this._outside) {
       if (preventDefault) e.preventDefault();
       // const { clientX, clientY } = e;
       if (!this.addScrollListener && scrollElem) {
@@ -181,14 +193,14 @@ export class DropdownWrapper extends React.PureComponent<DropdownWrapperProps, S
    * 为了兼容 SSR 渲染，以及更新 state 触发动画效果
    */
   setOutSideContainer = () => {
-    if (this.props.outside && !this.state.outsideReady) {
+    if (this._outside && !this.state.outsideReady) {
       if (!dropdownContainerDOM) {
         dropdownContainerDOM = setDOMById(dropdownContainerID, '__dropdown-menu outside');
       }
       this.overlayRender();
       this.setState({
         outsideReady: true
-      })
+      });
     }
   }
 
@@ -249,14 +261,17 @@ export class DropdownWrapper extends React.PureComponent<DropdownWrapperProps, S
   }
 
   getOverlayDOM = () => {
-    const { overlay, outside, position = '' } = this.props;
+    const { overlay } = this.props;
     const { isShow } = this.state;
+    if (this.isMobile && dropdownContainerDOM) {
+      dropdownContainerDOM.classList.toggle('show', isShow);
+    }
 
     // const isLeft = position.indexOf('left') !== -1;
     // const caretOffset = this.displayTitleDOM ? this.displayTitleDOM.offsetWidth / 2 : 10;
     const overlayClasses = classnames(
       "dropdown-items",
-      !outside && this._position,
+      !this._outside && this._position,
       isShow && 'show'
     );
     const transitionKey = isShow ? "opened" : "closed";
@@ -268,7 +283,7 @@ export class DropdownWrapper extends React.PureComponent<DropdownWrapperProps, S
           timeout={200}>
           {isShow ? (
             <div
-              ref={outside ? (e) => this.saveItems(e) : null}
+              ref={this._outside ? (e) => this.saveItems(e) : null}
               {...this.bindOverlayTrigger()}
               className={overlayClasses}>
               <span className="caret" />
@@ -282,12 +297,7 @@ export class DropdownWrapper extends React.PureComponent<DropdownWrapperProps, S
   }
 
   overlayRender = () => {
-    const { outside } = this.props;
-    if (outside) {
-
-    }
-
-    return outside ? (dropdownContainerDOM && ReactDOM.createPortal(
+    return this._outside ? (dropdownContainerDOM && ReactDOM.createPortal(
       this.getOverlayDOM(),
       dropdownContainerDOM,
     )) : this.getOverlayDOM();
@@ -301,7 +311,6 @@ export class DropdownWrapper extends React.PureComponent<DropdownWrapperProps, S
   }
 
   getDfaultChild = (menuTitle) => {
-    const { withInput } = this.props;
     const { searchValue } = this.state;
     return (
       <div className="display-menu">
@@ -309,7 +318,7 @@ export class DropdownWrapper extends React.PureComponent<DropdownWrapperProps, S
           {menuTitle}
         </div>
         {
-          withInput && (
+          this._withInput && (
             <input type="text"
               ref={this.saveInput}
               placeholder={typeof menuTitle === 'string' ? menuTitle : ''}
@@ -360,11 +369,11 @@ export class DropdownWrapper extends React.PureComponent<DropdownWrapperProps, S
   }
 
   bindOverlayTrigger = () => {
-    const { trigger, outside } = this.props;
+    const { trigger } = this.props;
     let res = {};
     switch (trigger) {
       case 'click':
-        if (outside) {
+        if (this._outside) {
           res = {
             onClick: (e) => this.handleClickMenu(e, true)
           };
@@ -402,16 +411,16 @@ export class DropdownWrapper extends React.PureComponent<DropdownWrapperProps, S
   render() {
     const { isShow } = this.state;
     const {
-      className, withInput, style, error, outside
+      className, style, error
     } = this.props;
 
     const classNames = classnames(
       "__dropdown-menu",
       className && className,
-      withInput && "input-mode",
+      this._withInput && "input-mode",
       error && 'error',
       isShow && 'show',
-      !outside && this._position
+      !this._outside && this._position
     );
 
     return (
@@ -419,12 +428,12 @@ export class DropdownWrapper extends React.PureComponent<DropdownWrapperProps, S
         <div
           className={classNames}
           style={style}>
-          <span className="menu-wrapper" ref={(e) => { this.displayTitleDOM = e; }}
+          <div className="menu-wrapper" ref={(e) => { this.displayTitleDOM = e; }}
             {...this.bindWrapperTrigger()}>
             {
               this.childrenRender()
             }
-          </span>
+          </div>
           {this.overlayRender()}
         </div>
       </ClickAway>

@@ -2,12 +2,13 @@
 import React from 'react';
 
 import { Call, DateFormat, UUID } from '@mini-code/base-func';
-import { LoadScript } from '../utils';
+import { LoadScript, queryIsMobile } from '../utils';
 
 import { DateBasic, DateBasicProps } from '../date-basic';
 import { Icon } from '../icon';
 import { PopoverEntity } from '../popover/popover-entity';
 import Mandarin from './zh';
+
 
 let flatpickrCDNUrl = 'https://cdn.jsdelivr.net/npm/flatpickr@4.6.3/dist/flatpickr.min.js';
 let isLoadingScript = false;
@@ -106,6 +107,8 @@ export class DatetimePicker extends DateBasic<DatetimePickerProps> {
 
   _id: string = UUID();
 
+  isMobile
+
   constructor(props) {
     super(props);
     const { value, defaultValue } = this.props;
@@ -114,6 +117,8 @@ export class DatetimePicker extends DateBasic<DatetimePickerProps> {
 
     const defaultVal = value || defaultValue;
     this.value = defaultVal;
+
+    this.isMobile = queryIsMobile();
   }
 
   componentDidMount() {

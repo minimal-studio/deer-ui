@@ -32,7 +32,7 @@ $funcBtnMargin: 5px;
         width: $funcBtnScale;
         line-height: $funcBtnScale;
         height: $funcBtnScale;
-        font-size: 12px;
+        font-size: $base-sm-font-size;
         margin-right: $funcBtnMargin;
         background-color: #FFF;
         &.disabled {

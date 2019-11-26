@@ -7,6 +7,7 @@ import { UUID, Call } from '@mini-code/base-func';
 import classnames from 'classnames';
 import { DivideType } from '../utils/props';
 import FormFilterHelper, { FormFilterProps, FormOptionsItem, FormChangeEvent } from './form-filter';
+import { queryIsMobile } from '../utils';
 
 export type FormOptions = (FormOptionsItem | DivideType | string)[];
 
@@ -16,7 +17,7 @@ export interface FormGeneratorProps extends FormFilterProps<FormOptions> {
   /** 将要废弃，请使用 layout 指定布局 */
   isMobile?: boolean;
   /** 是否垂直布局 */
-  layout?: 'vertical' | 'horizontal';
+  layout?: 'vertical' | 'horizontal' | 'flow';
   // /** 表单的类型 */
   // type?: string;
   /** 表单的类型 */
@@ -37,8 +38,6 @@ export default class FormGenerator extends FormFilterHelper<FormGeneratorProps> 
   static defaultProps = {
     onSubmit: () => {},
     className: 'animate-input-title',
-    layout: 'horizontal',
-    isMobile: false
   }
 
   ID
@@ -66,12 +65,12 @@ export default class FormGenerator extends FormFilterHelper<FormGeneratorProps> 
 
   render() {
     const {
-      formOptions, children, isMobile, layout,
+      formOptions, children, isMobile = queryIsMobile(), layout,
       showInputTitle, className, onSubmit
     } = this.props;
     const _showInputTitle = typeof showInputTitle == 'undefined' ? !isMobile : showInputTitle;
     // eslint-disable-next-line no-nested-ternary
-    const formLayout = isMobile ? 'vertical' : layout;
+    const formLayout = typeof layout == 'undefined' ? (isMobile ? 'vertical' : 'horizontal') : layout;
 
     return formOptions && formOptions.length > 0 ? (
       <form
@@ -79,8 +78,7 @@ export default class FormGenerator extends FormFilterHelper<FormGeneratorProps> 
           e.preventDefault();
           Call(onSubmit, this.value);
         }}
-        className={`${formLayout}-form form-container ${className}`}
-      >
+        className={`${formLayout}-form form-container ${className}`}>
         {
           formOptions.map((option, idx) => {
             if (!option) return;
@@ -128,8 +126,7 @@ export default class FormGenerator extends FormFilterHelper<FormGeneratorProps> 
                 ref={(e) => {
                   if (e) this.formItemRefs[itemRef] = e;
                 }}
-                className={classes}
-              >
+                className={classes}>
                 {
                   showFormTitle ? (
                     <span className="control-label">

@@ -10,7 +10,7 @@
     position: relative;
     z-index: 1;
     color: #FFF;
-    font-size: 12px;
+    font-size: $base-sm-font-size;
   }
   .tip {
     @include fill;

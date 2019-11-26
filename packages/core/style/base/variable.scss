@@ -2,6 +2,7 @@
 
 $base-body-text-color: #333;
 $base-body-font-size: 14px;
+$base-sm-font-size: 12px;
 $base-fg: #FFF;
 $base-font-family: "Roboto", "Helvetica", "Arial", sans-serif, "Microsoft YaHei", "微软雅黑";
 $base-border-radius: 3px;
@@ -10,6 +11,11 @@ $base-container-padding-vertical: 10px;
 $base-container-padding-horizontal: 10px;
 $base-container-margin-vertical: 10px;
 $base-container-margin-horizontal: 10px;
+
+$screen-xs-width: 576px;
+$screen-sm-width: 768px;
+$screen-lg-width: 992px;
+$screen-xl-width: 1200px;
 
 // text
 
@@ -26,7 +32,7 @@ $label-padding-horizontal: 12px;
 // form control setting
 
 $form-control-height: 32px;
-$form-control-font-size: $base-body-font-size;
+$form-control-font-size: 1rem;
 $form-control-bg-color: #fafafa;
 $form-control-border-radius: $base-border-radius;
 $form-control-border-color: #e7e7e7;

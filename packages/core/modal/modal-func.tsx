@@ -6,7 +6,7 @@ import { Call, GenerteID } from '@mini-code/base-func';
 import { Provider, connect } from 'unistore/react';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
-import { $T_IN, getIsMobile } from '../utils';
+import { $T_IN, getIsMobile, queryIsMobile } from '../utils';
 import { Children } from '../utils/props';
 import setDOMById from '../utils/set-dom';
 import { Icon } from '../icon';
@@ -118,14 +118,17 @@ const getModalDefaultWidth = (modalType) => {
   return widthConfig[modalType] || 600;
 };
 
-const getDefaultOptions = (options) => {
+const getDefaultOptions = (options): ShowModalParams => {
   const { width, type } = options;
-  const isMobile = getIsMobile();
+  const isMobile = queryIsMobile();
   return {
     className: 'fixed',
     topClassName: 'top-modal-opend',
     showFuncBtn: false,
     marginTop: isMobile ? '0' : undefined,
+    type: isMobile ? 'side' : 'normal',
+    modalType: isMobile ? 'side' : 'normal',
+    position: isMobile ? 'bottom' : undefined,
     width: width || (isMobile ? '90%' : getModalDefaultWidth(type))
   };
 };

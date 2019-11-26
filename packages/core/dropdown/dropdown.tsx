@@ -74,7 +74,6 @@ const itemActiveFilter = (val, targetVal) => {
  */
 export class Dropdown extends SelectorBasic<DropdownProps> {
   static defaultProps = {
-    withInput: true,
     needAction: true,
     outside: true,
     defaultTitle: '请选择',
