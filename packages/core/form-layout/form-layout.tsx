@@ -193,8 +193,7 @@ export default class FormLayout extends UIComponent<FormLayoutProps> {
           type={type}
           color={color}
           className={className}
-          onClick={(e) => !isSubmit && this._handleClickBtn(btn)}
-        />
+          onClick={(e) => !isSubmit && this._handleClickBtn(btn)}/>
       );
     });
 
@@ -207,8 +206,7 @@ export default class FormLayout extends UIComponent<FormLayoutProps> {
           {...other}
           // type={formType}
           onSubmit={onSubmitForGen}
-          ref={this.saveFormRef}
-        >
+          ref={this.saveFormRef}>
           {childrenBeforeBtn}
           <div className="form-group">
             <span className="control-label" />

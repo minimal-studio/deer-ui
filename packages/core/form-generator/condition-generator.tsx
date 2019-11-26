@@ -1,9 +1,10 @@
 /* eslint-disable consistent-return */
-import React from 'react';
+import React, { forwardRef } from 'react';
 
-import { UUID, Call } from '@mini-code/base-func';
-import FormFilterHelper, { FormFilterProps, FormOptionsItem } from './form-filter';
+import { FormFilterProps, FormOptionsItem } from './form-filter';
 import { FormLayoutBtn } from '../form-layout/form-layout';
+import FormGenerator from './form-generator';
+import { queryIsMobile } from '../utils';
 
 export type ConditionOptions = FormOptionsItem[];
 
@@ -18,6 +19,24 @@ export interface ConditionGeneratorProps extends FormFilterProps {
   formBtns?: FormLayoutBtn[];
 }
 
+const defaultProps = {
+  className: "condition-group"
+};
+
+const ConditionGenerator = forwardRef<FormGenerator, ConditionGeneratorProps>((props, ref?) => {
+  return (
+    <FormGenerator
+      {...props}
+      ref={ref}
+      layout={queryIsMobile() ? "vertical" : "flow"}
+      formOptions={props.conditionConfig} />
+  );
+});
+
+ConditionGenerator.defaultProps = defaultProps;
+
+export default ConditionGenerator;
+
 /**
  * 查询条件生成器
  *
@@ -25,54 +44,58 @@ export interface ConditionGeneratorProps extends FormFilterProps {
  * @class ConditionGenerator
  * @extends {FormFilterHelper}
  */
-export default class ConditionGenerator extends FormFilterHelper<ConditionGeneratorProps> {
-  static defaultProps = {
-    className: "condition-group"
-  }
+// export default class ConditionGenerator extends FormFilterHelper<ConditionGeneratorProps> {
+//   // titleDisplayFilter = (config) => {
+//   //   const { type, title, _title } = config;
+//   //   return ('input,password'.split(',').indexOf(type) === -1) && (title || _title);
+//   // }
 
-  titleDisplayFilter = (config) => {
-    const { type, title, _title } = config;
-    return ('input,password'.split(',').indexOf(type) === -1) && (title || _title);
-  }
+//   render() {
+//     const {
+//       conditionConfig,
+//       // className, children, onSubmit
+//     } = this.props;
+//     // const Wrapper = onSubmit ? 'form' : 'div';
 
-  render() {
-    const {
-      conditionConfig, className, children, onSubmit
-    } = this.props;
-    const Wrapper = onSubmit ? 'form' : 'div';
+//     return (
+//       <FormGenerator
+//         {...this.props}
+//         layout="flow"
+//         formOptions={conditionConfig} />
+//     );
 
-    return (
-      <Wrapper
-        className={className}
-        onSubmit={(e) => {
-          e.preventDefault();
-          Call(onSubmit, this.value);
-        }}>
-        {
-          conditionConfig.map((condition, idx) => {
-            if (!condition || typeof condition === 'string') return;
-            const _con = this.wrapConditionTitle(condition);
-            const { ref, refs = [], refu = [] } = _con;
-            const itemKey = ref || refs[0] || JSON.stringify(refu);
-            const showTitle = this.titleDisplayFilter(_con);
+//     // return (
+//     //   <Wrapper
+//     //     className={className}
+//     //     onSubmit={(e) => {
+//     //       e.preventDefault();
+//     //       Call(onSubmit, this.value);
+//     //     }}>
+//     //     {
+//     //       conditionConfig.map((condition, idx) => {
+//     //         if (!condition || typeof condition === 'string') return;
+//     //         const _con = this.wrapConditionTitle(condition);
+//     //         const { ref, refs = [], refu = [] } = _con;
+//     //         const itemKey = ref || refs[0] || JSON.stringify(refu);
+//     //         const showTitle = this.titleDisplayFilter(_con);
 
-            const titleDOM = showTitle && (
-              <span className="title">
-                {_con.tipsDOM}
-                {_con._title}
-              </span>
-            );
+//     //         const titleDOM = showTitle && (
+//     //           <span className="title">
+//     //             {_con.tipsDOM}
+//     //             {_con._title}
+//     //           </span>
+//     //         );
 
-            return (
-              <span key={itemKey} className={`item ${_con.type}${_con.className ? ` ${_con.className}` : ''}`}>
-                {titleDOM}
-                {this.greneratFormDOM(_con)}
-              </span>
-            );
-          })
-        }
-        {children}
-      </Wrapper>
-    );
-  }
-}
+//     //         return (
+//     //           <span key={itemKey} className={`item ${_con.type}${_con.className ? ` ${_con.className}` : ''}`}>
+//     //             {titleDOM}
+//     //             {this.greneratFormDOM(_con)}
+//     //           </span>
+//     //         );
+//     //       })
+//     //     }
+//     //     {children}
+//     //   </Wrapper>
+//     // );
+//   }
+// }
