@@ -95,10 +95,6 @@
     }
   }
 
-  // .__radio-container {
-  //   max-width: 70%;
-  // }
-
   .form-btn-group {
     display: flex;
 
@@ -191,6 +187,14 @@
   .form-group {
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
+
+    .__radio-container {
+      // max-width: 70%;
+      .group {
+        justify-content: center;
+      }
+    }
 
     &.ranger {
 
