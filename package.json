@@ -9,6 +9,7 @@
     "dist"
   ],
   "scripts": {
+    "postinstall": "cd packages/core; npm run complie:scss:local",
     "publish:all": "npm run publish:core; npm run publish:enhance",
     "publish:core": "npm publish ./dist/core --access public",
     "publish:enhance-ui": "npm publish ./dist/enhance-ui --access public",
@@ -17,7 +18,7 @@
     "release:core": "npm run build:all; npm run publish:core",
     "release:enhance-ui": "npm run build:all; npm run publish:enhance-ui",
     "build:all": "rm -rf ./dist; tsc; lerna run build",
-    "dev:doc": "cd website; yarn; npm run dev",
+    "dev:doc": "cd website; yarn; yarn start",
     "build": "cd website; yarn; yarn build",
     "test": "jest"
   },

@@ -22,12 +22,12 @@ module.exports = ({
 
   async function createPackageFile() {
     fse.readJson(targetPackageJson, (err, packageData) => {
-      if(err) console.log(err);
+      if (err) console.log(err);
       fse.readJson(rootPackageJson, (_err, rootPackageData) => {
         const {
           nyc, scripts, devDependencies, workspaces, ...packageDataOther
         } = packageData;
-  
+
         const newPackageData = {
           ...packageDataOther,
           private: false,
@@ -39,14 +39,14 @@ module.exports = ({
           ...packageExtraOptions,
         };
         const buildPath = path.resolve(outdir, `package.json`);
-    
+
         fse.writeJson(buildPath, newPackageData, (err) => {
-          if(err) {
+          if (err) {
             return console.log(err);
           }
           console.log(`Created package.json in ${buildPath}`);
         });
-      })
+      });
     });
   }
 

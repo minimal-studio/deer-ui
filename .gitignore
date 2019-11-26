@@ -55,3 +55,9 @@ dist
 .docz
 for-testing
 /public
+
+website/public
+.cache
+
+packages/core/default.css
+packages/enhance-ui/default.css
