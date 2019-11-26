@@ -1,6 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
-import { tuple } from '@mini-code/base-func/utils/type';
+// import { tuple } from '@mini-code/base-func/utils/type';
+import { MakeReadOnly } from '../utils';
 
 export type LayoutSpaces = 0 | 5 | 10 | 15 | 20 | 25 | 30;
 export type RowSet = 'auto' | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
@@ -37,18 +38,6 @@ const DirectionMap = {
   row: 'row',
   reRow: 're-row',
 };
-const JustifyProps = tuple(...Object.keys(JustifyMap));
-const AlignContentProps = tuple(...Object.keys(AlignContentMap));
-const AlignItemProps = tuple(...Object.keys(AlignItemMap));
-const DirectionProps = tuple(...Object.keys(DirectionMap));
-const WrapProps = tuple(...Object.keys(WrapMap));
-// const JustifyProps = Object.keys(JustifyMap);
-// const AlignContentProps = Object.keys(AlignContentMap);
-// const AlignItemProps = Object.keys(AlignItemMap);
-// const DirectionProps = Object.keys(DirectionMap);
-// const WrapProps = Object.keys(WrapMap);
-// const LayoutSpaces = [0, 5, 10, 15, 20, 25, 30];
-// const RowSet = ['auto', 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 
 export interface GridProps {
   /** children */
@@ -68,15 +57,15 @@ export interface GridProps {
   /** 对于 屏幕宽度 < 1200px, > 992px 的分布 */
   xl?: RowSet;
   /** justify-content */
-  justify?: (typeof JustifyProps)[number];
-  /** justify-content */
-  alignContent?: (typeof AlignContentProps)[number];
-  /** justify-item */
-  alignItem?: (typeof AlignItemProps)[number];
-  /** 方向 */
-  direction?: (typeof DirectionProps)[number];
+  justify?: keyof MakeReadOnly<typeof JustifyMap>;
+  /** align-content */
+  alignContent?: keyof MakeReadOnly<typeof AlignContentMap>;
+  /** align-item */
+  alignItem?: keyof MakeReadOnly<typeof AlignItemMap>;
+  /** direction */
+  direction?: keyof MakeReadOnly<typeof DirectionMap>;
   /** flex-wrap */
-  wrap?: (typeof WrapProps)[number];
+  wrap?: keyof MakeReadOnly<typeof WrapMap>;
   /** 是否作为容器 */
   container?: boolean;
   /** 是否作为子组件 */

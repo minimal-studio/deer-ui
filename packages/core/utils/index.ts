@@ -11,3 +11,4 @@ export * from './ui-component';
 export * from './set-dom';
 export * from './position-filter';
 export * from './rename';
+export * from './types';
