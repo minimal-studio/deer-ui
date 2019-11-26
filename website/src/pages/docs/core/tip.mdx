@@ -1,0 +1,86 @@
+---
+name: Tip
+title: Tip
+menu: Data Display
+---
+
+# Tip
+
+## Basic Usage
+
+```jsx live noInline
+import { Tip } from '@deer-ui/core'
+
+function Example() {
+  return (
+    <>
+      <span className="relative p10">
+        写些什么吧
+        <Tip color="red"/>
+      </span>
+
+      <span className="relative p10">
+        有什么好写的
+        <Tip color="blue"/>
+      </span>
+
+      <span className="relative p10">
+        说好的呢
+        <Tip color="green"/>
+      </span>
+    </>
+  )
+}
+render(<Example />);
+```
+
+## 静态
+
+```jsx live noInline
+import { Tip } from '@deer-ui/core'
+
+function Example() {
+  return (
+    <>
+      <span className="relative p10">
+        写些什么吧
+        <Tip color="red" animate={false} />
+      </span>
+
+      <span className="relative p10">
+        有什么好写的
+        <Tip color="blue" animate={false} />
+      </span>
+
+      <span className="relative p10">
+        说好的呢
+        <Tip color="green" animate={false} />
+      </span>
+    </>
+  )
+}
+render(<Example />);
+```
+
+## 角标提示
+
+```jsx live noInline
+import { Tip } from '@deer-ui/core'
+
+function Example() {
+  return (
+    <>
+      <span className="relative p10">
+        未读数提示
+        <Tip color="red" animate={false} scale={20}>12</Tip>
+      </span>
+      <hr />
+      <span className="relative p10">
+        带动画的未读数提示
+        <Tip color="red" scale={20}>12</Tip>
+      </span>
+    </>
+  )
+}
+render(<Example />);
+```

@@ -1,0 +1,59 @@
+---
+name: Label
+title: Label
+menu: Data Display
+---
+
+# Label
+
+## Background Color
+
+```jsx live noInline
+import { Label } from '@deer-ui/core';
+import { ExampleColors, ForEachColor } from '@deer-ui/core/utils';
+
+function Example() {
+  return (
+    <div>
+      {
+        ForEachColor(ExampleColors)((color) => (
+          <Label color={color} className="" key={color}>
+            {color.toUpperCase()}
+          </Label>
+        ))
+      }
+    </div>
+  )
+}
+render(<Example />);
+```
+
+## Text Color
+
+```jsx live noInline
+import { Label } from '@deer-ui/core';
+import { ExampleColors, ForEachColor } from '@deer-ui/core/utils';
+
+function Example() {
+  return (
+    <>
+      <Label tColor="blue">
+        blue
+      </Label>
+      <Label tColor="green">
+        green
+      </Label>
+      <Label tColor="red">
+        red
+      </Label>
+      <Label tColor="orange">
+        orange
+      </Label>
+      <Label tColor="black" color="default">
+        black
+      </Label>
+    </>
+  )
+}
+render(<Example />);
+```

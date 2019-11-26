@@ -1,0 +1,90 @@
+---
+name: Slider
+title: Slider
+menu: Form
+---
+
+# Slider
+
+> 滑动选择器
+
+## Basic Usage
+
+```jsx live noInline
+import { Slider } from '@deer-ui/core'
+
+function Example() {
+  return (
+    <>
+      <h4>范围 0 ~ 100</h4>
+      <Slider
+        range={[0, 100]}
+        withInput={false}
+        onChange={val => {
+        }
+      } />
+    </>
+  )
+}
+render(<Example />);
+```
+
+## 带数值输入
+
+```jsx live noInline
+import { Slider } from '@deer-ui/core'
+
+function Example() {
+  return (
+    <>
+      <h4>范围 0 ~ 100</h4>
+      <Slider
+        range={[0, 100]}
+        withInput
+        onChange={val => {
+        }
+      } />
+    </>
+  )
+}
+render(<Example />);
+```
+
+## 基本单位
+
+```jsx live noInline
+import { Slider } from '@deer-ui/core'
+
+function Example() {
+  return (
+    <>
+      <h4>基本单位 5</h4>
+      <Slider
+        range={[0, 100]}
+        basicUnit={5}
+        onChange={val => {
+        }
+      } />
+    </>
+  )
+}
+render(<Example />);
+```
+
+## 百分比显示
+
+```jsx live noInline
+import { Slider } from '@deer-ui/core'
+
+function Example() {
+  return (
+    <Slider
+      range={[0, 100]}
+      precent
+      onChange={val => {
+      }
+    } />
+  )
+}
+render(<Example />);
+```

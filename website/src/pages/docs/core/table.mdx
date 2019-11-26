@@ -1,0 +1,437 @@
+---
+name: Table
+title: Table
+menu: Data Display
+---
+
+# Table
+
+## 通用 Table
+
+包含以下特点
+
+- 自动计算 cell 的宽度
+- 可固定头部
+- 可固定指定的列
+- 可对已有元素进行排列
+- 表头支持选择器和过滤器
+- 内置便捷的 data filter，方便对 row data 进行处理
+
+## Columns
+
+- columns 声明需要显示的数据的字段集合
+- dataRows 数据源
+
+[详情参考 Columns](/Columns)
+
+columns 与 dataRows 的对应关系
+
+```js
+// key 对应 dataRows 的所有项的 [key], 以下例子对应 username
+const columns = [
+  {
+    key: 'username'
+  }
+]
+const dataRows = [
+  {
+    username: 'alex',
+  },
+  {
+    username: 'blex',
+  },
+  {
+    username: 'clex',
+  }
+]
+```
+
+## Basic Usage
+
+需要为 Table 设置 `rowKey()`，设置每个 row 的 react key，提高渲染性能
+
+```js
+<Table
+  {...props}
+  dataRows={dataRows}
+  // 为了提高渲染效率
+  rowKey={(record, idx) => record.id || idx} />
+```
+
+```jsx live noInline
+import { Table } from '@deer-ui/core'
+import { dataRows, columns, fixedColumns } from 'mockdata-for-table';
+
+const rowKey = record => record.id
+
+function Example() {
+  return (
+    <Table
+      columns={columns}
+      dataRows={dataRows}
+      rowKey={rowKey} />
+  )
+}
+render(<Example />);
+```
+
+## 统计
+
+> table 会尝试统计数字，如果某个 `column` 不计入统计，可以配置 `count: false`
+
+```jsx live noInline
+import { Table } from '@deer-ui/core'
+import { dataRows, columns, fixedColumns } from 'mockdata-for-table';
+
+const rowKey = record => record.id
+
+function Example() {
+  return (
+    <Table
+      needCount
+      columns={columns}
+      dataRows={dataRows}
+      rowKey={rowKey} />
+  )
+}
+render(<Example />);
+```
+
+## 内置翻译功能
+
+```jsx live noInline
+import { Table } from '@deer-ui/core'
+import { dataRows, columns, fixedColumns } from 'mockdata-for-table';
+import { setLangTranslate, setUILang } from '@deer-ui/core/utils';
+
+const rowKey = record => record.id
+
+function Example() {
+  setLangTranslate({
+    'zh-CN': {
+      alex: '埃里克斯',
+      chili: '吃梨',
+      dove: '德芙',
+    }
+  })
+  setUILang('zh-CN');
+  return (
+    <Table
+      columns={columns}
+      rowKey={rowKey}
+      dataRows={dataRows} />
+  )
+}
+render(<Example />);
+```
+
+## 点击 row 高亮
+
+```jsx live noInline
+import { Table, Button } from '@deer-ui/core'
+import { dataRows, columns, fixedColumns } from 'mockdata-for-table';
+
+const rowKey = record => record.id
+
+function Example() {
+  return (
+    <Table
+      clickToHighlight
+      columns={columns}
+      dataRows={dataRows}
+      rowKey={rowKey} />
+  )
+}
+render(<Example />);
+```
+
+## 可选
+
+> checkedOverlay 为选中后出现的元素
+
+```jsx live noInline
+import { Table, Button } from '@deer-ui/core'
+import { dataRows, columns, fixedColumns } from 'mockdata-for-table';
+
+const rowKey = record => record.id
+
+function Example() {
+  return (
+    <Table
+      needCheck
+      checkedOverlay={({ checkedItems, clearCheckeds }) => (
+        <Button
+          className="mu10" 
+          onClick={e => clearCheckeds()}>
+          清除所有的以选中项
+        </Button>
+      )}
+      columns={columns}
+      dataRows={dataRows}
+      rowKey={rowKey} />
+  )
+}
+render(<Example />);
+```
+
+## Fix Table Header
+
+```jsx live noInline
+import { Table, Button } from '@deer-ui/core'
+import { dataRows, columns, fixedColumns } from 'mockdata-for-table';
+
+function Example() {
+  return (
+    <Table
+      dataRows={dataRows}
+      columns={columns}
+      rowKey={record => record.id}
+      height={200} />
+  )
+}
+render(<Example />);
+```
+
+## Fix Columns
+
+固定列，为 columns 添加 fixed: 'left' | 'right' 配置，并且要注意，从最左边开始添加 left，或者最右开始添加 right
+
+```js
+const columns = [
+  {
+    ...config,
+    fixed: 'left'
+  },
+  ...mappers,
+  {
+    ...config,
+    fixed: 'right'
+  }
+]
+```
+
+```jsx live noInline
+import { Table, Button } from '@deer-ui/core'
+import { dataRows, columns, fixedColumns } from 'mockdata-for-table';
+
+function Example() {
+  return (
+    <Table
+      columns={fixedColumns}
+      checkedOverlay={({ checkedItems, clearCheckeds }) => (
+        <Button
+          className="mu10" 
+          onClick={e => clearCheckeds()}>
+          清除所有的以选中项
+        </Button>
+      )}
+      rowKey={record => record.id}
+      height={200}
+      needCheck
+      needCount
+      onChange={(emitVal, config) => {
+        console.log(emitVal, config)
+      }}
+      dataRows={dataRows} />
+  )
+}
+render(<Example />);
+```
+
+## 响应表头排序
+
+此方式主要应用于需要与远端数据通讯确定数据排序
+
+```jsx live noInline
+import { Table, Button } from '@deer-ui/core'
+import { dataRows, columns, fixedColumns } from 'mockdata-for-table';
+
+function Example() {
+  const _columns = [{
+    key: 'desc',
+    title: '排序',
+    filter: (_, item) => item.age,
+    onSort: (mapper, isDesc) => {
+      // remote action
+      return !isDesc;
+    }
+  }, ...columns];
+  return (
+    <div>
+      <Table
+        columns={_columns}
+        rowKey={record => record.id}
+        onChange={(emitVal, config) => {
+          console.log(emitVal, config)
+        }}
+        dataRows={dataRows} />
+    </div>
+  )
+}
+render(<Example />);
+```
+
+## 内部排序
+
+```jsx live noInline
+import { Table, Button } from '@deer-ui/core'
+import { dataRows, columns, fixedColumns } from 'mockdata-for-table';
+
+function Example() {
+  return (
+    <Table
+      needInnerSort
+      columns={columns}
+      rowKey={record => record.id}
+      dataRows={dataRows} />
+  )
+}
+render(<Example />);
+```
+
+## 动态操作表格
+
+```jsx live noInline
+import { useState } from 'react'
+import { Table, Button } from '@deer-ui/core'
+import { dataRows, columns, fixedColumns } from 'mockdata-for-table';
+
+function Example() {
+  const [_columns, setKeyMapper] = useState([...fixedColumns]);
+  const [_records, setRecords] = useState([...dataRows]);
+  return (
+    <div>
+      <div className="mb10">
+        <span className="btn theme mr10" onClick={e => {
+          let nextColumns = [..._columns];
+          nextColumns.splice(-1, 1);
+          setKeyMapper(nextColumns)
+        }}>减少最后一个 columns</span>
+        <span className="btn green mr10" onClick={e => {
+          let nextColumns = [{
+            key: `addKey_${_columns.length}`
+          }, ..._columns];
+          setKeyMapper(nextColumns)
+        }}>增加一个 columns</span>
+        <span className="btn red mr10" onClick={e => {
+          let nextRecords = [...dataRows, dataRows[0]];
+          setRecords(nextRecords)
+        }}>增加一条记录</span>
+        <span className="btn orange mr10" onClick={e => {
+          let nextRecords = [...dataRows].slice(0, dataRows.length - 1);
+          setRecords(nextRecords)
+        }}>减少一条记录</span>
+        <hr />
+        <div>
+          <Table
+            columns={_columns}
+            checkedOverlay={({ checkedItems, clearCheckeds }) => (
+              <Button
+                className="mu10" 
+                onClick={e => clearCheckeds()}>
+                清除所有的以选中项
+              </Button>
+            )}
+            rowKey={record => record.id}
+            height={200}
+            needCheck
+            needCount
+            onChange={(emitVal, config) => {
+              console.log(emitVal, config)
+            }}
+            dataRows={_records} />
+        </div>
+      </div>
+    </div>
+  )
+}
+render(<Example />);
+```
+
+## 重新渲染表格
+
+```jsx live noInline
+import { useState } from 'react'
+import { Table, Button } from '@deer-ui/core'
+import { dataRows, columns, fixedColumns } from 'mockdata-for-table';
+
+function Example() {
+  const [_records, setRecords] = useState([...dataRows]);
+  const [show, setShow] = useState(false);
+  let table;
+  return (
+    <div>
+      <div className="mb10">
+        <span className="btn blue mr10" onClick={e => {
+          const nextShow = !show;
+          const nextRecords = nextShow ? [...dataRows] : [];
+          setShow(nextShow)
+          setRecords(nextRecords)
+        }}>{show ? '隐藏' : '显示'}表格</span>
+      </div>
+      <div style={!show ? {display: 'none'} : null}>
+        <Table
+          columns={fixedColumns}
+          ref={e => table = e}
+          checkedOverlay={({ checkedItems, clearCheckeds }) => (
+            <Button
+              className="mu10" 
+              onClick={e => clearCheckeds()}>
+              清除所有的以选中项
+            </Button>
+          )}
+          rowKey={record => record.id}
+          height={200}
+          needCheck
+          needCount
+          fixedRightKeys={['status']}
+          onChange={(emitVal, config) => {
+            console.log(emitVal, config)
+          }}
+          dataRows={_records} />
+      </div>
+    </div>
+  )
+}
+render(<Example />);
+```
+
+## 国际化
+
+```jsx live noInline
+import { useState } from 'react'
+import { Table, Button } from '@deer-ui/core'
+import { dataRows, columns, fixedColumns } from 'mockdata-for-table';
+import { setLangTranslate, setUILang } from '@deer-ui/core/utils'
+
+function Example() {
+  const [lang, setLang] = useState('zh-CN')
+  const langMapper = {
+    'zh-CN': {
+      property: '财产',
+      cn: '中国', uk: '英国',
+      '正常': '正常'
+    },
+    'en-US': {
+      property: 'property',
+      '正常': 'Normal'
+    },
+  }
+  setLangTranslate(langMapper);
+  return (
+    <div>
+      <span className="btn theme" onClick={e => {
+        const nextLang = lang == 'zh-CN' ? 'en-US' : 'zh-CN';
+        setUILang(nextLang);
+        setLang(nextLang)
+      }}>{lang}</span>
+      <Table
+        needCount
+        columns={columns}
+        rowKey={record => record.id}
+        dataRows={dataRows} />
+    </div>
+  )
+}
+render(<Example />);
+```

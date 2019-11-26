@@ -1,0 +1,215 @@
+---
+name: ShowModal
+title: ShowModal
+menu: Utils
+---
+
+# ShowModal
+
+> 提供全局的 Modal 使用方法
+
+## Basic Usage
+
+```jsx live noInline
+import {
+  ShowModal, CloseModal, CloseAllModal, Dropdown, Pop
+} from '@deer-ui/core';
+
+function Example() {
+  return (
+    <div>
+      <span
+        className="btn theme mr10"
+        onClick={e => ShowModal({
+          draggable: false,
+          title: '默认的 Modal',
+          id: 'ShowModal',
+          onClose: () => {
+            console.log('ShowModal')
+          },
+          children: <div
+            style={{height: 200, overflow: 'auto'}} className="p10 relative">
+            内容
+            <div style={{height: 300}}>
+            </div>
+            <Dropdown
+              values={{
+                a: '123',
+                b: '456',
+              }} />
+            <div onClick={e => {
+              Pop.show({
+                elem: e.target,
+                props: {
+                  showCloseBtn: false,
+                  position: 'top',
+                  type: 'red'
+                },
+                children: (
+                  <div className="p10">
+                    任意内容任意内容任意内容任意内容<br />
+                    任意内容任意内容任意内容任意内容<br />
+                    任意内容任意内容任意内容任意内容<br />
+                    任意内容任意内容任意内容任意内容<br />
+                  </div>
+                )
+              })
+            }}>浮动</div>
+          </div>
+        })}>
+        默认的 Modal
+      </span>
+
+      <span
+        className="btn red mr10"
+        onClick={e => ShowModal({
+          title: '有操作按钮的 Modal',
+          showFuncBtn: true,
+          children: <div className="p20">任意的内容</div>
+        })}>
+        有操作按钮的 Modal
+      </span>
+
+      <span
+        className="btn green mr10"
+        onClick={e => ShowModal({
+          type: 'confirm',
+          title: '确认框',
+          confirmText: '是否确定',
+          onConfirm: (isSure) => {
+            alert('确定？' + isSure)
+          }
+        })}>
+        确认框
+      </span>
+    </div>
+  )
+}
+render(<Example />);
+```
+
+## 多窗口模式
+
+> 同时共存多个 Modal，并可以拖动
+
+```jsx live noInline
+import {
+  ShowModal, CloseModal, CloseAllModal, Dropdown, Pop
+} from '@deer-ui/core';
+
+function Example() {
+  return (
+    <>
+      <span
+        className="btn theme mr10"
+        onClick={e => ShowModal({
+          draggable: true,
+          elem: e,
+          title: '按住 header 可拖动',
+          children: <div className="p15">任意的内容</div>
+        })}>
+        多个可拖动的 Modal
+      </span>
+      <span
+        className="btn red mr10"
+        onClick={e => CloseAllModal()}>
+        关闭所有 Modal
+      </span>
+    </>
+  )
+}
+render(<Example />);
+```
+
+## 侧边弹出
+
+> 可在不同的方向弹出
+
+```jsx live noInline
+import {
+  ShowModal, CloseModal, CloseAllModal, Dropdown, Pop
+} from '@deer-ui/core';
+
+function Example() {
+  return (
+    <>
+      <span
+        className="btn blue mr10"
+        onClick={e => ShowModal({
+          title: 'Pop from right',
+          type: 'side',
+          position: 'right',
+          children: <div className="p20">任意的内容</div>
+        })}>
+        From right
+      </span>
+      <span
+        className="btn green mr10"
+        onClick={e => ShowModal({
+          title: 'Pop from left',
+          type: 'side',
+          position: 'left',
+          children: <div className="p20">Children</div>
+        })}>
+        From left
+      </span>
+      <span
+        className="btn red mr10"
+        onClick={e => ShowModal({
+          title: 'Pop from top',
+          type: 'side',
+          position: 'top',
+          children: <div className="p20">Children</div>
+        })}>
+        From top
+      </span>
+      <span
+        className="btn orange mr10"
+        onClick={e => ShowModal({
+          title: 'Pop from bottom',
+          type: 'side',
+          position: 'bottom',
+          children: <div className="p20">Children</div>
+        })}>
+        From bottom
+      </span>
+    </>
+  )
+}
+render(<Example />);
+```
+
+## 自定义弹出模版
+
+> 替换 Modal 提供的默认模版
+
+```jsx live noInline
+import {
+  ShowModal, CloseModal, CloseAllModal, Dropdown, Pop
+} from '@deer-ui/core';
+
+function Example() {
+  return (
+    <span
+      className="btn blue mr10"
+      onClick={e => ShowModal({
+        title: '自定义 Modal 模版',
+        template: (props) => {
+          console.log(props)
+          return (
+            <div onClick={e => props.onCloseModal()} style={{
+              position: 'fixed', top: 0, right: 0,
+              boxShadow: '0 4px 10px rgba(0,0,0,0.1)',
+              zIndex: 999,
+              height: 400, width: 500, backgroundColor: '#FFF'}}>
+              自定义的 Modal 模版，点击关闭
+            </div>
+          )
+        }
+      })}>
+      自定义 Modal 模版
+    </span>
+  )
+}
+render(<Example />);
+```

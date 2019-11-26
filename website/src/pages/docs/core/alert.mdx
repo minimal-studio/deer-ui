@@ -1,0 +1,105 @@
+---
+name: Alert
+title: Alert
+menu: Data Display
+---
+
+# Alert
+
+> 提示框，用于重要提示，或者用户手册等
+
+## Basic Usage
+
+```jsx live noInline
+import { Alert } from '@deer-ui/core'
+
+function Example() {
+  return (
+    <>
+      <Alert title="Alert success" type="success" />
+      <Alert title="Alert error" type="error" />
+      <Alert title="Alert warn" type="warn" />
+      <Alert title="Alert normal" type="normal" />
+    </>
+  )
+}
+render(<Example />);
+```
+
+## With text
+
+```jsx live noInline
+import { Alert } from '@deer-ui/core'
+
+const MockData = '这大都会的黄昏很迷人，可我偶尔会有挥之不去的孤寂，每当看见那些囊中羞涩的年轻职员在商店橱窗前徜徉，挨到晚饭时间形影相吊地去餐厅填肚子，我知道他们也深有同感——我们这些薄暮中的年轻职员啊，正在虚度一生中最灿烂的年华，一夜中最美好的时辰。';
+
+function Example() {
+  return (
+    <>
+      <Alert 
+        title="了不起的盖茨比"
+        text={MockData}/>
+    </>
+  )
+}
+render(<Example />);
+```
+
+## Collaspable
+
+```jsx live noInline
+import { Alert } from '@deer-ui/core'
+
+const MockData = '这大都会的黄昏很迷人，可我偶尔会有挥之不去的孤寂，每当看见那些囊中羞涩的年轻职员在商店橱窗前徜徉，挨到晚饭时间形影相吊地去餐厅填肚子，我知道他们也深有同感——我们这些薄暮中的年轻职员啊，正在虚度一生中最灿烂的年华，一夜中最美好的时辰。';
+
+function Example() {
+  return (
+    <>
+      <Alert 
+        title="了不起的盖茨比"
+        collapse
+        text={MockData}/>
+    </>
+  )
+}
+render(<Example />);
+```
+
+## Multiple content
+
+```jsx live noInline
+import { Alert } from '@deer-ui/core'
+
+const MockData = '这大都会的黄昏很迷人，可我偶尔会有挥之不去的孤寂，每当看见那些囊中羞涩的年轻职员在商店橱窗前徜徉，挨到晚饭时间形影相吊地去餐厅填肚子，我知道他们也深有同感——我们这些薄暮中的年轻职员啊，正在虚度一生中最灿烂的年华，一夜中最美好的时辰。';
+
+function Example() {
+  return (
+    <>
+      <Alert 
+        title="了不起的盖茨比"
+        collapse
+        texts={[MockData, MockData, MockData]}/>
+    </>
+  )
+}
+render(<Example />);
+```
+
+## Render any component
+
+```jsx live noInline
+import { Alert } from '@deer-ui/core'
+
+function Example() {
+  return (
+    <>
+      <Alert 
+        title="any component"
+        text={(
+          <span className="btn red">按钮</span>
+        )}/>
+    </>
+  )
+}
+render(<Example />);
+```

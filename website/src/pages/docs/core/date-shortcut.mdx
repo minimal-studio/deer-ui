@@ -1,0 +1,72 @@
+---
+name: DateShortcut
+title: DateShortcut
+menu: Form
+---
+
+# DateShortcut
+
+## Basic Usage
+
+### 输出字符串结果, 自带时间
+
+```jsx live noInline
+import { useState } from 'react';
+import { DateShortcut } from '@deer-ui/core';
+
+function Example() {
+  const [value, setVal] = useState([]);
+  return (
+    <div>
+      <DateShortcut
+        outputAsString={true}
+        onChange={val => setVal(val)}/>
+      <hr />
+      返回值: {value.join(' - ')}
+    </div>
+  )
+}
+render(<Example />);
+```
+
+### 输出字符串结果, 不需要时间
+
+```jsx live noInline
+import { useState } from 'react';
+import { DateShortcut } from '@deer-ui/core';
+
+function Example() {
+  const [value, setVal] = useState([]);
+  return (
+    <div>
+      <DateShortcut
+        outputAsString={true}
+        needTime={false}
+        onChange={val => setVal(val)}/>
+      <hr />
+      返回值: {value.join(' - ')}
+    </div>
+  )
+}
+render(<Example />);
+```
+
+### 输出原生 Date 对象
+
+```jsx live noInline
+import { useState } from 'react';
+import { DateShortcut } from '@deer-ui/core';
+
+function Example() {
+  const [value, setVal] = useState([]);
+  return (
+    <div>
+      <DateShortcut
+        onChange={val => setVal(val)}/>
+      <hr />
+      返回值: {value.join(' - ')}
+    </div>
+  )
+}
+render(<Example />);
+```

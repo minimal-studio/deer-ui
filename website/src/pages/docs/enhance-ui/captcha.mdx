@@ -1,0 +1,44 @@
+---
+name: Captcha
+title: Captcha
+menu: Enhance-UI
+---
+
+# Captcha
+
+## Basic Usage
+
+> 实现获取数据的接口
+
+```jsx live noInline
+import { useState } from 'react'
+import { Captcha } from '@deer-ui/enhance-ui';
+
+const getData = (callback) => {
+  // 请求成功后调用 callback，传入 3 个必要参数
+  callback({
+    hasErr: false, // 是否发生错误
+    captchaImage: '', // 验证码的图片
+    captchaKey: '' // 验证码的 key
+  })
+}
+
+Captcha.setAPI(getData);
+
+function Example() {
+  const [value, setVal] = useState();
+  return (
+    <Captcha
+      onError={e => console.log(e)}
+      onChange={e => {
+        console.log(e)
+        setVal(e);
+      }}
+      onCaptchaLoad={e => console.log(e)}
+      onBlur={e => console.log(e)}
+      value={value}
+      limit={4}/>
+  )
+}
+render(<Example />);
+```

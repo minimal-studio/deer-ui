@@ -1,0 +1,68 @@
+---
+name: LinkSelector
+title: LinkSelector
+menu: Enhance-UI
+---
+
+# LinkSelector
+
+> 联动选择器
+
+## Basic Usage
+
+```jsx live noInline
+import { LinkSelector } from '@deer-ui/enhance-ui';
+
+function Example() {
+  return (
+    <LinkSelector outside data={[
+      {
+        title: '联动1',
+        code: 'value1',
+        child: [{
+          title: '联动1-1',
+          code: 'value1-1',
+          child: [{
+            code: 'value1-1-1',
+            title: '联动1-1-1',
+          }]
+        }, {
+          title: '联动1-2',
+          code: 'value1-2',
+          child: [{
+            code: 'value1-2-1',
+            title: '联动1-2-1',
+          }, {
+            title: '联动1-2-2',
+            code: 'value1-2-2',
+            child: [{
+              code: 'value1-2-2-1',
+              title: '联动1-2-2-1',
+            }]
+          }]
+        }],
+      },
+      {
+        title: '联动2',
+        code: 'value2',
+        child: [{
+          title: '联动2-1',
+          code: 'value2-1',
+          child: [{
+            title: '联动2-1-1',
+            code: 'value2-1-1',
+          }]
+        }, {
+          title: '联动2-2',
+          code: 'value2-2',
+          child: [{
+            title: '联动2-2-1',
+            code: 'value2-2-1',
+          }]
+        }],
+      },
+    ]} />
+  )
+}
+render(<Example />);
+```

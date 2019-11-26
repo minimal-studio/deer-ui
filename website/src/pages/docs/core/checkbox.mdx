@@ -1,0 +1,47 @@
+---
+name: Checkbox
+title: Checkbox
+menu: Form
+---
+
+# Checkbox
+
+## Basic Usage
+
+```jsx live noInline
+import { Checkbox } from '@deer-ui/core';
+
+function Example() {
+  return (
+    <Checkbox onChange={val => {
+      console.log(val)
+    }} values={{
+      1: 'A',
+      2: 'B',
+      3: 'C',
+    }} />
+  )
+}
+render(<Example />);
+```
+
+## 更换激活图标
+
+```jsx live noInline
+import { Checkbox } from '@deer-ui/core';
+
+function Example() {
+  return (
+    <Checkbox
+      n="star"
+      onChange={val => {
+        console.log(val)
+      }} values={{
+        1: 'A',
+        2: 'B',
+        3: 'C',
+      }} />
+  )
+}
+render(<Example />);
+```

@@ -1,0 +1,118 @@
+---
+name: Switch
+title: Switch
+menu: Form
+---
+
+# Switch
+
+## Basic Usage
+
+```jsx live noInline
+import { useState } from 'react';
+import { Switch } from '@deer-ui/core';
+
+function Example() {
+  const [checked1, setChecked1] = useState(false)
+  const [checked2, setChecked2] = useState(0)
+  return (
+    <div>
+      <h4>开关, 输出结果: {JSON.stringify(checked1)}</h4>
+      <Switch
+        onChange={val => setChecked1(val)}
+        checked={checked1} />
+    </div>
+  )
+}
+render(<Example />);
+```
+
+## 指定期望输出的值
+
+```jsx live noInline
+import { useState } from 'react';
+import { Switch } from '@deer-ui/core';
+
+function Example() {
+  const [checked1, setChecked1] = useState(false)
+  const [checked2, setChecked2] = useState(0)
+  return (
+    <div>
+      <h4>输出值: {checked2}</h4>
+      <Switch
+        onChange={val => {
+          console.log(val)
+          setChecked2(val)
+        }}
+        outputs={[1, 0]}
+        checked={checked2} />
+    </div>
+  )
+}
+render(<Example />);
+```
+
+## 不受控组件
+
+```jsx live noInline
+import { useState } from 'react';
+import { Switch } from '@deer-ui/core';
+
+function Example() {
+  const [checked1, setChecked1] = useState(false)
+  const [checked2, setChecked2] = useState(0)
+  return (
+    <div>
+      <Switch
+        onChange={val => {
+          console.log(val)
+        }}
+        outputs={[1, 0]}
+        defaultChecked={true} />
+    </div>
+  )
+}
+render(<Example />);
+```
+
+## 自定义显示提示
+
+```jsx live noInline
+import { useState } from 'react';
+import { Switch } from '@deer-ui/core';
+
+function Example() {
+  const [checked1, setChecked1] = useState(false)
+  const [checked2, setChecked2] = useState(0)
+  return (
+    <div>
+      <Switch
+        onChange={val => {}}
+        checked={false}
+        tips={['开', '关']} />
+    </div>
+  )
+}
+render(<Example />);
+```
+
+## 禁用
+
+```jsx live noInline
+import { useState } from 'react';
+import { Switch } from '@deer-ui/core';
+
+function Example() {
+  const [checked1, setChecked1] = useState(false)
+  const [checked2, setChecked2] = useState(0)
+  return (
+    <div>
+      <Switch
+        onChange={val => {}}
+        disabled
+        checked={false} />
+    </div>
+  )
+}
+render(<Example />);
+```

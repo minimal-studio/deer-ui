@@ -1,0 +1,63 @@
+---
+name: Menus
+title: Menus
+menu: Data Display
+---
+
+# Menus
+
+## 使用内置模版
+
+```jsx live noInline
+import { Menus, Menu } from '@deer-ui/core';
+
+function Example() {
+  return (
+    <Menus data={[
+      {
+        text: '菜单1',
+        icon: 'check',
+        action: () => {}
+      },
+      {
+        text: '菜单2',
+        action: () => {}
+      },
+      {
+        text: '菜单3',
+        action: () => {}
+      },
+      {
+        text: '菜单4',
+        action: () => {}
+      },
+      '-',
+      {
+        text: '菜单5',
+        action: () => {}
+      },
+    ]} />
+  )
+}
+render(<Example />);
+```
+
+## 使用 Menu 模版
+
+```jsx live noInline
+import { Menus, Menu } from '@deer-ui/core';
+
+function Example() {
+  return (
+    <Menus>
+      <Menu icon="check">Menu1</Menu>
+      <Menu>Menu2</Menu>
+      <Menu>Menu3</Menu>
+      <Menu onClick={e => {console.log('Menu4')}}>Menu4</Menu>
+      <hr />
+      <Menu>Menu5</Menu>
+    </Menus>
+  )
+}
+render(<Example />);
+```

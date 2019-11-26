@@ -1,0 +1,32 @@
+---
+name: TipButton
+title: TipButton
+menu: Enhance-UI
+---
+
+# TipButton
+
+## Basic Usage
+
+```jsx live noInline
+import { TipButton } from '@deer-ui/enhance-ui';
+import MockData from 'mockdata';
+
+function Example() {
+  return (
+    <TipButton
+      text="弹出层按钮"
+      popover={(
+        <div className="p15" style={{maxWidth: 200}}>
+          {MockData[0]}
+        </div>
+      )}
+      timer={10000}
+      onClick={e => {
+        console.log(e)
+      }}
+    />
+  )
+}
+render(<Example />);
+```

@@ -1,0 +1,218 @@
+---
+name: Pop
+title: Pop
+menu: Feedback
+---
+
+# API Pop
+
+> Pop 将自动判断客户端的屏幕尺寸，如超出范围则自动切换到另一个方向显示
+
+## Basic Usage
+
+```jsx live noInline
+import {
+  Pop, Icon
+} from '@deer-ui/core';
+
+function Example() {
+  return (
+    <div style={{overflowX: 'auto', position: 'relative', width: '100%'}}>
+      <div className="layout j-c-b" style={{width: '110%'}}>
+        <span className="mr10 p10 flex bg_default" onMouseEnter={e => {
+          Pop.show({
+            elem: e.target,
+            props: {
+              showCloseBtn: false,
+              position: 'top',
+              type: 'red'
+            },
+            children: (
+              <div className="p10">
+                任意内容任意内容任意内容任意内容<br />
+                任意内容任意内容任意内容任意内容<br />
+                任意内容任意内容任意内容任意内容<br />
+                任意内容任意内容任意内容任意内容<br />
+              </div>
+            )
+          })
+        }} onMouseLeave={e => {
+          Pop.close()
+        }}>
+          向上弹出
+        </span>
+        <span className="mr10 p10 flex bg_default" onMouseEnter={e => {
+          Pop.show({
+            elem: e.target,
+            props: {
+              showCloseBtn: false,
+              position: 'bottom',
+              type: 'red'
+            },
+            children: (
+              <div className="p10">任意内容</div>
+            )
+          })
+        }} onMouseLeave={e => {
+          Pop.close()
+        }}>
+          向下弹出
+        </span>
+        <span className="mr10 p10 flex bg_default" onMouseEnter={e => {
+          Pop.show({
+            elem: e.target,
+            props: {
+              showCloseBtn: false,
+              position: 'left',
+              type: 'red'
+            },
+            children: (
+              <div className="p10">任意内容</div>
+            )
+          })
+        }} onMouseLeave={e => {
+          Pop.close()
+        }}>
+          向左弹出
+        </span>
+        <span className="mr10 p10 flex bg_default" onMouseEnter={e => {
+          Pop.show({
+            elem: e.target,
+            props: {
+              showCloseBtn: false,
+              position: 'right',
+              type: 'red'
+            },
+            children: (
+              <div className="p10">任意内容</div>
+            )
+          })
+        }} onMouseLeave={e => {
+          Pop.close()
+        }}>
+          向右弹出
+        </span>
+      </div>
+    </div>
+  )
+}
+render(<Example />);
+```
+
+```jsx live noInline
+import {
+  Pop, PopoverEntity, Icon
+} from '@deer-ui/core';
+
+function Example() {
+  return (
+    <div className="p20 bg_default">
+      <span className="mr10" onMouseEnter={e => {
+        Pop.show({
+          elem: e.target,
+          props: {
+            showCloseBtn: false,
+            position: 'top',
+            type: 'red'
+          },
+          children: (
+            <div className="p10">
+              任意内容任意内容任意内容任意内容<br />
+              任意内容任意内容任意内容任意内容<br />
+              任意内容任意内容任意内容任意内容<br />
+              任意内容任意内容任意内容任意内容<br />
+            </div>
+          )
+        })
+      }} onMouseLeave={e => {
+        Pop.close()
+      }}>
+        <Icon style={{fontSize: 30}} n="blind" />
+      </span>
+      <span className="mr10 bg_default" onMouseEnter={e => {
+        Pop.show({
+          elem: e.target,
+          props: {
+            showCloseBtn: false,
+            position: 'bottom',
+            type: 'red'
+          },
+          children: (
+            <div className="p10">任意内容</div>
+          )
+        })
+      }} onMouseLeave={e => {
+        Pop.close()
+      }}>
+        <Icon style={{fontSize: 30}} n="baby" />
+      </span>
+      <span className="mr10 bg_default" onMouseEnter={e => {
+        Pop.show({
+          elem: e.target,
+          props: {
+            showCloseBtn: false,
+            position: 'left',
+            type: 'red'
+          },
+          children: (
+            <div className="p10">任意内容</div>
+          )
+        })
+      }} onMouseLeave={e => {
+        Pop.close()
+      }}>
+        <Icon style={{fontSize: 30}} n="bible" />
+      </span>
+      <span className="mr10 bg_default" onMouseEnter={e => {
+        Pop.show({
+          elem: e.target,
+          props: {
+            showCloseBtn: false,
+            position: 'right',
+            type: 'red'
+          },
+          children: (
+            <div className="p10">任意内容</div>
+          )
+        })
+      }} onMouseLeave={e => {
+        Pop.close()
+      }}>
+        <Icon style={{fontSize: 30}} n="bicycle" />
+      </span>
+    </div>
+  )
+}
+render(<Example />);
+```
+
+-------
+
+## 构造一个 Pop
+
+```jsx live noInline
+import {
+  Pop, PopoverEntity, Icon
+} from '@deer-ui/core';
+
+const pop = new PopoverEntity({
+  id: '用于标识唯一性',
+  fixed: {}, // 是否 fixed 定位
+});
+
+function Example() {
+  return (
+    <span onClick={e => {
+      pop.show({
+        width: 400,
+        elem: e.target, // 相对的 document 元素
+        children: (
+          <div>Children</div>
+        ),
+        props: {}, // 传入 popover 实体对象的 props
+      });
+    }}>使用在此作用域构造的 Pop</span>
+  )
+}
+render(<Example />);
+```

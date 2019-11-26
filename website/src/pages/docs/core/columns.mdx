@@ -1,0 +1,170 @@
+---
+name: Columns
+title: Columns
+menu: Data Display
+---
+
+# columns
+
+对应表格中的每一列（column）的 record 的 key 的映射的集合。
+
+表格渲染的核心配置，RecordRender 的机制是根据 columns 配置遍历 records 中的每一个具体字段，找到对应的过滤器，实现通用的表格处理
+
+## 使用 Typescript 定义
+
+```js
+import { TableColumns } from '@deer-ui/core/record-render'
+
+const columns: TableColumns = [
+  {
+    ...
+  }
+]
+```
+
+## 在 TableHeader 添加选择器
+
+> 通过传入不同类型的 title 字段，实现多种表头
+
+### 1. object title
+
+```js
+// propsForSelector 会全部传入 Dropdown，type 用于标记是什么类型
+const columns = {
+  key: 'status',
+  title: {
+    type: 'selector',
+    ...propsForSelector
+  }
+}
+```
+
+### 2. function title
+
+```js
+// 定义 title 的过滤器，实现返回任意内容
+const columns = {
+  key: 'any',
+  title: () => {
+    return (
+      <div>
+        ...
+      </div>
+    )
+  }
+}
+```
+
+### 3. string title
+
+```js
+// 一般的文字内容
+const columns = {
+  key: 'title',
+  title: '表头'
+}
+```
+
+## 在 TableBody 中的过滤器
+
+> 各个处理器的处理顺序，要多个定义过滤器时需要关注
+
+1. date || datetime || money || abvMoney || count
+2. labels && namesMapper
+3. filter
+
+### date || datetime
+
+> 内置的时间过滤器
+
+```js
+const columns = [
+  {
+    key: '',
+    date: boolean, // 格式成 YYYY-MM-DD
+    datetime: boolean, // 格式成 YYYY-MM-DD hh:mm:ss
+  }
+]
+```
+
+### money || abvMoney
+
+> 内置的金钱格式化过滤器
+
+```js
+const columns = [
+  {
+    key: '',
+    money: boolean, // 格式成金钱
+    abvMoney: boolean, // 格式成金钱绝对值
+  }
+]
+```
+
+### count
+
+> 是否纳入统计
+
+### tips
+
+> 标签
+
+```js
+const columns = [
+  {
+    tips: '', // 显示单个提示
+    tips: [1, 2, 3], // 显示多个提示
+  }
+]
+```
+
+### labels
+
+> 内置的 labels 过滤器
+
+```js
+const columns = [
+  {
+    key: '',
+    labels: {
+      // srcStr 匹配的字符
+      // labelColor label 的颜色
+      [srcStr]: [labelColor]
+    }
+  }
+]
+```
+
+### namesMapper
+
+> 内置的 字段映射 过滤器
+
+```js
+const columns = [
+  {
+    key: '',
+    namesMapper: {
+      // srcStr 匹配的字符
+      // mapStr 映射的值
+      [srcStr]: [mapStr]
+    }
+  }
+]
+```
+
+### filter
+
+> 可以返回任意想要的字段，在以下内置过滤器中找不到符合预期的，可以通过 filter 返回
+
+```js
+const columns = [
+  {
+    key: '',
+    filter: (str, item, mapper, idx) => {
+      return (
+        // 任意内容
+      )
+    }
+  }
+]
+```

@@ -1,0 +1,61 @@
+---
+name: FormGenerator
+title: FormGenerator
+menu: Form Generator
+---
+
+# FormGenerator
+
+## Usage
+
+```jsx live noInline
+import { FormGenerator } from '@deer-ui/core';
+import formOptions from 'formOptions';
+import { Captcha } from '@deer-ui/enhance-ui';
+
+
+Captcha.setAPI(
+  (callback) => {
+    setTimeout(() => {
+      callback({
+        hasErr: false,
+        captchaImage: 'https://cms.marketplace.org/sites/default/files/styles/primary-image-400x222/website/static/captcha.png?itok=JsLPSa66',
+        captchaKey: '12412412512513'
+      })
+    }, 1000);
+  }
+)
+
+function Example() {
+  let formRef;
+  const _formOptions = [
+    ...formOptions,
+    {
+      ref: 'captchCode',
+      type: 'customForm',
+      keyRef: 'captchKey',
+      title: '验证码',
+      getCustomFormControl: (onChange) => <Captcha onChange={onChange} />,
+    },
+  ]
+  return (
+    <div>
+      <div>
+        <FormGenerator
+          ref={e => formRef = e}
+          onChange={(values, ref, val) => {
+            console.log(values, ref, val)
+          }}
+          formOptions={_formOptions}/>
+      </div>
+      <span className="btn theme mr10" onClick={e => {
+          console.log(formRef, formRef.value);
+      }}>提交</span>
+      <span className="btn red" onClick={e => {
+          formRef.clearValue();
+      }}>清空表单</span>
+    </div>
+  )
+}
+render(<Example />);
+```

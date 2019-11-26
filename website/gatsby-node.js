@@ -5,9 +5,12 @@ exports.onCreateWebpackConfig = ({ stage, actions }) => {
     resolve: {
       modules: [
         path.resolve(__dirname, "../node_modules"),
-        path.resolve(__dirname, "../packages"),
         "node_modules"
       ],
+      alias: {
+        '@deer-ui/core': path.resolve(__dirname, "../packages/core"),
+        '@deer-ui/enhance-ui': path.resolve(__dirname, "../packages/enhance-ui"),
+      }
     },
   });
 };

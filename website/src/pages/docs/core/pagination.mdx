@@ -1,0 +1,161 @@
+---
+name: Pagination
+title: Pagination
+menu: Form
+---
+
+# Pagination
+
+## Basic Usage
+
+```jsx live noInline
+import { useState } from 'react'
+import { Pagination } from '@deer-ui/core'
+
+function Example() {
+  /** 支持自定义数据结构 */
+  const [pagingInfo, setPagin] = useState({
+    active: true,
+    total: 1000,
+    pIdx: 0,
+    pSize: 10
+  });
+  const [pagingInfo2, setPagin2] = useState({
+    active: true,
+    total: 12,
+    pIdx: 0,
+    pSize: 10
+  });
+  const [pagingInfo3, setPagin3] = useState({
+    active: true,
+    total: 2,
+    pIdx: 0,
+    pSize: 10
+  });
+  return (
+    <div>
+      <Pagination
+        onPagin={nextPagin => {
+          console.log(nextPagin)
+          setPagin3(nextPagin)
+        }}
+        pagingInfo={pagingInfo3}/>
+      <Pagination
+        onPagin={nextPagin => {
+          console.log(nextPagin)
+          setPagin2(nextPagin)
+        }}
+        pagingInfo={pagingInfo2}/>
+      <Pagination
+        onPagin={nextPagin => {
+          console.log(nextPagin)
+          setPagin(nextPagin)
+        }}
+        pagingInfo={pagingInfo}/>
+    </div>
+  )
+}
+render(<Example />);
+```
+
+## 自定义数据结构
+
+```jsx live noInline
+import { useState } from 'react'
+import { Pagination } from '@deer-ui/core'
+
+function Example() {
+  /** 支持自定义数据结构 */
+  const [pagingInfo, setPagin] = useState({
+    Active: true,
+    Total: 1000,
+    PIdx: 0,
+    PSize: 10
+  });
+  const paginTransfer = {
+    active: 'Active',
+    total: 'Total',
+    pIdx: 'PIdx',
+    pSize: 'PSize'
+  }
+  return (
+    <Pagination
+      onPagin={nextPagin => {
+        console.log(nextPagin)
+        setPagin(nextPagin)
+      }}
+      infoMapper={paginTransfer}
+      pagingInfo={pagingInfo}/>
+  )
+}
+render(<Example />);
+```
+
+## 停用右侧选项
+
+```jsx live noInline
+import { useState } from 'react'
+import { Pagination } from '@deer-ui/core'
+
+function Example() {
+  /** 支持自定义数据结构 */
+  const [pagingInfo, setPagin] = useState({
+    Active: true,
+    Total: 1000,
+    PIdx: 0,
+    PSize: 10
+  });
+  const paginTransfer = {
+    active: 'Active',
+    total: 'Total',
+    pIdx: 'PIdx',
+    pSize: 'PSize'
+  }
+  return (
+    <Pagination
+      onPagin={nextPagin => {
+        console.log(nextPagin)
+        setPagin(nextPagin)
+      }}
+      isNeedHelper={false}
+      infoMapper={paginTransfer}
+      pagingInfo={pagingInfo}/>
+  )
+}
+render(<Example />);
+```
+
+## 控制激活按钮的前后按钮的数量
+
+```jsx live noInline
+import { useState } from 'react'
+import { Pagination } from '@deer-ui/core'
+
+function Example() {
+  /** 支持自定义数据结构 */
+  const [pagingInfo, setPagin] = useState({
+    Active: true,
+    Total: 1000,
+    PIdx: 4,
+    PSize: 10
+  });
+  const paginTransfer = {
+    active: 'Active',
+    total: 'Total',
+    pIdx: 'PIdx',
+    pSize: 'PSize'
+  }
+  return (
+    <Pagination
+      onPagin={nextPagin => {
+        console.log(nextPagin)
+        setPagin(nextPagin)
+      }}
+      prevBtnCount={3}
+      lastBtnCount={1}
+      infoMapper={paginTransfer}
+      pagingInfo={pagingInfo}/>
+  )
+}
+render(<Example />);
+```

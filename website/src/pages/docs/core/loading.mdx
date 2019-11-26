@@ -1,0 +1,133 @@
+---
+name: Loading
+title: Loading
+menu: Data Display
+---
+
+# Loading
+
+> 注意，需要手动控制是否渲染 children
+
+## function children
+
+```jsx live noInline
+import { useState } from 'react'
+import { Loading } from '@deer-ui/core';
+
+function Example() {
+  const [loading, setLoading] = useState(true)
+  return (
+    <>
+      <span className="btn theme" onClick={e => setLoading(!loading)}>切换状态</span>
+      <hr />
+      <div style={{height: 300}}>
+        <Loading loading={loading}>
+          {
+            () => {
+              return (
+                <div>Children</div>
+              )
+            }
+          }
+        </Loading>
+      </div>
+    </>
+  )
+}
+render(<Example />);
+```
+
+## children 条件控制
+
+```jsx live noInline
+import { useState } from 'react'
+import { Loading } from '@deer-ui/core';
+
+function Example() {
+  const [loading, setLoading] = useState(true)
+  return (
+    <>
+    <span className="btn theme" onClick={e => setLoading(!loading)}>切换状态</span>
+    <hr />
+    <div style={{height: 300}}>
+      <Loading loading={loading}>
+        {
+          !loading && (
+            <div>Children</div>
+          )
+        }
+      </Loading>
+    </div>
+    </>
+  )
+}
+render(<Example />);
+```
+
+## Demo
+
+```jsx live noInline
+import { useState } from 'react'
+import { Loading, Button } from '@deer-ui/core';
+
+function Example() {
+  const C = ({ title }) => {
+    return (
+      <div className="p20 mb10 bg_default">
+        {title}
+      </div>
+    )
+  }
+  const [loading, setLoading] = useState(true)
+  return (
+    <div>
+      <Button
+        loading={loading}
+        loadingDisable={false}
+        className="mb10"
+        onClick={e => {
+          setLoading(!loading)
+        }}
+        color={loading ? 'theme' : 'red'} >
+        To {!loading ? 'loading' : 'loaded'}
+      </Button>
+      <Loading loading={loading} inrow={true}>
+        {
+          loading && <C title="内容与 loading 共存" />
+        }
+        <C title="内容与 loading 共存" />
+      </Loading>
+      <Loading loading={loading} inrow={false}>
+        {
+          () => {
+            return (
+              <C title="内容与 loading 只有一个" />
+            )
+          }
+        }
+      </Loading>
+    </div>
+  )
+}
+render(<Example />);
+```
+
+## Loading 样式
+
+```jsx live noInline
+import { Loading, LoadingProgress, LoadingPlaceholder } from '@deer-ui/core';
+
+function Example() {
+  return (
+    <>
+      <h3>Progress</h3>
+      <div className="relative pb20">
+        <LoadingProgress />
+      </div>
+      <h3>Placeholder</h3>
+      <LoadingPlaceholder />
+    </>
+  )
+}
+render(<Example />);
+```

@@ -1,11 +1,8 @@
 ---
 name: Flex
-route: /Flex
+title: Flex
 menu: Layout
 ---
-
-import { Playground, Props } from 'docz'
-import { Card } from '@deer-ui/core/card';
 
 # Flex layout System
 
@@ -35,54 +32,61 @@ import { Card } from '@deer-ui/core/card';
 
 ## Demo
 
-<Playground className="bg_default">
-  <div className="card-container">
-    <div className="grid space-20">
-      <div className="sm-6 xs-12">
-        <Card p={10}>
-          sm-6
-        </Card>
-      </div>
-      <div className="sm-6 xs-12">
-        <Card p={10}>
-          sm-6
-        </Card>
-      </div>
-      <div className="sm-4 xs-12">
-        <Card p={10}>
-          sm-4
-        </Card>
-      </div>
-      <div className="sm-4 xs-12">
-        <Card p={10}>
-          sm-4
-        </Card>
-      </div>
-      <div className="sm-4 xs-12">
-        <Card p={10}>
-          sm-4
-        </Card>
-      </div>
-      <div className="sm-3 xs-12">
-        <Card p={10}>
-          sm-4
-        </Card>
-      </div>
-      <div className="sm-3 xs-12">
-        <Card p={10}>
-          sm-4
-        </Card>
-      </div>
-      <div className="sm-3 xs-12">
-        <Card p={10}>
-          sm-4
-        </Card>
-      </div>
-      <div className="sm-3 xs-12">
-        <Card p={10}>
-          sm-4
-        </Card>
+```jsx live noInline
+import { Card } from '@deer-ui/core';
+
+function Example() {
+  return (
+    <div className="card-container">
+      <div className="grid space-20">
+        <div className="sm-6 xs-12">
+          <Card p={10}>
+            sm-6
+          </Card>
+        </div>
+        <div className="sm-6 xs-12">
+          <Card p={10}>
+            sm-6
+          </Card>
+        </div>
+        <div className="sm-4 xs-12">
+          <Card p={10}>
+            sm-4
+          </Card>
+        </div>
+        <div className="sm-4 xs-12">
+          <Card p={10}>
+            sm-4
+          </Card>
+        </div>
+        <div className="sm-4 xs-12">
+          <Card p={10}>
+            sm-4
+          </Card>
+        </div>
+        <div className="sm-3 xs-12">
+          <Card p={10}>
+            sm-4
+          </Card>
+        </div>
+        <div className="sm-3 xs-12">
+          <Card p={10}>
+            sm-4
+          </Card>
+        </div>
+        <div className="sm-3 xs-12">
+          <Card p={10}>
+            sm-4
+          </Card>
+        </div>
+        <div className="sm-3 xs-12">
+          <Card p={10}>
+            sm-4
+          </Card>
+        </div>
       </div>
     </div>
-  </div>
-</Playground>
+  )
+}
+render(<Example />);
+```

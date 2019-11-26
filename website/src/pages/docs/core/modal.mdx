@@ -1,0 +1,115 @@
+---
+name: Modal
+title: Modal
+menu: Utils
+---
+
+# Modal
+
+> UkeModal 提供多种弹出方式的 Modal
+
+## Basic Usage
+
+```jsx live noInline
+import { useState } from 'react';
+import { Modal, ModalHelper } from '@deer-ui/core';
+
+function Example() {
+  const [modalSetting, setModal] = useState({
+    title: '',
+    isOpen: false,
+    children: '',
+    id: ''
+  });
+  return (
+    <div style={{height: 300, position: 'relative'}}>
+      <span className="btn theme"
+        onClick={e => setModal({
+          isOpen: true,
+          children: (
+            <div className="p20">内容</div>
+          )
+        })}>打开 Modal</span>
+      <span className="btn red ml10"
+        onClick={e => setModal({
+          isOpen: true,
+          modalType: 'side',
+          position: 'right',
+          children: (
+            <div className="p20">内容</div>
+          )
+        })}>左边打开 Modal</span>
+      <Modal {...modalSetting} onCloseModal={e => {
+        setModal({
+          isOpen: false,
+        })
+      }}/>
+    </div>
+  )
+}
+render(<Example />);
+```
+
+## 通过 ModalProvider 管理 Modal 状态
+
+TODO
+
+```js
+import { useState } from 'react';
+import { Modal, ModalProvider, useModal } from '@deer-ui/core';
+
+function Example() {
+  return (
+    <div style={{height: 300, position: 'relative'}}>
+      <span className="btn theme"
+        onClick={e => useModal({
+          isOpen: true,
+          children: (
+            <div className="p20">内容</div>
+          )
+        })}>打开 Modal</span>
+      <ModalProvider>
+        <Modal>
+          Modal children
+        </Modal>
+      </ModalProvider>
+    </div>
+  )
+}
+render(<Example />);
+```
+
+### 通过继承 ModalHelper 获取 Modal 状态管理的接口
+
+```jsx live noInline
+import { Modal, ModalHelper } from '@deer-ui/core';
+
+export default class YourComponent extends ModalHelper {
+  state = {
+    ...this.state,
+    modalSetting: {
+      ...this.state.modalSetting,
+      children: '内容',
+      title: '标题'
+    }
+  }
+
+  render() {
+    const { modalSetting } = this.state;
+    return (
+      <div className="relative" style={{ height: 300 }}>
+        <span className="btn theme"
+          onClick={(e) => {
+            this.setModal({
+              children: '内容2'
+            });
+          }}>
+          打开 Modal
+        </span>
+        <Modal {...modalSetting} onCloseModal={e => this.closeModal()} />
+      </div>
+    );
+  }
+}
+render(<YourComponent />);
+```

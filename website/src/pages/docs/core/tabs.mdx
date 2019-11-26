@@ -1,0 +1,154 @@
+---
+name: Tabs
+title: Tabs
+menu: Navigation
+---
+
+# Tabs
+
+## Basic Usage
+
+> 状态由 Tabs 控制
+
+```jsx live noInline
+import { Tabs, Tab } from '@deer-ui/core';
+
+function Example() {
+  return (
+    <Tabs className="bg_default p20">
+      <Tab label="Tab_1">
+        <div className="p10">内容1</div>
+      </Tab>
+      <Tab label="Tab_2">
+        <div className="p10">内容2</div>
+      </Tab>
+      <Tab label="Tab_3">
+        <div className="p10">内容3</div>
+      </Tab>
+    </Tabs>
+  )
+}
+render(<Example />);
+```
+
+## Content 与 Label 并列
+
+```jsx live noInline
+import { Tabs, Tab } from '@deer-ui/core';
+
+function Example() {
+  return (
+    <Tabs
+      inRow
+      className="bg_default p20">
+      <Tab label="Tab_1">
+        <div className="p10">内容1</div>
+      </Tab>
+      <Tab label="Tab_2">
+        <div className="p10">内容2</div>
+      </Tab>
+      <Tab label="Tab_3">
+        <div className="p10">内容3</div>
+      </Tab>
+    </Tabs>
+  )
+}
+render(<Example />);
+```
+
+## 可关闭
+
+```jsx live noInline
+import { useState } from 'react';
+import { Tabs, Tab } from '@deer-ui/core';
+
+const tabsColl = [...Array(4)].map((_, idx) => ({
+  label: `切换到内容${idx + 1}`,
+  children: (
+    <div className="p10" key={idx}>内容 {idx + 1}</div>
+  )
+}));
+
+function Example() {
+  const [tabs, setTabs] = useState(tabsColl)
+  return (
+    <Tabs 
+      className="bg_default p20"
+      closeable onClose={idx => {
+        const nextTabs = [...tabs];
+        nextTabs.splice(idx, 1);
+        setTabs(nextTabs)
+      }}>
+      {
+        tabs.map(tab => {
+          return (
+            <Tab {...tab} key={tab.label} />
+          )
+        })
+      }
+    </Tabs>
+  )
+}
+render(<Example />);
+```
+
+## 只渲染 content
+
+```jsx live noInline
+import { Tabs, Tab } from '@deer-ui/core'
+
+function Example() {
+  return (
+    <Tabs 
+      onlyContent 
+      className="bg_default p20">
+      <Tab label="Tab_1">
+        <div className="p10">内容1</div>
+      </Tab>
+      <Tab label="Tab_2">
+        <div className="p10">内容2</div>
+      </Tab>
+      <Tab label="Tab_3">
+        <div className="p10">内容3</div>
+      </Tab>
+    </Tabs>
+  )
+}
+render(<Example />);
+```
+
+## 由父级控制状态
+
+```jsx live noInline
+import { useState } from 'react';
+import { Tabs, Tab, Button } from '@deer-ui/core';
+
+function Example() {
+  const [activeTabIdx, setIdx] = useState(0)
+  return (
+    <div>
+      <Button
+        onClick={e => setIdx(2)}>
+        切换到最后一个 Tab
+      </Button>
+      <Tabs
+        activeTabIdx={activeTabIdx}
+        className="bg_default p20"
+        onChangeTab={idx => {
+          setIdx(idx)
+        }}>
+        <Tab label="Tab_1">
+          <div className="p10">内容1</div>
+        </Tab>
+        <Tab label="Tab_2">
+          <div className="p10">内容2</div>
+        </Tab>
+        <Tab label="Tab_3">
+          <div className="p10">内容3</div>
+        </Tab>
+      </Tabs>
+    </div>
+  )
+}
+render(<Example />);
+```

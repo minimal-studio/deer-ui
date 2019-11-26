@@ -1,0 +1,336 @@
+---
+name: Dropdown
+title: Dropdown
+menu: Form
+---
+
+# Dropdown
+
+> 基于 selector 的下拉选择器组件
+
+## Basic Usage
+
+```jsx live noInline
+import { useState } from 'react';
+import { Dropdown } from '@deer-ui/core';
+
+function Example() {
+  const values = {
+    value1: 'Item 1',
+    value2: 'Item 2',
+    value3: 'Item 3',
+    value4: 'Item 1',
+    value22: 'Item 2',
+    value31: 'Item 3',
+    value12: 'Item 1',
+    value241: 'Item 2',
+    value312: 'Item 3',
+    value151: 'Item 1',
+    value112: 'Item 2',
+    value1233: 'Item 3',
+    value51: 'Item 1',
+    value512: 'Item 2',
+    value37: 'Item 3',
+    value1754: 'Item 1',
+    value245: 'Item 2',
+    value4573: 'Item 3',
+  }
+  const [value, setValue] = useState('value1')
+  return (
+    <div className="mu10">
+      <Dropdown
+        onChange={val => {
+          setValue(val)
+        }}
+        value={value}
+        values={values}
+      />
+      <span className="ml10">输出值 {value}</span>
+    </div>
+  )
+}
+render(<Example />);
+```
+
+## 禁用 Dropdown 默认的搜索框
+
+```jsx live noInline
+import { useState } from 'react';
+import { Dropdown } from '@deer-ui/core';
+
+function Example() {
+  const values = {
+    value1: 'Item 1',
+    value2: 'Item 2',
+    value3: 'Item 3',
+  }
+  return (
+    <div className="mu10">
+      <Dropdown
+        withInput={false}
+        values={values}
+      />
+    </div>
+  )
+}
+render(<Example />);
+```
+
+## 通过 ref 更改值
+
+```jsx live noInline
+import { useState } from 'react';
+import { Dropdown } from '@deer-ui/core';
+
+function Example() {
+  const values = {
+    value1: 'Item 1',
+    value2: 'Item 2',
+    value3: 'Item 3',
+  }
+  const [value, setValue] = useState('value1')
+  let dropdownRef;
+  return (
+    <div className="mu10">
+      <span className="btn theme mb10"
+        onClick={e => {
+          dropdownRef.changeValue('value3')
+        }}>把 Dropdown 实例中的更改为 value3</span>
+      <hr />
+      <Dropdown
+        ref={e => dropdownRef = e}
+        onChange={val => {
+          setValue(val)
+        }}
+        value={value}
+        values={values}
+      />
+      <span className="ml10">输出值 {value}</span>
+    </div>
+  )
+}
+render(<Example />);
+```
+
+## 输出 Number 类型的值
+
+```jsx live noInline
+import { useState } from 'react';
+import { Dropdown } from '@deer-ui/core';
+
+function Example() {
+  const valuesNumber = {
+    0: '数字0',
+    1: '数字1',
+    2: '数字2',
+    3: '数字3',
+  }
+  const [value, setValue] = useState(0)
+  const [valueMul, setValueMul] = useState([])
+  return (
+    <div className="mu10">
+      <Dropdown
+        onChange={val => {
+          setValue(val)
+        }}
+        isNum
+        defaultValue={value}
+        values={valuesNumber}
+      />
+      <span className="ml10">输出值 {value}, 类型 {typeof value}</span>
+      <hr />
+      <h4>多选</h4>
+      <Dropdown
+        onChange={val => {
+          setValueMul(val)
+        }}
+        isMultiple
+        values={valuesNumber}
+      />
+      <span className="ml10">输出值 {valueMul.join(' ')}</span>
+    </div>
+  )
+}
+render(<Example />);
+```
+
+## Multiple 多选
+
+```jsx live noInline
+import { useState } from 'react';
+import { Dropdown } from '@deer-ui/core';
+
+function Example() {
+  const values = {
+    value1: 'Item 1',
+    value2: 'Item 2',
+    value3: 'Item 3',
+  }
+  const [valueMul, setValueMul] = useState([])
+  return (
+    <div className="mu10">
+      <Dropdown
+        onChange={val => {
+          setValueMul(val)
+        }}
+        isMultiple
+        values={values}
+      />
+      <span className="ml10">输出值数组 {JSON.stringify(valueMul)}</span>
+    </div>
+  )
+}
+render(<Example />);
+```
+
+## 多选默认值
+
+```jsx live noInline
+import { useState } from 'react';
+import { Dropdown } from '@deer-ui/core';
+
+function Example() {
+  const values = {
+    value1: 'Item 1',
+    value2: 'Item 2',
+    value3: 'Item 3',
+  }
+  const defaultValue = ['value1', 'value2']
+  const [valueMul, setValueMul] = useState(defaultValue);
+  return (
+    <div className="mu10">
+      <Dropdown
+        onChange={val => {
+          setValueMul(val)
+        }}
+        isMultiple
+        defaultValue={defaultValue}
+        values={values}
+      />
+      <span className="ml10">输出值 {valueMul.join(',')}</span>
+    </div>
+  )
+}
+render(<Example />);
+```
+
+## overlay 弹出方向
+
+```jsx live noInline
+import { useState } from 'react';
+import { Dropdown } from '@deer-ui/core';
+
+function Example() {
+  const values = {
+    value1: 'Item 1',
+    value2: 'Item 2',
+    value3: 'Item 3',
+  }
+  return (
+    <div className="mu10">
+      <span className="ms10">上左对齐</span>
+      <Dropdown
+        position="top,left"
+        values={values}
+      />
+      <hr/>
+      <span className="ms10">上右对齐</span>
+      <Dropdown
+        position="top,right"
+        values={values}
+      />
+    </div>
+  )
+}
+render(<Example />);
+```
+
+## 渲染在 react root 之外
+
+> 默认监听 document.body 的 onScroll 事件，实现滚动隐藏 Dropdown
+
+```jsx live noInline
+import { useState } from 'react';
+import { Dropdown } from '@deer-ui/core';
+
+function Example() {
+  const values = {
+    value1: 'Item 1',
+    value2: 'Item 2',
+    value3: 'Item 3',
+  }
+  return (
+    <div className="mu10">
+      <Dropdown
+        outside
+        values={values}
+      />
+    </div>
+  )
+}
+render(<Example />);
+```
+
+### 监听指定元素的 onScroll 事件
+
+> 监听 Dropdown 的父级元素的 onScroll 事件并隐藏 Dropdown
+
+```jsx live noInline
+import { useState } from 'react';
+import { Dropdown } from '@deer-ui/core';
+
+function Example() {
+  const values = {
+    value1: 'Item 1',
+    value2: 'Item 2',
+    value3: 'Item 3',
+  }
+  let containerRef;
+  return (
+    <div className="mu10" 
+      style={{
+        height: 100,
+        overflow: 'auto'
+      }}
+      ref={e => containerRef = e}>
+      <div style={{
+        height: 200
+      }}>
+        <Dropdown
+          outside
+          scrollElem={() => containerRef}
+          values={values}
+        />
+      </div>
+    </div>
+  )
+}
+render(<Example />);
+```
+
+## 无效的值提示
+
+> 当接收到意外的值时，会提示无效值
+
+```jsx live noInline
+import { useState } from 'react';
+import { Dropdown } from '@deer-ui/core';
+
+function Example() {
+  const values = {
+    value1: 'Item 1',
+    value2: 'Item 2',
+    value3: 'Item 3',
+  }
+  return (
+    <div className="mu10">
+      <Dropdown
+        position="top,right"
+        defaultValue="123"
+        values={values}
+      />
+    </div>
+  )
+}
+render(<Example />);
+```

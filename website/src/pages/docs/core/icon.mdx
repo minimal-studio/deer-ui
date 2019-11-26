@@ -1,0 +1,88 @@
+---
+name: Icon
+title: Icon
+menu: Data Display
+---
+
+# Icon
+
+推荐使用 `react-icons`。
+
+Icon 是对 FontAwesomeIcon 的 className 的简易封装。
+
+## FontAwesomeIcon
+
+引入 FontAwesomeIcon css
+
+```js
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.11.1/css/all.min.css">
+```
+
+n 对应了 FontAwesomeIcon 的 icon-name，默认添加 `fa fa-` 前缀
+
+```jsx live noInline
+import { Icon, PureIcon } from '@deer-ui/core';
+
+function Example() {
+  return (
+    <>
+      <Icon n="balance-scale" classNames={['ms10']} style={{fontSize: 20}} />
+      <Icon n="allergies" classNames={['ms10']} style={{fontSize: 20}} />
+      <Icon n="address-book" classNames={['ms10']} style={{fontSize: 20}} />
+      <Icon n="address-card" classNames={['ms10']} style={{fontSize: 20}} />
+    </>
+  )
+}
+render(<Example />);
+```
+
+- 如果需要切换图表库，可以通过 setUIConfig 设置 icon 的前缀
+- 同时支持 icon 的名字映射，通过 setUIConfig 设置 iconMapper
+
+-----------
+
+## PureIcon
+
+将 icon name 直接应用于元素，不添加前缀，不实用默认的 FontAwesomeIcon
+
+```jsx live noInline
+import { Icon, PureIcon } from '@deer-ui/core';
+
+function Example() {
+  return (
+    <PureIcon n="fas fa-dungeon" classNames={['ms10']} style={{fontSize: 20}} />
+  )
+}
+render(<Example />);
+```
+
+-----------
+
+## 设置 IconMapper
+
+```js
+import { setUIConfig } from '@deer-ui';
+
+// 以下为默认设置，可以覆盖
+setUIConfig({
+  iconMapper: {
+    arrow: 'angle-left',
+    date: 'calendar-alt',
+    more: 'equals',
+    close: 'times',
+    noData: 'thermometer-empty',
+    success: 'check',
+    error: 'exclamation-circle',
+    'circle-up': 'arrow-circle-up',
+    'circle-down': 'arrow-circle-down',
+  },
+  // icon 的前缀, 关于 iconStyle 详情查看 https://fontawesome.com 描述
+  iconPrefix: (iconStyle) => `fa${iconStyle} fa-`
+});
+```
+
+参考
+
+- [fontawesome icon](https://fontawesome.com/icons?d=gallery&m=free)
+- [fontawesome icon style](https://fontawesome.com)
+- [inoic icon](https://ionicons.com/usage)

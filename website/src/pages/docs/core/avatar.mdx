@@ -1,0 +1,136 @@
+---
+name: Avatar
+title: Avatar
+menu: Data Display
+---
+
+# Avatar
+
+> 通用头像
+
+## Basic Usage
+
+```jsx live noInline
+import { Avatar, List, ListItem } from '@deer-ui/core'
+import { ExampleColors, ForEachColor } from '@deer-ui/core/utils';
+
+function Example() {
+  return (
+    <div>
+      <h4>自然色调</h4>
+      <List style={{
+        height: 200,
+        overflow: 'auto'
+      }}>
+        {
+          ForEachColor(ExampleColors)((color) => (
+            <ListItem className="b layout a-i-c" key={color}>
+              <Avatar
+                color={color}
+                size={40}
+                className="mr10">
+                {color[0]}
+              </Avatar>
+              <div>
+                <div>
+                {color.toUpperCase()}
+                </div>
+                <div className="t_gray">{color}</div>
+              </div>
+            </ListItem>
+          ))
+        }
+      </List>
+    </div>
+  )
+}
+render(<Example />);
+```
+
+## Size 控制
+
+```jsx live noInline
+import { Avatar } from '@deer-ui/core'
+
+function Example() {
+  return (
+    <div>
+      <Avatar
+        className="mr10"
+        size={70}
+        text="A" />
+      <Avatar
+        color="green"
+        size={60}
+        className="mr10">
+        C
+      </Avatar>  
+      <Avatar
+        color="yellow"
+        size={50}
+        className="mr10"
+        text="B" />     
+      <Avatar
+        color="red"
+        size={40}
+        className="mr10"
+        text="B" />     
+    </div>
+  )
+}
+
+render(<Example />);
+```
+
+## Avatar 的小提示
+
+```jsx live noInline
+import { Avatar } from '@deer-ui/core'
+
+function Example() {
+  return (
+    <div>
+      <Avatar
+        onChangeAvatar={e => {
+          {/* alert('你好') */}
+          console.log(e);
+        }}
+        tip={10}
+        changeAvatarable
+        text="A" />
+    </div>
+  )
+}
+render(<Example />);
+```
+
+## 可换 Avatar
+
+```jsx live noInline
+import { useState } from 'react';
+import { Avatar } from '@deer-ui/core'
+
+function Example() {
+  const defaultAvatarSrc = "https://www.jiuwa.net/uploads/image/20170506/20170506084900_43824.jpg";
+  const [avatarSrc, setAvatarSrc] = useState(defaultAvatarSrc);
+  return (
+    <div>
+      <Avatar
+        size={100}
+        onChangeAvatar={res => {
+          console.log(res);
+          setAvatarSrc(res)
+        }}
+        changeAvatarable
+        position="top"
+        faceOptions={[
+          'https://tu.jiuwa.net/bg/992.jpg',
+          'https://is2-ssl.mzstatic.com/image/thumb/Purple1/v4/b4/87/68/b487686b-27ec-9bb2-4fff-0c924c426a01/mzl.osfqhmvz.jpg/246x0w.jpg',
+          'https://www.jiuwa.net/uploads/image/20170506/20170506084900_43824.jpg',
+        ]}
+        src={avatarSrc} />
+    </div>
+  )
+}
+render(<Example />);
+```

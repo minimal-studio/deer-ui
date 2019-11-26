@@ -1,0 +1,53 @@
+---
+name: ClickAway
+title: ClickAway
+menu: Utils
+---
+
+# ClickAway
+
+「点击自身以外元素监听器」
+
+```jsx live noInline
+import { ClickAway } from '@deer-ui/core';
+
+function Example() {
+  return (
+    <ClickAway onClickAway={event => {
+      console.log('点击了 outside')
+    }}>
+      <div onClick={e => {
+        alert(event, 'invoke ClickAway')
+      }}>点击这里不会触发 ClickAway</div>
+    </ClickAway>
+  )
+}
+render(<Example />);
+```
+
+## DropdownWrapper
+
+基于 ClickAway 的弹出层的 wrapper 组件
+
+```jsx live noInline
+import { DropdownWrapper } from '@deer-ui/core';
+
+function Example() {
+  return (
+    <DropdownWrapper overlay={({ hide }) => {
+      <div className="p20" onClick={e => {
+        hide();
+      }}>Overlay</div>
+    }}>
+      {
+        () => {
+          return (
+            <div>Show dropdown</div>
+          )
+        }
+      }
+    </DropdownWrapper>
+  )
+}
+render(<Example />);
+```

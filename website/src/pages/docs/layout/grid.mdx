@@ -1,14 +1,8 @@
 ---
 name: Grid
-route: /Grid
+title: Grid
 menu: Layout
 ---
-
-import { useState } from 'react'
-import { Playground, Props } from 'docz'
-import { Grid } from '@deer-ui/core/grid'
-import { Card, CardContainer } from '@deer-ui/core/card';
-import { Radio } from '@deer-ui/core/radio';
 
 # Grid
 
@@ -16,100 +10,101 @@ import { Radio } from '@deer-ui/core/radio';
 
 ## Basic Usage
 
-<Playground>
-  <CardContainer className="bg_default">
-    <Grid container space={5}>
-      <Grid item xs={12} sm={12} lg={12}>
-        <Card p={20}>
-          xs-12, sm-12, lg-12
-        </Card>
+```jsx live noInline
+import { CardContainer, Card, Grid } from '@deer-ui/core'
+
+function Example() {
+  return (
+    <CardContainer className="bg_default">
+      <Grid container space={5}>
+        <Grid item xs={12} sm={12} lg={12}>
+          <Card p={20}>
+            xs-12, sm-12, lg-12
+          </Card>
+        </Grid>
+        <Grid item xs={12} sm={6} lg={6}>
+          <Card p={20}>
+            xs-12, sm-6, lg-6
+          </Card>
+        </Grid>
+        <Grid item xs={12} sm={6} lg={6}>
+          <Card p={20}>
+            xs-12, sm-6, lg-6
+          </Card>
+        </Grid>
+        <Grid item xs={12} sm={8} lg={8}>
+          <Card p={20}>
+            xs-12, sm-8, lg-8
+          </Card>
+        </Grid>
+        <Grid item xs={12} sm={4} lg={4}>
+          <Card p={20}>
+            xs-12, sm-4, lg-4
+          </Card>
+        </Grid>
       </Grid>
-      <Grid item xs={12} sm={6} lg={6}>
-        <Card p={20}>
-          xs-12, sm-6, lg-6
-        </Card>
-      </Grid>
-      <Grid item xs={12} sm={6} lg={6}>
-        <Card p={20}>
-          xs-12, sm-6, lg-6
-        </Card>
-      </Grid>
-      <Grid item xs={12} sm={8} lg={8}>
-        <Card p={20}>
-          xs-12, sm-8, lg-8
-        </Card>
-      </Grid>
-      <Grid item xs={12} sm={4} lg={4}>
-        <Card p={20}>
-          xs-12, sm-4, lg-4
-        </Card>
-      </Grid>
-    </Grid>
-  </CardContainer>
-</Playground>
+    </CardContainer>
+  )
+}
+render(<Example />);
+```
 
 ## Space
 
 每个 Grid 之间的空隙
 
-<Playground>
-  {
-    () => {
-      const defaultSpace = 20;
-      const [space, setSpace] = useState(defaultSpace)
-      return (
-        <div>
-          <Radio 
-            defaultValue={space}
-            isNum
-            onChange={nextSpace => setSpace(nextSpace)}
-            values={{
-              0: 0,
-              5: 5,
-              10: 10,
-              15: 15,
-              20: 20,
-            }} />
-          <hr />
-          <CardContainer className="bg_default">
-            <Grid container space={space}>
-              <Grid item xs={12} sm={12} lg={12}>
-                <Card p={20}>
-                  xs-12, sm-12, lg-12
-                </Card>
-              </Grid>
-              <Grid item xs={12} sm={6} lg={6}>
-                <Card p={20}>
-                  xs-12, sm-6, lg-6
-                </Card>
-              </Grid>
-              <Grid item xs={12} sm={6} lg={6}>
-                <Card p={20}>
-                  xs-12, sm-6, lg-6
-                </Card>
-              </Grid>
-              <Grid item xs={12} sm={8} lg={8}>
-                <Card p={20}>
-                  xs-12, sm-8, lg-8
-                </Card>
-              </Grid>
-              <Grid item xs={12} sm={4} lg={4}>
-                <Card p={20}>
-                  xs-12, sm-4, lg-4
-                </Card>
-              </Grid>
-            </Grid>
-          </CardContainer>
-        </div>
-      )
-    }
-  }
-</Playground>
+```jsx live noInline
+import { useState } from 'react'
+import { CardContainer, Card, Grid, Radio } from '@deer-ui/core'
 
-## Props
-
-<Props of={Grid} />
-
-## 参考
-
-- [Flex 删格系统](/Flex)
+function Example() {
+  const defaultSpace = 20;
+  const [space, setSpace] = useState(defaultSpace)
+  return (
+    <div>
+      <Radio 
+        defaultValue={space}
+        isNum
+        onChange={nextSpace => setSpace(nextSpace)}
+        values={{
+          0: 0,
+          5: 5,
+          10: 10,
+          15: 15,
+          20: 20,
+        }} />
+      <hr />
+      <CardContainer className="bg_default">
+        <Grid container space={space}>
+          <Grid item xs={12} sm={12} lg={12}>
+            <Card p={20}>
+              xs-12, sm-12, lg-12
+            </Card>
+          </Grid>
+          <Grid item xs={12} sm={6} lg={6}>
+            <Card p={20}>
+              xs-12, sm-6, lg-6
+            </Card>
+          </Grid>
+          <Grid item xs={12} sm={6} lg={6}>
+            <Card p={20}>
+              xs-12, sm-6, lg-6
+            </Card>
+          </Grid>
+          <Grid item xs={12} sm={8} lg={8}>
+            <Card p={20}>
+              xs-12, sm-8, lg-8
+            </Card>
+          </Grid>
+          <Grid item xs={12} sm={4} lg={4}>
+            <Card p={20}>
+              xs-12, sm-4, lg-4
+            </Card>
+          </Grid>
+        </Grid>
+      </CardContainer>
+    </div>
+  )
+}
+render(<Example />);
+```
