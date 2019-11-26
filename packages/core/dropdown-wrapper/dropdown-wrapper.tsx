@@ -14,6 +14,7 @@ import setDOMById from '../utils/set-dom';
 
 import { Icon } from '../icon';
 import { ClickAway } from '../click-away';
+import { queryIsMobile } from '../utils';
 
 interface State {
   isShow: boolean;
@@ -62,7 +63,6 @@ export interface DropdownWrapperProps {
 const dropdownContainerID = 'DropdownContainer';
 let dropdownContainerDOM;
 
-const offset = 10;
 const calculateOverlayPosition = (options) => {
   const {
     target, position, overlayElem, scrollX, scrollY
@@ -111,7 +111,6 @@ const calculateOverlayPosition = (options) => {
 
 export class DropdownWrapper extends React.PureComponent<DropdownWrapperProps, State> {
   static defaultProps = {
-    withInput: true,
     menuTitle: 'Title',
     trigger: 'click',
     outside: false,
@@ -148,10 +147,16 @@ export class DropdownWrapper extends React.PureComponent<DropdownWrapperProps, S
 
   updateNodeRef: any;
 
+  _withInput
+
   constructor(props) {
     super(props);
 
-    this._position = positionFilter(props.position).split(' ');
+    const { withInput, position } = props;
+
+    this._position = positionFilter(position).split(' ');
+
+    this._withInput = typeof withInput == 'undefined' ? !queryIsMobile() : withInput;
   }
 
   handleClickAway = () => {
@@ -188,7 +193,7 @@ export class DropdownWrapper extends React.PureComponent<DropdownWrapperProps, S
       this.overlayRender();
       this.setState({
         outsideReady: true
-      })
+      });
     }
   }
 
@@ -301,7 +306,6 @@ export class DropdownWrapper extends React.PureComponent<DropdownWrapperProps, S
   }
 
   getDfaultChild = (menuTitle) => {
-    const { withInput } = this.props;
     const { searchValue } = this.state;
     return (
       <div className="display-menu">
@@ -309,7 +313,7 @@ export class DropdownWrapper extends React.PureComponent<DropdownWrapperProps, S
           {menuTitle}
         </div>
         {
-          withInput && (
+          this._withInput && (
             <input type="text"
               ref={this.saveInput}
               placeholder={typeof menuTitle === 'string' ? menuTitle : ''}
@@ -402,13 +406,13 @@ export class DropdownWrapper extends React.PureComponent<DropdownWrapperProps, S
   render() {
     const { isShow } = this.state;
     const {
-      className, withInput, style, error, outside
+      className, style, error, outside
     } = this.props;
 
     const classNames = classnames(
       "__dropdown-menu",
       className && className,
-      withInput && "input-mode",
+      this._withInput && "input-mode",
       error && 'error',
       isShow && 'show',
       !outside && this._position
@@ -419,12 +423,12 @@ export class DropdownWrapper extends React.PureComponent<DropdownWrapperProps, S
         <div
           className={classNames}
           style={style}>
-          <span className="menu-wrapper" ref={(e) => { this.displayTitleDOM = e; }}
+          <div className="menu-wrapper" ref={(e) => { this.displayTitleDOM = e; }}
             {...this.bindWrapperTrigger()}>
             {
               this.childrenRender()
             }
-          </span>
+          </div>
           {this.overlayRender()}
         </div>
       </ClickAway>

@@ -1,36 +1,36 @@
 $formControlBgColor: #f9f9f9;
 
 .condition-group {
-  position: relative;
-  display: flex;
-  flex-wrap: wrap;
-  font-size: $form-control-font-size;
+  // position: relative;
+  // display: flex;
+  // flex-wrap: wrap;
+  // font-size: $form-control-font-size;
 
-  .title {
-    color: $form-label-text-color;
-    margin-right: 5px;
-    word-break: keep-all;
-  }
+  // .title {
+  //   color: $form-label-text-color;
+  //   margin-right: 5px;
+  //   word-break: keep-all;
+  // }
 
-  >.item {
-    margin-right: 10px;
-    margin-bottom: 5px;
-    padding-top: 0.01px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    &.datetimeRange {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-  }
+  // >.item {
+  //   margin-right: 10px;
+  //   margin-bottom: 5px;
+  //   padding-top: 0.01px;
+  //   display: flex;
+  //   justify-content: space-between;
+  //   align-items: center;
+  //   &.datetimeRange {
+  //     display: flex;
+  //     justify-content: space-between;
+  //     align-items: center;
+  //   }
+  // }
 
-  .btn {
-    margin-bottom: 5px;
-  }
+  // .btn {
+  //   margin-bottom: 5px;
+  // }
 
-  .form-control {
-    margin-left: 5px;
-  }
+  // .form-control {
+  //   margin-left: 5px;
+  // }
 }

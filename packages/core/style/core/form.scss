@@ -45,7 +45,7 @@
 .form-desc {
   display: inline-block;
   color: $text-weaken-color-2;
-  font-size: 12px;
+  font-size: $base-sm-font-size;
 
   .highlight {
     font-size: 14px;
@@ -77,6 +77,7 @@
     margin-top: 40px;
     margin-left: 20px;
     border-bottom: 1px solid rgba(#000, 0.05);
+
     .inner-text {
       border-bottom: 1px solid $themeColor;
       display: inline-block;
@@ -94,9 +95,9 @@
     }
   }
 
-  .__radio-container {
-    max-width: 70%;
-  }
+  // .__radio-container {
+  //   max-width: 70%;
+  // }
 
   .form-btn-group {
     display: flex;
@@ -107,9 +108,30 @@
   }
 }
 
+.flow-form {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+
+  .form-group {
+    display: flex;
+    align-items: center;
+    margin: 5px 10px 5px 0;
+  }
+
+  .control-label {
+    margin-right: 10px;
+  }
+
+  .form-group-title {
+    display: none;
+  }
+}
+
 .vertical-form {
   margin: 0 auto;
   padding: 0.1px;
+
   textarea.form-control {
     width: auto;
   }
@@ -128,9 +150,11 @@
     flex-direction: column;
     // border-bottom: 1px dashed #EEE;
     padding-bottom: 10px;
+
     &.switch {
       flex-direction: row;
       align-items: center;
+
       .control-label {
         margin: 0 10px 0 0;
       }

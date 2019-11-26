@@ -90,7 +90,7 @@ textarea {
     &.has-val,
     &.focusing {
       .title {
-        font-size: 12px;
+        font-size: $base-sm-font-size;
         transform: translateY(-120%);
       }
     }

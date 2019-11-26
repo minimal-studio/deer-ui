@@ -12,3 +12,4 @@ export * from './set-dom';
 export * from './position-filter';
 export * from './rename';
 export * from './types';
+export * from './media-query';

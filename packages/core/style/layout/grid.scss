@@ -43,29 +43,36 @@
 }
 
 
+// Small devices (landscape phones, 576px and less)
+@media only screen and (max-width: $screen-xs-width) {
+  .grid {
+    @include gridCale(12, 'xs', true);
+  }  
+}
+
 // Small devices (landscape phones, 576px and up)
-@media (min-width: 576px) {
+@media (min-width: $screen-xs-width) {
   .grid {
     @include gridCale(12, 'xs', true);
   }  
 }
 
 // Medium devices (tablets, 768px and up)
-@media (min-width: 768px) {
+@media only screen and (min-width: $screen-sm-width) {
   .grid {
     @include gridCale(12, 'sm', true);
   }  
 }
 
 // Large devices (desktops, 992px and up)
-@media (min-width: 992px) {
+@media only screen and (min-width: $screen-lg-width) {
   .grid {
     @include gridCale(12, 'lg', true);
   }
 }
 
 // Extra large devices (large desktops, 1200px and up)
-@media (min-width: 1200px) {
+@media only screen and (min-width: $screen-xl-width) {
   .grid {
     @include gridCale(12, 'xl', true);
   }
