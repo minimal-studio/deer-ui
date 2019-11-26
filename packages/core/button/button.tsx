@@ -5,7 +5,7 @@ import classnames from 'classnames';
 
 import { Call } from '@mini-code/base-func';
 import {
-   ButtonProps
+  ButtonProps
 } from '../utils/props';
 import { Icon, IconProps } from '../icon';
 
