@@ -30,7 +30,7 @@
     "react-dom": "^16.10.1",
     "react-hot-loader": "^4.8.0",
     "react-transition-group": "^4.0.1",
-    "react-ui-doc": "^0.2.0-alpha1.0",
+    "react-ui-doc": "^0.2.0-alpha1.1",
     "unistore": "^3.1.0"
   }
 }

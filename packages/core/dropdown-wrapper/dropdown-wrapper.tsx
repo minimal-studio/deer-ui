@@ -152,18 +152,21 @@ export class DropdownWrapper extends React.PureComponent<DropdownWrapperProps, S
 
   isMobile
 
-  constructor(props) {
-    super(props);
+  // constructor(props) {
+  //   super(props);
 
-    const { withInput, position, outside } = props;
+  //   const { withInput, position, outside } = props;
 
-    this._position = positionFilter(position).split(' ');
+  // }
 
+  componentDidMount() {
+    const { withInput, position, outside } = this.props;
     const isMobile = queryIsMobile();
-    this.isMobile = isMobile;
 
+    this.isMobile = isMobile;
     this._withInput = typeof withInput == 'undefined' ? !isMobile : withInput;
     this._outside = typeof outside == 'undefined' ? isMobile : outside;
+    this._position = positionFilter(position).split(' ');
   }
 
   handleClickAway = () => {
