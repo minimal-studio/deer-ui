@@ -9,7 +9,8 @@
     "dist"
   ],
   "scripts": {
-    "postinstall": "cd packages/core; npm run complie:scss:local",
+    "postinstall": "npm run compile:core:scss",
+    "compile:core:scss": "cd packages/core; npm run complie:scss:local",
     "publish:all": "npm run publish:core; npm run publish:enhance",
     "publish:core": "npm publish ./dist/core --access public",
     "publish:enhance-ui": "npm publish ./dist/enhance-ui --access public",
