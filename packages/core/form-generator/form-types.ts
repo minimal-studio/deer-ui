@@ -146,6 +146,7 @@ export interface SelectType extends RefFormControl, DropdownProps {
 }
 
 export interface SelectNativeType extends RefFormControl {
+  type: 'select-n';
   values: {
     [val: string]: string;
   };
@@ -183,7 +184,6 @@ RadioType |
 TextareaType |
 TextType |
 SwitchType |
-SelectNativeType |
 SelectNativeType |
 SliderType |
 SelectType;

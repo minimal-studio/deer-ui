@@ -16,8 +16,10 @@ export interface FormGeneratorProps extends FormFilterProps<FormOptions> {
   // formOptions: (FormOptionsItem | DivideType)[];
   /** 将要废弃，请使用 layout 指定布局 */
   isMobile?: boolean;
-  /** 是否垂直布局 */
+  /** 布局模式 */
   layout?: 'vertical' | 'horizontal' | 'flow';
+  /** 默认布局，如果检测到移动端，则使用垂直布局 */
+  defaultLayout?: 'vertical' | 'horizontal' | 'flow';
   // /** 表单的类型 */
   // type?: string;
   /** 表单的类型 */
@@ -38,16 +40,25 @@ export default class FormGenerator extends FormFilterHelper<FormGeneratorProps> 
   static defaultProps = {
     onSubmit: () => {},
     className: 'animate-input-title',
+    defaultLayout: 'horizontal'
   }
 
   ID
 
   formItemRefs = {};
 
+  isMobile
+
   constructor(props) {
     super(props);
 
     this.ID = props.id || UUID();
+
+    this.state = {
+      ...this.state,
+      ready: false,
+      isMobile: undefined
+    };
   }
 
   showDesc = (checkRes) => {
@@ -63,16 +74,26 @@ export default class FormGenerator extends FormFilterHelper<FormGeneratorProps> 
     }
   }
 
+  componentDidMount() {
+    const { isMobile } = this.props;
+    this.isMobile = typeof isMobile == 'undefined' ? queryIsMobile() : isMobile;
+    this.setState({
+      isMobile: this.isMobile,
+      ready: true,
+    });
+  }
+
   render() {
     const {
-      formOptions, children, isMobile = queryIsMobile(), layout,
+      formOptions, children, layout, defaultLayout,
       showInputTitle, className, onSubmit
     } = this.props;
+    const { isMobile, ready } = this.state;
     const _showInputTitle = typeof showInputTitle == 'undefined' ? !isMobile : showInputTitle;
     // eslint-disable-next-line no-nested-ternary
-    const formLayout = typeof layout == 'undefined' ? (isMobile ? 'vertical' : 'horizontal') : layout;
+    const formLayout = typeof layout == 'undefined' ? (isMobile ? 'vertical' : defaultLayout) : layout;
 
-    return formOptions && formOptions.length > 0 ? (
+    return ready && formOptions && formOptions.length > 0 ? (
       <form
         onSubmit={(e) => {
           e.preventDefault();

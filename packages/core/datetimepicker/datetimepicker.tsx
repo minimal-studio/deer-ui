@@ -2,7 +2,7 @@
 import React from 'react';
 
 import { Call, DateFormat, UUID } from '@mini-code/base-func';
-import { LoadScript, queryIsMobile } from '../utils';
+import { LoadScript } from '../utils';
 
 import { DateBasic, DateBasicProps } from '../date-basic';
 import { Icon } from '../icon';
@@ -107,8 +107,6 @@ export class DatetimePicker extends DateBasic<DatetimePickerProps> {
 
   _id: string = UUID();
 
-  isMobile
-
   constructor(props) {
     super(props);
     const { value, defaultValue } = this.props;
@@ -117,8 +115,6 @@ export class DatetimePicker extends DateBasic<DatetimePickerProps> {
 
     const defaultVal = value || defaultValue;
     this.value = defaultVal;
-
-    this.isMobile = queryIsMobile();
   }
 
   componentDidMount() {

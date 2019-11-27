@@ -28,7 +28,7 @@ const ConditionGenerator = forwardRef<FormGenerator, ConditionGeneratorProps>((p
     <FormGenerator
       {...props}
       ref={ref}
-      layout={queryIsMobile() ? "vertical" : "flow"}
+      defaultLayout="flow"
       formOptions={props.conditionConfig} />
   );
 });
