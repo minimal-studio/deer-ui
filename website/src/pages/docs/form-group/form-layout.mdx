@@ -6,9 +6,15 @@ menu: Form Generator
 
 # FormLayout
 
+## 3 Kind of Layout
+
+- horizontal
+- vertical
+- flow
+
 ```jsx live noInline
 import React, { useState } from 'react';
-import { FormLayout, Button } from '@deer-ui/core';
+import { FormLayout, Button, Radio } from '@deer-ui/core';
 import formOptions from 'formOptions';
 
 const FormLayoutDemo = () => {
@@ -37,17 +43,16 @@ const FormLayoutDemo = () => {
     }, 800);
   }
 
-  const isHorizontal = layout === 'horizontal';
-  console.log(layout)
   return (
     <>
-      <h3>默认水平布局，可以切换成垂直布局（适配移动端）</h3>
-      <Button
-        onClick={e => {
-          setLayout(isHorizontal ? 'vertical' : 'horizontal')
-        }}>
-        切换成{isHorizontal ? '垂直' : '水平'}布局
-      </Button>
+      <Radio
+        onChange={nextLayout => setLayout(nextLayout)}
+        defaultValue="horizontal"
+        values={{
+          'horizontal': '水平布局',
+          'vertical': '垂直布局',
+          'flow': '流布局',
+        }} />
       <FormLayout
         layout={layout}
         formBtns={formBtns}
