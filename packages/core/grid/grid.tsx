@@ -13,7 +13,7 @@ const JustifyItemsMap = {
   between: 'j-i-b',
   around: 'j-i-a',
 };
-const JustifyMap = {
+const JustifyContentMap = {
   start: 'j-c-s',
   end: 'j-c-e',
   center: 'j-c-c',
@@ -66,7 +66,9 @@ export interface GridProps {
   /** justify-items */
   justifyItems?: keyof MakeReadOnly<typeof JustifyItemsMap>;
   /** justify-content */
-  justify?: keyof MakeReadOnly<typeof JustifyMap>;
+  justify?: keyof MakeReadOnly<typeof JustifyContentMap>;
+  /** justify-content */
+  justifyContent?: keyof MakeReadOnly<typeof JustifyContentMap>;
   /** align-content */
   alignContent?: keyof MakeReadOnly<typeof AlignContentMap>;
   /** align-items */
@@ -88,18 +90,19 @@ export interface GridProps {
 export const Grid: React.SFC<GridProps> = (props) => {
   const {
     children, className = '', style, component = 'div',
-    space, container, item, justifyItems = '',
+    space, container, item, justifyItems = '', justifyContent,
     direction = '', wrap = '',
     justify = '', alignContent = '', alignItem = '', alignItems = '',
     xs, sm, lg, xl
   } = props;
   const _alignItems = alignItems || alignItem;
+  const _justifyContent = justifyContent || justify;
   const C = component;
   const isItem = typeof item != 'undefined' ? item : !container;
   const _className = classNames({
-    [className]: className || '',
+    [`grid g-container space-${space}`]: container,
     [JustifyItemsMap[justifyItems]]: container && justifyItems,
-    [JustifyMap[justify]]: container && justify,
+    [JustifyContentMap[_justifyContent]]: container && _justifyContent,
     [AlignContentMap[alignContent]]: container && alignContent,
     [AlignItemMap[_alignItems]]: container && _alignItems,
     [WrapMap[wrap]]: container && wrap,
@@ -108,15 +111,14 @@ export const Grid: React.SFC<GridProps> = (props) => {
     [`sm-${sm}`]: sm,
     [`lg-${lg}`]: lg,
     [`xl-${xl}`]: xl,
-    [`j-c-c`]: xl,
-    'g-container': container,
     'g-item': isItem,
+    [className]: className || '',
   });
 
   return (
     <C
       style={style}
-      className={`${container ? `grid space-${space} ` : ''} ${_className}`}>
+      className={_className}>
       {children}
     </C>
   );
