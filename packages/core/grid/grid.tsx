@@ -6,7 +6,14 @@ import { MakeReadOnly } from '../utils';
 export type LayoutSpaces = 0 | 5 | 10 | 15 | 20 | 25 | 30;
 export type RowSet = 'auto' | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
 
-const JustifyMap = {
+const JustifyItemsMap = {
+  start: 'j-i-s',
+  end: 'j-i-e',
+  center: 'j-i-c',
+  between: 'j-i-b',
+  around: 'j-i-a',
+};
+const JustifyContentMap = {
   start: 'j-c-s',
   end: 'j-c-e',
   center: 'j-c-c',
@@ -56,11 +63,17 @@ export interface GridProps {
   lg?: RowSet;
   /** 对于 屏幕宽度 < 1200px, > 992px 的分布 */
   xl?: RowSet;
+  /** justify-items */
+  justifyItems?: keyof MakeReadOnly<typeof JustifyItemsMap>;
   /** justify-content */
-  justify?: keyof MakeReadOnly<typeof JustifyMap>;
+  justify?: keyof MakeReadOnly<typeof JustifyContentMap>;
+  /** justify-content */
+  justifyContent?: keyof MakeReadOnly<typeof JustifyContentMap>;
   /** align-content */
   alignContent?: keyof MakeReadOnly<typeof AlignContentMap>;
-  /** align-item */
+  /** align-items */
+  alignItems?: keyof MakeReadOnly<typeof AlignItemMap>;
+  /** align-items */
   alignItem?: keyof MakeReadOnly<typeof AlignItemMap>;
   /** direction */
   direction?: keyof MakeReadOnly<typeof DirectionMap>;
@@ -77,33 +90,35 @@ export interface GridProps {
 export const Grid: React.SFC<GridProps> = (props) => {
   const {
     children, className = '', style, component = 'div',
-    space, container, item,
+    space, container, item, justifyItems = '', justifyContent,
     direction = '', wrap = '',
-    justify = '', alignContent = '', alignItem = '',
+    justify = '', alignContent = '', alignItem = '', alignItems = '',
     xs, sm, lg, xl
   } = props;
+  const _alignItems = alignItems || alignItem;
+  const _justifyContent = justifyContent || justify;
   const C = component;
   const isItem = typeof item != 'undefined' ? item : !container;
   const _className = classNames({
-    [className]: className || '',
-    [JustifyMap[justify]]: container && justify,
+    [`grid g-container space-${space}`]: container,
+    [JustifyItemsMap[justifyItems]]: container && justifyItems,
+    [JustifyContentMap[_justifyContent]]: container && _justifyContent,
     [AlignContentMap[alignContent]]: container && alignContent,
-    [AlignItemMap[alignItem]]: container && alignItem,
+    [AlignItemMap[_alignItems]]: container && _alignItems,
     [WrapMap[wrap]]: container && wrap,
     [DirectionMap[direction]]: container && direction,
     [`xs-${xs}`]: xs,
     [`sm-${sm}`]: sm,
     [`lg-${lg}`]: lg,
     [`xl-${xl}`]: xl,
-    [`j-c-c`]: xl,
-    'g-container': container,
     'g-item': isItem,
+    [className]: className || '',
   });
 
   return (
     <C
       style={style}
-      className={`${container ? `grid space-${space} ` : ''} ${_className}`}>
+      className={_className}>
       {children}
     </C>
   );

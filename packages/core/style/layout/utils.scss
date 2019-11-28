@@ -156,4 +156,21 @@
       justify-content: space-around;
     }
   }
+  &.j-i- {
+    &s {
+      justify-items: flex-start;
+    }
+    &c {
+      justify-items: center;
+    }
+    &e {
+      justify-items: flex-end;
+    }
+    &b {
+      justify-items: space-between;
+    }
+    &a {
+      justify-items: space-around;
+    }
+  }
 }
