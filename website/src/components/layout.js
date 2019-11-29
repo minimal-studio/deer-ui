@@ -9,6 +9,8 @@ import * as MockDataForTable from './mock-data/table';
 import MockData from './mock-data/mock-data';
 import FormOptions from './mock-data/form-options';
 
+import './style.css';
+
 export default function Layout({ children }) {
   return (
     <>

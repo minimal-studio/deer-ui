@@ -3,7 +3,7 @@ module.exports = {
     {
       resolve: "react-ui-doc",
       options: {
-        name: '@deer-ui docs',
+        name: '@deer-ui',
         slug: '@deer-ui',
         github: 'https://github.com/minimal-studio/deer-ui',
         siteUrl: 'https://ui.thinkmore.xyz',
@@ -20,7 +20,10 @@ module.exports = {
           'Utils',
           'Enhance-UI',
         ],
-        nav: [{ title: 'Docs', url: '/docs/' }],
+        nav: [
+          { title: 'Docs', url: '/docs/getting-started' },
+          { title: 'Showcase', url: '/showcase/' },
+        ],
         basePath: ".",
         docPath: `${__dirname}/src/pages/docs`,
         pagePath: `${__dirname}/src/pages`,
