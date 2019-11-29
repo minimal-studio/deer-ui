@@ -13271,10 +13271,10 @@ react-transition-group@^4.0.1:
     loose-envify "^1.4.0"
     prop-types "^15.6.2"
 
-react-ui-doc@^0.2.0-alpha1.7:
-  version "0.2.0-alpha1.7"
-  resolved "https://registry.yarnpkg.com/react-ui-doc/-/react-ui-doc-0.2.0-alpha1.7.tgz#e58e00fbc767058703c155002b8a0ca92d615108"
-  integrity sha512-PdVyX3Y15dklHESBKNF5b/3FTE8wBkUsPg1NvLaLX4MS55MvYnGB2AW7UJxx9XcjPL4u4nyNnH+Ip73ouZQXyg==
+react-ui-doc@^0.2.0-alpha1.8:
+  version "0.2.0-alpha1.8"
+  resolved "https://registry.yarnpkg.com/react-ui-doc/-/react-ui-doc-0.2.0-alpha1.8.tgz#6e29f8d6a6db40cc1192b20a5b39bfe9b35afb73"
+  integrity sha512-J2Z6zaEVlJ3pLajsD6TcPOQbvzdjAcm1/XLSSolJLcT2OCsQdLFPdbaAY6fzzlCxGxD1lJWr2XmdBVYcSTlAaA==
   dependencies:
     "@deer-ui/core" "^4.0.0-beta2.6"
     "@mdx-js/mdx" "^1.5.1"
