@@ -46,7 +46,7 @@ const DirectionMap = {
   reRow: 're-row',
 };
 
-export interface GridProps {
+export interface GridProps extends React.HTMLProps<HTMLElement> {
   /** children */
   children?: any;
   /** 用于包装的外层组件 */
@@ -93,7 +93,7 @@ export const Grid: React.SFC<GridProps> = (props) => {
     space, container, item, justifyItems = '', justifyContent,
     direction = '', wrap = '',
     justify = '', alignContent = '', alignItem = '', alignItems = '',
-    xs, sm, lg, xl
+    xs, sm, lg, xl, ...other
   } = props;
   const _alignItems = alignItems || alignItem;
   const _justifyContent = justifyContent || justify;
@@ -117,6 +117,7 @@ export const Grid: React.SFC<GridProps> = (props) => {
 
   return (
     <C
+      {...other}
       style={style}
       className={_className}>
       {children}
