@@ -313,7 +313,7 @@ export class DropdownWrapper extends React.PureComponent<DropdownWrapperProps, S
     }
   }
 
-  getDfaultChild = (menuTitle) => {
+  getDefaultChild = (menuTitle) => {
     const { searchValue } = this.state;
     return (
       <div className="display-menu">
@@ -352,7 +352,7 @@ export class DropdownWrapper extends React.PureComponent<DropdownWrapperProps, S
         if (typeof children === 'string') {
           _title = children;
         }
-        child = this.getDfaultChild(_title);
+        child = this.getDefaultChild(_title);
         break;
     }
 

@@ -7,7 +7,6 @@ import { $T, $T_IN } from '../utils';
 import SelectorBasic, { SelectorValuesDescription, SelectorBasicProps } from '../selector-basic';
 import { DropdownWrapper, DropdownWrapperProps } from '../dropdown-wrapper';
 import { MenuItem } from '../menu';
-import { Radio } from '../radio';
 import { Checkbox } from '../checkbox';
 // import Radio from './radio';
 
@@ -133,7 +132,7 @@ export class Dropdown extends SelectorBasic<DropdownProps> {
 
   render() {
     const {
-      isMultiple, needAction, cancelTitle, withInput
+      isMultiple, needAction, cancelTitle, withInput, children
     } = this.props;
     const _selectedValue = this.getValue();
     const hasVal = Array.isArray(_selectedValue) ? _selectedValue.length > 0 : !!_selectedValue;
@@ -145,7 +144,8 @@ export class Dropdown extends SelectorBasic<DropdownProps> {
     // const Selector = isMultiple ? Checkbox : Radio;
 
     return (
-      <DropdownWrapper {...this.props}
+      <DropdownWrapper
+        {...this.props}
         menuTitle={$T(menuTitle)}
         overlay={({ hide, searchValue }) => (
           <div className="action-group">
@@ -154,8 +154,7 @@ export class Dropdown extends SelectorBasic<DropdownProps> {
                 <div className="action-btn" onClick={(e) => {
                   canSelectAll ? this.selectAll() : this.clearAll();
                   hide();
-                }}
-                >
+                }}>
                   {$T_IN(canSelectAll ? '全选' : cancelTitle)}
                 </div>
               )
@@ -168,8 +167,7 @@ export class Dropdown extends SelectorBasic<DropdownProps> {
                       const dataItem = this.values[idx];
                       // console.log(nextVal, idx)
                       this.handleClick(dataItem, idx, isMultiple ? null : hide);
-                    }}
-                    />
+                    }}/>
                   </div>
                 ) : (
                   <div className="__menus">
@@ -193,8 +191,7 @@ export class Dropdown extends SelectorBasic<DropdownProps> {
                               if (e && isMultiple) e.preventDefault();
                               this.handleClick(dataItem, idx, isMultiple ? null : hide);
                             }}
-                            {...dataItem}
-                          >
+                            {...dataItem}>
                           </MenuItem>
                         ) : null;
                       })
@@ -203,33 +200,6 @@ export class Dropdown extends SelectorBasic<DropdownProps> {
                 )
               }
             </div>
-            {/* <div className="__menus">
-              {
-                this.values.map((dataItem, idx) => {
-                  const {
-                    text, value, icon, img
-                  } = dataItem;
-
-                  const isActive = itemActiveFilter(_selectedValue, value);
-                  const renderable = !searchValue
-                    ? true
-                    : (text.toString().indexOf(searchValue) !== -1
-                      || value.toString().toLowerCase().indexOf(searchValue) !== -1);
-
-                  return renderable ? (
-                    <MenuItem
-                      key={value}
-                      isActive={isActive}
-                      onClick={(e) => {
-                        if (e && isMultiple) e.preventDefault();
-                        this.handleClick(dataItem, idx, isMultiple ? null : hide);
-                      }}
-                      {...dataItem}>
-                    </MenuItem>
-                  ) : null;
-                })
-              }
-            </div> */}
           </div>
         )}
         withInput={!withInput ? withInput : !isMultiple}
@@ -238,8 +208,7 @@ export class Dropdown extends SelectorBasic<DropdownProps> {
           multiple: isMultiple,
           single: !isMultiple,
           "has-val": hasVal
-        })}
-      />
+        })}/>
     );
   }
 }
