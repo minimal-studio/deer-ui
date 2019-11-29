@@ -23,11 +23,21 @@ const UIName = styled.div`
   margin-bottom: 20px;
 `;
 
-const UILogo = styled.img`
+const UILogo = styled(Grid)`
   /* font-size: 40px; */
   background-color: #376BFB;
   border-radius: 50%;
-  width: 100px;
+  width: 120px !important;
+  padding: 16px;
+  transition: all 0.5s ease;
+
+  img {
+    width: 100%;
+  }
+
+  &:hover {
+    transform: translateY(-10px);
+  }
 `;
 
 const Desc = styled.div`
@@ -128,7 +138,9 @@ const HomePage = () => {
           container
           direction="col"
           alignContent="center">
-          <UILogo src={require('../images/logo.png')} />
+          <UILogo container justify="center" alignItems="center">
+            <img src={require('../images/logo.png')} alt=""/>
+          </UILogo>
         </Grid>
         <Showcase />
       </Container>
