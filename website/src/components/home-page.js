@@ -16,6 +16,7 @@ const Wrapper = styled.div`
   padding: 0.1px;
   font-size: 1.125rem;
   padding-bottom: 40px;
+  padding: 20px;
 `;
 
 const UIName = styled.div`

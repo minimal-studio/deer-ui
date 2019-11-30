@@ -21,7 +21,7 @@ module.exports = {
           'Enhance-UI',
         ],
         nav: [
-          { title: 'Docs', url: '/docs/getting-started' },
+          { title: 'Docs', url: '/docs/getting-started/' },
           { title: 'Showcase', url: '/showcase/' },
         ],
         basePath: ".",

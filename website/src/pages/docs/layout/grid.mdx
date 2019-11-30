@@ -6,7 +6,11 @@ menu: Layout
 
 # Grid
 
-> flex layout system 的组件化实现
+响应式的 Grid 布局组件
+
+## 工作原理
+
+基于 css3 的 flex 布局，将每一个行（Row）平均切割为 12 等份，将根据屏幕大小以及传入的尺寸比例自动排版布局，同时提供 flex 的对齐方式。
 
 ## Basic Usage
 
@@ -42,9 +46,9 @@ function Example() {
             xs-12, sm-4, lg-4
           </Card>
         </Grid>
-        <Grid xs={2} sm={2} lg={2}>
+        <Grid xs={3} sm={3} lg={3}>
           <Card p={20}>
-            xs-2, sm-2, lg-2
+            xs-3, sm-3, lg-3
           </Card>
         </Grid>
       </Grid>
@@ -54,9 +58,85 @@ function Example() {
 render(<Example />);
 ```
 
+## 对齐
+
+```jsx live noInline
+import { useState } from 'react'
+import { CardContainer, Card, Grid, Radio } from '@deer-ui/core'
+
+const rowGroup = [11, 6, 2, 8];
+
+function Example() {
+  const [justify, setjustifyItems] = useState('start')
+  const [alignItems, setalignItems] = useState('start')
+  return (
+    <div>
+      <div>
+        <span>justify-content</span>
+        <Radio 
+          defaultValue="start"
+          onChange={nextVal => {
+            setjustifyItems(nextVal);
+          }}
+          values={{
+            start: 'start',
+            end: 'end',
+            center: 'center',
+            between: 'between',
+            around: 'around',
+          }} />
+      </div>
+      <hr />
+      <div>
+        <span>align-items</span>
+        <Radio 
+          defaultValue="start"
+          onChange={nextVal => {
+            setalignItems(nextVal);
+          }}
+          values={{
+            start: 'start',
+            end: 'end',
+            center: 'center',
+            baseline: 'baseline',
+            stretch: 'stretch',
+          }} />
+      </div>
+      <hr />
+      <CardContainer 
+        className="bg_default"
+      >
+        <Grid 
+          container 
+          space={10}
+          justify={justify}
+          alignItems={alignItems}
+        >
+          {
+            rowGroup.map((grid) => {
+              return (
+                <Grid
+                  key={grid}
+                  xs={12} sm={grid} lg={grid}
+                >
+                  <Card p={20}>
+                    xs-12, sm-{grid}, lg-{grid}
+                  </Card>
+                </Grid>
+              )
+            })
+          }
+        </Grid>
+      </CardContainer>
+    </div>
+  )
+}
+render(<Example />);
+```
+
 ## Space
 
-每个 Grid 之间的空隙
+每个 Grid item 之间的空隙, 每一个间隙都是 5 的倍数
 
 ```jsx live noInline
 import { useState } from 'react'

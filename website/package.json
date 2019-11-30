@@ -11,8 +11,21 @@
   "author": "Alex",
   "license": "MIT",
   "dependencies": {
-    "gatsby": "^2.17.4",
-    "gatsby-plugin-layout": "^1.1.13",
+    "gatsby": "^2.18.5",
+    "gatsby-plugin-layout": "^1.1.16",
+    "codemirror": "^5.42.2",
+    "fs-extra": "^8.1.0",
+    "jest": "^24.5.0",
+    "react-ui-doc": "^0.2.0-alpha1.8",
+    "unistore": "^3.1.0"
+  },
+  "devDependencies": {
+    "@mini-code/base-func": "^1.0.2",
+    "@types/react": "^16.9.13",
+    "@types/react-dom": "^16.9.4",
+    "@typescript-eslint/eslint-plugin": "^2.9.0",
+    "@typescript-eslint/parser": "^2.9.0",
+    "babel-eslint": "10.0.1",
     "eslint": "^6.5.1",
     "eslint-config-airbnb": "^18.0.1",
     "eslint-config-react-app": "^5.0.2",
@@ -22,15 +35,9 @@
     "eslint-plugin-jsx-a11y": "6.2.3",
     "eslint-plugin-react": "7.16.0",
     "eslint-plugin-react-hooks": "^2.1.2",
-    "codemirror": "^5.42.2",
     "fs-extra": "^8.1.0",
-    "jest": "^24.5.0",
-    "lerna": "^3.18.1",
     "react": "^16.10.1",
     "react-dom": "^16.10.1",
-    "react-hot-loader": "^4.8.0",
-    "react-transition-group": "^4.0.1",
-    "react-ui-doc": "^0.2.0-alpha1.8",
-    "unistore": "^3.1.0"
+    "typescript": "3.6.4"
   }
 }
