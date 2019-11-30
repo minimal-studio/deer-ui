@@ -53,3 +53,99 @@ function Example() {
 }
 render(<Example />);
 ```
+
+## 模拟键盘
+
+```jsx live noInline
+import React, { useState } from "react";
+import { Card, CardContainer, Grid } from '@deer-ui/core';
+import { GenerateNumberRange } from "@mini-code/base-func";
+
+const keyboardNumbs = GenerateNumberRange([1, 9]);
+
+const SimulationKeyboard = () => {
+  const [inputVal, setinputVal] = useState(0);
+  return (
+    <CardContainer className="bg_default"
+      style={{maxWidth: 400}}
+    >
+      <div
+        className="bg_white p10"
+      >
+        <strong className="highlight">{inputVal}</strong>
+      </div>
+      <Grid
+        container
+        className="keyboard"
+      >
+        <Grid
+          sm={9}
+          xs={9}
+        >
+          <Grid
+            container
+            space={15}
+          >
+            {
+              keyboardNumbs.map((num, idx) => {
+                return (
+                  <Grid
+                    key={num}
+                    xs={4}
+                    sm={4}
+                    onClick={(e) => {
+                      setinputVal(+(+inputVal + num));
+                      // changeMultiple(num);
+                      // closeModal();
+                    }}
+                  >
+                    <Card p={20} className="text-center">
+                      {num}
+                    </Card>
+                  </Grid>
+                );
+              })
+            }
+          </Grid>
+        </Grid>
+        <Grid
+          sm={3}
+          xs={3}
+        >
+          <Grid
+            container
+            space={15}
+          >
+            <Grid
+              sm={12}
+              xs={12}
+              onClick={(e) => {
+                let nextNum = String(inputVal).substring(0, String(inputVal).length - 1);
+                if(!nextNum) nextNum = 0;
+                setinputVal(nextNum);
+              }}
+            >
+              <Card p={20} className="text-center">
+                X
+              </Card>
+            </Grid>
+            <Grid
+              sm={12}
+              xs={12}
+              onClick={(e) => {
+                alert(inputVal);
+              }}
+            >
+              <Card p={20} className="text-center">
+                确定
+              </Card>
+            </Grid>
+          </Grid>
+        </Grid>
+      </Grid>
+    </CardContainer>
+  );
+};
+
+render(<SimulationKeyboard />)
+```
