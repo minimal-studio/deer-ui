@@ -13,6 +13,8 @@ import { Icon } from '../icon';
 import ModalHelper from './modal-helper';
 import Modal, { ModalOptions } from './modal';
 import {
+  ModalsProvider,
+  ModalsContext,
   windowManagerActions,
   windowManagerStore
 } from './window-manager';
@@ -152,38 +154,57 @@ export interface ShowModalParams extends ModalOptions {
   /** 当 type === confirm 时渲染的内容 */
   confirmText?: Children;
   /** 当 type === confirm 时，点击确认按钮的回调 */
-  onConfirm?;
+  onConfirm?: (isConfirm: boolean) => void;
   /** 是否显示「确定、取消」按钮 */
   showFuncBtn?: boolean;
   /** 是否需要 header */
   needHeader?: boolean;
 }
 
-let hasModalContainer = false;
+let ModalsContainer;
 const checkModalContainer = () => {
-  if (!hasModalContainer) {
-    hasModalContainer = true;
-    const modalsManagerContainer = setDOMById('__ModalsManager', 'modals-manager');
+  if (!ModalsContainer) {
+    ModalsContainer = setDOMById('ModalsManager', 'modals-manager');
     ReactDOM.render(
-      <Provider store={windowManagerStore}>
-        <ModalsManager/>
-      </Provider>,
-      modalsManagerContainer,
+      <ModalsProvider>
+        <ModalsContext.Consumer>
+          {
+            (state) => {
+              return (
+                <ModalsRender {...state} />
+              );
+            }
+          }
+        </ModalsContext.Consumer>
+      </ModalsProvider>,
+      // <Provider store={windowManagerStore}>
+      //   <ModalsManager/>
+      //   <ModalsRender />
+      // </Provider>,
+      ModalsContainer,
     );
   }
 };
+
+const useModal = (options) => {
+  const modalsStore = React.useContext(ModalsContext);
+  modalsStore.openWindow(options);
+};
+
 /**
  * @param {ShowModalParams} params
  */
 const ShowModal = (params: ShowModalParams): ModalID => {
-  /** 用于检查是否已经渲染了最外层 div */
+  /** 用于检查是否已经渲染了最外层容器 */
   checkModalContainer();
+
   /** @type {ShowModalParams} */
   let options = { ...params };
   let {
     type, confirmText = `${$T_IN('确定')}?`, showFuncBtn,
     id, children,
-    onConfirm, needHeader
+    onConfirm,
+    // needHeader
   } = options;
   const _showFuncBtn = type === 'confirm' || showFuncBtn;
 
@@ -206,7 +227,7 @@ const ShowModal = (params: ShowModalParams): ModalID => {
 
   switch (type) {
     case 'confirm':
-      needHeader = false;
+      // needHeader = false;
       modalTMPL = (
         <div className="confirm-container">
           <div className="content">
@@ -248,16 +269,16 @@ const ShowModal = (params: ShowModalParams): ModalID => {
   options = {
     ...getDefaultOptions(options),
     ...options,
-    needHeader,
+    // needHeader,
   };
-  connectedStore.openWindow(options);
+
+  useModal(options);
 
   return entityId;
 };
 
 const ShowGlobalModal = ShowModal;
 const CloseGlobalModal = CloseModal;
-
 
 const ShowModalAPI: React.SFC<ShowModalParams> = (props) => (
   <div></div>

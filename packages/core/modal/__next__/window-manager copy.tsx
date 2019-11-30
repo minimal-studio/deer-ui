@@ -1,5 +1,6 @@
 import createStore from 'unistore';
 import { RemoveArrayItem } from '@mini-code/base-func';
+import React, { useState, useCallback, useMemo } from 'react';
 
 export interface WindowItemConfig {
   title: string;
@@ -24,9 +25,9 @@ const DefaultWindowManagerState: WindowMultipleState = {
 
 const windowManagerStore = createStore(DefaultWindowManagerState);
 
-const windowManagerActions = ({ setState }) => ({
+const windowManagerActions = (store) => ({
   closeAllWindow: () => {
-    setState({
+    store.setState({
       ...DefaultWindowManagerState
     });
   },
@@ -37,7 +38,7 @@ const windowManagerActions = ({ setState }) => ({
 
     delete nextSectionList[sectionId];
 
-    setState({
+    store.setState({
       sectionsList: nextSectionList,
       sectionsQueue: nextSectionQueue,
       minSecQueue: RemoveArrayItem(minSecQueue, sectionId)
@@ -53,7 +54,7 @@ const windowManagerActions = ({ setState }) => ({
       isMinimize: false
     });
 
-    setState({
+    store.setState({
       sectionsList: nextListState,
       sectionsQueue: hasCurrSection ? sectionsQueue : [sectionId, ...sectionsQueue],
       minSecQueue: RemoveArrayItem(minSecQueue, sectionId)
@@ -76,7 +77,7 @@ const windowManagerActions = ({ setState }) => ({
     nextSectionQueue.splice(selectedCodeIdx, 1);
     nextSectionQueue = [sectionId].concat(nextSectionQueue);
 
-    setState({
+    store.setState({
       sectionsList: nextSectionList,
       sectionsQueue: nextSectionQueue,
       minSecQueue: nextMinSecQueue
@@ -109,7 +110,7 @@ const windowManagerActions = ({ setState }) => ({
     }
     nextSectionQueue = RemoveArrayItem(nextSectionQueue, sectionId).concat(sectionId);
 
-    setState({
+    store.setState({
       sectionsList: nextSectionList,
       sectionsQueue: nextSectionQueue,
       minSecQueue: miniArr
@@ -117,7 +118,38 @@ const windowManagerActions = ({ setState }) => ({
   }
 });
 
+export const ModalsContext = React.createContext();
+
+const ModalsProvider = ({ children }) => {
+  const [modalState, setModalStore] = useState(DefaultWindowManagerState);
+  // const toggle = useCallback(() => setModalStore((_opened) => !_opened), []);
+  // const value = useMemo(() => ({ opened, toggle }), [opened, toggle]);
+  const modalStore = {
+    setState: (nextState = {}) => {
+      setModalStore({
+        ...modalState,
+        ...nextState
+      });
+    }
+  };
+  const actions = windowManagerActions(modalStore);
+  const finalActions = {};
+  Object.keys(actions).forEach((action) => {
+    finalActions[action] = (...args) => actions[action](modalState, ...args);
+  });
+  return (
+    <ModalsContext.Provider
+      value={{
+        ...finalActions,
+        ...modalState,
+      }}>
+      {children}
+    </ModalsContext.Provider>
+  );
+};
+
 export {
+  ModalsProvider,
   windowManagerActions,
   windowManagerStore,
   DefaultWindowManagerState
