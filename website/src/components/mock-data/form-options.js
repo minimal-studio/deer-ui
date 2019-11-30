@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const CustomerCom = ({ onChange }) => {
+export const CustomerCom = ({ onChange }) => {
   const [isMount, setisMount] = useState(false);
   // onChange 由 FormGenerator 提供
   return (
@@ -11,7 +11,7 @@ const CustomerCom = ({ onChange }) => {
   );
 };
 
-class CustomerCom2 extends React.Component {
+export class CustomerCom2 extends React.Component {
   state = {
     isMount: false
   }

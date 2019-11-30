@@ -3,13 +3,7 @@ import { Link } from 'gatsby';
 import styled from 'styled-components';
 import { Grid, Icon } from '@deer-ui/core';
 import Showcase from './showcase';
-import { Box } from './common';
-
-const Container = styled.div`
-  width: 100%;
-  max-width: 1200px;
-  margin: 40px auto 0;
-`;
+import { Box, Container } from './common';
 
 const Wrapper = styled.div`
   /* background-color: #fafafa; */
@@ -69,7 +63,7 @@ const HomePage = () => {
       <Container>
         <MainIntro>
           <UIName>
-          Building Form Group by the easiest way
+          Building Web App by the easiest way
           </UIName>
           <Desc>
           Deer ui is a Extendable's UI lib base on React

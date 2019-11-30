@@ -1,5 +1,11 @@
 import styled from 'styled-components';
 
+export const Container = styled.div`
+  width: 100%;
+  max-width: 1200px;
+  margin: 40px auto 0;
+`;
+
 export const Box = styled.div`
   /* box-shadow: 0 4px 8px rgba(0,0,0,0.08); */
   /* box-shadow: 0 15px 10px #777; */

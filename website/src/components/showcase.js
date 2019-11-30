@@ -1,10 +1,10 @@
 import React from 'react';
-import { Grid, Icon } from '@deer-ui/core';
+import { Grid } from '@deer-ui/core';
 import styled from 'styled-components';
 
-import { Box } from './common';
+import { Box, Container } from './common';
 
-const ShowcaseContainer = styled.div`
+const ShowcaseContainer = styled(Container)`
   padding: 0.1px 0;
 `;
 
@@ -19,9 +19,9 @@ const ShowcaseImg = styled.img`
 const showcaseItems = [
   {
     title: 'react-ui-doc',
-    img: require('../images/scaffold.jpg'),
+    img: require('../images/react-ui-doc-pic.jpg'),
     action: () => {
-      window.open('https://ui.thinkmore.xyz/');
+      window.open('https://react-ui-doc.thinkmore.xyz/');
     }
   },
   {
@@ -33,7 +33,7 @@ const showcaseItems = [
   },
   {
     title: 'elk-chat',
-    img: require('../images/scaffold.jpg'),
+    img: require('../images/chat.jpg'),
     action: () => {
       window.open('https://chat.thinkmore.xyz/');
     }
