@@ -1,12 +1,8 @@
 import React from 'react';
 
-interface CardProps {
+interface CardProps extends React.HTMLProps<HTMLElement> {
   /** padding */
   p?: number;
-  /** className */
-  className?: string;
-  /** style */
-  style?: React.CSSProperties;
 }
 
 export const Card: React.SFC<CardProps> = ({
