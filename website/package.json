@@ -16,7 +16,7 @@
     "codemirror": "^5.42.2",
     "fs-extra": "^8.1.0",
     "jest": "^24.5.0",
-    "react-ui-doc": "^0.2.0-alpha1.8",
+    "react-ui-doc": "^0.2.0-alpha1.9",
     "unistore": "^3.1.0"
   },
   "devDependencies": {
