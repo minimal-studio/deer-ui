@@ -66,7 +66,7 @@ const HomePage = () => {
           Building Web App by the easiest way
           </UIName>
           <Desc>
-          Deer ui is a Extendable's UI lib base on React
+          Deer ui is a extendable UI lib base on React
           , provide FormGenerator to help us to build form logic clearly
           , and also provide a useful Table to display data
           </Desc>
