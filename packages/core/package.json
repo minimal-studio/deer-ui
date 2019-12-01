@@ -1,18 +1,11 @@
 {
   "name": "@deer-ui/core",
-  "version": "4.0.0-beta3.0",
+  "version": "4.0.0-rc1.1",
   "scripts": {
     "build": "npm run get:style:files; npm run copy:files; npm run complie:scss",
     "get:style:files": "sh ./get-style-file.sh",
     "copy:files": "node ./copy-files",
     "complie:scss": "node-sass ../../packages/core/style/default.scss -o ../../dist/core --output-style compressed",
     "complie:scss:local": "node-sass ./style/default.scss -o ./ --output-style compressed"
-  },
-  "peerDependencies": {
-    "@mini-code/base-func": "^1.0.2",
-    "react": "^16.8.0",
-    "react-dom": "^16.8.0",
-    "react-transition-group": "^2.5.0",
-    "unistore": "^3.1.0"
   }
 }
