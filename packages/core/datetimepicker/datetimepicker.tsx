@@ -193,7 +193,7 @@ export class DatetimePicker extends DateBasic<DatetimePickerProps> {
        * 只选了一天的特殊处理, 给需要时间的添加后缀
        * 把后面的日期加上，
        * 并且改变输入框显示的值 */
-      valueRange[1] = DateFormat(valueRange[0], 'YYYY-MM-DD') + (needTime ? ` ${defaultTimes[1]}` : '');
+      valueRange[1] = DateFormat(valueRange[0], 'YYYY/MM/DD') + (needTime ? ` ${defaultTimes[1]}` : '');
       this.datepicker.setDate(valueRange, false);
       valueRangeLen = valueRange.length;
     }
@@ -247,7 +247,7 @@ export class DatetimePicker extends DateBasic<DatetimePickerProps> {
       /** 自带的时分秒选择不符合实际要求 */
       enableTime: false,
       time_24hr: true,
-      dateFormat: `Y-m-d${needTime ? ' H:i:S' : ''}`,
+      dateFormat: `Y/m/d${needTime ? ' H:i:S' : ''}`,
       disableMobile: true,
       defaultDate: this.value,
       defaultHour: 0,

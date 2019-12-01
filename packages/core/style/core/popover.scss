@@ -65,6 +65,7 @@ $horizontalOffset: 8px;
   }
   ._close-btn {
     position: absolute;
+    pointer-events: all;
     border-radius: 0;
     z-index: 1;
     top: 0;
@@ -73,8 +74,8 @@ $horizontalOffset: 8px;
     display: flex;
     align-items: center;
     padding: 8px;
-    &:hover {
-      color: $themeColor;
-    }
+    // &:hover {
+    //   color: $themeColor;
+    // }
   }
 }
