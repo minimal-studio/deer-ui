@@ -16,11 +16,10 @@
     "codemirror": "^5.42.2",
     "fs-extra": "^8.1.0",
     "jest": "^24.5.0",
-    "react-ui-doc": "^0.2.0-alpha1.9",
-    "unistore": "^3.1.0"
+    "react-ui-doc": "^0.2.0-alpha1.9"
   },
   "devDependencies": {
-    "@mini-code/base-func": "^1.0.2",
+    "@mini-code/base-func": "^1.1.0",
     "@types/react": "^16.9.13",
     "@types/react-dom": "^16.9.4",
     "@typescript-eslint/eslint-plugin": "^2.9.0",

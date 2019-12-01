@@ -25,7 +25,8 @@ module.exports = ({
       if (err) console.log(err);
       fse.readJson(rootPackageJson, (_err, rootPackageData) => {
         const {
-          nyc, scripts, devDependencies, workspaces, ...packageDataOther
+          nyc, scripts, devDependencies,
+          workspaces, peerDependencies = {}, ...packageDataOther
         } = packageData;
 
         const newPackageData = {
@@ -36,6 +37,10 @@ module.exports = ({
           keywords: rootPackageData.keywords,
           repository: rootPackageData.repository,
           dependencies: rootPackageData.dependencies,
+          peerDependencies: {
+            ...rootPackageData.dependencies,
+            ...peerDependencies
+          },
           ...packageExtraOptions,
         };
         const buildPath = path.resolve(outdir, `package.json`);
