@@ -96,7 +96,7 @@ export default class InputSelector extends FormControlBasic<InputSelectorProps, 
     return (
       <div className="__input-selector">
         <Dropdown
-          needAction={false}
+          needCancel={false}
           {...other}
           values={values}
           onChange={this.changeRef}

@@ -173,7 +173,7 @@ export default class Pagination extends UIComponent<PaginationProps> {
         <Dropdown
           value={pSize}
           isNum
-          needAction={false}
+          needCancel={false}
           position={this.dropdownPosition}
           onChange={(nextVal) => this.changePagin(+pIdx, nextVal)}
           values={this.getSelectorOptions()} />

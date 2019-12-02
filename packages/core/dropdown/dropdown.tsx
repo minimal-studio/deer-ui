@@ -3,7 +3,7 @@ import { HasValue, Call } from '@mini-code/base-func';
 import classnames from 'classnames';
 import { tuple } from '@mini-code/base-func/utils/type';
 
-import { $T, $T_IN } from '../utils';
+import { $T, $T_IN, ApiRename } from '../utils';
 import SelectorBasic, { SelectorValuesDescription, SelectorBasicProps } from '../selector-basic';
 import { DropdownWrapper, DropdownWrapperProps } from '../dropdown-wrapper';
 import { MenuItem } from '../menu';
@@ -27,7 +27,7 @@ export interface DropdownProps extends SelectorBasicProps, DropdownWrapperProps 
   /** 是否带搜索输入 */
   withInput?: boolean;
   /** 是否需要清除选择的按钮 */
-  needAction?: boolean;
+  needCancel?: boolean;
   /** 是否多选 */
   isMultiple?: boolean;
   /** 传入 dropdownMenu 的 style */
@@ -73,7 +73,7 @@ const itemActiveFilter = (val, targetVal) => {
  */
 export class Dropdown extends SelectorBasic<DropdownProps> {
   static defaultProps = {
-    needAction: true,
+    needCancel: true,
     outside: true,
     defaultTitle: '请选择',
     invalidTip: '无效值',
@@ -82,6 +82,14 @@ export class Dropdown extends SelectorBasic<DropdownProps> {
   };
 
   _error = false;
+
+  constructor(props) {
+    super(props);
+
+    if (props.needAction) {
+      ApiRename('needAction', 'needCancel');
+    }
+  }
 
   handleClick(dataItem, idx, callback) {
     const { onClickItem } = this.props;
@@ -132,7 +140,7 @@ export class Dropdown extends SelectorBasic<DropdownProps> {
 
   render() {
     const {
-      isMultiple, needAction, cancelTitle, withInput, children
+      isMultiple, needCancel, cancelTitle, withInput,
     } = this.props;
     const _selectedValue = this.getValue();
     const hasVal = Array.isArray(_selectedValue) ? _selectedValue.length > 0 : !!_selectedValue;
@@ -150,7 +158,7 @@ export class Dropdown extends SelectorBasic<DropdownProps> {
         overlay={({ hide, searchValue }) => (
           <div className="action-group">
             {
-              needAction && (
+              needCancel && (
                 <div className="action-btn" onClick={(e) => {
                   canSelectAll ? this.selectAll() : this.clearAll();
                   hide();
