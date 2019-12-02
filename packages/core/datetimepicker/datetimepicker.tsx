@@ -57,7 +57,7 @@ export interface DatetimePickerProps extends DateBasicProps {
   didMount?: () => void;
   /** 默认值 */
   defaultValue?: string[];
-  style?: HTMLElement['style'];
+  style?: React.CSSProperties;
   // /** 受控控件的值 */
   // value?: string[];
 }

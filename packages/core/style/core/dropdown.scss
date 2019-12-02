@@ -329,6 +329,10 @@ $iconW: 20px;
       left: 0 !important;
       right: 0 !important;
       top: 70% !important;
+      .menu-item {
+        padding: 15px 10px;
+        border-bottom: 1px solid #f3f3f3;
+      }
     }
   }
 }

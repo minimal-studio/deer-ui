@@ -19,7 +19,6 @@ import { queryIsMobile } from '../utils';
 interface State {
   isShow: boolean;
   ready: boolean;
-  outsideReady: boolean;
   searchValue: string;
 }
 
@@ -58,7 +57,7 @@ export interface DropdownWrapperProps {
   /** 用于渲染最外层的内容 */
   overlay?: (helper: FuncChildrenParams) => Children;
   /** style */
-  style?: HTMLElement['style'];
+  style?: React.CSSProperties;
 }
 
 const dropdownContainerID = 'DropdownContainer';
@@ -123,7 +122,6 @@ export class DropdownWrapper extends React.PureComponent<DropdownWrapperProps, S
   state = {
     isShow: false,
     ready: false,
-    outsideReady: !!dropdownContainerDOM,
     searchValue: ''
   };
 
@@ -170,6 +168,8 @@ export class DropdownWrapper extends React.PureComponent<DropdownWrapperProps, S
     this._outside = typeof outside == 'undefined' ? isMobile : outside;
     this._position = positionFilter(position).split(' ');
 
+    this.setOutSideContainer(isMobile);
+
     this.setState({
       ready: true,
     });
@@ -201,15 +201,9 @@ export class DropdownWrapper extends React.PureComponent<DropdownWrapperProps, S
   /**
    * 为了兼容 SSR 渲染，以及更新 state 触发动画效果
    */
-  setOutSideContainer = () => {
-    if (this._outside && !this.state.outsideReady) {
-      if (!dropdownContainerDOM) {
-        dropdownContainerDOM = setDOMById(dropdownContainerID, '__dropdown-menu outside');
-      }
-      this.overlayRender();
-      this.setState({
-        outsideReady: true
-      });
+  setOutSideContainer = (isMobile) => {
+    if (this._outside && !dropdownContainerDOM) {
+      dropdownContainerDOM = setDOMById(dropdownContainerID, `__dropdown-menu outside`);
     }
   }
 
@@ -304,6 +298,7 @@ export class DropdownWrapper extends React.PureComponent<DropdownWrapperProps, S
         </CSSTransition>
       </TransitionGroup>
     );
+
     return dropdownCom;
   }
 
@@ -365,9 +360,11 @@ export class DropdownWrapper extends React.PureComponent<DropdownWrapperProps, S
         break;
     }
 
-    return React.cloneElement(child, {
-      onMouseEnter: this.setOutSideContainer
-    });
+    return child;
+
+    // return React.cloneElement(child, {
+    //   onMouseEnter: this.setOutSideContainer
+    // });
   }
 
   handleMouseEnter = (event) => {
@@ -421,7 +418,7 @@ export class DropdownWrapper extends React.PureComponent<DropdownWrapperProps, S
   }
 
   render() {
-    const { isShow } = this.state;
+    const { isShow, ready } = this.state;
     const {
       className, style, error
     } = this.props;
