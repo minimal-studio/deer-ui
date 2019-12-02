@@ -24,8 +24,8 @@ export interface FormGeneratorProps extends FormFilterProps<FormOptions> {
   // type?: string;
   /** 表单的类型 */
   className?: HTMLElement['className'];
-  /** 是否显示 input 组建的 title */
-  showInputTitle?: boolean;
+  /** input 的 title 是否显示在组件内 */
+  inlineInputTitle?: boolean;
   /** 表单类型为 submit 时触发的回调 */
   onSubmit?: (formValue) => void;
   /** 内容改变 */
@@ -86,12 +86,13 @@ export default class FormGenerator extends FormFilterHelper<FormGeneratorProps> 
   render() {
     const {
       formOptions, children, layout, defaultLayout,
-      showInputTitle, className, onSubmit
+      inlineInputTitle, className, onSubmit
     } = this.props;
     const { isMobile, ready } = this.state;
-    const _showInputTitle = typeof showInputTitle == 'undefined' ? !isMobile : showInputTitle;
     // eslint-disable-next-line no-nested-ternary
     const formLayout = typeof layout == 'undefined' ? (isMobile ? 'vertical' : defaultLayout) : layout;
+    const isVerticalLayout = formLayout === 'vertical';
+    const _inlineInputTitle = typeof inlineInputTitle == 'undefined' ? isVerticalLayout : inlineInputTitle;
 
     return ready && formOptions && formOptions.length > 0 ? (
       <form
@@ -99,7 +100,8 @@ export default class FormGenerator extends FormFilterHelper<FormGeneratorProps> 
           e.preventDefault();
           Call(onSubmit, this.value);
         }}
-        className={`${formLayout}-form form-container ${className}`}>
+        className={`${formLayout}-form form-container ${className}`}
+      >
         {
           formOptions.map((option, idx) => {
             if (!option) return;
@@ -116,9 +118,9 @@ export default class FormGenerator extends FormFilterHelper<FormGeneratorProps> 
               );
             }
             const isCurrInput = isInput(option.type);
-            const showFormTitle = !isCurrInput ? true : _showInputTitle;
+            const showFormTitle = !isCurrInput ? true : !_inlineInputTitle;
             const _con = this.wrapConditionTitle(option);
-            if (isCurrInput && _showInputTitle) {
+            if (isCurrInput && !_inlineInputTitle) {
               _con.showTitle = false;
             }
             const itemClassName = option.className;
@@ -147,7 +149,8 @@ export default class FormGenerator extends FormFilterHelper<FormGeneratorProps> 
                 ref={(e) => {
                   if (e) this.formItemRefs[itemRef] = e;
                 }}
-                className={classes}>
+                className={classes}
+              >
                 {
                   showFormTitle ? (
                     <span className="control-label">
