@@ -66,7 +66,16 @@ export interface BtnItemConfig extends ButtonProps {
   className?: HTMLElement['className'];
 }
 
-export type Children = React.ReactNode | JSX.Element | JSX.ElementClass | JSX.ElementClass[] | JSX.Element[] | boolean | string | null | undefined;
-export type FuncChildren = () => Children;
+export type Children =
+  React.ReactNode |
+  JSX.Element |
+  JSX.ElementClass |
+  JSX.ElementClass[] |
+  JSX.Element[] |
+  boolean |
+  string |
+  null |
+  undefined;
+export type FuncChildren = (props?: any) => Children;
 
 export type DivideType = '-' | 'hr';

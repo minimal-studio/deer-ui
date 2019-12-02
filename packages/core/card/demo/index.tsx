@@ -3,7 +3,7 @@ import { Card, CardContainer } from '..';
 import { Grid } from '../../grid';
 
 export default () => (
-  <CardContainer>
+  <CardContainer overflow="hidden">
     <Grid container space={20}>
       <Grid item xs={12} sm={6} lg={6}>
         <Card p={20}>

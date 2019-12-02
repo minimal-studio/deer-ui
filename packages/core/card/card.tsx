@@ -6,12 +6,14 @@ interface CardProps extends React.HTMLProps<HTMLDivElement> {
   p?: number;
   /** 是否作为容器 */
   container?: boolean;
+  overflow?: 'auto' | 'hidden' | 'scroll' | 'visible';
 }
 
 export const Card: React.SFC<CardProps> = ({
   children, className,
   container,
   p = 0.1,
+  overflow = 'hidden',
   style,
   ...other
 }) => {
@@ -25,7 +27,8 @@ export const Card: React.SFC<CardProps> = ({
       {...other}
       style={{
         ...style,
-        padding: p
+        padding: p,
+        overflow
       }}
       className={classes}
     >

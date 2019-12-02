@@ -4,11 +4,12 @@ import { IsFunc } from '@mini-code/base-func';
 import {
   getUIConfig, setUIConfig, $T, $T_IN
 } from './config';
+import { FuncChildren, Children } from '.';
 
 /**
  * 加载 React 元素
  */
-export const loadPlugin = (Plugin, props) => {
+export const loadPlugin = (Plugin, props?) => {
   if (!Plugin) return null;
   const P = IsFunc(Plugin) ? (
     <Plugin {...props} />

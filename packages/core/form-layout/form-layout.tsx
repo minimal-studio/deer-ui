@@ -12,7 +12,7 @@ import Button from '@deer-ui/core/button/button';
 import { UIComponent, loadPlugin } from '../utils/ui-component';
 
 import FormGenerator, { FormGeneratorProps } from '../form-generator/form-generator';
-import { ButtonProps } from '../utils';
+import { ButtonProps, Children, FuncChildren } from '../utils';
 
 export interface FormLayoutBtn extends ButtonProps {
   /** 点击按钮的回调 */
@@ -45,11 +45,11 @@ export interface FormLayoutProps extends FormGeneratorProps {
   /** 操作返回的消息 */
   resDesc?: string;
   /** 在 form 之前插入的 children */
-  childrenBeforeForm?: JSX.Element;
+  childrenBeforeForm?: FuncChildren | Children;
   /** 在 form 之后插入的 children */
-  childrenAfterForm?: JSX.Element;
+  childrenAfterForm?: FuncChildren | Children;
   /** 在 form 的 children 前插入按钮 */
-  childrenBeforeBtn?: JSX.Element;
+  childrenBeforeBtn?: FuncChildren | Children;
 }
 
 const delayExec = (new DebounceClass()).exec;
