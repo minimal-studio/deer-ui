@@ -311,31 +311,45 @@ $iconW: 20px;
 @media only screen and (max-width: $screen-sm-width) {
   .__dropdown-menu {
     transition: background-color 0.2s ease;
+
     &.outside {
       position: fixed !important;
+
       &.show {
         background-color: rgba(#333, 0.3);
         pointer-events: all !important;
       }
     }
+
     .caret {
       display: none;
     }
-    .scroll-content {
-      max-height: $form-control-height * $dropdown-menu-display-items-count * 2;
-    }
+
     .dropdown-items {
       bottom: 0 !important;
       left: 0 !important;
       right: 0 !important;
       top: 70% !important;
+
       .menu-item {
         padding: 15px 10px;
         border-bottom: 1px solid #f3f3f3;
+      }
+
+      .action-group {
+        position: static;
+      }
+
+      .scroll-content {
+        position: absolute;
+        top: 32px;
+        right: 0;
+        left: 0;
+        bottom: 0;
+        max-height: unset;
       }
     }
   }
 }
 
-@media only screen and (min-width: $screen-sm-width) {
-}
+@media only screen and (min-width: $screen-sm-width) {}
