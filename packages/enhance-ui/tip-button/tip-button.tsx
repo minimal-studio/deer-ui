@@ -21,7 +21,7 @@ export interface TipButtonProps {
   /** 弹出层的位置 */
   position?: string;
   /** 按钮的 className */
-  className?: string;
+  className?: HTMLElement['className'];
   /** 传入 popover 显示的 children */
   popover?: any;
 }

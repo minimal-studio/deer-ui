@@ -22,7 +22,6 @@ export type PaginInfo = {
 } | DefaultPaginInfo
 
 export interface PaginationProps {
-
   /** 分页的存储数据，可以为不确定的结构，通过 infoMapper 做映射 */
   pagingInfo: PaginInfo;
   /** 分页切换时的回调 */

@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import { Icon } from '../icon';
 
-export interface AlertProps {
+export interface AlertProps extends React.HTMLProps<HTMLDivElement> {
   /** panel 的 title */
   title?: string;
   /** panel 的一项内容 */

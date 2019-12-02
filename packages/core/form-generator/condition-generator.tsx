@@ -12,7 +12,7 @@ export interface ConditionGeneratorProps extends FormFilterProps {
   /** 查询条件的配置 */
   conditionConfig: ConditionOptions;
   /** className */
-  className?: string;
+  className?: HTMLElement['className'];
   /** onSubmit */
   onSubmit?: (values) => void;
   /** 查询条件组的按钮 */

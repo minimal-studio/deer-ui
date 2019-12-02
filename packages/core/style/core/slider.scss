@@ -63,6 +63,7 @@ $rangerHandleScale: 20px;
       top: 0;
       transform: scale(0) translateY(-120%);
       transition: all 0.2s ease;
+      pointer-events: none;
       .caret {
         $s: 6px;
         position: absolute;

@@ -68,7 +68,8 @@ export default class SwitchButton extends PureComponent<SwitchButtonProps> {
               this.value = btnKey;
               onSwitch(_btnKey, isActive);
             }
-          }}>
+          }}
+        >
           {btnText}
         </span>
       );
@@ -81,7 +82,8 @@ export default class SwitchButton extends PureComponent<SwitchButtonProps> {
         <span className="indicator" style={{
           transform: `translateX(${activeDOM.offsetLeft}px)`,
           width: activeDOM.offsetWidth
-        }} />
+        }}
+        />
       </span>
     );
     return switchBtnGroup;

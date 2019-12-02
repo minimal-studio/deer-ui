@@ -14,7 +14,7 @@ export interface BaseForm<ChangeType = DefaultOnChangeType> {
   /** 显示标题 */
   title?: any | string;
   /** className */
-  className?: string;
+  className?: HTMLElement['className'];
   /** 是否必填|选 */
   required?: boolean;
   /** 默认的 onChange 并不起效 */

@@ -55,12 +55,13 @@ export default class InputSelector extends FormControlBasic<InputSelectorProps, 
 
   changeRef = (selectorVal) => {
     if (!selectorVal) return;
+    const { onChange } = this.props;
     // console.log(...args)
     const inputVal = this.getValue();
     this.setState({
       selectRef: selectorVal
     });
-    this.props.onChange(inputVal, selectorVal);
+    onChange && onChange(inputVal, selectorVal);
   }
 
   focus() {
@@ -99,14 +100,16 @@ export default class InputSelector extends FormControlBasic<InputSelectorProps, 
           {...other}
           values={values}
           onChange={this.changeRef}
-          value={selectRef}/>
+          value={selectRef}
+        />
         <Input
           {...inputProps}
           ref={this.saveInput}
           outputType={outputType}
           onChange={this.changeInput}
           value={inputVal}
-          onBlur={this.emitChange}/>
+          onBlur={this.emitChange}
+        />
       </div>
     );
   }

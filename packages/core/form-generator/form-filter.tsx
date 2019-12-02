@@ -17,7 +17,7 @@ import { Slider } from '@deer-ui/core/slider';
 import { ToolTip } from '@deer-ui/core/tooltip';
 import Switch from '@deer-ui/core/switch-button/switch-c';
 import { InputSelector } from '@deer-ui/core/input-selector';
-import { UIComponent } from '../utils/ui-component';
+import { UIComponent, loadPlugin } from '../utils/ui-component';
 import { FormOptionsItemEnhance } from './form-types';
 import { Button } from '../button';
 
@@ -296,14 +296,6 @@ export default class FormFilterHelper<P extends FormFilterProps> extends UICompo
 
   getRef = (ref) => this._refs[ref]
 
-  loadPlugin = (Plugin, props) => {
-    let P = IsFunc(Plugin) ? <Plugin /> : Plugin;
-
-    P = React.cloneElement(P, props);
-
-    return P;
-  }
-
   /**
    * 旧的表单插件接口
    */
@@ -317,7 +309,7 @@ export default class FormFilterHelper<P extends FormFilterProps> extends UICompo
     const component = customeComponent.component || customeComponent;
     const cusProps = customeComponent.props || {};
 
-    return this.loadPlugin(component, {
+    return loadPlugin(component, {
       ...other,
       ...cusProps,
       onChange: (val) => this.changeValue(val, ref),

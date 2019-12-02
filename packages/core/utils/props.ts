@@ -12,7 +12,7 @@ export interface ButtonProps {
   /** 是否占据一行 */
   block?: boolean;
   /** 设置 btn 的 class */
-  className?: string;
+  className?: HTMLElement['className'];
   /** btn 的字 */
   text?: string;
   /** btn 内的布局 */
@@ -63,7 +63,7 @@ export interface BtnItemConfig extends ButtonProps {
   /** 该按钮的操作 */
   action?: () => void;
   /** className */
-  className?: string;
+  className?: HTMLElement['className'];
 }
 
 export type Children = React.ReactNode | JSX.Element | JSX.ElementClass | JSX.ElementClass[] | JSX.Element[] | boolean | string | null | undefined;

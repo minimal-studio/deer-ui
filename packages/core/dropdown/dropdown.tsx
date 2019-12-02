@@ -17,7 +17,7 @@ export interface DropdownProps extends SelectorBasicProps, DropdownWrapperProps 
   // /** 所有的下拉参数的配置 */
   // values: SelectorValuesDescription;
   /** 给 dropdownMenu 的 class */
-  className?: string;
+  className?: HTMLElement['className'];
   /** 监听滚动时隐藏的外层元素 */
   scrollElem?: () => HTMLElement;
   /** 是否渲染在 react root 之外 */
@@ -154,7 +154,8 @@ export class Dropdown extends SelectorBasic<DropdownProps> {
                 <div className="action-btn" onClick={(e) => {
                   canSelectAll ? this.selectAll() : this.clearAll();
                   hide();
-                }}>
+                }}
+                >
                   {$T_IN(canSelectAll ? '全选' : cancelTitle)}
                 </div>
               )
@@ -167,7 +168,8 @@ export class Dropdown extends SelectorBasic<DropdownProps> {
                       const dataItem = this.values[idx];
                       // console.log(nextVal, idx)
                       this.handleClick(dataItem, idx, isMultiple ? null : hide);
-                    }}/>
+                    }}
+                    />
                   </div>
                 ) : (
                   <div className="__menus">
@@ -191,7 +193,8 @@ export class Dropdown extends SelectorBasic<DropdownProps> {
                               if (e && isMultiple) e.preventDefault();
                               this.handleClick(dataItem, idx, isMultiple ? null : hide);
                             }}
-                            {...dataItem}>
+                            {...dataItem}
+                          >
                           </MenuItem>
                         ) : null;
                       })
@@ -208,7 +211,8 @@ export class Dropdown extends SelectorBasic<DropdownProps> {
           multiple: isMultiple,
           single: !isMultiple,
           "has-val": hasVal
-        })}/>
+        })}
+      />
     );
   }
 }

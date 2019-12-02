@@ -1,7 +1,6 @@
 import React from 'react';
 
-export interface SubContentProps {
-
+export interface SubContentProps extends React.HTMLProps<HTMLDivElement> {
   /** 显示的元素 */
   displayElem?: any;
   /** subContent 的位置 */
@@ -10,8 +9,10 @@ export interface SubContentProps {
   children?: any;
 }
 
-const SubContent: React.SFC<SubContentProps> = ({ displayElem, children, position = 'left' }) => (
-  <div className={`__hide-container ${position}`}>
+const SubContent: React.SFC<SubContentProps> = ({
+  displayElem, children, position = 'left', ...other
+}) => (
+  <div className={`__hide-container ${position}`} {...other}>
     <span className="display-elem">{displayElem}</span>
     <div className="hide-content">
       <span className="caret" />

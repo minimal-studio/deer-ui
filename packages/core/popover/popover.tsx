@@ -29,7 +29,7 @@ export interface PopoverProps {
   /** 是否 update 组件 */
   update?: boolean;
   /** class name */
-  className?: string;
+  className?: HTMLElement['className'];
   /** class name */
   children?: Children;
   /** style */

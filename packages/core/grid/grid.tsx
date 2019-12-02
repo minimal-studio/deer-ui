@@ -52,16 +52,18 @@ export interface GridProps extends React.HTMLProps<HTMLElement> {
   /** 用于包装的外层组件 */
   component?: React.ElementType | 'div' | 'span';
   /** className */
-  className?: string;
+  className?: HTMLElement['className'];
   /** 边框的宽度 */
   space?: LayoutSpaces;
-  /** 对于 屏幕宽度 < 576px 的分布 */
+  /** 匹配屏幕宽度 < 576px 的比例 */
   xs?: RowSet;
-  /** 对于 屏幕宽度 < 768px, > 576px 的分布 */
+  /** 匹配屏幕宽度 < 768px, > 576px 的比例 */
   sm?: RowSet;
-  /** 对于 屏幕宽度 < 992px, > 768px 的分布 */
+  /** 匹配屏幕宽度 < 992px, > 768px 的比例 */
+  md?: RowSet;
+  /** 匹配屏幕宽度 < 1200px, > 992px 的比例 */
   lg?: RowSet;
-  /** 对于 屏幕宽度 < 1200px, > 992px 的分布 */
+  /** 匹配屏幕宽度 > 1200px 的比例 */
   xl?: RowSet;
   /** justify-items */
   justifyItems?: keyof MakeReadOnly<typeof JustifyItemsMap>;
@@ -93,7 +95,7 @@ export const Grid: React.SFC<GridProps> = (props) => {
     space, container, item, justifyItems = '', justifyContent,
     direction = '', wrap = '',
     justify = '', alignContent = '', alignItem = '', alignItems = '',
-    xs, sm, lg, xl, ...other
+    xs, sm, lg, xl, md, ...other
   } = props;
   const _alignItems = alignItems || alignItem;
   const _justifyContent = justifyContent || justify;
@@ -109,6 +111,7 @@ export const Grid: React.SFC<GridProps> = (props) => {
     [DirectionMap[direction]]: container && direction,
     [`xs-${xs}`]: xs,
     [`sm-${sm}`]: sm,
+    [`md-${md}`]: md,
     [`lg-${lg}`]: lg,
     [`xl-${xl}`]: xl,
     'g-item': isItem,

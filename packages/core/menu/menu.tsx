@@ -3,11 +3,9 @@ import React from 'react';
 import { $T } from '../utils';
 import { Icon, PureIcon, IconProps } from '../icon';
 
-export interface MenuProps {
+export interface MenuProps extends React.HTMLProps<HTMLDivElement> {
   /** 内容 */
   text?: any;
-  /** ID */
-  id?: string | number;
   /** Icon */
   icon?: string;
   /** 参考 PureIcon */
@@ -16,19 +14,18 @@ export interface MenuProps {
   s?: IconProps['s'];
   /** isActive */
   isActive?: boolean;
-  /** 点击 Menu 的回调 */
-  onClick?: (event?: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
 }
 
 const Menu: React.SFC<MenuProps> = (props) => {
   const {
-    isActive, text, icon, s, pureIcon, children, id, ...other
+    isActive, text, icon, s, pureIcon, children, ...other
   } = props;
   const I = pureIcon ? <PureIcon n={pureIcon} /> : icon && <Icon n={icon} s={s} />;
   return (
     <div
+      {...other}
       className={`menu-item${isActive ? ' active' : ''}`}
-      {...other}>
+    >
       {I}
       {$T(text)}
       {children}

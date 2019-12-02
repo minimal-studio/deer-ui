@@ -26,7 +26,7 @@ export interface ModalOptions extends DragPanelClassProps {
   /** id */
   id?: string | number;
   /** class name */
-  className?: string;
+  className?: HTMLElement['className'];
   /** 当 modal 打开是，挂载在 document.body 的 class */
   topClassName?: string;
   /** 宽度 */
@@ -89,7 +89,7 @@ export interface ModalProps extends ModalOptions, ModalRequiredProps {
   /** id */
   id?: string | number;
   /** class name */
-  className?: string;
+  className?: HTMLElement['className'];
   /** 当 modal 打开是，挂载在 document.body 的 class */
   topClassName?: string;
   /** 宽度 */

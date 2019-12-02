@@ -59,7 +59,8 @@ const Button: React.SFC<ButtonProps2> = (props) => {
       className={classNames}
       onClick={(e) => {
         if (clickable) Call(onClick, e);
-      }}>
+      }}
+    >
       <span className={`layout ${textLayout}`}>
         {iconDOM}
         {

@@ -25,7 +25,7 @@ export interface AvatarProps {
   /** icon 名称，参考 Icon */
   icon?: string;
   /** className */
-  className?: string;
+  className?: HTMLSpanElement['className'];
   /** 显示在右上角的提示 */
   tip?: boolean | string | number;
   /** 换头像后的回调 */
@@ -75,10 +75,12 @@ export class Avatar extends UIPureComponent<AvatarProps> {
               onClick={(e) => {
                 this.changeAvatar(src);
                 hide();
-              }}>
+              }}
+            >
               <img
                 alt=""
-                src={src}/>
+                src={src}
+              />
             </span>
           ))
         }
@@ -106,7 +108,8 @@ export class Avatar extends UIPureComponent<AvatarProps> {
     const _img = src && (
       <div style={{
         backgroundImage: `url(${src})`
-      }} className="img fixbg fill" />
+      }} className="img fixbg fill"
+      />
     );
 
     const child = children || text;
@@ -116,7 +119,8 @@ export class Avatar extends UIPureComponent<AvatarProps> {
       <span className={`__avatar ${className}`}>
         <span
           className={`avatar fixbg ${color}`}
-          style={sizeStyle}>
+          style={sizeStyle}
+        >
           <span className="c">
             {child}
           </span>
@@ -132,7 +136,8 @@ export class Avatar extends UIPureComponent<AvatarProps> {
 
     return _changeAvatarable ? (
       <DropdownWrapper position={position}
-        overlay={this.renderMoreOptions}>
+        overlay={this.renderMoreOptions}
+      >
         {avatarDOM}
       </DropdownWrapper>
     ) : avatarDOM;

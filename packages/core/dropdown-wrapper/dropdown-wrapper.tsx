@@ -18,6 +18,7 @@ import { queryIsMobile } from '../utils';
 
 interface State {
   isShow: boolean;
+  ready: boolean;
   outsideReady: boolean;
   searchValue: string;
 }
@@ -41,7 +42,7 @@ export interface DropdownWrapperProps {
   /** 弹出的位置，用 , 分隔，最多支持两个不冲突位置，如果冲突，则选择第一个值 */
   position?: string;
   /** className */
-  className?: string;
+  className?: HTMLElement['className'];
   /** 外层的 title */
   menuTitle?: string | number | Children;
   /** 接受函数 children，只在 show 的时候渲染 */
@@ -57,7 +58,7 @@ export interface DropdownWrapperProps {
   /** 用于渲染最外层的内容 */
   overlay?: (helper: FuncChildrenParams) => Children;
   /** style */
-  style?: React.CSSProperties;
+  style?: HTMLElement['style'];
 }
 
 const dropdownContainerID = 'DropdownContainer';
@@ -121,6 +122,7 @@ export class DropdownWrapper extends React.PureComponent<DropdownWrapperProps, S
 
   state = {
     isShow: false,
+    ready: false,
     outsideReady: !!dropdownContainerDOM,
     searchValue: ''
   };
@@ -167,6 +169,10 @@ export class DropdownWrapper extends React.PureComponent<DropdownWrapperProps, S
     this._withInput = typeof withInput == 'undefined' ? !isMobile : withInput;
     this._outside = typeof outside == 'undefined' ? isMobile : outside;
     this._position = positionFilter(position).split(' ');
+
+    this.setState({
+      ready: true,
+    });
   }
 
   handleClickAway = () => {
@@ -283,12 +289,14 @@ export class DropdownWrapper extends React.PureComponent<DropdownWrapperProps, S
         <CSSTransition
           key={transitionKey}
           classNames="drop-menu"
-          timeout={200}>
+          timeout={200}
+        >
           {isShow ? (
             <div
               ref={this._outside ? (e) => this.saveItems(e) : null}
               {...this.bindOverlayTrigger()}
-              className={overlayClasses}>
+              className={overlayClasses}
+            >
               <span className="caret" />
               {overlay && overlay(this.getPropsForOverlay())}
             </div>
@@ -327,7 +335,8 @@ export class DropdownWrapper extends React.PureComponent<DropdownWrapperProps, S
               placeholder={typeof menuTitle === 'string' ? menuTitle : ''}
               value={searchValue}
               className="search-input"
-              onChange={this.onSearch}/>
+              onChange={this.onSearch}
+            />
           )
         }
         <div className="icon-wrap">
@@ -430,9 +439,11 @@ export class DropdownWrapper extends React.PureComponent<DropdownWrapperProps, S
       <ClickAway ref={this.saveClickAway} onClickAway={this.handleClickAway}>
         <div
           className={classNames}
-          style={style}>
+          style={style}
+        >
           <div className="menu-wrapper" ref={(e) => { this.displayTitleDOM = e; }}
-            {...this.bindWrapperTrigger()}>
+            {...this.bindWrapperTrigger()}
+          >
             {
               this.childrenRender()
             }

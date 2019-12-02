@@ -44,23 +44,23 @@
 
 
 // Small devices (landscape phones, 576px and less)
-@media only screen and (max-width: $screen-xs-width) {
+@media only screen and (max-width: $screen-sm-width) {
   .grid {
     @include gridCale(12, 'xs', true);
   }  
 }
 
 // Small devices (landscape phones, 576px and up)
-@media (min-width: $screen-xs-width) {
+@media only screen and (min-width: $screen-sm-width) {
   .grid {
-    @include gridCale(12, 'xs', true);
+    @include gridCale(12, 'sm', true);
   }  
 }
 
 // Medium devices (tablets, 768px and up)
-@media only screen and (min-width: $screen-sm-width) {
+@media only screen and (min-width: $screen-md-width) {
   .grid {
-    @include gridCale(12, 'sm', true);
+    @include gridCale(12, 'md', true);
   }  
 }
 

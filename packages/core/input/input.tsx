@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import classnames from 'classnames';
 import { Call, HasValue, IsFunc } from '@mini-code/base-func';
-import { Sizes } from '../utils/props';
+import { Sizes, Children } from '../utils/props';
 import { Icon, IconProps } from '../icon';
 import { Button } from '../button';
 
@@ -26,9 +26,9 @@ export interface InputProps {
   /** placeholder */
   placeholder?: any;
   /** 固定的 title */
-  title?: any;
+  title?: Children;
   /** className */
-  className?: string;
+  className?: HTMLElement['className'];
   /** onChange 前执行的过滤器 */
   filter?: (value: FilterType) => FilterType;
   /** defaultValue */
@@ -42,10 +42,10 @@ export interface InputProps {
     text: string;
     color?: string;
     icon?: string;
-    className?: string;
+    className?: HTMLElement['className'];
   };
   /** 传入 input element 的属性 */
-  propsForInput?: {};
+  propsForInput?: React.HTMLProps<HTMLInputElement>;
   /** onChange */
   onChange?: (value, targetElement: HTMLElement) => void;
   /** onFocus */
@@ -213,7 +213,8 @@ export class Input extends Component<InputProps, State> {
         icon={inputBtnConfig.icon}
         onClick={() => {
           inputBtnConfig.action(this.iconInput);
-        }}>
+        }}
+      >
         {inputBtnConfig.text}
       </Button>
     );
@@ -226,12 +227,12 @@ export class Input extends Component<InputProps, State> {
     );
 
     return (
-      <div
-        className={classNames}>
-        <div
-          className="input-con">
-          <span className="input-group"
-            onClick={(e) => this.iconInput.focus()}>
+      <div className={classNames}>
+        <div className="input-con">
+          <span
+            className="input-group"
+            onClick={(e) => this.iconInput.focus()}
+          >
             {titleDOM}
             <input
               type={controlTypeMapper[type] || type}
@@ -255,7 +256,8 @@ export class Input extends Component<InputProps, State> {
                 val = this.filterVal(val);
                 this.changeVal(val, e.target);
               }}
-              ref={(e) => { this.iconInput = e; }}/>
+              ref={(e) => { this.iconInput = e; }}
+            />
           </span>
           {inputBtnDOM}
         </div>

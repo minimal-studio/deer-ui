@@ -9,7 +9,7 @@ import { DebounceClass } from '@mini-code/base-func';
 import Alert, { AlertProps } from '@deer-ui/core/alert/alert';
 import Toast from '@deer-ui/core/toast/toast';
 import Button from '@deer-ui/core/button/button';
-import { UIComponent } from '../utils/ui-component';
+import { UIComponent, loadPlugin } from '../utils/ui-component';
 
 import FormGenerator, { FormGeneratorProps } from '../form-generator/form-generator';
 import { ButtonProps } from '../utils';
@@ -22,7 +22,7 @@ export interface FormLayoutBtn extends ButtonProps {
   /** 该按钮是否需要预检查 */
   preCheck?: boolean;
   /** className */
-  className?: string;
+  className?: HTMLElement['className'];
 }
 
 export type FormLayoutBtnsConfig = FormLayoutBtn[];
@@ -31,7 +31,7 @@ export interface FormLayoutProps extends FormGeneratorProps {
   /** 只有一个按钮时传入的按钮 text */
   btnText?: string;
   /** FormLayout 的 className */
-  className?: string;
+  className?: HTMLElement['className'];
   /** 是否已准备好渲染 */
   ready?: boolean;
   /** 传入 Alert 控件的参数 */
@@ -45,11 +45,11 @@ export interface FormLayoutProps extends FormGeneratorProps {
   /** 操作返回的消息 */
   resDesc?: string;
   /** 在 form 之前插入的 children */
-  childrenBeforeForm?: any;
+  childrenBeforeForm?: JSX.Element;
   /** 在 form 之后插入的 children */
-  childrenAfterForm?: any;
+  childrenAfterForm?: JSX.Element;
   /** 在 form 的 children 前插入按钮 */
-  childrenBeforeBtn?: any;
+  childrenBeforeBtn?: JSX.Element;
 }
 
 const delayExec = (new DebounceClass()).exec;
@@ -193,7 +193,8 @@ export default class FormLayout extends UIComponent<FormLayoutProps> {
           type={type}
           color={color}
           className={className}
-          onClick={(e) => !isSubmit && this._handleClickBtn(btn)}/>
+          onClick={(e) => !isSubmit && this._handleClickBtn(btn)}
+        />
       );
     });
 
@@ -201,20 +202,21 @@ export default class FormLayout extends UIComponent<FormLayoutProps> {
       <div className={`form-layout${formClassName ? ` ${formClassName}` : ''}`}>
         <Toast ref={(e) => { this.toast = e; }}/>
         {tipDOM}
-        {childrenBeforeForm}
+        {loadPlugin(childrenBeforeForm, this.props)}
         <FormGenerator
           {...other}
           // type={formType}
           onSubmit={onSubmitForGen}
-          ref={this.saveFormRef}>
-          {childrenBeforeBtn}
+          ref={this.saveFormRef}
+        >
+          {loadPlugin(childrenBeforeBtn, this.props)}
           <div className="form-group">
             <span className="control-label" />
             <div className="form-btn-group">
               {btnGroup}
             </div>
           </div>
-          {childrenAfterForm}
+          {loadPlugin(childrenAfterForm, this.props)}
         </FormGenerator>
       </div>
     );

@@ -21,6 +21,7 @@ export interface SliderProps {
   withInput?: boolean;
   /** 范围 */
   range?: number[];
+  style?: React.CSSProperties;
 }
 
 interface State {
@@ -261,7 +262,7 @@ export default class Slider extends Component<SliderProps, State> {
   render() {
     const stateValue = this.valueFilter();
     const {
-      disabled, precent, range = [], withInput, basicUnit
+      disabled, precent, range = [], withInput, basicUnit, style,
     } = this.props;
     const { draping } = this.state;
 
@@ -282,7 +283,7 @@ export default class Slider extends Component<SliderProps, State> {
     );
 
     return (
-      <div className={classes}>
+      <div className={classes} style={style}>
         <div className="disabled-mask" />
         <div className="ranger"
           onTouchStart={(e) => this.handleMouseDown(e)}

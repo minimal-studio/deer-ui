@@ -57,6 +57,7 @@ export interface DatetimePickerProps extends DateBasicProps {
   didMount?: () => void;
   /** 默认值 */
   defaultValue?: string[];
+  style?: HTMLElement['style'];
   // /** 受控控件的值 */
   // value?: string[];
 }
@@ -271,19 +272,24 @@ export class DatetimePicker extends DateBasic<DatetimePickerProps> {
   }
 
   render() {
-    const { needTime, mode } = this.props;
+    const { needTime, mode, style } = this.props;
     return (
-      <div className={`__flatpickr input-control ${needTime ? 'long' : ''} ${mode}`}>
+      <div
+        style={style}
+        className={`__flatpickr input-control ${needTime ? 'long' : ''} ${mode}`}
+      >
         <div className="input-group right">
           <input
             type="text"
             className="form-control input-sm"
             id={this._id}
-            ref={(e) => { this._refs[this._id] = e; }}/>
+            ref={(e) => { this._refs[this._id] = e; }}
+          />
           <span className="input-addon"
             onClick={(e) => {
               if (this.datepicker) this.datepicker.toggle();
-            }}>
+            }}
+          >
             <Icon n="date"/>
           </span>
         </div>

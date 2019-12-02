@@ -38,3 +38,42 @@ export default () => (
     </Grid>
   </CardContainer>
 );
+
+const UserInfoCard = () => {
+  return (
+    <Card
+      container
+      className="bg_default"
+    >
+      <Card
+        style={{
+          width: 300,
+          margin: `10px auto`
+        }}
+      >
+        <div
+          style={{
+            height: 100,
+            lineHeight: `100px`,
+            textAlign: 'center',
+            backgroundColor: `#376BFB`,
+            color: '#FFF'
+          }}
+        >
+          产品图片
+        </div>
+        <Grid
+          container
+          space={10}
+        >
+          <Grid lg={12}>
+            产品信息
+          </Grid>
+          <Grid lg={12}>
+            价格 ¥ 10.00
+          </Grid>
+        </Grid>
+      </Card>
+    </Card>
+  );
+};

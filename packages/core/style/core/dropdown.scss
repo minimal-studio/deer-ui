@@ -308,7 +308,7 @@ $iconW: 20px;
   }
 }
 
-@media only screen and (max-width: $screen-xs-width) {
+@media only screen and (max-width: $screen-sm-width) {
   .__dropdown-menu {
     transition: background-color 0.2s ease;
     &.outside {
@@ -333,5 +333,5 @@ $iconW: 20px;
   }
 }
 
-@media only screen and (min-width: $screen-xs-width) {
+@media only screen and (min-width: $screen-sm-width) {
 }

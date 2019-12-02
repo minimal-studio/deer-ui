@@ -23,7 +23,7 @@ export interface FormGeneratorProps extends FormFilterProps<FormOptions> {
   // /** 表单的类型 */
   // type?: string;
   /** 表单的类型 */
-  className?: string;
+  className?: HTMLElement['className'];
   /** 是否显示 input 组建的 title */
   showInputTitle?: boolean;
   /** 表单类型为 submit 时触发的回调 */

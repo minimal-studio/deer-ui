@@ -23,7 +23,7 @@ export interface SelectorBasicProps {
   /** 与 React 受控组件行为一致，详情请参考 react 受控控件 https://reactjs.org/docs/forms.html */
   value?: any;
   /** className */
-  className?: string;
+  className?: HTMLElement['className'];
   /** 是否输出 number 类型 */
   isNum?: boolean;
   /** 是否可以多选 */
@@ -142,7 +142,7 @@ export default class SelectorBasic<
   wrapObjValToArr(values) {
     if (!values) return {};
     const { isNum } = this.props;
-    return Object.keys(values).map(valKey => ({
+    return Object.keys(values).map((valKey) => ({
       text: values[valKey],
       value: isNum ? +valKey : valKey
     }));

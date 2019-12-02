@@ -21,7 +21,7 @@ export interface TableRowProps {
   /** 是否使用竖列显示 */
   col?: boolean;
   /** className */
-  className?: string;
+  className?: HTMLElement['className'];
 }
 export type DescHelperProps = TableRowProps;
 

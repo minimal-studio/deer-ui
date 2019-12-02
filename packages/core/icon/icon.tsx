@@ -12,9 +12,9 @@ export interface IconProps {
   /** icon name */
   type?: string;
   /** className for icon */
-  className?: string;
+  className?: HTMLElement['className'];
   /** multiple class names, 例如 ['class1', 'class2'] */
-  classNames?: string[];
+  classNames?: HTMLElement['className'][];
   /** style */
   style?: React.CSSProperties;
   /** style */
@@ -29,7 +29,8 @@ export const Icon: React.SFC<IconProps> = (props) => {
   return (
     <i
       {...other}
-      className={iconClassName} />
+      className={iconClassName}
+    />
   );
 };
 Icon.defaultProps = {
@@ -39,7 +40,7 @@ Icon.defaultProps = {
   classNames: [],
 };
 
-const PureIcon: React.SFC<IconProps> = props => (
+const PureIcon: React.SFC<IconProps> = (props) => (
   <Icon {...props} useIconConfig={false} />
 );
 

@@ -47,6 +47,8 @@ textarea {
     min-width: auto !important;
     width: 80px;
     text-align: center;
+    position: relative;
+    z-index: 1;
   }
 
   .option-btns {

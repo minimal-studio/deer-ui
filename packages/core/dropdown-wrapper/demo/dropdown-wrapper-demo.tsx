@@ -9,18 +9,24 @@ const Test1 = () => {
           任意内容
         </div>
       );
-    }} />
+    }}
+    />
   );
 };
 const Test2 = () => {
   return (
-    <DropdownWrapper overlay={() => {
-      return (
-        <div className="p10" style={{ width: 400 }}>
+    <DropdownWrapper
+      style={{
+        margin: ''
+      }}
+      overlay={() => {
+        return (
+          <div className="p10" style={{ width: 400 }}>
           弹出内容
-        </div>
-      );
-    }}>
+          </div>
+        );
+      }}
+    >
       {
         (options) => {
           return (

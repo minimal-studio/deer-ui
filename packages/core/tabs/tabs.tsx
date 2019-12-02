@@ -27,7 +27,7 @@ export interface TabsProps {
   /** 初始化是的默认 tab 位置 */
   defaultTab?: number;
   /** className */
-  className?: string;
+  className?: HTMLElement['className'];
   /** tabs container 的 tabsClassName */
   tabsClassName?: string;
   /** tab 改变时的回调 */
@@ -128,7 +128,8 @@ export default class Tabs extends Component<TabsProps, State> {
         <div
           className={`tab-content ${contentClass}${isActive ? '' : ' hide'}`}
           key={tabKey || `tab-con-${idx}`}
-          style={height ? { height } : {}}>
+          style={height ? { height } : {}}
+        >
           {
             tabChild.props.children
           }
@@ -142,7 +143,8 @@ export default class Tabs extends Component<TabsProps, State> {
       const _tab = (
         <div key={tabKey || label}
           className={_labelClass}
-          draggable>
+          draggable
+        >
           <span onClick={(e) => this.onTapTab(idx)}>
             {tabChild}
           </span>
@@ -152,7 +154,8 @@ export default class Tabs extends Component<TabsProps, State> {
                 className="_close-btn"
                 title={closeTip}
                 clickToClose
-                onClick={(e) => onClose && onClose(idx)}>
+                onClick={(e) => onClose && onClose(idx)}
+              >
                 x
               </ToolTip>
             )

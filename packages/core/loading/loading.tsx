@@ -36,7 +36,8 @@ export default class Loading extends Component<LoadingProps> {
       <CSSTransition
         classNames="loading"
         timeout={timeout}
-        key={key}>
+        key={key}
+      >
         {/* {children} */}
         <div>
           {children}
@@ -96,7 +97,8 @@ export default class Loading extends Component<LoadingProps> {
     return (
       <div className={`loading-control ${loading ? 'loading' : 'planning'}`}>
         <TransitionGroup
-          component={null}>
+          component={null}
+        >
           {container}
         </TransitionGroup>
       </div>
