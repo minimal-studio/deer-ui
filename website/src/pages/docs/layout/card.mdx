@@ -4,18 +4,18 @@ title: Card
 menu: Layout
 ---
 
-# Card And CardContainer
+# Card
 
-[参考布局系统](/Preset-class#布局系统-layout)
+常用的布局容器
 
 ## Basic Usage
 
 ```jsx live noInline
-import { Card, CardContainer, Grid } from '@deer-ui/core';
+import { Card, Grid } from '@deer-ui/core';
 
 function Example() {
   return (
-    <CardContainer className="bg_default">
+    <Card container className="bg_default">
       <Grid container space={5}>
         <Grid item xs={12} sm={6} lg={6}>
           <Card p={20}>
@@ -48,7 +48,53 @@ function Example() {
           </Card>
         </Grid>
       </Grid>
-    </CardContainer>
+    </Card>
+  )
+}
+render(<Example />);
+```
+
+## 模拟产品信息
+
+```jsx live noInline
+import { Card, Grid } from '@deer-ui/core';
+
+function Example() {
+  return (
+    <Card
+      container
+      className="bg_default"
+    >
+      <Card
+        style={{
+          width: 300,
+          margin: `10px auto`
+        }}
+      >
+        <div
+          style={{
+            height: 100,
+            lineHeight: `100px`,
+            textAlign: 'center',
+            backgroundColor: `#376BFB`,
+            color: '#FFF'
+          }}
+        >
+          产品图片
+        </div>
+        <Grid
+          container
+          space={10}
+        >
+          <Grid lg={12}>
+            产品信息
+          </Grid>
+          <Grid lg={12}>
+            价格 ¥ 10.00
+          </Grid>
+        </Grid>
+      </Card>
+    </Card>
   )
 }
 render(<Example />);
@@ -58,7 +104,7 @@ render(<Example />);
 
 ```jsx live noInline
 import React, { useState } from "react";
-import { Card, CardContainer, Grid } from '@deer-ui/core';
+import { Card, Grid } from '@deer-ui/core';
 import { GenerateNumberRange } from "@mini-code/base-func";
 
 const keyboardNumbs = GenerateNumberRange([1, 9]);
@@ -66,7 +112,7 @@ const keyboardNumbs = GenerateNumberRange([1, 9]);
 const SimulationKeyboard = () => {
   const [inputVal, setinputVal] = useState(0);
   return (
-    <CardContainer className="bg_default"
+    <Card container className="bg_default"
       style={{maxWidth: 400}}
     >
       <div
@@ -143,7 +189,7 @@ const SimulationKeyboard = () => {
           </Grid>
         </Grid>
       </Grid>
-    </CardContainer>
+    </Card>
   );
 };
 

@@ -9,12 +9,19 @@ import * as MockDataForTable from './mock-data/table';
 import MockData from './mock-data/mock-data';
 import FormOptions from './mock-data/form-options';
 
-import './style.css';
+import './style.scss';
+
+/**
+ * 如果为开发环境，加载 core 的样式
+ * 因为 react-ui-doc 已经加载了 core 的样式，无需重复加载
+ */
+if (process.env.NODE_ENV === 'development') {
+  require('@deer-ui/core/style/default.scss');
+}
 
 export default function Layout({ children }) {
   return (
     <>
-      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/themes/airbnb.css" />
       <LiveConfig
         modules={{
           react: React,
@@ -29,6 +36,7 @@ export default function Layout({ children }) {
         }}
       />
       {children}
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/themes/airbnb.css" />
     </>
   );
 }

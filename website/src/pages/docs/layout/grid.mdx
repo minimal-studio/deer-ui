@@ -2,6 +2,7 @@
 name: Grid
 title: Grid
 menu: Layout
+order: 0
 ---
 
 # Grid
@@ -10,7 +11,7 @@ menu: Layout
 
 ## 工作原理
 
-基于 css3 的 flex 布局，将每一个行（Row）平均切割为 12 等份，将根据屏幕大小以及传入的尺寸比例自动排版布局，同时提供 flex 的对齐方式。
+基于 css3 的 flex 布局，将每一个行（Row）平均切割为 12 等份的（Column），将根据屏幕大小以自动按照指定比例排版，同时支持所有 flex 对齐方式。
 
 ## Basic Usage
 
@@ -21,34 +22,78 @@ function Example() {
   return (
     <CardContainer className="bg_default">
       <Grid container space={5}>
-        <Grid xs={12} sm={12} lg={12}>
+        <Grid
+          xs={12}
+          sm={10}
+          md={8}
+          lg={6}
+          xl={4}
+        >
           <Card p={20}>
-            xs-12, sm-12, lg-12
+            xs-12 sm-10 md-8 lg-6 xl-4
           </Card>
         </Grid>
-        <Grid xs={12} sm={6} lg={6}>
+        <Grid
+          xs={12}
+          sm={10}
+          md={8}
+          lg={6}
+          xl={4}
+        >
           <Card p={20}>
-            xs-12, sm-6, lg-6
+            xs-12 sm-10 md-8 lg-6 xl-4
           </Card>
         </Grid>
-        <Grid xs={12} sm={6} lg={6}>
-          <Card p={20}>
-            xs-12, sm-6, lg-6
+        <Grid
+          xs={12}
+          sm={10}
+          md={8}
+          lg={6}
+          xl={4}
+        >
+          <Card
+            p={20}
+          >
+            xs-12 sm-10 md-8 lg-6 xl-4
           </Card>
         </Grid>
-        <Grid xs={12} sm={8} lg={8}>
-          <Card p={20}>
-            xs-12, sm-8, lg-8
+        <Grid
+          xs={12}
+          sm={10}
+          md={8}
+          lg={6}
+          xl={4}
+        >
+          <Card
+            p={20}
+          >
+            xs-12 sm-10 md-8 lg-6 xl-4
           </Card>
         </Grid>
-        <Grid xs={12} sm={4} lg={4}>
-          <Card p={20}>
-            xs-12, sm-4, lg-4
+        <Grid
+          xs={12}
+          sm={10}
+          md={8}
+          lg={6}
+          xl={4}
+        >
+          <Card
+            p={20}
+          >
+            xs-12 sm-10 md-8 lg-6 xl-4
           </Card>
         </Grid>
-        <Grid xs={3} sm={3} lg={3}>
-          <Card p={20}>
-            xs-3, sm-3, lg-3
+        <Grid
+          xs={12}
+          sm={10}
+          md={8}
+          lg={6}
+          xl={4}
+        >
+          <Card
+            p={20}
+          >
+            xs-12 sm-10 md-8 lg-6 xl-4
           </Card>
         </Grid>
       </Grid>

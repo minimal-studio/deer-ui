@@ -6,58 +6,112 @@ menu: Getting Started
 
 # @deer-ui
 
-基于 React 的可扩展的 UI 库。
+基于 React 的可扩展的 UI 库，用最简单的方式开发 web 应用。
 
-## Support
+## Feature
 
-- 支持客户端渲染的 React 应用
-- 支持服务端渲染的 React 应用 (例如 Gatsby, Next)
+- [x] 基于 Flex 布局系统
+- [x] 表单控制器（FormController）
+  - [x] 声明式表单逻辑
+- [x] 功能 Table
+  - [x] 固定表头
+  - [x] 固定前后列（Fixed Column）
+- [x] 设备支持
+  - [x] Desktop
+  - [x] Mobile
+- [x] 代码提示（code hint）
+- [x] 服务端渲染（SSR）
+  - [x] Gatsby
+  - [x] Next
 
-## Installation
+## Usage
 
-### core
-
-核心 UI 库
+> @deer-ui/core
 
 ```shell
 yarn add @deer-ui/core @mini-code/base-func unistore
 ```
 
-### enhance-ui
-
-增强 UI 库
+> @deer-ui/core 扩展 UI 库，可选
 
 ```shell
-yarn add @deer-ui/core @mini-code/base-func unistore @deer-ui/enhance-ui
+yarn add @deer-ui/enhance-ui @deer-ui/core @mini-code/base-func unistore
 ```
 
-## Usage
+## FormController quick start
 
 ```js
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { ShowModal, CloseModal } from '@deer-ui/core/modal';
-import { Button } from '@deer-ui/core/button';
+import React, { useState } from 'react';
+import {
+  FormLayout, Button, Radio,
+  FormOptions, FormLayoutBtnsConfig
+} from '@deer-ui/core';
 
-const handleClick = (e) => {
-  const ModalID = ShowModal({
-    title: 'Overlay',
-    elem: e,
-    children: (
-      <div>Content</div>
-    )
-  })
+const FormLayoutDemo = () => {
+  const [layout, setLayout] = useState('horizontal');
+  const [resDesc, setResDesc] = useState('');
 
-  // CloseModal(ModalID)
+  const submit = (formData, actingRef) => {
+    // 模拟获取数据
+    setTimeout(() => {
+      setResDesc({
+        hasErr: false,
+        resDesc: '成功'
+      });
+    }, 800);
+  }
+
+  const formBtns: FormLayoutBtnsConfig = [
+    {
+      action: (formRef, actingRef) => {
+        submit(formRef.value, actingRef);
+      },
+      type: 'submit',
+      text: 'Button',
+      actingRef: 'forTest'
+    },
+  ];
+
+  const formOptions: FormOptions = [
+    {
+      type: 'input',
+      ref: 'InputField',
+      defaultValue: '123',
+    },
+    {
+      type: 'radio',
+      ref: "RadioField",
+      values: {
+        radioValue1: 'radioText1',
+        radioValue2: 'radioText2',
+      }
+    }
+  ];
+
+  return (
+    <>
+      <Radio
+        onChange={nextLayout => setLayout(nextLayout)}
+        defaultValue="horizontal"
+        values={{
+          'horizontal': '水平布局',
+          'vertical': '垂直布局',
+          'flow': '流布局',
+        }} />
+      <FormLayout
+        layout={layout}
+        formBtns={formBtns}
+        onChange={(changedValues, ref, currChangeValue) => {
+
+        }}
+        formOptions={formOptions}/>
+    </>
+  );
 }
-
-const App = () => (
-  <Button onClick={handleClick}>
-    Overlay
-  </Button>
-)
-
-ReactDOM.render(<App />, document.querySelector('#Main'));
+ReactDOM.render(
+  <FormLayoutDemo />,
+  document.querySelector('#Main')
+);
 ```
 
 ## Local dev
@@ -65,13 +119,10 @@ ReactDOM.render(<App />, document.querySelector('#Main'));
 ```shell
 git clone https://github.com/minimal-studio/deer-ui
 cd deer-ui
-yarn
-yarn dev:doc
+yarn; yarn dev:doc
 ```
 
 ## Reference
 
 - [Online Doc](https://ui.thinkmore.xyz/)
-- [FormGenerator](https://ui.thinkmore.xyz/#/G-Desc)
 - [CHANGELOG](./CHANGELOG.md)
-- [Components Desc](./docs/components.md)

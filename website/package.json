@@ -11,12 +11,13 @@
   "author": "Alex",
   "license": "MIT",
   "dependencies": {
-    "gatsby": "^2.18.5",
-    "gatsby-plugin-layout": "^1.1.16",
     "codemirror": "^5.42.2",
     "fs-extra": "^8.1.0",
+    "gatsby": "^2.18.5",
+    "gatsby-plugin-layout": "^1.1.16",
+    "gatsby-plugin-sass": "^2.1.24",
     "jest": "^24.5.0",
-    "react-ui-doc": "^0.2.0-alpha1.9"
+    "react-ui-doc": "^1.0.0-rc1.6"
   },
   "devDependencies": {
     "@mini-code/base-func": "^1.1.0",

@@ -824,7 +824,7 @@
     "@babel/helper-plugin-utils" "^7.0.0"
     "@babel/plugin-transform-typescript" "^7.7.4"
 
-"@babel/runtime@^7.0.0", "@babel/runtime@^7.1.2", "@babel/runtime@^7.4.5", "@babel/runtime@^7.5.1", "@babel/runtime@^7.6.3", "@babel/runtime@^7.7.2", "@babel/runtime@^7.7.4":
+"@babel/runtime@^7.0.0", "@babel/runtime@^7.1.2", "@babel/runtime@^7.4.5", "@babel/runtime@^7.5.1", "@babel/runtime@^7.5.5", "@babel/runtime@^7.6.3", "@babel/runtime@^7.7.2", "@babel/runtime@^7.7.4":
   version "7.7.4"
   resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.7.4.tgz#b23a856751e4bf099262f867767889c0e3fe175b"
   integrity sha512-r24eVUUr0QqNZa+qrImUk8fn5SPhHq+IfYvIoIMg0do3GdK9sMdiLKP3GYVVaxpPKORgm8KRKaNTEhAjgIpLMw==
@@ -872,12 +872,13 @@
     exec-sh "^0.3.2"
     minimist "^1.2.0"
 
-"@deer-ui/core@^4.0.0-beta2.6":
-  version "4.0.0-beta2.8"
-  resolved "https://registry.yarnpkg.com/@deer-ui/core/-/core-4.0.0-beta2.8.tgz#3148295e285c316f478f4532036fe3d4ca497c1e"
-  integrity sha512-QVCNbal0LA+3Us6/aZEpPC9ge+ZQCzGK58yGZeyNwo6WQE/JF4PTrw22OZLH+yVaI06aFCY9OJdFG/yWxlIfGA==
+"@deer-ui/core@^4.0.0-rc1.2":
+  version "4.0.0-rc1.2"
+  resolved "https://registry.yarnpkg.com/@deer-ui/core/-/core-4.0.0-rc1.2.tgz#d8aef13db54bd51cbc07ced68c5fd079d4aa8db0"
+  integrity sha512-WJiwomHHjGGdSRrAs7Ayb3ugOk92OdBsr3wNsVZfhJAhRlRJlJFyLzo8ppNSdIs7lFV7HHbZ6xrfTq/y8ZiBug==
   dependencies:
     classnames "^2.2.6"
+    unistore "^3.5.1"
 
 "@emotion/is-prop-valid@^0.8.1":
   version "0.8.5"
@@ -1366,11 +1367,6 @@
   version "1.0.9"
   resolved "https://registry.yarnpkg.com/@mikaelkristiansson/domready/-/domready-1.0.9.tgz#b2b85d8ac7bb2797e577050b61aeaf1b26fbd906"
   integrity sha512-FOAjeRHULSWXd6JMuCDwf3zPbe11kP971+Bufrj9M8rQ33ZMtThgKd6IJgzj6tr/+1Rq3czzLI1LAa9x0IC92w==
-
-"@mini-code/base-func@^1.0.2":
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/@mini-code/base-func/-/base-func-1.0.2.tgz#55e94ee0207d1a893c3460bf9d1b08d925df2b8b"
-  integrity sha512-KKxEUXksbPDePZmT0jjgIsDXDWyswO8+Xdfrs9yy9j9dFM+DHkcaBM9RZAdpEW9xgT9OoBJn/NvxrQGonMJ81w==
 
 "@mini-code/base-func@^1.1.0":
   version "1.1.0"
@@ -3452,6 +3448,15 @@ cliui@^5.0.0:
     strip-ansi "^5.2.0"
     wrap-ansi "^5.1.0"
 
+clone-deep@^4.0.1:
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/clone-deep/-/clone-deep-4.0.1.tgz#c19fd9bdbbf85942b4fd979c84dcf7d5f07c2387"
+  integrity sha512-neHB9xuzh/wk0dIHweyAXv2aPGZIVk3pLMe+/RNzINf17fe0OG96QroktYAUm7SM1PBnzTabaLboqqxDyMU+SQ==
+  dependencies:
+    is-plain-object "^2.0.4"
+    kind-of "^6.0.2"
+    shallow-clone "^3.0.0"
+
 clone-response@1.0.2, clone-response@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/clone-response/-/clone-response-1.0.2.tgz#d1dc973920314df67fbeb94223b4ee350239e96b"
@@ -4167,7 +4172,7 @@ cssstyle@^1.0.0:
   dependencies:
     cssom "0.3.x"
 
-csstype@^2.2.0:
+csstype@^2.2.0, csstype@^2.6.7:
   version "2.6.7"
   resolved "https://registry.yarnpkg.com/csstype/-/csstype-2.6.7.tgz#20b0024c20b6718f4eda3853a1f5a1cce7f5e4a5"
   integrity sha512-9Mcn9sFbGBAdmimWb2gLVDtFJzeKtDGIr76TUqmjZrw9LFXBMSU70lcs+C0/7fyCd6iBDqmksUcCOUIkisPHsQ==
@@ -4610,6 +4615,14 @@ dom-helpers@^3.2.1:
   integrity sha512-LnuPJ+dwqKDIyotW1VzmOZ5TONUN7CwkCR5hrgawTUbkBGYdeoNLZo6nNfGkCrjtE1nXXaj7iMMpDa8/d9WoIA==
   dependencies:
     "@babel/runtime" "^7.1.2"
+
+dom-helpers@^5.0.1:
+  version "5.1.3"
+  resolved "https://registry.yarnpkg.com/dom-helpers/-/dom-helpers-5.1.3.tgz#7233248eb3a2d1f74aafca31e52c5299cc8ce821"
+  integrity sha512-nZD1OtwfWGRBWlpANxacBEZrEuLa16o1nh7YopFWeoF68Zt8GGEmzHu6Xv4F3XaFIC+YXtTLrzgqKxFgLEe4jw==
+  dependencies:
+    "@babel/runtime" "^7.6.3"
+    csstype "^2.6.7"
 
 dom-iterator@^1.0.0:
   version "1.0.0"
@@ -6207,6 +6220,14 @@ gatsby-plugin-robots-txt@^1.5.0:
   dependencies:
     "@babel/runtime" "^7.5.1"
     generate-robotstxt "^7.1.0"
+
+gatsby-plugin-sass@^2.1.24:
+  version "2.1.24"
+  resolved "https://registry.yarnpkg.com/gatsby-plugin-sass/-/gatsby-plugin-sass-2.1.24.tgz#45e0eaf9a108b224f9b9fd65cffe5c6332e58b98"
+  integrity sha512-Ut5ba85jTEFBxT4lL+830nLykySk7HKfDhefcsIPweUraw/KBd3i6zXq0UJ4MuYmcmNGB+X52ZEzOsvXIb6RLQ==
+  dependencies:
+    "@babel/runtime" "^7.7.4"
+    sass-loader "^7.3.1"
 
 gatsby-plugin-sharp@^2.2.32:
   version "2.3.4"
@@ -8875,7 +8896,7 @@ loader-runner@^2.4.0:
   resolved "https://registry.yarnpkg.com/loader-runner/-/loader-runner-2.4.0.tgz#ed47066bfe534d7e84c4c7b9998c2a75607d9357"
   integrity sha512-Jsmr89RcXGIwivFY21FcRrisYZfvLMTWx5kOLc+JTxtpBOG6xML0vzbc6SEQG2FO9/4Fc3wW4LVcB5DmGflaRw==
 
-loader-utils@^1.0.2, loader-utils@^1.1.0, loader-utils@^1.2.3:
+loader-utils@^1.0.1, loader-utils@^1.0.2, loader-utils@^1.1.0, loader-utils@^1.2.3:
   version "1.2.3"
   resolved "https://registry.yarnpkg.com/loader-utils/-/loader-utils-1.2.3.tgz#1ff5dc6911c9f0a062531a4c04b609406108c2c7"
   integrity sha512-fkpz8ejdnEMG3s37wGL07iSBDg99O9D5yflE9RGNH3hRdx9SOwYfnGYdZOUIZitN8E+E2vkq3MUMYMvPYl5ZZA==
@@ -11690,15 +11711,25 @@ react-simple-code-editor@^0.10.0:
   resolved "https://registry.yarnpkg.com/react-simple-code-editor/-/react-simple-code-editor-0.10.0.tgz#73e7ac550a928069715482aeb33ccba36efe2373"
   integrity sha512-bL5W5mAxSW6+cLwqqVWY47Silqgy2DKDTR4hDBrLrUqC5BXc29YVx17l2IZk5v36VcDEq1Bszu2oHm1qBwKqBA==
 
-react-ui-doc@^0.2.0-alpha1.9:
-  version "0.2.0-alpha1.9"
-  resolved "https://registry.yarnpkg.com/react-ui-doc/-/react-ui-doc-0.2.0-alpha1.9.tgz#d8fcc9404fb0e7078e4273ecd4824574995f5003"
-  integrity sha512-ibgrCu4mcHKuQaR2KCWrlTqoLFAxH4+20kEfBELjGiUBtgek8LK65tZn1zLmW/f1ZzQcwjSGGe9nMPbZRPgnig==
+react-transition-group@^4.0.1:
+  version "4.3.0"
+  resolved "https://registry.yarnpkg.com/react-transition-group/-/react-transition-group-4.3.0.tgz#fea832e386cf8796c58b61874a3319704f5ce683"
+  integrity sha512-1qRV1ZuVSdxPlPf4O8t7inxUGpdyO5zG9IoNfJxSO0ImU2A1YWkEQvFPuIPZmMLkg5hYs7vv5mMOyfgSkvAwvw==
   dependencies:
-    "@deer-ui/core" "^4.0.0-beta2.6"
+    "@babel/runtime" "^7.5.5"
+    dom-helpers "^5.0.1"
+    loose-envify "^1.4.0"
+    prop-types "^15.6.2"
+
+react-ui-doc@^1.0.0-rc1.6:
+  version "1.0.0-rc1.6"
+  resolved "https://registry.yarnpkg.com/react-ui-doc/-/react-ui-doc-1.0.0-rc1.6.tgz#cce6b902d0a968bb05747c43ccc4be0d07d8353c"
+  integrity sha512-zJnXz4SikWpqSCpprwobyJzT+HsWXju0hgvFV/rLZLKpLeJ5522X6PJ0fgrin6TmokgNGonQAkXOIb/i8fZcKw==
+  dependencies:
+    "@deer-ui/core" "^4.0.0-rc1.2"
     "@mdx-js/mdx" "^1.5.1"
     "@mdx-js/react" "^1.5.1"
-    "@mini-code/base-func" "^1.0.2"
+    "@mini-code/base-func" "^1.1.0"
     "@types/styled-components" "^4.1.19"
     babel-plugin-styled-components "^1.10.0"
     deepmerge "^4.2.1"
@@ -11726,6 +11757,7 @@ react-ui-doc@^0.2.0-alpha1.9:
     prismjs "^1.16.0"
     react-helmet "^5.2.0"
     react-live "^2.2.1"
+    react-transition-group "^4.0.1"
     styled-components "^4.4.0"
     unist-util-visit "^2.0.0"
 
@@ -12438,6 +12470,17 @@ sane@^4.0.3:
     minimist "^1.1.1"
     walker "~1.0.5"
 
+sass-loader@^7.3.1:
+  version "7.3.1"
+  resolved "https://registry.yarnpkg.com/sass-loader/-/sass-loader-7.3.1.tgz#a5bf68a04bcea1c13ff842d747150f7ab7d0d23f"
+  integrity sha512-tuU7+zm0pTCynKYHpdqaPpe+MMTQ76I9TPZ7i4/5dZsigE350shQWe5EZNl5dBidM49TPET75tNqRbcsUZWeNA==
+  dependencies:
+    clone-deep "^4.0.1"
+    loader-utils "^1.0.1"
+    neo-async "^2.5.0"
+    pify "^4.0.1"
+    semver "^6.3.0"
+
 sax@>=0.6.0, sax@^1.2.4, sax@~1.2.4:
   version "1.2.4"
   resolved "https://registry.yarnpkg.com/sax/-/sax-1.2.4.tgz#2816234e2378bddc4e5354fab5caa895df7100d9"
@@ -12637,6 +12680,13 @@ sha.js@^2.4.0, sha.js@^2.4.8:
   dependencies:
     inherits "^2.0.1"
     safe-buffer "^5.0.1"
+
+shallow-clone@^3.0.0:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/shallow-clone/-/shallow-clone-3.0.1.tgz#8f2981ad92531f55035b01fb230769a40e02efa3"
+  integrity sha512-/6KqX+GVUdqPuPPd2LxDDxzX6CAbjJehAAOKlNpqqUpAqPM6HeL8f+o3a+JsyGjn2lv0WY8UsTgUJjU9Ok55NA==
+  dependencies:
+    kind-of "^6.0.2"
 
 shallow-compare@^1.2.2:
   version "1.2.2"
@@ -14204,6 +14254,11 @@ unist-util-visit@^2.0.0:
     "@types/unist" "^2.0.0"
     unist-util-is "^4.0.0"
     unist-util-visit-parents "^3.0.0"
+
+unistore@^3.5.1:
+  version "3.5.1"
+  resolved "https://registry.yarnpkg.com/unistore/-/unistore-3.5.1.tgz#2ce7e17524f8e1390adaf59a88abdeb39e455333"
+  integrity sha512-lagQJ5SeDssjh9tYVwOlPloDCLpn0lvHkvOpf+X4q4thnMJ3uLJcT6YO9cuww8K9qsJOyUWKufdfIF3qUe/9ow==
 
 universalify@^0.1.0:
   version "0.1.2"

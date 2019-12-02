@@ -4,40 +4,18 @@ title: Flex
 menu: Layout
 ---
 
-# Flex layout System
+# Flex layout
 
-规则: 3 个重要的 class，用于构建 layout 系统的基线
-
-- .grid: 为 flex 布局的起点, 一共切割为 12 份
-- .space-[5, 10, 15]: 以 5 为单位的，每个单元的 padding
-- xs, sm, lg, xl: [1, 2, 3, ..., 12]: 为具体定格元素布局的单元, 一共 12 份
-
-```js
-<div className="grid space-5">
-  <div className="sm-3 xs-12">
-    ...
-  </div>
-  <div className="sm-4 xs-12">
-    ...
-  </div>
-  <div className="sm-1 xs-12">
-    ...
-  </div>
-  <div className="sm-7 xs-12">
-    // 新占一行
-    ...
-  </div>
-</div>
-```
+`Grid` 组件的 css 布局基础，建议构建 page 使用 [`Grid`](/docs/layout/grid/)
 
 ## Demo
 
 ```jsx live noInline
-import { Card } from '@deer-ui/core';
+import { CardContainer, Card } from '@deer-ui/core';
 
 function Example() {
   return (
-    <div className="card-container bg_default">
+    <CardContainer className="bg_default">
       <div className="grid space-20">
         <div className="sm-6 xs-12">
           <Card p={10}>
@@ -85,8 +63,49 @@ function Example() {
           </Card>
         </div>
       </div>
-    </div>
+    </CardContainer>
   )
 }
 render(<Example />);
+```
+
+## Rule
+
+- GridContainer: 表示一行 (Row), `.grid` flex layout 的起点, 并且会将子元素切割为 12 份
+  - Spacing: `space-[5, 10, 15, 20]` 以 5px 的倍数设置每个 grid item 的 padding
+  - Align: 提供 flex 的所需的 align 支持
+- GridItem: 表示一列 (Column)
+  - 每个 Column 占用的宽度: ['auto', 1, 2, 3, ..., 12]: 为具体定格元素布局的单元, 一共 12 份
+  - 占用宽度的尺寸比例
+    - xs: 屏幕小于 576px
+    - xm: 576px ~ 768px
+    - md: 768px ~ 992px
+    - lg: 992px ~ 1200px
+    - xl: > 1200px
+
+可以在 `/core/style/base/variable.scss` 中找到定义, 并且可以轻松重写
+
+```scss
+$screen-sm-width: 576px;
+$screen-md-width: 768px;
+$screen-lg-width: 992px;
+$screen-xl-width: 1200px;
+```
+
+```js
+<div className="grid space-5">
+  <div className="sm-3 xs-12">
+    ...
+  </div>
+  <div className="sm-4 xs-12">
+    ...
+  </div>
+  <div className="sm-1 xs-12">
+    ...
+  </div>
+  <div className="sm-7 xs-12">
+    // 新占一行
+    ...
+  </div>
+</div>
 ```
