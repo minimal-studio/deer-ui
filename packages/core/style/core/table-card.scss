@@ -1,21 +1,13 @@
 // @import "../var.scss";
 
 .table-card {
-  display: flex;
-  flex-wrap: wrap;
-  padding: 10px;
-  // justify-content: space-between;
-  @include card();
   min-height: 100px;
   .item {
-    flex-basis: 32%;
-    margin: 0 1% 1% 0;
     border: $form-control-border-width solid #f3f3f3;
     background-color: #fafafa;
     padding: $base-container-padding;
     line-height: 22px;
     border-radius: $base-border-radius;
-    min-width: 250px;
     transition: all ease 0.3s;
     position: relative;
     .link-btn {
@@ -37,6 +29,8 @@
     .title {
       width: 100px;
       color: $form-label-text-color;
+      text-align: right;
+      margin-right: 10px;
     }
     .content {
       color: $form-content-text-color;

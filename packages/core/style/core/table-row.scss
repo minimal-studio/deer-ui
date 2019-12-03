@@ -45,3 +45,17 @@
     }
   }
 }
+
+
+@media only screen and (max-width: $screen-sm-width) {
+  .table-row {
+    .item {
+      flex-direction: column;
+
+      .t {
+        flex-basis: auto;
+        margin-bottom: 5px;
+      }
+    }
+  }
+}

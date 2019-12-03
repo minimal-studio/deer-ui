@@ -33,27 +33,14 @@ export type DescHelperProps = TableRowProps;
  * @extends {ColumnFilter}
  */
 export default class TableRow extends ColumnFilter<TableRowProps> {
-  state = {
-    ready: false,
-    defaultCol: undefined
-  }
-
-  componentDidMount() {
-    this.setState({
-      ready: true,
-      defaultCol: queryIsMobile()
-    });
-  }
-
   render() {
-    const { ready, defaultCol } = this.state;
     const {
-      record = {}, className = '', col = defaultCol
+      record = {}, className = '', col
     } = this.props;
     const columns = this.getColumns();
     let row = 0;
 
-    return ready ? (
+    return (
       <div className={`table-row ${className} ${col ? 'col' : ''}`}>
         {
           columns.map((column, idx) => {
@@ -80,6 +67,6 @@ export default class TableRow extends ColumnFilter<TableRowProps> {
           })
         }
       </div>
-    ) : null;
+    );
   }
 }
