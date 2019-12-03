@@ -4,19 +4,101 @@ import ReactDOM from 'react-dom';
 
 import { Call, GenerteID } from '@mini-code/base-func';
 import { Provider, connect } from 'unistore/react';
+import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
-import { $T_IN, queryIsMobile } from '../utils';
+import { $T_IN, getIsMobile, queryIsMobile } from '../utils';
 import { Children } from '../utils/props';
 import setDOMById from '../utils/set-dom';
+import { Icon } from '../icon';
 import ModalHelper from './modal-helper';
 import Modal, { ModalOptions } from './modal';
 import {
   windowManagerActions,
   windowManagerStore
 } from './window-manager';
-import { setupModal } from './modal-setup';
 
 let connectedStore;
+const selector = (state) => state;
+
+class ModalEntity extends ModalHelper {
+  componentDidMount() {
+    // console.log(this)
+    this.setModal({
+      ...this.props,
+      isOpen: true,
+    });
+  }
+
+  render() {
+    const { children, onCloseModal } = this.props;
+    return (
+      <Modal
+        {...this.state.modalSetting}
+        {...this.props}
+        onCloseModal={onCloseModal || this.closeModal.bind(this)}>
+        {children}
+      </Modal>
+    );
+  }
+}
+
+const ModalsRender = (props) => {
+  connectedStore = props;
+  const {
+    sectionsList, closeWindow, selectWindow, sectionsQueue,
+    minimizeWindow, minSecQueue
+  } = props;
+  const sections = Array.isArray(sectionsQueue) && sectionsQueue.map((key) => {
+    const currItem = sectionsList[key];
+    if (!currItem) return null;
+    const { id } = currItem;
+    const animateType = Modal.animateTypeFilter(currItem);
+    const sectionId = id;
+    const currSectionIdx = sectionsQueue.indexOf(sectionId);
+    return (
+      <CSSTransition
+        key={key}
+        classNames={animateType}
+        timeout={300}>
+        <ModalEntity
+          idx={currSectionIdx}
+          sectionId={sectionId}
+          selectWindow={selectWindow}
+          minimizeWindow={minimizeWindow}
+          animation={false}
+          isOpen
+          {...currItem}
+          onCloseModal={(e) => closeWindow(sectionId)} />
+      </CSSTransition>
+    );
+  });
+  return (
+    <div className="modals-render">
+      <TransitionGroup
+        component={null}>
+        {sections}
+      </TransitionGroup>
+      <div className="min-container">
+        {
+          minSecQueue.map((minSectionId) => {
+            const currItem = sectionsList[minSectionId];
+            return (
+              <div key={minSectionId}
+                className="min-item">
+                <span className="title" onClick={(e) => selectWindow(minSectionId)}>{currItem.title}</span>
+                <Icon n="close" onClick={(e) => closeWindow(minSectionId)} />
+              </div>
+            );
+          })
+        }
+      </div>
+    </div>
+  );
+};
+
+const ModalsManager = connect(selector, windowManagerActions)(ModalsRender);
+
+const Entity = {};
 
 const CloseModal = (modalID: ModalID) => {
   if (!modalID) return;
@@ -77,10 +159,25 @@ export interface ShowModalParams extends ModalOptions {
   needHeader?: boolean;
 }
 
+let hasModalContainer = false;
+const checkModalContainer = () => {
+  if (!hasModalContainer) {
+    hasModalContainer = true;
+    const modalsManagerContainer = setDOMById('__ModalsManager', 'modals-manager');
+    ReactDOM.render(
+      <Provider store={windowManagerStore}>
+        <ModalsManager/>
+      </Provider>,
+      modalsManagerContainer,
+    );
+  }
+};
 /**
- * Show Global Modal
+ * @param {ShowModalParams} params
  */
 const ShowModal = (params: ShowModalParams): ModalID => {
+  /** 用于检查是否已经渲染了最外层 div */
+  checkModalContainer();
   /** @type {ShowModalParams} */
   let options = { ...params };
   let {
@@ -153,16 +250,20 @@ const ShowModal = (params: ShowModalParams): ModalID => {
     ...options,
     needHeader,
   };
+  connectedStore.openWindow(options);
 
-  /** 用于检查是否已经渲染了最外层 div */
-  setupModal().then((modalManagerEntity) => {
-    modalManagerEntity.openWindow(options);
-  });
   return entityId;
 };
 
 const ShowGlobalModal = ShowModal;
 const CloseGlobalModal = CloseModal;
+
+
+const ShowModalAPI: React.SFC<ShowModalParams> = (props) => (
+  <div></div>
+);
+
+export { ShowModalAPI };
 
 export {
   ShowModal, CloseModal,
