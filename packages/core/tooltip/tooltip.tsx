@@ -34,10 +34,10 @@ const TitleDOM = ({ title }) => {
 };
 
 const Div = ({
-  classNames, children, n, ...props
+  classNames, children, n, s, ...props
 }) => (
   <span {...props}>
-    <Icon n={n} />
+    <Icon n={n} s={s} />
     {children}
   </span>
 );
