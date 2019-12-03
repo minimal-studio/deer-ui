@@ -6,7 +6,7 @@ import classnames from 'classnames';
 
 import { Children } from '../utils/props';
 import ColumnFilter, { ColumnFilterProps, Column, DataRows } from './column-filter';
-import { Icon } from '../icon';
+import NodataTip from './nodata-tip';
 
 export interface TableColumn extends Column {
   /** 点击表头排序的回调 */
@@ -780,10 +780,7 @@ export class Table extends ColumnFilter<TableProps, State> {
         </table>
       </div>
     ) : main && (
-      <span className="no-record-tip">
-        <Icon n="noData"/>
-        <span className="text">{this.$T_IN('暂无记录')}</span>
-      </span>
+      <NodataTip />
     );
   }
 

@@ -261,15 +261,16 @@ table {
 }
 
 .no-record-tip {
-  padding: 20px 0;
+  padding: 10px 0;
   color: $text-weaken-color-2;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
 
   .icon {
-    font-size: 26px;
-    margin-right: 10px;
+    font-size: 46px;
+    margin-bottom: 10px;
   }
 
   .text {

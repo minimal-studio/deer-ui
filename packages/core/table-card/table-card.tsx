@@ -2,6 +2,7 @@ import React from 'react';
 
 import ColumnFilter, { ColumnFilterProps } from '../table/column-filter';
 import { Grid, GridProps } from '../grid';
+import NodataTip from '../table/nodata-tip';
 
 interface TableCardProps extends ColumnFilterProps {
   gridItemProps?: GridProps;
@@ -38,7 +39,9 @@ export default class TableCard extends ColumnFilter<TableCardProps> {
       return null;
     }
 
-    return (
+    const hasData = dataRows.length > 0;
+
+    return hasData ? (
       <Grid
         {...Object.assign({}, defaultGridContainerProps, gridContainerProps)}
         container
@@ -72,6 +75,8 @@ export default class TableCard extends ColumnFilter<TableCardProps> {
           ))
         }
       </Grid>
+    ) : (
+      <NodataTip />
     );
   }
 }
