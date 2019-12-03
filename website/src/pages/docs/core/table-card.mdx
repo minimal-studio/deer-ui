@@ -76,3 +76,47 @@ function Example() {
 }
 render(<Example />);
 ```
+
+## No Data Tip
+
+```jsx live noInline
+import { TableCard, TableRow, ShowModal } from '@deer-ui/core'
+
+function Example() {
+  const columns = [
+    {
+      key: 'username',
+      title: (mapper) => {
+        return (
+          <span>Func Title</span>
+        )
+      },
+      namesMapper: {
+        alex: '埃里克斯',
+        chili: '吃梨',
+        dove: '德芙',
+      }
+    },
+    {key: 'age'},
+    {key: 'add'},
+    {key: 'birth', date: true},
+    {key: 'action', filter: (str, item) => {
+      return (
+        <span
+          onClick={e => ShowModal({
+            title: '详情',
+            children: <TableRow columns={columns} record={item} />
+          })}
+          className="link-btn">详情</span>
+      )
+    }}
+  ];
+  const records = [];
+  return (
+    <TableCard
+      columns={columns}
+      records={records} />
+  )
+}
+render(<Example />);
+```
