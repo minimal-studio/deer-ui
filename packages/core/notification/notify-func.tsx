@@ -31,7 +31,8 @@ const setNotification = () => {
           ref={(e) => {
             notificationEntity = e;
             resolve(notificationEntity);
-          }}/>,
+          }}
+        />,
         notifyDOM
       );
     }
