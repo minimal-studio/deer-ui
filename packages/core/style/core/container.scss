@@ -1,0 +1,22 @@
+.container {
+  &.auto {
+    margin-left: auto;
+    margin-right: auto;
+  }
+  &.xl {
+    max-width: $container-xl-width;
+  }
+  &.lg {
+    max-width: $container-lg-width;
+  }
+  &.md {
+    max-width: $container-md-width;
+  }
+  &.sm {
+    max-width: $container-sm-width;
+  }
+  &.fluid {
+    width: 100%;
+    max-width: 100%;
+  }
+}

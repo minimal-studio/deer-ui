@@ -5,6 +5,7 @@ export * from './alert';
 export * from './avatar';
 export * from './button';
 export * from './card';
+export * from './container';
 export * from './checkbox';
 export * from './click-away';
 export * from './date-basic';

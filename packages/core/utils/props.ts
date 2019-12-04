@@ -58,6 +58,7 @@ export type StatusColorTypes =
 
 export type Color = NatureColorTypes | GrayColorTypes | StatusColorTypes;
 export type Sizes = 'xl' | 'lg' | 'md' | 'sm' | 'tiny';
+export type ContainerSizes = 'xl' | 'lg' | 'md' | 'sm';
 
 export interface BtnItemConfig extends ButtonProps {
   /** 该按钮的操作 */

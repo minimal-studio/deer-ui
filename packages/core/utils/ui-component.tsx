@@ -4,7 +4,6 @@ import { IsFunc } from '@mini-code/base-func';
 import {
   getUIConfig, setUIConfig, $T, $T_IN
 } from './config';
-import { FuncChildren, Children } from '.';
 
 /**
  * 加载 React 元素
@@ -22,7 +21,6 @@ export const loadPlugin = (Plugin, props?) => {
  * 用于提供所有组件的通用函数
  * 通过继承 UIComponent 或者 UIPureComponent 获取通用函数
  */
-
 export class UIComponent<P = {}, S = {}, SS = any> extends Component<P, S, SS> {
   /** 外部国际化键值对 $T() */
   $T = $T;
