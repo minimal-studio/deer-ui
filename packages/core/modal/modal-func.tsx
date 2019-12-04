@@ -3,10 +3,11 @@ import React from 'react';
 
 import { Call, GenerteID } from '@mini-code/base-func';
 
-import { $T_IN, queryIsMobile } from '../utils';
+import { $T_IN, queryIsMobile, loadPlugin } from '../utils';
 import { Children } from '../utils/props';
 import { ModalOptions } from './modal';
 import { setupModal } from './modal-setup';
+
 
 const CloseModal = (modalID: ModalID) => {
   if (!modalID) return;
@@ -89,10 +90,14 @@ function ShowModal(params: ShowModalParams): ModalID {
 
   let modalTMPL;
 
-  function onClickBtn(confirm) {
-    confirm && Call(onConfirm, confirm);
+  const closeCurrModal = () => {
     CloseModal(entityId);
-  }
+  };
+
+  const onClickBtn = (confirm) => {
+    confirm && Call(onConfirm, confirm);
+    closeCurrModal();
+  };
 
   const btnGroupDOM = _showFuncBtn && (
     <div className="btn-group">
@@ -127,7 +132,9 @@ function ShowModal(params: ShowModalParams): ModalID {
       };
       modalTMPL = (
         <div className="global-modal-container">
-          <div className="content">{children}</div>
+          <div className="content">{loadPlugin(children, {
+            close: closeCurrModal
+          })}</div>
           {btnGroupDOM}
         </div>
       );
@@ -135,7 +142,9 @@ function ShowModal(params: ShowModalParams): ModalID {
     default:
       modalTMPL = (
         <div className="global-modal-container">
-          <div className="content">{children}</div>
+          <div className="content">{loadPlugin(children, {
+            close: closeCurrModal
+          })}</div>
           {btnGroupDOM}
         </div>
       );

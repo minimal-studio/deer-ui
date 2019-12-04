@@ -7,7 +7,6 @@ import ModalHelper from './modal-helper';
 import Modal from './modal';
 import setDOMById from '../utils/set-dom';
 import ModalsManagerClass from './modals-manager';
-import { loadPlugin } from '../utils';
 
 class ModalEntity extends ModalHelper {
   componentDidMount() {
@@ -26,12 +25,7 @@ class ModalEntity extends ModalHelper {
         {...this.props}
         onCloseModal={onCloseModal || this.closeModal.bind(this)}
       >
-        {
-          typeof children === 'function' ? children({
-            ...this.props,
-            close: onCloseModal
-          }) : children
-        }
+        {children}
       </Modal>
     );
   }

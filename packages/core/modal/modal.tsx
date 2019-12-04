@@ -80,66 +80,6 @@ export interface ModalOptions extends DragPanelClassProps {
 }
 
 export interface ModalProps extends ModalOptions, ModalRequiredProps {
-  /** style */
-  style?: React.CSSProperties;
-  /** 动画的持续时间 */
-  duration?: number;
-  /** title */
-  title?: string;
-  /** id */
-  id?: string | number;
-  /** class name */
-  className?: HTMLElement['className'];
-  /** 当 modal 打开是，挂载在 document.body 的 class */
-  topClassName?: string;
-  /** 宽度 */
-  width?: string | number;
-  /** 当前 modal 的 index */
-  idx?: string | number;
-  /** marginTop */
-  marginTop?: string | number;
-  /** 是否需要动画效果 */
-  animation?: boolean;
-  /** 是否点击背景关闭 modal */
-  clickBgToClose?: boolean;
-  /** 是否可拖拽模式的 modal */
-  draggable?: boolean;
-  /** 是否需要 mask 背景 */
-  needMask?: boolean;
-  /** 是否渲染关闭 modal 的按钮 */
-  showCloseBtn?: boolean;
-  /** 是否需要最大化按钮 */
-  needMaxBtn?: boolean;
-  /** 是否需要最小化按钮 */
-  needMinBtn?: boolean;
-  /** 是否需要头部 */
-  needHeader?: boolean;
-  /** 是否关闭 modal content 的最大高度 80vh */
-  maxHeightable?: boolean;
-  /** 是否使用 esc 按键关闭 modal */
-  shouldCloseOnEsc?: boolean;
-  /** 是否最小化 */
-  isMinimize?: boolean;
-  /** 是否使用 esc 按键关闭 modal */
-  modalType?: 'normal' | 'side';
-  /** modeType == 'side' 时弹出的方向 */
-  position?: 'left' | 'right' | 'top' | 'bottom';
-  /** 用于嵌入 Modal 之中的模版 */
-  template?: (modalProps?: {}) => Children;
-  /** 头部插件，传入未事例化的组件 */
-  Header?: (modalProps?: {}) => Children;
-  /** 关闭 modal 时的回调 */
-  onClose?: (modalProps?: {}) => void;
-  /** 替代默认的 layout */
-  modalLayoutDOM?: Children;
-  /** children */
-  children?: Children;
-  /** 多窗口模式的 sectionId */
-  sectionId?: string | number;
-  /** 响应最小化的事件的接口 */
-  minimizeWindow?: (sectionId: string | number) => void;
-  /** 多窗口模式下的选择窗口的接口 */
-  selectWindow?: (sectionId: string | number) => void;
 }
 
 const ESC_KEY = 27;
@@ -283,19 +223,22 @@ export default class Modal extends DragPanelClass<ModalRequiredProps & ModalProp
 
     const closeBtnDOM = showCloseBtn && (
       <span className="close _btn"
-        onClick={(e) => onCloseModal()}>
+        onClick={(e) => onCloseModal()}
+      >
         <Icon n="close" />
       </span>
     );
     const maxBtnDOM = needMaxBtn && (
       <span className="max _btn"
-        onClick={(e) => this.maximinzeWindow(!isMaximize)}>
+        onClick={(e) => this.maximinzeWindow(!isMaximize)}
+      >
         <Icon n={isMaximize ? "restore" : "max"} />
       </span>
     );
     const minBtnDOM = !isMaximize && minimizeWindow && needMinBtn && (
       <span className="min _btn"
-        onClick={(e) => sectionId && minimizeWindow(sectionId)}>
+        onClick={(e) => sectionId && minimizeWindow(sectionId)}
+      >
         <Icon n="min" />
       </span>
     );
@@ -308,9 +251,12 @@ export default class Modal extends DragPanelClass<ModalRequiredProps & ModalProp
 
     const transitionKey = isOpen ? 'modal-open' : 'modal-close';
     const sectionMark = _needMark && (
-      <div className="section-mark" onClick={(e) => {
-        if (clickBgToClose) this.closeModal();
-      }} />
+      <div
+        className="section-mark"
+        onClick={(e) => {
+          if (clickBgToClose) this.closeModal();
+        }}
+      />
     );
 
     let sections;
@@ -323,7 +269,8 @@ export default class Modal extends DragPanelClass<ModalRequiredProps & ModalProp
             onMouseDown={(e) => {
               /** 用于判断是否通过 ShowModal 打开的 Modal，如果有 idx != 0 的时候才触发选择窗口 */
               id && idx && selectWindow && selectWindow(id);
-            }}>
+            }}
+          >
             <div className="animate-layout">
               {
                 modalLayoutDOM || (
@@ -335,7 +282,8 @@ export default class Modal extends DragPanelClass<ModalRequiredProps & ModalProp
                     }}
                     style={_style}
                     onKeyDown={this.handleKeyDown}
-                    tabIndex={-1}>
+                    tabIndex={-1}
+                  >
                     {
                       needHeader && (
                         Header && IsFunc(Header) ? Header({
@@ -347,7 +295,8 @@ export default class Modal extends DragPanelClass<ModalRequiredProps & ModalProp
                               onMouseDown={(e) => {
                                 !isMaximize && draggable && this.dragStart(e, this.internalLayout);
                                 id && selectWindow && selectWindow(id);
-                              }}>
+                              }}
+                            >
                               <h5 className="title">{title}</h5>
                             </div>
                             <span className="btn-set">
@@ -379,7 +328,8 @@ export default class Modal extends DragPanelClass<ModalRequiredProps & ModalProp
         <CSSTransition
           key={transitionKey}
           classNames={animateType}
-          timeout={duration}>
+          timeout={duration}
+        >
           {sections}
         </CSSTransition>
       </TransitionGroup>
