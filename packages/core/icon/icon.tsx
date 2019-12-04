@@ -25,6 +25,7 @@ export const Icon: React.SFC<IconProps> = (props) => {
   const {
     n, s, useIconConfig, type, classNames = [], className, ...other
   } = props;
+  if (!n) return null;
   const iconClassName = getIcon((n || type), s, ['icon', (className || ''), ...classNames], useIconConfig);
   return (
     <i
@@ -34,7 +35,6 @@ export const Icon: React.SFC<IconProps> = (props) => {
   );
 };
 Icon.defaultProps = {
-  n: 'none',
   s: 's',
   useIconConfig: true,
   classNames: [],
