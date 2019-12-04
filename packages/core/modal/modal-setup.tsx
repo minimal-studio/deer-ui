@@ -7,6 +7,7 @@ import ModalHelper from './modal-helper';
 import Modal from './modal';
 import setDOMById from '../utils/set-dom';
 import ModalsManagerClass from './modals-manager';
+import { loadPlugin } from '../utils';
 
 class ModalEntity extends ModalHelper {
   componentDidMount() {
@@ -25,7 +26,12 @@ class ModalEntity extends ModalHelper {
         {...this.props}
         onCloseModal={onCloseModal || this.closeModal.bind(this)}
       >
-        {children}
+        {
+          typeof children === 'function' ? children({
+            ...this.props,
+            close: onCloseModal
+          }) : children
+        }
       </Modal>
     );
   }
@@ -89,9 +95,9 @@ class ModalsManager extends ModalsManagerClass {
   }
 }
 
-let __entity;
+let __entity: ModalsManager;
 export const setupModal = () => {
-  return new Promise<ModalsManager>((resolve) => {
+  return new Promise<ModalsManager>((resolve, rejects) => {
     if (__entity) {
       resolve(__entity);
     } else {
@@ -99,8 +105,12 @@ export const setupModal = () => {
       ReactDOM.render(
         <ModalsManager
           ref={(e) => {
-            __entity = e;
-            resolve(__entity);
+            if (!e) {
+              rejects();
+            } else {
+              __entity = e;
+              resolve(__entity);
+            }
           }}
         />,
         modalsManagerContainer

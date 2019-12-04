@@ -1,10 +1,16 @@
 import React from "react";
 import { RemoveArrayItem } from "@mini-code/base-func";
+import { Children } from "../utils";
+
+export interface ModalChildrenFuncParams {
+  /** 关闭此窗口 */
+  close: () => void;
+}
 
 export interface ModalItemConfig {
   title: string;
   isOpen: boolean;
-  children: any;
+  children: Children | ((params: ModalChildrenFuncParams) => Children);
   id: string;
 }
 export interface ModalsManagerState {
@@ -55,11 +61,11 @@ export default class ModalsManager extends React.PureComponent<{}, ModalsManager
       isMinimize: false
     });
 
-    this.setState(() => ({
+    this.setState({
       sectionsList: nextListState,
       sectionsQueue: hasCurrSection ? sectionsQueue : [sectionId, ...sectionsQueue],
       minSecQueue: RemoveArrayItem(minSecQueue, sectionId)
-    }));
+    });
   }
 
   selectWindow = (sectionId) => {

@@ -1,29 +1,23 @@
 /* eslint-disable prefer-const */
 import React from 'react';
-import ReactDOM from 'react-dom';
 
 import { Call, GenerteID } from '@mini-code/base-func';
-import { Provider, connect } from 'unistore/react';
 
 import { $T_IN, queryIsMobile } from '../utils';
 import { Children } from '../utils/props';
-import setDOMById from '../utils/set-dom';
-import ModalHelper from './modal-helper';
-import Modal, { ModalOptions } from './modal';
-import {
-  windowManagerActions,
-  windowManagerStore
-} from './window-manager';
+import { ModalOptions } from './modal';
 import { setupModal } from './modal-setup';
-
-let connectedStore;
 
 const CloseModal = (modalID: ModalID) => {
   if (!modalID) return;
-  connectedStore.closeWindow(modalID);
+  setupModal().then((modalManagerEntity) => {
+    modalManagerEntity.closeWindow(modalID);
+  });
 };
 const CloseAllModal = () => {
-  connectedStore.closeAllWindow();
+  setupModal().then((modalManagerEntity) => {
+    modalManagerEntity.closeAllWindow();
+  });
 };
 
 /**
@@ -80,7 +74,7 @@ export interface ShowModalParams extends ModalOptions {
 /**
  * Show Global Modal
  */
-const ShowModal = (params: ShowModalParams): ModalID => {
+function ShowModal(params: ShowModalParams): ModalID {
   /** @type {ShowModalParams} */
   let options = { ...params };
   let {
@@ -159,7 +153,7 @@ const ShowModal = (params: ShowModalParams): ModalID => {
     modalManagerEntity.openWindow(options);
   });
   return entityId;
-};
+}
 
 const ShowGlobalModal = ShowModal;
 const CloseGlobalModal = CloseModal;
