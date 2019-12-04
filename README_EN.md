@@ -13,7 +13,7 @@ Base on React's UI lib. Make frontend's dev simpler and faster.
 ## Getting started
 
 ```shell
-yarn add @deer-ui @mini-code/base-func unistore
+yarn add @deer-ui @mini-code/base-func
 ```
 
 ### Use in project
