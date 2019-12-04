@@ -1,0 +1,107 @@
+---
+name: Container
+title: Container
+menu: Layout
+---
+
+# Container
+
+> 用于外层的容器
+
+## Basic Usage
+
+```jsx live noInline
+import { Container } from '@deer-ui/core'
+
+function Example() {
+  return (
+    <Container
+      className="bg_default p20"
+    >
+      <div>
+        Container
+      </div>
+    </Container>
+  )
+}
+render(<Example />);
+```
+
+## Size
+
+```jsx live noInline
+import { Container } from '@deer-ui/core'
+
+function Example() {
+  return (
+    <>
+      <Container
+        className="bg_default p20 mb10"
+        size="xl"
+      >
+        <div>
+          Container xl
+        </div>
+      </Container>
+      <Container
+        className="bg_default p20 mb10"
+        size="lg"
+      >
+        <div>
+          Container lg
+        </div>
+      </Container>
+      <Container
+        className="bg_default p20 mb10"
+        size="md"
+      >
+        <div>
+          Container md
+        </div>
+      </Container>
+      <Container
+        className="bg_default p20 mb10"
+        size="sm"
+      >
+        <div>
+          Container sm
+        </div>
+      </Container>
+    </>
+  )
+}
+render(<Example />);
+```
+
+## Fluid Container
+
+100% width
+
+```jsx live noInline
+import { Container } from '@deer-ui/core'
+
+function Example() {
+  return (
+    <Container
+      fluid
+      className="bg_default p20"
+    >
+      <div>
+        Container
+      </div>
+    </Container>
+  )
+}
+render(<Example />);
+```
+
+## 设置 container 的默认 width
+
+通过设置 scss 变量更改 container 的宽度
+
+```scss
+$container-sm-width: 576px;
+$container-md-width: 768px;
+$container-lg-width: 992px;
+$container-xl-width: 1200px;
+```

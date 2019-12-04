@@ -12,51 +12,60 @@ menu: Utils
 
 ```jsx live noInline
 import {
-  ShowModal, CloseModal, CloseAllModal, Dropdown, Pop
+  ShowModal, CloseModal, CloseAllModal, Dropdown, Pop, Notify
 } from '@deer-ui/core';
+
+const getModalChild = ({ close }) => {
+  return (
+    <div
+      style={{height: 200, overflow: 'auto'}} className="p10 relative">
+      内容
+      <div style={{height: 300}}>
+      </div>
+      <span onClick={e => close()}>关闭</span>
+      <Dropdown
+        values={{
+          a: '123',
+          b: '456',
+        }} />
+      <div onClick={e => {
+        Pop.show({
+          elem: e.target,
+          props: {
+            showCloseBtn: false,
+            position: 'top',
+            type: 'red'
+          },
+          children: (
+            <div className="p10">
+              任意内容任意内容任意内容任意内容<br />
+              任意内容任意内容任意内容任意内容<br />
+              任意内容任意内容任意内容任意内容<br />
+              任意内容任意内容任意内容任意内容<br />
+            </div>
+          )
+        })
+      }}>浮动</div>
+    </div>
+  )
+}
 
 function Example() {
   return (
     <div>
       <span
         className="btn theme mr10"
-        onClick={e => ShowModal({
-          draggable: false,
-          title: '默认的 Modal',
-          id: 'ShowModal',
-          onClose: () => {
-            console.log('ShowModal')
-          },
-          children: <div
-            style={{height: 200, overflow: 'auto'}} className="p10 relative">
-            内容
-            <div style={{height: 300}}>
-            </div>
-            <Dropdown
-              values={{
-                a: '123',
-                b: '456',
-              }} />
-            <div onClick={e => {
-              Pop.show({
-                elem: e.target,
-                props: {
-                  showCloseBtn: false,
-                  position: 'top',
-                  type: 'red'
-                },
-                children: (
-                  <div className="p10">
-                    任意内容任意内容任意内容任意内容<br />
-                    任意内容任意内容任意内容任意内容<br />
-                    任意内容任意内容任意内容任意内容<br />
-                    任意内容任意内容任意内容任意内容<br />
-                  </div>
-                )
-              })
-            }}>浮动</div>
-          </div>
-        })}>
+        onClick={e => {
+          ShowModal({
+            draggable: false,
+            title: '默认的 Modal',
+            id: 'ShowModal',
+            onClose: () => {
+              console.log('ShowModal')
+            },
+            children: getModalChild
+          })
+        }}>
         默认的 Modal
       </span>
 
@@ -65,7 +74,7 @@ function Example() {
         onClick={e => ShowModal({
           title: '有操作按钮的 Modal',
           showFuncBtn: true,
-          children: <div className="p20">任意的内容</div>
+          children: () => <div className="p20">任意的内容</div>
         })}>
         有操作按钮的 Modal
       </span>
@@ -106,7 +115,7 @@ function Example() {
           draggable: true,
           elem: e,
           title: '按住 header 可拖动',
-          children: <div className="p15">任意的内容</div>
+          children: () => <div className="p15">任意的内容</div>
         })}>
         多个可拖动的 Modal
       </span>
@@ -139,7 +148,7 @@ function Example() {
           title: 'Pop from right',
           type: 'side',
           position: 'right',
-          children: <div className="p20">任意的内容</div>
+          children: () => <div className="p20">任意的内容</div>
         })}>
         From right
       </span>
@@ -149,7 +158,7 @@ function Example() {
           title: 'Pop from left',
           type: 'side',
           position: 'left',
-          children: <div className="p20">Children</div>
+          children: () => <div className="p20">Children</div>
         })}>
         From left
       </span>
@@ -159,7 +168,7 @@ function Example() {
           title: 'Pop from top',
           type: 'side',
           position: 'top',
-          children: <div className="p20">Children</div>
+          children: () => <div className="p20">Children</div>
         })}>
         From top
       </span>
@@ -169,7 +178,7 @@ function Example() {
           title: 'Pop from bottom',
           type: 'side',
           position: 'bottom',
-          children: <div className="p20">Children</div>
+          children: () => <div className="p20">Children</div>
         })}>
         From bottom
       </span>
