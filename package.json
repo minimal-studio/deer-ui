@@ -19,7 +19,7 @@
     "release:core": "npm run build:all; npm run publish:core",
     "release:enhance-ui": "npm run build:all; npm run publish:enhance-ui",
     "build:all": "rm -rf ./dist; tsc; lerna run build",
-    "dev:doc": "cd website; yarn; yarn start",
+    "start": "cd website; yarn; yarn start",
     "build": "cd website; yarn; yarn build",
     "test": "jest"
   },
