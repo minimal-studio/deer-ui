@@ -89,12 +89,12 @@ export default class InputSelector extends FormControlBasic<InputSelectorProps, 
 
   render() {
     const {
-      inputProps, values, onChange, outputType, ...other
+      inputProps, values, onChange, outputType, className, ...other
     } = this.props;
     const { selectRef } = this.state;
     const inputVal = this.getValue();
     return (
-      <div className="__input-selector">
+      <div className={`__input-selector ${className || ''}`}>
         <Dropdown
           needCancel={false}
           {...other}
