@@ -11,6 +11,8 @@ type FilterType = string | number;
 export interface InputProps {
   /** 是否必填项 */
   required?: boolean;
+  /** 是否必填项 */
+  block?: boolean;
   /** 是否显示 title */
   showTitle?: boolean;
   /** title 是否在获取焦点后上浮 */
@@ -178,7 +180,7 @@ export class Input extends Component<InputProps, State> {
   render() {
     const {
       n, s, icon, placeholder, title, inputBtnConfig, type = '',
-      showTitle = defaultShowInputTitle, size, flowTitle,
+      showTitle = defaultShowInputTitle, size, flowTitle, block,
       className, children, required,
       onFocus, onBlur,
       propsForInput
@@ -222,6 +224,7 @@ export class Input extends Component<InputProps, State> {
     const classNames = classnames(
       'input-control', size, viewClass,
       hasIcon && 'has-icon',
+      block && 'block',
       inputBtnConfig && 'has-btn',
       flowTitle && 'flow-title'
     );

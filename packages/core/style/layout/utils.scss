@@ -23,7 +23,7 @@
 }
 
 @mixin formFocusClass {
-  background-color: #FFF;
+  background-color: $form-control-active-bg-color;
   @include focusBorder();
   @include formControlFocusShadow();
   border-color: rgba($themeColor, 0.6);

@@ -94,6 +94,7 @@ textarea {
       .title {
         font-size: $base-sm-font-size;
         transform: translateY(-120%);
+        background-color: $form-control-active-bg-color;
       }
     }
 
@@ -208,7 +209,29 @@ textarea {
 
 .input-control {
   &.xl {
-    padding: 5px 10px;
+    .form-control {
+      min-height: $form-control-xl-height - $form-control-border-width * 2;
+    }
+  }
+  &.lg {
+    .form-control {
+      min-height: $form-control-lg-height - $form-control-border-width * 2;
+    }
+  }
+  &.md {
+    .form-control {
+      min-height: $form-control-md-height - $form-control-border-width * 2;
+    }
+  }
+  &.sm {
+    .form-control {
+      min-height: $form-control-sm-height - $form-control-border-width * 2;
+    }
+  }
+  &.sx {
+    .form-control {
+      min-height: $form-control-xs-height - $form-control-border-width * 2;
+    }
   }
 }
 
@@ -218,15 +241,12 @@ textarea {
 
   .menu-wrapper {
     min-width: 80px !important;
-    // background-color: #f3f3f3;
   }
 
   .input-group {
     border-radius: 0 $form-control-border-radius $form-control-border-radius 0;
     margin-bottom: 0;
     margin-left: -1px;
-    // padding: 0 10px;
-    // margin-left: 5px;
   }
 }
 
