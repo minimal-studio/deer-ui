@@ -84,7 +84,7 @@ const TestSwitch = () => {
         onChange={(val) => {}}
         disabled
         checked={false}
-        tips={['开', '关']} />
+        hints={['开', '关']} />
     </div>
   );
 };

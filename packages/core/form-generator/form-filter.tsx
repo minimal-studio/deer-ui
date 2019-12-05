@@ -343,12 +343,14 @@ export default class FormFilterHelper<P extends FormFilterProps> extends UICompo
         value={this.getValue(ref)}
         onChange={(e) => {
           this.changeValue(e.target.value, ref);
-        }}>
+        }}
+      >
         {
           Object.keys(values).map((val, idx) => (
             <option
               key={val}
-              value={val}>
+              value={val}
+            >
               {values[val]}
             </option>
           ))
@@ -366,7 +368,8 @@ export default class FormFilterHelper<P extends FormFilterProps> extends UICompo
         value={this.getValue(ref)}
         onChange={(val) => {
           this.changeValue(val, ref);
-        }}/>
+        }}
+      />
     );
   }
 
@@ -386,7 +389,8 @@ export default class FormFilterHelper<P extends FormFilterProps> extends UICompo
             [ref]: isEmptyVal ? undefined : val,
             [refForS]: isEmptyVal ? undefined : activeRef
           });
-        }}/>
+        }}
+      />
     );
   }
 
@@ -423,7 +427,8 @@ export default class FormFilterHelper<P extends FormFilterProps> extends UICompo
             });
           }
           this.changeValue(val, activeRef);
-        }}/>
+        }}
+      />
     );
   }
 
@@ -462,7 +467,8 @@ export default class FormFilterHelper<P extends FormFilterProps> extends UICompo
         }}
         onChange={(val) => {
           this.changeValue(val === '' ? undefined : val, ref);
-        }}/>
+        }}
+      />
     );
   }
 
@@ -474,7 +480,8 @@ export default class FormFilterHelper<P extends FormFilterProps> extends UICompo
         className="form-control"
         ref={this.saveRef(ref)}
         id={ref}
-        onChange={(e) => this.changeValue(e.target.value, ref)}/>
+        onChange={(e) => this.changeValue(e.target.value, ref)}
+      />
     );
   }
 
@@ -485,7 +492,8 @@ export default class FormFilterHelper<P extends FormFilterProps> extends UICompo
         {...other}
         ref={this.saveRef(ref)}
         value={this.getValue(ref)}
-        onChange={(val) => this.changeValue(val, ref)}/>
+        onChange={(val) => this.changeValue(val, ref)}
+      />
     );
   }
 
@@ -509,7 +517,8 @@ export default class FormFilterHelper<P extends FormFilterProps> extends UICompo
         value={this.zeroFilter(this.value[ref])}
         onChange={(val) => {
           this.changeValue(val, ref);
-        }}/>
+        }}
+      />
     );
   }
 
@@ -526,7 +535,8 @@ export default class FormFilterHelper<P extends FormFilterProps> extends UICompo
         {...other}
         onClick={(e) => {
           Call(onClick, e, ref);
-        }}>
+        }}
+      >
         {text}
       </Button>
     );
@@ -542,7 +552,8 @@ export default class FormFilterHelper<P extends FormFilterProps> extends UICompo
         value={this.getValue(ref)}
         onChange={(val) => {
           this.changeValue(val, ref);
-        }}/>
+        }}
+      />
     );
   }
 
@@ -587,7 +598,8 @@ export default class FormFilterHelper<P extends FormFilterProps> extends UICompo
           // value={this.value[datetimeRangeRef]}
           onChange={(val) => {
             this.changeDateRangeValues(val, refs);
-          }}/>
+          }}
+        />
         {
           !config.noHelper && (
             <DateShortcut
@@ -597,7 +609,8 @@ export default class FormFilterHelper<P extends FormFilterProps> extends UICompo
                 // 点击更改 DatetimePicker 中的值
                 this.getRef(datetimeRangeRef).setDate(val);
                 // this.changeDateRangeValues(val, refs);
-              }}/>
+              }}
+            />
           )
         }
       </div>
@@ -605,14 +618,17 @@ export default class FormFilterHelper<P extends FormFilterProps> extends UICompo
   }
 
   getSwitch = (config) => {
-    const { ref, defaultValue, ...other } = config;
+    const {
+      ref, defaultValue, ...other
+    } = config;
     return (
       <Switch
         {...other}
         ref={this.saveRef(ref)}
         checked={this.getValue(ref)}
         defaultChecked={defaultValue}
-        onChange={(val) => this.changeValue(val, ref)}/>
+        onChange={(val) => this.changeValue(val, ref)}
+      />
     );
   }
 

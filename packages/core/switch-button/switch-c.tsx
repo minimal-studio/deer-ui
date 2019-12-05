@@ -9,7 +9,7 @@ export interface SwitchProps {
   /** 是否禁用 */
   disabled?: boolean;
   /** 开关的提示，第一个是激活状态，第二个是消极状态 */
-  tips?: string[];
+  hints?: string[];
   /** 组件的输出，第一个是激活状态，第二个是消极状态 */
   outputs?: any[];
   /** 当前激活的 index */
@@ -31,7 +31,7 @@ interface State {
  */
 export default class Switch extends PureComponent<SwitchProps, State> {
   static defaultProps = {
-    tips: ['', ''],
+    hints: ['', ''],
     // checked: true,
     disabled: false,
     outputs: [true, false],
@@ -62,10 +62,10 @@ export default class Switch extends PureComponent<SwitchProps, State> {
 
   render() {
     const {
-      disabled, tips = [], outputs = []
+      disabled, hints = [], outputs = []
     } = this.props;
     const checked = this.getValue();
-    const text = tips[checked ? 0 : 1];
+    const text = hints[checked ? 0 : 1];
 
     const switchBtnGroup = (
       <span className={`__switch${checked ? ' checked' : ''}${disabled ? ' disabled' : ''}`}
