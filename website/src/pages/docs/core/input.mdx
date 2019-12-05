@@ -23,9 +23,9 @@ function Example() {
 render(<Example />);
 ```
 
-## 固定的 Title
+## Inline title
 
-> 为 Input 添加 title，与 placeholder 不同，title 并不会在输入后消失
+> 为 Input 添加 inline title，与 placeholder 的区别是 title 并不会在输入内容后消失
 
 ```jsx live noInline
 import { Input } from '@deer-ui/core'
@@ -41,7 +41,7 @@ function Example() {
 render(<Example />);
 ```
 
-## 输出数字类型
+## Output number
 
 ```jsx live noInline
 import { Input } from '@deer-ui/core'
@@ -61,7 +61,7 @@ function Example() {
 render(<Example />);
 ```
 
-## 过滤器
+## Filter
 
 ```jsx live noInline
 import { Input } from '@deer-ui/core'
@@ -119,14 +119,14 @@ function Example() {
 render(<Example />);
 ```
 
-## 获取焦点时 Title 上浮
+## Rise up title when focus
 
 ```jsx live noInline
 import { Input } from '@deer-ui/core'
 
 function Example() {
   return (
-    <Input n="phone" title="电话号码" placeholder="请输入" flowTitle />
+    <Input n="phone" title="电话号码" placeholder="请输入" riseTitle />
   )
 }
 render(<Example />);
@@ -139,7 +139,7 @@ import { Input } from '@deer-ui/core'
 
 function Example() {
   return (
-    <Input title="Block input" placeholder="input..." flowTitle block />
+    <Input title="Block input" placeholder="input..." riseTitle block />
   )
 }
 render(<Example />);
@@ -154,19 +154,19 @@ function Example() {
   return (
     <>
     <h3>xl</h3>
-    <Input title="Block input" placeholder="input..." flowTitle block size="xl" />
+    <Input title="Block input" placeholder="input..." riseTitle block size="xl" />
     <hr />
     <h3>lg</h3>
-    <Input title="Block input" placeholder="input..." flowTitle block size="lg" />
+    <Input title="Block input" placeholder="input..." riseTitle block size="lg" />
     <hr />
     <h3>md</h3>
-    <Input title="Block input" placeholder="input..." flowTitle block size="md" />
+    <Input title="Block input" placeholder="input..." riseTitle block size="md" />
     <hr />
     <h3>sm</h3>
-    <Input title="Block input" placeholder="input..." flowTitle block size="sm" />
+    <Input title="Block input" placeholder="input..." riseTitle block size="sm" />
     <hr />
     <h3>sx</h3>
-    <Input title="Block input" placeholder="input..." flowTitle block size="sx" />
+    <Input title="Block input" placeholder="input..." riseTitle block size="sx" />
     <hr />
     </>
   )

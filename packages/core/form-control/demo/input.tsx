@@ -31,7 +31,7 @@ export default () => {
           icon: 'search',
           text: ''
         }}/>
-      <Input n="phone" title="电话号码" placeholder="请输入" flowTitle />
+      <Input n="phone" title="电话号码" placeholder="请输入" riseTitle />
     </div>
   );
 };

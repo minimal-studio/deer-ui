@@ -16,7 +16,7 @@ export interface InputProps {
   /** 是否显示 title */
   showTitle?: boolean;
   /** title 是否在获取焦点后上浮 */
-  flowTitle?: boolean;
+  riseTitle?: boolean;
   /** 是否获取焦点后选中文字 */
   forceToSelect?: boolean;
   /** size */
@@ -181,7 +181,7 @@ export class Input extends Component<InputProps, State> {
   render() {
     const {
       n, s, icon, placeholder, title, inputBtnConfig, type = '',
-      showTitle = defaultShowInputTitle, size, flowTitle, block,
+      showTitle = defaultShowInputTitle, size, riseTitle, block,
       className, children, required, classNameForInput,
       onFocus, onBlur,
       propsForInput
@@ -227,7 +227,7 @@ export class Input extends Component<InputProps, State> {
       hasIcon && 'has-icon',
       block && 'block',
       inputBtnConfig && 'has-btn',
-      flowTitle && 'flow-title'
+      riseTitle && 'rise-title'
     );
 
     return (
@@ -241,7 +241,7 @@ export class Input extends Component<InputProps, State> {
             <input
               type={controlTypeMapper[type] || type}
               {...propsForInput}
-              placeholder={flowTitle ? (focusing ? placeholder : '') : placeholder}
+              placeholder={riseTitle ? (focusing ? placeholder : '') : placeholder}
               value={value}
               className={`form-control ${classNameForInput || ''}`}
               onFocus={(e) => {
