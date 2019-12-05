@@ -13,6 +13,8 @@ export interface DateShortcutProps extends DateBasicProps {
   onChange: DateBasicProps['onChange'];
   /** 默认的时分秒的值 */
   defaultTimes?: string[];
+  /** 捷径的文字描述 */
+  shortcutText?: string;
   trigger?: DropdownWrapperProps['trigger'];
   /** 自定义的时间快捷选项 */
   dateHelperInfo?: {
@@ -67,6 +69,7 @@ export class DateShortcut extends DateBasic<DateShortcutProps, {
     trigger: 'click',
     position: 'left',
     outputAsString: false,
+    shortcutText: '快捷',
     defaultTimes: ['00:00:00', '23:59:59'],
   };
 
@@ -135,7 +138,9 @@ export class DateShortcut extends DateBasic<DateShortcutProps, {
 
   render() {
     const { activeIdx } = this.state;
-    const { dateHelperInfo, style, position, trigger } = this.props;
+    const {
+      dateHelperInfo, style, position, trigger, shortcutText
+    } = this.props;
     const _dateHelperInfo = !!dateHelperInfo && dateHelperInfo.length > 0
       ? dateHelperInfo : this.defaultDateHelperInfo;
 
@@ -155,7 +160,8 @@ export class DateShortcut extends DateBasic<DateShortcutProps, {
                       onClick={(e) => {
                         hide();
                         this.generateDate(item, idx);
-                      }} key={text}>
+                      }} key={text}
+                    >
                       {$T_IN(text)}
                     </span>
                   );
@@ -163,8 +169,9 @@ export class DateShortcut extends DateBasic<DateShortcutProps, {
               }
             </div>
           </div>
-        )}>
-        {this.$T_IN('快捷')}
+        )}
+      >
+        {this.$T_IN(shortcutText)}
       </DropdownWrapper>
     );
   }
