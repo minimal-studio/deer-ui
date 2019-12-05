@@ -31,6 +31,8 @@ export interface InputProps {
   title?: Children;
   /** className */
   className?: HTMLElement['className'];
+  /** className for input */
+  classNameForInput?: HTMLElement['className'];
   /** onChange 前执行的过滤器 */
   filter?: (value: FilterType) => FilterType;
   /** defaultValue */
@@ -86,7 +88,6 @@ export class Input extends Component<InputProps, State> {
   static defaultProps = {
     required: false,
     forceToSelect: false,
-    className: 'form-control',
     type: 'input',
     size: 'md',
     outputType: 'string',
@@ -181,7 +182,7 @@ export class Input extends Component<InputProps, State> {
     const {
       n, s, icon, placeholder, title, inputBtnConfig, type = '',
       showTitle = defaultShowInputTitle, size, flowTitle, block,
-      className, children, required,
+      className, children, required, classNameForInput,
       onFocus, onBlur,
       propsForInput
     } = this.props;
@@ -222,7 +223,7 @@ export class Input extends Component<InputProps, State> {
     );
 
     const classNames = classnames(
-      'input-control', size, viewClass,
+      'input-control', size, viewClass, className,
       hasIcon && 'has-icon',
       block && 'block',
       inputBtnConfig && 'has-btn',
@@ -241,8 +242,8 @@ export class Input extends Component<InputProps, State> {
               type={controlTypeMapper[type] || type}
               {...propsForInput}
               placeholder={flowTitle ? (focusing ? placeholder : '') : placeholder}
-              className={className}
               value={value}
+              className={`form-control ${classNameForInput || ''}`}
               onFocus={(e) => {
                 this.onFocus();
                 Call(onFocus, e);
