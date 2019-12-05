@@ -131,3 +131,45 @@ function Example() {
 }
 render(<Example />);
 ```
+
+## Block
+
+```jsx live noInline
+import { Input } from '@deer-ui/core'
+
+function Example() {
+  return (
+    <Input title="Block input" placeholder="input..." flowTitle block />
+  )
+}
+render(<Example />);
+```
+
+## Size
+
+```jsx live noInline
+import { Input } from '@deer-ui/core'
+
+function Example() {
+  return (
+    <>
+    <h3>xl</h3>
+    <Input title="Block input" placeholder="input..." flowTitle block size="xl" />
+    <hr />
+    <h3>lg</h3>
+    <Input title="Block input" placeholder="input..." flowTitle block size="lg" />
+    <hr />
+    <h3>md</h3>
+    <Input title="Block input" placeholder="input..." flowTitle block size="md" />
+    <hr />
+    <h3>sm</h3>
+    <Input title="Block input" placeholder="input..." flowTitle block size="sm" />
+    <hr />
+    <h3>sx</h3>
+    <Input title="Block input" placeholder="input..." flowTitle block size="sx" />
+    <hr />
+    </>
+  )
+}
+render(<Example />);
+```

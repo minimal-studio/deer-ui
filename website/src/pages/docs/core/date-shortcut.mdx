@@ -72,3 +72,24 @@ function Example() {
 }
 render(<Example />);
 ```
+
+### 自定义 Shortcut Text
+
+```jsx live noInline
+import { useState } from 'react';
+import { DateShortcut, Icon } from '@deer-ui/core';
+
+function Example() {
+  const [value, setVal] = useState([]);
+  return (
+    <div>
+      <DateShortcut
+        shortcutText="Custom"
+        onChange={val => setVal(val)}/>
+      <hr />
+      返回值: {value.join(' - ')}
+    </div>
+  )
+}
+render(<Example />);
+```
