@@ -76,7 +76,12 @@ function Example() {
   const [mockData, setData] = useState(getMockData())
   return (
     <Grid container className="p10" space={20}>
-      <Grid lg={6}>
+      <Grid 
+        lg={6}
+        md={12}
+        sm={12}
+        xs={12}
+      >
         <ChartCom
           type="bar"
           id="chartDOM1"
@@ -86,21 +91,33 @@ function Example() {
           }}
           data={mockData} ref={e => chartDOM1 = e} />
       </Grid>
-      <Grid lg={6}>
+      <Grid 
+        lg={6}
+        md={12}
+        sm={12}
+        xs={12}>
         <ChartCom
           type="line"
           id="chartDOM2"
           options={options}
           data={mockData} ref={e => chartDOM2 = e} />
       </Grid>
-      <Grid lg={6}>
+      <Grid 
+        lg={6}
+        md={12}
+        sm={12}
+        xs={12}>
         <ChartCom
           type="radar"
           id="chartDOM3"
           options={options}
           data={mockData} ref={e => chartDOM3 = e} />
       </Grid>
-      <Grid lg={6}>
+      <Grid 
+        lg={6}
+        md={12}
+        sm={12}
+        xs={12}>
         <ChartCom
           type="pie"
           id="chartDOM4"

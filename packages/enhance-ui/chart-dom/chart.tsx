@@ -8,7 +8,7 @@ export interface ChartComProps {
   /** Chart js 的 data */
   data: {};
   /** Chart js 的  options */
-  options: {};
+  options?: {};
   /** Chart js 的 type */
   type?: string;
   /** ID */
@@ -25,7 +25,7 @@ interface ChartComState {
   loading: boolean;
 }
 
-let chartjsURL = 'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.min.js';
+let chartjsURL = 'https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js';
 
 let isLoading = false;
 let isLoaded = false;
@@ -61,13 +61,15 @@ export default class ChartCom extends PureComponent<ChartComProps, ChartComState
     this.state = {
       loading: !isLoaded,
     };
+
+    this.loadChart();
   }
 
   componentWillUnmount = () => {
     this.Chart && this.Chart.destroy && this.Chart.destroy();
   }
 
-  loadChart = async (callback) => {
+  loadChart = async (callback?) => {
     isLoading = true;
 
     await LoadScript({
@@ -126,16 +128,17 @@ export default class ChartCom extends PureComponent<ChartComProps, ChartComState
     const { loading } = this.state;
     const { id, height, width } = this.props;
 
+    if (loading) return <Loading loading />;
+
     return (
-      <Loading loading={loading}>
-        <canvas
-          className="lineChart"
-          id={id}
-          ref={(e) => {
-            this.lineChart = e;
-          }}
-          style={{ width, height }}/>
-      </Loading>
+      <canvas
+        className="lineChart"
+        id={id}
+        ref={(e) => {
+          this.lineChart = e;
+        }}
+        style={{ width, height }}
+      />
     );
   }
 }
