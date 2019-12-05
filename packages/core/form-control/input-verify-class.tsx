@@ -7,7 +7,6 @@ export interface InputVerifyClassProps {
   onFocus?: (val, focusEvent) => void;
   onBlur?: (blurEvent) => void;
   onClear?: () => void;
-  className?: HTMLElement['className'];
   defaultValue?: any;
   value?: any;
   /** 限制输入数字的范围 */

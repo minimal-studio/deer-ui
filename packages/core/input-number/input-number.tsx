@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { ToFixed } from '@mini-code/base-func';
+import classnames from 'classnames';
 import NumTransformToCN from '@mini-code/base-func/num-to-cn';
 import InputVerifyClass, { InputVerifyClassProps } from '../form-control/input-verify-class';
 
@@ -19,6 +20,7 @@ export interface InputNumberProps extends InputVerifyClassProps {
   unit?: number;
   /** style */
   style?: React.CSSProperties;
+  className?: HTMLElement['className'];
 }
 
 function precentFilter(val, isPrecent) {
@@ -56,13 +58,21 @@ export class InputNumber extends InputVerifyClass<InputNumberProps> {
       <FormTip>{NumTransformToCN(value)}</FormTip>
     );
 
+    const classes = classnames(
+      'input-number',
+      (!matchLen || !matchRange) && 'error',
+      className
+    )
+
     return (
       <div
-        className={`input-number${(!matchLen || !matchRange) ? ' error' : ''}`}>
+        className={classes}
+      >
         {
           selectable && (
             <div className="option-btns minu _btn"
-              onClick={(e) => this._onChange((+value - unit))}>
+              onClick={(e) => this._onChange((+value - unit))}
+            >
               <span>-</span>
             </div>
           )
@@ -70,15 +80,17 @@ export class InputNumber extends InputVerifyClass<InputNumberProps> {
         <input type={type}
           value={value}
           style={style}
+          className="form-control"
           readOnly={!inputable}
-          className={`form-control ${className}`}
           onBlur={(e) => this._onBlur(e)}
           onChange={(e) => this._onChange(e.target.value)}
-          onFocus={(e) => this._onFocus(e.target.value, e)}/>
+          onFocus={(e) => this._onFocus(e.target.value, e)}
+        />
         {
           selectable && (
             <div className="option-btns plus _btn"
-              onClick={(e) => this._onChange((+value + unit))}>
+              onClick={(e) => this._onChange((+value + unit))}
+            >
               <span>+</span>
             </div>
           )
