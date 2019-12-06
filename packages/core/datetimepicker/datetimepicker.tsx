@@ -2,13 +2,12 @@
 import React from 'react';
 
 import { Call, DateFormat, UUID } from '@mini-code/base-func';
-import { LoadScript } from '../utils';
+import { LoadScript, loadPlugin, Children } from '../utils';
 
 import { DateBasic, DateBasicProps } from '../date-basic';
 import { Icon } from '../icon';
 import { PopoverEntity } from '../popover/popover-entity';
 import Mandarin from './zh';
-
 
 let flatpickrCDNUrl = 'https://cdn.jsdelivr.net/npm/flatpickr@4.6.3/dist/flatpickr.min.js';
 let isLoadingScript = false;
@@ -44,6 +43,10 @@ const loadJSFormCDN = () => {
   });
 };
 
+interface AddonProps {
+  setDate: (dateRange: Date[], needTrigger?: boolean) => void;
+}
+
 export interface DatetimePickerProps extends DateBasicProps {
   /** 默认的时分秒的值 */
   defaultTimes?: string[];
@@ -55,6 +58,8 @@ export interface DatetimePickerProps extends DateBasicProps {
   lang?: string;
   /** didMount */
   didMount?: () => void;
+  /** input addons */
+  addons?: (addonProps: AddonProps) => Children;
   /** 默认值 */
   defaultValue?: string[];
   style?: React.CSSProperties;
@@ -271,27 +276,40 @@ export class DatetimePicker extends DateBasic<DatetimePickerProps> {
     this._refs[id].blur && this._refs[id].blur();
   }
 
+  addonProps = {
+    setDate: this.setDate
+  }
+
   render() {
-    const { needTime, mode, style } = this.props;
+    const {
+      needTime, mode, style, addons
+    } = this.props;
     return (
       <div
         style={style}
         className={`__flatpickr input-control ${needTime ? 'long' : ''} ${mode}`}
       >
-        <div className="input-group right">
+        <div className="input-group">
           <input
             type="text"
             className="form-control input-sm"
             id={this._id}
             ref={(e) => { this._refs[this._id] = e; }}
           />
-          <span className="input-addon"
+          <span className="input-addon right"
             onClick={(e) => {
               if (this.datepicker) this.datepicker.toggle();
             }}
           >
             <Icon n="date"/>
           </span>
+          {
+            typeof addons === 'function' && (
+              <span className="input-addon right">
+                {addons(this.addonProps)}
+              </span>
+            )
+          }
         </div>
       </div>
     );

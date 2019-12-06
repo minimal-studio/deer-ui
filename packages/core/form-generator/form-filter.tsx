@@ -39,6 +39,20 @@ const getRefsID = (refs) => (Array.isArray(refs) ? refs.join('-') : '');
 
 const wrapInputSelectorMarkForRefu = (activeRef) => `__isActive${activeRef}`;
 
+const renderShortcutAddon = ({ setDate }) => (
+  <DateShortcut
+    position="right"
+    onChange={(val) => {
+      setDate(val);
+      // 点击更改 DatetimePicker 中的值
+      // this.getRef(datetimeRangeRef).setDate(val);
+      // this.changeDateRangeValues(val, refs);
+    }}
+  >
+    <Icon n="dateShortcut" />
+  </DateShortcut>
+);
+
 /**
  * 表单生成器
  * 统一的聚合表单
@@ -589,33 +603,17 @@ export default class FormFilterHelper<P extends FormFilterProps> extends UICompo
 
     return (
       <div className="datepicker-ranger-content">
-        {/* <span className="title">{this.$T_IN('范围')}</span> */}
         <DatetimePicker
           mode="range"
           {...other}
           ref={this.saveRef(datetimeRangeRef)}
           id={datetimeRangeRef}
           defaultValue={range}
-          // value={this.value[datetimeRangeRef]}
+          addons={!config.noHelper && renderShortcutAddon}
           onChange={(val) => {
             this.changeDateRangeValues(val, refs);
           }}
         />
-        {
-          !config.noHelper && (
-            <DateShortcut
-              {...other}
-              position="right"
-              onChange={(val) => {
-                // 点击更改 DatetimePicker 中的值
-                this.getRef(datetimeRangeRef).setDate(val);
-                // this.changeDateRangeValues(val, refs);
-              }}
-            >
-              <Icon n="dateShortcut" />
-            </DateShortcut>
-          )
-        }
       </div>
     );
   }

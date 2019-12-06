@@ -25,9 +25,9 @@ export interface DateShortcutProps extends DateBasicProps {
     filter: (args) => string[];
   }[];
   /** subContent 的位置 */
-  position: DropdownWrapperProps['position'];
+  position?: DropdownWrapperProps['position'];
   /** DateShortcut 的 style */
-  style: React.CSSProperties;
+  style?: React.CSSProperties;
 }
 
 function getHalfMouthDate(type, format, timeDefaultStr) {
@@ -151,6 +151,8 @@ export class DateShortcut extends DateBasic<DateShortcutProps, {
       <div className={`date-shortcut ${className}`} style={style}>
         <DropdownWrapper
           outside
+          withInput={false}
+          className="inline-content"
           trigger={trigger}
           position={position}
           overlay={({ hide }) => (
