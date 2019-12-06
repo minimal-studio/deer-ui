@@ -127,7 +127,8 @@ export default class ToolTip extends PureComponent<ToolTipProps> {
         onMouseEnter={this.handleMouseEnter}
         onMouseLeave={this.handleMouseLeave}
         onClick={this.handleClick}
-        classNames={[...classNames, 'relative']}>
+        classNames={[...classNames, 'relative']}
+      >
         {children}
       </Com>
     );

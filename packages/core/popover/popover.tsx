@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import React, { Component } from 'react';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import classnames from 'classnames';
@@ -176,7 +177,7 @@ export default class Popover extends Component<PopoverProps, State> {
     return positionStyle;
   }
 
-  setSelfPosition = (elem) => {
+  setSelfPosition = (elem: HTMLDivElement | null) => {
     if (!elem) return;
     const { position } = this.props;
     this.popoverDOM = elem;
@@ -185,12 +186,8 @@ export default class Popover extends Component<PopoverProps, State> {
       height: elem.offsetHeight,
     };
     const nextPositionStyle = this.calaStyle(position, popoverScale);
-    const { positionStyle } = this.state;
-    if (JSON.stringify(nextPositionStyle) !== JSON.stringify(positionStyle)) {
-      this.setState({
-        positionStyle: nextPositionStyle
-      });
-    }
+    elem.style.top = `${nextPositionStyle.top}px`;
+    elem.style.left = `${nextPositionStyle.left}px`;
   }
 
   render() {
@@ -200,15 +197,14 @@ export default class Popover extends Component<PopoverProps, State> {
       showCloseBtn, enableTabIndex
     } = this.props;
     if (!relativeElem) return <span />;
-    const { positionStyle } = this.state;
-    const { top, left, position } = positionStyle;
-    const _style = Object.assign({}, style, {
-      top,
-      left,
-    });
+    // const { positionStyle } = this.state;
+    // const { top, left, position } = positionStyle;
+    // const _style = Object.assign({}, style, {
+    //   top,
+    //   left,
+    // });
 
     let container = (<span />);
-    const transitionKey = open ? 'popover' : 'popover-close';
     if (open) {
       const closeBtn = showCloseBtn && (
         <div className="_close-btn" onClick={(e) => onClose(e)}>x</div>
@@ -218,7 +214,7 @@ export default class Popover extends Component<PopoverProps, State> {
       } : {};
       const popClasses = classnames(
         `__popover`,
-        position,
+        // position,
         className,
         type,
         fixed && `fixed`,
@@ -229,7 +225,7 @@ export default class Popover extends Component<PopoverProps, State> {
         <div
           {...obj}
           className={popClasses}
-          style={_style}
+          // style={_style}
           ref={(e) => this.setSelfPosition(e)}
         >
           {/* <span className="caret" style={{
@@ -241,10 +237,13 @@ export default class Popover extends Component<PopoverProps, State> {
         </div>
       );
     }
+    return container;
     return (
-      <TransitionGroup>
+      <TransitionGroup
+        component={null}
+      >
         <CSSTransition
-          key={transitionKey}
+          key={open ? 'popover' : 'popover-close'}
           classNames="popover"
           timeout={200}
         >

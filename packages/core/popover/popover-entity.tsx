@@ -3,6 +3,7 @@
 import React, { Component, PureComponent } from 'react';
 import ReactDOM from 'react-dom';
 
+import { UUID } from '@mini-code/base-func';
 import setDOMById, { destoryDOM } from '../utils/set-dom';
 
 import Popover from './popover';
@@ -88,14 +89,18 @@ export class PopoverEntity {
 
   prevOptions = {}
 
+  onlyDisplay
+
+  params
+
   constructor(options: PopoverConstructorOptions = {}) {
-    const { id = 'topPopover', fixed = false, onlyDisplay = true } = options;
+    const { id = UUID(), fixed = false, onlyDisplay = true } = options;
     this.id = this.idPrefix + id;
     this.prevProps = { fixed };
+    this.onlyDisplay = onlyDisplay;
 
-    this.initDOM({
-      onlyDisplay
-    });
+    this.params = options;
+    this.initDOM(this.params);
   }
 
   savePopWrapper = (e: PopoverWrapper) => {
@@ -104,6 +109,7 @@ export class PopoverEntity {
   }
 
   initDOM(props) {
+    if (this.popoverEntity) return;
     const topPopoverDOM = setDOMById(this.id);
 
     const popoverWrapper = (
