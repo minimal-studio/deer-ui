@@ -198,7 +198,8 @@ export default class Captcha extends UIComponent<CaptchaProps, State> {
       <img
         src={captchaImg}
         alt=""
-        className="cover-image"/>
+        className="cover-image"
+      />
     ) : null;
     if (!hasCap) {
       loadingTip = this.$T_IN('验证码');
@@ -217,18 +218,21 @@ export default class Captcha extends UIComponent<CaptchaProps, State> {
           value={_captchaValue}
           onFocus={(e) => this.shouldRefreshCaptcha()}
           onChange={(val) => this.changeCaptcha(val)}
-          placeholder={this.$T_IN("验证码")}>
-          <div className="captcha"
-            onClick={(e) => {
-              this.getCaptcha();
-            }}>
-            <div
-              className={`text-center captcha-tip${!loading && hasCap ? ' hide' : ''}`}>
-              {loadingTip}
-            </div>
-            {captchaImgElem}
-          </div>
+          placeholder={this.$T_IN("验证码")}
+        >
         </Input>
+        <div className="captcha"
+          onClick={(e) => {
+            this.getCaptcha();
+          }}
+        >
+          <div
+            className={`text-center captcha-tip${!loading && hasCap ? ' hide' : ''}`}
+          >
+            {loadingTip}
+          </div>
+          {captchaImgElem}
+        </div>
       </div>
     );
   }

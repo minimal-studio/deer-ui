@@ -1,5 +1,6 @@
 .captcha-group {
   position: relative;
+  display: inline-block;
   input[type=number]::-webkit-inner-spin-button, 
   input[type=number]::-webkit-outer-spin-button { 
     -webkit-appearance: none; 
@@ -7,15 +8,15 @@
   }
   .captcha {
     cursor: pointer;
-    width: 76px;
+    width: 72px;
     border-radius: 0 $form-control-border-radius $form-control-border-radius 0;
     overflow: hidden;
     position: absolute;
-    right: 1px;
+    right: 6px;
     bottom: 1px;
     background-color: #eee;
-    height: 30px;
-    line-height: 30px;
+    height: $form-control-min-height-width-border;
+    line-height: $form-control-min-height-width-border;
     @include layoutCenter();
     z-index: 1;
     .captcha-tip {

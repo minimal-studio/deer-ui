@@ -1,6 +1,8 @@
 import React, { PureComponent } from 'react';
 import { Call } from '@mini-code/base-func';
 import { Icon } from '@deer-ui/core/icon';
+import { InputNumber } from '@deer-ui/core/input-number';
+import { DropdownWrapper, Menus, MenuItem } from '@deer-ui/core';
 
 export interface MultipleProps {
   /** onChange */
@@ -30,11 +32,9 @@ export default class Multiple extends PureComponent<MultipleProps, State> {
   static defaultProps = {
     max: 999999,
     inputable: true,
-    min: 1,
+    min: 0,
     range: [1, 5, 10, 100],
   }
-
-  multipleHelper
 
   constructor(props) {
     super(props);
@@ -45,43 +45,14 @@ export default class Multiple extends PureComponent<MultipleProps, State> {
     };
   }
 
-  componentDidMount() {
-    this.multipleHelper.defaultValue = '1';
-  }
-
-  multipleOperation(symbol) {
-    const { basicUnit = 1 } = this.props;
-    const { value } = this.state;
-    let _result = +value;
-    switch (symbol) {
-      case 'plus':
-        _result += basicUnit;
-        break;
-      case 'less':
-        _result -= basicUnit;
-        break;
-    }
-    this.changeValue(_result);
-  }
-
   changeValue(val) {
-    const { onChange } = this.props;
-    const value = +(val) || 1;
+    const { min, max, onChange } = this.props;
+    if (val > max) return;
+    if (val < min) return;
     this.setState({
-      value
+      value: val
     });
-    Call(onChange, value);
-  }
-
-  checkValue() {
-    const { min = -1000, max = 10000 } = this.props;
-    let { value } = this.state;
-    if (value < min || value === 0) {
-      value = min;
-    } else if (value > max) {
-      value = max;
-    }
-    this.changeValue(value);
+    Call(onChange, val);
   }
 
   setIdea(isShow) {
@@ -90,54 +61,44 @@ export default class Multiple extends PureComponent<MultipleProps, State> {
     });
   }
 
-  render() {
-    const { suffix, range, inputable } = this.props;
-    const { isShowIdea, value } = this.state;
-
+  renderHints = ({ hide }) => {
+    const { suffix, range } = this.props;
     return (
-      <div className={`multiple-helper${isShowIdea ? ' show' : ''}`}>
-        <div className="layout a-i-str j-c-b">
-          <input type="text" name="multiple" className="multiple-input-control"
-            onFocus={(e) => {
-              e.target.select();
-            }}
-            onBlur={(e) => {
-              setTimeout(() => {
-                if (!isShowIdea) return;
-                this.setIdea(false);
-              }, 1 * 100);
-            }}
-            value={value}
-            ref={(e) => { this.multipleHelper = e; }}
-            onChange={(e) => {
-              if (!inputable) return;
-              this.changeValue(e.target.value);
-            }}/>
-          <span className="multiple-tip">{suffix}</span>
-          <span className="multiple-action-btn"
-            onClick={(e) => this.multipleOperation('less')}>-</span>
-          <span className="multiple-action-btn"
-            onClick={(e) => this.multipleOperation('plus')}>+</span>
-          <span className="ps5 toggle-tip-btn" onClick={(e) => {
-            this.multipleHelper.focus();
-            this.setIdea(true);
-          }}>
-            <Icon n="arrow-down"/>
-          </span>
-        </div>
-        <div className="idea-tip">
-          {
-            range && range.map((item) => (
-              <div key={item} className="item" onClick={(e) => {
+      <Menus padding={0}>
+        {
+          range && range.map((item) => (
+            <MenuItem
+              key={item}
+              className="item"
+              onClick={(e) => {
                 this.setIdea(false);
                 this.changeValue(item);
-              }}>
-                <span className="mul">{item}</span>{suffix}
-              </div>
-            ))
-          }
-        </div>
-      </div>
+                hide();
+              }}
+            >
+              <span className="mul">{item}</span>{suffix}
+            </MenuItem>
+          ))
+        }
+      </Menus>
+    );
+  }
+
+  render() {
+    const { value } = this.state;
+    const { min, max = 999999 } = this.props;
+    return (
+      <DropdownWrapper
+        overlay={this.renderHints}
+      >
+        <InputNumber
+          numRange={[min, max]}
+          value={value}
+          onChange={(val) => {
+            this.changeValue(val);
+          }}
+        />
+      </DropdownWrapper>
     );
   }
 }
