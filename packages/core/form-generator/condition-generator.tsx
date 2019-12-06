@@ -10,12 +10,6 @@ export type ConditionOptions = FormOptionsItem[];
 export interface ConditionGeneratorProps extends FormGeneratorProps {
   /** 查询条件的配置 */
   conditionConfig: ConditionOptions;
-  /** className */
-  className?: HTMLElement['className'];
-  /** onSubmit */
-  onSubmit?: (values) => void;
-  /** 查询条件组的按钮 */
-  formBtns?: FormLayoutBtn[];
 }
 
 const defaultProps = {

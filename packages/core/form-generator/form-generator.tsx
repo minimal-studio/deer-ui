@@ -5,7 +5,7 @@ import React from 'react';
 
 import { UUID, Call } from '@mini-code/base-func';
 import classnames from 'classnames';
-import { DivideType } from '../utils/props';
+import { DivideType, Children } from '../utils/props';
 import FormFilterHelper, { FormFilterProps, FormOptionsItem, FormChangeEvent } from './form-filter';
 import { queryIsMobile } from '../utils';
 
@@ -32,6 +32,8 @@ export interface FormGeneratorProps extends FormFilterProps<FormOptions> {
   onChange?: FormChangeEvent;
   /** style */
   style?: React.CSSProperties;
+  /** children */
+  children: Children;
 }
 
 const hrDivide = ['-', 'hr'];
