@@ -10,18 +10,24 @@ menu: Enhance-UI
 
 ## Basic Usage
 
+Max 11, Min 0
+
 ```jsx live noInline
 import { Multiple } from '@deer-ui/enhance-ui';
 
 function Example() {
   return (
-    <div style={{width: 160, position: 'relative'}}>
+    <div style={{
+      width: 160, 
+      height: 200,
+      position: 'relative'
+    }}>
       <Multiple
         onChange={val => {
           console.log(val)
         }}
         min={0}
-        max={10000}
+        max={11}
         range={[1, 10, 20, 30]} />
     </div>
   )
