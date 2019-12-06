@@ -4,6 +4,8 @@
   appearance: none;
   background-color: #FFF;
   padding: $button-md-padding-vertical $button-md-padding-horizontal;
+  height: $form-control-height;
+  // line-height: $form-control-height - 2;
   font-size: $form-control-font-size;
   border-radius: $form-control-border-radius;
   transition: background-color 0.1s ease, box-shadow 0.1s ease, color 0.1s ease;
@@ -50,29 +52,34 @@
 
   &.xl {
     font-size: 20px;
-    padding: 15px 48px;
+    padding: 0 48px;
+    height: $form-control-xl-height;
   }
 
   &.lg {
     font-size: 18px;
-    padding: 10px 36px;
+    padding: 0 36px;
+    height: $form-control-lg-height;
   }
 
   &.md {
     font-size: 14px;
-    padding: $button-md-padding-vertical $button-md-padding-horizontal;
+    padding: 0 $button-md-padding-horizontal;
+    height: $form-control-height;
   }
 
   &.sm {
     font-size: 13px;
-    padding: 5px 10px;
-    min-width: 80px;
+    padding: 0 10px;
+    height: $form-control-sm-height;
+    // min-width: 80px;
   }
 
   &.tiny {
     font-size: $base-sm-font-size;
-    padding: 4px 8px;
-    min-width: 60px;
+    padding: 0 8px;
+    height: $form-control-xs-height;
+    // min-width: 60px;
   }
 
   @for $i from 1 through length($bgColorsWithTextColor) {

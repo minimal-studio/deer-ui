@@ -132,6 +132,8 @@ export class DropdownWrapper extends React.PureComponent<DropdownWrapperProps, S
   // 记录是否已经渲染过一次 overlay
   _shown = false
 
+  __mount = false
+
   overlayElem
 
   displayTitleDOM
@@ -167,12 +169,17 @@ export class DropdownWrapper extends React.PureComponent<DropdownWrapperProps, S
     this._withInput = typeof withInput == 'undefined' ? !isMobile : withInput;
     this._outside = typeof outside == 'undefined' ? isMobile : outside;
     this._position = positionFilter(position).split(' ');
+    this.__mount = true;
 
     this.setOutSideContainer(isMobile);
 
     this.setState({
       ready: true,
     });
+  }
+
+  componentWillUnmount = () => {
+    this.__mount = false;
   }
 
   handleClickAway = () => {
@@ -220,16 +227,18 @@ export class DropdownWrapper extends React.PureComponent<DropdownWrapperProps, S
       elem.removeEventListener('scroll', this.hide);
       this.addScrollListener = false;
     }
-    /** 一定隐藏成功 */
+    /** 确保隐藏成功 */
     if (!this.hideDebounce) this.hideDebounce = new DebounceClass();
     this.hideDebounce.exec(this._hide, 50);
   }
 
   _hide = () => {
-    this.setState({
-      isShow: false,
-      searchValue: ''
-    });
+    if (this.__mount) {
+      this.setState({
+        isShow: false,
+        searchValue: ''
+      });
+    }
   }
 
   saveInput = (_i) => {

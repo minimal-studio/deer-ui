@@ -94,6 +94,8 @@ textarea {
       .title {
         font-size: $base-sm-font-size;
         transform: translateY(-120%);
+        margin-left: 0;
+        padding: 3px 10px;
         background-color: $form-control-active-bg-color;
       }
     }

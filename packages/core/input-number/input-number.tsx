@@ -62,7 +62,7 @@ export class InputNumber extends InputVerifyClass<InputNumberProps> {
       'input-number',
       (!matchLen || !matchRange) && 'error',
       className
-    )
+    );
 
     return (
       <div
@@ -70,14 +70,16 @@ export class InputNumber extends InputVerifyClass<InputNumberProps> {
       >
         {
           selectable && (
-            <div className="option-btns minu _btn"
+            <div
+              className="option-btns minu _btn"
               onClick={(e) => this._onChange((+value - unit))}
             >
               <span>-</span>
             </div>
           )
         }
-        <input type={type}
+        <input
+          type={type}
           value={value}
           style={style}
           className="form-control"

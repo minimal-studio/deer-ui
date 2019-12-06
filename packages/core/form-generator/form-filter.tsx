@@ -20,6 +20,7 @@ import { InputSelector } from '@deer-ui/core/input-selector';
 import { UIComponent, loadPlugin } from '../utils/ui-component';
 import { FormOptionsItemEnhance } from './form-types';
 import { Button } from '../button';
+import { Icon } from '../icon';
 
 export type FormOptionsItem = FormOptionsItemEnhance;
 
@@ -610,7 +611,9 @@ export default class FormFilterHelper<P extends FormFilterProps> extends UICompo
                 this.getRef(datetimeRangeRef).setDate(val);
                 // this.changeDateRangeValues(val, refs);
               }}
-            />
+            >
+              <Icon n="dateShortcut" />
+            </DateShortcut>
           )
         }
       </div>

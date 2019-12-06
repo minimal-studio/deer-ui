@@ -1,21 +1,19 @@
 $padding: 0;
+$offset: 2px;
 
 .switch-btn-group {
-  border-radius: 20px;
-  background-color: #f1f1f1;
+  border-radius: $form-control-border-radius;
+  background-color: $form-control-bg-color;
   border: $form-control-border-width solid $form-control-border-color;
   display: inline-block;
   position: relative;
   overflow: hidden;
-  box-shadow: inset 0 1px 1px rgba(#000, 0.05);
   padding: $padding;
   .indicator {
     position: absolute;
-    left: 0;
-    height: 100%;
     background-color: $themeColor;
     transition: all 0.2s ease;
-    border-radius: 20px;
+    border-radius: $form-control-border-radius;
     box-shadow: inset 0 1px 1px rgba(#000, 0.1);
   }
   .switch-btn {

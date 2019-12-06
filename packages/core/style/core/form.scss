@@ -82,6 +82,7 @@
       border-bottom: 1px solid $themeColor;
       display: inline-block;
       margin-bottom: -1px;
+      padding-bottom: 10px;
     }
   }
 }
@@ -98,9 +99,9 @@
   .form-btn-group {
     display: flex;
 
-    .btn {
-      flex: 1;
-    }
+    // .btn {
+    //   flex: 1;
+    // }
   }
 }
 

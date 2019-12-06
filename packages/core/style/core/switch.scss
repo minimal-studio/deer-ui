@@ -1,5 +1,4 @@
 $indicatorScale: 22px;
-$scale: 26px;
 
 .__switch {
   border-radius: 20px;
@@ -10,8 +9,8 @@ $scale: 26px;
   box-shadow: inset 0 1px 1px rgba(#000, 0.05);
   min-width: 56px;
   text-align: right;
-  height: $scale;
-  line-height: $scale;
+  height: $switch-btn-height;
+  line-height: $switch-btn-height;
   transition: background-color 0.2s ease;
   user-select: none;
   &.disabled,&[disabled] {
@@ -32,7 +31,7 @@ $scale: 26px;
     width: $indicatorScale;
     position: absolute;
     left: 2px;
-    top: ($scale - $indicatorScale) / 2;
+    top: ($switch-btn-height - $indicatorScale) / 2;
     // background-color: $themeColor;
     background-color: #FFF;
     transition: all 0.2s ease;

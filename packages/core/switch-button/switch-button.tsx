@@ -16,6 +16,8 @@ export interface SwitchButtonProps {
   isNum?: boolean;
   /** 是否禁用 */
   disabled?: boolean;
+  /** 激活指示器与外层容器的间距 */
+  offset?: number;
 }
 
 /**
@@ -30,6 +32,7 @@ export default class SwitchButton extends PureComponent<SwitchButtonProps> {
     unique: true,
     disabled: false,
     isNum: false,
+    offset: 1,
   }
 
   value
@@ -44,6 +47,24 @@ export default class SwitchButton extends PureComponent<SwitchButtonProps> {
   componentDidMount() {
     /** 为了让指示器初始化显示宽度 */
     this.forceUpdate();
+  }
+
+  renderIndicator = () => {
+    const { activeIdx, offset = 1 } = this.props;
+    const activeDOM = this._refs[activeIdx];
+
+    return activeDOM && (
+      <span
+        className="indicator"
+        style={{
+          transform: `translateX(${activeDOM.offsetLeft}px)`,
+          left: offset,
+          top: offset,
+          height: activeDOM.offsetHeight - offset * 2,
+          width: activeDOM.offsetWidth - offset * 2
+        }}
+      />
+    );
   }
 
   render() {
@@ -74,16 +95,11 @@ export default class SwitchButton extends PureComponent<SwitchButtonProps> {
         </span>
       );
     });
-    const activeDOM = this._refs[activeIdx] || {};
 
     const switchBtnGroup = (
       <span className="switch-btn-group">
         {btnGroup}
-        <span className="indicator" style={{
-          transform: `translateX(${activeDOM.offsetLeft}px)`,
-          width: activeDOM.offsetWidth
-        }}
-        />
+        {this.renderIndicator()}
       </span>
     );
     return switchBtnGroup;

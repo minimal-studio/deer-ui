@@ -48,7 +48,7 @@ export default class Radio extends SelectorBasic<RadioProps> {
     const selectAllBtn = isMultiple && checkAllBtn && (
       <Button
         color={!isSelectedAll ? 'theme' : 'red'}
-        size="sm"
+        size="tiny"
         className="select-all-btn"
         onClick={(e) => (isSelectedAll ? this.clearAll() : this.selectAll())}
       >

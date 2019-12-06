@@ -5,6 +5,7 @@ import { $T_IN } from '../utils';
 
 import { DropdownWrapper, DropdownWrapperProps } from '../dropdown-wrapper';
 import { DateBasic, DateBasicProps } from '../date-basic';
+import { Menus, MenuItem } from '../menu';
 
 export interface DateShortcutProps extends DateBasicProps {
   /** 点击快捷方式的回调 */
@@ -15,6 +16,8 @@ export interface DateShortcutProps extends DateBasicProps {
   defaultTimes?: string[];
   /** 捷径的文字描述 */
   shortcutText?: string;
+  /** className */
+  className?: string;
   trigger?: DropdownWrapperProps['trigger'];
   /** 自定义的时间快捷选项 */
   dateHelperInfo?: {
@@ -35,10 +38,10 @@ function getHalfMouthDate(type, format, timeDefaultStr) {
   const lastDay = dayInMouth.getDate();
   const [s = '', e = ''] = timeDefaultStr;
 
-  const upStartDate = DateFormat(new Date(currYear, currMonth, 1), format) + s;
-  const upEndDate = DateFormat(new Date(currYear, currMonth, 15), format) + e;
-  const downStartDate = DateFormat(new Date(currYear, currMonth, 16), format) + s;
-  const downEndDate = DateFormat(new Date(currYear, currMonth, lastDay), format) + e;
+  const upStartDate = `${DateFormat(new Date(currYear, currMonth, 1), format)} ${s}`;
+  const upEndDate = `${DateFormat(new Date(currYear, currMonth, 15), format)} ${e}`;
+  const downStartDate = `${DateFormat(new Date(currYear, currMonth, 16), format)} ${s}`;
+  const downEndDate = `${DateFormat(new Date(currYear, currMonth, lastDay), format)} ${e}`;
 
   let result: string[] = [];
   switch (type) {
@@ -83,11 +86,11 @@ export class DateShortcut extends DateBasic<DateShortcutProps, {
       activeIdx: -1,
     };
 
-    const { needTime } = props;
+    const { needTime, defaultTimes } = props;
 
     const basicFormat = 'YYYY-MM-DD';
     // const timeFormat = 'hh:ss:mm';
-    const timeDefaultStr = needTime ? [' 00:00:00', ' 23:59:59'] : [];
+    const timeDefaultStr = needTime ? defaultTimes : [];
     // const format = basicFormat + (needTime ? (' ' + timeFormat) : '');
     const dateRangeOptions = { extendFormat: timeDefaultStr };
 
@@ -139,40 +142,43 @@ export class DateShortcut extends DateBasic<DateShortcutProps, {
   render() {
     const { activeIdx } = this.state;
     const {
-      dateHelperInfo, style, position, trigger, shortcutText
+      dateHelperInfo, style, position, trigger, shortcutText, children, className = ''
     } = this.props;
     const _dateHelperInfo = !!dateHelperInfo && dateHelperInfo.length > 0
       ? dateHelperInfo : this.defaultDateHelperInfo;
 
     return (
-      <DropdownWrapper
-        outside
-        trigger={trigger}
-        position={position}
-        overlay={({ hide }) => (
-          <div className="date-shortcut" style={style}>
-            <div className="__menus">
+      <div className={`date-shortcut ${className}`} style={style}>
+        <DropdownWrapper
+          outside
+          trigger={trigger}
+          position={position}
+          overlay={({ hide }) => (
+            <Menus padding={0}>
               {
                 _dateHelperInfo.map((item, idx) => {
                   const text = item.t;
+                  const isActive = idx === activeIdx;
                   return (
-                    <span className={`menu-item action-btn${idx === activeIdx ? ' active' : ''}`}
+                    <MenuItem
+                      isActive={isActive}
+                      className="action-btn"
                       onClick={(e) => {
                         hide();
                         this.generateDate(item, idx);
                       }} key={text}
                     >
                       {$T_IN(text)}
-                    </span>
+                    </MenuItem>
                   );
                 })
               }
-            </div>
-          </div>
-        )}
-      >
-        {this.$T_IN(shortcutText)}
-      </DropdownWrapper>
+            </Menus>
+          )}
+        >
+          {children || this.$T_IN(shortcutText)}
+        </DropdownWrapper>
+      </div>
     );
   }
 }

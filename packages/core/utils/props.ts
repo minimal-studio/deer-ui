@@ -15,8 +15,6 @@ export interface ButtonProps {
   className?: HTMLElement['className'];
   /** btn 的字 */
   text?: string;
-  /** btn 内的布局 */
-  textLayout?: string;
   /** btn 的状态 */
   status?: StatusColorTypes | 'link';
   /** btn 的颜色 */

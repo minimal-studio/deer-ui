@@ -12,7 +12,7 @@ export interface MenuItemData extends MenuProps {
 export interface MenusProps {
   /** Menus 数据，可以为 Menu 的数据结构，如果为 '-' 或 'hr'，则渲染分隔线 */
   data?: (MenuItemData | DivideType)[];
-  padding?: 5 | 10 | 15 | 20;
+  padding?: 0 | 5 | 10 | 15 | 20;
   className?: string;
 }
 

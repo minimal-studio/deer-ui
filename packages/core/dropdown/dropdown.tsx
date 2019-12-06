@@ -6,7 +6,7 @@ import { tuple } from '@mini-code/base-func/utils/type';
 import { $T, $T_IN, ApiRename } from '../utils';
 import SelectorBasic, { SelectorValuesDescription, SelectorBasicProps } from '../selector-basic';
 import { DropdownWrapper, DropdownWrapperProps } from '../dropdown-wrapper';
-import { MenuItem } from '../menu';
+import { MenuItem, Menus } from '../menu';
 import { Checkbox } from '../checkbox';
 // import Radio from './radio';
 
@@ -180,7 +180,7 @@ export class Dropdown extends SelectorBasic<DropdownProps> {
                     />
                   </div>
                 ) : (
-                  <div className="__menus">
+                  <Menus padding={0}>
                     {
                       this.values.map((dataItem, idx) => {
                         const {
@@ -207,7 +207,7 @@ export class Dropdown extends SelectorBasic<DropdownProps> {
                         ) : null;
                       })
                     }
-                  </div>
+                  </Menus>
                 )
               }
             </div>

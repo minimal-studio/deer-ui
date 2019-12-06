@@ -8,12 +8,15 @@ import {
   ButtonProps
 } from '../utils/props';
 import { Icon, IconProps } from '../icon';
+import { Grid, GridProps } from '../grid';
 
 interface ButtonProps2 extends ButtonProps {
   /** 设置 btn 的 icon, 可以使用 iconMapper 来引用 */
   icon?: IconProps['n'];
   /** pass to icon */
   s?: IconProps['s'];
+  /** btn 内的布局 */
+  textLayout?: GridProps;
 }
 
 const defaultProps = {
@@ -21,7 +24,6 @@ const defaultProps = {
   loadingHint: true,
   loadingDisable: true,
   disabled: false,
-  textLayout: 'a-i-c j-c-c',
   className: '',
   icon: '',
 };
@@ -61,13 +63,11 @@ const Button: React.SFC<ButtonProps2> = (props) => {
         if (clickable) Call(onClick, e);
       }}
     >
-      <span className={`layout ${textLayout}`}>
-        {iconDOM}
-        {
-          child && <span className="ms10">{child}</span>
-        }
-        {loadingTip}
-      </span>
+      {iconDOM}
+      {
+        child && <span className="ms10">{child}</span>
+      }
+      {loadingTip}
     </button>
   );
 };

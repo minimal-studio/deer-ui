@@ -36,7 +36,7 @@ $label-padding-horizontal: 12px;
 
 // form control setting
 
-$form-control-height: 32px;
+$form-control-height: 36px;
 $form-control-xl-height: 48px;
 $form-control-lg-height: 42px;
 $form-control-md-height: $form-control-height;
@@ -107,7 +107,7 @@ $caret-scale: 8px;
 // Menu
 
 $menu-min-width: 140px;
-$menu-item-padding-vertical: 8px;
+$menu-item-padding-vertical: 10px;
 $menu-item-padding-horizontal: 12px;
 
 // Dropdown
@@ -117,7 +117,7 @@ $dropdown-menu-display-items-count: 4;
 
 // Pagin
 
-$pagin-item-padding: 0 10px;
+$pagin-item-padding: 0 12px;
 $pagin-item-hover-bg-color: #f8f8f8;
 
 // Scroll bar
@@ -137,3 +137,7 @@ $tab-indicator-width: 1px;
 $tab-indicator-bg-color: #CCC;
 $tab-border: 1px solid #EEE;
 $tab-label-padding: 10px 26px;
+
+// Switch
+
+$switch-btn-height: $form-control-height - 8;

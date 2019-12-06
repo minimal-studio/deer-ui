@@ -16,6 +16,7 @@ export const defaultIconMapper = {
   'arrow-up': 'angle-up',
   'arrow-down': 'angle-down',
   date: 'calendar-alt',
+  dateShortcut: 'hourglass-half',
   more: 'equals',
   close: 'times',
   noData: 'hiking',
