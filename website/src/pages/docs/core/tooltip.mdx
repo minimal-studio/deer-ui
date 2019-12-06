@@ -50,7 +50,7 @@ render(<Example />);
 
 ```jsx live noInline
 import { useState } from 'react';
-import { ToolTip, Button } from '@deer-ui/core';
+import { ToolTip, Button, Label } from '@deer-ui/core';
 
 function Example() {
   const [isOpen, setOpen] = useState(false)
@@ -68,7 +68,7 @@ function Example() {
         title={!isOpen ? "打开书" : "关闭书"}
         className="bg_default p10"
         n={isOpen ? "book-open" : "book"}>
-        <Button>打开位置 {position}</Button>
+        <Label>打开位置 {position}</Label>
       </ToolTip>
     </div>
   )

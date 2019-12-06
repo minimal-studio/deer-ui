@@ -35,12 +35,13 @@ import { DatetimePicker } from '@deer-ui/core';
 function Example() {
   const [date, setDate] = useState('');
   return (
-    <div className="layout a-i-c">
+    <div>
       <DatetimePicker
         onChange={val => {
           setDate(val)
         }} />
-      {date.toString()}
+      <hr />
+      Output: {date.toString()}
     </div>
   )
 }
@@ -56,13 +57,14 @@ import { DatetimePicker } from '@deer-ui/core';
 function Example() {
   const [date, setDate] = useState('');
   return (
-    <div className="layout a-i-c">
+    <div>
       <DatetimePicker
         outputAsString={true}
         onChange={val => {
           setDate(val)
         }} />
-      {date.toString()}
+      <hr />
+      Output: {date.toString()}
     </div>
   )
 }
@@ -78,14 +80,15 @@ import { DatetimePicker } from '@deer-ui/core';
 function Example() {
   const [date, setDate] = useState('');
   return (
-    <div className="layout a-i-c">
+    <div>
       <DatetimePicker
         outputAsString={true}
         needTime={false}
         onChange={val => {
           setDate(val)
         }} />
-      {date.toString()}
+      <hr />
+      Output: {date.toString()}
     </div>
   )
 }
@@ -105,13 +108,14 @@ import { DatetimePicker } from '@deer-ui/core';
 function Example() {
   const [date, setDate] = useState('');
   return (
-    <div className="layout a-i-c">
+    <div>
       <DatetimePicker
         mode="range"
         onChange={val => {
           setDate(val)
         }} />
-      {date.toString()}
+      <hr />
+      Output: {date.toString()}
     </div>
   )
 }
@@ -127,7 +131,7 @@ import { DatetimePicker } from '@deer-ui/core';
 function Example() {
   const [date, setDate] = useState('');
   return (
-    <div className="layout a-i-c">
+    <div>
       <DatetimePicker
         needTime={false}
         outputAsString={true}
@@ -135,7 +139,47 @@ function Example() {
         onChange={val => {
           setDate(val)
         }} />
-      {date.toString()}
+      <hr />
+      Output: {date.toString()}
+    </div>
+  )
+}
+render(<Example />);
+```
+
+### Addon
+
+可以将 DateShortcut 作为 addon 嵌入
+
+```jsx live noInline
+import { useState } from 'react';
+import { DatetimePicker, DateShortcut, Icon } from '@deer-ui/core';
+
+const renderShortcutAddon = ({ setDate }) => (
+  <DateShortcut
+    position="right"
+    onChange={(val) => {
+      setDate(val);
+    }}
+  >
+    <Icon n="dateShortcut" />
+  </DateShortcut>
+);
+
+function Example() {
+  const [date, setDate] = useState('');
+  return (
+    <div>
+      <DatetimePicker
+        needTime
+        outputAsString={true}
+        mode="range"
+        addons={renderShortcutAddon}
+        onChange={val => {
+          setDate(val)
+        }} />
+      <hr />
+      Output: {date.toString()}
     </div>
   )
 }

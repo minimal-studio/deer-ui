@@ -25,7 +25,7 @@ const FormLayoutDemo = () => {
     {
       action: (formRef, actingRef) => {
         console.log(formRef.value, actingRef);
-        this.submit(formRef.value, actingRef);
+        submit(formRef.value, actingRef);
       },
       type: 'submit',
       text: '测试按钮',
@@ -36,7 +36,7 @@ const FormLayoutDemo = () => {
   const submit = (formData, actingRef) => {
     // 模拟获取数据
     setTimeout(() => {
-      this.setState({
+      setResDesc({
         hasErr: false,
         resDesc: '成功'
       });
