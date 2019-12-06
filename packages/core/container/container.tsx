@@ -2,7 +2,7 @@ import React from 'react';
 import classnames from 'classnames';
 import { ContainerSizes } from '../utils';
 
-export interface ContainerProps {
+export interface ContainerProps extends React.HTMLProps<HTMLDivElement> {
   /** 是否流布局，100% 宽度 */
   fluid?: boolean;
   size?: ContainerSizes;
@@ -14,7 +14,7 @@ export interface ContainerProps {
 /**
  * 容器，默认最大宽度为
  */
-const Container: React.SFC<ContainerProps & React.HTMLProps<HTMLDivElement>> = (props) => {
+const Container: React.SFC<ContainerProps> = (props) => {
   const {
     fluid, size = 'xl', className, children, maxWidth, autoAlign = true,
     style,

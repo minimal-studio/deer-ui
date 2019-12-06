@@ -3,7 +3,7 @@ import { Container } from '..';
 
 const E = () => {
   return (
-    <Container fluid>
+    <Container fluid size="md">
       <div>asd</div>
     </Container>
   );
