@@ -68,6 +68,26 @@ textarea {
   }
 }
 
+.input-addon {
+  color: $form-label-text-color;
+  height: $form-control-height - 2 * $form-control-border-width;
+  line-height: $form-control-height - 4px;
+  padding: 0 8px;
+  border-right: 1px solid $form-control-border-color;
+  border-radius: $form-control-border-radius 0 0 $form-control-border-radius;
+
+  &.border-side {
+    border-top: $form-control-border-width solid $form-control-border-color;
+    border-bottom: $form-control-border-width solid $form-control-border-color;
+  }
+
+  &.right {
+    border-left: $form-control-border-width solid $form-control-border-color;
+    border-right: none;
+    border-radius: 0 $form-control-border-radius $form-control-border-radius 0;
+  }
+}
+
 .input-control {
   background-color: $form-control-bg-color;
   position: relative;
@@ -139,24 +159,9 @@ textarea {
     border: $form-control-border-width solid $form-control-border-color;
     border-radius: $form-control-border-radius;
     transition: background-color 0.2s ease, border 0.2s ease, box-shadow 0.2s ease;
+
     .form-control {
       flex: 1;
-    }
-    .input-addon {
-      color: $form-label-text-color;
-      height: $form-control-height - 2 * $form-control-border-width;
-      line-height: $form-control-height - 4px;
-      padding: 0 8px;
-      border-right: 1px solid $form-control-border-color;
-      border-radius: $form-control-border-radius 0 0 $form-control-border-radius;
-    }
-    &.right {
-      // border-right: 0;
-      // border-left: 1px solid $form-control-border-color;
-      .input-addon {
-        border-left: 1px solid $form-control-border-color;
-        border-right: none;
-      }
     }
   }
 
@@ -205,6 +210,7 @@ textarea {
       -moz-user-select: none !important;
       user-select: none !important;
     }
+
     // @include layoutCenter();
   }
 }
@@ -215,21 +221,25 @@ textarea {
       min-height: $form-control-xl-height - $form-control-border-width * 2;
     }
   }
+
   &.lg {
     .form-control {
       min-height: $form-control-lg-height - $form-control-border-width * 2;
     }
   }
+
   &.md {
     .form-control {
       min-height: $form-control-md-height - $form-control-border-width * 2;
     }
   }
+
   &.sm {
     .form-control {
       min-height: $form-control-sm-height - $form-control-border-width * 2;
     }
   }
+
   &.sx {
     .form-control {
       min-height: $form-control-xs-height - $form-control-border-width * 2;

@@ -84,9 +84,9 @@ const calculateOverlayPosition = (options) => {
   const _position: string[] = [];
   // const left = getLeft(offsetInfo);
   if (position.indexOf('top') !== -1) {
-    posiInfo = getTop(offsetInfo);
+    posiInfo = getTop({ ...offsetInfo, offset: 3 });
   } else if (position.indexOf('bottom') !== -1) {
-    posiInfo = getBottom(offsetInfo);
+    posiInfo = getBottom({ ...offsetInfo, offset: 3 });
   }
   if (position.indexOf('right') !== -1) {
     posiInfo.left = offsetLeft + offsetWidth - overlayElemWidth;
@@ -275,7 +275,7 @@ export class DropdownWrapper extends React.PureComponent<DropdownWrapperProps, S
   getOverlayDOM = () => {
     const { overlay } = this.props;
     const { isShow } = this.state;
-    if (this.isMobile && dropdownContainerDOM) {
+    if (dropdownContainerDOM) {
       dropdownContainerDOM.classList.toggle('show', isShow);
     }
 
@@ -300,7 +300,7 @@ export class DropdownWrapper extends React.PureComponent<DropdownWrapperProps, S
               {...this.bindOverlayTrigger()}
               className={overlayClasses}
             >
-              <span className="caret" />
+              {/* <span className="caret" /> */}
               {overlay && overlay(this.getPropsForOverlay())}
             </div>
           ) : <span />}
@@ -383,7 +383,7 @@ export class DropdownWrapper extends React.PureComponent<DropdownWrapperProps, S
 
   handleMouseLeave = () => {
     if (!this.delayExec) this.delayExec = new DebounceClass();
-    this.delayExec.exec(this.handleClickAway, 200);
+    this.delayExec.exec(this.handleClickAway, 100);
   }
 
   bindOverlayTrigger = () => {
@@ -434,7 +434,7 @@ export class DropdownWrapper extends React.PureComponent<DropdownWrapperProps, S
 
     const classNames = classnames(
       "__dropdown-menu",
-      className && className,
+      className,
       this._withInput && "input-mode",
       error && 'error',
       isShow && 'show',

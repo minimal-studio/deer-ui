@@ -153,19 +153,24 @@ export default class Popover extends Component<PopoverProps, State> {
       // verticalOffset: 8,
       elemHeight: height
     };
+    let offset = 0;
 
     switch (position) {
-      case 'left':
-        positionStyle = getLeft(args);
-        break;
       case 'bottom':
-        positionStyle = getBottom(args);
+        offset = 10;
+        positionStyle = getBottom({ ...args, offset });
         break;
       case 'top':
-        positionStyle = getTop(args);
+        offset = 10;
+        positionStyle = getTop({ ...args, offset });
+        break;
+      case 'left':
+        offset = 10;
+        positionStyle = getLeft({ ...args, offset });
         break;
       case 'right':
-        positionStyle = getRight(args);
+        offset = 10;
+        positionStyle = getRight({ ...args, offset });
         break;
     }
     return positionStyle;
@@ -221,11 +226,16 @@ export default class Popover extends Component<PopoverProps, State> {
         showCloseBtn && `has-close`,
       );
       container = (
-        <div {...obj}
+        <div
+          {...obj}
           className={popClasses}
           style={_style}
-          ref={(e) => this.setSelfPosition(e)}>
-          <span className="caret" />
+          ref={(e) => this.setSelfPosition(e)}
+        >
+          {/* <span className="caret" style={{
+
+          }}
+          /> */}
           {children}
           {closeBtn}
         </div>
@@ -236,7 +246,8 @@ export default class Popover extends Component<PopoverProps, State> {
         <CSSTransition
           key={transitionKey}
           classNames="popover"
-          timeout={200}>
+          timeout={200}
+        >
           {container}
         </CSSTransition>
       </TransitionGroup>

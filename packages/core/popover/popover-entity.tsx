@@ -49,7 +49,8 @@ export class PopoverWrapper extends Component<{}, PopoverHelperState> {
       <Popover
         {...this.props}
         {...this.state}
-        onClose={(e) => this.close()} />
+        onClose={(e) => this.close()}
+      />
     );
   }
 }
@@ -108,7 +109,8 @@ export class PopoverEntity {
     const popoverWrapper = (
       <PopoverWrapper
         {...props}
-        ref={this.savePopWrapper}/>
+        ref={this.savePopWrapper}
+      />
     );
     ReactDOM.render(
       popoverWrapper,

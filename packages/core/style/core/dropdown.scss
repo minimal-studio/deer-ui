@@ -4,24 +4,16 @@ $iconW: 20px;
 
 /** 外层的 dropdown menu 的层级需要提升 */
 #DropdownContainer {
-  // .dropdown-items {
-  //   width: 200px;
-  // }
   @include fill;
   z-index: 1111;
   pointer-events: none;
 
   .dropdown-items {
     position: fixed;
-    // opacity: 0;
     pointer-events: none;
 
-    // transition: transform 200ms ease, opacity 200ms ease;
-    // transform: translateY(5px);
     &.show {
-      // opacity: 1;
       pointer-events: all;
-      // transform: translateY(0);
     }
   }
 }
@@ -30,10 +22,6 @@ $iconW: 20px;
   max-height: 400px;
   width: 400px;
   overflow-y: auto;
-}
-
-.dropdown-items {
-  // transition: all 0.2s ease;
 }
 
 .__dropdown-menu {
@@ -65,13 +53,13 @@ $iconW: 20px;
 
   &.top {
     .dropdown-items {
-      bottom: 130%;
+      bottom: 101%;
     }
   }
 
   &.bottom {
     .dropdown-items {
-      top: 130%;
+      top: 101%;
     }
   }
 
@@ -157,14 +145,11 @@ $iconW: 20px;
 
   .dropdown-items {
     position: absolute;
-    // transition: all ease 0.2s;
     pointer-events: all;
 
     z-index: 112;
     background-color: #FFF;
     border-radius: $form-control-border-radius;
-    // transition: all 0.2s ease;
-    box-shadow: 0 2px 36px rgba(#333, 0.3);
 
     .caret {
       position: absolute;
@@ -176,28 +161,11 @@ $iconW: 20px;
     //   transform: translateY(0);
     // }
     &.top {
-      .caret {
-        bottom: -$caret-scale;
-      }
+      box-shadow: 0 3px 8px rgba(#333, 0.2);
     }
 
     &.bottom {
-      .caret {
-        transform: rotate(180deg);
-        top: -$caret-scale;
-      }
-    }
-
-    &.left {
-      .caret {
-        left: $caret-offset;
-      }
-    }
-
-    &.right {
-      .caret {
-        right: $caret-offset;
-      }
+      box-shadow: 0 3px 8px rgba(#333, 0.2);
     }
   }
 

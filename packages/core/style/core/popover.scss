@@ -13,7 +13,7 @@ $horizontalOffset: 8px;
   background-color: #FFF;
   min-width: 60px;
   min-height: 30px;
-  box-shadow: 0 12px 48px rgba(0, 0, 0, 0.3);
+  // box-shadow: 0 12px 48px rgba(0, 0, 0, 0.3);
   transition: opacity 0.2s ease;
   outline: none;
   border-radius: $base-border-radius;
@@ -29,34 +29,34 @@ $horizontalOffset: 8px;
   &.fixed {
     position: fixed;
   }
-  &.top {
-    .caret {
-      bottom: -$caret-scale;
-      // left: ;
-      transform: translateX($horizontalOffset);
-    }
-  }
-  &.right {
-    .caret {
-      left: - $horizontalOffset * 1.5;
-      top: $verticalOffset;
-      transform: rotate(90deg);
-    }
-  }
-  &.bottom {
-    .caret {
-      top: -$caret-scale;
-      // left: 48%;
-      transform: rotate(-180deg) translateX(-$horizontalOffset);
-    }
-  }
-  &.left {
-    .caret {
-      right: - $horizontalOffset * 1.5;
-      top: $verticalOffset;
-      transform: rotate(-90deg);
-    }
-  }
+  // &.top {
+  //   .caret {
+  //     bottom: -$caret-scale;
+  //     // left: ;
+  //     transform: translateX($horizontalOffset);
+  //   }
+  // }
+  // &.right {
+  //   .caret {
+  //     left: - $horizontalOffset * 1.5;
+  //     top: $verticalOffset;
+  //     transform: rotate(90deg);
+  //   }
+  // }
+  // &.bottom {
+  //   .caret {
+  //     top: -$caret-scale;
+  //     // left: 48%;
+  //     transform: rotate(-180deg) translateX(-$horizontalOffset);
+  //   }
+  // }
+  // &.left {
+  //   .caret {
+  //     right: - $horizontalOffset * 1.5;
+  //     top: $verticalOffset;
+  //     transform: rotate(-90deg);
+  //   }
+  // }
   .caret {
     position: absolute;
     color: #FFF;

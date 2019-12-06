@@ -4,9 +4,18 @@ $date-picker-width: 260px;
   @include layout();
   align-items: center;
 
-  .display-title {
-    border: none !important;
-  }
+  // .display-title {
+  //   border: none !important;
+  // }
+
+  // .inline-content .menu-wrapper {
+  //   height: $form-control-height;
+  //   line-height: $form-control-height - 2px;
+  //   padding: 0 8px;
+  //   border: $form-control-border-width solid $form-control-border-color;
+  //   border-left: none;
+  //   color: $form-label-text-color;
+  // }
 }
 
 .__flatpickr {
