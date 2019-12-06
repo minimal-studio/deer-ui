@@ -30,6 +30,8 @@ export interface FormGeneratorProps extends FormFilterProps<FormOptions> {
   onSubmit?: (formValue) => void;
   /** 内容改变 */
   onChange?: FormChangeEvent;
+  /** style */
+  style?: React.CSSProperties;
 }
 
 const hrDivide = ['-', 'hr'];
@@ -86,7 +88,7 @@ export default class FormGenerator extends FormFilterHelper<FormGeneratorProps> 
   render() {
     const {
       formOptions, children, layout, defaultLayout,
-      inlineInputTitle, className, onSubmit
+      inlineInputTitle, className, onSubmit, style,
     } = this.props;
     const { isMobile, ready } = this.state;
     // eslint-disable-next-line no-nested-ternary
@@ -96,6 +98,7 @@ export default class FormGenerator extends FormFilterHelper<FormGeneratorProps> 
 
     return ready && formOptions && formOptions.length > 0 ? (
       <form
+        style={style}
         onSubmit={(e) => {
           e.preventDefault();
           Call(onSubmit, this.value);

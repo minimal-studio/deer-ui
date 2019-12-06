@@ -1,14 +1,13 @@
 /* eslint-disable consistent-return */
 import React, { forwardRef } from 'react';
 
-import { FormFilterProps, FormOptionsItem } from './form-filter';
+import { FormOptionsItem } from './form-filter';
 import { FormLayoutBtn } from '../form-layout/form-layout';
-import FormGenerator from './form-generator';
-import { queryIsMobile } from '../utils';
+import FormGenerator, { FormGeneratorProps } from './form-generator';
 
 export type ConditionOptions = FormOptionsItem[];
 
-export interface ConditionGeneratorProps extends FormFilterProps {
+export interface ConditionGeneratorProps extends FormGeneratorProps {
   /** 查询条件的配置 */
   conditionConfig: ConditionOptions;
   /** className */
@@ -29,7 +28,8 @@ const ConditionGenerator = forwardRef<FormGenerator, ConditionGeneratorProps>((p
       {...props}
       ref={ref}
       defaultLayout="flow"
-      formOptions={props.conditionConfig} />
+      formOptions={props.conditionConfig}
+    />
   );
 });
 
