@@ -63,7 +63,7 @@ textarea {
       padding: 0 10px;
       background-color: #EEE;
       height: 100%;
-      font-size: 22px;
+      font-size: 18px;
     }
   }
 }
@@ -116,7 +116,7 @@ textarea {
         transform: translateY(-120%);
         margin-left: 0;
         padding: 3px 10px;
-        background-color: $form-control-active-bg-color;
+        // background-color: $form-control-active-bg-color;
       }
     }
 
