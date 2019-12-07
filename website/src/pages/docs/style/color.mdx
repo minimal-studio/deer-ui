@@ -1,12 +1,12 @@
 ---
-name: Color
-title: SetColor
+name: Colors
+title: Colors
 menu: Style
 ---
 
 ## Colors
 
-`deer-ui` 定义了 `8` 种颜色，每种颜色再按照饱和度细分 `6` 级，对应的规则是 `color-level`, 例如
+`deer-ui` 提供了 `8` 个颜色，每种颜色再按照饱和度细分 `6` 级，对应的规则是 `color-level`, 例如
 
 ```scss
 $blue;
@@ -17,6 +17,10 @@ $blue-4;
 $blue-5;
 $blue-6;
 ```
+
+## Usage
+
+### Via className
 
 ```jsx live noInline
 import { Label, Grid } from '@deer-ui/core';
@@ -72,43 +76,14 @@ function Example() {
       }
     </Grid>
   )
-  return (
-    <div className="layout">
-      {
-        ForEachColor(colors)((color, idx) => {
-          return (
-            <div key={color} className="flex text-center p10">
-              <div className={`flex bg_${color}`}
-                style={{
-                  height: 150
-                }}>
-              </div>
-              <div className="layout">
-                {
-                  colorLevel.map((_, i) => {
-                    const currColor = `bg_${color}-${_}`;
-                    return (
-                      <div
-                        key={currColor}
-                        style={{
-                          display: 'block'
-                        }}
-                        className={currColor + ' flex'}
-                        style={{
-                          height: 150,
-                        }}>
-                      </div>
-                    )
-                  })
-                }
-              </div>
-              {color}
-            </div>
-          )
-        })
-      }
-    </div>
-  )
 }
 render(<Example />);
 ```
+
+### Pass props color to component
+
+- Button
+- Avatar
+- Label
+- Tip
+- ToolTip

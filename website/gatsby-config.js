@@ -10,7 +10,6 @@ module.exports = {
         author: 'Alex',
         menu: [
           'Getting Started',
-          'Style',
           'Layout',
           'Form',
           'Form Generator',
@@ -18,6 +17,7 @@ module.exports = {
           'Feedback',
           'Data Display',
           'Utils',
+          'Style',
           'Enhance-UI',
         ],
         nav: [

@@ -872,13 +872,12 @@
     exec-sh "^0.3.2"
     minimist "^1.2.0"
 
-"@deer-ui/core@^4.0.0-rc1.2":
-  version "4.0.0-rc1.2"
-  resolved "https://registry.yarnpkg.com/@deer-ui/core/-/core-4.0.0-rc1.2.tgz#d8aef13db54bd51cbc07ced68c5fd079d4aa8db0"
-  integrity sha512-WJiwomHHjGGdSRrAs7Ayb3ugOk92OdBsr3wNsVZfhJAhRlRJlJFyLzo8ppNSdIs7lFV7HHbZ6xrfTq/y8ZiBug==
+"@deer-ui/core@^4.0.0-rc4.7":
+  version "4.0.0-rc4.7"
+  resolved "https://registry.yarnpkg.com/@deer-ui/core/-/core-4.0.0-rc4.7.tgz#f2f9c3e0df2dd4d33cce0d3490a8c5a30d1208fb"
+  integrity sha512-o5qtMTzlf7mNXGZRH4OdTVIUbATWIyveF0EKs0vyXxWoVCc2mL73UEjebPKbWuzeDPi9AnBhk/tGlOiuFWX8Lw==
   dependencies:
     classnames "^2.2.6"
-    unistore "^3.5.1"
 
 "@emotion/is-prop-valid@^0.8.1":
   version "0.8.5"
@@ -11721,12 +11720,12 @@ react-transition-group@^4.0.1:
     loose-envify "^1.4.0"
     prop-types "^15.6.2"
 
-react-ui-doc@^1.0.0-rc1.6:
-  version "1.0.0-rc1.6"
-  resolved "https://registry.yarnpkg.com/react-ui-doc/-/react-ui-doc-1.0.0-rc1.6.tgz#cce6b902d0a968bb05747c43ccc4be0d07d8353c"
-  integrity sha512-zJnXz4SikWpqSCpprwobyJzT+HsWXju0hgvFV/rLZLKpLeJ5522X6PJ0fgrin6TmokgNGonQAkXOIb/i8fZcKw==
+react-ui-doc@^1.0.0-rc2.0:
+  version "1.0.0-rc2.0"
+  resolved "https://registry.yarnpkg.com/react-ui-doc/-/react-ui-doc-1.0.0-rc2.0.tgz#7935e913518ca2b9e58324bc2b389a9d3229f436"
+  integrity sha512-deh14OC6/huV6RJQPmEFvgQStlL2mxZcx/NBb2quxFiMIiqlNihNPSbBNHI9L7S5qjTz2iH8Duys+8kTe+82EQ==
   dependencies:
-    "@deer-ui/core" "^4.0.0-rc1.2"
+    "@deer-ui/core" "^4.0.0-rc4.7"
     "@mdx-js/mdx" "^1.5.1"
     "@mdx-js/react" "^1.5.1"
     "@mini-code/base-func" "^1.1.0"
@@ -14254,11 +14253,6 @@ unist-util-visit@^2.0.0:
     "@types/unist" "^2.0.0"
     unist-util-is "^4.0.0"
     unist-util-visit-parents "^3.0.0"
-
-unistore@^3.5.1:
-  version "3.5.1"
-  resolved "https://registry.yarnpkg.com/unistore/-/unistore-3.5.1.tgz#2ce7e17524f8e1390adaf59a88abdeb39e455333"
-  integrity sha512-lagQJ5SeDssjh9tYVwOlPloDCLpn0lvHkvOpf+X4q4thnMJ3uLJcT6YO9cuww8K9qsJOyUWKufdfIF3qUe/9ow==
 
 universalify@^0.1.0:
   version "0.1.2"

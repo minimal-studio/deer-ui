@@ -1,45 +1,33 @@
 ---
 name: Style
-title: SetStyle
+title: Style
 menu: Style
 ---
 
 # Style
 
-## Import Style
+> deer-ui 使用 scss 构建 style，原子分布，逐层构建组件、模版、页面、系统。
 
-在项目入口 `.scss` 文件 `import` `deer-ui` 的内置样式
+## Usage
+
+在项目入口 `style.scss` 文件中 `@import '@deer-ui/core/default.scss'`
 
 ```scss
 // 默认的颜色变量
 @import '@deer-ui/style/color/default.scss';
-
-// 依赖颜色变量的主样式入口
-@import '@deer-ui/style/var.scss';
-@import '@deer-ui/style/index.scss';
 ```
 
-## 自定义样式变量
+## Custom theme
 
-创建 `./var.scss` 变量 scss 文件，具体内容参考 https://github.com/minimal-studio/deer-ui/blob/master/style/color/default.scss
+可以通过覆盖原本 scss 变量定制主题，[详细定义参考](https://github.com/minimal-studio/deer-ui/blob/master/packages/core/style/base/variable.scss)
 
 ```scss
-@import '@deer-ui/style/color/default.scss';
-
-// 在 deer-ui/style/index.scss 之前覆盖 color 变量
-@import './var.scss';
-
 // 依赖颜色变量的主样式入口
+@import '@deer-ui/style/var.scss';
+
+// 通过后置覆盖原有的变量
+@import './custom/var.scss';
+
+// 引用 index.scss 之前需要先引入 var.scss 设置对应的 scss 变量
 @import '@deer-ui/style/index.scss';
-```
-
-### 3. 使用 color class
-
-规则
-
-1. bg_ 前缀设置背景颜色，bg_red
-1. t_ 前缀设置字体颜色，t_green
-
-```jsx
-<div className="bg_red"></div>
 ```

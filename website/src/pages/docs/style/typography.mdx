@@ -28,9 +28,9 @@ function Example() {
 render(<Example />);
 ```
 
-## 内外边距
+## Spacing
 
-通用样式 margin, padding, 规则为边距类型缩写 + 以 5 px为单位，从 5px - 20px 的 class，例如
+通用 margin, padding, 规则为边距类型缩写 + 以 5 px为单位，从 5px - 20px 的 class，例如
 
 ```jsx live noInline
 function Example() {
@@ -44,29 +44,29 @@ function Example() {
 render(<Example />);
 ```
 
-```css static
-# mt10
+```css
+// mt10
 margin-top: 10px;
 
-# mu10 -> margin upset, 上下边距
+// mu10 -> margin upset, 上下边距
 margin: 10px 0;
 
-# ms10 -> margin side, 左右边距
+// ms10 -> margin side, 左右边距
 margin: 0 10px;
 
-# pt10
+// pt10
 padding-top: 10px;
 
-# pu10 -> padding upset, 上下边距
+// pu10 -> padding upset, 上下边距
 padding: 10px 0;
 
-# ps10 -> padding side, 左右边距
+// ps10 -> padding side, 左右边距
 padding: 0 10px;
 ```
 
 ---------------
 
-## 表格
+## Table
 
 ```jsx live noInline
 function Example() {
@@ -108,7 +108,7 @@ render(<Example />);
 
 ---------------
 
-## 文字
+## Text align
 
 - text-center
 - text-left
@@ -131,7 +131,7 @@ render(<Example />);
 
 ---------------
 
-## 定位
+## Position
 
 - fill 填充整个页面
 - relative 相对定位
@@ -141,8 +141,8 @@ function Example() {
   return (
     <>
       <div className="relative">相对定位</div>
-      <div className="relative">
-        <div className="fill">填满整个父元素</div>
+      <div className="relative" style={{height: 100, width: 100}}>
+        <div className="fill bg_default">填满整个父元素</div>
       </div>
     </>
   )
@@ -150,13 +150,11 @@ function Example() {
 render(<Example />);
 ```
 
-```css
-.fill {
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  position: absolute;
+> scss
+
+```scss
+.class {
+  @include fill();
 }
 ```
 
@@ -167,16 +165,11 @@ render(<Example />);
 - hidden
 - hide
 
-```jsx live noInline
-function Example() {
-  return (
-    <>
-      <div className="relative">相对定位</div>
-      <div className="relative">
-        <div className="fill">填满整个父元素</div>
-      </div>
-    </>
-  )
-}
-render(<Example />);
+```html
+<div className="hidden">
+  隐藏元素
+</div>
+<div className="hide">
+  隐藏元素
+</div>
 ```
