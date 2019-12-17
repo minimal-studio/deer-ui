@@ -186,11 +186,12 @@ $iconW: 20px;
     line-height: $form-control-height - $form-control-border-width * 2;
     transition: color ease 0.2s, border-color ease 0.2s;
     position: relative;
+    background-color: $form-control-bg-color;
   }
 
   .menu-wrapper {
     // display: inline-block;
-    background-color: $form-control-bg-color;
+    // background-color: $form-control-bg-color;
 
     .icon {
       z-index: 1;
