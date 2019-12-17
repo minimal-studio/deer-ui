@@ -38,6 +38,13 @@ const showcaseItems = [
       window.open('https://chat.thinkmore.xyz/');
     }
   },
+  {
+    title: 'gatsby-theme-elk',
+    img: require('../images/react-ui-doc-pic.jpg'),
+    action: () => {
+      window.open('https://thinkmore.xyz/');
+    }
+  },
 ];
 
 const Showcase = () => {
