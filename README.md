@@ -1,17 +1,17 @@
 # @deer-ui
 
-基于 React 的可扩展的 UI 库，用最简单的方式开发 web 应用。
+基于 React 的可扩展的 UI 库，快速、简易地开发 web 应用。
 
 ## Feature
 
-- [x] 原子元素构建
-- [x] 基于 Flex 的布局系统
+- [x] 原子构建
+- [x] 基于 Flex 布局
 - [x] 表单控制器（FormController）
-  - [x] 声明式表单逻辑
+  - [x] UI 表现与业务逻辑分离
 - [x] Table
-  - [x] 固定表头
+  - [x] 固定表头（Fxied Header）
   - [x] 固定前后列（Fixed Column）
-- [x] 终端支持
+- [x] 多终端支持
   - [x] Desktop web
   - [x] Mobile web
 - [x] 浏览器支持
@@ -19,11 +19,10 @@
   - [x] IE10+
   - [x] Firfox
   - [x] Safari
-- [x] 代码提示（code hint）
-  - [x] typescript 支持
 - [x] 服务端渲染（SSR）
   - [x] Gatsby
   - [x] Next
+- [x] typescript 支持
 
 ## Usage
 
