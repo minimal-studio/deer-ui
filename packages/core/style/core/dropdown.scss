@@ -28,6 +28,9 @@ $iconW: 20px;
   position: relative;
   cursor: pointer;
   display: inline-block;
+  &::after {
+    clear: both;
+  }
 
   &.error {
     .menu-wrapper {
@@ -48,6 +51,9 @@ $iconW: 20px;
   &.multiple {
     .section-mark {
       position: fixed;
+    }
+    .multiple-container {
+      max-width: 200px;
     }
   }
 
@@ -127,6 +133,28 @@ $iconW: 20px;
     }
   }
 
+
+  .multiple-container {
+    overflow-x: auto;
+    word-break: keep-all;
+    white-space: nowrap;
+
+    .multi-item {
+      padding: 0 5px;
+      display: inline-block;
+      // background-color: darken($form-control-bg-color, 2%);
+      margin-right: 5px;
+      transition: background-color 0.2s ease;
+      &:hover {
+        background-color: darken($form-control-bg-color, 3%);
+      }
+    }
+
+    .close {
+      margin-left: 5px;
+    }
+  }
+
   .display-title {
     padding: 5px 0;
     border: $form-control-border-width solid #e7e7e7;
@@ -202,12 +230,15 @@ $iconW: 20px;
     position: absolute;
     top: 0;
     bottom: 0;
-    right: $iconW / 2;
+    right: 0;
+    padding: 0 10px;
     display: flex;
     align-items: center;
     opacity: 0.6;
     z-index: 1;
     transition: transform ease 0.3s;
+    pointer-events: none;
+    // background-color: $form-control-bg-color;
   }
 
   .display-title {

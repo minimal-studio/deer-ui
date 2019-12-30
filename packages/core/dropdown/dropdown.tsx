@@ -24,6 +24,8 @@ export interface DropdownProps extends SelectorBasicProps, DropdownWrapperProps 
   outside?: boolean;
   /** 是否返回 number 类型的值 */
   isNum?: boolean;
+  /** 多选时是否显示所有已选择的项 */
+  displayMultipleItems?: boolean;
   /** 是否带搜索输入 */
   withInput?: boolean;
   /** 是否需要清除选择的按钮 */
@@ -75,6 +77,7 @@ export class Dropdown extends SelectorBasic<DropdownProps> {
   static defaultProps = {
     needCancel: true,
     outside: true,
+    displayMultipleItems: false,
     defaultTitle: '请选择',
     invalidTip: '无效值',
     cancelTitle: '取消',
@@ -82,6 +85,8 @@ export class Dropdown extends SelectorBasic<DropdownProps> {
   };
 
   _error = false;
+
+  valueMapper = {}
 
   constructor(props) {
     super(props);
@@ -91,19 +96,25 @@ export class Dropdown extends SelectorBasic<DropdownProps> {
     }
   }
 
-  handleClick(dataItem, idx, callback) {
+  handleClick(dataItem, idx, callback?) {
     const { onClickItem } = this.props;
     Call(onClickItem, dataItem);
     this.changeValue(dataItem.value, idx);
+    this.valueMapper[dataItem.value] = {
+      ...dataItem,
+      idx
+    };
     Call(callback);
   }
 
   getActiveTitle() {
-    const { isMultiple, defaultTitle, invalidTip } = this.props;
+    const {
+      isMultiple, defaultTitle, invalidTip, displayMultipleItems
+    } = this.props;
     const value = this.getValue();
     const hasVal = Array.isArray(value) ? value.length > 0 : value;
 
-    let resTitle = '';
+    let resTitle;
     this._error = false;
 
     switch (true) {
@@ -111,7 +122,31 @@ export class Dropdown extends SelectorBasic<DropdownProps> {
         resTitle = $T_IN(defaultTitle);
         break;
       case !!isMultiple:
-        resTitle = value.length + $T_IN('项已选');
+        // resTitle = value.length + $T_IN('项已选');
+        resTitle = displayMultipleItems ? (
+          <div className="multiple-container">
+            {
+              value.map((val) => {
+                return (
+                  <span className="multi-item" key={val}>
+                    {val}
+                    <span
+                      className="close"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        const currItem = this.valueMapper[val];
+                        this.handleClick(currItem, currItem.idx);
+                      }}
+                    >
+                      x
+                    </span>
+                  </span>
+                );
+              })
+            }
+          </div>
+        ) : value.length + $T_IN('项已选');
         break;
       case typeof this.valuesObj[value] == 'undefined':
         resTitle = $T_IN(invalidTip);
@@ -172,11 +207,15 @@ export class Dropdown extends SelectorBasic<DropdownProps> {
               {
                 isMultiple ? (
                   <div className="wrapper">
-                    <Checkbox value={_selectedValue} column values={this.values} onChange={(nextVal, { idx }) => {
-                      const dataItem = this.values[idx];
-                      // console.log(nextVal, idx)
-                      this.handleClick(dataItem, idx, isMultiple ? null : hide);
-                    }}
+                    <Checkbox
+                      column
+                      value={_selectedValue}
+                      values={this.values}
+                      onChange={(nextVal, { idx }) => {
+                        const dataItem = this.values[idx];
+                        // console.log(nextVal, idx)
+                        this.handleClick(dataItem, idx, isMultiple ? null : hide);
+                      }}
                     />
                   </div>
                 ) : (

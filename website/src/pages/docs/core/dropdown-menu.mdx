@@ -45,7 +45,51 @@ function Example() {
         value={value}
         values={values}
       />
+      <hr />
       <span className="ml10">输出值 {value}</span>
+    </div>
+  )
+}
+render(<Example />);
+```
+
+## Multiple 多选
+
+```jsx live noInline
+import { useState } from 'react';
+import { Dropdown } from '@deer-ui/core';
+
+function Example() {
+  const values = {
+    value1: 'Item 1',
+    value2: 'Item 2',
+    value3: 'Item 3',
+    value4: 'Item 4',
+    value5: 'Item 5',
+    value6: 'Item 6',
+    value7: 'Item 7',
+    value8: 'Item 8',
+    value9: 'Item 9',
+  }
+  const [valueMul, setValueMul] = useState([])
+  return (
+    <div className="mu10">
+      <Dropdown
+        onChange={val => {
+          setValueMul(val)
+        }}
+        isMultiple
+        values={values}
+      />
+      <hr />
+      <span className="ml10">输出值数组 {JSON.stringify(valueMul)}</span>
+      <hr />
+      <h3>显示所有已选择的项</h3>
+      <Dropdown
+        displayMultipleItems
+        isMultiple
+        values={values}
+      />
     </div>
   )
 }
@@ -87,6 +131,9 @@ function Example() {
     value1: 'Item 1',
     value2: 'Item 2',
     value3: 'Item 3',
+    value4: 'Item 4',
+    value5: 'Item 5',
+    value6: 'Item 6',
   }
   const [value, setValue] = useState('value1')
   let dropdownRef;
@@ -105,6 +152,7 @@ function Example() {
         value={value}
         values={values}
       />
+      <hr />
       <span className="ml10">输出值 {value}</span>
     </div>
   )
@@ -124,6 +172,10 @@ function Example() {
     1: '数字1',
     2: '数字2',
     3: '数字3',
+    4: '数字4',
+    5: '数字5',
+    6: '数字6',
+    7: '数字7',
   }
   const [value, setValue] = useState(0)
   const [valueMul, setValueMul] = useState([])
@@ -137,6 +189,7 @@ function Example() {
         defaultValue={value}
         values={valuesNumber}
       />
+      <hr />
       <span className="ml10">输出值 {value}, 类型 {typeof value}</span>
       <hr />
       <h4>多选</h4>
@@ -147,36 +200,8 @@ function Example() {
         isMultiple
         values={valuesNumber}
       />
+      <hr />
       <span className="ml10">输出值 {valueMul.join(' ')}</span>
-    </div>
-  )
-}
-render(<Example />);
-```
-
-## Multiple 多选
-
-```jsx live noInline
-import { useState } from 'react';
-import { Dropdown } from '@deer-ui/core';
-
-function Example() {
-  const values = {
-    value1: 'Item 1',
-    value2: 'Item 2',
-    value3: 'Item 3',
-  }
-  const [valueMul, setValueMul] = useState([])
-  return (
-    <div className="mu10">
-      <Dropdown
-        onChange={val => {
-          setValueMul(val)
-        }}
-        isMultiple
-        values={values}
-      />
-      <span className="ml10">输出值数组 {JSON.stringify(valueMul)}</span>
     </div>
   )
 }
@@ -207,6 +232,7 @@ function Example() {
         defaultValue={defaultValue}
         values={values}
       />
+      <hr />
       <span className="ml10">输出值 {valueMul.join(',')}</span>
     </div>
   )
