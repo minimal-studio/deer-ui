@@ -25,6 +25,7 @@ export const NatureColors = [
   'orange',
   'red',
   'purple',
+  'gray',
 ];
 export const GrayscaleColors = [
   // Grayscale
