@@ -33,7 +33,7 @@ export interface FormGeneratorProps extends FormFilterProps<FormOptions> {
   /** style */
   style?: React.CSSProperties;
   /** children */
-  children: Children;
+  children?: Children;
 }
 
 const hrDivide = ['-', 'hr'];
