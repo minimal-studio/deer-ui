@@ -13,7 +13,7 @@ export interface ToolTipProps extends IconProps {
   color?: Color;
   /** 传入 children 的 classNames */
   classNames?: string[];
-  /** 点击即关闭弹出曾 */
+  /** 点击关闭 */
   clickToClose?: boolean;
   /** 包裹的组件 */
   component?: React.ElementType;
