@@ -38,15 +38,14 @@
   }
 }
  
-@mixin paddingForGrid($padding) {
-  margin: - $padding * 1px;
-  padding: $padding * 1.5px;
+@mixin paddingForGrid($spacing) {
+  margin: $spacing * 0.5px;
   >[class*=row-],
   >[class*=xl-],
   >[class*=lg-],
   >[class*=sm-],
   >[class*=xs-] {
-    padding: $padding / 2 * 1px;
+    padding: $spacing / 2 * 1px;
   }
 }
 

@@ -83,6 +83,8 @@ export interface GridProps extends React.HTMLProps<HTMLElement> {
   wrap?: keyof MakeReadOnly<typeof WrapMap>;
   /** 是否作为容器 */
   container?: boolean;
+  /** 是否需要外层的 spacing */
+  outSpacing?: boolean;
   /** 是否作为子组件 */
   item?: boolean;
   /** style */
@@ -93,7 +95,7 @@ export const Grid: React.SFC<GridProps> = (props) => {
   const {
     children, className = '', style, component = 'div',
     space, container, item, justifyItems = '', justifyContent,
-    direction = '', wrap = '',
+    direction = '', wrap = '', outSpacing = true,
     justify = '', alignContent = '', alignItem = '', alignItems = '',
     xs, sm, lg, xl, md, ...other
   } = props;
@@ -115,6 +117,7 @@ export const Grid: React.SFC<GridProps> = (props) => {
     [`lg-${lg}`]: lg,
     [`xl-${xl}`]: xl,
     'g-item': isItem,
+    'no-out-space': !outSpacing,
     [className]: className || '',
   });
 

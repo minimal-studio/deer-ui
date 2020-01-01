@@ -1,5 +1,10 @@
 @import './utils.scss';
 
+@mixin outSpacing($spacing) {
+  margin: - $spacing * 0.5px;
+  
+}
+
 .grid {
   display: flex;
   flex-direction: row;
@@ -27,6 +32,28 @@
     }
     &30 {
       @include paddingForGrid(30);
+    }
+  }
+  &.no-out-space {
+    &.space- {
+      &5 {
+        @include outSpacing(5);
+      }
+      &10 {
+        @include outSpacing(10);
+      }
+      &15 {
+        @include outSpacing(15);
+      }
+      &20 {
+        @include outSpacing(20);
+      }
+      &25 {
+        @include outSpacing(25);
+      }
+      &30 {
+        @include outSpacing(30);
+      }
     }
   }
   .flex1 {
