@@ -179,7 +179,7 @@ function Example() {
 render(<Example />);
 ```
 
-## Space
+## Spacing
 
 每个 Grid item 之间的空隙, 每一个间隙都是 5 的倍数
 
@@ -206,6 +206,64 @@ function Example() {
       <hr />
       <CardContainer className="bg_default">
         <Grid container space={space}>
+          <Grid item xs={12} sm={12} lg={12}>
+            <Card p={20}>
+              xs-12, sm-12, lg-12
+            </Card>
+          </Grid>
+          <Grid item xs={12} sm={6} lg={6}>
+            <Card p={20}>
+              xs-12, sm-6, lg-6
+            </Card>
+          </Grid>
+          <Grid item xs={12} sm={6} lg={6}>
+            <Card p={20}>
+              xs-12, sm-6, lg-6
+            </Card>
+          </Grid>
+          <Grid item xs={12} sm={8} lg={8}>
+            <Card p={20}>
+              xs-12, sm-8, lg-8
+            </Card>
+          </Grid>
+          <Grid item xs={12} sm={4} lg={4}>
+            <Card p={20}>
+              xs-12, sm-4, lg-4
+            </Card>
+          </Grid>
+        </Grid>
+      </CardContainer>
+    </div>
+  )
+}
+render(<Example />);
+```
+
+## 不需要最外层的 spacing
+
+```jsx live noInline
+import { useState } from 'react'
+import { CardContainer, Card, Grid, Radio } from '@deer-ui/core'
+
+function Example() {
+  const defaultSpace = 20;
+  const [space, setSpace] = useState(defaultSpace)
+  return (
+    <div>
+      <Radio 
+        defaultValue={space}
+        isNum
+        onChange={nextSpace => setSpace(nextSpace)}
+        values={{
+          0: 0,
+          5: 5,
+          10: 10,
+          15: 15,
+          20: 20,
+        }} />
+      <hr />
+      <CardContainer className="bg_default" p={10}>
+        <Grid container space={space} outSpacing={false}>
           <Grid item xs={12} sm={12} lg={12}>
             <Card p={20}>
               xs-12, sm-12, lg-12
