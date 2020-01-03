@@ -104,7 +104,7 @@ export default class FormFilterHelper<P extends FormFilterProps> extends UICompo
     const nextValue = {};
     for (let i = 0; i < formOptions.length; i++) {
       const options = formOptions[i];
-      if (typeof options === 'object') {
+      if (!!options && typeof options === 'object') {
         // const val = this.value[valKey];
         const { ref = '', refs } = options;
         if (this.value[ref]) nextValue[ref] = this.value[ref];
