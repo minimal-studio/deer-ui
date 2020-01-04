@@ -125,6 +125,26 @@ function Example() {
 render(<Example />);
 ```
 
+## 鼠标进入 row 高亮
+
+```jsx live noInline
+import { Table, Button } from '@deer-ui/core'
+import { dataRows, columns, fixedColumns } from 'mockdata-for-table';
+
+const rowKey = record => record.id
+
+function Example() {
+  return (
+    <Table
+      hoverToHighlight
+      columns={columns}
+      dataRows={dataRows}
+      rowKey={rowKey} />
+  )
+}
+render(<Example />);
+```
+
 ## 点击 row 高亮
 
 ```jsx live noInline

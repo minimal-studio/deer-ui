@@ -48,6 +48,8 @@ export interface TableProps extends ColumnFilterProps {
   needCheck?: boolean;
   /** 表格的数据源，用于每一行（row）的数据填充 */
   clickToHighlight?: boolean;
+  /** 鼠标移入高亮 row */
+  hoverToHighlight?: boolean;
   /** 用于获取 row key */
   rowKey?: (record, recordIdx) => string;
   /** 需要右对齐的 record 的类型 */
@@ -118,6 +120,7 @@ export class Table extends ColumnFilter<TableProps, State> {
     alignRightTypes: ['money'],
     needCheck: false,
     clickToHighlight: false,
+    hoverToHighlight: false,
     height: 'auto',
     needInnerSort: false,
     watcherTimer: 1000,
@@ -260,7 +263,8 @@ export class Table extends ColumnFilter<TableProps, State> {
         checked={checked} onChange={(e) => {
           e.stopPropagation();
           this.toggleSelectItem(item, idx);
-        }}/>
+        }}
+      />
     );
   }
 
@@ -551,7 +555,8 @@ export class Table extends ColumnFilter<TableProps, State> {
           ref={(e) => this.saveCell(_idx, main, rowKey)(e)}
           // style={mapperItem.w ? {width: mapperItem.w, whiteSpace: 'pre-wrap'} : style}
           className={_className}
-          key={tdKey}>
+          key={tdKey}
+        >
           {filterRes}
         </td>
       );
@@ -571,7 +576,7 @@ export class Table extends ColumnFilter<TableProps, State> {
   }
 
   renderRow = (options) => {
-    const { clickToHighlight } = this.props;
+    const { clickToHighlight, hoverToHighlight } = this.props;
     const { dataRows, ...other } = options;
     const { hoveringRow, highlightRow, checkedItems } = this.state;
 
@@ -586,9 +591,10 @@ export class Table extends ColumnFilter<TableProps, State> {
       return (
         <tr
           key={key}
-          onMouseEnter={() => this.handleHoverRow(idx)}
+          onMouseEnter={hoverToHighlight ? () => this.handleHoverRow(idx) : undefined}
           onClick={clickToHighlight ? (e) => this.handleClickToHighlight(e, idx) : undefined}
-          className={`${_highlight}${isHoving ? ' hovering' : ''}${isHighlight ? ' highlight' : ''}`}>
+          className={`${_highlight}${isHoving ? ' hovering' : ''}${isHighlight ? ' highlight' : ''}`}
+        >
           {
             this.renderCell({
               rowKey: key, record, parentIdx: idx, ...other
@@ -632,7 +638,8 @@ export class Table extends ColumnFilter<TableProps, State> {
       <div
         key="tableHead"
         className="__table-scroll"
-        style={style}>
+        style={style}
+      >
         <table className="table nomargin table-header">
           <thead>
             <tr>
@@ -654,7 +661,8 @@ export class Table extends ColumnFilter<TableProps, State> {
                         onChange={(e) => {
                           e.stopPropagation();
                           this.toggleAllItems(e.target.checked);
-                        }}/>
+                        }}
+                      />
                     );
                   } else {
                     title = this.titleFilter(item, __idx);
@@ -666,7 +674,8 @@ export class Table extends ColumnFilter<TableProps, State> {
                     <span className={`sort-caret-group ${isDesc ? 'desc' : 'asc'}`}>
                       <span className="caret up" style={{
                         transform: `rotate(180deg)`
-                      }}/>
+                      }}
+                      />
                       <span className="caret down" />
                     </span>
                   );
@@ -700,7 +709,8 @@ export class Table extends ColumnFilter<TableProps, State> {
                       {...clickHandlerForTh}
                       style={{
                         width: cellWidth
-                      }}>
+                      }}
+                    >
                       {title}
                       {sortTip}
                     </th>
@@ -750,9 +760,11 @@ export class Table extends ColumnFilter<TableProps, State> {
         onScroll={this.handleTableScroll}
         ref={ref}
         className="__table-scroll"
-        style={style}>
+        style={style}
+      >
         <table className="table nomargin table-body"
-          ref={main ? this.saveTableBody : null}>
+          ref={main ? this.saveTableBody : null}
+        >
           <tbody>
             {
               this.renderRow({
@@ -791,7 +803,8 @@ export class Table extends ColumnFilter<TableProps, State> {
     return (
       <div key={key}
         style={style}
-        className={`__table-scroll-container ${className || ''}`}>
+        className={`__table-scroll-container ${className || ''}`}
+      >
         {tableHeader}
         {tableBody}
       </div>
@@ -899,7 +912,7 @@ export class Table extends ColumnFilter<TableProps, State> {
 
   render() {
     const {
-      whenCheckAction, needCheck, checkedOverlay
+      whenCheckAction, needCheck, checkedOverlay, hoverToHighlight
     } = this.props;
     const {
       checkedItems
@@ -938,12 +951,13 @@ export class Table extends ColumnFilter<TableProps, State> {
     );
 
     return (
-      <div className="__table" onMouseLeave={(e) => this.handleHoverRow(null)}>
+      <div className="__table" onMouseLeave={hoverToHighlight ? (e) => this.handleHoverRow(null) : undefined}>
         {extendDOM}
         <div
           className="table-render"
           onScroll={this.handleScrollHor}
-          ref={this.saveContainer}>
+          ref={this.saveContainer}
+        >
           {mainTable}
           {fixedGroup}
         </div>
