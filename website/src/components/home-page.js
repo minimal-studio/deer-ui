@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'gatsby';
 import styled from 'styled-components';
-import { Grid, Icon } from '@deer-ui/core';
+import { Grid, Icon, Button } from '@deer-ui/core';
 import Showcase from './showcase';
 import { Box, Container } from './common';
 
@@ -71,10 +71,11 @@ const HomePage = () => {
           , and also provide a useful Table to display data
           </Desc>
           <Link
-            className="btn theme hola"
-            to="/docs/getting-started/">
-          Getting Started
-            <Icon n="angle-right" classNames={['ml10']} />
+            to="/docs/getting-started/"
+          >
+            <Button hola icon="angle-left">
+              Getting Started
+            </Button>
           </Link>
         </MainIntro>
         <FeatherIntro>
@@ -82,7 +83,8 @@ const HomePage = () => {
             <Grid
               lg={3}
               sm={6}
-              xs={12}>
+              xs={12}
+            >
               <FeatherIntroItem>
                 <h4>Typescript support</h4>
                 <div>
@@ -94,7 +96,8 @@ const HomePage = () => {
             <Grid
               lg={3}
               sm={6}
-              xs={12}>
+              xs={12}
+            >
               <FeatherIntroItem>
                 <h4>Devices support</h4>
                 <div>
@@ -106,7 +109,8 @@ const HomePage = () => {
             <Grid
               lg={3}
               sm={6}
-              xs={12}>
+              xs={12}
+            >
               <FeatherIntroItem>
                 <h4>SSR support</h4>
                 <div>
@@ -118,7 +122,8 @@ const HomePage = () => {
             <Grid
               lg={3}
               sm={6}
-              xs={12}>
+              xs={12}
+            >
               <FeatherIntroItem>
                 <h4>Extendable</h4>
                 <div>
@@ -132,7 +137,8 @@ const HomePage = () => {
         <Grid
           container
           direction="col"
-          alignContent="center">
+          alignContent="center"
+        >
           <UILogo container justify="center" alignItems="center">
             <img src={require('../images/logo.png')} alt=""/>
           </UILogo>
