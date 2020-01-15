@@ -76,6 +76,9 @@ const HomePage = () => {
             <Button hola icon="angle-left">
               Getting Started
             </Button>
+            <span className="btn red hola xl">
+              Getting Started
+            </span>
           </Link>
         </MainIntro>
         <FeatherIntro>
