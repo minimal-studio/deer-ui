@@ -5,7 +5,7 @@
   background-color: #FFF;
   padding: 0 $button-md-padding-horizontal;
   height: $form-control-height;
-  line-height: $form-control-height - 2;
+  line-height: $form-control-height - $form-control-border-width * 2;
   font-size: $form-control-font-size;
   border-radius: $form-control-border-radius;
   transition: background-color 0.1s ease, box-shadow 0.1s ease, color 0.1s ease;
@@ -54,35 +54,35 @@
     font-size: 20px;
     padding: 0 48px;
     height: $form-control-xl-height;
-    line-height: $form-control-xl-height;
+    line-height: $form-control-xl-height - $form-control-border-width * 2;
   }
 
   &.lg {
     font-size: 18px;
     padding: 0 36px;
     height: $form-control-lg-height;
-    line-height: $form-control-lg-height;
+    line-height: $form-control-lg-height - $form-control-border-width * 2;
   }
 
   &.md {
     font-size: 14px;
     padding: 0 $button-md-padding-horizontal;
     height: $form-control-height;
-    line-height: $form-control-height;
+    line-height: $form-control-height - $form-control-border-width * 2;
   }
 
   &.sm {
     font-size: 13px;
     padding: 0 10px;
     height: $form-control-sm-height;
-    line-height: $form-control-sm-height;
+    line-height: $form-control-sm-height - $form-control-border-width * 2;
   }
 
   &.tiny {
     font-size: $base-sm-font-size;
     padding: 0 8px;
     height: $form-control-xs-height;
-    line-height: $form-control-xs-height;
+    line-height: $form-control-xs-height - $form-control-border-width * 2;
     // min-width: 60px;
   }
 
