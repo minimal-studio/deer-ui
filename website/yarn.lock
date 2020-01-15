@@ -872,10 +872,10 @@
     exec-sh "^0.3.2"
     minimist "^1.2.0"
 
-"@deer-ui/core@^4.0.0-rc5.5":
-  version "4.0.0-rc5.5"
-  resolved "https://registry.yarnpkg.com/@deer-ui/core/-/core-4.0.0-rc5.5.tgz#4ed17d0522d2a6574021d9694949e942f9b15ea5"
-  integrity sha512-UnEOE9Lkx4Mgidaen/g0boxGdNkCdFbB1NRNQ3Jst1mwS7EXd6XZVH1WQEw3K5RhjiTYiqVNfhowRUvbYNbqbw==
+"@deer-ui/core@^4.0.0-rc5.6":
+  version "4.0.0-rc5.6"
+  resolved "https://registry.yarnpkg.com/@deer-ui/core/-/core-4.0.0-rc5.6.tgz#8b7aa874d83726fee2f3186f5602e71d35098790"
+  integrity sha512-fB4QfsGevoMnXl8V62OvX4O2jfPk30ZDWA2yJTS4JRG9WfyleUMOABx1nzddU5qhHoLPn8YyZJjVMt73ltO1nA==
   dependencies:
     classnames "^2.2.6"
 
@@ -11720,12 +11720,12 @@ react-transition-group@^4.0.1:
     loose-envify "^1.4.0"
     prop-types "^15.6.2"
 
-react-ui-doc@^1.0.0-rc2.1:
-  version "1.0.0-rc2.1"
-  resolved "https://registry.yarnpkg.com/react-ui-doc/-/react-ui-doc-1.0.0-rc2.1.tgz#f5b9492a4de59856328c8f82860e95350caaf8d4"
-  integrity sha512-eRiSrSPTwHFJW1Os2YyThFOP02YPkPLJHEFXj9Jq7oPEoZMIAULQL90HCWgVXyHLdmrr9duWNy8xrANfI59t3g==
+react-ui-doc@^1.0.0-rc2.2:
+  version "1.0.0-rc2.2"
+  resolved "https://registry.yarnpkg.com/react-ui-doc/-/react-ui-doc-1.0.0-rc2.2.tgz#9e0aa878de74e41d91fabf2fcfac097bfac749be"
+  integrity sha512-5mnoDPtzf2Nn/E3geyt5L2m/KRlkxHpH+dPkZ+hYPrdbmr4HTBfB/ZZBFP2mG6TfcnMowX0tN/1u94LuMClYSg==
   dependencies:
-    "@deer-ui/core" "^4.0.0-rc5.5"
+    "@deer-ui/core" "^4.0.0-rc5.6"
     "@mdx-js/mdx" "^1.5.1"
     "@mdx-js/react" "^1.5.1"
     "@mini-code/base-func" "^1.1.0"
