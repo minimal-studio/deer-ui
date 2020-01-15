@@ -17,7 +17,7 @@
     "gatsby-plugin-layout": "^1.1.16",
     "gatsby-plugin-sass": "^2.1.24",
     "jest": "^24.5.0",
-    "react-ui-doc": "^1.0.0-rc2.0"
+    "react-ui-doc": "^1.0.0-rc2.1"
   },
   "devDependencies": {
     "@mini-code/base-func": "^1.1.0",
