@@ -13,7 +13,7 @@ let flatpickrCDNUrl = 'https://cdn.jsdelivr.net/npm/flatpickr@4.6.3/dist/flatpic
 let isLoadingScript = false;
 
 const loadJSFormCDN = () => {
-  return new Promise((resolve) => {
+  return new Promise((resolve, reject) => {
     if (window.flatpickr) {
       // 如果已经加载成功，直接 resolve
       return resolve();
@@ -26,7 +26,8 @@ const loadJSFormCDN = () => {
       })
         .then((res) => {
           resolve();
-        });
+        })
+        .catch(reject);
     } else {
       // 如果有在加载中，则等待加载完成在 resolve
       const checkIsLoad = () => {
@@ -62,6 +63,9 @@ export interface DatetimePickerProps extends DateBasicProps {
   addons?: (addonProps: AddonProps) => Children;
   /** 默认值 */
   defaultValue?: string[];
+  /** value */
+  value?: string[];
+  /** style */
   style?: React.CSSProperties;
   // /** 受控控件的值 */
   // value?: string[];
@@ -117,7 +121,7 @@ export class DatetimePicker extends DateBasic<DatetimePickerProps> {
     super(props);
     const { value, defaultValue } = this.props;
 
-    this.isControl = props.hasOwnProperty('value');
+    this.isControl = Object.hasOwnProperty.call(props, 'value');
 
     const defaultVal = value || defaultValue;
     this.value = defaultVal;
@@ -127,6 +131,11 @@ export class DatetimePicker extends DateBasic<DatetimePickerProps> {
     loadJSFormCDN()
       .then(() => {
         this.initPicker();
+      })
+      .catch((err) => {
+        this.setState({
+          loadResourceFail: true
+        });
       });
     Call(this.props.didMount, this.value);
   }
@@ -167,7 +176,7 @@ export class DatetimePicker extends DateBasic<DatetimePickerProps> {
         },
         children: (
           <div className="p10">
-            输入时间有误，请检查
+            {this.$T_IN('输入时间有误，请检查')}
           </div>
         )
       });
@@ -239,7 +248,6 @@ export class DatetimePicker extends DateBasic<DatetimePickerProps> {
   }
 
   initPicker = () => {
-    if (!window.flatpickr) return console.error(`加载 flatpickr 失败`);
     window.flatpickr.l10ns.zh = Mandarin;
     const {
       mode, needTime, lang, allowInput, value, defaultValue,
@@ -265,7 +273,7 @@ export class DatetimePicker extends DateBasic<DatetimePickerProps> {
       onClose: this.handleChange
     };
 
-    this.datepicker = window.flatpickr(this._refs[this._id], flatpickrOptions);
+    return this.datepicker = window.flatpickr(this._refs[this._id], flatpickrOptions);
   }
 
   changeDate = (val) => {

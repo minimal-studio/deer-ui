@@ -164,7 +164,8 @@ export default class Pagination extends UIComponent<PaginationProps> {
           type="text"
           disabled={!hasMorePagin}
           className="form-control input-sm ms10 input"
-          onBlur={(e) => this.changePagin(+e.target.value - 1)}/>
+          onBlur={(e) => this.changePagin(+e.target.value - 1)}
+        />
         <span>{$T_IN('页')}</span>
       </div>
     );
@@ -176,7 +177,8 @@ export default class Pagination extends UIComponent<PaginationProps> {
           needCancel={false}
           position={this.dropdownPosition}
           onChange={(nextVal) => this.changePagin(+pIdx, nextVal)}
-          values={this.getSelectorOptions()} />
+          values={this.getSelectorOptions()}
+        />
       </div>
     );
     const btnGroup = (
@@ -192,7 +194,8 @@ export default class Pagination extends UIComponent<PaginationProps> {
                 result.push(
                   <span key={currIdx}
                     className={`item${isActive ? ' active' : ''}`}
-                    onClick={(e) => this.changePagin(currIdx - 1)}>
+                    onClick={(e) => this.changePagin(currIdx - 1)}
+                  >
                     {currIdx}
                   </span>
                 );

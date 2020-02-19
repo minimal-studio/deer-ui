@@ -175,7 +175,8 @@ export default class Notification extends UIPureComponent<NotificationProps, Sta
                   <CSSTransition
                     key={msgID}
                     timeout={TRANSFORM_TIMER}
-                    classNames="notify">
+                    classNames="notify"
+                  >
                     <div
                       className={`notify-item ${type}`}
                       ref={(e) => {
@@ -184,7 +185,8 @@ export default class Notification extends UIPureComponent<NotificationProps, Sta
                         }
                       }}
                       onMouseEnter={(e) => this.clearTargetTimer(msgID)}
-                      onMouseLeave={(e) => this.startTargetTimer(item)}>
+                      onMouseLeave={(e) => this.startTargetTimer(item)}
+                    >
                       {
                         tipIcons[type] && (
                           <div className="notify-type-tip">
@@ -198,7 +200,8 @@ export default class Notification extends UIPureComponent<NotificationProps, Sta
                         {
                           (onClickTip || handleClick) ? (
                             <div className="action"
-                              onClick={(e) => this.clickTip(item, msgID)}>
+                              onClick={(e) => this.clickTip(item, msgID)}
+                            >
                               <span className="flex" />
                               <span className="action-btn">{actionText}</span>
                             </div>

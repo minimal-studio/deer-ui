@@ -147,23 +147,6 @@
   cursor: pointer;
 }
 
-.btn-loading {
-  animation: btnLoading 1.2s linear infinite;
-}
-
 .close-btn {
   @include closeBtn(22px);
-}
-
-@keyframes btnLoading {
-  0% {
-    transform: rotate(0);
-  }
-
-  // 50% {
-  //   transform: rotate(180deg);
-  // }
-  100% {
-    transform: rotate(360deg);
-  }
 }

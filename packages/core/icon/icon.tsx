@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { getIcon } from '../utils';
+import { getIcon, Color } from '../utils';
 
 export interface IconProps {
   /** 是否使用默认的 icon 配置 */
@@ -11,6 +11,8 @@ export interface IconProps {
   s?: 's' | 'r' | 'l' | 'b';
   /** icon name */
   type?: string;
+  /** color */
+  color?: Color;
   /** className for icon */
   className?: HTMLElement['className'];
   /** multiple class names, 例如 ['class1', 'class2'] */
@@ -23,10 +25,16 @@ export interface IconProps {
 
 export const Icon: React.SFC<IconProps> = (props) => {
   const {
-    n, s, useIconConfig, type, classNames = [], className, ...other
+    n, s, useIconConfig, type, classNames = [], className, color,
+    ...other
   } = props;
   if (!n) return null;
-  const iconClassName = getIcon((n || type), s, ['icon', (className || ''), ...classNames], useIconConfig);
+  const iconClassName = getIcon((n || type), s, [
+    'icon',
+    (className || ''),
+    color ? `t_${color}` : '',
+    ...classNames
+  ], useIconConfig);
   return (
     <i
       {...other}

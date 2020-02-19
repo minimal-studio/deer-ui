@@ -16,3 +16,20 @@ $loaderColor: #3ca9d1;
   transition: all ease 0.2s;
   pointer-events: none;
 }
+
+.btn-loading, .spinning {
+  animation: spinning 1.2s linear infinite;
+}
+
+@keyframes spinning {
+  0% {
+    transform: rotate(0);
+  }
+
+  // 50% {
+  //   transform: rotate(180deg);
+  // }
+  100% {
+    transform: rotate(360deg);
+  }
+}

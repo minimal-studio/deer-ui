@@ -125,7 +125,8 @@ export const Grid: React.SFC<GridProps> = (props) => {
     <C
       {...other}
       style={style}
-      className={_className}>
+      className={_className}
+    >
       {children}
     </C>
   );

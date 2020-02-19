@@ -41,7 +41,7 @@ const Button: React.SFC<ButtonProps2> = (props) => {
     <Icon n={icon} s={s} classNames={['btn-icon']}/>
   ) : null;
   const loadingTip = loadingHint && loading ? (
-    <Icon n="loading" s={s} classNames={['btn-loading']}/>
+    <Icon n="loading" s={s} classNames={['spinning']}/>
   ) : null;
   const child = children || text;
   const classNames = classnames(

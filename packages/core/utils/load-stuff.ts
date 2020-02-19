@@ -3,7 +3,11 @@
 import { Call } from '@mini-code/base-func';
 
 interface LoadParams {
+  /** Resource's url */
   src: string;
+  /** if fail to load then reload time */
+  reloadTime?: number;
+  /** onload */
   onload?: (loadedEvent) => void;
 }
 
@@ -15,22 +19,27 @@ interface LoadStuffParams extends LoadParams {
  * 加载外部资源
  */
 export function LoadStuff(params: LoadStuffParams) {
-  const { src, onload, type } = params;
+  const {
+    src, onload, type, reloadTime = 2
+  } = params;
   return new Promise((resolve, reject) => {
     let reloadTimes = 0;
 
     const loadUrl = src;
 
     function load(element: HTMLLinkElement | HTMLScriptElement) {
-      if (reloadTimes > 2) return;
-      reloadTimes++;
-      element.onload = (...arg) => {
-        Call(onload, ...arg);
-        resolve(...arg);
-      };
-      /** 如果加载失败，尝试继续加载 */
-      element.onerror = () => load(element);
-      document.body.appendChild(element);
+      if (reloadTimes > reloadTime) {
+        reject(new Error('load resource fail'));
+      } else {
+        reloadTimes++;
+        element.onload = (...arg) => {
+          Call(onload, ...arg);
+          resolve(...arg);
+        };
+        /** 如果加载失败，尝试继续加载 */
+        element.onerror = () => load(element);
+        document.body.appendChild(element);
+      }
     }
 
     switch (type) {

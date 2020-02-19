@@ -50,7 +50,7 @@ export default class Radio extends SelectorBasic<RadioProps> {
         color={!isSelectedAll ? 'theme' : 'red'}
         size="tiny"
         className="select-all-btn"
-        onClick={(e) => (isSelectedAll ? this.clearAll() : this.selectAll())}
+        onClick={() => (isSelectedAll ? this.clearAll() : this.selectAll())}
       >
         {this.$T_IN(isSelectedAll ? '清除' : '全选')}
       </Button>

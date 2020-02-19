@@ -17,11 +17,10 @@ export const Card: React.SFC<CardProps> = ({
   style,
   ...other
 }) => {
-  const classes = classnames({
-    [className]: !!className,
-    'card-container': !!container,
-    'card-item': !container,
-  });
+  const classes = classnames(
+    className,
+    container ? 'card-container' : 'card-item'
+  );
   return (
     <div
       {...other}

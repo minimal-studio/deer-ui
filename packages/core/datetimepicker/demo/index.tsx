@@ -9,7 +9,8 @@ export default () => {
         <DatetimePicker
           onChange={(val) => {
             setDate(val);
-          }} />
+          }}
+        />
         {date.toString()}
       </div>
       <div className="layout a-i-c">
@@ -17,7 +18,8 @@ export default () => {
           outputAsString={true}
           onChange={(val) => {
             setDate(val);
-          }} />
+          }}
+        />
         {date.toString()}
       </div>
       <div className="layout a-i-c">
@@ -26,7 +28,8 @@ export default () => {
           needTime={false}
           onChange={(val) => {
             setDate(val);
-          }} />
+          }}
+        />
         {date.toString()}
       </div>
       <div className="layout a-i-c">
@@ -34,7 +37,8 @@ export default () => {
           mode="range"
           onChange={(val) => {
             setDate(val);
-          }} />
+          }}
+        />
         {date.toString()}
       </div>
       <div className="layout a-i-c">
@@ -44,7 +48,8 @@ export default () => {
           mode="range"
           onChange={(val) => {
             setDate(val);
-          }} />
+          }}
+        />
         {date.toString()}
       </div>
     </div>

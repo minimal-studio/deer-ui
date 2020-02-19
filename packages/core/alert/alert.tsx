@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import { Icon } from '../icon';
 
-export interface AlertProps extends React.HTMLProps<HTMLDivElement> {
+export interface AlertProps {
   /** panel 的 title */
   title?: string;
   /** panel 的一项内容 */
@@ -53,7 +53,8 @@ export default class Alert extends PureComponent<AlertProps, {
           {
             collapse && (
               <Icon
-                n={showContent ? "arrow-up" : "arrow-down"} />
+                n={showContent ? "arrow-up" : "arrow-down"}
+              />
             )
           }
         </div>
