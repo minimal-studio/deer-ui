@@ -115,7 +115,7 @@ render(<Example />);
 ## Loading 样式
 
 ```jsx live noInline
-import { Loading, LoadingProgress, LoadingPlaceholder } from '@deer-ui/core';
+import { Loading, LoadingProgress, LoadingPlaceholder, Spinning } from '@deer-ui/core';
 
 function Example() {
   return (
@@ -124,8 +124,17 @@ function Example() {
       <div className="relative pb20">
         <LoadingProgress />
       </div>
+      <hr />
       <h3>Placeholder</h3>
       <LoadingPlaceholder />
+      <hr />
+      <h3>Spinning</h3>
+      <div>
+        <Spinning color="blue" className="mr10" />
+        <Spinning color="red" className="mr10" />
+        <Spinning color="green" className="mr10" />
+        <Spinning color="yellow" className="mr10" />
+      </div>
     </>
   )
 }
