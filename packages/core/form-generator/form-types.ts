@@ -21,6 +21,8 @@ export interface BaseForm<ChangeType = DefaultOnChangeType> {
   onChange?: ChangeType;
   /** ToolTip 的 title */
   tips?: ToolTipProps['title'];
+  /** 该 form control 的描述 */
+  desc?: string;
 }
 
 export interface RefFormControl<ChangeType = DefaultOnChangeType> extends BaseForm<ChangeType> {
