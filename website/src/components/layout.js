@@ -11,6 +11,17 @@ import FormOptions from './mock-data/form-options';
 
 import './style.scss';
 
+const loadSentry = () => {
+  const script = document.createElement('script');
+  script.src = 'https://browser.sentry-cdn.com/5.15.0/bundle.min.js';
+  script.setAttribute('integrity', 'sha384-+ysfQckQvwCB5SppH41IScIz/Iynt2pePnJNMl+D7ZOzDJ+VYhQEuwB0pA60IDM0');
+  script.setAttribute('crossorigin', 'anonymous');
+  script.onload = () => {
+    window.Sentry?.init({ dsn: 'https://b2148bb851ae4e3fbd0f625c5cc9fa0e@sentry.io/5171956' });
+  };
+  document.head.appendChild(script);
+};
+
 /**
  * 如果为开发环境，加载 core 的样式
  * 因为 react-ui-doc 已经加载了 core 的样式，无需重复加载
@@ -20,6 +31,9 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 export default function Layout({ children }) {
+  React.useEffect(() => {
+    loadSentry();
+  }, []);
   return (
     <>
       <LiveConfig
