@@ -4,7 +4,7 @@ import ColumnFilter, { ColumnFilterProps } from '../table/column-filter';
 import { Grid, GridProps } from '../grid';
 import NodataTip from '../table/nodata-tip';
 
-interface TableCardProps extends ColumnFilterProps {
+export interface TableCardProps extends ColumnFilterProps {
   gridItemProps?: GridProps;
   gridContainerProps?: GridProps;
 }

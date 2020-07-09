@@ -3,7 +3,7 @@ import React, { Component, PureComponent } from 'react';
 let _firstStopColor = '#fe0362';
 let _secondStopColor = '#7473e3';
 
-interface CountdownBgProps {
+export interface CountdownBgProps {
   percent: any;
   firstStopColor: any;
   secondStopColor: any;

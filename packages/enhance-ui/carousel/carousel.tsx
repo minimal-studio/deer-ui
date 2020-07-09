@@ -4,7 +4,7 @@ import { Call } from '@mini-code/base-func';
 import { Children } from '@deer-ui/core/utils/props';
 import { Icon } from '@deer-ui/core/icon';
 
-interface CarouselItem {
+export interface CarouselItem {
   /** 如果同时设置了 imgUrl 和 element */
   imgUrl?: string;
   /** 优先渲染 element */
@@ -12,7 +12,7 @@ interface CarouselItem {
   action?: (activeItem, activeIdx) => void;
 }
 
-interface CarouselProps {
+export interface CarouselProps {
   /** 轮播的具体内容，格式如下 */
   carouselItems: CarouselItem[];
   /** 可设置的 style */

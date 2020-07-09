@@ -10,7 +10,7 @@ import {
 import { Icon, IconProps } from '../icon';
 import { Grid, GridProps } from '../grid';
 
-interface ButtonProps2 extends ButtonProps {
+export interface ButtonProps2 extends ButtonProps {
   /** 设置 btn 的 icon, 可以使用 iconMapper 来引用 */
   icon?: IconProps['n'];
   /** pass to icon */

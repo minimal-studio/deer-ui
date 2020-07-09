@@ -1,7 +1,7 @@
 import React from 'react';
 import classnames from 'classnames';
 
-interface CardProps extends React.HTMLProps<HTMLDivElement> {
+export interface CardProps extends React.HTMLProps<HTMLDivElement> {
   /** padding */
   p?: number;
   /** 是否作为容器 */

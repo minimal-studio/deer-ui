@@ -22,7 +22,7 @@ interface State {
   searchValue: string;
 }
 
-interface FuncChildrenParams extends State {
+export interface FuncChildrenParams extends State {
   /** 关闭 Dropdown */
   hide: () => void;
   /** showSubMenu */
