@@ -91,7 +91,7 @@ export interface GridProps extends React.HTMLProps<HTMLElement> {
   style?: React.CSSProperties;
 }
 
-export const Grid: React.SFC<GridProps> = (props) => {
+export const Grid: React.FC<GridProps> = (props) => {
   const {
     children, className = '', style, component = 'div',
     space, container, item, justifyItems = '', justifyContent,

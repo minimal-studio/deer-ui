@@ -259,7 +259,7 @@ const ShowGlobalModal = ShowModal;
 const CloseGlobalModal = CloseModal;
 
 
-const ShowModalAPI: React.SFC<ShowModalParams> = (props) => (
+const ShowModalAPI: React.FC<ShowModalParams> = (props) => (
   <div></div>
 );
 

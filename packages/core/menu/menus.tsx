@@ -18,7 +18,7 @@ export interface MenusProps {
 
 const menuDividGroup = ['-', 'hr'];
 
-const Menus: React.SFC<MenusProps> = (props) => {
+const Menus: React.FC<MenusProps> = (props) => {
   const {
     data, padding = 10, children, className = '__menus', ...other
   } = props;

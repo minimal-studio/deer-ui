@@ -1,6 +1,6 @@
 import React from 'react';
 import { NotifyConfig } from '../notification';
 
-const NotifyConfigC: React.SFC<NotifyConfig> = () => null;
+const NotifyConfigC: React.FC<NotifyConfig> = () => null;
 
 export default NotifyConfigC;

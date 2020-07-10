@@ -24,7 +24,7 @@ const typeMapper = {
   error: 'times',
 };
 
-const Step: React.SFC<StepProps> = ({
+const Step: React.FC<StepProps> = ({
   title, children, isActive, isChecked, type = 'success', idx = '', style
 }) => (
   <span className={`step-item ${type} ${(isActive ? 'active' : '')} ${(isChecked ? 'checked' : '')}`}

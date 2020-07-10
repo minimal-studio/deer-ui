@@ -9,7 +9,7 @@ export interface SubContentProps extends React.HTMLProps<HTMLDivElement> {
   children?: any;
 }
 
-const SubContent: React.SFC<SubContentProps> = ({
+const SubContent: React.FC<SubContentProps> = ({
   displayElem, children, position = 'left', ...other
 }) => (
   <div className={`__hide-container ${position}`} {...other}>

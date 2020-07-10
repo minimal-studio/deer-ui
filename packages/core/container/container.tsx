@@ -14,7 +14,7 @@ export interface ContainerProps extends React.HTMLProps<HTMLDivElement> {
 /**
  * 容器，默认最大宽度为
  */
-const Container: React.SFC<ContainerProps> = (props) => {
+const Container: React.FC<ContainerProps> = (props) => {
   const {
     fluid, size = 'xl', className, children, maxWidth, autoAlign = true,
     style,

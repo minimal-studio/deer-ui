@@ -16,7 +16,7 @@ export interface MenuProps extends React.HTMLProps<HTMLDivElement> {
   isActive?: boolean;
 }
 
-const Menu: React.SFC<MenuProps> = (props) => {
+const Menu: React.FC<MenuProps> = (props) => {
   const {
     isActive, text, icon, s, pureIcon, children, ...other
   } = props;

@@ -15,7 +15,7 @@ interface TreeProps {
   onToggle;
 }
 
-const Tree: React.SFC<TreeProps> = (props) => {
+const Tree: React.FC<TreeProps> = (props) => {
   const {
     level, treeData, parentNode, activeLevel,
     selectedItems, itemFilter, onCheck, onToggle

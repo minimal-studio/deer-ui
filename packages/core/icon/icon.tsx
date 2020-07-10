@@ -23,7 +23,7 @@ export interface IconProps {
   onClick?: (event?: React.MouseEvent<HTMLElement, MouseEvent>) => void;
 }
 
-export const Icon: React.SFC<IconProps> = (props) => {
+export const Icon: React.FC<IconProps> = (props) => {
   const {
     n, s, useIconConfig, type, classNames = [], className, color,
     ...other
@@ -48,7 +48,7 @@ Icon.defaultProps = {
   classNames: [],
 };
 
-const PureIcon: React.SFC<IconProps> = (props) => (
+const PureIcon: React.FC<IconProps> = (props) => (
   <Icon {...props} useIconConfig={false} />
 );
 

@@ -9,7 +9,7 @@ export interface CardProps extends React.HTMLProps<HTMLDivElement> {
   overflow?: 'auto' | 'hidden' | 'scroll' | 'visible';
 }
 
-export const Card: React.SFC<CardProps> = ({
+export const Card: React.FC<CardProps> = ({
   children, className,
   container,
   p = 0.1,
@@ -36,7 +36,7 @@ export const Card: React.SFC<CardProps> = ({
   );
 };
 
-export const CardContainer: React.SFC<CardProps> = (props) => (
+export const CardContainer: React.FC<CardProps> = (props) => (
   <Card
     {...props}
     container

@@ -19,7 +19,7 @@ export interface TabProps {
   onClick?: (clickEvent) => void;
 }
 
-const Tab: React.SFC<TabProps> = ({
+const Tab: React.FC<TabProps> = ({
   label, icon, onClick, onChange, idx, labelClass = ''
 }) => {
   const iconDOM = icon && (

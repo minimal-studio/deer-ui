@@ -28,7 +28,7 @@ const defaultProps = {
   icon: '',
 };
 
-const Button: React.SFC<ButtonProps2> = (props) => {
+const Button: React.FC<ButtonProps2> = (props) => {
   const {
     loading, disabled, text, icon, s, type = 'button', children,
     status, color = 'theme', size = 'md', block = false, className, hola = false,

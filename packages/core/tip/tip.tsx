@@ -11,7 +11,7 @@ export interface TipProps {
   color?: Color;
 }
 
-const Tip: React.SFC<TipProps> = ({
+const Tip: React.FC<TipProps> = ({
   scale = 10, color = 'theme', children, animate = true
 }) => {
   const tipStyle = {

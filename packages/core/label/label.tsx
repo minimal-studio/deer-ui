@@ -14,7 +14,7 @@ export interface LabelProps extends React.HTMLProps<HTMLSpanElement> {
   children?: Children;
 }
 
-export const Label: React.SFC<LabelProps> = ({
+export const Label: React.FC<LabelProps> = ({
   className, text, color = 'default', tColor = 'white', children, ...other
 }) => {
   const child = children || text;
