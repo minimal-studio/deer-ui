@@ -117,7 +117,7 @@ $notifyTransDuration   : 300ms;
 // modal
 .modal-enter {
   .animate-layout {
-    transform: scale(1.02);
+    transform: scale(1);
     opacity: 0;
   }
   .section-mark {
