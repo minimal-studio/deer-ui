@@ -31,6 +31,9 @@ export type FormChangeEvent = (formValues, changeRef, changeValue) => void;
 export interface FormFilterProps<T = FormOptions> {
   formOptions?: T;
   conditionConfig?: T;
+  defaultValues: {
+    [ref: string]: any;
+  };
   onChange?: FormChangeEvent;
 }
 
@@ -73,9 +76,12 @@ export default class FormFilterHelper<P extends FormFilterProps> extends UICompo
 
   constructor(props) {
     super(props);
+    const { defaultValues = {} } = props;
+    console.log('defaultValues :>> ', defaultValues);
     this.state = {
-      value: {}
+      value: defaultValues
     };
+    this.value = defaultValues;
     this.initValues();
   }
 

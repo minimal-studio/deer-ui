@@ -13,13 +13,13 @@ menu: Form Generator
 - flow
 
 ```jsx live noInline
-import React, { useState } from 'react';
-import { FormLayout, Button, Radio } from '@deer-ui/core';
-import formOptions from 'formOptions';
+import React, { useState } from "react";
+import { FormLayout, Button, Radio } from "@deer-ui/core";
+import formOptions from "formOptions";
 
 const FormLayoutDemo = () => {
-  const [layout, setLayout] = useState('horizontal');
-  const [resDesc, setResDesc] = useState('');
+  const [layout, setLayout] = useState("horizontal");
+  const [resDesc, setResDesc] = useState("");
 
   const formBtns = [
     {
@@ -27,9 +27,9 @@ const FormLayoutDemo = () => {
         console.log(formRef.value, actingRef);
         submit(formRef.value, actingRef);
       },
-      type: 'submit',
-      text: '测试按钮',
-      actingRef: 'forTest'
+      type: "submit",
+      text: "测试按钮",
+      actingRef: "forTest",
     },
   ];
 
@@ -38,139 +38,144 @@ const FormLayoutDemo = () => {
     setTimeout(() => {
       setResDesc({
         hasErr: false,
-        resDesc: '成功'
+        resDesc: "成功",
       });
     }, 800);
-  }
+  };
 
   return (
     <>
       <Radio
-        onChange={nextLayout => setLayout(nextLayout)}
+        onChange={(nextLayout) => setLayout(nextLayout)}
         defaultValue="horizontal"
         values={{
-          'horizontal': '水平布局',
-          'vertical': '垂直布局',
-          'flow': '流布局',
-        }} />
+          horizontal: "水平布局",
+          vertical: "垂直布局",
+          flow: "流布局",
+        }}
+      />
       <FormLayout
+        defaultValues={{
+          ref1: "value1",
+        }}
         layout={layout}
         formBtns={formBtns}
-        formOptions={formOptions}/>
+        formOptions={formOptions}
+      />
     </>
   );
-}
+};
 render(<FormLayoutDemo />);
 ```
 
 ## 表单联动
 
 ```jsx live noInline
-import { useState } from 'react'
-import { FormLayout, Button } from '@deer-ui/core';
-import formOptions from 'formOptions';
+import { useState } from "react";
+import { FormLayout, Button } from "@deer-ui/core";
+import formOptions from "formOptions";
 
 function Example() {
   const radioValues = {
-    value1: 'value1',
-    value2: 'value2',
-    value3: 'value3',
-  }
+    value1: "value1",
+    value2: "value2",
+    value3: "value3",
+  };
   const formOptions1 = [
     {
-      refs: ['startDate', 'endDate'],
-      type: 'datetimeRange',
-      title: '日期',
+      refs: ["startDate", "endDate"],
+      type: "datetimeRange",
+      title: "日期",
       required: true,
     },
     {
-      ref: 'ref1',
-      type: 'radio',
-      title: '单选控件',
-      defaultValue: 'value2',
-      values: radioValues
+      ref: "ref1",
+      type: "radio",
+      title: "单选控件",
+      defaultValue: "value2",
+      values: radioValues,
     },
     {
-      ref: 'ref2',
-      type: 'select',
-      title: '选择控件',
-      values: radioValues
+      ref: "ref2",
+      type: "select",
+      title: "选择控件",
+      values: radioValues,
     },
     {
-      ref: 'ref3',
-      type: 'input',
-      title: '输入',
+      ref: "ref3",
+      type: "input",
+      title: "输入",
       required: true,
-      outputType: 'number'
+      outputType: "number",
     },
-  ]
+  ];
   const formOptions2 = [
     {
-      refs: ['startDate', 'endDate'],
-      type: 'datetimeRange',
-      title: '日期',
+      refs: ["startDate", "endDate"],
+      type: "datetimeRange",
+      title: "日期",
       required: true,
     },
     {
-      ref: 'ref1',
-      type: 'radio',
-      title: '单选控件',
-      values: radioValues
+      ref: "ref1",
+      type: "radio",
+      title: "单选控件",
+      values: radioValues,
     },
     {
-      ref: 'test1',
-      type: 'input',
-      title: '测试1'
+      ref: "test1",
+      type: "input",
+      title: "测试1",
     },
     {
-      ref: 'test2',
-      type: 'input',
-      title: '测试2'
+      ref: "test2",
+      type: "input",
+      title: "测试2",
     },
     {
-      ref: 'test3',
-      type: 'input',
-      title: '测试3'
-    }
+      ref: "test3",
+      type: "input",
+      title: "测试3",
+    },
   ];
   const formOptions3 = [
     {
-      refs: ['startDate', 'endDate'],
-      type: 'datetimeRange',
-      title: '日期',
+      refs: ["startDate", "endDate"],
+      type: "datetimeRange",
+      title: "日期",
       required: true,
     },
     {
-      ref: 'ref1',
-      type: 'radio',
-      title: '单选控件',
-      values: radioValues
+      ref: "ref1",
+      type: "radio",
+      title: "单选控件",
+      values: radioValues,
     },
     {
-      ref: 'test4',
-      type: 'input',
-      title: '测试联动1'
+      ref: "test4",
+      type: "input",
+      title: "测试联动1",
     },
     {
-      ref: 'test5',
-      type: 'input',
-      title: '测试联动2'
+      ref: "test5",
+      type: "input",
+      title: "测试联动2",
     },
     {
-      ref: 'test6',
-      type: 'input',
-      title: '测试联动3'
-    }
-  ]
+      ref: "test6",
+      type: "input",
+      title: "测试联动3",
+    },
+  ];
   const formOptionsMapper = {
     value1: formOptions1,
     value2: formOptions2,
     value3: formOptions3,
-  }
+  };
   const [state, setState] = useState({
-    activeVal: '',
+    activeVal: "",
     formOptions: [...formOptions1],
-  })
+  });
   return (
     <div>
       <FormLayout
@@ -180,34 +185,36 @@ function Example() {
               console.log(formRef.value, actingRef);
             },
             style: {
-              backgroundImage: 'linear-gradient(120deg, #f093fb 0%, #f5576c 100%)'
+              backgroundImage:
+                "linear-gradient(120deg, #f093fb 0%, #f5576c 100%)",
             },
-            type: 'submit',
-            text: '测试按钮, 带预检查',
-            actingRef: 'forTest'
+            type: "submit",
+            text: "测试按钮, 带预检查",
+            actingRef: "forTest",
           },
           {
             action: (formRef, actingRef) => {
               console.log(formRef.value, actingRef);
             },
-            color: 'red',
-            text: '测试按钮, 关闭预检查',
+            color: "red",
+            text: "测试按钮, 关闭预检查",
             preCheck: false,
-            actingRef: 'forTest'
+            actingRef: "forTest",
           },
         ]}
         onChange={(value, ref, val) => {
-          if(ref == 'ref1') {
+          if (ref == "ref1") {
             const nextState = {
               activeVal: val,
-              formOptions: formOptionsMapper[val]
-            }
-            setState(nextState)
+              formOptions: formOptionsMapper[val],
+            };
+            setState(nextState);
           }
         }}
-        formOptions={state.formOptions}/>
+        formOptions={state.formOptions}
+      />
     </div>
-  )
+  );
 }
 render(<Example />);
 ```
@@ -217,112 +224,123 @@ render(<Example />);
 > 更改其中某个配置的选择值
 
 ```jsx live noInline
-import { useState } from 'react'
-import { FormLayout, Button, Loading } from '@deer-ui/core';
-import formOptions from 'formOptions';
+import { useState } from "react";
+import { FormLayout, Button, Loading } from "@deer-ui/core";
+import formOptions from "formOptions";
 
 function Example() {
   const valuesMapper = {
     value1: {
-      forValue11: 'value1-1 的动态值',
-      forValue12: 'value1-2 的动态值',
-      forValue13: 'value1-3 的动态值',
+      forValue11: "value1-1 的动态值",
+      forValue12: "value1-2 的动态值",
+      forValue13: "value1-3 的动态值",
     },
     value2: {
-      forValue21: 'value2-1 的动态值',
-      forValue22: 'value2-2 的动态值',
-      forValue23: 'value2-3 的动态值',
+      forValue21: "value2-1 的动态值",
+      forValue22: "value2-2 的动态值",
+      forValue23: "value2-3 的动态值",
     },
     value3: {
-      forValue31: 'value3-1 的动态值',
-      forValue32: 'value3-2 的动态值',
-      forValue33: 'value3-3 的动态值',
+      forValue31: "value3-1 的动态值",
+      forValue32: "value3-2 的动态值",
+      forValue33: "value3-3 的动态值",
     },
-  }
+  };
   const formOptions1 = [
     {
-      ref: 'ref1',
-      type: 'radio',
-      title: '单选控件',
+      ref: "ref1",
+      type: "radio",
+      title: "单选控件",
       values: {
-        value1: 'value1',
-        value2: 'value2',
-        value3: 'value3',
-      }
+        value1: "value1",
+        value2: "value2",
+        value3: "value3",
+      },
     },
     {
-      ref: 'ref2',
-      type: 'radio',
-      title: '选择控件',
-      values: valuesMapper['value1']
+      ref: "ref2",
+      type: "radio",
+      title: "选择控件",
+      values: valuesMapper["value1"],
     },
     {
-      ref: 'ref3',
-      type: 'select',
-      title: '选择控件',
+      ref: "ref3",
+      type: "select",
+      title: "选择控件",
       isMultiple: true,
-      values: valuesMapper['value1']
+      values: valuesMapper["value1"],
     },
-  ]
+  ];
   const [state, setState] = useState({
     formOptions: [...formOptions1],
-    loading: false
-  })
+    loading: false,
+  });
   let formRef = {};
   return (
     <div>
       <h4>动态表单</h4>
-      <span className="btn theme mr10" onClick={e => setState({
-        ...state,
-        loading: !state.loading
-      })}>模拟异步获取表单条件</span>
-      <span className="btn red" onClick={e => {
-        formRef.showResDesc({
-          hasErr: false,
-          resDesc: '成功'
-        })
-      }}>使用 FormLayout 的 showResDesc 接口显示 Toast 提示</span>
+      <span
+        className="btn theme mr10"
+        onClick={(e) =>
+          setState({
+            ...state,
+            loading: !state.loading,
+          })
+        }
+      >
+        模拟异步获取表单条件
+      </span>
+      <span
+        className="btn red"
+        onClick={(e) => {
+          formRef.showResDesc({
+            hasErr: false,
+            resDesc: "成功",
+          });
+        }}
+      >
+        使用 FormLayout 的 showResDesc 接口显示 Toast 提示
+      </span>
       <div>
         <Loading loading={state.loading}>
-          {
-            !state.loading && (
-              <FormLayout
-                formBtns={[
-                  {
-                    action: (formRef, actingRef) => {
-                      console.log(formRef.value, actingRef);
-                    },
-                    type: 'submit',
-                    text: '测试按钮, 带预检查',
-                    actingRef: 'forTest'
+          {!state.loading && (
+            <FormLayout
+              formBtns={[
+                {
+                  action: (formRef, actingRef) => {
+                    console.log(formRef.value, actingRef);
                   },
-                  {
-                    action: () => {
-                      formRef.clearValue();
-                    },
-                    text: '清空内容'
-                  }
-                ]}
-                ref={e => formRef = e}
-                onChange={(value, ref, val) => {
-                  if(ref == 'ref1') {
-                    const nextState = [...state.formOptions];
-                    // 更改新 formOptions 的目标的 values
-                    nextState[1].values = {...valuesMapper[val]};
-                    nextState[2].values = valuesMapper[val];
-                    setState({
-                      ...state,
-                      formOptions: nextState
-                    })
-                  }
-                }}
-                formOptions={state.formOptions}/>
-            )
-          }
+                  type: "submit",
+                  text: "测试按钮, 带预检查",
+                  actingRef: "forTest",
+                },
+                {
+                  action: () => {
+                    formRef.clearValue();
+                  },
+                  text: "清空内容",
+                },
+              ]}
+              ref={(e) => (formRef = e)}
+              onChange={(value, ref, val) => {
+                if (ref == "ref1") {
+                  const nextState = [...state.formOptions];
+                  // 更改新 formOptions 的目标的 values
+                  nextState[1].values = { ...valuesMapper[val] };
+                  nextState[2].values = valuesMapper[val];
+                  setState({
+                    ...state,
+                    formOptions: nextState,
+                  });
+                }
+              }}
+              formOptions={state.formOptions}
+            />
+          )}
         </Loading>
       </div>
     </div>
-  )
+  );
 }
 render(<Example />);
 ```
@@ -330,79 +348,85 @@ render(<Example />);
 ## formOptions 后赋值
 
 ```jsx live noInline
-import { useState } from 'react'
-import { FormLayout, Button, Loading } from '@deer-ui/core';
-import formOptions from 'formOptions';
+import { useState } from "react";
+import { FormLayout, Button, Loading } from "@deer-ui/core";
+import formOptions from "formOptions";
 
 function Example() {
   const valuesMapper = {
     value1: {
-      forValue11: 'value1-1 的动态值',
-      forValue12: 'value1-2 的动态值',
-      forValue13: 'value1-3 的动态值',
+      forValue11: "value1-1 的动态值",
+      forValue12: "value1-2 的动态值",
+      forValue13: "value1-3 的动态值",
     },
     value2: {
-      forValue21: 'value2-1 的动态值',
-      forValue22: 'value2-2 的动态值',
-      forValue23: 'value2-3 的动态值',
+      forValue21: "value2-1 的动态值",
+      forValue22: "value2-2 的动态值",
+      forValue23: "value2-3 的动态值",
     },
     value3: {
-      forValue31: 'value3-1 的动态值',
-      forValue32: 'value3-2 的动态值',
-      forValue33: 'value3-3 的动态值',
+      forValue31: "value3-1 的动态值",
+      forValue32: "value3-2 的动态值",
+      forValue33: "value3-3 的动态值",
     },
-  }
+  };
   const formOptions1 = [
     {
-      ref: 'ref1',
-      type: 'radio',
-      title: '单选控件',
-      defaultValue: 'value1',
+      ref: "ref1",
+      type: "radio",
+      title: "单选控件",
+      defaultValue: "value1",
       values: {
-        value1: 'value1',
-        value2: 'value2',
-        value3: 'value3',
-      }
+        value1: "value1",
+        value2: "value2",
+        value3: "value3",
+      },
     },
     {
-      ref: 'ref2',
-      type: 'radio',
-      title: '选择控件',
-      values: valuesMapper['value1']
+      ref: "ref2",
+      type: "radio",
+      title: "选择控件",
+      values: valuesMapper["value1"],
     },
     {
-      ref: 'ref3',
-      type: 'select',
-      title: '选择控件',
+      ref: "ref3",
+      type: "select",
+      title: "选择控件",
       isMultiple: true,
-      values: valuesMapper['value1']
+      values: valuesMapper["value1"],
     },
-  ]
+  ];
   let formRef = {};
   const [formOptions, setFormOptions] = useState([]);
   return (
     <div>
-      <span className="btn theme" onClick={e => {
-        setFormOptions(formOptions1)
-      }}>赋值 FormOptions</span>
+      <span
+        className="btn theme"
+        onClick={(e) => {
+          setFormOptions(formOptions1);
+        }}
+      >
+        赋值 FormOptions
+      </span>
       <div>
         <FormLayout
           formBtns={[
             {
               action: (formRef, actingRef) => {
-                setFormOptions([])
+                setFormOptions([]);
               },
-              type: 'submit',
-              text: '清空 FormOptions',
-              color: 'red',
-              actingRef: 'forTest'
+              type: "submit",
+              text: "清空 FormOptions",
+              color: "red",
+              actingRef: "forTest",
             },
           ]}
-          ref={e => formRef = e}
-          formOptions={formOptions}/>
+          ref={(e) => (formRef = e)}
+          formOptions={formOptions}
+        />
       </div>
     </div>
-  )
+  );
 }
 render(<Example />);
 ```
