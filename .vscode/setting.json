@@ -1,26 +1,36 @@
+// Place your settings in this file to overwrite default and user settings.
 {
-  "typescript.tsdk": "node_modules/typescript/lib",
-  "javascript.format.enable": false,
-  "eslint.autoFixOnSave": true,
-  "eslint.validate": [
-    { "language": "javascript", "autoFix": true },
-    { "language": "javascriptreact", "autoFix": true },
-    { "language": "typescript", "autoFix": true },
-    { "language": "typescriptreact", "autoFix": true }
-  ],
-  "files.watcherExclude": {
-      "**/build": true,
-      "**/dist": true,
-      "docs": true
+  "[javascript]": {
+    "editor.formatOnSave": false
+  },
+  "[typescript]": {
+    "editor.formatOnSave": false
+  },
+  "[markdown]": {
+    "editor.formatOnSave": false
   },
   "search.exclude": {
     "**/node_modules": true,
-    "**/build": true,
-    "**/dist": true
+    "**/bower_components": true,
+    "**/dist": true,
+    "**/.bak": true,
+    "**/coverage": true
   },
-  "editor.insertSpaces": true,
+  "typescript.referencesCodeLens.enabled": true,
+  "appService.zipIgnorePattern": [".vscode{,/**}"],
+  "appService.deploySubpath": "",
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+  "files.eol": "\n",
   "editor.tabSize": 2,
-  "[scss]": {
-      "editor.tabSize": 2
-  }
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact"
+  ],
+  "typescript.tsdk": "node_modules/typescript/lib"
 }

@@ -5,7 +5,7 @@
     "build": "npm run get:style:files; npm run copy:files",
     "get:style:files": "sh ./get-style-file.sh",
     "copy:files": "node ./copy-files",
-    "complie:scss": "node-sass ../../packages/enhance-ui/style/default.scss -o ../../dist/enhance-ui --output-style compressed"
+    "complie:scss": "sass ../../packages/enhance-ui/style/default.scss -o ../../dist/enhance-ui --output-style compressed"
   },
   "peerDependencies": {
     "@deer-ui/core": "^4.0.0-rc1.0"
