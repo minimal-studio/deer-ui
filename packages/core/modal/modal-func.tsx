@@ -70,6 +70,11 @@ export interface ShowModalParams extends ModalOptions {
   showFuncBtn?: boolean;
   /** 是否需要 header */
   needHeader?: boolean;
+  /**  */
+  children: ({
+    /** 关闭当前弹窗 */
+    close: Function
+  }) => JSX.Element;
 }
 
 /**
