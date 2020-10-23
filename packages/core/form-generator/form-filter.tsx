@@ -77,7 +77,6 @@ export default class FormFilterHelper<P extends FormFilterProps> extends UICompo
   constructor(props) {
     super(props);
     const { defaultValues = {} } = props;
-    console.log('defaultValues :>> ', defaultValues);
     this.state = {
       value: defaultValues
     };
