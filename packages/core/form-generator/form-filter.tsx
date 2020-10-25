@@ -18,7 +18,7 @@ import { ToolTip } from '@deer-ui/core/tooltip';
 import Switch from '@deer-ui/core/switch-button/switch-c';
 import { InputSelector } from '@deer-ui/core/input-selector';
 import { UIComponent, loadPlugin } from '../utils/ui-component';
-import { FormOptionsItemEnhance } from './form-types';
+import { CustomForm, FormOptionsItemEnhance } from './form-types';
 import { Button } from '../button';
 import { Icon } from '../icon';
 
@@ -31,7 +31,7 @@ export type FormChangeEvent = (formValues, changeRef, changeValue) => void;
 export interface FormFilterProps<T = FormOptions> {
   formOptions?: T;
   conditionConfig?: T;
-  defaultValues: {
+  defaultValues?: {
     [ref: string]: any;
   };
   onChange?: FormChangeEvent;
@@ -337,15 +337,19 @@ export default class FormFilterHelper<P extends FormFilterProps> extends UICompo
     });
   }
 
-  getCustomForm = (config) => {
-    const { ref, getCustomFormControl, ...other } = config;
+  getCustomForm = (config: CustomForm) => {
+    const {
+      ref, render, getCustomFormControl, ...other
+    } = config;
 
     const _onChange = (val) => {
-      console.log(val);
       this.changeValue(val, ref);
     };
 
-    const C = IsFunc(getCustomFormControl) ? getCustomFormControl(_onChange) : null;
+    const C = IsFunc(render) ? render(_onChange, {
+      value: this.getValue(ref),
+      values: this.value
+    }) : null;
     if (!React.isValidElement(C)) {
       console.log('请返回 React 组件实例');
       return null;

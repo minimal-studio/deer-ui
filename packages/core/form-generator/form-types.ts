@@ -59,22 +59,26 @@ export interface CustomFormOld extends RefFormControl {
   getCustomFormControl: (() => Children | CustomFormReturn);
 }
 
+export interface CustomFormRenderCtx {
+  value: any;
+  values: {
+    [ref: string]: any;
+  };
+}
+
+export type ChangeValueCallback = (nextVal) => any
+
+export type CustomFormRender = (onChangeValueCallback: ChangeValueCallback, ctx: CustomFormRenderCtx) => Children;
+
 export interface CustomForm extends RefFormControl {
   type: 'customForm';
   /**
    * 自定义插件的接口
-   *
-   * @example
-   * {
-   *   type: 'customForm',
-   *   getCustomFormControl: (onChange) => {
-   *     return (
-   *       <Customer onChange={nextVal => onChange(nextVal)} />
-   *     )
-   *   }
-   * }
+   * @deprecated
    */
-  getCustomFormControl: (onChangeValueCallback: (nextVal) => any) => Children;
+  getCustomFormControl?: CustomFormRender;
+  /** render */
+  render: CustomFormRender;
 }
 
 export interface DatetimeType extends RefFormControl, DatetimePickerProps {
