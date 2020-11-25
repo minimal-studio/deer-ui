@@ -169,7 +169,7 @@ $notifyTransDuration   : 300ms;
 // drop-menu
 .drop-menu-enter {
   opacity: 0.01;
-  transform: translateY(5px);
+  transform: translateY(-2px);
 }
 
 .drop-menu-enter.drop-menu-enter-active {
@@ -185,7 +185,7 @@ $notifyTransDuration   : 300ms;
 
 .drop-menu-exit.drop-menu-exit-active {
   opacity: 0.01;
-  transform: translateY(5px);
+  transform: translateY(-2px);
   transition: transform $dropMenuTSDuration ease, opacity $dropMenuTSDuration ease;
 }
 
