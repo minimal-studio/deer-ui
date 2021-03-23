@@ -1,11 +1,7 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "outDir": "./dist",
     "skipLibCheck": true,
     "esModuleInterop": true,
@@ -14,17 +10,10 @@
     "strict": true,
     "forceConsistentCasingInFileNames": true,
     "declaration": true,
-    "module": "ES6",
+    "module": "CommonJS",
     "moduleResolution": "node",
     "jsx": "react"
   },
-  "include": [
-    "./packages"
-  ],
-  "exclude": [
-    "**/__next__/*",
-    "**/__bak__/*",
-    "**/test/*",
-    "**/demo/*"
-  ]
+  "include": ["./packages"],
+  "exclude": ["**/__next__/*", "**/__bak__/*", "**/test/*", "**/demo/*"]
 }
