@@ -1,7 +1,9 @@
+@use "sass:math";
+
 @mixin gridCale($space, $class, $isImportant: false) {
   $itemUnits: $space;
   @for $i from 0 through $itemUnits {
-    $width: $i * 100% / $itemUnits;
+    $width: math.div($i * 100%, $itemUnits);
     .#{$class}-#{$i} {
       @if $isImportant {
         width: $width !important;
@@ -45,7 +47,7 @@
   >[class*=lg-],
   >[class*=sm-],
   >[class*=xs-] {
-    padding: $spacing / 2 * 1px;
+    padding: $spacing * 0.5 * 1px;
   }
 }
 

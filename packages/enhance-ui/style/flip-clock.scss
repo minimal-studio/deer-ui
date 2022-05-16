@@ -82,7 +82,7 @@ $height: 120px;
 	position: absolute;
 	left: 0;
 	width: $width;
-	height: $height / 2;
+	height: $height * 0.5;
 	overflow: hidden;
 	backface-visibility: hidden;
 	

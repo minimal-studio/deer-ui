@@ -20,7 +20,7 @@ $tipIdxScale: 30px;
     height: 1px;
     flex: 1;
     background-color: #DDD;
-    transform: translateY($tipIdxScale / 2);
+    transform: translateY($tipIdxScale * 0.5);
     margin: 0 10px;
   }
   .step-item {

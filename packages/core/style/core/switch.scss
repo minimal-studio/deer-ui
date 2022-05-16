@@ -31,7 +31,7 @@ $indicatorScale: 22px;
     width: $indicatorScale;
     position: absolute;
     left: 2px;
-    top: ($switch-btn-height - $indicatorScale) / 2;
+    top: ($switch-btn-height - $indicatorScale) * 0.5;
     // background-color: $themeColor;
     background-color: #FFF;
     transition: all 0.2s ease;

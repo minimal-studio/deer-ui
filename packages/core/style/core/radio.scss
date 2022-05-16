@@ -57,7 +57,7 @@ $normalColor: #CCC;
         height: $frameScale;
         border-radius: 50%;
         top: 50%;
-        transform: translateY(- $frameScale / 2);
+        transform: translateY(- $frameScale * 0.5);
         
         border: 1px solid $normalColor;
         overflow: hidden;
